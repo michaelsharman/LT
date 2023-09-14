@@ -1,0 +1,56 @@
+{
+    "tags": {
+        "allowUnknownTags": true,
+        "dictionaries": ["jsdoc", "closure"]
+    },
+    "plugins": ["plugins/markdown"],
+    "markdown": {
+        "hardwrap": false,
+        "idInHeadings": true
+    },
+    "recurseDepth": 10,
+    "sourceType": "module",
+    "source": {
+        "include": ["src"],
+        "includePattern": ".js$",
+        "excludePattern": "(node_modules/|docs)"
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": true,
+        "disableSort": false,
+        "collapse": true,
+        "default": {
+            "outputSourceFiles": false,
+            "includeDate": false
+        }
+    },
+    "opts": {
+        "destination": "./docs",
+        "encoding": "utf8",
+        "recurse": true,
+        "verbose": true,
+        "template": "/Users/michaelsharman/Documents/workspaces/docdash"
+    },
+    "docdash": {
+        "static": true,
+        "sort": true,
+        "search": true,
+        "collapse": true,
+        "typedefs": true,
+        "private": false,
+        "meta": {
+            "title": "Learnosity Toolkit - Docs",
+            "description": "Documentation for the Learnosity Toolkit JavaScript library.",
+            "keyword": "Learnosity"
+        },
+        "menu": {
+            "Project Website": {
+                "href": "https://github.io/pages/michaelsharman",
+                "target": "_blank",
+                "class": "",
+                "id": ""
+            }
+        }
+    }
+}

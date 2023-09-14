@@ -1,0 +1,60 @@
+export default class McqHotkeys {
+    /**
+     * @since 0.1.0
+     * @param {object} app - Items API app instance
+     * @example
+     * // Declare your variable and set with the LearnosityItems.init() method
+     * let itemsApp = LearnosityItems.init(initializationObject, callbacks);
+     *
+     * // Pass that app instance to the constructor of the ApiItems class
+     * let LT = new ApiItems(itemsApp);
+     */
+    constructor(app) {
+        this.app = app;
+        this.setupListeners();
+    }
+
+    /**
+     * Returns an Items API app instance that the host page declared
+     * @since 0.1.0
+     * @returns {object}
+     */
+    getApp() {
+        return this.app;
+    }
+
+    keyBindingHandler(key) {
+        console.log(key);
+        switch (key) {
+            case '1':
+            case '2':
+            case '3':
+            case '4':
+            case '5':
+            case '6':
+                this.setResponse(key);
+                break;
+
+            default:
+                break;
+        }
+    }
+
+    setResponse(index) {
+        console.log(index);
+        const mcq = document.querySelector('.lrn_mcqgroup > li');
+        console.log(mcq);
+    }
+
+    /**
+     * Set's up listeners to bind UI key events
+     * @since 0.1.0
+     */
+    setupListeners() {
+        // Once only or every item?
+        // Check they're not in an input?
+        this.getApp().on('item:load', function (e) {
+            window.addEventListener('keyup', this.keyBindingHandler);
+        });
+    }
+}

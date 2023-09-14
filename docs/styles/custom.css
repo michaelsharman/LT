@@ -1,0 +1,111 @@
+#main {
+    width: calc(100% - 265px);
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+h4.name {
+    color: #333;
+    background: #f1f1f1;
+    box-shadow: none;
+    border: none;
+    padding: 1.5em 0 1.5em 10px;
+}
+
+h4.name:not(:first-child) {
+    margin-top: 2.5em;
+}
+
+.type-signature,
+.signature {
+    color: #cb007a;
+}
+
+.type-signature:last-child {
+    color: #0070a7;
+}
+
+footer {
+    margin-left: 275px;
+}
+
+nav {
+    box-shadow: 7px 0 7px -8px #9da5ab;
+    width: 275px;
+}
+
+nav h3 {
+    font-size: 1rem;
+}
+
+nav ul li a,
+nav ul li a:active {
+    font-size: 1rem;
+}
+
+nav > ul > li > a {
+    color: #cb007a;
+}
+
+nav ul ul.methods {
+    padding-top: 10px;
+}
+
+nav ul ul.methods a,
+nav ul ul.methods a:active {
+    padding: 5px 0 5px 20px;
+    font-size: 0.8rem;
+    font-family: Monaco, monospace;
+}
+
+.signature-attributes {
+    color: #0070a7;
+}
+
+h5 {
+    font-size: 110%;
+}
+
+.details {
+    border: none;
+    line-height: inherit;
+    font-size: inherit;
+}
+
+.details dt {
+    float: none;
+    padding-left: 0;
+}
+
+.details dd {
+    margin-left: 40px;
+}
+
+.param-type dt,
+.param-type dd {
+    display: inherit;
+}
+
+span.param-type,
+.params td .param-type,
+.param-type dd {
+    color: #0070a7;
+}
+
+dd.tag-see > ul {
+    padding-left: 0;
+}
+
+nav ul ul a {
+    color: #767576;
+}
