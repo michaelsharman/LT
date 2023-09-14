@@ -1,5 +1,6 @@
 import * as app from '../app';
 import * as activity from './activity';
+import * as questions from './questions';
 import * as sections from './sections';
 
 /**
@@ -15,9 +16,9 @@ import * as sections from './sections';
  */
 export function isFirstItem() {
     if (activity.hasSections()) {
-        return sections.sections()[0].items[0].reference === app.appInstance().getCurrentItem().reference;
+        return sections.sections()[0].items[0].reference === item().reference;
     } else {
-        return activity.activity().items[0].reference === app.appInstance().getCurrentItem().reference;
+        return activity.activity().items[0].reference === item().reference;
     }
 }
 
@@ -28,7 +29,7 @@ export function isFirstItem() {
  * @returns {boolean}
  */
 export function isLastItem() {
-    return app.appInstance().getCurrentItem().is_last_item;
+    return item().is_last_item;
 }
 
 /**
@@ -37,7 +38,7 @@ export function isLastItem() {
  * @returns {boolean}
  */
 export function isFlagged() {
-    return app.appInstance().getCurrentItem().user_flagged;
+    return item().user_flagged;
 }
 
 /**
@@ -48,19 +49,24 @@ export function isFlagged() {
  * @returns {boolean}
  */
 export function isItemFullyAttempted() {
-    const questions = app.appInstance().getCurrentItem().questions;
+    const itemQuestions = questions.questions();
     let attempted;
     let r;
 
-    if (Array.isArray(questions) && questions.length) {
-        for (let i = 0; i < questions.length; i++) {
-            let q = questions[i];
-            r = this.getResponse(q.response_id);
+    if (Array.isArray(itemQuestions) && itemQuestions.length) {
+        for (let i = 0; i < itemQuestions.length; i++) {
+            let q = itemQuestions[i];
+            r = questions.response(q.response_id);
             if (r) {
                 if (q.hasOwnProperty('metadata') && q.metadata.hasOwnProperty('valid_response_count')) {
                     if (Array.isArray(r.value)) {
                         const undefinedValues = r.value.filter(v => v === undefined);
                         if (undefinedValues.length) {
+                            // A single question wasn't fully attempted
+                            return false;
+                        }
+                        const nullValues = r.value.filter(v => v === null);
+                        if (nullValues.length) {
                             // A single question wasn't fully attempted
                             return false;
                         }

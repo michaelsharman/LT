@@ -1,4 +1,5 @@
 import * as app from '../app';
+import * as items from './items';
 import * as logger from '../utils/logger';
 
 /**
@@ -17,7 +18,7 @@ import * as logger from '../utils/logger';
  * @returns {object} A question object
  */
 export function question(index = 1) {
-    const item = app.appInstance().getCurrentItem();
+    const item = items.item();
     if (index <= item.questions.length) {
         return item.questions[index - 1];
     } else {
@@ -32,8 +33,7 @@ export function question(index = 1) {
  * @returns {array}
  */
 export function questions() {
-    const item = app.appInstance().getCurrentItem();
-    return item.questions;
+    return items.item().questions;
 }
 
 /**
@@ -90,7 +90,7 @@ export function questionScore(index = 1) {
  * @param {string} response_id
  * @returns {object | null} The response object for the question
  */
-function response(response_id) {
+export function response(response_id) {
     const r = app.appInstance().question(response_id);
 
     if (r) {

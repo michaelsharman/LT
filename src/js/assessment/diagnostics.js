@@ -104,7 +104,7 @@ export function diagnostics() {
             session: activity.sessionId(),
             state: activity.state(),
             type: activity.activity().type,
-            user: activity.user(),
+            user: activity.userId(),
         },
         versions: v,
     };
