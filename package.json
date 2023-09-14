@@ -1,5 +1,5 @@
 {
-    "name": "LT",
+    "name": "@caspingus/lt",
     "version": "0.1.0",
     "description": "A utility library of helpers and tools for working with Learnosity APIs.",
     "main": "src/js/index.js",

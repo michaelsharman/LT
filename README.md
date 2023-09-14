@@ -16,7 +16,7 @@ Everything is open source under the MIT license. Feel free to use/abuse/fork as 
 ## Installation
 
 ```
-npm install learnosity-toolkit
+npm install @caspingus/lt
 ```
 
 ### Initialize
@@ -28,7 +28,7 @@ By default we use `LT` as a variable for the toolkit. If you want to change this
 const itemsApp = LearnosityItems.init(signedConfigObject);
 
 // Pass that app instance to the Toolkit constructor
-import { LT } from '[path/to/tookit/index]';
+import { LT } from '@caspingus/lt/src/js/index';
 LT.init(itemsApp);
 
 // Can be handy in the global scope for development
@@ -38,7 +38,7 @@ window.LT = LT;
 ## Usage examples
 
 ```
-import { LT } from '../../../learnosity-toolkit/src/js/index';
+import { LT } from '@caspingus/lt/src/js/index';
 
 // See if the item was _fully_ attempted
 LT.isItemFullyAttempted();
