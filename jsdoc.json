@@ -45,8 +45,8 @@
             "keyword": "Learnosity"
         },
         "menu": {
-            "Project Website": {
-                "href": "https://github.io/pages/michaelsharman",
+            "Github": {
+                "href": "https://github.com/michaelsharman/LT",
                 "target": "_blank",
                 "class": "",
                 "id": ""
