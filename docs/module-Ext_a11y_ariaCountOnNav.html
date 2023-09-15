@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Logger - Learnosity Toolkit - Docs</title>
+    <title>Ext/a11y/ariaCountOnNav - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Logger</h1>
+    <h1 class="page-title">Ext/a11y/ariaCountOnNav</h1>
     
 
     
@@ -65,8 +65,9 @@
             
 
 
-<p>A utility logger that generates styled
-log outputs.</p>
+<p>Listens for the item load event and appends
+<code> of {totalItems}</code> to the aria-label for the
+previous and next buttons.</p>
 
 <dl class="details">
     
@@ -136,7 +137,7 @@ log outputs.</p>
 
     
 
-    <h4 class="name" id=".error">error<span class="signature">(msg)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".run">run<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -144,7 +145,7 @@ log outputs.</p>
 
 
 
-<p>Formatted error logger to the console</p>
+<p>Executes on item load to add custom label.</p>
 
 <dl class="details">
     
@@ -155,7 +156,7 @@ log outputs.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.1.0</dd>
+    <dd class="tag-since">0.3.0</dd>
     
 
     
@@ -195,455 +196,6 @@ log outputs.</p>
 
 
 
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".info">info<span class="signature">(msg)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-<p>Formatted info logger to the console</p>
-
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.1.0</dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".log">log<span class="signature">(msg)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-<p>Generic logger to the console</p>
-
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.1.0</dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".warn">warn<span class="signature">(msg)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-<p>Formatted warning logger to the console</p>
-
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.1.0</dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>msg</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">*</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 

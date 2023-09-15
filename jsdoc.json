@@ -8,7 +8,7 @@
         "hardwrap": false,
         "idInHeadings": true
     },
-    "recurseDepth": 10,
+    "recurseDepth": 5,
     "sourceType": "module",
     "source": {
         "include": ["src"],
