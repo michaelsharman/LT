@@ -3,15 +3,26 @@ import * as questions from '../../../assessment/questions';
 import * as shuffleSeed from 'shuffle-seed';
 
 /**
+ * Extensions add specific functionality to Items API.
+ * They rely on modules within LT being available.
+ *
+ * --
+ *
  * Hides a number of MCQ distractors/alternatives, that aren't
  * the correct answer, as an accommodation capability for
  * students wanting to avoid cognitive load.
- * @module Ext/a11y/hideAlternatives
+ * @module _Extensions/hideAlternatives
  */
 
 /**
  * Sets up an item load listener to hide distractor(s).
  * @param {number=} num The number of MCQ options to hide. Defaults to `1`.
+ * @example
+ * import { LT } from '@caspingus/lt/src/index';
+ *
+ * LT.init(itemsApp); // Set up LT with the Items API application instance variable
+ * LT.extensions.hideAlternatives.run();
+ * @since 0.3.0
  */
 export function run(num) {
     let numToHide = num || 1;
@@ -72,6 +83,7 @@ export function run(num) {
 /**
  * @param {object} question The question JSON object to inspect
  * @return {boolean} Whether the question was set up with single responses
+ * @since 0.3.0
  * @ignore
  */
 function isSingleResponseMode(question) {
@@ -81,6 +93,7 @@ function isSingleResponseMode(question) {
 /**
  * @param {object} question The question JSON object to inspect
  * @return {boolean} Whether the caller passes a correct number of options to hide
+ * @since 0.3.0
  * @ignore
  */
 function hasValidNumToHide(question, num) {
@@ -90,6 +103,7 @@ function hasValidNumToHide(question, num) {
 /**
  * @param {object} question The question JSON object to inspect
  * @return {boolean} Whether the object contains a `validation` key
+ * @since 0.3.0
  * @ignore
  */
 function hasValidationObject(question) {
@@ -99,6 +113,7 @@ function hasValidationObject(question) {
 /**
  * @param {object} validation The question validation object to inspect
  * @return {boolean} Whether the object contains a `validation` key
+ * @since 0.3.0
  * @ignore
  */
 function hasCorrectAnswers(validation) {
@@ -108,6 +123,7 @@ function hasCorrectAnswers(validation) {
 /**
  * @param {object} validation The question validation object
  * @return {array} The correct responses as set by the author
+ * @since 0.3.0
  * @ignore
  */
 function getCorrectAnswers(validation) {

@@ -77,6 +77,7 @@ export function questionsApp() {
  * Sets up item and question listeners to pass to the diagnostics module.
  * Should not be called externally.
  * @since 0.1.0
+ * @ignore
  */
 function setupListeners() {
     // Sends all Items and Assess API events for handling.

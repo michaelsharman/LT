@@ -15,7 +15,7 @@ import * as logger from '../utils/logger';
  * @since 0.1.0
  * @param {number=} index Which question to retrieve. Numbered
  * from 1, top to bottom, left to right.
- * @returns {object} A question object
+ * @returns {object} A question JSON object.
  */
 export function question(index = 1) {
     const item = items.item();
@@ -24,6 +24,18 @@ export function question(index = 1) {
     } else {
         logger.error(`Question not found (index ${index})`);
     }
+}
+
+/**
+ * Returns the question instance on the active item. If the item
+ * is multi-part, pass `index` to return the desired question.
+ * @since 0.4.0
+ * @param {number=} index Which question to retrieve. Numbered
+ * from 1, top to bottom, left to right.
+ * @returns {object} A question app instance.
+ */
+export function questionInstance(index = 1) {
+    return app.appInstance().question(question(index).response_id);
 }
 
 /**
@@ -89,6 +101,7 @@ export function questionScore(index = 1) {
  * @since 0.1.0
  * @param {string} response_id
  * @returns {object | null} The response object for the question
+ * @ignore
  */
 export function response(response_id) {
     const r = app.appInstance().question(response_id);

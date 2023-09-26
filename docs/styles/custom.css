@@ -1,5 +1,5 @@
 #main {
-    width: calc(100% - 265px);
+    width: calc(100% - 300px);
 }
 
 .sr-only {
@@ -36,12 +36,12 @@ h4.name:not(:first-child) {
 }
 
 footer {
-    margin-left: 275px;
+    margin-left: 310px;
 }
 
 nav {
     box-shadow: 7px 0 7px -8px #9da5ab;
-    width: 275px;
+    width: 310px;
 }
 
 nav h3 {

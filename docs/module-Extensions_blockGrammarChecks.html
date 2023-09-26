@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Extensions/hideAlternatives - Learnosity Toolkit - Docs</title>
+    <title>Extensions/blockGrammarChecks - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Extensions/hideAlternatives</h1>
+    <h1 class="page-title">Extensions/blockGrammarChecks</h1>
     
 
     
@@ -65,9 +65,13 @@
             
 
 
-<p>Hides a number of MCQ distractors/alternatives, that aren't
-the correct answer, as an accommodation capability for
-students wanting to avoid cognitive load.</p>
+<p>This script blocks the Grammarly plugin and
+browser spellcheck, autocorrect, autocapitalize
+and autocomplete for:</p>
+<ul>
+<li>Plain text and Essay question types</li>
+<li>Annotations API notepad and sticky notes</li>
+</ul>
 
 <dl class="details">
     
@@ -137,7 +141,7 @@ students wanting to avoid cognitive load.</p>
 
     
 
-    <h4 class="name" id=".run">run<span class="signature">(num<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".run">run<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -145,7 +149,8 @@ students wanting to avoid cognitive load.</p>
 
 
 
-<p>Sets up an item load listener to hide distractor(s).</p>
+<p>Looks for relevent question types and annotations
+to add grammar blocking attributes to.</p>
 
 <dl class="details">
     
@@ -201,71 +206,9 @@ students wanting to avoid cognitive load.</p>
     <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/index';
 
 LT.init(itemsApp); // Set up LT with the Items API application instance variable
-LT.extensions.hideAlternatives.run();</code></pre>
+LT.extensions.blockGrammarChecks.run();</code></pre>
 
 
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>num</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">number</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The number of MCQ options to hide. Defaults to <code>1</code>.</p></td>
-        </tr>
-
-    
-    </tbody>
-</table>
 
 
 

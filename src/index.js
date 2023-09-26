@@ -10,12 +10,14 @@ import * as logger from './utils/logger';
 import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks';
 import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav';
 import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives';
+import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts';
 
 const extensions = {
     extensions: {
         blockGrammarChecks: { ...blockGrammarChecks },
         ariaCountOnNav: { ...ariaCountOnNav },
         hideAlternatives: { ...hideAlternatives },
+        keyboardShortcuts: { ...keyboardShortcuts },
     },
 };
 export const LT = { ...app, ...items, ...activity, ...player, ...questions, ...sections, ...diagnostics, ...logger, ...extensions };

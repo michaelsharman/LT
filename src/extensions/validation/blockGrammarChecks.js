@@ -1,17 +1,27 @@
 import * as app from '../../app';
 
 /**
+ * Extensions add specific functionality to Items API.
+ * They rely on modules within LT being available.
+ *
+ * --
+ *
  * This script blocks the Grammarly plugin and
  * browser spellcheck, autocorrect, autocapitalize
  * and autocomplete for:
  *  - Plain text and Essay question types
  *  - Annotations API notepad and sticky notes
- * @module Ext/valid/blockGrammarChecks
+ * @module _Extensions/blockGrammarChecks
  */
 
 /**
  * Looks for relevent question types and annotations
  * to add grammar blocking attributes to.
+ * @example
+ * import { LT } from '@caspingus/lt/src/index';
+ *
+ * LT.init(itemsApp); // Set up LT with the Items API application instance variable
+ * LT.extensions.blockGrammarChecks.run();
  * @since 0.3.0
  */
 export function run() {

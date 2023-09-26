@@ -86,9 +86,18 @@ export function isItemFullyAttempted() {
 }
 
 /**
- * The active item object.
+ * Whether the current item has answer masking enabled.
+ * @since 0.4.0
+ * @returns {boolean}
+ */
+export function isMaskingEnabled() {
+    return Boolean(document.querySelector('.lrn-masking'));
+}
+
+/**
+ * JSON object for the active item.
  * @since 0.1.0
- * @returns {object}
+ * @returns {object} An item JSON object.
  */
 export function item() {
     return app.appInstance().getCurrentItem();
@@ -115,6 +124,20 @@ export function itemAttemptStatus() {
 }
 
 /**
+ * The current item DOM element.
+ * @since 0.4.0
+ * @returns {object} HTML DOM element
+ * ```
+ * <div data-reference="[item-reference]" class="learnosity-item lrn-scrollable-container item lrn-assess-item">
+ *   ...
+ * </div>
+ * ```
+ */
+export function itemElement() {
+    return document.querySelector(`div[data-reference='${itemReference()}']`);
+}
+
+/**
  * The current item position, 1-based (not 0-based), in the activity.
  * This ignores sections, so returns the global item position.
  * @since 0.1.0
@@ -131,4 +154,15 @@ export function itemPosition() {
  */
 export function itemReference() {
     return app.appInstance().getCurrentItem().reference;
+}
+
+/**
+ * Toggles the `user_flagged` state on the active item.
+ * @since 0.4.0
+ */
+export function toggleFlag() {
+    const el = document.querySelector('.flag-item');
+    if (el) {
+        el.click();
+    }
 }

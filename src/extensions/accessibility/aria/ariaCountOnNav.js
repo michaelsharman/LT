@@ -2,14 +2,24 @@ import * as app from '../../../app';
 import * as activity from '../../../assessment/activity';
 
 /**
+ * Extensions add specific functionality to Items API.
+ * They rely on modules within LT being available.
+ *
+ * --
+ *
  * Listens for the item load event and appends
  * ` of {totalItems}` to the aria-label for the
  * previous and next buttons.
- * @module Ext/a11y/ariaCountOnNav
+ * @module _Extensions/ariaCountOnNav
  */
 
 /**
  * Executes on item load to add custom label.
+ * @example
+ * import { LT } from '@caspingus/lt/src/index';
+ *
+ * LT.init(itemsApp); // Set up LT with the Items API application instance variable
+ * LT.extensions.ariaCountOnNav.run();
  * @since 0.3.0
  */
 export function run() {

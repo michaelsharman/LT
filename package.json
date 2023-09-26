@@ -28,12 +28,14 @@
         "dev": "npm install && webpack watch --mode development --devtool eval-source-map",
         "prod": "npm install && webpack --mode production",
         "docs": "jsdoc -c jsdoc.json -R README.md --verbose",
-        "test": "jest"
+        "test": "jest --verbose"
     },
     "jest": {
         "collectCoverage": true
     },
     "dependencies": {
+        "mousetrap": "^1.6.5",
+        "platform-detect": "^3.0.1",
         "shuffle-seed": "^1.1.6"
     }
 }
