@@ -150,6 +150,106 @@ function enableMasking(bindings) {
 }
 
 /**
+ * The default key bindings object.
+ * @returns {object}
+ * @since 0.4.0
+ * @ignore
+ */
+function getDefaultBindings() {
+    return {
+        global: [
+            {
+                bindings: {
+                    chromeos: ['ctrl+shift+v'],
+                    macos: ['command+shift+v'],
+                    windows: ['ctrl+shift+v'],
+                },
+                type: 'item.flag',
+            },
+            {
+                bindings: {
+                    chromeos: ['ctrl+alt+0'],
+                    macos: ['command+option+0'],
+                    windows: ['ctrl+alt+0'],
+                },
+                type: 'masking.enable',
+            },
+        ],
+        item: [
+            {
+                bindings: {
+                    chromeos: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
+                    macos: ['command+ctrl+1', 'command+ctrl+2', 'command+ctrl+3', 'command+ctrl+4', 'command+ctrl+5', 'command+ctrl+6'],
+                    windows: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
+                },
+                restrictTo: ['mcq'],
+                type: 'response.set',
+            },
+            {
+                bindings: {
+                    chromeos: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
+                    macos: ['command+option+1', 'command+option+2', 'command+option+3', 'command+option+4', 'command+option+5', 'command+option+6'],
+                    windows: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
+                },
+                type: 'response.mask',
+            },
+        ],
+    };
+}
+
+/**
+ * Checks to see whether the user platform is supported
+ * for keyboard shortcuts. Eg we won't support touch
+ * platforms.
+ * @returns {boolean}
+ * @since 0.4.0
+ * @ignore
+ */
+function getPlatform() {
+    let currentPlatform;
+
+    state.supportedPlatforms.forEach(p => {
+        if (platform[p]) {
+            currentPlatform = p;
+        }
+    });
+
+    return currentPlatform;
+}
+
+/**
+ * Override the default stop callback method of mousetrap
+ * because if the focus is on an MCQ element (radio or
+ * checkbox) we still want to fire an event if the user
+ * chooses a different option.
+ * @since 0.4.0
+ * @ignore
+ */
+function overrideCallback() {
+    Mousetrap.prototype.stopCallback = function (e, element, combo) {
+        let activeEl = document.activeElement;
+
+        // We don't stop if focus is on a radio button
+        if (activeEl.getAttribute('type') === 'radio' || activeEl.getAttribute('type') === 'checkbox') {
+            return false;
+        }
+
+        // if the element has the class "mousetrap" then no need to stop
+        if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
+            return false;
+        }
+
+        // stop for input, select, and textarea
+        return (
+            element.tagName == 'INPUT' ||
+            element.tagName == 'SELECT' ||
+            element.tagName == 'TEXTAREA' ||
+            (element.contentEditable && element.contentEditable == 'true')
+        );
+    };
+}
+
+/**
  * Manually clicks an MCQ possible response.
  * @param {object} bindings Platform specific bindings for this action.
  * @since 0.4.0
@@ -231,104 +331,4 @@ function toggleFlag(bindings) {
     Mousetrap.bind(bindings, (e, combo) => {
         items.toggleFlag();
     });
-}
-
-/**
- * Override the default stop callback method of mousetrap
- * because if the focus is on an MCQ element (radio) we
- * still want to fire an event if the user chooses a
- * different option.
- * @since 0.4.0
- * @ignore
- */
-function overrideCallback() {
-    Mousetrap.prototype.stopCallback = function (e, element, combo) {
-        let activeEl = document.activeElement;
-
-        // We don't stop if focus is on a radio button
-        if (activeEl.getAttribute('type') === 'radio') {
-            return false;
-        }
-
-        // if the element has the class "mousetrap" then no need to stop
-        if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
-            return false;
-        }
-
-        // stop for input, select, and textarea
-        return (
-            element.tagName == 'INPUT' ||
-            element.tagName == 'SELECT' ||
-            element.tagName == 'TEXTAREA' ||
-            (element.contentEditable && element.contentEditable == 'true')
-        );
-    };
-}
-
-/**
- * The default key bindings object.
- * @returns {object}
- * @since 0.4.0
- * @ignore
- */
-function getDefaultBindings() {
-    return {
-        global: [
-            {
-                bindings: {
-                    chromeos: ['ctrl+shift+v'],
-                    macos: ['command+shift+v'],
-                    windows: ['ctrl+shift+v'],
-                },
-                type: 'item.flag',
-            },
-            {
-                bindings: {
-                    chromeos: ['ctrl+alt+0'],
-                    macos: ['command+option+0'],
-                    windows: ['ctrl+alt+0'],
-                },
-                type: 'masking.enable',
-            },
-        ],
-        item: [
-            {
-                bindings: {
-                    chromeos: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
-                    macos: ['command+ctrl+1', 'command+ctrl+2', 'command+ctrl+3', 'command+ctrl+4', 'command+ctrl+5', 'command+ctrl+6'],
-                    windows: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
-                },
-                restrictTo: ['mcq'],
-                type: 'response.set',
-            },
-            {
-                bindings: {
-                    chromeos: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
-                    macos: ['command+option+1', 'command+option+2', 'command+option+3', 'command+option+4', 'command+option+5', 'command+option+6'],
-                    windows: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
-                },
-                type: 'response.mask',
-            },
-        ],
-    };
-}
-
-/**
- * Checks to see whether the user platform is supported
- * for keyboard shortcuts. Eg we won't support touch
- * platforms.
- * @returns {boolean}
- * @since 0.4.0
- * @ignore
- */
-function getPlatform() {
-    let currentPlatform;
-
-    state.supportedPlatforms.forEach(p => {
-        if (platform[p]) {
-            currentPlatform = p;
-        }
-    });
-
-    return currentPlatform;
 }

@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "0.4.0",
+    "version": "0.4.1",
     "description": "A utility library of helpers and tools for working with Learnosity APIs.",
     "main": "src/index.js",
     "author": "michael@learnosity.com",
