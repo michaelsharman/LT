@@ -139,6 +139,7 @@ export function filterEvent(event) {
  * This is triggered internally so should not be called directly.
  * @since 0.1.0
  * @param {string} event
+ * @ignore
  */
 export function handleEvent(event) {
     if (state.events.broadcast) {

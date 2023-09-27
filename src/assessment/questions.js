@@ -9,9 +9,12 @@ import * as logger from '../utils/logger';
  */
 
 /**
- * Returns the question JSON of the active item. If the item
- * is multi-part, pass `index` to return the desired question.
- * Returns {} if no question was found on the active item.
+ * Returns the question JSON of the current item.
+ *
+ * If the item is multi-part, pass `index` to return
+ * the desired question.
+ *
+ * Returns {} if no question was found on the current item.
  * @since 0.1.0
  * @param {number=} index Which question to retrieve. Numbered
  * from 1, top to bottom, left to right.
@@ -27,8 +30,10 @@ export function question(index = 1) {
 }
 
 /**
- * Returns the question instance on the active item. If the item
- * is multi-part, pass `index` to return the desired question.
+ * Returns the question app instance on the current item.
+ *
+ * If the item is multi-part, pass `index` to return the
+ * desired question.
  * @since 0.4.0
  * @param {number=} index Which question to retrieve. Numbered
  * from 1, top to bottom, left to right.
@@ -39,7 +44,8 @@ export function questionInstance(index = 1) {
 }
 
 /**
- * Returns all question JSON on the active item.
+ * Returns all question JSON on the current item.
+ *
  * Returns [] if no questions were found.
  * @since 0.1.0
  * @returns {array}
@@ -49,10 +55,12 @@ export function questions() {
 }
 
 /**
- * Retrieve a response object for a question on the
- * active item. Defaults to the first question. Pass `index`
- * if you want a different question response returned in the
- * case of a multi-part item.
+ * A response object for a question on the
+ * current item. Defaults to the first question.
+ *
+ * Pass `index` if you want a different question
+ * response returned in the case of a multi-part item.
+ *
  * Returns {} if no questions found on the item.
  * @since 0.1.0
  * @param {number=} index - Which question response to retrieve.
@@ -76,10 +84,12 @@ export function questionResponseIds() {
 }
 
 /**
- * The score object for a question on the active item.
- * Defaults to the first question. Pass `index`
- * if you want a different question response returned in the
- * case of a multi-part item.
+ * The score object for a question on the current item.
+ * Defaults to the first question.
+ *
+ * Pass `index` if you want a different question response
+ * returned in the case of a multi-part item.
+ *
  * Returns {} if no questions found on the item.
  * @since 0.1.0
  * @param {number=} index - Which question response to retrieve.
@@ -94,9 +104,11 @@ export function questionScore(index = 1) {
 }
 
 /**
- * A response object for a single question on the active item.
- * This is generally used internally. You should instead use
+ * A response object for a single question on the current item.
+ *
+ *  This is generally used internally. You should instead use
  * `questionResponse()`.
+ *
  * Returns {} if a response isn't found.
  * @since 0.1.0
  * @param {string} response_id

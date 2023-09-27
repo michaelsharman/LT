@@ -3,6 +3,7 @@ import * as items from '../../../assessment/items';
 import * as questions from '../../../assessment/questions';
 import * as platform from 'platform-detect';
 import * as Mousetrap from 'mousetrap';
+import { log } from '../../../utils/logger';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -26,9 +27,13 @@ const state = {
  *  - setting an MCQ response on items with a single MC questions, not multi-part.
  *  - enabling answer masking mode.
  *  - setting a mask on MCQ possible responses.
+ *  - toggle flagging of an item.
+ *
+ * All listeners will fire when you call `run()`. Pass a custom
+ * map if you want to remove any shortcuts.
  *
  * See example section below for bindings.
- * @param {object=} map A map of keyboard shortcut options
+ * @param {object=} map A map of keyboard shortcut options.
  * ```
  * // Default configuration:
  * {
@@ -258,17 +263,18 @@ function overrideCallback() {
 function setMcqOption(bindings) {
     let qs = questions.questions();
     let numMCQs = 0;
-
+    console.log('setMcqOptions()');
     qs.forEach(q => {
         if (q.type === 'mcq') {
             numMCQs++;
         }
     });
-
+    console.log(numMCQs);
     if (numMCQs === 1) {
         Object.values(qs).forEach(function (question) {
             if (question.type === 'mcq') {
                 Mousetrap.bind(bindings, e => {
+                    console.log('Mousetrap mcq');
                     if (question.options?.length >= e.key) {
                         let domWrapper = document.getElementById(`${question.response_id}`);
                         let domOptions = domWrapper.querySelectorAll('.lrn-input');

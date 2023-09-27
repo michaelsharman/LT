@@ -228,7 +228,12 @@ export function sessionId() {
 }
 
 /**
- * The current `state` of this activity instance.
+ * The current `state` of this activity instance. Possible
+ * values:
+ *  - `initial`
+ *  - `resume`
+ *  - `review`
+ *  - `preview`
  * @since 0.1.0
  * @returns {string}
  */

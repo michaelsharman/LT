@@ -38,7 +38,7 @@ export function appInstance() {
 }
 
 /**
- * The Annotations API app instance, or null if not loaded.
+ * The Annotations API app instance, or `null` if not loaded.
  * @since 0.1.0
  * @returns {object | null}
  */
@@ -47,7 +47,7 @@ export function annotationsApp() {
 }
 
 /**
- * The Assess API app instance, or null if not loaded.
+ * The Assess API app instance, or `null` if not loaded.
  * @since 0.1.0
  * @returns {object | null}
  */
@@ -56,7 +56,7 @@ export function assessApp() {
 }
 
 /**
- * The Events API app instance, or null if not loaded.
+ * The Events API app instance, or `null` if not loaded.
  * @since 0.1.0
  * @returns {object | null}
  */
@@ -65,7 +65,7 @@ export function eventsApp() {
 }
 
 /**
- * The Questions API app instance, or null if not loaded.
+ * The Questions API app instance, or `null` if not loaded.
  * @since 0.1.0
  * @returns {object | null}
  */

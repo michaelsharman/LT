@@ -95,7 +95,7 @@ export function isMaskingEnabled() {
 }
 
 /**
- * JSON object for the active item.
+ * JSON object for the current item.
  * @since 0.1.0
  * @returns {object} An item JSON object.
  */
@@ -104,7 +104,7 @@ export function item() {
 }
 
 /**
- * Whether the active item has been attempted. Return value can be:
+ * Whether the current item has been attempted. Return value can be:
  *  - `not_attempted`
  *  - `fully_attempted`
  *  - `partially_attempted`
@@ -157,7 +157,7 @@ export function itemReference() {
 }
 
 /**
- * Toggles the `user_flagged` state on the active item.
+ * Toggles the `user_flagged` state on the current item.
  * @since 0.4.0
  */
 export function toggleFlag() {

@@ -27,6 +27,7 @@ export function isLastItemInSection() {
 
 /**
  * The current section of the activity.
+ *
  * Returns {} if sections aren't being used.
  * @since 0.1.0
  * @returns {object}
@@ -66,6 +67,7 @@ export function sectionHasShuffledItems() {
 
 /**
  * The index of the current section, 1-based.
+ *
  * Returns 0 if sections aren't being used.
  * @since 0.1.0
  * @returns {number}
@@ -96,16 +98,23 @@ export function sectionIndex() {
 
 /**
  * The item position in the current section.
+ *
+ * Returns `null` if the activity isn't using sections.
  * @since 0.1.0
- * @returns {number}
+ * @returns {number|null}
  */
 export function sectionItemPosition() {
     const currentRef = items.itemReference();
-    const section = section();
+    const currentSection = section();
     let itemPos = 0;
-    for (let i = 0; i < section.items.length; i++) {
+
+    if (!Object.keys(currentSection).length) {
+        return null;
+    }
+
+    for (let i = 0; i < currentSection.items.length; i++) {
         ++itemPos;
-        if (currentRef === section.items[i].reference) {
+        if (currentRef === currentSection.items[i].reference) {
             break;
         }
     }
@@ -114,6 +123,7 @@ export function sectionItemPosition() {
 
 /**
  * An array of section objects.
+ *
  * Returns [] if sections aren't being used.
  * @since 0.1.0
  * @returns {array}
@@ -128,9 +138,11 @@ export function sections() {
 
 /**
  * The total number of items in the current section.
+ *
+ * Returns `null` if sections aren't being used.
  * @since 0.1.0
- * @returns {number}
+ * @returns {number|null}
  */
 export function totalItemsInSection() {
-    return section().items.length;
+    return section()?.items?.length || null;
 }
