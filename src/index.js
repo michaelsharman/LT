@@ -12,6 +12,7 @@ import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav'
 import * as columnResizer from './extensions/accessibility/ux/columnResizer';
 import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives';
 import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts';
+import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix';
 
 const extensions = {
     extensions: {
@@ -20,6 +21,7 @@ const extensions = {
         columnResizer: { ...columnResizer },
         hideAlternatives: { ...hideAlternatives },
         keyboardShortcuts: { ...keyboardShortcuts },
+        mcqLabelPrefix: { ...mcqLabelPrefix },
     },
 };
 export const LT = { ...app, ...items, ...activity, ...player, ...questions, ...sections, ...diagnostics, ...logger, ...extensions };

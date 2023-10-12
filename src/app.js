@@ -16,7 +16,7 @@ const state = {};
  * // Declare and set your variable with the Items API LearnosityItems.init() method
  * const itemsApp = LearnosityItems.init(signedConfigObject);
  *
- * // Pass that app instance to the Toolkit constructor
+ * // Pass that app instance to the Toolkit constructor in the Items API readyListener()
  * import { LT } from '[path/to/tookit/index]';
  * LT.init(itemsApp);
  *
