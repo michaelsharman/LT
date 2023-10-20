@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>_Extensions/hideAlternatives - Learnosity Toolkit - Docs</title>
+    <title>_Extensions/magnifier - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">_Extensions/hideAlternatives</h1>
+    <h1 class="page-title">_Extensions/magnifier</h1>
     
 
     
@@ -68,9 +68,13 @@
 <p>Extensions add specific functionality to Items API.
 They rely on modules within LT being available.</p>
 <p>--</p>
-<p>Hides a number of MCQ distractors/alternatives, that aren't
-the correct answer, as an accommodation capability for
-students wanting to avoid cognitive load.</p>
+<p>Allows the end-user to launch a magnifier to move around
+the screen and zoom in on whatever content they move it
+on top of.</p>
+<p>TODO:</p>
+<ul>
+<li>make movable via keyboard</li>
+</ul>
 
 <dl class="details">
     
@@ -140,7 +144,7 @@ students wanting to avoid cognitive load.</p>
 
     
 
-    <h4 class="name" id=".run">run<span class="signature">(num<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".run">run<span class="signature">(options, id)</span><span class="type-signature"></span></h4>
 
     
 
@@ -148,7 +152,7 @@ students wanting to avoid cognitive load.</p>
 
 
 
-<p>Sets up an item load listener to hide distractor(s).</p>
+<p>Sets up the screen magnifier.</p>
 
 <dl class="details">
     
@@ -159,7 +163,7 @@ students wanting to avoid cognitive load.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.3.0</dd>
+    <dd class="tag-since">0.7.0</dd>
     
 
     
@@ -204,7 +208,15 @@ students wanting to avoid cognitive load.</p>
     <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/index';
 
 LT.init(itemsApp); // Set up LT with the Items API application instance variable
-LT.extensions.hideAlternatives.run();</code></pre>
+LT.extensions.magnifier.run();
+
+Options argument to override defaults which are:
+{
+    zoom: 4,
+    shape: 'square',
+    width: 310,
+    height: 310,
+}</code></pre>
 
 
 
@@ -222,8 +234,6 @@ LT.extensions.hideAlternatives.run();</code></pre>
         <th>Type</th>
 
         
-        <th>Attributes</th>
-        
 
         
 
@@ -236,13 +246,13 @@ LT.extensions.hideAlternatives.run();</code></pre>
 
         <tr>
             
-                <td class="name"><code>num</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">object</span>
 
 
 
@@ -250,20 +260,34 @@ LT.extensions.hideAlternatives.run();</code></pre>
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
+            
 
+            <td class="description last"><p>Optional config object to override defaults</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
             
 
             
 
-            <td class="description last"><p>The number of MCQ options to hide. Defaults to <code>1</code>.</p></td>
+            <td class="description last"><p>DOM id value of the element to launch the magnifier</p></td>
         </tr>
 
     

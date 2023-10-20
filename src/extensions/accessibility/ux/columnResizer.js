@@ -57,6 +57,8 @@ function setupResizer() {
     if (elColumns.length === 2) {
         if (!isResponsiveMode && !hasResizer) {
             let elResizer = document.createElement('div');
+            elResizer.setAttribute('tooltip', 'Click and hold to drag column width');
+            // elResizer.setAttribute('tabindex', '0');
             let elTab = document.createElement('span');
             elTab.innerHTML = '↤ ↦';
 
@@ -160,14 +162,14 @@ function injectCSS() {
 .lrn-resizer {
     background-color: #e8e8e8;
     cursor: grab;
-    width: 2px;
+    width: 3px;
     padding: 0;
     position: relative;
 }
 .lrn-resizer span {
     position: relative;
     width: 45px;
-    height: 20px;
+    height: 30px;
     border: 1px solid #e4e4e4;
     left: -22px;
     border-radius: 3px;
@@ -184,7 +186,7 @@ function injectCSS() {
     user-select: none;
 
     background: rgb(233,233,233);
-    background: linear-gradient(0deg, rgba(233,233,233,1) 0%, rgba(255,255,255,1) 51%, rgba(238,238,238,1) 100%);
+    background: linear-gradient(0deg, rgba(233,233,233,1) 0%, rgba(250,250,250,1) 51%, rgba(238,238,238,1) 100%);
 }
 .row {
     display: flex;
