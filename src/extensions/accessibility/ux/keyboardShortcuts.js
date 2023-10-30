@@ -273,7 +273,6 @@ function setMcqOption(bindings) {
         Object.values(qs).forEach(function (question) {
             if (question.type === 'mcq') {
                 Mousetrap.bind(bindings, e => {
-                    console.log('Mousetrap mcq');
                     if (question.options?.length >= e.key) {
                         let domWrapper = document.getElementById(`${question.response_id}`);
                         let domOptions = domWrapper.querySelectorAll('.lrn-input');
@@ -333,7 +332,6 @@ function setResponseMask(bindings) {
  * @ignore
  */
 function toggleFlag(bindings) {
-    console.log(bindings);
     Mousetrap.bind(bindings, (e, combo) => {
         items.toggleFlag();
     });
