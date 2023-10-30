@@ -3,7 +3,6 @@ import * as items from '../../../assessment/items';
 import * as questions from '../../../assessment/questions';
 import * as platform from 'platform-detect';
 import * as Mousetrap from 'mousetrap';
-import { log } from '../../../utils/logger';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -263,13 +262,13 @@ function overrideCallback() {
 function setMcqOption(bindings) {
     let qs = questions.questions();
     let numMCQs = 0;
-    console.log('setMcqOptions()');
+
     qs.forEach(q => {
         if (q.type === 'mcq') {
             numMCQs++;
         }
     });
-    console.log(numMCQs);
+
     if (numMCQs === 1) {
         Object.values(qs).forEach(function (question) {
             if (question.type === 'mcq') {
@@ -334,6 +333,7 @@ function setResponseMask(bindings) {
  * @ignore
  */
 function toggleFlag(bindings) {
+    console.log(bindings);
     Mousetrap.bind(bindings, (e, combo) => {
         items.toggleFlag();
     });

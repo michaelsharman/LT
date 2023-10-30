@@ -29,10 +29,10 @@
  *     height: 310,
  * }
  * @param {object} options Optional config object to override defaults
- * @param {string} id DOM id value of the element to launch the magnifier
+ * @param {string} classname CSS class value of the element to launch the magnifier
  * @since 0.7.0
  */
-export function run(options, id = 'lrn__magnifier') {
+export function run(options, classname = 'lrn__magnifier') {
     if (!options) {
         options = {
             zoom: 4,
@@ -41,11 +41,13 @@ export function run(options, id = 'lrn__magnifier') {
             height: 310,
         };
     }
-    const elButton = document.getElementById(id);
+    const elButtons = document.querySelectorAll(`.${classname}`);
     const magnifier = new HTMLMagnifier(options);
 
-    elButton.addEventListener('click', () => {
-        magnifier.toggle();
+    elButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            magnifier.toggle();
+        });
     });
 }
 

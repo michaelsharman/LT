@@ -10,7 +10,6 @@ import * as logger from './utils/logger';
 import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks';
 import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav';
 import * as columnResizer from './extensions/accessibility/ux/columnResizer';
-import * as horizontalQuestionRender from './extensions/accessibility/ux/horizontalQuestionRender';
 import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives';
 import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts';
 import * as magnifier from './extensions/accessibility/ux/magnifier';
@@ -22,7 +21,6 @@ const extensions = {
         ariaCountOnNav: { ...ariaCountOnNav },
         columnResizer: { ...columnResizer },
         hideAlternatives: { ...hideAlternatives },
-        horizontalQuestionRender: { ...horizontalQuestionRender },
         keyboardShortcuts: { ...keyboardShortcuts },
         magnifier: { ...magnifier },
         mcqLabelPrefix: { ...mcqLabelPrefix },
