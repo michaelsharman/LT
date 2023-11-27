@@ -18,7 +18,7 @@ import * as question from '../../../assessment/questions';
  *  - shuffle responses
  *  - columns
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/mcqprefix.gif" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/mcqprefix.png" alt="" width="660"></p>
  * @module _Extensions/mcqLabelPrefix
  */
 
