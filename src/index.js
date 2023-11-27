@@ -14,6 +14,7 @@ import * as hideAlternatives from './extensions/accessibility/ux/hideAlternative
 import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts';
 import * as magnifier from './extensions/accessibility/ux/magnifier';
 import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix';
+import * as pageOverlay from './extensions/accessibility/ux/pageOverlay';
 import * as resetResponse from './extensions/accessibility/ux/resetResponse';
 
 const extensions = {
@@ -25,6 +26,7 @@ const extensions = {
         keyboardShortcuts: { ...keyboardShortcuts },
         magnifier: { ...magnifier },
         mcqLabelPrefix: { ...mcqLabelPrefix },
+        pageOverlay: { ...pageOverlay },
         resetResponse: { ...resetResponse },
     },
 };

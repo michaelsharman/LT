@@ -15,6 +15,7 @@ import * as item from '../../../assessment/items';
  */
 
 const state = {
+    renderedCss: false,
     resize: {
         triggered: false,
     },
@@ -31,7 +32,7 @@ const state = {
  * @since 0.5.0
  */
 export function run() {
-    injectCSS();
+    if (!state.renderedCss) injectCSS();
     app.appInstance().on('item:load', () => {
         setupResizer();
     });
@@ -218,6 +219,8 @@ function injectCSS() {
 
     elStyle.textContent = css;
     document.head.append(elStyle);
+
+    state.renderedCss = true;
 }
 
 /**

@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>_Extensions/columnResizer - Learnosity Toolkit - Docs</title>
+    <title>_Extensions/pageOverlay - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">_Extensions/columnResizer</h1>
+    <h1 class="page-title">_Extensions/pageOverlay</h1>
     
 
     
@@ -68,10 +68,10 @@
 <p>Extensions add specific functionality to Items API.
 They rely on modules within LT being available.</p>
 <p>--</p>
-<p>Adds a UI border in between the left and right columns (for
-items with 2 columns) providing the ability for the end user
-to resize the layout by dragging the element left or right.</p>
-<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/resize.gif" alt="" width="900"></p>
+<p>Adds a semi-transparent overlay on top of the entire page.
+This is for users who have sensitivity to bright light,
+high contrast, or blue light.</p>
+<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/pageoverlay.png" alt="" width="860"></p>
 
 <dl class="details">
     
@@ -141,7 +141,7 @@ to resize the layout by dragging the element left or right.</p>
 
     
 
-    <h4 class="name" id=".run">run<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".halt">halt<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -149,8 +149,7 @@ to resize the layout by dragging the element left or right.</p>
 
 
 
-<p>Sets up an item load listener to add a UI element allowing
-users to drag to resize the column divider.</p>
+<p>Turns off the page overlay.</p>
 
 <dl class="details">
     
@@ -161,7 +160,88 @@ users to drag to resize the column divider.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.5.0</dd>
+    <dd class="tag-since">0.9.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".run">run<span class="signature">(customColor, customZIndex)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.9.0</dd>
     
 
     
@@ -206,9 +286,83 @@ users to drag to resize the column divider.</p>
     <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/index';
 
 LT.init(itemsApp); // Set up LT with the Items API application instance variable
-LT.extensions.columnResizer.run();</code></pre>
+LT.extensions.pageOverlay.run();</code></pre>
 
 
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>customColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A custom color value to use for the overlay. Recommend rgba. Defaults to rgba(250, 170, 140, 0.5)</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>customZIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A custom z-index value to use for the overlay. Defaults to 99999.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 

@@ -30,6 +30,7 @@ const state = {
         numeric: 49,
     },
     explicitPrefixes: [],
+    renderedCss: false,
     suffix: '.',
 };
 
@@ -56,7 +57,9 @@ export function run(mask = 'upperAlpha', suffix = '.', prefixes) {
     if (prefixes && Array.isArray(prefixes)) {
         state.explicitPrefixes = prefixes;
     }
-    injectCSS();
+
+    if (!state.renderedCss) injectCSS();
+
     app.appInstance().on('item:load', () => {
         addPrefix(question.questions());
     });
@@ -137,4 +140,6 @@ function injectCSS() {
 
     elStyle.textContent = css;
     document.head.append(elStyle);
+
+    state.renderedCss = true;
 }
