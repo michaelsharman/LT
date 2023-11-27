@@ -10,6 +10,8 @@
  *
  * TODO:
  *  - make movable via keyboard
+ *
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/magnifier.gif" alt="" width="800"></p>
  * @module _Extensions/magnifier
  */
 

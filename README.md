@@ -2,6 +2,8 @@
 
 This is a utility library of helper modules useful if you're developing with Learnosity APIs.
 
+See [documentation here](https://michaelsharman.github.io/LT/).
+
 ## Important
 
 This package is unofficial and wasn't created by Learnosity.

@@ -14,6 +14,7 @@ import * as hideAlternatives from './extensions/accessibility/ux/hideAlternative
 import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts';
 import * as magnifier from './extensions/accessibility/ux/magnifier';
 import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix';
+import * as resetResponse from './extensions/accessibility/ux/resetResponse';
 
 const extensions = {
     extensions: {
@@ -24,6 +25,7 @@ const extensions = {
         keyboardShortcuts: { ...keyboardShortcuts },
         magnifier: { ...magnifier },
         mcqLabelPrefix: { ...mcqLabelPrefix },
+        resetResponse: { ...resetResponse },
     },
 };
 export const LT = { ...app, ...items, ...activity, ...player, ...questions, ...sections, ...diagnostics, ...logger, ...extensions };
