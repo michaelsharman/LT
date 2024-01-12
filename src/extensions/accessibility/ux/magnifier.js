@@ -1,3 +1,6 @@
+import * as app from '../../../app';
+import * as items from '../../../assessment/items';
+
 /**
  * Extensions add specific functionality to Items API.
  * They rely on modules within LT being available.
@@ -39,8 +42,8 @@ export function run(options, classname = 'lrn__magnifier') {
         options = {
             zoom: 4,
             shape: 'square',
-            width: 310,
-            height: 310,
+            width: 350,
+            height: 350,
         };
     }
     const elButtons = document.querySelectorAll(`.${classname}`);
@@ -51,6 +54,8 @@ export function run(options, classname = 'lrn__magnifier') {
             magnifier.toggle();
         });
     });
+
+    app.appInstance().on('item:load', checkImageContent(magnifier));
 }
 
 /* global MutationObserver */
@@ -476,8 +481,8 @@ function HTMLMagnifier(options) {
     _this.show = function (event) {
         let left, top;
         if (event) {
-            left = event.pageX - 20;
-            top = event.pageY - 20;
+            left = event.pageX - 175;
+            top = event.pageY - 175;
         } else {
             left = 200;
             top = 200;
@@ -489,7 +494,7 @@ function HTMLMagnifier(options) {
         syncViewport();
         syncScrollBars();
         initScrollBars();
-        bindDOMObserver();
+        // bindDOMObserver();
         isVisible = true;
     };
 
@@ -504,4 +509,19 @@ function HTMLMagnifier(options) {
     init();
 
     return _this;
+}
+
+function checkImageContent(magnifier) {
+    let elItem = items.itemElement();
+    let elImages = elItem.querySelectorAll('img');
+
+    if (elImages) {
+        elImages.forEach(img => {
+            img.addEventListener('click', e => {
+                if (!magnifier.isVisible()) {
+                    magnifier.show(e);
+                }
+            });
+        });
+    }
 }

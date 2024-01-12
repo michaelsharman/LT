@@ -46,12 +46,19 @@ export function isFlagged() {
  * Returns `false` if _all_ possible responses haven't been
  * attempted (eg on cloze types). Handles multi-part items.
  * @since 0.1.0
+ * @param {string} reference Optionally pass an exact item reference.
  * @returns {boolean}
  */
-export function isItemFullyAttempted() {
-    const itemQuestions = questions.questions();
+export function isItemFullyAttempted(reference) {
+    let itemQuestions;
     let attempted;
     let r;
+
+    if (reference) {
+        itemQuestions = app.appInstance().getItems()[reference]['questions'];
+    } else {
+        itemQuestions = questions.questions();
+    }
 
     if (Array.isArray(itemQuestions) && itemQuestions.length) {
         for (let i = 0; i < itemQuestions.length; i++) {
@@ -97,9 +104,13 @@ export function isMaskingEnabled() {
 /**
  * JSON object for the current item.
  * @since 0.1.0
+ * @param {string} reference Optionally pass an exact item reference.
  * @returns {object} An item JSON object.
  */
-export function item() {
+export function item(reference) {
+    if (reference) {
+        return app.appInstance().getItems()[reference];
+    }
     return app.appInstance().getCurrentItem();
 }
 
