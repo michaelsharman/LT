@@ -43,7 +43,7 @@ export function appInstance() {
  * @returns {object | null}
  */
 export function annotationsApp() {
-    return appInstance().annotationsApp();
+    return appInstance().annotationsApp() !== undefined ? appInstance().annotationsApp() : null;
 }
 
 /**
