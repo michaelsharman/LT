@@ -12,6 +12,8 @@ import * as app from '../../app';
  *
  * It ignores spaces, so they are not treated as characters
  * to validate length.
+ *
+ * Works with longtextV2 and plaintext types.
  * @module _Extensions/essayLimitByCharacter
  */
 
