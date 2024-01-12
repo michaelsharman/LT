@@ -15,10 +15,14 @@ import * as sections from './sections';
  * @returns {boolean}
  */
 export function isFirstItem() {
+    let reference;
+
     if (activity.hasSections()) {
-        return sections.sections()[0].items[0].reference === item().reference;
+        reference = typeof sections.sections()[0].items[0] === 'object' ? sections.sections()[0].items[0].reference : sections.sections()[0].items[0];
+        return reference === item().reference;
     } else {
-        return activity.activity().items[0].reference === item().reference;
+        reference = typeof activity.activity().items[0] === 'object' ? activity.activity().items[0].reference : activity.activity().items[0];
+        return reference === item().reference;
     }
 }
 
@@ -63,7 +67,7 @@ export function isItemFullyAttempted(reference) {
     if (Array.isArray(itemQuestions) && itemQuestions.length) {
         for (let i = 0; i < itemQuestions.length; i++) {
             let q = itemQuestions[i];
-            r = questions.response(q.response_id);
+            r = questions.questionResponse(q.response_id);
             if (r) {
                 if (q.hasOwnProperty('metadata') && q.metadata.hasOwnProperty('valid_response_count')) {
                     if (Array.isArray(r.value)) {

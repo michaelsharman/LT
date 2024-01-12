@@ -136,7 +136,7 @@ loaded by Items API.</p>
 
     
 
-    <h4 class="name" id=".question">question<span class="signature">(index<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".question">question<span class="signature">(response_id<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -144,9 +144,10 @@ loaded by Items API.</p>
 
 
 
-<p>Returns the question JSON of the current item.</p>
-<p>If the item is multi-part, pass <code>index</code> to return
-the desired question.</p>
+<p>Returns the question JSON on the current item.</p>
+<p>If the item is multi-part, pass <code>response_id</code> to return
+the desired question. This argument will also look across
+all items for the requested <code>response_id</code>.</p>
 <p>Returns {} if no question was found on the current item.</p>
 
 <dl class="details">
@@ -227,13 +228,13 @@ the desired question.</p>
 
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>response_id</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -254,8 +255,7 @@ the desired question.</p>
 
             
 
-            <td class="description last"><p>Which question to retrieve. Numbered
-from 1, top to bottom, left to right.</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -305,7 +305,7 @@ from 1, top to bottom, left to right.</p></td>
 
     
 
-    <h4 class="name" id=".questionInstance">questionInstance<span class="signature">(index<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".questionInstance">questionInstance<span class="signature">(response_id<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -314,7 +314,7 @@ from 1, top to bottom, left to right.</p></td>
 
 
 <p>Returns the question app instance on the current item.</p>
-<p>If the item is multi-part, pass <code>index</code> to return the
+<p>If the item is multi-part, pass <code>response_id</code> to return the
 desired question.</p>
 
 <dl class="details">
@@ -395,13 +395,13 @@ desired question.</p>
 
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>response_id</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -422,8 +422,7 @@ desired question.</p>
 
             
 
-            <td class="description last"><p>Which question to retrieve. Numbered
-from 1, top to bottom, left to right.</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -473,7 +472,7 @@ from 1, top to bottom, left to right.</p></td>
 
     
 
-    <h4 class="name" id=".questionResponse">questionResponse<span class="signature">(index<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".questionResponse">questionResponse<span class="signature">(response_id<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -483,7 +482,7 @@ from 1, top to bottom, left to right.</p></td>
 
 <p>A response object for a question on the
 current item. Defaults to the first question.</p>
-<p>Pass <code>index</code> if you want a different question
+<p>Pass <code>response_id</code> if you want a different question
 response returned in the case of a multi-part item.</p>
 <p>Returns {} if no questions found on the item.</p>
 
@@ -565,13 +564,13 @@ response returned in the case of a multi-part item.</p>
 
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>response_id</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -592,8 +591,7 @@ response returned in the case of a multi-part item.</p>
 
             
 
-            <td class="description last"><p>Which question response to retrieve.
-Numbered from 1, top to bottom, left to right.</p></td>
+            <td class="description last"></td>
         </tr>
 
     
@@ -742,7 +740,7 @@ Numbered from 1, top to bottom, left to right.</p></td>
 
     
 
-    <h4 class="name" id=".questionScore">questionScore<span class="signature">(index<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".questionScore">questionScore<span class="signature">(response_id<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
 
     
 
@@ -752,8 +750,8 @@ Numbered from 1, top to bottom, left to right.</p></td>
 
 <p>The score object for a question on the current item.
 Defaults to the first question.</p>
-<p>Pass <code>index</code> if you want a different question response
-returned in the case of a multi-part item.</p>
+<p>Pass <code>response_id</code> if you want a different question
+response returned in the case of a multi-part item.</p>
 <p>Returns {} if no questions found on the item.</p>
 
 <dl class="details">
@@ -834,13 +832,13 @@ returned in the case of a multi-part item.</p>
 
         <tr>
             
-                <td class="name"><code>index</code></td>
+                <td class="name"><code>response_id</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">number</span>
+<span class="param-type">string</span>
 
 
 
@@ -861,8 +859,7 @@ returned in the case of a multi-part item.</p>
 
             
 
-            <td class="description last"><p>Which question response to retrieve.
-Numbered from 1, top to bottom, left to right.</p></td>
+            <td class="description last"></td>
         </tr>
 
     

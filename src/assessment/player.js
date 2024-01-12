@@ -1,4 +1,5 @@
 import * as app from '../app';
+import * as items from './items';
 import * as logger from '../utils/logger';
 
 /**
@@ -68,7 +69,9 @@ export function navigate(target) {
             app.appInstance().items().previous();
             break;
         case 'next':
-            app.appInstance().items().next();
+            if (!items.isLastItem()) {
+                app.appInstance().items().next();
+            }
             break;
         case 'review':
             // Allow opening and closing the `Review progress` modal.
