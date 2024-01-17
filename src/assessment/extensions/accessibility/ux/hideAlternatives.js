@@ -1,5 +1,5 @@
 import * as app from '../../../app';
-import * as questions from '../../../assessment/questions';
+import * as questions from '../../../questions';
 import * as shuffleSeed from 'shuffle-seed';
 
 /**

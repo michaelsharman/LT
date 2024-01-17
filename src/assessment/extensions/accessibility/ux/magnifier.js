@@ -1,5 +1,5 @@
 import * as app from '../../../app';
-import * as items from '../../../assessment/items';
+import * as items from '../../../items';
 
 /**
  * Extensions add specific functionality to Items API.

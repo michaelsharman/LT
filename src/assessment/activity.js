@@ -1,4 +1,4 @@
-import * as app from '../app';
+import * as app from './app';
 import * as sections from './sections';
 import * as logger from '../utils/logger';
 

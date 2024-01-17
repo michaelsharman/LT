@@ -1,6 +1,6 @@
 import * as app from '../../../app';
-import * as logger from '../../../utils/logger';
-import * as question from '../../../assessment/questions';
+import * as logger from '../../../../utils/logger';
+import * as question from '../../../questions';
 
 /**
  * Extensions add specific functionality to Items API.

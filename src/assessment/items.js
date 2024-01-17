@@ -1,4 +1,4 @@
-import * as app from '../app';
+import * as app from './app';
 import * as activity from './activity';
 import * as questions from './questions';
 import * as sections from './sections';

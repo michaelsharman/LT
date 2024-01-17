@@ -1,9 +1,10 @@
 module.exports = {
     entry: {
-        main: './src/index.js',
+        assessment: './src/assessment/index.js',
+        authoring: './src/authoring/index.js',
     },
     output: {
         path: __dirname + '/dist',
-        filename: 'LT.js',
+        filename: '[name]/LT.js',
     },
 };
