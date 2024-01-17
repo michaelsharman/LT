@@ -18,6 +18,7 @@ import * as app from '../../app';
  */
 
 const state = {
+    includeSpaces: false,
     renderedCss: false,
     validTypes: ['longtextV2', 'plaintext'],
 };
@@ -30,10 +31,13 @@ const state = {
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.essayLimitByCharacter.run();
+ * @param {boolean} includeSpaces Whether to include spaces in the character count
  * @since 0.10.0
  */
-export function run() {
+export function run(includeSpaces = false) {
     if (!state.renderedCss) injectCSS();
+
+    state.includeSpaces = Boolean(includeSpaces);
 
     // Set up a listener on item load for any Plain Text or Essay question types
     app.appInstance().on('item:load', function (el) {
@@ -63,7 +67,7 @@ export function run() {
 function checkLimit(questionInstance) {
     const maxLength = questionInstance.getQuestion().max_length;
     const rawResponse = questionInstance.getResponse().value;
-    const response = stripSpaces(stripHtml(rawResponse));
+    const response = state.includeSpaces ? stripHtml(rawResponse) : stripSpaces(stripHtml(rawResponse));
     const strLength = response.length;
     let validLength = true;
 
