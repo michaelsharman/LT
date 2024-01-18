@@ -210,6 +210,22 @@ export function itemPool() {
 }
 
 /**
+ * Which UI region the session was set up with. Values include:
+ * - `main`
+ * - `horizontal`
+ * - `horizontal-fixed`
+ *
+ * `undefined` will mean that no `regions` key was found in the
+ * Items API configuration, meaning the player defaults to the
+ * legacy UI region (not recommended).
+ * @since 1.1.0
+ * @returns {string}
+ */
+export function region() {
+    return activity()?.config?.regions;
+}
+
+/**
  * The resource item references used for this activity instance.
  * @since 0.1.0
  * @returns {array}
