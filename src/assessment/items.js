@@ -139,6 +139,26 @@ export function itemAttemptStatus() {
 }
 
 /**
+ * Returns an item object by response id.
+ * @since 1.1.0
+ * @param {string} response_id
+ * @returns {object} An item JSON object.
+ */
+export function itemByResponseId(response_id) {
+    const items = app.appInstance().getItems();
+    let item;
+
+    for (const ref in items) {
+        if (items[ref].response_ids.includes(response_id)) {
+            item = items[ref];
+            break;
+        }
+    }
+
+    return item;
+}
+
+/**
  * The current item DOM element.
  * @since 0.4.0
  * @returns {object} HTML DOM element
