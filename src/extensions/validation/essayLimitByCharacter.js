@@ -1,4 +1,9 @@
 import * as app from '../../app';
+import * as logger from '../../utils/logger';
+import * as activity from '../../assessment/activity';
+import * as player from '../../assessment/player';
+import * as items from '../../assessment/items';
+import * as questions from '../../assessment/questions';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -10,10 +15,10 @@ import * as app from '../../app';
  * string length to be character based, instead of
  * the default word based.
  *
- * It ignores spaces, so they are not treated as characters
- * to validate length.
+ * It ignores spaces by default, so they are not
+ * treated as characters to validate length.
  *
- * Works with longtextV2 and plaintext types.
+ * Works with `longtextV2` and `plaintext` question types.
  * @module _Extensions/essayLimitByCharacter
  */
 
@@ -25,23 +30,112 @@ const state = {
 
 /**
  * Looks for relevent question types and overrides validation
- * to be on character length.
+ * to be on character length. Uses the `max_length` (Word limit)
+ * that was set up in authoring, treating the value as a character
+ * length instead of word length.
+ *
+ * **Preventing submission**
+ *
+ * By default, questions are authored to prevent the user from
+ * submitting their session in the event of word limit violations.
+ * The same behaviour is inherited in this extension. If you don't
+ * want to prevent submission, you can check the `Submit over limit`
+ * option in the question authoring area.
+ *
+ * To prevent submission, we need to add a custom button to Items
+ * API becuase we can't easily inject a validation check when the
+ * default submit button is clicked, so we need to replace it with
+ * a custom one.
+ *
+ * Adding a custom button is a capability in Items API. Below is a code
+ * snippet of an Items API configuration object. Note the custom button
+ * is added in `region_overrides`.
+ *
+ * You MUST use the `icon_class` and `name` as defined in the custom
+ * button `options` object below.
+ *
+ * **`main` region**
+ * ```
+ * {
+ *     "config": {
+ *         "regions": "main",
+ *         "region_overrides": {
+ *             "bottom-right": [
+ *                 {
+ *                     "type": "custom_button",
+ *                     "options": {
+ *                         "name": "btn-essay-character-limit-submit",
+ *                         "label": "Finish",
+ *                         "icon_class": "item-next"
+ *                     },
+ *                     "position": "right"
+ *                 },
+ *                 {
+ *                     "type": "next_button",
+ *                     "position": "right"
+ *                 },
+ *                 {
+ *                     "type": "previous_button",
+ *                     "position": "right"
+ *                 }
+ *             ]
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * **`horizontal` or `horizontal-fixed` regions**
+ * ```
+ * {
+ *     "config": {
+ *         "regions": "horizontal",
+ *         "region_overrides": {
+ *             "bottom": [
+ *                 {
+ *                     "type": "custom_button",
+ *                     "options": {
+ *                         "name": "btn-essay-character-limit-submit",
+ *                         "label": "Finish",
+ *                         "icon_class": "item-next"
+ *                     },
+ *                     "position": "right"
+ *                 },
+ *                 {
+ *                     "type": "next_button",
+ *                     "position": "right"
+ *                 },
+ *                 {
+ *                     "type": "horizontaltoc_element",
+ *                     "position": "right"
+ *                 },
+ *                 {
+ *                     "type": "previous_button",
+ *                     "position": "right"
+ *                 }
+ *             ]
+ *         }
+ *     }
+ * }
+ * ```
  * @example
  * import { LT } from '@caspingus/lt/src/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.essayLimitByCharacter.run();
  * @param {boolean} includeSpaces Whether to include spaces in the character count
+ * Default is `false`.
  * @since 0.10.0
  */
 export function run(includeSpaces = false) {
-    if (!state.renderedCss) injectCSS();
-
     state.includeSpaces = Boolean(includeSpaces);
+
+    if (!state.renderedCss) injectCSS();
 
     // Set up a listener on item load for any Plain Text or Essay question types
     app.appInstance().on('item:load', function (el) {
         const questions = LT.questions();
+
+        setSubmitButtonState();
 
         questions.forEach(q => {
             if (state.validTypes.indexOf(q.type) >= 0) {
@@ -55,18 +149,28 @@ export function run(includeSpaces = false) {
             }
         });
     });
+
+    const elCustomSubmit = document.querySelector('.custom_btn.item-next');
+    if (elCustomSubmit) {
+        elCustomSubmit.classList.add('lrn_btn_blue');
+        setupSubmitPrevention();
+    } else {
+        logger.error('No custom submit button found. Character length validation will occur, but no submission prevention.');
+    }
 }
 
 /**
  * Checks the user response to see if they are
  * over the validation limit.
  * @param {object} questionInstance
+ * @param {boolean} setUI Whether to add UI validation.
+ * @returns {boolean}
  * @since 0.10.0
  * @ignore
  */
-function checkLimit(questionInstance) {
+function checkLimit(questionInstance, setUI = true) {
     const maxLength = questionInstance.getQuestion().max_length;
-    const rawResponse = questionInstance.getResponse().value;
+    const rawResponse = questionInstance.getResponse()?.value ? questionInstance.getResponse()?.value : '';
     const response = state.includeSpaces ? stripHtml(rawResponse) : stripSpaces(stripHtml(rawResponse));
     const strLength = response.length;
     let validLength = true;
@@ -77,7 +181,11 @@ function checkLimit(questionInstance) {
         }
     }
 
-    setValidationUI(questionInstance, validLength, strLength);
+    if (setUI) {
+        setValidationUI(questionInstance, validLength, strLength);
+    }
+
+    return validLength;
 }
 
 /**
@@ -134,6 +242,193 @@ function setupEssayValidationUI(questionInstance) {
     const newWordLimitText = wordLimitText.replace('Word', 'Character');
 
     elWordLimit.textContent = newWordLimitText;
+}
+
+/**
+ * Sets up click events on the possible submit buttons, then
+ * calls checkValidResponses() when clicked.
+ * Possible submit buttons are "Finish" inside the review screen,
+ * or the custom button declared in Items API configuration.
+ * @since 1.1.0
+ * @ignore
+ */
+function setupSubmitPrevention() {
+    const elCustomSubmit = document.querySelector('.custom_btn.item-next');
+
+    if (elCustomSubmit) {
+        elCustomSubmit.addEventListener('click', checkValidResponses);
+
+        app.appInstance().on('test:panel:shown', e => {
+            let elReviewSubmit = document.querySelector('.panel-footer .test-submit');
+            if (elReviewSubmit) {
+                elReviewSubmit.addEventListener('click', checkValidResponses);
+            }
+        });
+    }
+}
+
+/**
+ * Checks any essays on the session and their character length.
+ * If the length on any is invalid, and the `submit_over_limit`
+ * flag isn't set, we prevent submission.
+ * Works when the custom submit button is clicked, or when we
+ * override the "Finish" button in the review screen. We only
+ * do the latter when a custom submit button also exists.
+ * @param {object} e Click event object.
+ * @since 1.1.0
+ * @ignore
+ */
+function checkValidResponses(e) {
+    const sessionQuestions = app.appInstance().getQuestions();
+    let invalidResponseIds = [];
+
+    for (const q in sessionQuestions) {
+        if (state.validTypes.includes(sessionQuestions[q].type)) {
+            if (!sessionQuestions[q]?.submit_over_limit && !checkLimit(questions.questionInstance(q), false)) {
+                invalidResponseIds.push(q);
+            }
+        }
+    }
+
+    if (invalidResponseIds.length) {
+        logger.warn('Invalid essay response length found.');
+        e.preventDefault();
+        e.stopPropagation();
+
+        let itemReferences = [];
+        for (let i = 0; i < invalidResponseIds.length; i++) {
+            let temp = items.itemByResponseId(invalidResponseIds[i]);
+            if (temp) {
+                itemReferences.push(temp.source.reference);
+            }
+        }
+
+        loadErrorDialog(itemReferences);
+    } else {
+        submit();
+    }
+}
+
+/**
+ * Handles showing/hiding the default "Finish" button with a
+ * custom button as declared in Items API configuration. We
+ * need to do this because we can't preventDefault on the default
+ * submit (Finish) button.
+ * Executes on every item:load event.
+ * @since 1.1.0
+ * @ignore
+ */
+function setSubmitButtonState() {
+    const elDefaultSubmit = document.querySelector('.test-submit.item-next');
+    const elCustomSubmit = document.querySelector('.custom_btn.item-next');
+
+    if (elCustomSubmit) {
+        if (!items.isLastItem()) {
+            elCustomSubmit.classList.add('hidden');
+        } else {
+            if (hasReviewScreenOnFinish() && activity.region()) {
+                elCustomSubmit.classList.add('hidden');
+            } else {
+                elDefaultSubmit.classList.add('hidden');
+                elCustomSubmit.classList.remove('hidden');
+            }
+        }
+    }
+}
+
+/**
+ * Checks to see if the session was set up with a review
+ * screen as the last step prior to submission. We need
+ * to know this because in that scenario, there is a "Review"
+ * button ono the last item instead of "Finish".
+ * @returns {boolean}
+ * @since 1.1.0
+ * @ignore
+ */
+function hasReviewScreenOnFinish() {
+    const hasReviewElement = document.querySelector('.review-screen');
+    const isDecoupled = activity.activity()?.config?.configuration?.decouple_submit_from_review;
+
+    if (!hasReviewElement || isDecoupled) {
+        return false;
+    }
+
+    return true;
+}
+
+/**
+ * Loads a custom Items API dialog to alert the user they
+ * have invalid response. This is the same as the default
+ * modal we have for word count violations.
+ * @param {array} itemReferences
+ * @since 1.1.0
+ * @ignore
+ */
+function loadErrorDialog(itemReferences) {
+    let template = `
+        <p>The following questions are not currently valid. Please follow the links to review</p>
+        <ul>
+    `;
+
+    for (let i = 0; i < itemReferences.length; i++) {
+        template += `<li class="link essay-limit-character-item" data-item-reference="${itemReferences[i]}">Question</li>`;
+    }
+
+    template += '</ul>';
+
+    app.assessApp().on('button:btn_essay_character_limit_cancel:clicked', () => {
+        player.hideDialog();
+    });
+
+    app.appInstance().on('test:panel:show', () => {
+        setTimeout(() => {
+            const elLinks = document.querySelectorAll('.essay-limit-character-item');
+            if (elLinks) {
+                elLinks.forEach(el => {
+                    let itemReference = el.getAttribute('data-item-reference');
+                    el.addEventListener('click', () => {
+                        app.appInstance().items().goto(itemReference);
+                        player.hideDialog();
+                    });
+                });
+            }
+        }, 500);
+    });
+
+    player.dialog({
+        header: 'Submit activity',
+        body: template,
+        buttons: [
+            {
+                button_id: 'btn_essay_character_limit_cancel',
+                label: 'Cancel',
+                is_primary: true,
+            },
+        ],
+    });
+}
+
+/**
+ * Because we are using a custom submit button, we need
+ * to submit manually when the button is clicked.
+ * @since 1.1.0
+ * @ignore
+ */
+function submit() {
+    const settings = {
+        show_submit_confirmation: true,
+        show_submit_ui: true,
+
+        success: function (response_ids) {
+            console.log('Submit was successful', response_ids);
+        },
+
+        error: function (event) {
+            console.log('Submit has failed', event);
+        },
+    };
+
+    app.appInstance().submit(settings);
 }
 
 /**
