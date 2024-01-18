@@ -31,7 +31,15 @@ import * as logger from '../utils/logger';
  * });
  */
 export function dialog(config) {
-    app.appInstance().assessApp().dialogs().custom.show(config);
+    app.assessApp().dialogs().custom.show(config);
+}
+
+/**
+ * Hides a custom dialog.
+ * @since 1.1.0
+ */
+export function hideDialog() {
+    app.assessApp().dialogs().custom.hide();
 }
 
 /**
