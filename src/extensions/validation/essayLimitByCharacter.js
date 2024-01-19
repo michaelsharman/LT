@@ -34,6 +34,21 @@ const state = {
  * that was set up in authoring, treating the value as a character
  * length instead of word length.
  *
+ * **Known limitations**
+ *
+ * If the assessment player is in responsive mode (< 800px) and
+ * you *don't* have the review screen enabled (which it is by default)
+ * then we can't inject a custom button. This means we render the
+ * default Finish button, and no prevent submission will occur.
+ * The solution is to use any of the valid regions (`main`,
+ * `horizontal`, or `horizontal-fixed`) and don't decouple the
+ * submit button from the review button in Items API configuration.
+ *
+ * Essentially, if you're using default options, you'll be fine.
+ *
+ * If submitting via the JavaScript `submit()` method, this will
+ * skip the validation check.
+ *
  * **Preventing submission**
  *
  * By default, questions are authored to prevent the user from
@@ -322,7 +337,7 @@ function setSubmitButtonState() {
     const elDefaultSubmit = document.querySelector('.test-submit.item-next');
     const elCustomSubmit = document.querySelector('.custom_btn.item-next');
 
-    if (elCustomSubmit) {
+    if (elCustomSubmit && !player.isResponsiveMode()) {
         if (!items.isLastItem()) {
             elCustomSubmit.classList.add('hidden');
         } else {

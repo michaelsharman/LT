@@ -43,6 +43,16 @@ export function hideDialog() {
 }
 
 /**
+ * Checks whether the player is in responsive mode. This will be either the
+ * small or medium breakpoints. See more https://help.learnosity.com/hc/en-us/articles/360000758337-Customizing-the-Assessment-Player-experience-with-User-Interface-Regions#responsive-behavior
+ * @since 1.2.0
+ * @returns {boolean}
+ */
+export function isResponsiveMode() {
+    return Boolean(document.querySelector('.has-menu-region'));
+}
+
+/**
  * Check that the review screen has been loaded.
  * @since 0.1.0
  * @returns {boolean}
