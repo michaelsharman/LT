@@ -132,6 +132,69 @@ const state = {
  *     }
  * }
  * ```
+ *
+ * **Changing labels**
+ *
+ * This extension will automatically change `Word Limit` to `Character Limit` in the
+ * footer of the essay question types. However, for full coverage in review mode, or
+ * in authoring and reporting, you should use label bundles. Eg:
+ *
+ * **Assessment label bundle**
+ *
+ * Use this in Items and Reports APIs.
+ *
+ * Caveat: this will update Math Essay and Chemistry Essay footers as well.
+ * ```
+ * {
+ *     "config": {
+ *         "questions_api_init_options": {
+ *             "labelBundle": {
+ *                 "wordLength": "Character Limit"
+ *             }
+ *         }
+ *     }
+ * }
+ * ```
+ *
+ * **Authoring label bundle**
+ *
+ * Use this in Author API.
+ * ```
+ * {
+ *     "config": {
+ *         "dependencies": {
+ *             "question_editor_api": {
+ *                 "init_options": {
+ *                     "label_bundle": {
+ *                         "help.longtextV2.name:max_length": "Character limit",
+ *                         "help.longtextV2.name:show_word_limit": "Character limit",
+ *                         "help.longtextV2.description:max_length": "Maximum number of characters that can be entered in the text entry area (max 10,000 characters).",
+ *                         "help.longtextV2.description:show_word_limit": "Defines whether the character limit should be displayed in the toolbar or not. The options are: <ul><li><strong>Always On</strong> - Character Limit is always displayed.</li><li><strong>On Limit</strong> - Character Limit will only be displayed when the limit is reached.</li><li><strong>Off</strong> - Character Limit will not be displayed.</li></ul>",
+ *                         "help.longtextV2.description:submit_over_limit": "Determines if the user can save/submit text when the character limit has been exceeded.",
+ *                         "longtextV2:max_length": "Character limit",
+ *                         "longtextV2:show_word_count": "Show character count",
+ *                         "longtextV2:show_word_limit": "Character limit",
+ *                         "help.plaintext.name:max_length": "Character limit",
+ *                         "help.plaintext.name:show_word_limit": "Character limit",
+ *                         "help.plaintext.description:max_length": "Maximum number of characters that can be entered in the text entry area (max 10,000 characters).",
+ *                         "help.plaintext.description:show_word_limit": "Defines whether the character limit should be displayed in the toolbar or not. The options are: <ul><li><strong>Always On</strong> - Character Limit is always displayed.</li><li><strong>On Limit</strong> - Character Limit will only be displayed when the limit is reached.</li><li><strong>Off</strong> - Character Limit will not be displayed.</li></ul>",
+ * 	                    "plaintext:max_length": "Character limit",
+ *                         "plaintext:show_word_limit": "Character limit"
+ *                     }
+ *                 }
+ *             },
+ *             "questions_api": {
+ *                 "init_options": {
+ *                     "labelBundle": {
+ *                         "wordLength": "Character Limit"
+ *                     }
+ *                 }
+ *             }
+ *         }
+ *     }
+ * }
+ * ```
+ *
  * @example
  * import { LT } from '@caspingus/lt/src/index';
  *
@@ -145,6 +208,8 @@ export function run(includeSpaces = false) {
     state.includeSpaces = Boolean(includeSpaces);
 
     if (!state.renderedCss) injectCSS();
+
+    checkExistingResponses();
 
     // Set up a listener on item load for any Plain Text or Essay question types
     app.appInstance().on('item:load', function (el) {
@@ -171,6 +236,23 @@ export function run(includeSpaces = false) {
         setupSubmitPrevention();
     } else {
         logger.error('No custom submit button found. Character length validation will occur, but no submission prevention.');
+    }
+}
+
+/**
+ * Checks resume mode, on load of the API to see whether we have
+ * existing responses to load an accurate character count for.
+ * @since 1.3.0
+ * @ignore
+ */
+function checkExistingResponses() {
+    const questions = app.appInstance().getQuestions();
+
+    for (const [key, value] of Object.entries(questions)) {
+        if (state.validTypes.indexOf(value.type) >= 0) {
+            let questionInstance = app.appInstance().question(value.response_id);
+            checkLimit(questionInstance);
+        }
     }
 }
 
