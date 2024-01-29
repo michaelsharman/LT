@@ -81,7 +81,7 @@ const state = {
  *                     "options": {
  *                         "name": "btn-essay-character-limit-submit",
  *                         "label": "Finish",
- *                         "icon_class": "item-next"
+ *                         "icon_class": "item-next hidden"
  *                     },
  *                     "position": "right"
  *                 },
@@ -111,7 +111,7 @@ const state = {
  *                     "options": {
  *                         "name": "btn-essay-character-limit-submit",
  *                         "label": "Finish",
- *                         "icon_class": "item-next"
+ *                         "icon_class": "item-next hidden"
  *                     },
  *                     "position": "right"
  *                 },
@@ -517,11 +517,11 @@ function submit() {
         show_submit_ui: true,
 
         success: function (response_ids) {
-            console.log('Submit was successful', response_ids);
+            logger.info('Submit was successful', response_ids);
         },
 
         error: function (event) {
-            console.log('Submit has failed', event);
+            logger.error('Submit has failed', event);
         },
     };
 
