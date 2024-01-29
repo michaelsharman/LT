@@ -241,6 +241,59 @@ button <code>options</code> object below.</p>
     }
 }
 </code></pre>
+<p><strong>Changing labels</strong></p>
+<p>This extension will automatically change <code>Word Limit</code> to <code>Character Limit</code> in the
+footer of the essay question types. However, for full coverage in review mode, or
+in authoring and reporting, you should use label bundles. Eg:</p>
+<p><strong>Assessment label bundle</strong></p>
+<p>Use this in Items and Reports APIs.</p>
+<p>Caveat: this will update Math Essay and Chemistry Essay footers as well.</p>
+<pre class="prettyprint source"><code>{
+    &quot;config&quot;: {
+        &quot;questions_api_init_options&quot;: {
+            &quot;labelBundle&quot;: {
+                &quot;wordLength&quot;: &quot;Character Limit&quot;
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Authoring label bundle</strong></p>
+<p>Use this in Author API.</p>
+<pre class="prettyprint source"><code>{
+    &quot;config&quot;: {
+        &quot;dependencies&quot;: {
+            &quot;question_editor_api&quot;: {
+                &quot;init_options&quot;: {
+                    &quot;label_bundle&quot;: {
+                        &quot;help.longtextV2.name:max_length&quot;: &quot;Character limit&quot;,
+                        &quot;help.longtextV2.name:show_word_limit&quot;: &quot;Character limit&quot;,
+                        &quot;help.longtextV2.description:max_length&quot;: &quot;Maximum number of characters that can be entered in the text entry area (max 10,000 characters).&quot;,
+                        &quot;help.longtextV2.description:show_word_limit&quot;: &quot;Defines whether the character limit should be displayed in the toolbar or not. The options are: &lt;ul>&lt;li>&lt;strong>Always On&lt;/strong> - Character Limit is always displayed.&lt;/li>&lt;li>&lt;strong>On Limit&lt;/strong> - Character Limit will only be displayed when the limit is reached.&lt;/li>&lt;li>&lt;strong>Off&lt;/strong> - Character Limit will not be displayed.&lt;/li>&lt;/ul>&quot;,
+                        &quot;help.longtextV2.description:submit_over_limit&quot;: &quot;Determines if the user can save/submit text when the character limit has been exceeded.&quot;,
+                        &quot;longtextV2:max_length&quot;: &quot;Character limit&quot;,
+                        &quot;longtextV2:show_word_count&quot;: &quot;Show character count&quot;,
+                        &quot;longtextV2:show_word_limit&quot;: &quot;Character limit&quot;,
+                        &quot;help.plaintext.name:max_length&quot;: &quot;Character limit&quot;,
+                        &quot;help.plaintext.name:show_word_limit&quot;: &quot;Character limit&quot;,
+                        &quot;help.plaintext.description:max_length&quot;: &quot;Maximum number of characters that can be entered in the text entry area (max 10,000 characters).&quot;,
+                        &quot;help.plaintext.description:show_word_limit&quot;: &quot;Defines whether the character limit should be displayed in the toolbar or not. The options are: &lt;ul>&lt;li>&lt;strong>Always On&lt;/strong> - Character Limit is always displayed.&lt;/li>&lt;li>&lt;strong>On Limit&lt;/strong> - Character Limit will only be displayed when the limit is reached.&lt;/li>&lt;li>&lt;strong>Off&lt;/strong> - Character Limit will not be displayed.&lt;/li>&lt;/ul>&quot;,
+	                    &quot;plaintext:max_length&quot;: &quot;Character limit&quot;,
+                        &quot;plaintext:show_word_limit&quot;: &quot;Character limit&quot;
+                    }
+                }
+            },
+            &quot;questions_api&quot;: {
+                &quot;init_options&quot;: {
+                    &quot;labelBundle&quot;: {
+                        &quot;wordLength&quot;: &quot;Character Limit&quot;
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre>
 
 <dl class="details">
     
