@@ -209,25 +209,11 @@ export function run(includeSpaces = false) {
 
     if (!state.renderedCss) injectCSS();
 
-    checkExistingResponses();
+    setQuestionListeners();
 
-    // Set up a listener on item load for any Plain Text or Essay question types
+    // Set up a listener on item load to check Finish button state
     app.appInstance().on('item:load', function (el) {
-        const questions = LT.questions();
-
         setSubmitButtonState();
-
-        questions.forEach(q => {
-            if (state.validTypes.indexOf(q.type) >= 0) {
-                let questionInstance = app.appInstance().question(q.response_id);
-
-                setupEssayValidationUI(questionInstance);
-
-                questionInstance.on('changed', () => {
-                    checkLimit(questionInstance);
-                });
-            }
-        });
     });
 
     const elCustomSubmit = document.querySelector('.custom_btn.item-next');
@@ -242,16 +228,27 @@ export function run(includeSpaces = false) {
 /**
  * Checks resume mode, on load of the API to see whether we have
  * existing responses to load an accurate character count for.
+ * Also sets a change listener on all valid types to check limit.
  * @since 1.3.0
  * @ignore
  */
-function checkExistingResponses() {
+function setQuestionListeners() {
     const questions = app.appInstance().getQuestions();
 
     for (const [key, value] of Object.entries(questions)) {
         if (state.validTypes.indexOf(value.type) >= 0) {
             let questionInstance = app.appInstance().question(value.response_id);
-            checkLimit(questionInstance);
+
+            setupEssayValidationUI(questionInstance);
+
+            // Check on load for existing responses
+            if (activity.isResuming()) {
+                checkLimit(questionInstance);
+            }
+
+            questionInstance.on('changed', () => {
+                checkLimit(questionInstance);
+            });
         }
     }
 }
