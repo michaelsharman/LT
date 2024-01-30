@@ -26,6 +26,7 @@ const state = {
     includeSpaces: false,
     renderedCss: false,
     validTypes: ['longtextV2', 'plaintext'],
+    language: 'en',
 };
 
 /**
@@ -204,8 +205,9 @@ const state = {
  * Default is `false`.
  * @since 0.10.0
  */
-export function run(includeSpaces = false) {
+export function run(includeSpaces = false, language = 'en') {
     state.includeSpaces = Boolean(includeSpaces);
+    state.language = language;
 
     if (!state.renderedCss) injectCSS();
 
@@ -294,6 +296,7 @@ function checkLimit(questionInstance, setUI = true) {
 function setValidationUI(questionInstance, isValid, strLength) {
     const id = questionInstance.getQuestion().response_id;
     const elContainer = document.getElementById(id);
+    if (!elContainer) return;
     const elEditor = elContainer.querySelector('.lrn_texteditor_editable');
     const elWordCount = elContainer.querySelector('.lrn_word_count');
     const elLengthIndicator = elContainer.querySelector('.lrn_length_indicator');
@@ -331,11 +334,17 @@ function setValidationUI(questionInstance, isValid, strLength) {
 function setupEssayValidationUI(questionInstance) {
     const id = questionInstance.getQuestion().response_id;
     const elContainer = document.getElementById(id);
+    if (!elContainer) return;
     const elWordLimit = elContainer.querySelector('.lrn_word_limit');
     const wordLimitText = elWordLimit.textContent;
-    const newWordLimitText = wordLimitText.replace('Word', 'Character');
 
-    elWordLimit.textContent = newWordLimitText;
+    // remove all character except number and "/"
+    const newWordLimitText = wordLimitText.replace(/[^0-9\/ ]*/g, '').trim();
+    if (state.language === 'ja') {
+        elWordLimit.textContent = newWordLimitText + ' 文字制限';
+    } else {
+        elWordLimit.textContent = newWordLimitText + ' Character Limit';
+    }
 }
 
 /**
