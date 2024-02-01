@@ -29,6 +29,21 @@ const state = {
     language: 'en',
 };
 
+const wordings = {
+    en: {
+        characterLimit: 'Character Limit',
+        invalidDialogContent: 'The following questions are not currently valid. Please follow the links to review',
+        cancel: 'Cancel',
+        submitActivity: 'Submit activity',
+    },
+    ja: {
+        characterLimit: '文字制限',
+        invalidDialogContent: '質問は無効です。下記のリンクをご参照ください。',
+        cancel: '取り消し',
+        submitActivity: '提出履歴',
+    },
+};
+
 /**
  * Looks for relevent question types and overrides validation
  * to be on character length. Uses the `max_length` (Word limit)
@@ -340,11 +355,7 @@ function setupEssayValidationUI(questionInstance) {
 
     // remove all character except number and "/"
     const newWordLimitText = wordLimitText.replace(/[^0-9\/ ]*/g, '').trim();
-    if (state.language === 'ja') {
-        elWordLimit.textContent = newWordLimitText + ' 文字制限';
-    } else {
-        elWordLimit.textContent = newWordLimitText + ' Character Limit';
-    }
+    elWordLimit.textContent = newWordLimitText + ' ' + wordings[state.language].characterLimit;
 }
 
 /**
@@ -468,8 +479,9 @@ function hasReviewScreenOnFinish() {
  * @ignore
  */
 function loadErrorDialog(itemReferences) {
+    const invalidDialogContent = wordings[state.language].invalidDialogContent;
     let template = `
-        <p>The following questions are not currently valid. Please follow the links to review</p>
+        <p>${invalidDialogContent}</p>
         <ul>
     `;
 
@@ -499,12 +511,12 @@ function loadErrorDialog(itemReferences) {
     });
 
     player.dialog({
-        header: 'Submit activity',
+        header: wordings[state.language].submitActivity,
         body: template,
         buttons: [
             {
                 button_id: 'btn_essay_character_limit_cancel',
-                label: 'Cancel',
+                label: wordings[state.language].cancel,
                 is_primary: true,
             },
         ],
