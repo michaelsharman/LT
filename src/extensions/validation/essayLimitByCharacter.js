@@ -554,6 +554,8 @@ function submit() {
  * @ignore
  */
 function stripHtml(s) {
+    // change &nbsp; to space to avoid counting it as a character
+    s = s.replace(/&nbsp;/g, ' ');
     return s.replace(/<[^>]*>/g, '').trim();
 }
 
