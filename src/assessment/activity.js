@@ -174,6 +174,15 @@ export function hasSections() {
 }
 
 /**
+ * Whether the activity has try again enabled.
+ * @since 1.4.0
+ * @returns {boolean}
+ */
+export function hasTryAgain() {
+    return activity()?.dynamic_items.hasOwnProperty('try_again');
+}
+
+/**
  * Whether this activity is adaptive.
  * @since 0.1.0
  * @returns {boolean}

@@ -333,6 +333,6 @@ function setResponseMask(bindings) {
  */
 function toggleFlag(bindings) {
     Mousetrap.bind(bindings, (e, combo) => {
-        items.toggleFlag();
+        items.flag();
     });
 }

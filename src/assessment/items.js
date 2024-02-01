@@ -9,6 +9,36 @@ import * as sections from './sections';
  */
 
 /**
+ * The dynamic object for the current item. Useful when
+ * using dynamic content with try again.
+ * https://reference.learnosity.com/items-api/methods/item/dynamic
+ * @since 1.4.0
+ * @returns {object}
+ */
+export function dynamic() {
+    const reference = itemReference();
+    return app.assessApp().item(reference).dynamic;
+}
+
+/**
+ * Toggles the `user_flagged` state on the current item.
+ * @since 1.4.0
+ */
+export function flag() {
+    const reference = itemReference();
+    app.assessApp().item(reference).flag();
+}
+
+/**
+ * Whether the current item has dynamic content.
+ * @since 1.4.0
+ * @returns {boolean}
+ */
+export function isDynamicItem() {
+    return item()?.source.hasOwnProperty('data_table_seed');
+}
+
+/**
  * Whether the current item is the first item in the activity.
  * This ignores sections, so will be a global check.
  * @since 0.1.0
@@ -189,15 +219,4 @@ export function itemPosition() {
  */
 export function itemReference() {
     return app.appInstance().getCurrentItem().reference;
-}
-
-/**
- * Toggles the `user_flagged` state on the current item.
- * @since 0.4.0
- */
-export function toggleFlag() {
-    const el = document.querySelector('.flag-item');
-    if (el) {
-        el.click();
-    }
 }
