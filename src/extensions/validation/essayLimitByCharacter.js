@@ -26,6 +26,22 @@ const state = {
     includeSpaces: false,
     renderedCss: false,
     validTypes: ['longtextV2', 'plaintext'],
+    language: 'en',
+};
+
+const wordings = {
+    en: {
+        characterLimit: 'Character Limit',
+        invalidDialogContent: 'The following questions are not currently valid. Please follow the links to review',
+        cancel: 'Cancel',
+        submitActivity: 'Submit activity',
+    },
+    ja: {
+        characterLimit: '文字制限',
+        invalidDialogContent: '質問は無効です。下記のリンクをご参照ください。',
+        cancel: '取り消し',
+        submitActivity: '提出履歴',
+    },
 };
 
 /**
@@ -204,8 +220,9 @@ const state = {
  * Default is `false`.
  * @since 0.10.0
  */
-export function run(includeSpaces = false) {
+export function run(includeSpaces = false, language = 'en') {
     state.includeSpaces = Boolean(includeSpaces);
+    state.language = language;
 
     if (!state.renderedCss) injectCSS();
 
@@ -214,6 +231,17 @@ export function run(includeSpaces = false) {
     // Set up a listener on item load to check Finish button state
     app.appInstance().on('item:load', function (el) {
         setSubmitButtonState();
+
+        // For update UI essay limit by character when item loaded
+        // Need this because when configuration defer rendered is ON, the essay limit by character will not be updated
+        const questions = LT.questions();
+        questions.forEach(q => {
+            if (state.validTypes.indexOf(q.type) >= 0) {
+                let questionInstance = app.appInstance().question(q.response_id);
+
+                setupEssayValidationUI(questionInstance);
+            }
+        });
     });
 
     const elCustomSubmit = document.querySelector('.custom_btn.item-next');
@@ -294,6 +322,7 @@ function checkLimit(questionInstance, setUI = true) {
 function setValidationUI(questionInstance, isValid, strLength) {
     const id = questionInstance.getQuestion().response_id;
     const elContainer = document.getElementById(id);
+    if (!elContainer) return;
     const elEditor = elContainer.querySelector('.lrn_texteditor_editable');
     const elWordCount = elContainer.querySelector('.lrn_word_count');
     const elLengthIndicator = elContainer.querySelector('.lrn_length_indicator');
@@ -331,11 +360,13 @@ function setValidationUI(questionInstance, isValid, strLength) {
 function setupEssayValidationUI(questionInstance) {
     const id = questionInstance.getQuestion().response_id;
     const elContainer = document.getElementById(id);
+    if (!elContainer) return;
     const elWordLimit = elContainer.querySelector('.lrn_word_limit');
     const wordLimitText = elWordLimit.textContent;
-    const newWordLimitText = wordLimitText.replace('Word', 'Character');
 
-    elWordLimit.textContent = newWordLimitText;
+    // remove all character except number and "/"
+    const newWordLimitText = wordLimitText.replace(/[^0-9\/ ]*/g, '').trim();
+    elWordLimit.textContent = newWordLimitText + ' ' + wordings[state.language].characterLimit;
 }
 
 /**
@@ -459,8 +490,9 @@ function hasReviewScreenOnFinish() {
  * @ignore
  */
 function loadErrorDialog(itemReferences) {
+    const invalidDialogContent = wordings[state.language].invalidDialogContent;
     let template = `
-        <p>The following questions are not currently valid. Please follow the links to review</p>
+        <p>${invalidDialogContent}</p>
         <ul>
     `;
 
@@ -490,12 +522,12 @@ function loadErrorDialog(itemReferences) {
     });
 
     player.dialog({
-        header: 'Submit activity',
+        header: wordings[state.language].submitActivity,
         body: template,
         buttons: [
             {
                 button_id: 'btn_essay_character_limit_cancel',
-                label: 'Cancel',
+                label: wordings[state.language].cancel,
                 is_primary: true,
             },
         ],
@@ -533,6 +565,8 @@ function submit() {
  * @ignore
  */
 function stripHtml(s) {
+    // change &nbsp; to space to avoid counting it as a character
+    s = s.replace(/&nbsp;/g, ' ');
     return s.replace(/<[^>]*>/g, '').trim();
 }
 

@@ -33,3 +33,4 @@ const extensions = {
     },
 };
 export const LT = { ...app, ...items, ...activity, ...player, ...questions, ...sections, ...diagnostics, ...logger, ...extensions };
+window.LT = LT;
