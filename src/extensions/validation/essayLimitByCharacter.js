@@ -231,6 +231,17 @@ export function run(includeSpaces = false, language = 'en') {
     // Set up a listener on item load to check Finish button state
     app.appInstance().on('item:load', function (el) {
         setSubmitButtonState();
+
+        // For update UI essay limit by character when item loaded
+        // Need this because when configuration defer rendered is ON, the essay limit by character will not be updated
+        const questions = LT.questions();
+        questions.forEach(q => {
+            if (state.validTypes.indexOf(q.type) >= 0) {
+                let questionInstance = app.appInstance().question(q.response_id);
+
+                setupEssayValidationUI(questionInstance);
+            }
+        });
     });
 
     const elCustomSubmit = document.querySelector('.custom_btn.item-next');
