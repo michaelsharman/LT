@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>_Extensions/Assessment/columnResizer - Learnosity Toolkit - Docs</title>
+    <title>_Extensions/Authoring/contentTabs - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">_Extensions/Assessment/columnResizer</h1>
+    <h1 class="page-title">_Extensions/Authoring/contentTabs</h1>
     
 
     
@@ -65,13 +65,103 @@
             
 
 
-<p>Extensions add specific functionality to Items API.
+<p>Extensions add specific functionality to Learnosity APIs.
 They rely on modules within LT being available.</p>
 <p>--</p>
-<p>Adds a UI border in between the left and right columns (for
-items with 2 columns) providing the ability for the end user
-to resize the layout by dragging the element left or right.</p>
-<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/resize.gif" alt="" width="900"></p>
+<p>Adds the ability for authors to add any number of tabs within a
+rich-text content block. This is achieved by leveraging custom buttons.</p>
+<p>Each tab can be labelled. You can set content within each tab.</p>
+<p><strong>Important</strong></p>
+<p>The <code>active</code> tab (ie the tab that will be in focus) will be the one
+that the author last had focus on when they changed content and saved.
+You probably want that to be the first tab. If it's not, you need to edit
+the question, click the first tab <em>inside the rich-text editor</em>,
+make sure to change something even if it's adding a character and removing
+it, then save.</p>
+<p>Adding a custom button is a capability in Author API. Below is a code
+snippet of an Author API configuration object. Note the custom button
+is added under <code>rich_text_editor</code>.</p>
+<p>You MUST use the object as defined below. Also, note the <code>toolbar_settings</code>
+which is required to place the custom button(s) where you want in the toolbar.</p>
+<pre class="prettyprint source"><code>{
+    &quot;config&quot;: {
+        &quot;dependencies&quot;: {
+            &quot;question_editor_api&quot;: {
+                &quot;init_options&quot;: {
+                    &quot;rich_text_editor&quot;: {
+                        &quot;customButtons&quot;: [
+                            {
+                                &quot;func&quot;: &quot;LT.extensions.contentTabs.addContentTabs&quot;,
+                                &quot;icon&quot;: &quot;/poc/content-tabs/dist/45702062e0a01c4cc7f0.svg&quot;,
+                                &quot;label&quot;: &quot;Add content tabs&quot;,
+                                &quot;name&quot;: &quot;addContentTabs&quot;,
+                                &quot;attributes&quot;: [&quot;content&quot;,&quot;stimulus&quot;,&quot;template&quot;]
+                            }
+                        ],
+                        &quot;toolbar_settings&quot;: {
+                            &quot;ltr_toolbar&quot;: [
+                                {
+                                    &quot;items&quot;: [&quot;Bold&quot;,&quot;Italic&quot;,&quot;Underline&quot;,&quot;-&quot;,&quot;TextColor&quot;,&quot;-&quot;, &quot;LrnUnderlinedIndicator&quot;,&quot;-&quot;,&quot;RemoveFormat&quot;,&quot;FontSize&quot;],
+                                    &quot;name&quot;: &quot;basicstyles&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;NumberedList&quot;,&quot;BulletedList&quot;,&quot;-&quot;,&quot;Indent&quot;,&quot;Outdent&quot;],
+                                    &quot;name&quot;: &quot;list&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;JustifyLeft&quot;,&quot;JustifyCenter&quot;,&quot;JustifyRight&quot;,&quot;JustifyBlock&quot;],
+                                    &quot;name&quot;: &quot;justify&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;Link&quot;,&quot;Unlink&quot;],
+                                    &quot;name&quot;: &quot;link&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;Image&quot;,&quot;LrnMath&quot;,&quot;Table&quot;,&quot;Blockquote&quot;,&quot;SpecialChar&quot;],
+                                    &quot;name&quot;: &quot;insert&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;LrnSimpleFeature&quot;],
+                                    &quot;name&quot;: &quot;simplefeature&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;LrnResource&quot;],
+                                    &quot;name&quot;: &quot;resource&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;LrnEditAriaLabel&quot;,&quot;LrnPopupContent&quot;],
+                                    &quot;name&quot;: &quot;editAriaLabel&quot;
+                                },
+                                {
+                                    &quot;name&quot;: &quot;custombuttons&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;Undo&quot;,&quot;Redo&quot;],
+                                    &quot;name&quot;: &quot;clipboard&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;Styles&quot;],
+                                    &quot;name&quot;: &quot;style&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;Sourcedialog&quot;],
+                                    &quot;name&quot;: &quot;mode&quot;
+                                },
+                                {
+                                    &quot;items&quot;: [&quot;lrn_datatable&quot;],
+                                    &quot;name&quot;: &quot;data&quot;
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/contenttabs1.png" alt="" width="660"></p>
+<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/contenttabs2.png" alt="" width="660"></p>
 
 <dl class="details">
     
@@ -141,7 +231,7 @@ to resize the layout by dragging the element left or right.</p>
 
     
 
-    <h4 class="name" id=".run">run<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".addContentTabs">addContentTabs<span class="signature">(attribute, callback)</span><span class="type-signature"></span></h4>
 
     
 
@@ -149,8 +239,9 @@ to resize the layout by dragging the element left or right.</p>
 
 
 
-<p>Sets up an item load listener to add a UI element allowing
-users to drag to resize the column divider.</p>
+<p>Called via a custom button in the rich text toolbar.
+Renders a modal asking the author how many tabs they
+want to add where the cursor is.</p>
 
 <dl class="details">
     
@@ -161,7 +252,164 @@ users to drag to resize the column divider.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.5.0</dd>
+    <dd class="tag-since">2.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>attribute</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>callback</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">*</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".run">run<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+<p>Extension constructor.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">2.1.0</dd>
     
 
     
@@ -203,10 +451,10 @@ users to drag to resize the column divider.</p>
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/authoring/index';
 
-LT.init(itemsApp); // Set up LT with the Items API application instance variable
-LT.extensions.columnResizer.run();</code></pre>
+LT.init(authorApp); // Set up LT with the Author API application instance variable
+LT.extensions.contentTabs.run();</code></pre>
 
 
 
