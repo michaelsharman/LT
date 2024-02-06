@@ -1,11 +1,11 @@
 import * as app from './app';
 import * as items from './items';
-import * as logger from '../utils/logger';
+import logger from '../utils/logger';
 
 /**
  * Everything relating to questions currently
  * loaded by Items API.
- * @module Questions
+ * @module Assessment/Questions
  */
 
 /**
@@ -99,16 +99,17 @@ export function questionResponseIds() {
  * Pass `response_id` if you want a different question
  * response returned in the case of a multi-part item.
  *
- * Returns {} if no questions found on the item.
+ * Returns {} if no questions found on the item, or a
+ * non-autoscoreable question.
  * @since 0.1.0
  * @param {string=} response_id
- * @returns {object} The score object for the question, null if no attempts yet
+ * @returns {object} The score object for the question.
  */
 export function questionScore(response_id) {
     let id = response_id ? response_id : questionResponseIds()[0];
 
     if (id) {
-        return app.appInstance().getScores()[id];
+        return app.appInstance().getScores()[id] || {};
     } else {
         return {};
     }

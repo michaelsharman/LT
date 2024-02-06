@@ -1,10 +1,10 @@
 import * as app from './app';
 import * as activity from './activity';
-import * as logger from '../utils/logger';
+import logger from '../utils/logger';
 
 /**
  * Diagnostic/metadata information for Items API.
- * @module Diagnostics
+ * @module Assessment/Diagnostics
  */
 
 const state = {

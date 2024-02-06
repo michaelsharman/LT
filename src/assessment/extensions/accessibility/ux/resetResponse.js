@@ -1,5 +1,5 @@
 import * as app from '../../../app';
-import * as logger from '../../../../utils/logger';
+import logger from '../../../../utils/logger';
 import * as question from '../../../questions';
 
 /**
@@ -17,7 +17,7 @@ import * as question from '../../../questions';
  * See the `type` property for each type here https://reference.learnosity.com/questions-api/questiontypes
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/resetresponse.gif" alt="" width="600"></p>
- * @module _Extensions/resetResponse
+ * @module _Extensions/Assessment/resetResponse
  */
 
 const state = {
@@ -32,7 +32,7 @@ const state = {
  * to the UI at the bottom of each configured question on the item.
  *
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.resetResponse.run();

@@ -10,13 +10,13 @@ import * as activity from '../../../activity';
  * Listens for the item load event and appends
  * ` of {totalItems}` to the aria-label for the
  * previous and next buttons.
- * @module _Extensions/ariaCountOnNav
+ * @module _Extensions/Assessment/ariaCountOnNav
  */
 
 /**
  * Executes on item load to add custom label.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.ariaCountOnNav.run();

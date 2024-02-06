@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Learnosity Toolkit - Docs</title>
+    <title>_Extensions/Assessment/mcqLabelPrefix - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,98 +44,303 @@
 
 <div id="main" role="main">
     
+    <h1 class="page-title">_Extensions/Assessment/mcqLabelPrefix</h1>
+    
 
     
 
 
 
+
+<section>
+
+<header>
     
+</header>
 
-
-
-
-
-
-
-
-
-
+<article>
     
+        <div class="container-overview">
+        
+            
 
 
-
-    <section class="readme usertext">
-        <article><h1 id="lt---learnosity-toolkit">LT - Learnosity Toolkit</h1>
-<p>This is a utility library of helper modules useful if you're developing with Learnosity APIs.</p>
-<p>Modules are separated between Assessment (when using Items API) and Authoring (when using Author API).</p>
-<p>See <a href="https://michaelsharman.github.io/LT/">documentation here</a>.</p>
-<h2 id="important">Important</h2>
-<p>This package is unofficial and wasn't created by Learnosity.</p>
-<p>No modules contained within:</p>
+<p>Extensions add specific functionality to Items API.
+They rely on modules within LT being available.</p>
+<p>--</p>
+<p>Adds a prefix to all multiple-choice labels (correct
+answer and distractors).</p>
+<p>Ignores block UI and radio button under option.</p>
+<p>Supports</p>
 <ul>
-<li>ever have access to the consumer private key</li>
-<li>track any usage or personal information</li>
+<li>multi-select MCQs</li>
+<li>shuffle responses</li>
+<li>columns</li>
 </ul>
-<p>Everything is open source under the MIT license. Feel free to use as you see fit.</p>
-<h2 id="installation">Installation</h2>
-<pre class="prettyprint source"><code>npm install @caspingus/lt
-</code></pre>
-<h2 id="initialize">Initialize</h2>
-<p>Everything is written using ES6 modules. By default we use <code>LT</code> as a variable for
-the toolkit. If you want to change this, use named imports.</p>
-<p><code>LT</code> expects to be given the application instance in the <code>readyListener</code>, either Items API
-or Author API. From there you can call any method you want off the <code>LT</code> object.</p>
-<h2 id="items-api">Items API</h2>
-<pre class="prettyprint source"><code>// Declare and set your variable with the Items API LearnosityItems.init() method
-const itemsApp = LearnosityItems.init(signedConfigObject);
+<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/mcqprefix.png" alt="" width="660"></p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
-// Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/assessment/index';
-LT.init(itemsApp);
 
 
-// Optionally call any extensions you might want
-LT.extensions.keyboardShortcuts.run();
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".run">run<span class="signature">(mask, suffix, prefixes)</span><span class="type-signature"></span></h4>
+
+    
 
 
-// Optionally add to the global scope (for development)
-window.LT = LT;
-</code></pre>
-<h2 id="usage-examples">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/assessment/index';
-
-// See if the item was _fully_ attempted
-LT.isItemFullyAttempted();
-
-// See if we're on the last item in a section
-LT.isLastItemInSection();
-
-// See the question response object
-LT.questionResponse();
-</code></pre>
-<h2 id="author-api">Author API</h2>
-<pre class="prettyprint source"><code>// Declare and set your variable with the Author API LearnosityItems.init() method
-const authorApp = LearnosityAuthor.init(signedConfigObject);
 
 
-// Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/authoring/index';
-LT.init(authorApp);
+
+<p>Sets up an item load listener to add a prefix to all
+MCQ possible response labels.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.6.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
-// Optionally add to the global scope (for development)
-window.LT = LT;
-</code></pre>
-<h2 id="usage-examples-1">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/authoring/index';
-
-// Injects a route hash to the URI so SPAs can load to a deep view from a full page refresh.
-LT.routingHash();
-</code></pre></article>
-    </section>
 
 
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+
+LT.init(itemsApp); // Set up LT with the Items API application instance variable
+LT.extensions.mcqLabelPrefix.run();</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>mask</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Which mask pattern to use. Supports <code>upperAlpha</code> (default), <code>lowerAlpha</code>, and <code>numeric</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>suffix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Any suffix you want added to the label prefix. Defaults to <code>.</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prefixes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Array of custom string prefixes to use.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

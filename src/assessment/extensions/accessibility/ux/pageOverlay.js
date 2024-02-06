@@ -9,7 +9,7 @@
  * high contrast, or blue light.
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/pageoverlay.png" alt="" width="860"></p>
- * @module _Extensions/pageOverlay
+ * @module _Extensions/Assessment/pageOverlay
  */
 
 const state = {
@@ -20,7 +20,7 @@ const state = {
 
 /**
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.pageOverlay.run();

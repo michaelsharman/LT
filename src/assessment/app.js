@@ -3,7 +3,7 @@ import { questionResponseIds } from './questions';
 
 /**
  * Learnosity Toolkit constructor module.
- * @module App
+ * @module Assessment/App
  */
 
 const state = {};

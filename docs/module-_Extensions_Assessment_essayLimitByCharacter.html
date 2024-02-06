@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Learnosity Toolkit - Docs</title>
+    <title>_Extensions/Assessment/essayLimitByCharacter - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,98 +44,393 @@
 
 <div id="main" role="main">
     
+    <h1 class="page-title">_Extensions/Assessment/essayLimitByCharacter</h1>
+    
 
     
 
 
 
+
+<section>
+
+<header>
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+
+<p>Extensions add specific functionality to Items API.
+They rely on modules within LT being available.</p>
+<p>--</p>
+<p>This script changes the essay validation check on
+string length to be character based, instead of
+the default word based.</p>
+<p>It ignores spaces by default, so they are not
+treated as characters to validate length.</p>
+<p>Works with <code>longtextV2</code> and <code>plaintext</code> question types.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".run">run<span class="signature">(includeSpaces)</span><span class="type-signature"></span></h4>
+
     
 
 
 
 
 
+<p>Looks for relevent question types and overrides validation
+to be on character length. Uses the <code>max_length</code> (Word limit)
+that was set up in authoring, treating the value as a character
+length instead of word length.</p>
+<p><strong>Known limitations</strong></p>
+<p>If the assessment player is in responsive mode (&lt; 800px) and
+you <em>don't</em> have the review screen enabled (which it is by default)
+then we can't inject a custom button. This means we render the
+default Finish button, and no prevent submission will occur.
+The solution is to use any of the valid regions (<code>main</code>,
+<code>horizontal</code>, or <code>horizontal-fixed</code>) and don't decouple the
+submit button from the review button in Items API configuration.</p>
+<p>Essentially, if you're using default options, you'll be fine.</p>
+<p>If submitting via the JavaScript <code>submit()</code> method, this will
+skip the validation check.</p>
+<p><strong>Preventing submission</strong></p>
+<p>By default, questions are authored to prevent the user from
+submitting their session in the event of word limit violations.
+The same behaviour is inherited in this extension. If you don't
+want to prevent submission, you can check the <code>Submit over limit</code>
+option in the question authoring area.</p>
+<p>To prevent submission, we need to add a custom button to Items
+API becuase we can't easily inject a validation check when the
+default submit button is clicked, so we need to replace it with
+a custom one.</p>
+<p>Adding a custom button is a capability in Items API. Below is a code
+snippet of an Items API configuration object. Note the custom button
+is added in <code>region_overrides</code>.</p>
+<p>You MUST use the <code>icon_class</code> and <code>name</code> as defined in the custom
+button <code>options</code> object below.</p>
+<p><strong><code>main</code> region</strong></p>
+<pre class="prettyprint source"><code>{
+    &quot;config&quot;: {
+        &quot;regions&quot;: &quot;main&quot;,
+        &quot;region_overrides&quot;: {
+            &quot;bottom-right&quot;: [
+                {
+                    &quot;type&quot;: &quot;custom_button&quot;,
+                    &quot;options&quot;: {
+                        &quot;name&quot;: &quot;btn-essay-character-limit-submit&quot;,
+                        &quot;label&quot;: &quot;Finish&quot;,
+                        &quot;icon_class&quot;: &quot;item-next hidden&quot;
+                    },
+                    &quot;position&quot;: &quot;right&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;next_button&quot;,
+                    &quot;position&quot;: &quot;right&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;previous_button&quot;,
+                    &quot;position&quot;: &quot;right&quot;
+                }
+            ]
+        }
+    }
+}
+</code></pre>
+<p><strong><code>horizontal</code> or <code>horizontal-fixed</code> regions</strong></p>
+<pre class="prettyprint source"><code>{
+    &quot;config&quot;: {
+        &quot;regions&quot;: &quot;horizontal&quot;,
+        &quot;region_overrides&quot;: {
+            &quot;bottom&quot;: [
+                {
+                    &quot;type&quot;: &quot;custom_button&quot;,
+                    &quot;options&quot;: {
+                        &quot;name&quot;: &quot;btn-essay-character-limit-submit&quot;,
+                        &quot;label&quot;: &quot;Finish&quot;,
+                        &quot;icon_class&quot;: &quot;item-next hidden&quot;
+                    },
+                    &quot;position&quot;: &quot;right&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;next_button&quot;,
+                    &quot;position&quot;: &quot;right&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;horizontaltoc_element&quot;,
+                    &quot;position&quot;: &quot;right&quot;
+                },
+                {
+                    &quot;type&quot;: &quot;previous_button&quot;,
+                    &quot;position&quot;: &quot;right&quot;
+                }
+            ]
+        }
+    }
+}
+</code></pre>
+<p><strong>Changing labels</strong></p>
+<p>This extension will automatically change <code>Word Limit</code> to <code>Character Limit</code> in the
+footer of the essay question types. However, for full coverage in review mode, or
+in authoring and reporting, you should use label bundles. Eg:</p>
+<p><strong>Assessment label bundle</strong></p>
+<p>Use this in Items and Reports APIs.</p>
+<p>Caveat: this will update Math Essay and Chemistry Essay footers as well.</p>
+<pre class="prettyprint source"><code>{
+    &quot;config&quot;: {
+        &quot;questions_api_init_options&quot;: {
+            &quot;labelBundle&quot;: {
+                &quot;wordLength&quot;: &quot;Character Limit&quot;
+            }
+        }
+    }
+}
+</code></pre>
+<p><strong>Authoring label bundle</strong></p>
+<p>Use this in Author API.</p>
+<pre class="prettyprint source"><code>{
+    &quot;config&quot;: {
+        &quot;dependencies&quot;: {
+            &quot;question_editor_api&quot;: {
+                &quot;init_options&quot;: {
+                    &quot;label_bundle&quot;: {
+                        &quot;help.longtextV2.name:max_length&quot;: &quot;Character limit&quot;,
+                        &quot;help.longtextV2.name:show_word_limit&quot;: &quot;Character limit&quot;,
+                        &quot;help.longtextV2.description:max_length&quot;: &quot;Maximum number of characters that can be entered in the text entry area (max 10,000 characters).&quot;,
+                        &quot;help.longtextV2.description:show_word_limit&quot;: &quot;Defines whether the character limit should be displayed in the toolbar or not. The options are: &lt;ul>&lt;li>&lt;strong>Always On&lt;/strong> - Character Limit is always displayed.&lt;/li>&lt;li>&lt;strong>On Limit&lt;/strong> - Character Limit will only be displayed when the limit is reached.&lt;/li>&lt;li>&lt;strong>Off&lt;/strong> - Character Limit will not be displayed.&lt;/li>&lt;/ul>&quot;,
+                        &quot;help.longtextV2.description:submit_over_limit&quot;: &quot;Determines if the user can save/submit text when the character limit has been exceeded.&quot;,
+                        &quot;longtextV2:max_length&quot;: &quot;Character limit&quot;,
+                        &quot;longtextV2:show_word_count&quot;: &quot;Show character count&quot;,
+                        &quot;longtextV2:show_word_limit&quot;: &quot;Character limit&quot;,
+                        &quot;help.plaintext.name:max_length&quot;: &quot;Character limit&quot;,
+                        &quot;help.plaintext.name:show_word_limit&quot;: &quot;Character limit&quot;,
+                        &quot;help.plaintext.description:max_length&quot;: &quot;Maximum number of characters that can be entered in the text entry area (max 10,000 characters).&quot;,
+                        &quot;help.plaintext.description:show_word_limit&quot;: &quot;Defines whether the character limit should be displayed in the toolbar or not. The options are: &lt;ul>&lt;li>&lt;strong>Always On&lt;/strong> - Character Limit is always displayed.&lt;/li>&lt;li>&lt;strong>On Limit&lt;/strong> - Character Limit will only be displayed when the limit is reached.&lt;/li>&lt;li>&lt;strong>Off&lt;/strong> - Character Limit will not be displayed.&lt;/li>&lt;/ul>&quot;,
+	                    &quot;plaintext:max_length&quot;: &quot;Character limit&quot;,
+                        &quot;plaintext:show_word_limit&quot;: &quot;Character limit&quot;
+                    }
+                }
+            },
+            &quot;questions_api&quot;: {
+                &quot;init_options&quot;: {
+                    &quot;labelBundle&quot;: {
+                        &quot;wordLength&quot;: &quot;Character Limit&quot;
+                    }
+                }
+            }
+        }
+    }
+}
+</code></pre>
 
-
-
-
+<dl class="details">
+    
 
     
 
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.10.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
-    <section class="readme usertext">
-        <article><h1 id="lt---learnosity-toolkit">LT - Learnosity Toolkit</h1>
-<p>This is a utility library of helper modules useful if you're developing with Learnosity APIs.</p>
-<p>Modules are separated between Assessment (when using Items API) and Authoring (when using Author API).</p>
-<p>See <a href="https://michaelsharman.github.io/LT/">documentation here</a>.</p>
-<h2 id="important">Important</h2>
-<p>This package is unofficial and wasn't created by Learnosity.</p>
-<p>No modules contained within:</p>
-<ul>
-<li>ever have access to the consumer private key</li>
-<li>track any usage or personal information</li>
-</ul>
-<p>Everything is open source under the MIT license. Feel free to use as you see fit.</p>
-<h2 id="installation">Installation</h2>
-<pre class="prettyprint source"><code>npm install @caspingus/lt
-</code></pre>
-<h2 id="initialize">Initialize</h2>
-<p>Everything is written using ES6 modules. By default we use <code>LT</code> as a variable for
-the toolkit. If you want to change this, use named imports.</p>
-<p><code>LT</code> expects to be given the application instance in the <code>readyListener</code>, either Items API
-or Author API. From there you can call any method you want off the <code>LT</code> object.</p>
-<h2 id="items-api">Items API</h2>
-<pre class="prettyprint source"><code>// Declare and set your variable with the Items API LearnosityItems.init() method
-const itemsApp = LearnosityItems.init(signedConfigObject);
 
 
-// Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/assessment/index';
-LT.init(itemsApp);
 
 
-// Optionally call any extensions you might want
-LT.extensions.keyboardShortcuts.run();
 
 
-// Optionally add to the global scope (for development)
-window.LT = LT;
-</code></pre>
-<h2 id="usage-examples">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/assessment/index';
-
-// See if the item was _fully_ attempted
-LT.isItemFullyAttempted();
-
-// See if we're on the last item in a section
-LT.isLastItemInSection();
-
-// See the question response object
-LT.questionResponse();
-</code></pre>
-<h2 id="author-api">Author API</h2>
-<pre class="prettyprint source"><code>// Declare and set your variable with the Author API LearnosityItems.init() method
-const authorApp = LearnosityAuthor.init(signedConfigObject);
 
 
-// Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/authoring/index';
-LT.init(authorApp);
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+
+LT.init(itemsApp); // Set up LT with the Items API application instance variable
+LT.extensions.essayLimitByCharacter.run();</code></pre>
 
 
-// Optionally add to the global scope (for development)
-window.LT = LT;
-</code></pre>
-<h2 id="usage-examples-1">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/authoring/index';
-
-// Injects a route hash to the URI so SPAs can load to a deep view from a full page refresh.
-LT.routingHash();
-</code></pre></article>
-    </section>
 
 
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>includeSpaces</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">boolean</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Whether to include spaces in the character count
+Default is <code>false</code>.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

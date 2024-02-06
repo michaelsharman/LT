@@ -1,5 +1,5 @@
 import * as app from '../../../app';
-import * as logger from '../../../../utils/logger';
+import logger from '../../../../utils/logger';
 import * as question from '../../../questions';
 
 /**
@@ -19,7 +19,7 @@ import * as question from '../../../questions';
  *  - columns
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/mcqprefix.png" alt="" width="660"></p>
- * @module _Extensions/mcqLabelPrefix
+ * @module _Extensions/Assessment/mcqLabelPrefix
  */
 
 const state = {
@@ -38,7 +38,7 @@ const state = {
  * Sets up an item load listener to add a prefix to all
  * MCQ possible response labels.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.mcqLabelPrefix.run();

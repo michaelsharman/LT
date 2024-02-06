@@ -1,12 +1,20 @@
 import * as app from './app';
 import * as diagnostics from './diagnostics';
-import * as logger from '../utils/logger';
+import * as navigation from './navigation';
+import logger from '../utils/logger';
 
-import * as createTags from './extensions/ui/createTags';
+import * as languageTextDirection from './extensions/ui/languageTextDirection/index';
+
+const utils = {
+    utils: {
+        logger,
+    },
+};
 
 const extensions = {
     extensions: {
-        createTags: { ...createTags },
+        languageTextDirection: { ...languageTextDirection },
     },
 };
-export const LT = { ...app, ...diagnostics, ...logger, ...extensions };
+
+export const LT = { ...app, ...diagnostics, ...navigation, ...utils, ...extensions };

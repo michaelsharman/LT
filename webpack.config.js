@@ -6,5 +6,14 @@ module.exports = {
     output: {
         path: __dirname + '/dist',
         filename: '[name]/LT.js',
+        assetModuleFilename: 'assets/[name][ext][query]',
+    },
+    module: {
+        rules: [
+            {
+                test: /\.svg/,
+                type: 'asset/resource',
+            },
+        ],
     },
 };

@@ -1,9 +1,9 @@
 import * as app from '../../app';
-import * as logger from '../../utils/logger';
-import * as activity from '../../assessment/activity';
-import * as player from '../../assessment/player';
-import * as items from '../../assessment/items';
-import * as questions from '../../assessment/questions';
+import logger from '../../../utils/logger';
+import * as activity from '../../activity';
+import * as player from '../../player';
+import * as items from '../../items';
+import * as questions from '../../questions';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -19,7 +19,7 @@ import * as questions from '../../assessment/questions';
  * treated as characters to validate length.
  *
  * Works with `longtextV2` and `plaintext` question types.
- * @module _Extensions/essayLimitByCharacter
+ * @module _Extensions/Assessment/essayLimitByCharacter
  */
 
 const state = {
@@ -196,7 +196,7 @@ const state = {
  * ```
  *
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.essayLimitByCharacter.run();

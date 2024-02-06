@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Learnosity Toolkit - Docs</title>
+    <title>Assessment/Items - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,98 +44,1655 @@
 
 <div id="main" role="main">
     
+    <h1 class="page-title">Assessment/Items</h1>
+    
 
     
 
 
 
+
+<section>
+
+<header>
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+
+<p>Everything relating to the items in the activity.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".dynamic">dynamic<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+
     
 
 
 
 
 
+<p>The dynamic object for the current item. Useful when
+using dynamic content with try again.
+https://reference.learnosity.com/items-api/methods/item/dynamic</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">1.4.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">object</span>)
+    </dd>
+</dl>
 
 
     
 
 
 
-    <section class="readme usertext">
-        <article><h1 id="lt---learnosity-toolkit">LT - Learnosity Toolkit</h1>
-<p>This is a utility library of helper modules useful if you're developing with Learnosity APIs.</p>
-<p>Modules are separated between Assessment (when using Items API) and Authoring (when using Author API).</p>
-<p>See <a href="https://michaelsharman.github.io/LT/">documentation here</a>.</p>
-<h2 id="important">Important</h2>
-<p>This package is unofficial and wasn't created by Learnosity.</p>
-<p>No modules contained within:</p>
+        
+            
+
+    
+
+    <h4 class="name" id=".flag">flag<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+<p>Toggles the <code>user_flagged</code> state on the current item.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">1.4.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isDynamicItem">isDynamicItem<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+
+<p>Whether the current item has dynamic content.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">1.4.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isFirstItem">isFirstItem<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+
+<p>Whether the current item is the first item in the activity.
+This ignores sections, so will be a global check.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isFlagged">isFlagged<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+
+<p>Whether the current item has been flagged by the user.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isItemFullyAttempted">isItemFullyAttempted<span class="signature">(reference)</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+
+<p>Checks whether the entire item has been fully attempted.
+Returns <code>false</code> if <em>all</em> possible responses haven't been
+attempted (eg on cloze types). Handles multi-part items.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>reference</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Optionally pass an exact item reference.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isLastItem">isLastItem<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+
+<p>Whether the current item is the last item in the activity.
+This ignores sections, so will be a global check.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isMaskingEnabled">isMaskingEnabled<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+
+<p>Whether the current item has answer masking enabled.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.4.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".item">item<span class="signature">(reference)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+
+
+<p>JSON object for the current item.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>reference</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Optionally pass an exact item reference.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+<div class="param-desc">
+    <p>An item JSON object.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">object</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".itemAttemptStatus">itemAttemptStatus<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+
+<p>Whether the current item has been attempted. Return value can be:</p>
 <ul>
-<li>ever have access to the consumer private key</li>
-<li>track any usage or personal information</li>
+<li><code>not_attempted</code></li>
+<li><code>fully_attempted</code></li>
+<li><code>partially_attempted</code></li>
 </ul>
-<p>Everything is open source under the MIT license. Feel free to use as you see fit.</p>
-<h2 id="installation">Installation</h2>
-<pre class="prettyprint source"><code>npm install @caspingus/lt
+<p>Partially attempted items may be where there are 2+ questions
+on the item and only 1 has been attempted.</p>
+<p>Note that if a question accepts multiple responses, eg multiple
+dropdown elements, this method will return <code>fully_attempted</code> even
+if not all responses have been attempted. If you want to check <em>all</em>
+responses have been attempted use <code>isItemFullyAttempted()</code>.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">string</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".itemByResponseId">itemByResponseId<span class="signature">(response_id)</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+
+
+<p>Returns an item object by response id.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">1.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>response_id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+<div class="param-desc">
+    <p>An item JSON object.</p>
+</div>
+
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">object</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".itemElement">itemElement<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+
+
+<p>The current item DOM element.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.4.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+<div class="param-desc">
+    <p>HTML DOM element</p>
+<pre class="prettyprint source"><code>&lt;div data-reference=&quot;[item-reference]&quot; class=&quot;learnosity-item lrn-scrollable-container item lrn-assess-item&quot;>
+  ...
+&lt;/div>
 </code></pre>
-<h2 id="initialize">Initialize</h2>
-<p>Everything is written using ES6 modules. By default we use <code>LT</code> as a variable for
-the toolkit. If you want to change this, use named imports.</p>
-<p><code>LT</code> expects to be given the application instance in the <code>readyListener</code>, either Items API
-or Author API. From there you can call any method you want off the <code>LT</code> object.</p>
-<h2 id="items-api">Items API</h2>
-<pre class="prettyprint source"><code>// Declare and set your variable with the Items API LearnosityItems.init() method
-const itemsApp = LearnosityItems.init(signedConfigObject);
+</div>
 
 
-// Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/assessment/index';
-LT.init(itemsApp);
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">object</span>)
+    </dd>
+</dl>
 
 
-// Optionally call any extensions you might want
-LT.extensions.keyboardShortcuts.run();
+    
 
 
-// Optionally add to the global scope (for development)
-window.LT = LT;
-</code></pre>
-<h2 id="usage-examples">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/assessment/index';
 
-// See if the item was _fully_ attempted
-LT.isItemFullyAttempted();
+        
+            
 
-// See if we're on the last item in a section
-LT.isLastItemInSection();
+    
 
-// See the question response object
-LT.questionResponse();
-</code></pre>
-<h2 id="author-api">Author API</h2>
-<pre class="prettyprint source"><code>// Declare and set your variable with the Author API LearnosityItems.init() method
-const authorApp = LearnosityAuthor.init(signedConfigObject);
+    <h4 class="name" id=".itemPosition">itemPosition<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
 
 
-// Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/authoring/index';
-LT.init(authorApp);
 
 
-// Optionally add to the global scope (for development)
-window.LT = LT;
-</code></pre>
-<h2 id="usage-examples-1">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/authoring/index';
 
-// Injects a route hash to the URI so SPAs can load to a deep view from a full page refresh.
-LT.routingHash();
-</code></pre></article>
-    </section>
+<p>The current item position, 1-based (not 0-based), in the activity.
+This ignores sections, so returns the global item position.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">number</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".itemReference">itemReference<span class="signature">()</span><span class="type-signature"> &rarr; {string}</span></h4>
+
+    
+
+
+
+
+
+<p>The reference of the current item.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">string</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Home - Learnosity Toolkit - Docs</title>
+    <title>Assessment/Sections - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,98 +44,905 @@
 
 <div id="main" role="main">
     
+    <h1 class="page-title">Assessment/Sections</h1>
+    
 
     
 
 
 
+
+<section>
+
+<header>
+    
+</header>
+
+<article>
+    
+        <div class="container-overview">
+        
+            
+
+
+<p>Everything relating to any sections defined
+in the activity.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+            
+
+            
+        
+        </div>
+    
+
+    
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+
+    
+
+    <h4 class="name" id=".isFirstItemInSection">isFirstItemInSection<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
     
 
 
 
 
 
+<p>Whether the current item is the first in this section.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
 
 
     
 
 
 
-    <section class="readme usertext">
-        <article><h1 id="lt---learnosity-toolkit">LT - Learnosity Toolkit</h1>
-<p>This is a utility library of helper modules useful if you're developing with Learnosity APIs.</p>
-<p>Modules are separated between Assessment (when using Items API) and Authoring (when using Author API).</p>
-<p>See <a href="https://michaelsharman.github.io/LT/">documentation here</a>.</p>
-<h2 id="important">Important</h2>
-<p>This package is unofficial and wasn't created by Learnosity.</p>
-<p>No modules contained within:</p>
-<ul>
-<li>ever have access to the consumer private key</li>
-<li>track any usage or personal information</li>
-</ul>
-<p>Everything is open source under the MIT license. Feel free to use as you see fit.</p>
-<h2 id="installation">Installation</h2>
-<pre class="prettyprint source"><code>npm install @caspingus/lt
-</code></pre>
-<h2 id="initialize">Initialize</h2>
-<p>Everything is written using ES6 modules. By default we use <code>LT</code> as a variable for
-the toolkit. If you want to change this, use named imports.</p>
-<p><code>LT</code> expects to be given the application instance in the <code>readyListener</code>, either Items API
-or Author API. From there you can call any method you want off the <code>LT</code> object.</p>
-<h2 id="items-api">Items API</h2>
-<pre class="prettyprint source"><code>// Declare and set your variable with the Items API LearnosityItems.init() method
-const itemsApp = LearnosityItems.init(signedConfigObject);
+        
+            
+
+    
+
+    <h4 class="name" id=".isLastItemInSection">isLastItemInSection<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
 
 
-// Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/assessment/index';
-LT.init(itemsApp);
 
 
-// Optionally call any extensions you might want
-LT.extensions.keyboardShortcuts.run();
+
+<p>Whether the current item is the last in this section.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
 
 
-// Optionally add to the global scope (for development)
-window.LT = LT;
-</code></pre>
-<h2 id="usage-examples">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/assessment/index';
-
-// See if the item was _fully_ attempted
-LT.isItemFullyAttempted();
-
-// See if we're on the last item in a section
-LT.isLastItemInSection();
-
-// See the question response object
-LT.questionResponse();
-</code></pre>
-<h2 id="author-api">Author API</h2>
-<pre class="prettyprint source"><code>// Declare and set your variable with the Author API LearnosityItems.init() method
-const authorApp = LearnosityAuthor.init(signedConfigObject);
 
 
-// Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/authoring/index';
-LT.init(authorApp);
 
 
-// Optionally add to the global scope (for development)
-window.LT = LT;
-</code></pre>
-<h2 id="usage-examples-1">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/authoring/index';
-
-// Injects a route hash to the URI so SPAs can load to a deep view from a full page refresh.
-LT.routingHash();
-</code></pre></article>
-    </section>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".section">section<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+
+    
+
+
+
+
+
+<p>The current section of the activity.</p>
+<p>Returns {} if sections aren't being used.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">object</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".sectionHasShuffledItems">sectionHasShuffledItems<span class="signature">()</span><span class="type-signature"> &rarr; {boolean}</span></h4>
+
+    
+
+
+
+
+
+<p>Whether items have been shuffled within this section.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">boolean</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".sectionIndex">sectionIndex<span class="signature">()</span><span class="type-signature"> &rarr; {number}</span></h4>
+
+    
+
+
+
+
+
+<p>The index of the current section, 1-based.</p>
+<p>Returns 0 if sections aren't being used.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">number</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".sectionItemPosition">sectionItemPosition<span class="signature">()</span><span class="type-signature"> &rarr; {number|null}</span></h4>
+
+    
+
+
+
+
+
+<p>The item position in the current section.</p>
+<p>Returns <code>null</code> if the activity isn't using sections.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">number</span>
+|
+
+<span class="param-type">null</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".sections">sections<span class="signature">()</span><span class="type-signature"> &rarr; {array}</span></h4>
+
+    
+
+
+
+
+
+<p>An array of section objects.</p>
+<p>Returns [] if sections aren't being used.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">array</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".totalItemsInSection">totalItemsInSection<span class="signature">()</span><span class="type-signature"> &rarr; {number|null}</span></h4>
+
+    
+
+
+
+
+
+<p>The total number of items in the current section.</p>
+<p>Returns <code>null</code> if sections aren't being used.</p>
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.1.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h5 class="h5-returns">Returns</h5>
+
+        
+
+
+<dl class="param-type">
+    <dt>
+        <span class="sr-only">Type</span>
+    </dt>
+    <dd>
+        (<span class="param-type">number</span>
+|
+
+<span class="param-type">null</span>)
+    </dd>
+</dl>
+
+
+    
+
+
+
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

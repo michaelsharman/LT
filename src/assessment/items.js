@@ -5,7 +5,7 @@ import * as sections from './sections';
 
 /**
  * Everything relating to the items in the activity.
- * @module Items
+ * @module Assessment/Items
  */
 
 /**
@@ -17,7 +17,7 @@ import * as sections from './sections';
  */
 export function dynamic() {
     const reference = itemReference();
-    return app.assessApp().item(reference).dynamic;
+    return app.assessApp().item(reference).dynamic || {};
 }
 
 /**

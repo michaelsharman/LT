@@ -1,10 +1,10 @@
 import * as app from './app';
 import * as items from './items';
-import * as logger from '../utils/logger';
+import logger from '../utils/logger';
 
 /**
  * Everything relating to the assessment player.
- * @module Player
+ * @module Assessment/Player
  */
 
 /**

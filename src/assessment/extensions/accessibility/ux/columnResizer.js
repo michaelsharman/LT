@@ -11,7 +11,7 @@ import * as item from '../../../items';
  * items with 2 columns) providing the ability for the end user
  * to resize the layout by dragging the element left or right.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/resize.gif" alt="" width="900"></p>
- * @module _Extensions/columnResizer
+ * @module _Extensions/Assessment/columnResizer
  */
 
 const state = {
@@ -25,7 +25,7 @@ const state = {
  * Sets up an item load listener to add a UI element allowing
  * users to drag to resize the column divider.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.columnResizer.run();

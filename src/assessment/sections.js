@@ -4,7 +4,7 @@ import * as items from './items';
 /**
  * Everything relating to any sections defined
  * in the activity.
- * @module Sections
+ * @module Assessment/Sections
  */
 
 /**

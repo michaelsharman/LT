@@ -2,7 +2,7 @@ import { handleEvent } from './diagnostics';
 
 /**
  * Learnosity Toolkit constructor module.
- * @module App
+ * @module Authoring/App
  */
 
 const state = {};

@@ -12,7 +12,7 @@ import * as Mousetrap from 'mousetrap';
  *
  * Enables keyboard shortcuts to perform an action against
  * a question or on the assessment player.
- * @module _Extensions/keyboardShortcuts
+ * @module _Extensions/Assessment/keyboardShortcuts
  */
 
 const state = {
@@ -76,7 +76,7 @@ const state = {
  * };
  * ```
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.keyboardShortcuts.run();

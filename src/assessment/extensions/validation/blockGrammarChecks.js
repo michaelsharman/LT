@@ -11,14 +11,14 @@ import * as app from '../../app';
  * and autocomplete for:
  *  - Plain text and Essay question types
  *  - Annotations API notepad and sticky notes
- * @module _Extensions/blockGrammarChecks
+ * @module _Extensions/Assessment/blockGrammarChecks
  */
 
 /**
  * Looks for relevent question types and annotations
  * to add grammar blocking attributes to.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.blockGrammarChecks.run();

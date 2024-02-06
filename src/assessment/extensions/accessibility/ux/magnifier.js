@@ -15,13 +15,13 @@ import * as items from '../../../items';
  *  - make movable via keyboard
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/magnifier.png" alt="" width="800"></p>
- * @module _Extensions/magnifier
+ * @module _Extensions/Assessment/magnifier
  */
 
 /**
  * Sets up the screen magnifier.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.magnifier.run();

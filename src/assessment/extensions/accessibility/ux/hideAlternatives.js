@@ -11,14 +11,14 @@ import * as shuffleSeed from 'shuffle-seed';
  * Hides a number of MCQ distractors/alternatives, that aren't
  * the correct answer, as an accommodation capability for
  * students wanting to avoid cognitive load.
- * @module _Extensions/hideAlternatives
+ * @module _Extensions/Assessment/hideAlternatives
  */
 
 /**
  * Sets up an item load listener to hide distractor(s).
  * @param {number=} num The number of MCQ options to hide. Defaults to `1`.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/src/assessment/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.hideAlternatives.run();

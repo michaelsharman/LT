@@ -1,11 +1,11 @@
 import * as app from './app';
 import * as sections from './sections';
-import * as logger from '../utils/logger';
+import logger from '../utils/logger';
 
 /**
  * Everything relating to the activity currently
  * loaded by Items API.
- * @module Activity
+ * @module Assessment/Activity
  */
 
 /**
@@ -19,7 +19,8 @@ export function activity() {
 }
 
 /**
- * The activity id used for this activity instance.
+ * The activity id used for this activity instance
+ * used to group related sessions.
  * @since 0.1.0
  * @returns {string}
  */
@@ -38,7 +39,7 @@ export function activityTemplateId() {
 }
 
 /**
- * The visible title from the configuration.
+ * The visible title from the configuration object.
  * @since 0.1.0
  * @returns {string}
  */
@@ -47,7 +48,7 @@ export function activityTitle() {
 }
 
 /**
- * The visible subtitle from the configuration.
+ * The visible subtitle from the configuration object.
  * @since 0.1.0
  * @returns {string}
  */
@@ -75,21 +76,18 @@ export function adaptiveType() {
  * @returns {object}
  */
 export function annotationsConfig() {
-    return hasAnnotations() ? activity().config.annotations : {};
+    return hasAnnotations() && activity()?.config?.annotations_api_init_options ? activity().config.annotations_api_init_options : {};
 }
 
 /**
- * The auto-save configuration object.
+ * The auto-save configuration object. Returns `true` or an
+ * object based on what was in the configuration.
  * @since 0.1.0
- * @returns {object}
+ * @returns {boolean | object}
  */
 export function autoSaveConfig() {
     const a = activity();
-    const autoSave =
-        a.hasOwnProperty('config') && a.config.hasOwnProperty('navigation') && a.config.navigation.hasOwnProperty('auto_save')
-            ? a.config.navigation.auto_save
-            : {};
-    return autoSave;
+    return a?.config?.navigation?.auto_save ? a.config.navigation.auto_save : {};
 }
 
 /**
@@ -108,7 +106,7 @@ export function hasActivityTemplate() {
  */
 export function hasAnnotations() {
     const a = activity();
-    return a.hasOwnProperty('config') && a.config.hasOwnProperty('annotations') && a.config.navigation.annotations !== false;
+    return Boolean(a?.config?.annotations === true || a?.config?.annotations_api_init_options);
 }
 
 /**
