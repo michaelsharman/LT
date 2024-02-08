@@ -14,7 +14,7 @@ import * as pdfjs from '../../../../vendor/pdfjs-dist/build/pdf.mjs';
  *
  * By enabling this extension, all PDFs will be rendered in the viewer.
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/renderpdf.gif" alt="" width="700"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/renderpdf.png" alt="" width="700"></p>
  * @module _Extensions/Assessment/renderPDF
  */
 
