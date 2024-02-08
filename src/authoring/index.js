@@ -5,6 +5,7 @@ import logger from '../utils/logger';
 
 import * as contentTabs from './extensions/ui/contentTabs/index';
 import * as languageTextDirection from './extensions/ui/languageTextDirection/index';
+import * as renderPDF from './extensions/ui/renderPDF/index';
 
 const utils = {
     utils: {
@@ -16,6 +17,7 @@ const extensions = {
     extensions: {
         contentTabs: { ...contentTabs },
         languageTextDirection: { ...languageTextDirection },
+        renderPDF: { ...renderPDF },
     },
 };
 

@@ -9,7 +9,7 @@ import logger from '../utils/logger';
 const state = {
     events: {
         broadcast: false,
-        listenFor: 'navigate',
+        listenFor: 'all',
     },
 };
 

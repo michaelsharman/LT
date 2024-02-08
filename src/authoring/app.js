@@ -37,6 +37,15 @@ export function appInstance() {
 }
 
 /**
+ * The Question Editor API app instance, or `null` if not loaded.
+ * @since 2.2.0
+ * @returns {object | null}
+ */
+export function questionEditorApp() {
+    return appInstance().editorApp() !== undefined ? appInstance().editorApp() : null;
+}
+
+/**
  * Sets up listeners on all events to pass to the diagnostics module.
  * Should not be called externally.
  * @since 2.0.0
@@ -46,5 +55,17 @@ function setupListeners() {
     // Sends all Author API events for handling.
     state.app.on('all', e => {
         handleEvent(e);
+    });
+    state.app.on('widgetedit:editor:ready', e => {
+        handleEvent('widgetedit:editor:ready');
+    });
+    state.app.on('widgetedit:widget:ready', e => {
+        handleEvent('widgetedit:widget:ready');
+    });
+    state.app.on('widgetedit:preview:changed', e => {
+        handleEvent('widgetedit:preview:changed');
+    });
+    state.app.on('widgetedit:widget:changed', e => {
+        handleEvent('widgetedit:widget:changed');
     });
 }

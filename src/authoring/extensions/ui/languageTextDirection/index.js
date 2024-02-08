@@ -102,7 +102,7 @@ import iconLanguageTextDirection from './assets/icon_language.svg';
  * }
  * ```
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/languagetextdirection.png" alt="" width="860"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/languagetextdirection.png" alt="" width="660"></p>
  * @module _Extensions/Authoring/languageTextDirection
  */
 

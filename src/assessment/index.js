@@ -16,6 +16,7 @@ import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortc
 import * as magnifier from './extensions/accessibility/ux/magnifier';
 import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix';
 import * as pageOverlay from './extensions/accessibility/ux/pageOverlay';
+import * as renderPDF from './extensions/ui/renderPDF/index';
 import * as resetResponse from './extensions/accessibility/ux/resetResponse';
 
 const utils = {
@@ -35,6 +36,7 @@ const extensions = {
         magnifier: { ...magnifier },
         mcqLabelPrefix: { ...mcqLabelPrefix },
         pageOverlay: { ...pageOverlay },
+        renderPDF: { ...renderPDF },
         resetResponse: { ...resetResponse },
     },
 };
