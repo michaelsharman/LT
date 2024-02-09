@@ -66,8 +66,8 @@
 
     <section class="readme usertext">
         <article><h1 id="lt---learnosity-toolkit">LT - Learnosity Toolkit</h1>
-<p>This is a utility library of helper modules useful if you're developing with Learnosity APIs.</p>
-<p>Modules are separated between Assessment (when using Items API) and Authoring (when using Author API).</p>
+<p>This is a utility library of helper modules and extensions that may be useful if you're developing with Learnosity APIs.</p>
+<p>Modules and extensions are separated between Assessment (when using Items API) and Authoring (when using Author API).</p>
 <p>See <a href="https://michaelsharman.github.io/LT/">documentation here</a>.</p>
 <h2 id="important">Important</h2>
 <p>This package is unofficial and wasn't created by Learnosity.</p>
@@ -80,6 +80,23 @@
 <h2 id="installation">Installation</h2>
 <pre class="prettyprint source"><code>npm install @caspingus/lt
 </code></pre>
+<h2 id="usage">Usage</h2>
+<p>You can import <code>core</code> or <code>index</code> into your project, from either the <code>src</code> or <code>dist</code> directories.</p>
+<h3 id="core-vs-index">core vs index</h3>
+<p><strong>Recommendation</strong> - use <code>core</code> in all production settings.</p>
+<p>The <code>core</code> module contains the LT toolkit only, no extensions. This is the smallest file size (around 3.5k gzipped) and may be all you need.</p>
+<p>If you want 1 or 2 extensions, you can import them manually to keep the overall file size down.</p>
+<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/assessment/core';
+import * as columnResizer from '@caspingus/lt/src/assessment/extensions/accessibility/ux/columnResizer';
+</code></pre>
+<p>The <code>index</code> module contains everything in <code>core</code> along with <em>all</em> extensions. This is the largest file size (~400k) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.</p>
+<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+</code></pre>
+<p>^^ Importing <code>index</code> puts all extensions in <code>LT.extensions</code>.</p>
+<h3 id="src-vs-dist">src vs dist</h3>
+<p><strong>Recommendation</strong> - use <code>src</code> and have your local build process bundle LT along with your application.</p>
+<p>As this library will be imported into existing projects, it's recommended to use the <code>src</code> folder and include LT as a part of your build process.</p>
+<p>In which case, import from the <code>src</code> folder and you're good to go. Another option is to import from <code>dist</code> which has been prod bundled by Webpack, but then you need to exclude this from your build process.</p>
 <h2 id="initialize">Initialize</h2>
 <p>Everything is written using ES6 modules. By default we use <code>LT</code> as a variable for
 the toolkit. If you want to change this, use named imports.</p>
@@ -91,19 +108,26 @@ const itemsApp = LearnosityItems.init(signedConfigObject);
 
 
 // Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/assessment/index';
+import { LT } from '@caspingus/lt/src/assessment/core';
+import * as renderPDF from '@caspingus/lt/src/assessment/extensions/ui/renderPDF/index';
+
 LT.init(itemsApp);
 
-
 // Optionally call any extensions you might want
-LT.extensions.keyboardShortcuts.run();
+renderPDF.run();
+
+// Put individual extensions in the LT object if that makes your life easier
+LT.extensions = {
+    renderPDF,
+};
+LT.extensions.renderPDF.run();
 
 
-// Optionally add to the global scope (for development)
+// Optionally add to the global scope (handy for development)
 window.LT = LT;
 </code></pre>
 <h2 id="usage-examples">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/assessment/core';
 
 // See if the item was _fully_ attempted
 LT.isItemFullyAttempted();
@@ -120,7 +144,7 @@ const authorApp = LearnosityAuthor.init(signedConfigObject);
 
 
 // Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/authoring/index';
+import { LT } from '@caspingus/lt/src/authoring/core';
 LT.init(authorApp);
 
 
@@ -128,7 +152,7 @@ LT.init(authorApp);
 window.LT = LT;
 </code></pre>
 <h2 id="usage-examples-1">Usage examples</h2>
-<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/authoring/index';
+<pre class="prettyprint source"><code>import { LT } from '@caspingus/lt/src/authoring/core';
 
 // Injects a route hash to the URI so SPAs can load to a deep view from a full page refresh.
 LT.routingHash();

@@ -1,5 +1,5 @@
 import * as app from './app';
-import logger from '../utils/logger';
+import logger from '../../utils/logger';
 
 /**
  * Diagnostic/metadata information for Author API.

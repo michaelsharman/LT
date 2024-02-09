@@ -1,6 +1,6 @@
 import * as app from './app';
 import * as sections from './sections';
-import logger from '../utils/logger';
+import logger from '../../utils/logger';
 
 /**
  * Everything relating to the activity currently

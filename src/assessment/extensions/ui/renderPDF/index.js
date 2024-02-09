@@ -1,5 +1,5 @@
-import * as app from '../../../app';
-import * as items from '../../../items';
+import * as app from '../../../core/app';
+import * as items from '../../../core/items';
 import * as pdfjs from '../../../../vendor/pdfjs-dist/build/pdf.mjs';
 
 /**

@@ -1,6 +1,6 @@
-import * as app from '../../../app';
-import * as items from '../../../items';
-import * as questions from '../../../questions';
+import * as app from '../../../core/app';
+import * as items from '../../../core/items';
+import * as questions from '../../../core/questions';
 import * as platform from 'platform-detect';
 import * as Mousetrap from 'mousetrap';
 

@@ -1,9 +1,9 @@
-import * as app from '../../app';
+import * as app from '../../core/app';
 import logger from '../../../utils/logger';
-import * as activity from '../../activity';
-import * as player from '../../player';
-import * as items from '../../items';
-import * as questions from '../../questions';
+import * as activity from '../../core/activity';
+import * as player from '../../core/player';
+import * as items from '../../core/items';
+import * as questions from '../../core/questions';
 
 /**
  * Extensions add specific functionality to Items API.

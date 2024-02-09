@@ -1,4 +1,4 @@
-import * as app from '../../../app';
+import * as app from '../../../core/app';
 
 /**
  * <h4 class="name">############ Incomplete - DO NOT USE</h4>
