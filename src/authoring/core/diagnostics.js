@@ -1,5 +1,5 @@
-import * as app from './app';
 import logger from '../../utils/logger';
+import packageJSON from '../../../package.json';
 
 /**
  * Diagnostic/metadata information for Author API.
@@ -37,6 +37,9 @@ export function diagnostics() {
     let v = window.LearnosityApp ? LearnosityApp.versions : {};
     let d = {
         apps: {},
+        LT: {
+            version: packageJSON.version,
+        },
         versions: v,
     };
     return d;
