@@ -20,10 +20,14 @@ import * as widgets from '../../../core/widgets';
  * 10
  * ```
  *
+ * If the value contains leading zeros, the input field
+ * will be styled with a red border.
+ *
  * @module _Extensions/Authoring/validation/essayMaxLength
  */
 
 const state = {
+    renderedCss: false,
     validTypes: ['longtextV2', 'plaintext'],
 };
 
@@ -37,6 +41,7 @@ const state = {
  * @since 2.4.0
  */
 export function run() {
+    if (!state.renderedCss) injectCSS();
     setupListeners();
 }
 
@@ -69,14 +74,48 @@ function setupListeners() {
  * Inspects the value of the passed DOM element. If the
  * value contains non-numeric values (including period)
  * those invalid characters are removed.
+ * If the value contains leading zero(s), the input field
+ * is styled with a red border indicating that this is
+ * an invalid value.
  * @since 2.4.0
  * @param {*} el
  * @ignore
  */
 function validateInput(el) {
     const regex = /^\d+$/;
+    const leadingZeroRegEx = /^(0|[1-9]\d*)$/;
+    const invalidClass = 'lt__input-invalid';
 
     if (!regex.test(el.value)) {
         el.value = el.value.replace(/[^0-9]/g, '');
     }
+
+    if (el.value.length && !leadingZeroRegEx.test(el.value)) {
+        el.classList.add(invalidClass);
+    } else {
+        el.classList.remove(invalidClass);
+    }
+}
+
+/**
+ * Injects the necessary CSS to the header
+ * @since 2.5.0
+ * @ignore
+ */
+function injectCSS() {
+    const elStyle = document.createElement('style');
+    const css = `
+/* Learnosity essay validate max length styles */
+.lrn-qe-ui .lrn-qe-form-group .lrn-qe-form-control.lt__input-invalid,
+.lrn-qe-ui .lrn-qe-form-group .lrn-qe-form-control.lt__input-invalid:active:not(:disabled):not([readonly]),
+.lrn-qe-ui .lrn-qe-form-group .lrn-qe-form-control.lt__input-invalid:focus:not(:disabled):not([readonly]) {
+    border-color: #ff0000;
+    outline: 0.0714285714em solid #dd002f;
+}
+`;
+
+    elStyle.textContent = css;
+    document.head.append(elStyle);
+
+    state.renderedCss = true;
 }
