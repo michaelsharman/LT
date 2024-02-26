@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>_Extensions/Assessment/blockGrammarChecks - Learnosity Toolkit - Docs</title>
+    <title>_Extensions/Authoring/validation/essayMaxLength - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">_Extensions/Assessment/blockGrammarChecks</h1>
+    <h1 class="page-title">_Extensions/Authoring/validation/essayMaxLength</h1>
     
 
     
@@ -65,16 +65,17 @@
             
 
 
-<p>Extensions add specific functionality to Items API.
+<p>Extensions add specific functionality to Learnosity APIs.
 They rely on modules within LT being available.</p>
 <p>--</p>
-<p>This script blocks the Grammarly plugin and
-browser spellcheck, autocorrect, autocapitalize
-and autocomplete for:</p>
-<ul>
-<li>Plain text and Essay question types</li>
-<li>Annotations API notepad and sticky notes</li>
-</ul>
+<p>Adds custom validation to ensure that only numbers are added
+to the <code>max_length</code> field for the listed types.</p>
+<p>The extension will strip any invalid characters. Eg:</p>
+<pre class="prettyprint source"><code>10.5
+</code></pre>
+<p>Will be changed to:</p>
+<pre class="prettyprint source"><code>10
+</code></pre>
 
 <dl class="details">
     
@@ -152,8 +153,7 @@ and autocomplete for:</p>
 
 
 
-<p>Looks for relevent question types and annotations
-to add grammar blocking attributes to.</p>
+<p>Extension constructor.</p>
 
 <dl class="details">
     
@@ -164,7 +164,7 @@ to add grammar blocking attributes to.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.3.0</dd>
+    <dd class="tag-since">2.4.0</dd>
     
 
     
@@ -206,10 +206,10 @@ to add grammar blocking attributes to.</p>
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/authoring/index';
 
-LT.init(itemsApp); // Set up LT with the Items API application instance variable
-LT.extensions.blockGrammarChecks.run();</code></pre>
+LT.init(authorApp); // Set up LT with the Author API application instance variable
+LT.extensions.essayMaxLength.run();</code></pre>
 
 
 

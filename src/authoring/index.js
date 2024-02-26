@@ -10,10 +10,12 @@ import { LT as core } from './core';
 import * as contentTabs from './extensions/ui/contentTabs/index';
 import * as languageTextDirection from './extensions/ui/languageTextDirection/index';
 import * as renderPDF from './extensions/ui/renderPDF/index';
+import * as essayMaxLength from './extensions/validation/essayMaxLength/index';
 
 const extensions = {
     extensions: {
         contentTabs: { ...contentTabs },
+        essayMaxLength: { ...essayMaxLength },
         languageTextDirection: { ...languageTextDirection },
         renderPDF: { ...renderPDF },
     },
