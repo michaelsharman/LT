@@ -91,6 +91,16 @@ export function autoSaveConfig() {
 }
 
 /**
+ * The current elapsed time for the session. Returns whether
+ * the timer is visible or not.
+ * @since 2.6.0
+ * @returns {number}
+ */
+export function elapsedTime() {
+    return app.appInstance().getTime();
+}
+
+/**
  * Whether this activity was loaded from an activity template.
  * @since 0.1.0
  * @returns {boolean}
@@ -217,6 +227,16 @@ export function itemPool() {
 }
 
 /**
+ * The maximum time allowed for this session. If `0`, it
+ * means unlimited time.
+ * @since 2.6.0
+ * @returns {number}
+ */
+export function maxTime() {
+    return activity()?.config?.time?.max_time ? activity().config.time.max_time : 0;
+}
+
+/**
  * Which UI region the session was set up with. Values include:
  * - `main`
  * - `horizontal`
@@ -271,6 +291,17 @@ export function state() {
             break;
     }
     return s;
+}
+
+/**
+ * The time remaining in the session. If `max_time` hasn't
+ * been set, the session is unlimited, so this returns `null`.
+ * @since 2.6.0
+ * @returns {number|null}
+ */
+export function timeRemaining() {
+    if (maxTime() === 0) return null;
+    return maxTime() - elapsedTime();
 }
 
 /**
