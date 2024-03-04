@@ -18,6 +18,7 @@ import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix';
 import * as pageOverlay from './extensions/accessibility/ux/pageOverlay';
 import * as renderPDF from './extensions/ui/renderPDF/index';
 import * as resetResponse from './extensions/accessibility/ux/resetResponse';
+import * as toggleTimer from './extensions/accessibility/ux/toggleTimer';
 
 const extensions = {
     extensions: {
@@ -32,6 +33,7 @@ const extensions = {
         pageOverlay: { ...pageOverlay },
         renderPDF: { ...renderPDF },
         resetResponse: { ...resetResponse },
+        toggleTimer: { ...toggleTimer },
     },
 };
 
