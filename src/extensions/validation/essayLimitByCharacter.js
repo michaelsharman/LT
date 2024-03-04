@@ -277,14 +277,15 @@ function setQuestionListeners() {
 
             // Check on load for existing responses
             if (activity.isResuming()) {
-                checkLimit(questionInstance);
+                checkLimit(questionInstance, true, value.type !== 'plaintext');
             }
 
             questionInstance.on('changed', () => {
-                checkLimit(questionInstance);
+                checkLimit(questionInstance, true, value.type !== 'plaintext');
             });
         }
     }
+    window.essayQuestions = essayQuestions;
 }
 
 /**
@@ -296,10 +297,13 @@ function setQuestionListeners() {
  * @since 0.10.0
  * @ignore
  */
-function checkLimit(questionInstance, setUI = true) {
+function checkLimit(questionInstance, setUI = true, shouldStripHTML = true) {
     const maxLength = questionInstance.getQuestion().max_length;
     const rawResponse = questionInstance.getResponse()?.value ? questionInstance.getResponse()?.value : '';
-    const response = state.includeSpaces ? stripHtml(rawResponse) : stripSpaces(stripHtml(rawResponse));
+    console.log('rawResponse:', rawResponse);
+
+    let response = shouldStripHTML ? stripHtml(rawResponse) : rawResponse;
+    response = state.includeSpaces ? response : stripSpaces(response);
     const strLength = response.length;
     let validLength = true;
 
