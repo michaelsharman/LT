@@ -572,8 +572,13 @@ function submit() {
  * @ignore
  */
 function stripHtml(s) {
-    // change &nbsp; to space to avoid counting it as a character
-    s = s.replace(/&nbsp;/g, ' ');
+    // Replace HTML entities and specific tags with spaces or newlines
+    s = s.replace(/&nbsp;/g, ' ') // 1 space
+        .replace(/<\/p>/g, '  ') // 2 spaces
+        .replace(/<br>/g, ' ') // 1 space
+        .replace(/<div>/g, ' ') // 1 space
+
+    // Remove remaining HTML tags
     return s.replace(/<[^>]*>/g, '').trim();
 }
 
