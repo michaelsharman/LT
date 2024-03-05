@@ -418,7 +418,7 @@ function checkValidResponses(e) {
 
     for (const q in sessionQuestions) {
         if (state.validTypes.includes(sessionQuestions[q].type)) {
-            if (!sessionQuestions[q]?.submit_over_limit && !checkLimit(questions.questionInstance(q), false)) {
+            if (!sessionQuestions[q]?.submit_over_limit && !checkLimit(questions.questionInstance(q), false, sessionQuestions[q].type !== 'plaintext')) {
                 invalidResponseIds.push(q);
             }
         }
