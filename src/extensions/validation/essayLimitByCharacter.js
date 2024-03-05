@@ -285,7 +285,6 @@ function setQuestionListeners() {
             });
         }
     }
-    window.essayQuestions = essayQuestions;
 }
 
 /**
@@ -585,7 +584,14 @@ function stripHtml(s) {
         .replace(/<li>/g, ' ') // 1 space for list item
 
     // Remove remaining HTML tags
-    return s.replace(/<[^>]*>/g, '').trim();
+    s = s.replace(/<[^>]*>/g, '').trim();
+
+    // Decode HTML entities
+    s = s.replace(/&lt;/g, '<')
+        .replace(/&gt;/g, '>')
+        .replace(/&amp;/g, '&');
+
+    return s;
 }
 
 /**
