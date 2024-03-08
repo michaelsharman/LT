@@ -11,7 +11,7 @@ import * as shuffleSeed from 'shuffle-seed';
  * Hides a number of MCQ distractors/alternatives, that aren't
  * the correct answer, as an accommodation capability for
  * students wanting to avoid cognitive load.
- * @module _Extensions/Assessment/hideAlternatives
+ * @module Extensions/Assessment/hideAlternatives
  */
 
 /**

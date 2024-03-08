@@ -10,7 +10,7 @@ import * as activity from '../../../core/activity';
  * Listens for the item load event and appends
  * ` of {totalItems}` to the aria-label for the
  * previous and next buttons.
- * @module _Extensions/Assessment/ariaCountOnNav
+ * @module Extensions/Assessment/ariaCountOnNav
  */
 
 /**

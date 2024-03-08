@@ -11,7 +11,7 @@ import * as app from '../../core/app';
  * and autocomplete for:
  *  - Plain text and Essay question types
  *  - Annotations API notepad and sticky notes
- * @module _Extensions/Assessment/blockGrammarChecks
+ * @module Extensions/Assessment/blockGrammarChecks
  */
 
 /**

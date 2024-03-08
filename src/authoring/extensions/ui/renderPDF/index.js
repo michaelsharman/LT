@@ -11,7 +11,7 @@ import * as app from '../../../core/app';
  * Adds the ability for authors to choose whether uploaded (PDF)
  * resources should be rendered to the learner on the front-end.
  *
- * @module _Extensions/Authoring/renderPDF
+ * @module Extensions/Authoring/renderPDF
  */
 
 const state = {

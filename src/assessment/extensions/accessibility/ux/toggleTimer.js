@@ -16,7 +16,7 @@ import logger from '../../../../utils/logger';
  * clock icon. It's a future TODO to rectify this extension
  * in the narrowest layout.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/toggletimer.gif" alt="Animated gif showing the toggle timer feature" width="900"></p>
- * @module _Extensions/Assessment/toggleTimer
+ * @module Extensions/Assessment/toggleTimer
  */
 
 const state = {

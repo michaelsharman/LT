@@ -103,7 +103,7 @@ import iconLanguageTextDirection from './assets/icon_language.svg';
  * ```
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/languagetextdirection.png" alt="" width="660"></p>
- * @module _Extensions/Authoring/languageTextDirection
+ * @module Extensions/Authoring/languageTextDirection
  */
 
 const state = {

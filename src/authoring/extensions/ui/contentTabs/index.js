@@ -107,7 +107,7 @@ import iconContentTabs from './assets/icon_tabs.svg';
  * ```
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/contenttabs1.png" alt="" width="660"></p>
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/contenttabs2.png" alt="" width="660"></p>
- * @module _Extensions/Authoring/contentTabs
+ * @module Extensions/Authoring/contentTabs
  */
 
 const state = {

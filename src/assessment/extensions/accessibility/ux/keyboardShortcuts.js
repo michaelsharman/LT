@@ -12,7 +12,7 @@ import * as Mousetrap from 'mousetrap';
  *
  * Enables keyboard shortcuts to perform an action against
  * a question or on the assessment player.
- * @module _Extensions/Assessment/keyboardShortcuts
+ * @module Extensions/Assessment/keyboardShortcuts
  */
 
 const state = {

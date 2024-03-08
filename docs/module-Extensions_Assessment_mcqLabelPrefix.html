@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Authoring/Widgets - Learnosity Toolkit - Docs</title>
+    <title>Extensions/Assessment/mcqLabelPrefix - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Authoring/Widgets</h1>
+    <h1 class="page-title">Extensions/Assessment/mcqLabelPrefix</h1>
     
 
     
@@ -65,7 +65,19 @@
             
 
 
-<p>Everything relating to a widget being created/edited.</p>
+<p>Extensions add specific functionality to Items API.
+They rely on modules within LT being available.</p>
+<p>--</p>
+<p>Adds a prefix to all multiple-choice labels (correct
+answer and distractors).</p>
+<p>Ignores block UI and radio button under option.</p>
+<p>Supports</p>
+<ul>
+<li>multi-select MCQs</li>
+<li>shuffle responses</li>
+<li>columns</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/mcqprefix.png" alt="" width="660"></p>
 
 <dl class="details">
     
@@ -135,7 +147,7 @@
 
     
 
-    <h4 class="name" id=".type">type<span class="signature">()</span><span class="type-signature"> &rarr; {string|undefined}</span></h4>
+    <h4 class="name" id=".run">run<span class="signature">(mask, suffix, prefixes)</span><span class="type-signature"></span></h4>
 
     
 
@@ -143,8 +155,8 @@
 
 
 
-<p>The <code>type</code> of widget currently being edited. Returns
-<code>undefined</code> if not on the widget edit screen.</p>
+<p>Sets up an item load listener to add a prefix to all
+MCQ possible response labels.</p>
 
 <dl class="details">
     
@@ -155,7 +167,7 @@
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">2.4.0</dd>
+    <dd class="tag-since">0.6.0</dd>
     
 
     
@@ -195,41 +207,128 @@
 
 
 
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+
+LT.init(itemsApp); // Set up LT with the Items API application instance variable
+LT.extensions.mcqLabelPrefix.run();</code></pre>
 
 
 
 
+    <h5 class="h5-parameters">Parameters:</h5>
+    
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns</h5>
+        <th>Type</th>
 
         
 
+        
 
-<dl class="param-type">
-    <dt>
-        <span class="sr-only">Type</span>
-    </dt>
-    <dd>
-        (<span class="param-type">string</span>
-|
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-<span class="param-type">undefined</span>)
-    </dd>
-</dl>
+    <tbody>
+    
 
+        <tr>
+            
+                <td class="name"><code>mask</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Which mask pattern to use. Supports <code>upperAlpha</code> (default), <code>lowerAlpha</code>, and <code>numeric</code>.</p></td>
+        </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>suffix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Any suffix you want added to the label prefix. Defaults to <code>.</code>.</p></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prefixes</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">array</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Array of custom string prefixes to use.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

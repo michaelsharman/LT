@@ -19,6 +19,7 @@ import * as pageOverlay from './extensions/accessibility/ux/pageOverlay';
 import * as renderPDF from './extensions/ui/renderPDF/index';
 import * as resetResponse from './extensions/accessibility/ux/resetResponse';
 import * as toggleTimer from './extensions/accessibility/ux/toggleTimer';
+import * as whiteNoise from './extensions/accessibility/ux/whiteNoise/index';
 
 const extensions = {
     extensions: {
@@ -34,6 +35,7 @@ const extensions = {
         renderPDF: { ...renderPDF },
         resetResponse: { ...resetResponse },
         toggleTimer: { ...toggleTimer },
+        whiteNoise: { ...whiteNoise },
     },
 };
 

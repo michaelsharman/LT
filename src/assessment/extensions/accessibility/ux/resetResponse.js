@@ -17,7 +17,7 @@ import * as question from '../../../core/questions';
  * See the `type` property for each type here https://reference.learnosity.com/questions-api/questiontypes
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/resetresponse.gif" alt="" width="600"></p>
- * @module _Extensions/Assessment/resetResponse
+ * @module Extensions/Assessment/resetResponse
  */
 
 const state = {

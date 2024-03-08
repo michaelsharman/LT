@@ -19,7 +19,7 @@ import * as questions from '../../core/questions';
  * treated as characters to validate length.
  *
  * Works with `longtextV2` and `plaintext` question types.
- * @module _Extensions/Assessment/essayLimitByCharacter
+ * @module Extensions/Assessment/essayLimitByCharacter
  */
 
 const state = {
