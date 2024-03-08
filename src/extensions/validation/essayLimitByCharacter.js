@@ -297,7 +297,7 @@ function setQuestionListeners() {
  * @ignore
  */
 function checkLimit(questionInstance, setUI = true, shouldStripHTML = true) {
-    const maxLength = questionInstance.getQuestion().max_length;
+    let maxLength = questionInstance.getQuestion().max_length;
     const rawResponse = questionInstance.getResponse()?.value ? questionInstance.getResponse()?.value : '';
 
     let response = shouldStripHTML ? stripHtml(rawResponse) : rawResponse;
@@ -305,10 +305,12 @@ function checkLimit(questionInstance, setUI = true, shouldStripHTML = true) {
     const strLength = response.length;
     let validLength = true;
 
-    if (maxLength) {
-        if (strLength > maxLength) {
-            validLength = false;
-        }
+    if (!maxLength || maxLength > 10000) {
+        maxLength = 10000; // auto set max length if not set or over 10,000
+    }
+
+    if (strLength > maxLength) {
+        validLength = false;
     }
 
     if (setUI) {
