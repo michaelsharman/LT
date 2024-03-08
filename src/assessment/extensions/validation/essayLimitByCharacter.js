@@ -4,6 +4,7 @@ import * as activity from '../../core/activity';
 import * as player from '../../core/player';
 import * as items from '../../core/items';
 import * as questions from '../../core/questions';
+import * as entities from 'entities';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -263,11 +264,20 @@ function setQuestionListeners() {
  * @ignore
  */
 function checkLimit(questionInstance, setUI = true) {
+    const type = questionInstance.getQuestion().type;
     const maxLength = questionInstance.getQuestion().max_length;
     const rawResponse = questionInstance.getResponse()?.value ? questionInstance.getResponse()?.value : '';
-    const response = state.includeSpaces ? stripHtml(rawResponse) : stripSpaces(stripHtml(rawResponse));
-    const strLength = response.length;
     let validLength = true;
+    let response;
+    let strLength;
+
+    if (type === 'plaintext') {
+        response = state.includeSpaces ? rawResponse : stripSpaces(rawResponse);
+        strLength = response.length;
+    } else {
+        response = state.includeSpaces ? stripHtml(rawResponse) : stripSpaces(stripHtml(rawResponse));
+        strLength = entities.decodeHTML(response).length;
+    }
 
     if (maxLength) {
         if (strLength > maxLength) {
