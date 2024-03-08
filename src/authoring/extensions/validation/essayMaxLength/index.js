@@ -51,22 +51,18 @@ export function run() {
  * @ignore
  */
 function setupListeners() {
-    app.appInstance().on('widgetedit:editor:ready', () => {
-        // Race condition with the event firing and the instance
-        // actually being loaded
-        setTimeout(() => {
-            const widgetType = widgets.type();
+    app.appInstance().on('widgetedit:widget:ready', () => {
+        const widgetType = widgets.type();
 
-            if (state.validTypes.includes(widgetType)) {
-                const elMaxLength = document.querySelector('[data-lrn-qe-input-path="max_length"] input.lrn-qe-input');
+        if (state.validTypes.includes(widgetType)) {
+            const elMaxLength = document.querySelector('[data-lrn-qe-input-path="max_length"] input.lrn-qe-input');
 
-                if (elMaxLength) {
-                    elMaxLength.addEventListener('input', () => {
-                        validateInput(elMaxLength);
-                    });
-                }
+            if (elMaxLength) {
+                elMaxLength.addEventListener('input', () => {
+                    validateInput(elMaxLength);
+                });
             }
-        }, 500);
+        }
     });
 }
 
