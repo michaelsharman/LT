@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Authoring/Widgets - Learnosity Toolkit - Docs</title>
+    <title>Extensions/Assessment/ariaCountOnNav - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Authoring/Widgets</h1>
+    <h1 class="page-title">Extensions/Assessment/ariaCountOnNav</h1>
     
 
     
@@ -65,7 +65,12 @@
             
 
 
-<p>Everything relating to a widget being created/edited.</p>
+<p>Extensions add specific functionality to Items API.
+They rely on modules within LT being available.</p>
+<p>--</p>
+<p>Listens for the item load event and appends
+<code> of {totalItems}</code> to the aria-label for the
+previous and next buttons.</p>
 
 <dl class="details">
     
@@ -135,7 +140,7 @@
 
     
 
-    <h4 class="name" id=".type">type<span class="signature">()</span><span class="type-signature"> &rarr; {string|undefined}</span></h4>
+    <h4 class="name" id=".run">run<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -143,8 +148,7 @@
 
 
 
-<p>The <code>type</code> of widget currently being edited. Returns
-<code>undefined</code> if not on the widget edit screen.</p>
+<p>Executes on item load to add custom label.</p>
 
 <dl class="details">
     
@@ -155,7 +159,7 @@
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">2.4.0</dd>
+    <dd class="tag-since">0.3.0</dd>
     
 
     
@@ -195,41 +199,30 @@
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        <span class="sr-only">Type</span>
-    </dt>
-    <dd>
-        (<span class="param-type">string</span>
-|
-
-<span class="param-type">undefined</span>)
-    </dd>
-</dl>
-
-
+    <h5 class="h5-examples">Example</h5>
     
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+
+LT.init(itemsApp); // Set up LT with the Items API application instance variable
+LT.extensions.ariaCountOnNav.run();</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

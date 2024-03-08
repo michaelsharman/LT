@@ -8,7 +8,7 @@ import * as app from '../../app';
  *
  * Adds the ability for authors to create tags (type:tag) if
  * they don't yet exist in the item bank.
- * @module _Extensions/Authoring/createTags
+ * @module Extensions/Authoring/createTags
  * @ignore
  */
 

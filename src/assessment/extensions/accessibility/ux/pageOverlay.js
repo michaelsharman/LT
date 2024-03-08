@@ -9,7 +9,7 @@
  * high contrast, or blue light.
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/pageoverlay.png" alt="" width="860"></p>
- * @module _Extensions/Assessment/pageOverlay
+ * @module Extensions/Assessment/pageOverlay
  */
 
 const state = {

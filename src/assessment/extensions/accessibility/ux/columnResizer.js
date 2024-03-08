@@ -11,7 +11,7 @@ import * as item from '../../../core/items';
  * items with 2 columns) providing the ability for the end user
  * to resize the layout by dragging the element left or right.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/resize.gif" alt="" width="900"></p>
- * @module _Extensions/Assessment/columnResizer
+ * @module Extensions/Assessment/columnResizer
  */
 
 const state = {

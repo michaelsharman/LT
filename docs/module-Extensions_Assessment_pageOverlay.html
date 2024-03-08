@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Authoring/Widgets - Learnosity Toolkit - Docs</title>
+    <title>Extensions/Assessment/pageOverlay - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Authoring/Widgets</h1>
+    <h1 class="page-title">Extensions/Assessment/pageOverlay</h1>
     
 
     
@@ -65,7 +65,13 @@
             
 
 
-<p>Everything relating to a widget being created/edited.</p>
+<p>Extensions add specific functionality to Items API.
+They rely on modules within LT being available.</p>
+<p>--</p>
+<p>Adds a semi-transparent overlay on top of the entire page.
+This is for users who have sensitivity to bright light,
+high contrast, or blue light.</p>
+<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/pageoverlay.png" alt="" width="860"></p>
 
 <dl class="details">
     
@@ -135,7 +141,7 @@
 
     
 
-    <h4 class="name" id=".type">type<span class="signature">()</span><span class="type-signature"> &rarr; {string|undefined}</span></h4>
+    <h4 class="name" id=".halt">halt<span class="signature">()</span><span class="type-signature"></span></h4>
 
     
 
@@ -143,8 +149,7 @@
 
 
 
-<p>The <code>type</code> of widget currently being edited. Returns
-<code>undefined</code> if not on the widget edit screen.</p>
+<p>Turns off the page overlay.</p>
 
 <dl class="details">
     
@@ -155,7 +160,7 @@
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">2.4.0</dd>
+    <dd class="tag-since">0.9.0</dd>
     
 
     
@@ -211,25 +216,169 @@
 
 
 
-<h5 class="h5-returns">Returns</h5>
+
+
+
+        
+            
+
+    
+
+    <h4 class="name" id=".run">run<span class="signature">(customColor, customZIndex)</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+
+
+<dl class="details">
+    
+
+    
+
+    
+
+    
+    <dt class="tag-since"><h5>Since</h5></dt>
+    <dd class="tag-since">0.9.0</dd>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+
+LT.init(itemsApp); // Set up LT with the Items API application instance variable
+LT.extensions.pageOverlay.run();</code></pre>
+
+
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
 
         
 
+        
 
-<dl class="param-type">
-    <dt>
-        <span class="sr-only">Type</span>
-    </dt>
-    <dd>
-        (<span class="param-type">string</span>
-|
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-<span class="param-type">undefined</span>)
-    </dd>
-</dl>
+    <tbody>
+    
 
+        <tr>
+            
+                <td class="name"><code>customColor</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A custom color value to use for the overlay. Recommend rgba. Defaults to rgba(250, 170, 140, 0.5)</p></td>
+        </tr>
 
     
+
+        <tr>
+            
+                <td class="name"><code>customZIndex</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>A custom z-index value to use for the overlay. Defaults to 99999.</p></td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Authoring/Widgets - Learnosity Toolkit - Docs</title>
+    <title>Extensions/Assessment/keyboardShortcuts - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Authoring/Widgets</h1>
+    <h1 class="page-title">Extensions/Assessment/keyboardShortcuts</h1>
     
 
     
@@ -65,7 +65,11 @@
             
 
 
-<p>Everything relating to a widget being created/edited.</p>
+<p>Extensions add specific functionality to Items API.
+They rely on modules within LT being available.</p>
+<p>--</p>
+<p>Enables keyboard shortcuts to perform an action against
+a question or on the assessment player.</p>
 
 <dl class="details">
     
@@ -135,7 +139,7 @@
 
     
 
-    <h4 class="name" id=".type">type<span class="signature">()</span><span class="type-signature"> &rarr; {string|undefined}</span></h4>
+    <h4 class="name" id=".run">run<span class="signature">(map<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -143,8 +147,17 @@
 
 
 
-<p>The <code>type</code> of widget currently being edited. Returns
-<code>undefined</code> if not on the widget edit screen.</p>
+<p>Sets up listeners to enable item or player keyboard shortcuts.</p>
+<p>Supports:</p>
+<ul>
+<li>setting an MCQ response on items with a single MC questions, not multi-part.</li>
+<li>enabling answer masking mode.</li>
+<li>setting a mask on MCQ possible responses.</li>
+<li>toggle flagging of an item.</li>
+</ul>
+<p>All listeners will fire when you call <code>run()</code>. Pass a custom
+map if you want to remove any shortcuts.</p>
+<p>See example section below for bindings.</p>
 
 <dl class="details">
     
@@ -155,7 +168,7 @@
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">2.4.0</dd>
+    <dd class="tag-since">0.4.0</dd>
     
 
     
@@ -195,41 +208,133 @@
 
 
 
+    <h5 class="h5-examples">Example</h5>
+    
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+
+LT.init(itemsApp); // Set up LT with the Items API application instance variable
+LT.extensions.keyboardShortcuts.run();</code></pre>
 
 
 
 
+    <h5 class="h5-parameters">Parameters:</h5>
+    
 
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
 
+        <th>Type</th>
 
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns</h5>
+        
+        <th>Attributes</th>
+        
 
         
 
+        <th class="last">Description</th>
+    </tr>
+    </thead>
 
-<dl class="param-type">
-    <dt>
-        <span class="sr-only">Type</span>
-    </dt>
-    <dd>
-        (<span class="param-type">string</span>
-|
+    <tbody>
+    
 
-<span class="param-type">undefined</span>)
-    </dd>
-</dl>
+        <tr>
+            
+                <td class="name"><code>map</code></td>
+            
 
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>A map of keyboard shortcut options.</p>
+<pre class="prettyprint source"><code>// Default configuration:
+{
+    global: [
+        {
+            bindings: {
+                chromeos: ['ctrl+shift+v'],
+                macos: ['command+shift+v'],
+                windows: ['ctrl+shift+v'],
+            },
+            type: 'item.flag',
+        },
+        {
+            bindings: {
+                chromeos: ['ctrl+alt+0'],
+                macos: ['command+option+0'],
+                windows: ['ctrl+alt+0'],
+            },
+            type: 'masking.enable',
+        },
+    ],
+    item: [
+        {
+            bindings: {
+                chromeos: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
+                macos: ['command+ctrl+1', 'command+ctrl+2', 'command+ctrl+3', 'command+ctrl+4', 'command+ctrl+5', 'command+ctrl+6'],
+                windows: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
+            },
+            restrictTo: ['mcq'],
+            type: 'response.set',
+        },
+        {
+            bindings: {
+                chromeos: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
+                macos: ['command+option+1', 'command+option+2', 'command+option+3', 'command+option+4', 'command+option+5', 'command+option+6'],
+                windows: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
+            },
+            type: 'response.mask',
+        },
+    ],
+};
+</code></pre></td>
+        </tr>
 
     
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

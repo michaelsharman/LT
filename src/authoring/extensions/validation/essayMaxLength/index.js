@@ -23,7 +23,7 @@ import * as widgets from '../../../core/widgets';
  * If the value contains leading zeros, the input field
  * will be styled with a red border.
  *
- * @module _Extensions/Authoring/validation/essayMaxLength
+ * @module Extensions/Authoring/essayMaxLength
  */
 
 const state = {

@@ -19,7 +19,7 @@ import * as question from '../../../core/questions';
  *  - columns
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/mcqprefix.png" alt="" width="660"></p>
- * @module _Extensions/Assessment/mcqLabelPrefix
+ * @module Extensions/Assessment/mcqLabelPrefix
  */
 
 const state = {

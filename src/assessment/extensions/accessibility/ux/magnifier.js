@@ -15,7 +15,7 @@ import * as items from '../../../core/items';
  *  - make movable via keyboard
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/magnifier.png" alt="" width="800"></p>
- * @module _Extensions/Assessment/magnifier
+ * @module Extensions/Assessment/magnifier
  */
 
 /**
