@@ -51,7 +51,7 @@ export function run() {
  * @ignore
  */
 function setupListeners() {
-    app.appInstance().on('widgetedit:editor:ready', () => {
+    app.appInstance().on('widgetedit:widget:ready', () => {
         // Race condition with the event firing and the instance
         // actually being loaded
         setTimeout(() => {
@@ -85,6 +85,9 @@ function validateInput(el) {
     const regex = /^\d+$/;
     const leadingZeroRegEx = /^(0|[1-9]\d*)$/;
     const invalidClass = 'lt__input-invalid';
+
+    // Remove any leading zeros
+    el.value = el.value.replace(/^0+/, '');
 
     if (!regex.test(el.value)) {
         el.value = el.value.replace(/[^0-9]/g, '');
