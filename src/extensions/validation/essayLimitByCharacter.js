@@ -578,7 +578,7 @@ function submit() {
 function stripHtml(s) {
     // Replace HTML entities and specific tags with spaces or newlines
     s = s.replace(/&nbsp;/g, ' ') // 1 space for non-breaking space
-        .replace(/<br></g, '<') // remove line break when it's the met in the middle of a tag (SPECIAL CASE)
+        // .replace(/<br></g, '<') // remove line break when it's the met in the middle of a tag (SPECIAL CASE)
         .replace(/<\/p>/g, '  ') // 2 spaces for new paragraph
         .replace(/<br>/g, ' ') // 1 space for line break
         .replace(/<div>/g, ' ') // 1 space for div
