@@ -300,7 +300,7 @@ function checkLimit(questionInstance, setUI = true, shouldStripHTML = true) {
     let maxLength = questionInstance.getQuestion().max_length;
     const rawResponse = questionInstance.getResponse()?.value ? questionInstance.getResponse()?.value : '';
 
-    let response = shouldStripHTML ? stripHtml(rawResponse) : rawResponse;
+    let response = shouldStripHTML ? stripHtml(rawResponse) : rawResponse.trim();
     response = state.includeSpaces ? response : stripSpaces(response);
     const strLength = response.length;
     let validLength = true;
