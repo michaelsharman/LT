@@ -1,4 +1,4 @@
-import iconContentTabs from './assets/icon_tabs.svg';
+import iconContentTabs from './assets/images/icon_tabs.svg';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.

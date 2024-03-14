@@ -1,4 +1,5 @@
 import * as ssmlEditor from 'ssml-editor/src/index';
+import iconSsmlEditor from './assets/images/icon_tts.svg';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -22,7 +23,7 @@ import * as ssmlEditor from 'ssml-editor/src/index';
  *                         "customButtons": [
  *                              {
  *                                  "func": "launchSsmlEditor",
- *                                  "icon": "/path/to/images/text-to-speech.svg",
+ *                                  "icon": "/path/to/images/dist/3d863d117b67171f55e8.svg",
  *                                  "label": "Add SSML",
  *                                  "name": "addSsml",
  *                                  "attributes": ["content","stimulus","template","options"]
