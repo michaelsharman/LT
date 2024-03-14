@@ -11,6 +11,7 @@ import * as contentTabs from './extensions/ui/contentTabs/index';
 import * as languageTextDirection from './extensions/ui/languageTextDirection/index';
 import * as renderPDF from './extensions/ui/renderPDF/index';
 import * as essayMaxLength from './extensions/validation/essayMaxLength/index';
+import * as ssmlEditor from './extensions/ui/ssmlEditor/index';
 
 const extensions = {
     extensions: {
@@ -18,6 +19,7 @@ const extensions = {
         essayMaxLength: { ...essayMaxLength },
         languageTextDirection: { ...languageTextDirection },
         renderPDF: { ...renderPDF },
+        ssmlEditor: { ...ssmlEditor },
     },
 };
 

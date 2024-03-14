@@ -20,8 +20,10 @@
     "homepage": "https://michaelsharman.github.io/LT/",
     "devDependencies": {
         "copy-webpack-plugin": "^12.0.2",
+        "css-loader": "^6.10.0",
         "docdash": "^2.0.2",
         "jest": "^29.6.4",
+        "style-loader": "^3.3.4",
         "svg-inline-loader": "^0.8.2",
         "webpack": "^5.59.1",
         "webpack-cli": "^4.9.1"
@@ -40,6 +42,7 @@
         "howler": "^2.2.4",
         "mousetrap": "^1.6.5",
         "platform-detect": "^3.0.1",
-        "shuffle-seed": "^1.1.6"
+        "shuffle-seed": "^1.1.6",
+        "ssml-editor": "github:michaelsharman/ssml-editor"
     }
 }
