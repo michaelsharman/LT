@@ -576,18 +576,12 @@ function submit() {
  * @ignore
  */
 function stripHtml(s) {
-    // Replace HTML entities and specific tags with spaces or newlines
-    s = s.replace(/&nbsp;/g, ' ');
-
-    // Remove remaining HTML tags
-    s = s.replace(/<[^>]*>/g, '').trim();
-
-    // Decode HTML entities
-    s = s.replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&amp;/g, '&');
-
-    return s;
+    // create a new div element
+    let div = document.createElement("div");
+    // set the HTML content with the provided string
+    div.innerHTML = s;
+    // remove all HTML tags
+    return div.textContent || div.innerText || "";
 }
 
 /**
