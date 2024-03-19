@@ -4,7 +4,6 @@ import * as activity from '../../assessment/activity';
 import * as player from '../../assessment/player';
 import * as items from '../../assessment/items';
 import * as questions from '../../assessment/questions';
-import * as essayUtils from './essayLimitUtils';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -301,7 +300,7 @@ function checkLimit(questionInstance, setUI = true, shouldStripHTML = true) {
     let maxLength = questionInstance.getQuestion().max_length;
     const rawResponse = questionInstance.getResponse()?.value ? questionInstance.getResponse()?.value : '';
 
-    let response = (shouldStripHTML ? essayUtils.htmlToPlainText(rawResponse) : rawResponse).trim();
+    let response = (shouldStripHTML ? stripHtml(rawResponse) : rawResponse).trim();
     response = state.includeSpaces ? response : stripSpaces(response);
     const strLength = response.length;
     let validLength = true;
@@ -578,12 +577,7 @@ function submit() {
  */
 function stripHtml(s) {
     // Replace HTML entities and specific tags with spaces or newlines
-    s = s.replace(/&nbsp;/g, ' ') // 1 space for non-breaking space
-        .replace(/<br></g, '<') // remove line break when it's the met in the middle of a tag (SPECIAL CASE)
-        .replace(/<\/p>/g, '  ') // 2 spaces for new paragraph
-        .replace(/<br>/g, ' ') // 1 space for line break
-        .replace(/<div>/g, ' ') // 1 space for div
-        .replace(/<li>/g, ' ') // 1 space for list item
+    s = s.replace(/&nbsp;/g, ' ');
 
     // Remove remaining HTML tags
     s = s.replace(/<[^>]*>/g, '').trim();
