@@ -121,7 +121,11 @@ export function run() {
  * @since 2.8.0
  */
 export function launchSsmlEditor(attribute, callback) {
-    const currentSelectedText = getSelection().toString();
+    const currentSelectedText = window.getSelection().toString();
+    const rangeSelectedHTML = window.getSelection().getRangeAt(0);
+    const container = document.createElement('div');
+    container.appendChild(rangeSelectedHTML.cloneContents());
+    const currentSelectedHTML = container.innerHTML;
     const templateSsmlEditor = `
         <div class="lrn-qe lrn-qe-modal" style="display: block;" id="lt__ssmlModalWrapper">
             <div class="lrn-qe-ui">
@@ -150,7 +154,7 @@ export function launchSsmlEditor(attribute, callback) {
                                         <button type="button" class="lrn-qe-btn lrn-qe-btn-primary lt__ssml-add" data-lrn-qe-modal-action="confirm"><span>Add SSML</span></button>
                                     </li>&nbsp;
                                     <li class="lrn-qe-li lrn-qe-modal-footer-item">
-                                        <button type="button" class="lrn-qe-btn lrn-qe-btn-primary lt__ssml-generate-audio"><span>Generate audio</span></button>
+                                        <button type="button" class="lrn-qe-btn lrn-qe-btn-primary lt__ssml-generate-audio"><span>⭐ Generate audio</span></button>
                                     </li>
                                 </ul>
                             </div>
@@ -170,7 +174,7 @@ export function launchSsmlEditor(attribute, callback) {
         elClose[i].addEventListener('click', () => {
             removeElement('lt__ssmlModalWrapper');
             delete window.quill;
-            return callback(currentSelectedText);
+            return callback(currentSelectedHTML);
         });
     }
 
