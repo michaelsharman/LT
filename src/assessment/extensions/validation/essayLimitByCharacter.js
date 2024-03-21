@@ -514,25 +514,36 @@ function loadErrorDialog(itemReferences) {
 
 /**
  * Because we are using a custom submit button, we need
- * to submit manually when the button is clicked.
+ * to submit manually when the button is clicked. However,
+ * we do this by sending a click through the (hidden)
+ * default submit button. This way we get the player behaviour
+ * for submission that isn't available using the submit() method.
+ * If for some reason there is no default submit button, we
+ * submit using the method, with no default checks.
  * @since 1.1.0
  * @ignore
  */
 function submit() {
-    const settings = {
-        show_submit_confirmation: true,
-        show_submit_ui: true,
+    const elDefaultSubmit = document.getElementById('lrn_assess_next_btn');
 
-        success: function (response_ids) {
-            logger.info('Submit was successful', response_ids);
-        },
+    if (elDefaultSubmit) {
+        elDefaultSubmit.click();
+    } else {
+        const settings = {
+            show_submit_confirmation: true,
+            show_submit_ui: true,
 
-        error: function (event) {
-            logger.error('Submit has failed', event);
-        },
-    };
+            success: function (response_ids) {
+                logger.info('Submit was successful', response_ids);
+            },
 
-    app.appInstance().submit(settings);
+            error: function (event) {
+                logger.error('Submit has failed', event);
+            },
+        };
+
+        app.appInstance().submit(settings);
+    }
 }
 
 /**
