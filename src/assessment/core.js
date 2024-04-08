@@ -14,3 +14,4 @@ const utils = {
 };
 
 export const LT = { ...app, ...items, ...activity, ...player, ...questions, ...sections, ...diagnostics, ...utils };
+window.LT = LT;
