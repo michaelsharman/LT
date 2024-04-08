@@ -308,10 +308,10 @@ function checkLimit(questionInstance, setUI = true) {
 
     if (type === 'plaintext') {
         response = state.includeSpaces ? rawResponse : stripSpaces(rawResponse);
-        strLength = response.length;
+        strLength = response.trim().length;
     } else {
         response = state.includeSpaces ? stripHtml(rawResponse) : stripSpaces(stripHtml(rawResponse));
-        strLength = entities.decodeHTML(response).length;
+        strLength = response.trim().length;
     }
 
     if (!maxLength || maxLength > 10000) {
