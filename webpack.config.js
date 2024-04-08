@@ -1,9 +1,26 @@
 module.exports = {
     entry: {
-        main: './src/index.js',
+        'assessment/core': './src/assessment/core.js',
+        'assessment/index': './src/assessment/index.js',
+        'authoring/core': './src/authoring/core.js',
+        'authoring/index': './src/authoring/index.js',
     },
     output: {
         path: __dirname + '/dist',
-        filename: 'LT.js',
+        filename: '[name].js',
+        assetModuleFilename: 'assets/[name][ext][query]',
+        clean: true,
+    },
+    module: {
+        rules: [
+            {
+                test: /\.svg/,
+                type: 'asset/resource',
+            },
+            {
+                test: /\.css$/i,
+                use: ['style-loader', 'css-loader'],
+            },
+        ],
     },
 };

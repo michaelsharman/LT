@@ -8,12 +8,12 @@
         "hardwrap": false,
         "idInHeadings": true
     },
-    "recurseDepth": 5,
+    "recurseDepth": 6,
     "sourceType": "module",
     "source": {
         "include": ["src"],
         "includePattern": ".js$",
-        "excludePattern": "(node_modules/|docs)"
+        "excludePattern": "(node_modules/|docs|vendor)"
     },
     "templates": {
         "cleverLinks": false,
