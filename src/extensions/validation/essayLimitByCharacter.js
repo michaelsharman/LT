@@ -552,20 +552,26 @@ function loadErrorDialog(itemReferences) {
  * @ignore
  */
 function submit() {
-    const settings = {
-        show_submit_confirmation: true,
-        show_submit_ui: true,
+    const elDefaultSubmit = document.getElementById('lrn_assess_next_btn');
 
-        success: function (response_ids) {
-            logger.info('Submit was successful', response_ids);
-        },
+    if (elDefaultSubmit) {
+        elDefaultSubmit.click();
+    } else {
+        const settings = {
+            show_submit_confirmation: true,
+            show_submit_ui: true,
 
-        error: function (event) {
-            logger.error('Submit has failed', event);
-        },
-    };
+            success: function (response_ids) {
+                logger.info('Submit was successful', response_ids);
+            },
 
-    app.appInstance().submit(settings);
+            error: function (event) {
+                logger.error('Submit has failed', event);
+            },
+        };
+
+        app.appInstance().submit(settings);
+    }
 }
 
 /**
