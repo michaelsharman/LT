@@ -240,12 +240,16 @@ function setQuestionListeners() {
         if (state.validTypes.indexOf(value.type) >= 0) {
             let questionInstance = app.appInstance().question(value.response_id);
 
-            setupEssayValidationUI(questionInstance);
+            app.appInstance()
+                .question(value.response_id)
+                .on('rendered', () => {
+                    setupEssayValidationUI(questionInstance);
 
-            // Check on load for existing responses
-            if (activity.isResuming()) {
-                checkLimit(questionInstance);
-            }
+                    // Check on load for existing responses
+                    if (activity.isResuming()) {
+                        checkLimit(questionInstance);
+                    }
+                });
 
             questionInstance.on('changed', () => {
                 checkLimit(questionInstance);
@@ -333,19 +337,24 @@ function setValidationUI(questionInstance, isValid, strLength) {
 }
 
 /**
- * Replaces `Word` with `Character` in the default UI.
+ * Replaces `Word` with `Character` in the default UI if a
+ * label bundle hasn't been set in Items API config.
  * @param {object} questionInstance
  * @since 0.10.0
  * @ignore
  */
 function setupEssayValidationUI(questionInstance) {
-    const id = questionInstance.getQuestion().response_id;
-    const elContainer = document.getElementById(id);
-    const elWordLimit = elContainer.querySelector('.lrn_word_limit');
-    const wordLimitText = elWordLimit.textContent;
-    const newWordLimitText = wordLimitText.replace('Word', 'Character');
+    const hasLabelBundle = activity.activity()?.config?.questions_api_init_options?.labelBundle?.wordLength;
 
-    elWordLimit.textContent = newWordLimitText;
+    if (!hasLabelBundle) {
+        const id = questionInstance.getQuestion().response_id;
+        const elContainer = document.getElementById(id);
+        const elWordLimit = elContainer.querySelector('.lrn_word_limit');
+        const wordLimitText = elWordLimit.textContent;
+        const newWordLimitText = wordLimitText.replace('Word', 'Character');
+
+        elWordLimit.textContent = newWordLimitText;
+    }
 }
 
 /**
@@ -464,18 +473,28 @@ function hasReviewScreenOnFinish() {
  * Loads a custom Items API dialog to alert the user they
  * have invalid response. This is the same as the default
  * modal we have for word count violations.
+ * We check for labels from the Items API config object
+ * first, otherwise we use the default (english) labels.
  * @param {array} itemReferences
  * @since 1.1.0
  * @ignore
  */
 function loadErrorDialog(itemReferences) {
+    const labels = {
+        question: activity.activity()?.config?.labelBundle?.question || 'Question',
+        submitTest: activity.activity()?.config?.labelBundle?.submitTest || 'Submit activity',
+        decline: activity.activity()?.config?.labelBundle?.decline || 'Cancel',
+        invalidQuestionsMessage:
+            activity.activity()?.config?.labelBundle?.invalidQuestionsMessage ||
+            'The following questions are not currently valid. Please follow the links to review',
+    };
     let template = `
-        <p>The following questions are not currently valid. Please follow the links to review</p>
+        <p>${labels.invalidQuestionsMessage}</p>
         <ul>
     `;
 
     for (let i = 0; i < itemReferences.length; i++) {
-        template += `<li class="link essay-limit-character-item" data-item-reference="${itemReferences[i]}">Question</li>`;
+        template += `<li class="link essay-limit-character-item" data-item-reference="${itemReferences[i]}">${labels.question}</li>`;
     }
 
     template += '</ul>';
@@ -500,12 +519,12 @@ function loadErrorDialog(itemReferences) {
     });
 
     player.dialog({
-        header: 'Submit activity',
+        header: labels.submitTest,
         body: template,
         buttons: [
             {
                 button_id: 'btn_essay_character_limit_cancel',
-                label: 'Cancel',
+                label: labels.decline,
                 is_primary: true,
             },
         ],
