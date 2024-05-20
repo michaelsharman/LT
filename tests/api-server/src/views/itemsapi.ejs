@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+    <body>
+        <div id="flag"></div>
+        <div id="learnosity_assess"></div>
+        <script src="https://items.learnosity.com?developer"></script>
+        <script src="./index.mjs" type="module"></script>
+        <script>
+            const signature = <%- locals.signature || {} %>;
+            const itemsApp = LearnosityItems.init(signature, {
+                readyListener: init,
+                errorListener: error
+            });
+
+            function init() {
+                // A DOM element that we can set so the test script knows the API has rendered
+                document.getElementById('flag').classList.add('has-loaded');
+                console.log('Items API ready!');
+                window.launch(itemsApp);
+            }
+            function error(e) {
+                console.log('Items API error', e);
+            }
+        </script>
+    </body>
+</html>
