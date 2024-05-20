@@ -1,3 +1,6 @@
+const VersionFile = require('webpack-version-file');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+
 module.exports = {
     entry: {
         'assessment/core': './src/assessment/core.js',
@@ -9,7 +12,7 @@ module.exports = {
         path: __dirname + '/dist',
         filename: '[name].js',
         assetModuleFilename: 'assets/[name][ext][query]',
-        clean: true,
+        libraryTarget: 'module',
     },
     module: {
         rules: [
@@ -23,4 +26,17 @@ module.exports = {
             },
         ],
     },
+    experiments: {
+        outputModule: true,
+    },
+    plugins: [
+        new VersionFile({
+            output: './dist/version.js',
+            template: './src/utils/versionTemplate.ejs',
+            package: './package.json',
+        }),
+        new CleanWebpackPlugin({
+            cleanOnceBeforeBuildPatterns: ['**/*', '!version.js'],
+        }),
+    ],
 };

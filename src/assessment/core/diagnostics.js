@@ -1,7 +1,7 @@
 import * as app from './app';
 import * as activity from './activity';
 import logger from '../../utils/logger';
-import packageJSON from '../../../package.json';
+import { version } from '../../../dist/version.js';
 
 /**
  * Diagnostic/metadata information for Items API.
@@ -108,7 +108,7 @@ export function diagnostics() {
             user: activity.userId(),
         },
         LT: {
-            version: packageJSON.version,
+            version: version,
         },
         versions: v,
     };
