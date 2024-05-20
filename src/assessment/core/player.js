@@ -75,8 +75,9 @@ export function isReviewScreen() {
  *  - `next`
  *  - `review`
  *  - `submit`
+ *  - Number (0-based) representing the item index
  *
- * Internally this calls `next()`, `previous()`, `review()`,
+ * Internally this calls `next()`, `previous()`, `review()`, or `goto()`
  * and `submit()`.
  * @since 0.1.0
  * @param {string} target

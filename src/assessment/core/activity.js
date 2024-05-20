@@ -57,6 +57,17 @@ export function activitySubTitle() {
 }
 
 /**
+ * All tags that have been set against items in the activity.
+ * Requires `retrieve_tags` to be set to `true` in the
+ * Items API configuration.
+ * @since 2.9.0
+ * @returns {array}
+ */
+export function activityTags() {
+    return app.appInstance().getTags();
+}
+
+/**
  * The adaptive type as defined in the configuration.
  * Returns '' if the activity isn't adaptive.
  * @since 0.1.0

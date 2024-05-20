@@ -220,3 +220,17 @@ export function itemPosition() {
 export function itemReference() {
     return app.appInstance().getCurrentItem().reference;
 }
+
+/**
+ * All tags that have been set against the current item.
+ * Requires `retrieve_tags` to be set to `true` in the
+ * Items API configuration.
+ * @since 2.9.0
+ * @returns {array}
+ */
+export function itemTags(reference) {
+    const tags = app.appInstance().getTags();
+    const itemRef = reference || itemReference();
+
+    return tags[itemRef] || [];
+}
