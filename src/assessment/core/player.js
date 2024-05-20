@@ -114,7 +114,11 @@ export function navigate(target) {
             app.appInstance().submit(submitSettings);
             break;
         default:
-            logger.warn(`Invalid target (${target})`);
+            if (typeof Number(target) === 'number' && Number(target) >= 0) {
+                app.appInstance().items().goto(Number(target));
+            } else {
+                logger.warn(`Invalid target (${target})`);
+            }
     }
 }
 
