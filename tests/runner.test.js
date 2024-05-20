@@ -6,13 +6,36 @@ describe('LT Core', () => {
     let page;
 
     beforeAll(async () => {
-        server.startServer();
+        await server.startServer();
 
         browser = await puppeteer.launch();
         page = await browser.newPage();
 
+        // Log all console messages from the test page
+        page.on('console', consoleMsg => {
+            if (!consoleMsg.text().includes('Learnosity developer version')) {
+                console.log(`== From test page console: ${consoleMsg.text()}`);
+            }
+        });
+        page.on('requestfailed', request => {
+            console.log(`${request.url()} failed to load. Reason: ${request.failure().errorText}`);
+        });
+        page.on('pageerror', error => {
+            console.log(`Page error: ${error.message}`);
+        });
+        page.on('response', response => {
+            if (!response.ok()) {
+                console.log(`HTTP error: ${response.status()} on ${response.url()}`);
+            }
+        });
+
+        console.time('page-load-complete');
         await page.goto('http://localhost:5150/itemsapi');
+        console.timeEnd('page-load-complete');
+
+        console.time('selector-lookup');
         await page.waitForSelector('.has-loaded', { timeout: 6000 });
+        console.timeEnd('selector-lookup');
     });
 
     afterAll(async () => {

@@ -2,6 +2,7 @@ const express = require('express');
 const net = require('net');
 const path = require('path');
 const signature = require('./signature');
+const { log } = require('console');
 
 const app = express();
 const PORT = process.env.PORT || 5150;
@@ -28,11 +29,15 @@ app.get('/itemsapi', (req, res) => {
     res.render('itemsapi', { signature: JSON.stringify(signatureData) });
 });
 
-function startServer() {
-    checkServer(PORT, isRunning => {
+async function startServer() {
+    checkServer(PORT, async isRunning => {
         if (!isRunning) {
+            console.time('server-start-complete');
             console.log('Starting the server...');
-            server = app.listen(PORT);
+            server = app.listen(PORT, () => {
+                console.log('Server started on port', PORT);
+                console.timeEnd('server-start-complete');
+            });
         }
     });
 }

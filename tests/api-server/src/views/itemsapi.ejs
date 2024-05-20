@@ -1,5 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <link rel="shortcut icon" href="https://demos.learnosity.com/static/images/favicon.ico" type="image/x-icon" />
+    </head>
     <body>
         <div id="flag"></div>
         <div id="learnosity_assess"></div>
@@ -15,7 +19,7 @@
             function init() {
                 // A DOM element that we can set so the test script knows the API has rendered
                 document.getElementById('flag').classList.add('has-loaded');
-                console.log('Items API ready!');
+                // console.log('Items API ready!');
                 window.launch(itemsApp);
             }
             function error(e) {
