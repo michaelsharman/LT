@@ -23,7 +23,7 @@ import spinner from './assets/spinner.svg';
  * Consider this extension if you're looking to reduce the file size of images or
  * if you want to give users the flexibility to crop or rotate them before uploading.
  *
- * Supported mime types: `image/gif`, `image/jpeg`, `image/png`, `image/svg+xml`
+ * Supported mime types: `image/gif`, `image/jpeg`, `image/png`, `image/svg+xml`
  *
  * .webp files are not supported by Learnosity, so we don't support them here.
  *
@@ -65,7 +65,7 @@ import spinner from './assets/spinner.svg';
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.52.07 PM.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.52.07 PM.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.52.07 PM.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.52.07 PM.png" width="200"></a>
  *          <br><code>16.5mb (5102x2488)</code>
  *      </td>
  *      <td>
@@ -76,7 +76,7 @@ import spinner from './assets/spinner.svg';
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.53.09 PM.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.53.09 PM.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.53.09 PM.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.53.09 PM.png" width="200"></a>
  *          <br><code>11.9mb (5098x2480)</code>
  *      </td>
  *      <td>
@@ -162,7 +162,7 @@ export function run(security, request, options = {}) {
 function setupModalObserver() {
     logger.debug('setupModalObserver()', LOG_LEVEL);
 
-    const callback = (mutationsList, observer) => {
+    const callback = mutationsList => {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 const modal = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]');
@@ -265,12 +265,12 @@ function setupUploadLibrary() {
         }
     });
 
-    state.uppy.on('file-removed', file => {
+    state.uppy.on('file-removed', () => {
         logger.debug('file-removed', LOG_LEVEL);
         toggleElement('lt__image-uploader-upload-btn', 'remove');
     });
 
-    state.uppy.on('file-editor:start', file => {
+    state.uppy.on('file-editor:start', () => {
         logger.debug('file-editor:start', LOG_LEVEL);
         toggleElement('lt__image-uploader-upload-btn', 'disable');
     });
@@ -281,7 +281,7 @@ function setupUploadLibrary() {
         toggleElement('lt__image-uploader-upload-btn', 'enable');
     });
 
-    state.uppy.on('file-editor:cancel', updatedFile => {
+    state.uppy.on('file-editor:cancel', () => {
         logger.debug('file-editor:cancel', LOG_LEVEL);
         toggleElement('lt__image-uploader-upload-btn', 'enable');
     });
@@ -369,68 +369,70 @@ function uploadImage(fileId) {
     const elEditButton = document.querySelector('.uppy-Dashboard-Item-action--edit');
     if (elEditButton) elEditButton.setAttribute('disabled', '');
 
-    return new Promise(async (resolve, reject) => {
-        const file = state.uppy.getFile(fileId);
+    const file = state.uppy.getFile(fileId);
 
-        // Add loading spinner
-        const elButton = document.querySelector('.lt__image-uploader-upload-btn');
-        elButton.innerHTML = `Uploading <span class="lt__upload-spinner"><img src="${spinner}"</span> `;
+    // Add loading spinner
+    const elButton = document.querySelector('.lt__image-uploader-upload-btn');
+    elButton.innerHTML = `Uploading <span class="lt__upload-spinner"><img src="${spinner}"</span> `;
 
-        // Make the first request to get access details
-        const formData = new FormData();
-        const request = {
-            usrequest: { assetName: file.name, mimeType: file.type, fileType: 'image' },
-            action: 'get',
-            security: state.upload.security,
-            request: state.upload.request,
-        };
-        formData.append('usrequest', JSON.stringify(request.usrequest));
-        formData.append('action', request.action);
-        formData.append('security', JSON.stringify(request.security));
-        formData.append('request', JSON.stringify(request.request));
+    // Make the first request to get access details
+    const formData = new FormData();
+    const request = {
+        usrequest: { assetName: file.name, mimeType: file.type, fileType: 'image' },
+        action: 'get',
+        security: state.upload.security,
+        request: state.upload.request,
+    };
+    formData.append('usrequest', JSON.stringify(request.usrequest));
+    formData.append('action', request.action);
+    formData.append('security', JSON.stringify(request.security));
+    formData.append('request', JSON.stringify(request.request));
 
+    async function fetchTokens() {
         const response = await fetch(state.upload.uriUploadForm, {
             method: 'POST',
             body: formData,
         });
+        return await response.json();
+    }
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+    fetchTokens()
+        .then(response => {
+            // Now we upload the image to the Learnosity CDN
+            const uploadData = new FormData();
+            uploadData.append('key', response.data.formInputs.key);
+            uploadData.append('Content-Type', response.data.formInputs['Content-Type']);
+            uploadData.append('X-Amz-Security-Token', response.data.formInputs['X-Amz-Security-Token']);
+            uploadData.append('X-Amz-Credential', response.data.formInputs['X-Amz-Credential']);
+            uploadData.append('X-Amz-Algorithm', response.data.formInputs['X-Amz-Algorithm']);
+            uploadData.append('X-Amz-Date', response.data.formInputs['X-Amz-Date']);
+            uploadData.append('Policy', response.data.formInputs.Policy);
+            uploadData.append('X-Amz-Signature', response.data.formInputs['X-Amz-Signature']);
+            uploadData.append('file', file.data);
 
-        const data = await response.json();
+            async function uploadImageToCDN() {
+                const uploadImageResponse = await fetch(response.data.formAttributes.action, {
+                    method: 'POST',
+                    body: uploadData,
+                });
+                return await uploadImageResponse;
+            }
 
-        // Now we upload the image to the Learnosity CDN
-        const uploadData = new FormData();
-        uploadData.append('key', data.data.formInputs.key);
-        uploadData.append('Content-Type', data.data.formInputs['Content-Type']);
-        uploadData.append('X-Amz-Security-Token', data.data.formInputs['X-Amz-Security-Token']);
-        uploadData.append('X-Amz-Credential', data.data.formInputs['X-Amz-Credential']);
-        uploadData.append('X-Amz-Algorithm', data.data.formInputs['X-Amz-Algorithm']);
-        uploadData.append('X-Amz-Date', data.data.formInputs['X-Amz-Date']);
-        uploadData.append('Policy', data.data.formInputs.Policy);
-        uploadData.append('X-Amz-Signature', data.data.formInputs['X-Amz-Signature']);
-        uploadData.append('file', file.data);
+            uploadImageToCDN()
+                .then(() => {
+                    const assetUrl = response.data.assetUrl;
+                    const src = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
+                    src.value = assetUrl.trim();
+                    src.dispatchEvent(new Event('input', { bubbles: true }));
 
-        const uploadResponse = await fetch(data.data.formAttributes.action, {
-            method: 'POST',
-            body: uploadData,
-        });
-
-        if (!uploadResponse.ok) {
-            throw new Error('Network response was not ok');
-        } else {
-            const assetUrl = data.data.assetUrl;
-            const src = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
-            src.value = assetUrl.trim();
-            src.dispatchEvent(new Event('input', { bubbles: true }));
-
-            setTimeout(() => {
-                const modalParent = document.querySelector('.lrn-modal');
-                prepareModalButtons(modalParent);
-            }, 1500);
-        }
-    });
+                    setTimeout(() => {
+                        const modalParent = document.querySelector('.lrn-modal');
+                        prepareModalButtons(modalParent);
+                    }, 1500);
+                })
+                .catch(error => console.error('Error in uploading image:', error));
+        })
+        .catch(error => console.error('Error in fetching tokens:', error));
 }
 
 /**
