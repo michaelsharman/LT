@@ -44,43 +44,43 @@ import spinner from './assets/spinner.svg';
  *  </thead>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/20-preiodic-table-elements-icon-pack-design-vector-illustration_1142-18270.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/20-preiodic-table-elements-icon-pack-design-vector-illustration_1142-18270.jpg" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic2.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic2.jpg" width="200"></a>
  *          <br><code>205kB (2000x1589)</code></td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/9e9324ea-19b0-4698-99e6-60b1bf42a883.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/9e9324ea-19b0-4698-99e6-60b1bf42a883.jpg" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic2.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic2.jpg" width="200"></a>
  *          <br><code>128kB (1500x1091)</code></td>
  *      </td>
  *      <td><code>37.56%</code></td>
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Colour_18-col_PT_with_labels.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Colour_18-col_PT_with_labels.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic1.png" width="200"></a>
  *          <br><code>480kB (2584x1518)</code></td>
  *      </td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/9f299c65-5032-47c7-b1ff-7cae16a5155b.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/9f299c65-5032-47c7-b1ff-7cae16a5155b.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic1.png" width="200"></a>
  *          <br><code>305kB (1500x881)</code></td>
  *      </td>
  *      <td><code>36.46%</code></td>
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.52.07 PM.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.52.07 PM.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene2.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene2.png" width="200"></a>
  *          <br><code>16.5mb (5102x2488)</code>
  *      </td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/714093c2-e0ae-429f-a540-c9991fa1ed31.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/714093c2-e0ae-429f-a540-c9991fa1ed31.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene2.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene2.png" width="200"></a>
  *          <br><code>155kB (1500x731)</code>
  *      </td>
  *      <td><code>99.06%</code></td>
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.53.09 PM.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/Screenshot 2024-05-29 at 3.53.09 PM.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene1.png" width="200"></a>
  *          <br><code>11.9mb (5098x2480)</code>
  *      </td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/8f60995d-e1e3-44d0-b250-845e8929872c.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/8f60995d-e1e3-44d0-b250-845e8929872c.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene1.png" width="200"></a>
  *          <br><code>97kB (1500x729)</code></td>
  *      </td>
  *      <td><code>99.18%</code></td>
@@ -91,7 +91,7 @@ import spinner from './assets/spinner.svg';
  *          <br><code>4.7mb (770x702)</code>
  *      </td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/3619d683-95ac-4890-895f-0b8ec61d43e9.gif" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/3619d683-95ac-4890-895f-0b8ec61d43e9.gif" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/thumb.gif" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/thumb.gif" width="200"></a>
  *          <br><code>50kB (770x702)</code></td>
  *      </td>
  *      <td><code>98.94%</code></td>
