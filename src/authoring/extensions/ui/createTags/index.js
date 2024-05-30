@@ -1,4 +1,4 @@
-import * as app from '../../app';
+import * as app from '../../../core/app';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.

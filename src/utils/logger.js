@@ -1,8 +1,17 @@
 /**
- * A utility logger that generates styled
- * log outputs.
+ * A utility logger that generates styled log outputs.
  * @module Utils/Logger
  */
+
+/**
+ * Debug only logs to the console
+ * @static
+ * @since 2.10.0
+ * @param {*} msg
+ */
+function debug(msg, mode) {
+    if (mode === 'DEBUG') console.log(msg);
+}
 
 /**
  * Formatted error logger to the console
@@ -48,6 +57,7 @@ function warn(msg, type = 'log') {
 }
 
 const logger = {
+    debug,
     error,
     info,
     log,

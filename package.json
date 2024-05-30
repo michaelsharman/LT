@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "2.9.2",
+    "version": "2.10.0",
     "description": "A utility library of helpers and tools for working with Learnosity APIs.",
     "main": "src/index.js",
     "author": "michael@learnosity.com",
@@ -48,6 +48,11 @@
         "start:server:background": "nodemon ./tests/api-server/src/server.js &"
     },
     "dependencies": {
+        "@uppy/compressor": "^1.1.4",
+        "@uppy/core": "^3.11.3",
+        "@uppy/dashboard": "^3.8.3",
+        "@uppy/drag-drop": "^3.1.0",
+        "@uppy/image-editor": "^2.4.6",
         "entities": "^4.5.0",
         "howler": "^2.2.4",
         "mousetrap": "^1.6.5",
