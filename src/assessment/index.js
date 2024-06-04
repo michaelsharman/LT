@@ -9,6 +9,7 @@ import { LT as core } from './core';
 
 import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav';
 import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks';
+import * as checkAnswerValidation from './extensions/validation/checkAnswerValidation';
 import * as columnResizer from './extensions/accessibility/ux/columnResizer';
 import * as essayLimitByCharacter from './extensions/validation/essayLimitByCharacter';
 import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives';
@@ -25,6 +26,7 @@ const extensions = {
     extensions: {
         ariaCountOnNav: { ...ariaCountOnNav },
         blockGrammarChecks: { ...blockGrammarChecks },
+        checkAnswerValidation: { ...checkAnswerValidation },
         columnResizer: { ...columnResizer },
         essayLimitByCharacter: { ...essayLimitByCharacter },
         hideAlternatives: { ...hideAlternatives },

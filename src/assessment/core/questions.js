@@ -1,12 +1,50 @@
 import * as app from './app';
 import * as items from './items';
+import { activity } from './activity';
 import logger from '../../utils/logger';
+import { hasValue } from '../../utils/validation';
 
 /**
  * Everything relating to questions currently
  * loaded by Items API.
  * @module Assessment/Questions
  */
+
+/**
+ * Checks whether the "Check Answer" button is enabled for the
+ * current question, including if enabled via activity override.
+ * @since 2.11.0
+ * @param {string=} response_id
+ * @returns {boolean}
+ */
+export function hasCheckAnswer(response_id) {
+    if (!isAutoScorable(response_id)) return false;
+
+    const hasActivityOverride =
+        activity()?.config?.questions_api_init_options?.attribute_overrides &&
+        activity().config.questions_api_init_options.attribute_overrides.hasOwnProperty('instant_feedback') &&
+        typeof activity().config.questions_api_init_options.attribute_overrides.instant_feedback === 'boolean';
+    const q = question(response_id);
+
+    if (hasActivityOverride) return activity().config.questions_api_init_options.attribute_overrides.instant_feedback;
+
+    return q.hasOwnProperty('instant_feedback') && typeof q.instant_feedback === 'boolean' ? q.instant_feedback : false;
+}
+
+/**
+ * Checks whether the question is auto-scorable. This includes
+ * questions that are technically auto-scorable but don't have
+ * a validation object set (including when the validation is
+ * ignored in Items API configuration).
+ * @since 2.11.0
+ * @param {string=} response_id
+ * @returns {boolean}
+ */
+export function isAutoScorable(response_id) {
+    const q = question(response_id);
+    const check = questionInstance(response_id).checkValidation();
+    return check.has_validation;
+}
 
 /**
  * Returns the question JSON on the current item.
