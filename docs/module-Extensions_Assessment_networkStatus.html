@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Extensions/Authoring/imageUploader - Learnosity Toolkit - Docs</title>
+    <title>Extensions/Assessment/networkStatus - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Extensions/Authoring/imageUploader</h1>
+    <h1 class="page-title">Extensions/Assessment/networkStatus</h1>
     
 
     
@@ -65,86 +65,11 @@
             
 
 
-<p>Extensions add specific functionality to Learnosity APIs.
+<p>Extensions add specific functionality to Items API.
 They rely on modules within LT being available.</p>
 <p>--</p>
-<p>This extension replaces the default Learnosity image uploader with a custom image
-uploader that supports image editing and compression before uploading to the
-Learnosity CDN.</p>
-<p>Consider this extension if you're looking to reduce the file size of images or
-if you want to give users the flexibility to crop or rotate them before uploading.</p>
-<p>Supported mime types: <code>image/gif</code>, <code>image/jpeg</code>, <code>image/png</code>, <code>image/svg+xml</code></p>
-<p>.webp files are not supported by Learnosity, so we don't support them here.</p>
-<p>Animated gifs become static.</p>
-<p>By default, we resize images to a maximum width or height of 1500px. The calling
-page can override <code>width</code>, <code>height</code>, and <code>quality</code>. See below in <code>run()</code>.</p>
-<h2>Image comparisons (before and after)</h2>
-<p>Click image to view full size.</p>
-<table style="table-layout: auto; max-width: 1000px;">
- <thead>
-   <tr>
-     <th>Original</th>
-     <th>Compressed</th>
-     <th>File size reduction</th>
-   </tr>
- </thead>
- <tr>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic2.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic2.jpg" width="200"></a>
-         <br><code>205kB (2000x1589)</code></td>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic2.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic2.jpg" width="200"></a>
-         <br><code>128kB (1500x1091)</code></td>
-     </td>
-     <td><code>37.56%</code></td>
- </tr>
- <tr>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic1.png" width="200"></a>
-         <br><code>480kB (2584x1518)</code></td>
-     </td>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic1.png" width="200"></a>
-         <br><code>305kB (1500x881)</code></td>
-     </td>
-     <td><code>36.46%</code></td>
- </tr>
- <tr>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene2.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene2.png" width="200"></a>
-         <br><code>16.5mb (5102x2488)</code>
-     </td>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene2.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene2.png" width="200"></a>
-         <br><code>155kB (1500x731)</code>
-     </td>
-     <td><code>99.06%</code></td>
- </tr>
- <tr>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene1.png" width="200"></a>
-         <br><code>11.9mb (5098x2480)</code>
-     </td>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene1.png" width="200"></a>
-         <br><code>97kB (1500x729)</code></td>
-     </td>
-     <td><code>99.18%</code></td>
- </tr>
- <tr>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/thumb.gif" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/thumb.gif" width="200"></a>
-         <br><code>4.7mb (770x702)</code>
-     </td>
-     <td>
-         <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/thumb.gif" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/thumb.gif" width="200"></a>
-         <br><code>50kB (770x702)</code></td>
-     </td>
-     <td><code>98.94%</code></td>
- </tr>
-</table>
-<br>
-<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUpload.gif" alt="" width="900"></p>
+<p>Checks for an active network connection. If none found, adds
+an icon to the UI to indicate the status to the end user.</p>
 
 <dl class="details">
     
@@ -214,16 +139,13 @@ page can override <code>width</code>, <code>height</code>, and <code>quality</co
 
     
 
-    <h4 class="name" id=".run">run<span class="signature">(security, request, options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".run">run<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 
-
-<p>Extension constructor. We require <code>security</code> and <code>request</code> from the Author API
-initialisation to be passed in.</p>
 
 <dl class="details">
     
@@ -234,7 +156,7 @@ initialisation to be passed in.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">2.10.0</dd>
+    <dd class="tag-since">2.12.0</dd>
     
 
     
@@ -276,17 +198,11 @@ initialisation to be passed in.</p>
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/authoring/core';
-import * as imageUploader from '@caspingus/lt/src/authoring/extensions/ui/imageUploader/index';
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/core';
+import * as networkStatus from '@caspingus/lt/src/assessment/extensions/ui/networkStatus/index';
 
-LT.init(authorApp); // Set up LT with the Author API application instance variable
-
-// Put individual extensions in the LT object if that makes your life easier
-LT.extensions = {
-    imageUploader,
-};
-
-LT.extensions.imageUploader.run(security, request);</code></pre>
+LT.init(itemsApp); // Set up LT with the Items API application instance variable
+networkStatus.run();</code></pre>
 
 
 
@@ -318,70 +234,6 @@ LT.extensions.imageUploader.run(security, request);</code></pre>
 
         <tr>
             
-                <td class="name"><code>security</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The security object returned from the SDK.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>request</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">object</span>
-
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last"><p>The request object returned from the SDK.</p></td>
-        </tr>
-
-    
-
-        <tr>
-            
                 <td class="name"><code>options</code></td>
             
 
@@ -409,8 +261,16 @@ LT.extensions.imageUploader.run(security, request);</code></pre>
 
             
 
-            <td class="description last"><p>Override for <code>quality</code> (value between 0 and 1), <code>maxWidth</code> (number), and <code>maxHeight</code> (number).
-Default values are <code>0.7</code>, <code>1500</code>, and <code>1500</code> respectively.</p></td>
+            <td class="description last"><p>Optional configuration object includes:</p>
+<ul>
+<li><code>iconWrapper</code> (string) classname of element to inject the broken connection icon. You
+should never need this if using any of the Learnosity regions.</li>
+<li><code>interval</code> (numeric) millisecond interval to check connection. Defaults to 30000 (30 seconds).</li>
+<li><code>message</code> (string) message for tooltip and screen reader users.</li>
+<li><code>render</code> (boolean) whether to render the icon or not. Defaults to <code>true</code>.</li>
+<li><code>uri</code> (string) URI to check for network connectivity. Defaults to a Learnosity API endpoint which
+is already whitelisted.</li>
+</ul></td>
         </tr>
 
     
