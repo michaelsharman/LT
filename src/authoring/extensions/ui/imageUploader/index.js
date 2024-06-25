@@ -103,7 +103,7 @@ import spinner from './assets/spinner.svg';
  * @module Extensions/Authoring/imageUploader
  */
 
-const LOG_LEVEL = 'ERROR';
+const LOG_LEVEL = 'DEBUG';
 
 const state = {
     observer: null,
@@ -162,14 +162,15 @@ export function run(security, request, options = {}) {
 function setupModalObserver() {
     logger.debug('setupModalObserver()', LOG_LEVEL);
 
+    clearObserver();
+
     const callback = mutationsList => {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 const modal = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]');
                 if (modal) {
                     logger.debug('Disconnecting observer', LOG_LEVEL);
-                    state.observer.disconnect();
-                    state.observedElements.clear();
+                    clearObserver();
                     setupUploderUI();
                     break;
                 }
@@ -182,6 +183,8 @@ function setupModalObserver() {
         state.observer = new MutationObserver(callback);
 
         activateObserver();
+    } else {
+        logger.debug('Observed elements full', LOG_LEVEL);
     }
 }
 
@@ -192,13 +195,24 @@ function setupModalObserver() {
  * @ignore
  */
 function activateObserver() {
+    logger.debug('Looking to activate observer', LOG_LEVEL);
     const parentElement = document.querySelector('.lrn-author-item');
 
     if (!state.observedElements.has(parentElement)) {
-        logger.debug('Activate observer', LOG_LEVEL);
+        logger.debug('Activated observer', LOG_LEVEL);
         state.observer.observe(parentElement, { childList: true, subtree: true });
         state.observedElements.set(parentElement, state.observer);
     }
+}
+
+/**
+ * Clears the modal observer and disconnects it.
+ * @since 2.13.0
+ * @ignore
+ */
+function clearObserver() {
+    if (state.observer) state.observer.disconnect();
+    state.observedElements.clear();
 }
 
 /**
@@ -445,9 +459,12 @@ function uploadImage(fileId) {
 function prepareModalButtons(modalParent) {
     const elCloseButtons = ['lrn-modal-button-close', 'lrn-btn-default', 'lrn-btn-primary-legacy'];
 
+    removeHandler();
+
     for (let btn of elCloseButtons) {
         let elBtn = modalParent.querySelector(`.lrn-modal-dialog button.${btn}`);
         if (elBtn) {
+            logger.debug(`Adding clickHanders for: ${btn}`, LOG_LEVEL);
             elBtn.addEventListener('click', clickHandler);
         }
     }
@@ -466,7 +483,7 @@ function prepareModalButtons(modalParent) {
         for (let btn of elCloseButtons) {
             let elBtn = modalParent.querySelector(`.lrn-modal-dialog button.${btn}`);
             if (elBtn) {
-                logger.debug('Removed click event', LOG_LEVEL);
+                logger.debug('Removed clickHandler', LOG_LEVEL);
                 elBtn.removeEventListener('click', clickHandler);
             }
         }
