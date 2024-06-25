@@ -35,6 +35,8 @@
         "nodemon": "^3.1.0",
         "npm": "^10.7.0",
         "puppeteer": "^22.11.0",
+        "sass": "^1.77.6",
+        "sass-loader": "^14.2.1",
         "style-loader": "^3.3.4",
         "svg-inline-loader": "^0.8.2",
         "webpack": "^5.59.1",

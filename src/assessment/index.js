@@ -20,6 +20,7 @@ import * as networkStatus from './extensions/ui/networkStatus/index';
 import * as pageOverlay from './extensions/accessibility/ux/pageOverlay';
 import * as renderPDF from './extensions/ui/renderPDF/index';
 import * as resetResponse from './extensions/accessibility/ux/resetResponse';
+import * as themeJuniorQuest from './extensions/ui/themes/juniorQuest/index';
 import * as toggleTimer from './extensions/accessibility/ux/toggleTimer';
 import * as whiteNoise from './extensions/accessibility/ux/whiteNoise/index';
 
@@ -38,6 +39,7 @@ const extensions = {
         pageOverlay: { ...pageOverlay },
         renderPDF: { ...renderPDF },
         resetResponse: { ...resetResponse },
+        themes: { ...themeJuniorQuest },
         toggleTimer: { ...toggleTimer },
         whiteNoise: { ...whiteNoise },
     },
