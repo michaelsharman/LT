@@ -103,7 +103,7 @@ import spinner from './assets/spinner.svg';
  * @module Extensions/Authoring/imageUploader
  */
 
-const LOG_LEVEL = 'DEBUG';
+const LOG_LEVEL = 'ERROR';
 
 const state = {
     observer: null,
