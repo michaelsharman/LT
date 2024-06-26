@@ -231,8 +231,7 @@ function setupUploderUI() {
     wrapper.setAttribute('id', 'uppy-dashboard');
     lrnImageUploader.insertAdjacentElement('afterbegin', wrapper);
 
-    const modalParent = document.querySelector('.lrn-modal-dialog');
-    prepareModalButtons(modalParent);
+    prepareModalButtons();
 
     elMoreOptions.removeAttribute('hidden');
 
@@ -438,10 +437,10 @@ function uploadImage(fileId) {
                     const src = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
                     src.value = assetUrl.trim();
                     src.dispatchEvent(new Event('input', { bubbles: true }));
+                    logger.debug('Added image path to URI', LOG_LEVEL);
 
                     setTimeout(() => {
-                        const modalParent = document.querySelector('.lrn-modal');
-                        prepareModalButtons(modalParent);
+                        prepareModalButtons();
                     }, 1500);
                 })
                 .catch(error => console.error('Error in uploading image:', error));
@@ -456,18 +455,22 @@ function uploadImage(fileId) {
  * @ignore
  * @param {object} modalParent
  */
-function prepareModalButtons(modalParent) {
+function prepareModalButtons() {
+    logger.debug('prepareModalButtons()', LOG_LEVEL);
     const elCloseButtons = ['lrn-modal-button-close', 'lrn-btn-default', 'lrn-btn-primary-legacy'];
+    const modalParent = document.querySelector('.lrn-modal');
 
     removeHandler();
 
-    for (let btn of elCloseButtons) {
-        let elBtn = modalParent.querySelector(`.lrn-modal-dialog button.${btn}`);
-        if (elBtn) {
-            logger.debug(`Adding clickHanders for: ${btn}`, LOG_LEVEL);
-            elBtn.addEventListener('click', clickHandler);
+    setTimeout(() => {
+        for (let btn of elCloseButtons) {
+            let elBtn = modalParent.querySelector(`.lrn-modal-dialog button.${btn}`);
+            if (elBtn) {
+                logger.debug(`Adding clickHanders for: ${btn}`, LOG_LEVEL);
+                elBtn.addEventListener('click', clickHandler);
+            }
         }
-    }
+    }, 750);
 
     function clickHandler() {
         logger.debug('clickHandler()', LOG_LEVEL);
