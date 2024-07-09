@@ -4,7 +4,31 @@ import './sass/index.scss';
  * Extensions add specific functionality to Items API.
  * They rely on modules within LT being available.
  *
+ * Themes use sass files to style the UI. You will need to handle them
+ * using your build tool of choice. Here is a sample webpack config:
+ *
+ * ```
+ * module.exports = {
+ *     entry: {
+ *         main: './src/index.js',
+ *     },
+ *     output: {
+ *         path: __dirname + '/dist',
+ *         filename: 'bundle.js',
+ *     },
+ *     module: {
+ *         rules: [
+ *             {
+ *                 test: /\.s[ac]ss$/i,
+ *                 use: ['style-loader', 'css-loader', 'sass-loader'],
+ *             },
+ *         ],
+ *     },
+ * };
+ * ```
  * --
+ *
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/themes/theme-juniorquest.png" alt="" width="900"></p>
  *
  * This script loads a custom UI theme for Items API.
  *
@@ -49,11 +73,11 @@ import './sass/index.scss';
  * }
  * ```
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/themes/theme-juniorquest.png" alt="" width="900"></p>
  * @module Extensions/Assessment/themes/juniorQuest
  */
 
 const state = {
+    elements: {},
     theme: 'juniorQuest',
 };
 
@@ -69,18 +93,29 @@ const state = {
  * @since 2.13.0
  */
 export function run() {
-    addThemeWrapperClass();
+    cacheElements();
+    addThemeWrapperElement();
 }
 
 /**
- * Adds a classname to the div with `lrn-assess` for specificity.
- * @since 2.13.0
+ * Adds a custom element around the div with `lrn-assess` for hooks and specificity.
+ * @since 2.14.0
  * @ignore
  */
-function addThemeWrapperClass() {
-    const elApiWrapper = document.querySelector('.lrn-assess');
+function addThemeWrapperElement() {
+    const elApiWrapper = state.elements.apiWrapper;
+    const elWrapper = document.createElement('main');
 
-    if (elApiWrapper) {
-        elApiWrapper.classList.add('lt__theme', `lt__theme-${state.theme}`);
-    }
+    elWrapper.className = `lt__theme lt__theme-${state.theme}`;
+    elApiWrapper.parentNode.insertBefore(elWrapper, elApiWrapper);
+    elWrapper.appendChild(elApiWrapper);
+}
+
+/**
+ * Caches DOM lookups for performance.
+ * @since 2.14.0
+ * @ignore
+ */
+function cacheElements() {
+    state.elements.apiWrapper = document.querySelector('.lrn-assess');
 }

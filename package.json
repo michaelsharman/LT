@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "2.13.3",
+    "version": "2.14.0",
     "description": "A utility library of helpers and tools for working with Learnosity APIs.",
     "author": "michael@learnosity.com",
     "license": "MIT",

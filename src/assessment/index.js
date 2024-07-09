@@ -1,8 +1,8 @@
 /**
  * index.js is a "kitchen sink" file that will load everything when imported. The
- * core LT library, plus all extensions. Probably only use this for development
- * because of the size. In production, try importing core.js and any extensions
- * you might want separately.
+ * core LT library, plus all extensions (excluding themes). Probably only use this
+ * for development because of the size. In production, try importing core.js and
+ * any extensions you might want separately.
  */
 
 import { LT as core } from './core';
@@ -20,7 +20,6 @@ import * as networkStatus from './extensions/ui/networkStatus/index';
 import * as pageOverlay from './extensions/accessibility/ux/pageOverlay';
 import * as renderPDF from './extensions/ui/renderPDF/index';
 import * as resetResponse from './extensions/accessibility/ux/resetResponse';
-import * as themeJuniorQuest from './extensions/ui/themes/juniorQuest/index';
 import * as toggleTimer from './extensions/accessibility/ux/toggleTimer';
 import * as whiteNoise from './extensions/accessibility/ux/whiteNoise/index';
 
@@ -39,7 +38,6 @@ const extensions = {
         pageOverlay: { ...pageOverlay },
         renderPDF: { ...renderPDF },
         resetResponse: { ...resetResponse },
-        themes: { ...themeJuniorQuest },
         toggleTimer: { ...toggleTimer },
         whiteNoise: { ...whiteNoise },
     },

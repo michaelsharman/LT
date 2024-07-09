@@ -1,6 +1,6 @@
 @import 'fonts';
 @import 'variables';
-
-@import 'components/buttons';
-@import 'components/player';
-@import 'components/toc';
+@import 'page';
+@import 'player';
+@import '../../_utilities/sass/variables';
+@import '../../_utilities/sass/apiFixes';

@@ -40,7 +40,7 @@ import { LT } from '@caspingus/lt/src/assessment/core';
 import * as columnResizer from '@caspingus/lt/src/assessment/extensions/accessibility/ux/columnResizer';
 ```
 
-The `index` module contains everything in `core` along with _all_ extensions. This is the largest file size (~400k) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
+The `index` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (~400k) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
 
 ```
 import { LT } from '@caspingus/lt/src/assessment/index';
