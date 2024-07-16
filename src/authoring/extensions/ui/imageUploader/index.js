@@ -599,6 +599,10 @@ function injectCSS() {
     border-color: #96b7cb;
     background: #96b7cb;
 }
+
+.lrn .uppy-Dashboard-input[type=file] {
+    display: none;
+}
 `;
 
     elStyle.textContent = css;
