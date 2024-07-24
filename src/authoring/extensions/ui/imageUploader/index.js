@@ -8,6 +8,7 @@ import ImageEditor from '@uppy/image-editor';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
+import { Logger } from 'sass';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -99,6 +100,9 @@ import '@uppy/image-editor/dist/style.min.css';
  * <br>
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUpload.gif" alt="" width="900"></p>
+ *
+ * <h2>Exclusions</h2>
+ * <p>This extension doesn't run inside the simple features dialog. This mainly impacts posters for video files and background images for audio files.</p>
  * @module Extensions/Authoring/imageUploader
  */
 
@@ -166,8 +170,11 @@ function setupModalObserver() {
     const callback = mutationsList => {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
-                const modal = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]');
-                if (modal) {
+                const modal = document.querySelector(
+                    '[data-authorapi-selector="asset-uploader-iframe-outlet"]:not(.lrn-author-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"]):not(.lrn-qe-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"])'
+                );
+                const elResourceDisplayName = document.querySelector('[data-authorapi-selector="asset-display-name"]');
+                if (modal && !elResourceDisplayName) {
                     logger.debug('Disconnecting observer', LOG_LEVEL);
                     clearObserver();
                     setupUploderUI();
@@ -221,20 +228,34 @@ function clearObserver() {
  * @ignore
  */
 function setupUploderUI() {
-    const lrnImageUploader = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]');
-    const lrnFrame = lrnImageUploader.querySelector('iframe');
-    const wrapper = document.createElement('div');
-    const elMoreOptions = document.querySelector('.lrn-adv-options');
+    const elImageAlignment = document.querySelector('[data-authorapi-selector="asset-uploader-alignment"]');
+    const elImagePreview = document.querySelector('.lrn-image-uploader-preview');
+    const timeoutValue = !elImageAlignment && !elImagePreview ? 0 : 500;
 
-    lrnFrame.setAttribute('hidden', '');
-    wrapper.setAttribute('id', 'uppy-dashboard');
-    lrnImageUploader.insertAdjacentElement('afterbegin', wrapper);
+    /**
+     * It looks like Question Editor reloads the modal after opening. It could be based on the
+     * structure of the modal required, which changes depending on where you are.
+     *
+     * This function is called by an observer, but we need a timeout to ensure the final modal
+     * is fully loaded before we add our custom uploader.
+     */
 
-    prepareModalButtons();
+    setTimeout(() => {
+        const lrnImageUploader = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]');
+        const lrnFrame = lrnImageUploader.querySelector('iframe');
+        const elMoreOptions = document.querySelector('.lrn-adv-options');
+        const wrapper = document.createElement('div');
 
-    elMoreOptions.removeAttribute('hidden');
+        wrapper.setAttribute('id', 'uppy-dashboard');
+        lrnFrame.setAttribute('hidden', '');
+        lrnImageUploader.insertAdjacentElement('afterbegin', wrapper);
 
-    setupUploadLibrary();
+        listenForSelfHostedImages();
+        prepareModalButtons();
+
+        elMoreOptions.removeAttribute('hidden');
+        setupUploadLibrary();
+    }, timeoutValue);
 }
 
 /**
@@ -353,18 +374,28 @@ function compressImage(file) {
  */
 function addUploadButton(fileId) {
     const elFooter = document.querySelector('.lrn-modal-footer');
-    const elExistingUploadButton = document.querySelector('.lt__image-uploader-upload-btn');
 
-    if (elExistingUploadButton) {
-        logger.debug('Removing existing upload button', LOG_LEVEL);
-        elExistingUploadButton.remove();
-    }
+    removeUploadButton();
 
     let elUploadButton = document.createElement('button');
     elUploadButton.setAttribute('class', 'lrn-btn lrn-btn-legacy lt__image-uploader-upload-btn');
     elUploadButton.textContent = 'Upload';
     elFooter.insertAdjacentElement('afterbegin', elUploadButton);
     elUploadButton.addEventListener('click', () => uploadImage(fileId));
+}
+
+/**
+ * Removes the upload button from the UI when not needed.
+ * @since 2.14.2
+ * @ignore
+ */
+function removeUploadButton() {
+    const elExistingUploadButton = document.querySelector('.lt__image-uploader-upload-btn');
+
+    if (elExistingUploadButton) {
+        logger.debug('Removing existing upload button', LOG_LEVEL);
+        elExistingUploadButton.remove();
+    }
 }
 
 /**
@@ -383,9 +414,11 @@ function uploadImage(fileId) {
 
     const file = state.uppy.getFile(fileId);
 
-    // Add loading spinner
+    // Add loading spinner and hide text
     const elButton = document.querySelector('.lt__image-uploader-upload-btn');
-    elButton.innerHTML = `Uploading <span class="lt__upload-spinner"><svg width="24" height="24" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_6kVp{transform-origin:center;animation:spinner_irSm .75s infinite linear}@keyframes spinner_irSm{100%{transform:rotate(360deg)};fill:#ffffff;}</style><path d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z" class="spinner_6kVp" style="fill: white"/></svg></span>`;
+    elButton.setAttribute('style', 'width:105px;');
+    elButton.innerHTML = `<span class="lt__upload-spinner"><svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_6kVp{transform-origin:center;animation:spinner_irSm .75s infinite linear}@keyframes spinner_irSm{100%{transform:rotate(360deg)};fill:#ffffff;}</style><path d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z" class="spinner_6kVp" style="fill: white"/></svg></span>`;
+    elButton.setAttribute('disabled', '');
 
     // Make the first request to get access details
     const formData = new FormData();
@@ -434,17 +467,65 @@ function uploadImage(fileId) {
                 .then(() => {
                     const assetUrl = response.data.assetUrl;
                     const src = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
+
                     src.value = assetUrl.trim();
                     src.dispatchEvent(new Event('input', { bubbles: true }));
                     logger.debug('Added image path to URI', LOG_LEVEL);
 
                     setTimeout(() => {
+                        removeUploadButton();
+                        const btnReset = document.querySelector('.lrn-author-item .lrn-delete-btn-wrapper [data-authorapi-action="asset-uploader-delete"]');
+                        const elAltText = document.querySelector('.lrn-author-item .lrn-image-uploader [data-authorapi-selector="asset-uploader-alignment"]');
+                        if (btnReset && !elAltText) {
+                            const btnOk = document.querySelector('[data-authorapi-selector="asset-uploader-okay"]');
+                            if (btnOk) {
+                                btnOk.click();
+                                logger.debug('Clicked OK button for background images', LOG_LEVEL);
+                            }
+                        }
                         prepareModalButtons();
                     }, 1500);
                 })
                 .catch(error => console.error('Error in uploading image:', error));
         })
         .catch(error => console.error('Error in fetching tokens:', error));
+}
+
+/**
+ * Sets a listener for pasting self-hosted image URIs
+ * @since 2.14.2
+ * @ignore
+ */
+function listenForSelfHostedImages() {
+    logger.debug('listenForSelfHostedImages()', LOG_LEVEL);
+
+    /**
+     * It looks like Question Editor reloads the modal after opening. It could be based on the
+     * structure of the modal required, which changes depending on where you are.
+     *
+     * This function is called by an observer, but we need a timeout to ensure the final modal
+     * is fully loaded before we add our custom uploader.
+     */
+
+    setTimeout(() => {
+        const src = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
+
+        if (src) {
+            src.addEventListener('input', handleSelfHostedImage);
+        }
+    }, 500);
+}
+
+/**
+ * Event handler if an author add a self-hosted image URI
+ * @since 2.14.2
+ * @ignore
+ */
+function handleSelfHostedImage() {
+    logger.debug('handleSelfHostedImage()', LOG_LEVEL);
+    setTimeout(() => {
+        prepareModalButtons();
+    }, 1500);
 }
 
 /**
@@ -456,20 +537,48 @@ function uploadImage(fileId) {
  */
 function prepareModalButtons() {
     logger.debug('prepareModalButtons()', LOG_LEVEL);
-    const elCloseButtons = ['lrn-modal-button-close', 'lrn-btn-default', 'lrn-btn-primary-legacy'];
+    const elCloseButtons = ['lrn-modal-button-close', 'lrn-btn-default', 'lrn-btn-primary-legacy', 'lrn-btn-sec'];
     const modalParent = document.querySelector('.lrn-modal');
 
     removeHandler();
 
-    setTimeout(() => {
-        for (let btn of elCloseButtons) {
-            let elBtn = modalParent.querySelector(`.lrn-modal-dialog button.${btn}`);
-            if (elBtn) {
-                logger.debug(`Adding clickHanders for: ${btn}`, LOG_LEVEL);
-                elBtn.addEventListener('click', clickHandler);
+    // Waiting for footer buttons to appear so we can add click events
+    function waitForElement(parentWrapper, selector, callback) {
+        const observer = new MutationObserver((mutationsList, observer) => {
+            for (let mutation of mutationsList) {
+                if (mutation.type === 'childList') {
+                    const element = document.querySelector(selector);
+                    if (element) {
+                        callback(element);
+                        observer.disconnect();
+                    }
+                }
             }
+        });
+
+        observer.observe(parentWrapper, { childList: true, subtree: true });
+
+        // In case the element is already present when this function is called
+        const initialCheck = document.querySelector(selector);
+        if (initialCheck) {
+            callback(initialCheck);
+            observer.disconnect();
         }
-    }, 750);
+    }
+
+    setTimeout(() => {
+        waitForElement(modalParent, '.lrn-modal-footer .lrn-delete-btn-wrapper', element => {
+            logger.debug('waitForElement() observed', LOG_LEVEL);
+            for (let btn of elCloseButtons) {
+                let elBtn = modalParent.querySelector(`.lrn-modal-dialog button.${btn}`);
+                if (elBtn) {
+                    elBtn.addEventListener('click', clickHandler);
+                    logger.debug(`Adding clickHanders for: ${btn}`, LOG_LEVEL);
+                    logger.debug(elBtn, LOG_LEVEL);
+                }
+            }
+        });
+    }, 100);
 
     function clickHandler() {
         logger.debug('clickHandler()', LOG_LEVEL);
@@ -488,6 +597,11 @@ function prepareModalButtons() {
                 logger.debug('Removed clickHandler', LOG_LEVEL);
                 elBtn.removeEventListener('click', clickHandler);
             }
+        }
+
+        const src = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
+        if (src) {
+            src.removeEventListener('input', handleSelfHostedImage);
         }
     }
 }

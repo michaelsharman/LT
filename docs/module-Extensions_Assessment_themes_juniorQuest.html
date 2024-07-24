@@ -259,9 +259,10 @@ using your build tool of choice. Here is a sample webpack config:</p>
     <h5 class="h5-examples">Example</h5>
     
     <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/core';
+import * as theme from '@caspingus/lt/src/assessment/extensions/ui/themes/juniorQuest/index';
 
 LT.init(itemsApp); // Set up LT with the Items API application instance variable
-LT.extensions.themes.juniorQuest.run();</code></pre>
+theme.run();</code></pre>
 
 
 

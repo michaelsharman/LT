@@ -87,9 +87,10 @@ const state = {
  *
  * @example
  * import { LT } from '@caspingus/lt/src/assessment/core';
+ * import * as theme from '@caspingus/lt/src/assessment/extensions/ui/themes/juniorQuest/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.themes.juniorQuest.run();
+ * theme.run();
  * @since 2.13.0
  */
 export function run() {
