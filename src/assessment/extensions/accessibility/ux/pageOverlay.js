@@ -24,8 +24,8 @@ const state = {
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.pageOverlay.run();
- * @param {string} customColor A custom color value to use for the overlay. Recommend rgba. Defaults to rgba(250, 170, 140, 0.5)
- * @param {number} customZIndex A custom z-index value to use for the overlay. Defaults to 99999.
+ * @param {string=} customColor A custom color value to use for the overlay. Recommend rgba. Defaults to rgba(250, 170, 140, 0.5)
+ * @param {number=} customZIndex A custom z-index value to use for the overlay. Defaults to 99999.
  * @since 0.9.0
  */
 export function run(customColor, customZIndex) {
