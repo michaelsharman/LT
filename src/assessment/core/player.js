@@ -1,3 +1,4 @@
+import { hasAnswerMasking } from './activity';
 import * as app from './app';
 import * as items from './items';
 import logger from '../../utils/logger';
@@ -6,6 +7,40 @@ import logger from '../../utils/logger';
  * Everything relating to the assessment player.
  * @module Assessment/Player
  */
+
+const state = {
+    answerMasking: {
+        enabled: null,
+    },
+    lineReader: {
+        enabled: null,
+        id: null,
+    },
+};
+
+/**
+ * Shows or hides the player answer masking tool. Answer masking has to be enabled in
+ * Items API configuration for this to work.
+ * @since 2.15.0
+ * @param {boolean} action - Whether to show (`true`) or hide (`false`).
+ */
+export function answerMasking(action) {
+    if (state.answerMasking.enabled === null) {
+        const buttonElement = document.querySelector('.test-answer-masking');
+
+        if (buttonElement) {
+            state.answerMasking.enabled = true;
+        } else {
+            state.answerMasking.enabled = false;
+        }
+    }
+
+    if (state.answerMasking.enabled) {
+        if (action !== undefined) app.appInstance().questionsApp().masking(action);
+    } else {
+        logger.warn('Answer masking is not enabled in the Items API configuration.');
+    }
+}
 
 /**
  * Renders an Items API custom dialog.
@@ -67,6 +102,50 @@ export function isReviewScreen() {
         }
         return loaded;
     }, 500);
+}
+
+/**
+ * Shows or hides the player line reader. The line reader has to be enabled in
+ * Items API configuration for this to work.
+ * @since 2.15.0
+ * @param {string=} action - Whether to `toggle` (default), `show` or `hide` the line reader.
+ */
+export function lineReader(action) {
+    if (state.lineReader.enabled === null) {
+        const buttonElement = document.querySelector('.lrn_linereader-toggle');
+
+        if (buttonElement) {
+            state.lineReader.enabled = true;
+
+            const dataAttributeValue = buttonElement.querySelector('[data-lrn-widget-container]').getAttribute('data-lrn-widget-container');
+            const uniqueValue = dataAttributeValue.match(/\d+$/);
+
+            if (uniqueValue) {
+                state.lineReader.id = uniqueValue[0];
+            } else {
+                logger.warn('Could not find the line reader unique id.');
+            }
+        } else {
+            state.lineReader.enabled = false;
+        }
+    }
+
+    if (state.lineReader.enabled && state.lineReader.id !== null) {
+        const lineReader = app.appInstance().features()[`lrn-assessapp-feature_${state.lineReader.id}`];
+
+        switch (action) {
+            case 'show':
+                lineReader.show();
+                break;
+            case 'hide':
+                lineReader.hide();
+                break;
+            default:
+                lineReader.toggle();
+        }
+    } else {
+        logger.warn('Line reader is not enabled in the Items API configuration.');
+    }
 }
 
 /**
