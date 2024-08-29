@@ -131,6 +131,15 @@ export function hasAnnotations() {
 }
 
 /**
+ * Whether this activity contains answer masking enabled.
+ * @since 2.15.0
+ * @returns {boolean}
+ */
+export function hasAnswerMasking() {
+    return !!document.querySelector('.test-answer-masking');
+}
+
+/**
  * Whether auto-save is configured with this activity.
  * @since 0.1.0
  * @returns {boolean}
@@ -172,6 +181,15 @@ export function hasEvents() {
 export function hasItemPool() {
     const a = activity();
     return a.hasOwnProperty('item_pool_id');
+}
+
+/**
+ * Whether this activity contains the line reader at the player level.
+ * @since 2.15.0
+ * @returns {boolean}
+ */
+export function hasLineReader() {
+    return !!document.querySelector('.lrn_linereader-toggle');
 }
 
 /**
