@@ -18,8 +18,12 @@ import * as items from '../../../core/items';
  * @module Extensions/Assessment/magnifier
  */
 
+const state = {
+    magnifier: null,
+};
+
 /**
- * Sets up the screen magnifier.
+ * Initialises the screen magnifier.
  * @example
  * import { LT } from '@caspingus/lt/src/assessment/index';
  *
@@ -34,10 +38,9 @@ import * as items from '../../../core/items';
  *     height: 310,
  * }
  * @param {object} options Optional config object to override defaults
- * @param {string} classname CSS class value of the element to launch the magnifier
  * @since 0.7.0
  */
-export function run(options, classname = 'lrn__magnifier') {
+export function run(options) {
     if (!options) {
         options = {
             zoom: 4,
@@ -46,16 +49,32 @@ export function run(options, classname = 'lrn__magnifier') {
             height: 350,
         };
     }
-    const elButtons = document.querySelectorAll(`.${classname}`);
-    const magnifier = new HTMLMagnifier(options);
 
+    state.magnifier = new HTMLMagnifier(options);
+}
+
+/**
+ * Sets up listeners on custom buttons to toggle the magnifier.
+ * @param {string} classname CSS class value of the element to launch the magnifier
+ * @since 2.16.0
+ */
+export function setupButtons(classname = 'lrn__magnifier') {
+    const elButtons = document.querySelectorAll(`.${classname}`);
     elButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            magnifier.toggle();
+            state.magnifier.toggle();
         });
     });
 
-    app.appInstance().on('item:load', checkImageContent(magnifier));
+    app.appInstance().on('item:load', checkImageContent());
+}
+
+/**
+ * Toggle visibility of the magnifier.
+ * @since 2.16.0
+ */
+export function toggle() {
+    state.magnifier.toggle();
 }
 
 /* global MutationObserver */
@@ -511,15 +530,15 @@ function HTMLMagnifier(options) {
     return _this;
 }
 
-function checkImageContent(magnifier) {
+function checkImageContent() {
     let elItem = items.itemElement();
     let elImages = elItem.querySelectorAll('img');
 
     if (elImages) {
         elImages.forEach(img => {
             img.addEventListener('click', e => {
-                if (!magnifier.isVisible()) {
-                    magnifier.show(e);
+                if (!state.magnifier.isVisible()) {
+                    state.magnifier.show(e);
                 }
             });
         });

@@ -20,6 +20,7 @@ import logger from '../../../../utils/logger';
  */
 
 const state = {
+    elTimerWrapper: null,
     forceRenderTimer: false,
     renderedCss: false,
 };
@@ -42,27 +43,28 @@ const state = {
  */
 export function run(showTimerLimit = 60) {
     const elLrnResponsiveWrapper = document.querySelector('.lrn-sm');
-    const elTimerWrapper = document.querySelector('.lrn-timer-wrapper');
+    state.elTimerWrapper = document.querySelector('.lrn-timer-wrapper');
 
-    if (elLrnResponsiveWrapper && elTimerWrapper) {
+    if (elLrnResponsiveWrapper && state.elTimerWrapper) {
         if (!state.renderedCss) injectCSS();
 
-        const childElements = Array.from(elTimerWrapper.children);
+        const childElements = Array.from(state.elTimerWrapper.children);
         const elTimerButton = document.createElement('button');
 
         elTimerButton.classList.add('lrn_btn', 'lt__timer-button');
         elTimerButton.setAttribute('type', 'button');
-        elTimerButton.setAttribute('aria-label', `${elTimerWrapper.getAttribute('aria-label')}, click to toggle visibility of the timer.`);
+        elTimerButton.setAttribute('aria-label', `${state.elTimerWrapper.getAttribute('aria-label')}, click to toggle visibility of the timer.`);
 
-        elTimerWrapper.innerHTML = '';
-        elTimerWrapper.appendChild(elTimerButton);
+        state.elTimerWrapper.innerHTML = '';
+        state.elTimerWrapper.appendChild(elTimerButton);
         childElements.forEach(child => {
             elTimerButton.appendChild(child);
         });
 
         elTimerButton.addEventListener('click', () => {
-            toggleTimer(elTimerWrapper);
+            toggle();
         });
+        console.log(app.appInstance());
 
         app.appInstance().on('time:change', () => {
             const timeRemaining = activity.timeRemaining();
@@ -70,24 +72,24 @@ export function run(showTimerLimit = 60) {
                 !state.forceRenderTimer &&
                 typeof timeRemaining === 'number' &&
                 timeRemaining <= Number(showTimerLimit) &&
-                elTimerWrapper.classList.contains('lt__timer-hide')
+                state.elTimerWrapper.classList.contains('lt__timer-hide')
             ) {
                 state.forceRenderTimer = true;
-                elTimerWrapper.classList.remove('lt__timer-hide');
+                state.elTimerWrapper.classList.remove('lt__timer-hide');
                 logger.info(`Force show the timer limit (${showTimerLimit}) reached.`);
             }
         });
+    } else {
+        logger.warn('Timer wrapper, or `lrn-sm`, not found');
     }
 }
 
 /**
- * Adds a classname to toggle visibility of the timer.
- * @param {object} elTimerWrapper DOM element of timer.
+ * Toggles the timer visibility. Assumes run() has been called.
  * @since 2.6.0
- * @ignore
  */
-function toggleTimer(elTimerWrapper) {
-    elTimerWrapper.classList.toggle('lt__timer-hide');
+export function toggle() {
+    state.elTimerWrapper.classList.toggle('lt__timer-hide');
 }
 
 /**
