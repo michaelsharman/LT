@@ -84,6 +84,7 @@ import { Howl, Howler } from 'howler';
  */
 
 const state = {
+    elementId: null,
     player: {
         instances: {
             beach: null,
@@ -104,6 +105,7 @@ const state = {
         campfire: 'https://assets.learnosity.com/learnosity_toolkit/whitenoise/campfire.mp3',
         rain: 'https://assets.learnosity.com/learnosity_toolkit/whitenoise/rain.mp3',
     },
+    queryRoot: document,
     renderedCss: false,
 };
 
@@ -115,8 +117,13 @@ const state = {
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.whiteNoise.run();
  * @since 2.7.0
+ * @param {string=} id Optional id of an element, or element, to render the player into
+ * @param {object=} shadowRoot Optional A shadow root to render the player into
  */
-export function run() {
+export function run(id, shadowRoot) {
+    state.elementId = id || null;
+    state.queryRoot = shadowRoot || document;
+
     if (!state.renderedCss) injectCSS();
 
     // Listener for an Items API custom button
@@ -130,19 +137,28 @@ export function run() {
  * Items API custom dialog, in which case you never need to call this
  * method directly.
  *
- * Call and pass an id to render the player inside a custom host page element.
- * @param {string=} id Optional id of an element to render the player into
+
  * @since 2.7.0
  */
-export function launchPlayer(id) {
+export function launchPlayer() {
     const content = playerTemplate();
 
-    if (id) {
-        const customWrapper = document.getElementById(id);
+    if (state.elementId && !state.shadowRoot) {
+        const customWrapper = state.queryRoot.querySelector(`#${state.elementId}`);
         if (customWrapper) {
             customWrapper.innerHTML = content;
         } else {
-            logger.error(`Element id '${id}' not found, cound not render player.`);
+            logger.error(`Element id '${state.elementId}' not found, could not render player.`);
+            return;
+        }
+    } else if (state.elementId && state.queryRoot !== document) {
+        const el = state.queryRoot.querySelector(`#${state.elementId}`);
+        console.log(el);
+
+        if (el) {
+            el.innerHTML = content;
+        } else {
+            logger.error(`Shadow root element id '${state.elementId}' not found, could not render player.`);
             return;
         }
     } else {
@@ -160,8 +176,8 @@ export function launchPlayer(id) {
     }
 
     setTimeout(() => {
-        const elSounds = document.querySelectorAll('.lt__controls-sound');
-        const elVolume = document.getElementById('ld-volume');
+        const elSounds = state.queryRoot.querySelectorAll('.lt__controls-sound');
+        const elVolume = state.queryRoot.querySelector(`#ld-volume`);
 
         elSounds.forEach(el => {
             el.addEventListener('keydown', event => {
@@ -201,7 +217,7 @@ export function launchPlayer(id) {
  */
 function actionTriggered(el) {
     const sound = el.getAttribute('data-lt-sound');
-    const targetSound = document.querySelector(`[data-lt-sound="${sound}"]`);
+    const targetSound = state.queryRoot.querySelector(`[data-lt-sound="${sound}"]`);
 
     if (state.player.sound) stop(state.player.sound);
 
@@ -258,8 +274,8 @@ function stop(sound) {
  * @ignore
  */
 function volume() {
-    const elVolume = document.getElementById('ld-volume');
-    const elVolumeValue = document.getElementById('ld-volume-value');
+    const elVolume = state.queryRoot.querySelector(`#ld-volume`);
+    const elVolumeValue = state.queryRoot.querySelector(`#ld-volume-value`);
     const currentVolume = elVolume.value;
 
     state.player.volume = currentVolume;
@@ -273,7 +289,7 @@ function volume() {
  * @ignore
  */
 function setSoundsClass(activeSound) {
-    const elSounds = document.querySelectorAll('.lt__controls-sound');
+    const elSounds = state.queryRoot.querySelectorAll('.lt__controls-sound');
 
     elSounds.forEach(el => {
         if (el.getAttribute('data-lt-sound') === activeSound && !el.classList.contains('lt__sound-active')) {
@@ -324,10 +340,15 @@ function playerTemplate() {
  * @ignore
  */
 function injectCSS() {
+    let root = ':root';
+    if (state.queryRoot !== document) {
+        root = ':host';
+    }
+
     const elStyle = document.createElement('style');
     const css = `
 /* Learnosity white noise player styles */
-:root {
+${root} {
     --lt-border: #888888;
     --lt-border-radius: 10px;
     --lt-color: #333333;
@@ -348,6 +369,7 @@ function injectCSS() {
 .lt__player svg {
     width: 60px;
     height: 60px;
+    display: inline;
 }
 .lt__meta ul {
     display: grid;
@@ -494,7 +516,12 @@ input[type="range"]:focus::-moz-range-thumb {
 `;
 
     elStyle.textContent = css;
-    document.head.append(elStyle);
+
+    if (state.queryRoot === document) {
+        document.head.append(elStyle);
+    } else {
+        state.queryRoot.appendChild(elStyle);
+    }
 
     state.renderedCss = true;
 }
