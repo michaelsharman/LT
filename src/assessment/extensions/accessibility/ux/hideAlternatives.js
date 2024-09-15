@@ -1,6 +1,7 @@
 import * as app from '../../../core/app';
 import * as questions from '../../../core/questions';
-import * as shuffleSeed from 'shuffle-seed';
+import seedrandom from 'seedrandom';
+import _shuffle from 'lodash/shuffle';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -51,7 +52,7 @@ export function run(num) {
                                 // Shuffle the options list
                                 let optionsToHide = [];
                                 for (let j = 0; j < numToHide; j++) {
-                                    optionsToHide.push(shuffleSeed.shuffle(optionsList, question.response_id)[j]);
+                                    optionsToHide.push(shuffleArrayWithSeed(optionsList, question.response_id)[j]);
                                 }
                                 // Hide the option(s)
                                 let responsesEl = document.getElementById(question.response_id).getElementsByClassName('lrn_mcqgroup');
@@ -128,4 +129,18 @@ function hasCorrectAnswers(validation) {
  */
 function getCorrectAnswers(validation) {
     return validation.valid_response.value;
+}
+
+/**
+ * Utility function to randomise an array with a seed.
+ * @param {array} arr Array to randomise
+ * @param {string} seed
+ * @returns array
+ */
+function shuffleArrayWithSeed(arr, seed) {
+    const prng = seedrandom(seed);
+
+    return _shuffle(arr.map(value => ({ value, sort: prng() })))
+        .sort((a, b) => a.sort - b.sort)
+        .map(({ value }) => value);
 }
