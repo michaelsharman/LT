@@ -1,4 +1,4 @@
-import * as ssmlEditor from 'ssml-editor/src/index';
+import * as ssmlEditor from '@caspingus/ssml-editor/src/index';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.

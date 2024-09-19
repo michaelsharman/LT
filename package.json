@@ -55,6 +55,7 @@
         "start:server:background": "nodemon ./tests/api-server/src/server.js &"
     },
     "dependencies": {
+        "@caspingus/ssml-editor": "^0.1.1",
         "@uppy/compressor": "^1.1.4",
         "@uppy/core": "^3.13.1",
         "@uppy/dashboard": "^3.9.1",
@@ -66,7 +67,6 @@
         "mousetrap": "^1.6.5",
         "pdfjs-dist": "^4.6.82",
         "platform-detect": "^3.0.1",
-        "seedrandom": "^3.0.5",
-        "ssml-editor": "github:michaelsharman/ssml-editor"
+        "seedrandom": "^3.0.5"
     }
 }
