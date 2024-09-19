@@ -12,8 +12,20 @@ module.exports = {
         path: __dirname + '/dist',
         filename: '[name].js',
         assetModuleFilename: 'assets/[name][ext][query]',
-        libraryTarget: 'module',
+        library: {
+            type: 'module',
+        },
     },
+    experiments: {
+        outputModule: true,
+    },
+    resolve: {
+        fallback: {
+            fs: false,
+            https: false,
+        },
+    },
+    mode: 'production',
     module: {
         rules: [
             {
@@ -28,10 +40,17 @@ module.exports = {
                 test: /\.s[ac]ss$/i,
                 use: ['style-loader', 'css-loader', 'sass-loader'],
             },
+            {
+                test: /\.m?js$/,
+                exclude: /node_modules/,
+                use: {
+                    loader: 'babel-loader',
+                    options: {
+                        presets: ['@babel/preset-env'],
+                    },
+                },
+            },
         ],
-    },
-    experiments: {
-        outputModule: true,
     },
     plugins: [
         new VersionFile({

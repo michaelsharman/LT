@@ -8,7 +8,6 @@ import ImageEditor from '@uppy/image-editor';
 import '@uppy/core/dist/style.min.css';
 import '@uppy/dashboard/dist/style.min.css';
 import '@uppy/image-editor/dist/style.min.css';
-import { Logger } from 'sass';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.

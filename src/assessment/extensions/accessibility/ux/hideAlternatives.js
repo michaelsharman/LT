@@ -1,7 +1,7 @@
 import * as app from '../../../core/app';
 import * as questions from '../../../core/questions';
 import seedrandom from 'seedrandom';
-import _shuffle from 'lodash/shuffle';
+import { shuffle } from 'lodash-es';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -140,7 +140,7 @@ function getCorrectAnswers(validation) {
 function shuffleArrayWithSeed(arr, seed) {
     const prng = seedrandom(seed);
 
-    return _shuffle(arr.map(value => ({ value, sort: prng() })))
+    return shuffle(arr.map(value => ({ value, sort: prng() })))
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
 }

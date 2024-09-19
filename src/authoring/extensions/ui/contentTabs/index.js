@@ -1,5 +1,3 @@
-import iconContentTabs from './assets/images/icon_tabs.svg';
-
 /**
  * Extensions add specific functionality to Learnosity APIs.
  * They rely on modules within LT being available.
@@ -37,7 +35,7 @@ import iconContentTabs from './assets/images/icon_tabs.svg';
  *                         "customButtons": [
  *                             {
  *                                 "func": "LT.extensions.contentTabs.addContentTabs",
- *                                 "icon": "/poc/content-tabs/dist/45702062e0a01c4cc7f0.svg",
+ *                                 "icon": "https://raw.githubusercontent.com/michaelsharman/LT/refs/heads/main/src/authoring/extensions/ui/contentTabs/assets/images/icon_tabs.svg",
  *                                 "label": "Add content tabs",
  *                                 "name": "addContentTabs",
  *                                 "attributes": ["content","stimulus","template"]

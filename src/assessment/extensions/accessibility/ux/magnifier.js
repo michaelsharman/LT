@@ -1,5 +1,6 @@
 import * as app from '../../../core/app';
 import * as items from '../../../core/items';
+import logger from '../../../../utils/logger';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -18,7 +19,10 @@ import * as items from '../../../core/items';
  * @module Extensions/Assessment/magnifier
  */
 
+const LOG_LEVEL = 'ERROR';
+
 const state = {
+    _initialised: false,
     magnifier: null,
 };
 
@@ -41,16 +45,21 @@ const state = {
  * @since 0.7.0
  */
 export function run(options) {
-    if (!options) {
-        options = {
-            zoom: 4,
-            shape: 'square',
-            width: 350,
-            height: 350,
-        };
-    }
+    if (!state._initialised) {
+        if (!options) {
+            options = {
+                zoom: 4,
+                shape: 'square',
+                width: 350,
+                height: 350,
+            };
+        }
 
-    state.magnifier = new HTMLMagnifier(options);
+        state.magnifier = new HTMLMagnifier(options);
+        state._initialised = true;
+    } else {
+        logger.debug('Magnifier already initialised, ignoring run();', LOG_LEVEL);
+    }
 }
 
 /**

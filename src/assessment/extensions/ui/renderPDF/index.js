@@ -1,6 +1,6 @@
 import * as app from '../../../core/app';
 import * as items from '../../../core/items';
-import * as pdfjs from '../../../../vendor/pdfjs-dist/build/pdf.mjs';
+import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
 
 /**
  * Extensions add specific functionality to Items API.

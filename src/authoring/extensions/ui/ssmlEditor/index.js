@@ -1,5 +1,4 @@
 import * as ssmlEditor from 'ssml-editor/src/index';
-import iconSsmlEditor from './assets/images/icon_tts.svg';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -22,8 +21,8 @@ import iconSsmlEditor from './assets/images/icon_tts.svg';
  *                     "rich_text_editor": {
  *                         "customButtons": [
  *                              {
- *                                  "func": "launchSsmlEditor",
- *                                  "icon": "/path/to/images/dist/3d863d117b67171f55e8.svg",
+ *                                  "func": "LT.extensions.ssmlEditor.launchSsmlEditor",
+ *                                  "icon": "https://raw.githubusercontent.com/michaelsharman/LT/refs/heads/main/src/authoring/extensions/ui/ssmlEditor/assets/images/icon_tts.svg",
  *                                  "label": "Add SSML",
  *                                  "name": "addSsml",
  *                                  "attributes": ["content","stimulus","template","options"]

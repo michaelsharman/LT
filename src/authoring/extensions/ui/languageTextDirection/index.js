@@ -1,5 +1,3 @@
-import iconLanguageTextDirection from './assets/icon_language.svg';
-
 /**
  * Extensions add specific functionality to Learnosity APIs.
  * They rely on modules within LT being available.
@@ -34,7 +32,7 @@ import iconLanguageTextDirection from './assets/icon_language.svg';
  *                         "customButtons": [
  *                             {
  *                                 "func": "LT.extensions.languageTextDirection.addLanguageAttribute",
- *                                 "icon": "/poc/language-text-direction-plugin/dist/e7380f76e9de257cbecf.svg",
+ *                                 "icon": "https://raw.githubusercontent.com/michaelsharman/LT/refs/heads/main/src/authoring/extensions/ui/languageTextDirection/assets/icon_language.svg",
  *                                 "label": "Set language",
  *                                 "name": "addLanguageAttribute"
  *                             }

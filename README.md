@@ -25,7 +25,7 @@ npm install @caspingus/lt
 
 ## Usage
 
-You can import `core` or `index` into your project, from either the `src` or `dist` directories.
+You can import `core` or `index` into your project, from the `src` folder.
 
 ### core vs index
 
@@ -129,4 +129,23 @@ import { LT } from '@caspingus/lt/src/authoring/core';
 
 // Injects a route hash to the URI so SPAs can load to a deep view from a full page refresh.
 LT.routingHash();
+```
+
+# Building
+
+You should import from `@caspingus/lt/src/*` and let your build tool handle minifying and tree shaking etc.
+
+Right now, the Authoring extension ssmlEditor requires that css be imported. Here is an example webpack.config:
+
+```
+{
+    module: {
+        rules: [
+            {
+                test: /\.((c|s[ac])ss)$/i,
+                use: ['style-loader', 'css-loader', 'sass-loader'],
+            },
+        ],
+    },
+};
 ```

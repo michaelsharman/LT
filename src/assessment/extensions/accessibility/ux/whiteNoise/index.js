@@ -349,26 +349,49 @@ function injectCSS() {
     const css = `
 /* Learnosity white noise player styles */
 ${root} {
-    --lt-border: #888888;
-    --lt-border-radius: 10px;
-    --lt-color: #333333;
+    --lt-wn-border: #888888;
+    --lt-wn-border-radius: 10px;
+    --lt-wn-color: #333333;
+    --lt-wn-svg-size: 4rem;
+    --lt-wn-control-svg-size: 1.5rem;
+    --lt-wn-range-size: 15rem;
+    --lt-wn-min-height: 19rem;
+}
+
+@container (max-width: 300px) {
+    .lt__player {
+        min-height: var(--lt-wn-min-height);
+        svg {
+            --lt-wn-svg-size: 3rem;
+        }
+        .lt__control-wrapper {
+            svg {
+                --lt-wn-control-svg-size: 1rem;
+            }
+            input[type="range"] {
+                --lt-wn-range-size: 10rem;
+            }
+        }
+    }
 }
 
 .lt__player {
+    container-type: size;
     background-color: #fff;
     width: 100%;
     max-width: 30rem;
+    min-height: var(--lt-wn-min-height);
     border: 1px solid #dddddd;
-    border-radius: var(--lt-border-radius);
+    border-radius: var(--lt-wn-border-radius);
     padding: 1rem;
     filter: drop-shadow(4px 5px 7px #8d8d8d);
     font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: var(--lt-color);
+    color: var(--lt-wn-color);
     margin: 0 auto;
 }
 .lt__player svg {
-    width: 60px;
-    height: 60px;
+    width: var(--lt-wn-svg-size);
+    height: var(--lt-wn-svg-size);
     display: inline;
 }
 .lt__meta ul {
@@ -381,8 +404,8 @@ ${root} {
 }
 .lt__meta ul li {
     box-sizing: border-box;
-    border-radius: var(--lt-border-radius);
-    border: 1px solid var(--lt-border);
+    border-radius: var(--lt-wn-border-radius);
+    border: 1px solid var(--lt-wn-border);
     margin: 0.3rem;
 
     &:hover {
@@ -417,11 +440,11 @@ ${root} {
     vertical-align: middle;
 }
 .lt__control-wrapper svg {
-    width: 30px;
+    width: var(--lt-wn-control-svg-size);
 }
 .lt__control-wrapper svg:last-child {
     position: relative;
-    left: 15px;
+    left: 0.6rem;
 }
 .lt__sound-label {
     display: block;
@@ -449,7 +472,7 @@ input[type="range"] {
     appearance: none;
     background: transparent;
     cursor: pointer;
-    width: 15rem;
+    width: var(--lt-wn-range-size);
 }
 /* Removes default focus */
 input[type="range"]:focus {
@@ -506,7 +529,7 @@ input[type="range"]:focus::-moz-range-thumb {
 .lt__whitenoise-player-icon::before {
     content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V384 336 288C0 146.6 114.6 32 256 32s256 114.6 256 256v48 48 16c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z"/></svg>');
     width: 16px;
-    color: var(--lt-color);
+    color: var(--lt-wn-color);
     margin-top: 0;
     font-size: 16px;
     -webkit-transition: color .2s;

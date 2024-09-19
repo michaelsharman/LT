@@ -19,7 +19,10 @@ import logger from '../../../../utils/logger';
  * @module Extensions/Assessment/toggleTimer
  */
 
+const LOG_LEVEL = 'ERROR';
+
 const state = {
+    _initialised: false,
     elTimerWrapper: null,
     forceRenderTimer: false,
     renderedCss: false,
@@ -42,45 +45,49 @@ const state = {
  * @since 2.6.0
  */
 export function run(showTimerLimit = 60) {
-    const elLrnResponsiveWrapper = document.querySelector('.lrn-sm');
-    state.elTimerWrapper = document.querySelector('.lrn-timer-wrapper');
+    if (!state._initialised) {
+        const elLrnResponsiveWrapper = document.querySelector('.lrn-sm');
+        state.elTimerWrapper = document.querySelector('.lrn-timer-wrapper');
 
-    if (elLrnResponsiveWrapper && state.elTimerWrapper) {
-        if (!state.renderedCss) injectCSS();
+        if (elLrnResponsiveWrapper && state.elTimerWrapper) {
+            if (!state.renderedCss) injectCSS();
+            state._initialised = true;
 
-        const childElements = Array.from(state.elTimerWrapper.children);
-        const elTimerButton = document.createElement('button');
+            const childElements = Array.from(state.elTimerWrapper.children);
+            const elTimerButton = document.createElement('button');
 
-        elTimerButton.classList.add('lrn_btn', 'lt__timer-button');
-        elTimerButton.setAttribute('type', 'button');
-        elTimerButton.setAttribute('aria-label', `${state.elTimerWrapper.getAttribute('aria-label')}, click to toggle visibility of the timer.`);
+            elTimerButton.classList.add('lrn_btn', 'lt__timer-button');
+            elTimerButton.setAttribute('type', 'button');
+            elTimerButton.setAttribute('aria-label', `${state.elTimerWrapper.getAttribute('aria-label')}, click to toggle visibility of the timer.`);
 
-        state.elTimerWrapper.innerHTML = '';
-        state.elTimerWrapper.appendChild(elTimerButton);
-        childElements.forEach(child => {
-            elTimerButton.appendChild(child);
-        });
+            state.elTimerWrapper.innerHTML = '';
+            state.elTimerWrapper.appendChild(elTimerButton);
+            childElements.forEach(child => {
+                elTimerButton.appendChild(child);
+            });
 
-        elTimerButton.addEventListener('click', () => {
-            toggle();
-        });
-        console.log(app.appInstance());
+            elTimerButton.addEventListener('click', () => {
+                toggle();
+            });
 
-        app.appInstance().on('time:change', () => {
-            const timeRemaining = activity.timeRemaining();
-            if (
-                !state.forceRenderTimer &&
-                typeof timeRemaining === 'number' &&
-                timeRemaining <= Number(showTimerLimit) &&
-                state.elTimerWrapper.classList.contains('lt__timer-hide')
-            ) {
-                state.forceRenderTimer = true;
-                state.elTimerWrapper.classList.remove('lt__timer-hide');
-                logger.info(`Force show the timer limit (${showTimerLimit}) reached.`);
-            }
-        });
+            app.appInstance().on('time:change', () => {
+                const timeRemaining = activity.timeRemaining();
+                if (
+                    !state.forceRenderTimer &&
+                    typeof timeRemaining === 'number' &&
+                    timeRemaining <= Number(showTimerLimit) &&
+                    state.elTimerWrapper.classList.contains('lt__timer-hide')
+                ) {
+                    state.forceRenderTimer = true;
+                    state.elTimerWrapper.classList.remove('lt__timer-hide');
+                    logger.info(`Force show the timer limit (${showTimerLimit}) reached.`);
+                }
+            });
+        } else {
+            logger.warn('Timer wrapper, or `lrn-sm`, not found');
+        }
     } else {
-        logger.warn('Timer wrapper, or `lrn-sm`, not found');
+        logger.debug('Toggle timer already initialised, ignoring run();', LOG_LEVEL);
     }
 }
 
