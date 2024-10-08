@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Extensions/Assessment/ariaCountOnNav - Learnosity Toolkit - Docs</title>
+    <title>Extensions/Assessment/disableOnValidate - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Extensions/Assessment/ariaCountOnNav</h1>
+    <h1 class="page-title">Extensions/Assessment/disableOnValidate</h1>
     
 
     
@@ -68,9 +68,8 @@
 <p>Extensions add specific functionality to Items API.
 They rely on modules within LT being available.</p>
 <p>--</p>
-<p>Listens for the item load event and appends
-<code> of {totalItems}</code> to the aria-label for the
-previous and next buttons.</p>
+<p>This extension is used to disable the question after it has been validated
+using the &quot;Check Answer&quot; button.</p>
 
 <dl class="details">
     
@@ -148,8 +147,6 @@ previous and next buttons.</p>
 
 
 
-<p>Executes on item load to add custom label.</p>
-
 <dl class="details">
     
 
@@ -159,7 +156,7 @@ previous and next buttons.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.3.0</dd>
+    <dd class="tag-since">2.17.0</dd>
     
 
     
@@ -201,10 +198,12 @@ previous and next buttons.</p>
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/core';
+import * as disableOnValidate from '@caspingus/lt/src/assessment/extensions/validation/disableOnValidate
 
 LT.init(itemsApp); // Set up LT with the Items API application instance variable
-LT.extensions.ariaCountOnNav.run();</code></pre>
+
+disableOnValidate.run();</code></pre>
 
 
 
