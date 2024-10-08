@@ -121,7 +121,7 @@ export function diagnostics() {
  *
  * Pass any of the following:
  * - exact event (https://reference.learnosity.com/items-api/events) or;
- * - `*` for all events or;
+ * - `'*'` for all events or;
  * - left or right wildcards via `*`
  * @since 0.1.0
  * @param {string} event
