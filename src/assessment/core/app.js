@@ -85,12 +85,21 @@ function setupListeners() {
         handleEvent(e);
     });
 
-    // Sends Questions API `changed` event for handling.
+    // Sends Questions API events for handling.
     state.app.on('item:load', e => {
         let response_ids = questionResponseIds();
         response_ids.forEach(id => {
             state.app.question(id).on('changed', ev => {
                 handleEvent('changed');
+            });
+            state.app.question(id).on('beforeValidate', ev => {
+                handleEvent('beforeValidate');
+            });
+            state.app.question(id).on('rendered', ev => {
+                handleEvent('rendered');
+            });
+            state.app.question(id).on('validated', ev => {
+                handleEvent('validated');
             });
         });
     });
