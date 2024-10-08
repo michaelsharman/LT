@@ -11,6 +11,7 @@ import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav'
 import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks';
 import * as checkAnswerValidation from './extensions/validation/checkAnswerValidation';
 import * as columnResizer from './extensions/accessibility/ux/columnResizer';
+import * as disableOnValidate from './extensions/validation/disableOnValidate';
 import * as essayLimitByCharacter from './extensions/validation/essayLimitByCharacter';
 import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives';
 import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts';
@@ -29,6 +30,7 @@ const extensions = {
         blockGrammarChecks: { ...blockGrammarChecks },
         checkAnswerValidation: { ...checkAnswerValidation },
         columnResizer: { ...columnResizer },
+        disableOnValidate: { ...disableOnValidate },
         essayLimitByCharacter: { ...essayLimitByCharacter },
         hideAlternatives: { ...hideAlternatives },
         keyboardShortcuts: { ...keyboardShortcuts },
