@@ -1,4 +1,5 @@
 import * as app from '../../../core/app';
+import { debounce } from 'lodash-es';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -6,10 +7,10 @@ import * as app from '../../../core/app';
  *
  * --
  *
- * Adds the ability for authors to create tags (type:tag) if
- * they don't yet exist in the item bank.
+ * Adds the ability for authors to create tags (type:tag)
+ * via the Author API if they don't yet exist in the item bank.
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/createtags.gif" alt="" width="660"></p>
  * @module Extensions/Authoring/createTags
- * @ignore
  */
 
 const state = {
@@ -24,90 +25,125 @@ const state = {
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.createTags.run();
- * @since 2.0.0
+ * @since 2.18.0
  */
 export function run() {
     if (!state.renderedCss) injectCSS();
 
-    app.appInstance().on('all', e => {
-        // console.log(e);
-    });
+    // We need to wait for the UI to be ready
+    setTimeout(() => {
+        checkForSetup();
+    }, 1500);
 
-    app.appInstance().on('navigate', () => {
-        if (app.appInstance().getLocation().route === 'items/:reference/settings/:tab') {
-            setup();
-        }
-    });
+    app.appInstance().on('navigate', checkForSetup);
+
+    function checkForSetup() {
+        setTimeout(() => {
+            if (app.appInstance().getLocation().route === 'items/:reference/settings/:tab') {
+                setup();
+            }
+        }, 300);
+    }
 }
 
 /**
  * Listens for changes to the tag input field.
  * If no suggestions were found, calls method
  * to show the create UI.
- * @since 2.0.0
+ * @since 2.18.0
  * @ignore
  */
 function setup() {
     const elTagsInput = document.querySelector('[data-authorapi-selector="tag-search-input"]');
-    let elNoSuggestions;
+    const elTagList = document.querySelector('.lrn-author-tag-suggestion-list');
 
-    elTagsInput.addEventListener('input', () => {
-        console.log('input change');
-        elNoSuggestions = document.querySelector('.lrn-author-tag-no-suggestions');
+    if (elTagsInput) elTagsInput.addEventListener('input', debounce(handleInput, 750));
+
+    function handleInput() {
+        const elNoSuggestions = elTagList.querySelector('li.lrn-author-tag-no-suggestions');
         if (elNoSuggestions) {
-            showCreateTagsUI();
-        } else {
-            hideCreateTagsUI();
+            showCreateTagsUI(elNoSuggestions);
         }
-    });
+    }
 }
 
 /**
- * Injects the necessary UI to tags panel.
- * @since 2.0.0
+ * Injects the create tag UI to tags panel.
+ * @since 2.18.0
  * @ignore
  */
-function showCreateTagsUI() {
-    console.log('showcreatetagsui');
-    const elTagsInput = document.querySelector('[data-authorapi-selector="tag-search-input"]');
-    const elNoSuggestions = document.querySelector('.lrn-author-tag-no-suggestions');
+function showCreateTagsUI(elNoSuggestions) {
+    const elNewTagsContainer = elNoSuggestions.querySelector('.lt__createTagsContainer');
+    const elInvalidSyntax = document.querySelector('.lt__error');
     const template = `
-        <div id="lrn__createTagsContainer" class="createTagsContainer">
-            <div id="lrn__createTagsData"></div>
+        <div class="lt__createTagsContainer">
+            <span class="lt__error hidden">
+                <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 13V8m0 8h.01M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/>
+                </svg>
+                <span class="lt__errorMessage">Invalid syntax. Use [type]:[name]</span>
+            </span>
+            <button type="button" id="lt__createTagsBtn" class="lrn-btn lrn-btn-primary lds-btn lds-btn-primary lds-btn-sm">Create</button>
         </div>
+
     `;
-    let elNewTagsContainer = document.getElementById('lrn__createTagsContainer');
-    let elNewTagsData;
-    let newTag;
+    if (!elNewTagsContainer) elNoSuggestions.insertAdjacentHTML('beforeend', template);
+    if (elInvalidSyntax) elInvalidSyntax.classList.add('hidden');
 
-    if (!elNewTagsContainer) {
-        elNoSuggestions.insertAdjacentHTML('beforeend', template);
-    }
+    const elNewTagsBtn = document.getElementById('lt__createTagsBtn');
+    elNewTagsBtn.addEventListener('click', createTag);
+}
 
-    elNewTagsData = document.getElementById('lrn__createTagsData');
+/**
+ * Creates a new tag and adds it to the item.
+ * Nothing is stored in the database until the
+ * item is saved.
+ * @since 2.18.0
+ * @ignore
+ */
+function createTag() {
+    const elTagsInput = document.querySelector('[data-authorapi-selector="tag-search-input"]');
+    const elErrorContainer = document.querySelector('.lt__error');
+    const currentTags = app.appInstance().getItemTags();
+    const newTag = elTagsInput.value;
 
-    if (checkTagSyntax(elTagsInput.value)) {
-        elNewTagsData.removeEventListener('click', () => {
-            setTags(elTagsInput.value);
-        });
-        elNewTagsData.innerHTML = `Create <code>${elTagsInput.value}</code> as a new tag?`;
-        elNewTagsData.addEventListener('click', () => {
-            setTags(elTagsInput.value);
-        });
+    if (checkTagSyntax(newTag)) {
+        const parts = newTag.split(':').map(part => part.trim());
+        if (validateTag(currentTags, { type: parts[0], name: parts[1] })) {
+            currentTags.push({ type: parts[0], name: parts[1] });
+            app.appInstance().setItemTags(currentTags);
+        } else {
+            const elErrorMessage = elErrorContainer.querySelector('.lt__errorMessage');
+            elErrorMessage.textContent = 'Tag already exists';
+            elErrorContainer.classList.remove('hidden');
+        }
     } else {
-        elNewTagsData.removeEventListener('click', () => {
-            setTags(elTagsInput.value);
-        });
-        elNewTagsData.innerHTML = '';
+        elErrorContainer.classList.remove('hidden');
     }
 }
 
-function hideCreateTagsUI() {}
+/**
+ * Validates the tag syntax, whether the tag has
+ * already been added, and whether it is in the
+ * restricted list.
+ * @since 2.18.0
+ * @ignore
+ * @param {string} tag
+ * @returns {boolean}
+ */
+function validateTag(current, newTag) {
+    const check = item => JSON.stringify(item) === JSON.stringify(newTag);
+    const exists = current.length && current.some(check);
+
+    return Boolean(!exists);
+}
 
 /**
  * Checks the syntax of a string to make sure it's valid.
  * The correct format is [tag type]:[tag name],
  * eg Subject:English
+ * @since 2.18.0
+ * @ignore
  * @param {string} s
  * @returns {boolean}
  */
@@ -115,29 +151,32 @@ function checkTagSyntax(s) {
     return /^[^:\s]+:\s*\S+$/.test(s);
 }
 
-function setTags(t) {
-    const currentTags = app.appInstance().getItemTags();
-
-    if (checkTagSyntax(t)) {
-        console.log('valid syntax');
-        const parts = t.split(':').map(part => part.trim());
-        console.log(parts);
-        currentTags.push({ type: parts[0], name: parts[1] });
-        app.appInstance().setItemTags(currentTags);
-    }
-}
-
 /**
  * Injects the necessary CSS to the header
- * @since 2.0.0
+ * @since 2.18.0
  * @ignore
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
     const css = `
 /* Learnosity create tags styles */
-.createTagsContainer {
-    padding-top: 10px;
+.lt__createTagsContainer {
+    position: relative;
+    top: -21px;
+    float: right;
+    font-size: 85%;
+    height: 1px;
+}
+.lt__error {
+    color: #dd002f;
+    padding-right: 2px;
+
+    svg {
+        vertical-align: middle;
+    }
+}
+.lrn.lrn-author .lrn-author-api-react-container .lrn-author-settings-tag-search span.lt__errorMessage {
+    margin-left: 0;
 }
 `;
 

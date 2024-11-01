@@ -8,6 +8,7 @@
 import { LT as core } from './core';
 
 import * as contentTabs from './extensions/ui/contentTabs/index';
+import * as createTags from './extensions/ui/createTags/index';
 import * as essayMaxLength from './extensions/validation/essayMaxLength/index';
 import * as imageUploader from './extensions/ui/imageUploader/index';
 import * as languageTextDirection from './extensions/ui/languageTextDirection/index';
@@ -17,6 +18,7 @@ import * as ssmlEditor from './extensions/ui/ssmlEditor/index';
 const extensions = {
     extensions: {
         contentTabs: { ...contentTabs },
+        createTags: { ...createTags },
         essayMaxLength: { ...essayMaxLength },
         imageUploader: { ...imageUploader },
         languageTextDirection: { ...languageTextDirection },
