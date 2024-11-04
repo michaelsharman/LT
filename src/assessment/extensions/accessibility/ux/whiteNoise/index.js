@@ -127,9 +127,17 @@ export function run(id, shadowRoot) {
     if (!state.renderedCss) injectCSS();
 
     // Listener for an Items API custom button
-    app.assessApp().on('button:btn-whitenoise:clicked', () => {
-        launchPlayer();
-    });
+    try {
+        app.assessApp().on('button:btn-whitenoise:clicked', () => {
+            launchPlayer();
+        });
+    } catch (e) {
+        // Not very clean. But we don't want to log this error
+        // which happens when you use the toolbar outside of Items API
+        if (!(e instanceof TypeError)) {
+            console.log('Error with white noise player:', e);
+        }
+    }
 }
 
 /**
@@ -203,9 +211,15 @@ export function launchPlayer() {
     }, 500);
 
     // Setup logic to close the dialog
-    app.assessApp().on('button:dialog_btn_whitenoise_player:clicked', () => {
-        player.hideDialog();
-    });
+    try {
+        app.assessApp().on('button:dialog_btn_whitenoise_player:clicked', () => {
+            player.hideDialog();
+        });
+    } catch (e) {
+        if (!(e instanceof TypeError)) {
+            console.log('Error with white noise player:', e);
+        }
+    }
 }
 
 /**
