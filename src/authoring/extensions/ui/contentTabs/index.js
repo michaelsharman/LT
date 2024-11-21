@@ -1,3 +1,6 @@
+import * as app from '../../../core/app';
+import { escapeHTML, getTabsTheme, validateOptions } from '../../../../assessment/extensions/ui/contentTabs/index';
+
 /**
  * Extensions add specific functionality to Learnosity APIs.
  * They rely on modules within LT being available.
@@ -109,6 +112,9 @@
  */
 
 const state = {
+    options: {
+        theme: 'default',
+    },
     renderedCss: false,
 };
 
@@ -119,14 +125,21 @@ const state = {
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.contentTabs.run();
+ * @param {object=} options - Optional configuration object includes:
+ *  - `theme` (string) Which tabs theme to load. Default is `default`. Also `rounded`.
  * @since 2.1.0
  */
-export function run() {
+export function run(options) {
+    validateOptions(options);
+
     if (!state.renderedCss) injectCSS();
 
     // Inject class for specificity
     const elLrnApi = document.querySelector('.lrn-author');
     elLrnApi.classList.add('lt__contenttabs');
+
+    app.appInstance().on('render:item', modifyTabsContainer);
+    app.appInstance().on('widgetedit:preview:changed', modifyTabsContainer);
 }
 
 /**
@@ -209,6 +222,22 @@ function generateRandomString() {
 }
 
 /**
+ * Adds an inline style with a custom property that contains the number of tabs.
+ * @since 2.19.0
+ * @ignore
+ */
+function modifyTabsContainer() {
+    const tabsContainer = document.querySelectorAll('ul.lt__nav-tabs');
+
+    if (tabsContainer) {
+        for (let tabContainer of tabsContainer) {
+            const tabs = tabContainer.querySelectorAll('li');
+            tabContainer.style.setProperty('--tab-count', tabs.length);
+        }
+    }
+}
+
+/**
  * Removed an element from the DOM.
  * @since 2.1.0
  * @param {string} id
@@ -259,55 +288,9 @@ function getTabsTemplate(n) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity language text direction styles */
-/* Used to style content tabs added by via rich-text editor */
-:root {
-    --customer-bg-blue: #e6f1ff;
-    --bg-grey: #f0f0f0;
-    --input-border: #898989;
-}
+    let css = `/* Learnosity content tab styles */`;
 
-.lt__contenttabs .lt__nav-tabs li {
-    border: 1px solid #d9d9d9;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-right: 6px;
-    background-color: var(--bg-grey);
-    border-bottom: 1px solid #eee;
-}
-
-.lt__contenttabs .lt__nav-tabs li.active {
-    border-bottom: none;
-    background: #fff;
-}
-
-.lt__contenttabs .lt__nav-tabs li a {
-    text-decoration: none;
-    font-weight: bold;
-    color: inherit;
-}
-
-.lt__contenttabs .lrn .lt__nav-tabs > li:after,
-.lt__contenttabs .lrn .lt__nav-tabs .nav-tab:after {
-    background: none;
-}
-
-.lt__tabs .nav {
-    display: flex;
-    flex-wrap: wrap;
-}
-
-.lt__contenttabs .lt__tab-content {
-    border: 1px solid #d9d9d9;
-    padding: 15px;
-}
-
-.lt__contenttabs .lrn .lt__nav-tabs {
-    box-shadow: none;
-}
-
-`;
+    css += getTabsTheme();
 
     elStyle.textContent = css;
     document.head.append(elStyle);

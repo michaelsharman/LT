@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Assessment/Diagnostics - Learnosity Toolkit - Docs</title>
+    <title>Extensions/Assessment/contentTabs - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Assessment/Diagnostics</h1>
+    <h1 class="page-title">Extensions/Assessment/contentTabs</h1>
     
 
     
@@ -65,7 +65,11 @@
             
 
 
-<p>Diagnostic/metadata information for Items API.</p>
+<p>Extensions add specific functionality to Items API.
+They rely on modules within LT being available.</p>
+<p>--</p>
+<p>Renders styles and responsive logic for LT content tabs.</p>
+<p>Pass in a theme option to change the look of the tabs.</p>
 
 <dl class="details">
     
@@ -135,16 +139,13 @@
 
     
 
-    <h4 class="name" id=".diagnostics">diagnostics<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+    <h4 class="name" id=".run">run<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
 
 
 
-
-<p>Returns an object of diagnostic information about
-the current session.</p>
 
 <dl class="details">
     
@@ -155,7 +156,7 @@ the current session.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.1.0</dd>
+    <dd class="tag-since">2.19.0</dd>
     
 
     
@@ -197,299 +198,11 @@ the current session.</p>
 
     <h5 class="h5-examples">Example</h5>
     
-    <pre class="prettyprint"><code>// Sample returned object
- {
-     "apps": {
-         "annotations": {
-             "app": {},
-             "config": true,
-             "enabled": true
-         },
-         "assess": {
-             "app": {}
-         },
-         "events": {
-             "app": null,
-             "enabled": false
-         },
-         "items": {
-             "app": {},
-             "metadata": {
-                 "items_api_version": "v1.118.3"
-             }
-         },
-         "questions": {
-             "app": {}
-         }
-     },
-     "activity": {
-         "activity": "items-api-demo",
-         "autoSave": {
-             "config": {
-                 "save_interval_duration": 300
-             },
-             "enabled": true
-         },
-         "itemBank": 6,
-         "session": "f85afe9c-342e-4363-8d70-ad3c665566c0",
-         "state": "initial",
-         "type": "submit_practice",
-         "user": "labs-site"
-     },
-     "versions": {
-         "requested": "v2023.2.LTS",
-         "mapped": "v2.197",
-         "concrete": "v2.197.5",
-         "server": "v2023.2.LTS",
-         "assets": "v2.197.5"
-     }
- }</code></pre>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5 class="h5-returns">Returns</h5>
-
-        
-
-
-<dl class="param-type">
-    <dt>
-        <span class="sr-only">Type</span>
-    </dt>
-    <dd>
-        (<span class="param-type">object</span>)
-    </dd>
-</dl>
-
-
-    
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".filterEvent">filterEvent<span class="signature">(event)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-<p>Which event(s) you want to listen for on the console.
-You must call <code>listen()</code> first to start broadcasting.</p>
-<p>Pass any of the following:</p>
-<ul>
-<li>exact event (https://reference.learnosity.com/items-api/events) or;</li>
-<li><code>'*'</code> for all events or;</li>
-<li>left or right wildcards via <code>*</code></li>
-</ul>
-
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.1.0</dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-examples">Example</h5>
-    
-    <pre class="prettyprint"><code>LT.listen();
-LT.filterEvent('item*');</code></pre>
-
-
-
-
-    <h5 class="h5-parameters">Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>event</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">string</span>
-
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".listen">listen<span class="signature">(status<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-<p>Enables or disabled any console logging of events.
-Defaults to <code>true</code>, turn off by passing a falsy.</p>
-
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">0.1.0</dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
+    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/core';
+import * as contentTabs from '@caspingus/lt/src/assessment/extensions/ui/contentTabs/index';
+
+LT.init(itemsApp); // Set up LT with the Items API application instance variable
+contentTabs.run();</code></pre>
 
 
 
@@ -521,13 +234,13 @@ Defaults to <code>true</code>, turn off by passing a falsy.</p>
 
         <tr>
             
-                <td class="name"><code>status</code></td>
+                <td class="name"><code>options</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">boolean</span>
+<span class="param-type">object</span>
 
 
 
@@ -548,7 +261,10 @@ Defaults to <code>true</code>, turn off by passing a falsy.</p>
 
             
 
-            <td class="description last"></td>
+            <td class="description last"><p>Optional configuration object includes:</p>
+<ul>
+<li><code>theme</code> (string) Which tabs theme to load. Default is <code>default</code>. Also <code>rounded</code>.</li>
+</ul></td>
         </tr>
 
     
