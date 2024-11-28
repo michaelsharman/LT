@@ -6,14 +6,15 @@
  *
  * Adds the ability for authors to add non-default language content
  * by surrounding text with the `lang` attribute. Essential for
- * screen readers.
+ * screen readers. Also adds the ability for authors to add `translate="no"`
+ * around content. This is useful for content that should not be
+ * translated by Google translate or other translation services
+ * such as Learnosity Author Aide.
  *
  * To remove an inline attribute, highlight the text and use the clear
  * formatting button in the toolbar.
  *
- * Right now there's no way to remove a block attribute, because they
- * add surrounding `<div>` elements. The only way is to use the Source
- * window in the rich-text editor.
+ * To remove a block attribute, choose "Remove Style" from the right-click menu.
  *
  * Adding a custom button is a capability in Author API. Below is a code
  * snippet of an Author API configuration object. Note the custom button
@@ -100,7 +101,7 @@
  * }
  * ```
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/languagetextdirection.png" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/languageTextDirection/screenshot.png" alt="" width="660"></p>
  * @module Extensions/Authoring/languageTextDirection
  */
 
@@ -123,10 +124,9 @@ export function run() {
 
 /**
  * Called via a custom button in the rich text toolbar.
- * Renders a modal asking the author which language they
- * want to add. Then inserts a `<span>` element for inline
- * or a `<div>` or `<p>` element for block with lang and dir
- * attributes.
+ * Renders a modal asking the author to set inline or
+ * block. Then inserts a `<span>` element for inline
+ * or a `<div>` element for block with a translate attribute.
  * @since 2.0.0
  * @param {*} attribute
  * @param {*} callback
@@ -134,13 +134,15 @@ export function run() {
 export function addLanguageAttribute(attribute, callback) {
     const codes = getLanguageCodes();
     const selectedRichText = LRNCKEDITOR.currentInstance.getSelectedHtml().getHtml();
+    const allContents = LRNCKEDITOR.currentInstance.getData();
     const template = getModalTemplate(selectedRichText);
-    let elLangSelect, typeElement, content;
 
-    document.querySelector('.learnosity-question-editor').insertAdjacentHTML('beforeEnd', template);
+    document.querySelector('.learnosity-question-editor').insertAdjacentHTML('beforeend', template);
 
-    elLangSelect = document.getElementById('lrn__ltd_language');
+    let elLangSelect = document.getElementById('lrn__ltd_language');
+    let elNoTranslate = document.getElementById('lrn__ltd_notranslate');
 
+    // Populate the language select dropdown
     for (let i = 0; i < codes.length; i++) {
         let elOption;
 
@@ -158,31 +160,154 @@ export function addLanguageAttribute(attribute, callback) {
         elLangSelect.add(elOption);
     }
 
+    // Set up click events for closing the modal
     let elClose = [];
-    elClose.push(document.querySelector('#qm .lrn-qe-btn-default'));
-    elClose.push(document.querySelector('#qm .lrn-qe-modal-btn-close'));
+    elClose.push(document.querySelector('#ltLanguageModal .lrn-qe-btn-default'));
+    elClose.push(document.querySelector('#ltLanguageModal .lrn-qe-modal-btn-close'));
     for (let i = 0; i < elClose.length; i++) {
         elClose[i].addEventListener('click', () => {
             callback(selectedRichText);
-            document.getElementById('qm').remove();
+            document.getElementById('ltLanguageModal').remove();
         });
     }
 
-    let elAdd = document.querySelector('#qm .lrn-qe-btn-primary');
+    // Set up click events for the primary button
+    let elAdd = document.querySelector('#ltLanguageModal .lrn-qe-btn-primary');
     elAdd.addEventListener('click', () => {
-        typeElement = document.getElementById('lrn__ltd_type').value;
-        content = document.getElementById('lrn__ltd_content').value;
-        document.getElementById('qm').remove();
+        const typeElement = getLinebreakType(selectedRichText);
+        let o = {};
+
+        document.getElementById('ltLanguageModal').remove();
+
         if (elLangSelect.selectedIndex > 0) {
-            let o = {
-                direction: elLangSelect.options[elLangSelect.selectedIndex].getAttribute('data-dir'),
-                code: elLangSelect.options[elLangSelect.selectedIndex].value,
-            };
-            return callback(getLanguageAttributesTemplate(o, typeElement, content));
-        } else {
-            return callback(selectedRichText);
+            o.direction = elLangSelect.options[elLangSelect.selectedIndex].getAttribute('data-dir');
+            o.code = elLangSelect.options[elLangSelect.selectedIndex].value;
         }
+
+        if (elNoTranslate.checked) {
+            o.noTranslate = true;
+        }
+
+        const content = getReturnTemplate(o, typeElement, selectedRichText, allContents);
+        return callback(content);
     });
+}
+
+/**
+ * Template string to render the modal window.
+ * @since 2.0.0
+ * @param {string} text
+ * @returns {string}
+ * @ignore
+ */
+function getModalTemplate(text) {
+    let template = `
+    <div class="lrn-qe lrn-qe-modal lt__languageModal" style="display: block;" id="ltLanguageModal">
+        <div class="lrn-qe-ui">
+            <div class="lrn-qe-modal-dialog">
+                <div class="lrn-qe-modal-dialog-inner">
+                    <div class="lrn-qe-modal-header">
+                        <div class="lrn-qe-form-label lrn-qe-h4 lrn-qe-section-header">
+                            <h4 class="lrn-qe-heading">Language support</h4>
+                        </div>
+                        <button type="button" class="lrn-qe-btn lrn-qe-modal-btn-close" aria-label="Close" tabindex="0">
+                            <span class="lrn-qe-sr-only">Close</span>
+                            <span aria-role="presentation" class="lrn-qe-i-cross"></span>
+                        </button>
+                    </div>
+                    <div data-lrn-qe-selector="modal-outlet">
+                        <div class="lrn-qe-modal-content" data-lrn-qe-modal-section="content">
+                            <div class="lrn-qe-form-group-wrapper">
+                                <div class="lrn-qe-form-group">
+                                    <p><label class="lrn-qe-label lrn-qe-form-label" for="lrn__ltd_language">Choose language</label></p>
+                                    <p>Specify the language for different parts of your content to enable accurate reading by screen
+                                    readers and other accessibility tools.</p>
+                                    <div class="lrn-qe-custom-select">
+                                        <select name="lrn__ltd_language" id="lrn__ltd_language" class="lrn__combobox lrn-qe-select lrn-qe-form-control"></select>
+                                    </div>
+                                </div>
+                                <div class="lrn-qe-form-group lrn-qe-padding-sm lt__border lrn-qe-margin-top-md">
+                                    <p><input id="lrn__ltd_notranslate" type="checkbox" class="lrn-qe-input">
+                                    <label class="lrn-qe-label lrn-qe-form-label lrn-qe-padding-left-xs" for="lrn__ltd_notranslate">Disable translation</label></p>
+                                    <p>Adding this flag will turn off translation, preventing Google Translate and
+                                    Author Aide from translating selected text.</p>
+                                </div>
+                            </div>
+                            <p class="lrn-qe-padding-top-sm"><label class="lrn-qe-label lrn-qe-form-label">Removing these settings</label></p>
+                            <ul>
+                                <li>For words or sentences, highlight the text and use the clear formatting button in the toolbar.</li>
+                                <li>For entire paragraph(s), right click anywhere in the text and choose "Remove Style" from the menu.</li>
+                            </ul>
+                        </div>
+                        <div class="lrn-qe-modal-footer">
+                            <ul class="lrn-qe-ul">
+                                <li class="lrn-qe-li lrn-qe-modal-footer-item lrn-qe-float-left">
+                                    <button type="button" class="lrn-qe-btn lrn-qe-btn-default"><span>Cancel</span></button>
+                                </li>&nbsp;
+                                <li class="lrn-qe-li lrn-qe-modal-footer-item">
+                                    <button type="button" class="lrn-qe-btn lrn-qe-btn-primary" data-lrn-qe-modal-action="confirm"><span>Apply</span></button>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+
+    return template;
+}
+
+/**
+ * Generates the element to be injected into the RTE.
+ * @since 2.21.0
+ * @param {object} o
+ * @param {string} el
+ * @param {string} content
+ * @returns {string}
+ * @ignore
+ */
+function getReturnTemplate(o, el, content, allContents) {
+    let attr = '',
+        template = '';
+
+    if (o?.code) {
+        attr += ` lang="${o.code}" dir="${o.direction}"`;
+    }
+
+    if (o?.noTranslate) {
+        attr += ` translate="no"`;
+    }
+
+    if (el === 'block') {
+        let numParagraphs = numParagraphsInString(content);
+        switch (numParagraphs) {
+            // Selecting a single line strips the surrounding <p></p>.
+            // We add an empty <p> so that we can add the correct
+            // attributes to the <p> element.
+            case 0:
+                template = `<p${attr}>${content}</p><p>&nbsp;</p>`;
+                break;
+            case 1:
+                // Single paragraph, add attributes
+                template = content.replace('<p', `<p${attr}`);
+                break;
+            default:
+                // 2+ paragraphs, surround with a <div>
+                template = `<div${attr}>${content}</div>`;
+                break;
+        }
+    } else {
+        const cleanedContent = allContents.replace(/&nbsp;/g, '');
+        if (cleanedContent.includes(`<p>${content.replace(/&nbsp;/g, '')}</p>`)) {
+            template = `<div${attr}><p>${content}</p></div>`;
+        } else if (content.length) {
+            template = `<span${attr}>${content}</span>`;
+        }
+    }
+
+    return template;
 }
 
 /**
@@ -742,125 +867,6 @@ function getLanguageCodes() {
 }
 
 /**
- * Template string to render the modal window.
- * @since 2.0.0
- * @param {string} text
- * @returns {string}
- * @ignore
- */
-function getModalTemplate(text) {
-    let template = `
-    <div class="lrn-qe lrn-qe-modal" style="display: block;" id="qm">
-        <div class="lrn-qe-ui">
-            <div class="lrn-qe-modal-dialog">
-                <div class="lrn-qe-modal-dialog-inner">
-                    <div class="lrn-qe-modal-header">
-                        <div class="lrn-qe-form-label lrn-qe-h4 lrn-qe-section-header">
-                            <h4 class="lrn-qe-heading"><label class="lrn-qe-label lrn-qe-form-label-name">Language and text direction support</label></h4>
-                        </div>
-                        <button type="button" class="lrn-qe-btn lrn-qe-modal-btn-close" aria-label="Close" tabindex="0">
-                            <span class="lrn-qe-sr-only">Close</span>
-                            <span aria-role="presentation" class="lrn-qe-i-cross"></span>
-                        </button>
-                    </div>
-                    <div data-lrn-qe-selector="modal-outlet">
-                        <div class="lrn-qe-modal-content" data-lrn-qe-modal-section="content">
-                            <div class="lrn-qe-edit-language">
-                                <div class="lrn-qe-form-group-wrapper">
-                                    <p><label class="lrn-qe-label lrn-qe-form-label" for="lrn__ltd_language">Choose language:</label></p>
-                                    <select name="lrn__ltd_language" id="lrn__ltd_language" class="lrn__combobox"></select>
-                                </div>
-                                <div class="lrn-qe-form-group-wrapper">
-                                    <p><label class="lrn-qe-label lrn-qe-form-label" for="lrn__ltd_type">Choose content type (whether your content is inline or on a separate line):</label></p>
-                                    <select name="lrn__ltd_type" id="lrn__ltd_type" class="lrn__combobox">
-                                        <option value="inline">Same line (inline)</option>
-                                        <option value="block">Separate line (block)</option>
-                                    </select>
-                                </div>
-                                <div class="lrn-qe-form-group-wrapper">
-                                    <p><label class="lrn-qe-label lrn-qe-form-label" for="lrn__ltd_content">Content:</label></p>
-                                    <textarea id="lrn__ltd_content" type="text" name="lrn__ltd_content" class="lrn-qe-input lrn-qe-form-control">${text}</textarea>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="lrn-qe-modal-footer">
-                            <ul class="lrn-qe-ul">
-                                <li class="lrn-qe-li lrn-qe-modal-footer-item">
-                                    <button type="button" class="lrn-qe-btn lrn-qe-btn-default"><span>Cancel</span></button>
-                                </li>&nbsp;
-                                <li class="lrn-qe-li lrn-qe-modal-footer-item">
-                                    <button type="button" class="lrn-qe-btn lrn-qe-btn-primary" data-lrn-qe-modal-action="confirm"><span>Add language element</span></button>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    `;
-
-    return template;
-}
-
-/**
- * Generates the element to be injected into the RTE.
- * @since 2.0.0
- * @param {object} o
- * @param {string} el
- * @param {string} content
- * @returns {string}
- * @ignore
- */
-function getLanguageAttributesTemplate(o, el, content) {
-    let template;
-    let attr = ` lang="${o.code}" dir="${o.direction}"`;
-
-    if (el === 'block') {
-        let numParagraphs = numParagraphsInString(content);
-        switch (numParagraphs) {
-            // Selecting a single line strips the surrounding <p></p>.
-            // We add an empty <p> so that we can add the correct
-            // attributes to the <p> element.
-            case 0:
-                template = `<p${attr}>${content}</p><p>&nbsp;</p>`;
-                break;
-            case 1:
-                // Single paragraph, add attributes
-                template = content.replace('<p', `<p${attr}`);
-                break;
-            default:
-                // 2+ paragraphs, surround with a <div>
-                template = `<div${attr}>${content}</div>`;
-                break;
-        }
-    } else {
-        template = `<span${attr}>${content}</span>`;
-    }
-
-    return template;
-}
-
-/**
- * Utility function that replaces a string with line
- * breaks with paragraph elements.
- * @since 2.0.0
- * @param {string} text Original text with line breaks
- * @returns {string}
- * @ignore
- */
-function lineBreaksToParagraphs(text) {
-    return text
-        .split('\n')
-        .map(line => {
-            if (line.length) {
-                return `<p>${line}</p>`;
-            }
-        })
-        .join('');
-}
-
-/**
  * Utility method that looks for <p></p> elements inside a string.
  * @since 2.0.0
  * @param {string} text Content to search for paragraph elements
@@ -874,6 +880,18 @@ function numParagraphsInString(text) {
 }
 
 /**
+ * Returns whether the selected text is a single line or multiple lines.
+ * From there, we can determine whether to wrap the content in a <span>
+ * or <div> element.
+ * @param {string} text
+ * @returns {string}
+ * @ignore
+ */
+function getLinebreakType(text) {
+    return numParagraphsInString(text) <= 1 ? 'inline' : 'block';
+}
+
+/**
  * Injects the necessary CSS to the header
  * @since 2.0.0
  * @ignore
@@ -881,33 +899,90 @@ function numParagraphsInString(text) {
 function injectCSS() {
     const elStyle = document.createElement('style');
     const css = `
-/* Learnosity language text direction styles */
-/* Used to see the language elements inside the rich-text editor */
-.lrn-qe-form-control-ckeditor *[lang] {
-    border: 1px dashed #e058f5;
+/* Learnosity language and no translation styles */
+/* Used to see elements inside the rich-text editor that have language or translate styles applied */
+.lrn.lrn-author .lt__languageModal {
+    h4 {
+        font-size: 1.43em;
+    }
+
+    label {
+        font-weight: bold;
+    }
+
+    input[type="checkbox"] {
+        height: 16px;
+        width: 16px;
+        vertical-align: text-bottom;
+        margin: 0;
+    }
+
+    .lt__border {
+        border: 1px solid #eaeaea;
+    }
 }
 
-.lrn__combobox {
-    color: #333;
-    border: 1px solid #939393;
-    background-color: #fff;
-    padding: 2px;
-    margin: 0;
-    width: auto;
-    height: 2em;
-    border-radius: 2px;
-}
+.lrn-qe-form-group-wrapper {
+    .lrn-qe-form-control-ckeditor *[translate],
+    .lrn-qe-form-control-ckeditor *[lang] {
+        border: 2px dashed #696969;
+        padding: 5px;
+        position: relative;
+    }
 
-/* Force the icon to be the right size */
-.lrn-qe-ckeditor-toolbar .cke_button__addlanguageattribute .cke_button__addlanguageattribute_icon {
-    background-position: -3px !important;
-    background-size: 22px !important;
-}
+    .lrn-qe .lrn-qe-ui div[translate],
+    .lrn-qe .lrn-qe-ui div[lang] {
+        margin-bottom: 1em;
 
-/* Size the "content" textarea and make is resizable */
-.lrn-qe .lrn-qe-modal-content .lrn-qe-form-group-wrapper textarea#lrn__ltd_content {
-    resize: vertical;
-    min-height: 4em;
+        p:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    .lrn-qe-form-control-ckeditor *[translate]::after,
+    .lrn-qe-form-control-ckeditor *[lang]::after {
+        content: "No translate";
+        position: absolute;
+        left: 100px;
+        top: 0;
+        transform: translateX(-50%);
+        background-color: #333;
+        color: #fff;
+        padding: 5px;
+        border-radius: 4px;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s;
+        z-index: 10000000;
+    }
+
+    .lrn-qe-form-control-ckeditor *[lang]::after {
+        content: "Language";
+    }
+
+    .lrn-qe-form-control-ckeditor *[translate][lang]::after {
+        content: "No translate and Language";
+    }
+
+    /* Show tooltip on hover */
+    .lrn-qe-form-control-ckeditor *[translate]:hover::after,
+    .lrn-qe-form-control-ckeditor *[lang]:hover::after {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    /* Force the icon to be the right size */
+    .lrn-qe-ckeditor-toolbar .cke_button__addlanguageattribute .cke_button__addlanguageattribute_icon {
+        background-position: -3px !important;
+        background-size: 22px !important;
+    }
+
+    /* Size the "content" textarea and make is resizable */
+    .lrn-qe .lrn-qe-modal-content .lrn-qe-form-group-wrapper textarea#lrn__ltd_content {
+        resize: vertical;
+        min-height: 4em;
+    }
 }
 `;
 

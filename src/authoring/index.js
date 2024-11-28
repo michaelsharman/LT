@@ -12,7 +12,6 @@ import * as createTags from './extensions/ui/createTags/index';
 import * as essayMaxLength from './extensions/validation/essayMaxLength/index';
 import * as imageUploader from './extensions/ui/imageUploader/index';
 import * as languageTextDirection from './extensions/ui/languageTextDirection/index';
-import * as noTranslate from './extensions/ui/noTranslate/index';
 import * as renderPDF from './extensions/ui/renderPDF/index';
 import * as singleQuestion from './extensions/validation/singleQuestion/index';
 import * as ssmlEditor from './extensions/ui/ssmlEditor/index';
@@ -24,7 +23,6 @@ const extensions = {
         essayMaxLength: { ...essayMaxLength },
         imageUploader: { ...imageUploader },
         languageTextDirection: { ...languageTextDirection },
-        noTranslate: { ...noTranslate },
         renderPDF: { ...renderPDF },
         singleQuestion: { ...singleQuestion },
         ssmlEditor: { ...ssmlEditor },
