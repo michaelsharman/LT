@@ -83,7 +83,7 @@ function showCreateTagsUI(elNoSuggestions) {
                 </svg>
                 <span class="lt__errorMessage">Invalid format. Use [type]:[name]</span>
             </span>
-            <button type="button" id="lt__createTagsBtn" class="lrn-btn lrn-btn-primary lds-btn lds-btn-primary lds-btn-sm">Create</button>
+            <button type="button" id="lt__createTagsBtn" class="lt__btn lrn-author-btn lrn-author-btn-primary lds-btn lds-btn-primary lds-btn-sm">Create</button>
         </div>
 
     `;
@@ -166,6 +166,9 @@ function injectCSS() {
     float: right;
     font-size: 85%;
     height: 1px;
+}
+:is(#lds, body) .lds-btn.lt__btn {
+    font-size: 115%;
 }
 .lt__error {
     color: #dd002f;

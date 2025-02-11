@@ -1,4 +1,5 @@
 import * as app from '../../../core/app';
+import { diagnostics } from '../../../core/diagnostics';
 import logger from '../../../../utils/logger';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
@@ -108,6 +109,7 @@ import '@uppy/image-editor/dist/style.min.css';
 const LOG_LEVEL = 'ERROR';
 
 const state = {
+    classNamePrefix: null,
     observer: null,
     observedElements: new Map(),
     renderedCss: false,
@@ -164,6 +166,7 @@ export function run(security, request, options = {}) {
 function setupModalObserver() {
     logger.debug('setupModalObserver()', LOG_LEVEL);
 
+    checkAppVersion();
     clearObserver();
 
     const callback = mutationsList => {
@@ -228,7 +231,7 @@ function clearObserver() {
  */
 function setupUploderUI() {
     const elImageAlignment = document.querySelector('[data-authorapi-selector="asset-uploader-alignment"]');
-    const elImagePreview = document.querySelector('.lrn-image-uploader-preview');
+    const elImagePreview = document.querySelector(`.lrn-${state.classNamePrefix}image-uploader-preview`);
     const timeoutValue = !elImageAlignment && !elImagePreview ? 0 : 500;
 
     /**
@@ -242,7 +245,7 @@ function setupUploderUI() {
     setTimeout(() => {
         const lrnImageUploader = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]');
         const lrnFrame = lrnImageUploader.querySelector('iframe');
-        const elMoreOptions = document.querySelector('.lrn-adv-options');
+        const elMoreOptions = document.querySelector(`.lrn-${state.classNamePrefix}adv-options`);
         const wrapper = document.createElement('div');
 
         wrapper.setAttribute('id', 'uppy-dashboard');
@@ -289,7 +292,7 @@ function setupUploadLibrary() {
 
     state.uppy.on('file-added', file => {
         logger.debug(`file-added: ${file.source}`, LOG_LEVEL);
-        const elMoreOptions = document.querySelector('.lrn-adv-options');
+        const elMoreOptions = document.querySelector(`.lrn-${state.classNamePrefix}adv-options`);
         elMoreOptions.setAttribute('hidden', '');
 
         if (file.source === 'Dashboard') {
@@ -372,12 +375,16 @@ function compressImage(file) {
  * @param {string} fileId
  */
 function addUploadButton(fileId) {
-    const elFooter = document.querySelector('.lrn-modal-footer');
+    const elFooter = document.querySelector(`.lrn-${state.classNamePrefix}modal-footer`);
 
     removeUploadButton();
 
     let elUploadButton = document.createElement('button');
-    elUploadButton.setAttribute('class', 'lrn-btn lrn-btn-legacy lt__image-uploader-upload-btn');
+    const cssOldSuffix = state.classNamePrefix ? '-old' : '';
+    elUploadButton.setAttribute(
+        'class',
+        `lrn-${state.classNamePrefix}btn${cssOldSuffix} lrn-${state.classNamePrefix}btn${cssOldSuffix}-legacy lt__image-uploader-upload-btn`
+    );
     elUploadButton.textContent = 'Upload';
     elFooter.insertAdjacentElement('afterbegin', elUploadButton);
     elUploadButton.addEventListener('click', () => uploadImage(fileId));
@@ -473,8 +480,12 @@ function uploadImage(fileId) {
 
                     setTimeout(() => {
                         removeUploadButton();
-                        const btnReset = document.querySelector('.lrn-author-item .lrn-delete-btn-wrapper [data-authorapi-action="asset-uploader-delete"]');
-                        const elAltText = document.querySelector('.lrn-author-item .lrn-image-uploader [data-authorapi-selector="asset-uploader-alignment"]');
+                        const btnReset = document.querySelector(
+                            `.lrn-author-item .lrn-${state.classNamePrefix}delete-btn-wrapper [data-authorapi-action="asset-uploader-delete"]`
+                        );
+                        const elAltText = document.querySelector(
+                            `.lrn-author-item .lrn-${state.classNamePrefix}image-uploader [data-authorapi-selector="asset-uploader-alignment"]`
+                        );
                         if (btnReset && !elAltText) {
                             const btnOk = document.querySelector('[data-authorapi-selector="asset-uploader-okay"]');
                             if (btnOk) {
@@ -536,8 +547,13 @@ function handleSelfHostedImage() {
  */
 function prepareModalButtons() {
     logger.debug('prepareModalButtons()', LOG_LEVEL);
-    const elCloseButtons = ['lrn-modal-button-close', 'lrn-btn-default', 'lrn-btn-primary-legacy', 'lrn-btn-sec'];
-    const modalParent = document.querySelector('.lrn-modal');
+    const elCloseButtons = [
+        `lrn-${state.classNamePrefix}modal-button-close`,
+        `lrn-${state.classNamePrefix}btn-default`,
+        `lrn-${state.classNamePrefix}btn-primary-legacy`,
+        `lrn-${state.classNamePrefix}btn-sec`,
+    ];
+    const modalParent = document.querySelector(`.lrn-${state.classNamePrefix}modal`);
 
     removeHandler();
 
@@ -566,10 +582,10 @@ function prepareModalButtons() {
     }
 
     setTimeout(() => {
-        waitForElement(modalParent, '.lrn-modal-footer .lrn-delete-btn-wrapper', element => {
+        waitForElement(modalParent, `.lrn-${state.classNamePrefix}modal-footer .lrn-${state.classNamePrefix}delete-btn-wrapper`, element => {
             logger.debug('waitForElement() observed', LOG_LEVEL);
             for (let btn of elCloseButtons) {
-                let elBtn = modalParent.querySelector(`.lrn-modal-dialog button.${btn}`);
+                let elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
                 if (elBtn) {
                     elBtn.addEventListener('click', clickHandler);
                     logger.debug(`Adding clickHanders for: ${btn}`, LOG_LEVEL);
@@ -591,7 +607,7 @@ function prepareModalButtons() {
 
     function removeHandler() {
         for (let btn of elCloseButtons) {
-            let elBtn = modalParent.querySelector(`.lrn-modal-dialog button.${btn}`);
+            let elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
             if (elBtn) {
                 logger.debug('Removed clickHandler', LOG_LEVEL);
                 elBtn.removeEventListener('click', clickHandler);
@@ -624,6 +640,19 @@ function checkUploadFormUri(uri) {
     }
 
     return uri;
+}
+
+/**
+ * Checks for Author API version to determine if we need to
+ * add a new CSS string to certain classnames.
+ * @since 2.23.0
+ * @ignore
+ */
+function checkAppVersion() {
+    if (state.classNamePrefix === null) {
+        const appVersion = parseFloat(diagnostics().versions.concrete.replace(/^v/, '').replace(/\./g, ''));
+        state.classNamePrefix = appVersion >= 22271 ? 'author-' : '';
+    }
 }
 
 /**
