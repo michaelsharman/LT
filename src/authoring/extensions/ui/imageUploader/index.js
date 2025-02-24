@@ -650,8 +650,9 @@ function checkUploadFormUri(uri) {
  */
 function checkAppVersion() {
     if (state.classNamePrefix === null) {
-        const appVersion = parseFloat(diagnostics().versions.concrete.replace(/^v/, '').replace(/\./g, ''));
-        state.classNamePrefix = appVersion >= 22271 ? 'author-' : '';
+        const appVersion = parseFloat(diagnostics().versions.concrete.replace(/^v/, '').split('.').slice(0, 2).join(''));
+
+        state.classNamePrefix = appVersion >= 2227 ? 'author-' : '';
     }
 }
 
