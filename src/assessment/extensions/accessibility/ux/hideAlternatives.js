@@ -1,5 +1,7 @@
 import * as app from '../../../core/app';
 import * as questions from '../../../core/questions';
+import { waitForElement } from '../../../../utils/dom';
+import logger from '../../../../utils/logger';
 import seedrandom from 'seedrandom';
 import { shuffle } from 'lodash-es';
 
@@ -45,25 +47,29 @@ export function run(num) {
                                 Object.values(correctAnswers).forEach(function (answer) {
                                     Object.values(question.options).forEach(function (option) {
                                         if (answer !== option.value) {
-                                            optionsList.push(option.value);
+                                            optionsList.push(String(option.value));
                                         }
                                     });
                                 });
+
                                 // Shuffle the options list
                                 let optionsToHide = [];
                                 for (let j = 0; j < numToHide; j++) {
                                     optionsToHide.push(shuffleArrayWithSeed(optionsList, question.response_id)[j]);
                                 }
                                 // Hide the option(s)
-                                let responsesEl = document.getElementById(question.response_id).getElementsByClassName('lrn_mcqgroup');
-                                for (let i = 0; i < responsesEl[0].children.length; i++) {
-                                    let inputEl = responsesEl[0].children[i].getElementsByClassName('lrn-input');
-                                    for (const val of optionsToHide) {
-                                        if (inputEl[0].getAttribute('value') === val) {
-                                            responsesEl[0].children[i].style.display = 'none';
+                                let responseParent;
+                                waitForElement(question.response_id, responseParent => {
+                                    let responsesEl = responseParent.getElementsByClassName('lrn_mcqgroup');
+                                    for (let i = 0; i < responsesEl[0].children.length; i++) {
+                                        let inputEl = responsesEl[0].children[i].getElementsByClassName('lrn-input');
+                                        for (const val of optionsToHide) {
+                                            if (inputEl[0].getAttribute('value') === val) {
+                                                responsesEl[0].children[i].style.display = 'none';
+                                            }
                                         }
                                     }
-                                }
+                                });
                             } else {
                                 console.info(logPrefix, 'No correct answer found in validation object');
                             }
