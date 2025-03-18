@@ -106,8 +106,6 @@ import '@uppy/image-editor/dist/style.min.css';
  * @module Extensions/Authoring/imageUploader
  */
 
-const LOG_LEVEL = 'ERROR';
-
 const state = {
     classNamePrefix: null,
     observer: null,
@@ -164,7 +162,7 @@ export function run(security, request, options = {}) {
  * @ignore
  */
 function setupModalObserver() {
-    logger.debug('setupModalObserver()', LOG_LEVEL);
+    logger.debug('setupModalObserver()');
 
     checkAppVersion();
     clearObserver();
@@ -177,7 +175,7 @@ function setupModalObserver() {
                 );
                 const elResourceDisplayName = document.querySelector('[data-authorapi-selector="asset-display-name"]');
                 if (modal && !elResourceDisplayName) {
-                    logger.debug('Disconnecting observer', LOG_LEVEL);
+                    logger.debug('Disconnecting observer');
                     clearObserver();
                     setupUploderUI();
                     break;
@@ -192,7 +190,7 @@ function setupModalObserver() {
 
         activateObserver();
     } else {
-        logger.debug('Observed elements full', LOG_LEVEL);
+        logger.debug('Observed elements full');
     }
 }
 
@@ -203,11 +201,11 @@ function setupModalObserver() {
  * @ignore
  */
 function activateObserver() {
-    logger.debug('Looking to activate observer', LOG_LEVEL);
+    logger.debug('Looking to activate observer');
     const parentElement = document.querySelector('.lrn-author-item');
 
     if (!state.observedElements.has(parentElement)) {
-        logger.debug('Activated observer', LOG_LEVEL);
+        logger.debug('Activated observer');
         state.observer.observe(parentElement, { childList: true, subtree: true });
         state.observedElements.set(parentElement, state.observer);
     }
@@ -291,7 +289,7 @@ function setupUploadLibrary() {
         .use(ImageEditor, { target: Dashboard });
 
     state.uppy.on('file-added', file => {
-        logger.debug(`file-added: ${file.source}`, LOG_LEVEL);
+        logger.debug(`file-added: ${file.source}`);
         const elMoreOptions = document.querySelector(`.lrn-${state.classNamePrefix}adv-options`);
         elMoreOptions.setAttribute('hidden', '');
 
@@ -301,23 +299,23 @@ function setupUploadLibrary() {
     });
 
     state.uppy.on('file-removed', () => {
-        logger.debug('file-removed', LOG_LEVEL);
+        logger.debug('file-removed');
         toggleElement('lt__image-uploader-upload-btn', 'remove');
     });
 
     state.uppy.on('file-editor:start', () => {
-        logger.debug('file-editor:start', LOG_LEVEL);
+        logger.debug('file-editor:start');
         toggleElement('lt__image-uploader-upload-btn', 'disable');
     });
 
     state.uppy.on('file-editor:complete', updatedFile => {
-        logger.debug('file-editor:complete', LOG_LEVEL);
+        logger.debug('file-editor:complete');
         compressImage(updatedFile);
         toggleElement('lt__image-uploader-upload-btn', 'enable');
     });
 
     state.uppy.on('file-editor:cancel', () => {
-        logger.debug('file-editor:cancel', LOG_LEVEL);
+        logger.debug('file-editor:cancel');
         toggleElement('lt__image-uploader-upload-btn', 'enable');
     });
 
@@ -339,7 +337,7 @@ function compressImage(file) {
 
     // We don't try to compress SVGs
     if (type !== 'image/svg+xml') {
-        logger.debug('Compressing image', LOG_LEVEL);
+        logger.debug('Compressing image');
         state.uppy
             .getPlugin('Compressor')
             .compress(file.data)
@@ -399,7 +397,7 @@ function removeUploadButton() {
     const elExistingUploadButton = document.querySelector('.lt__image-uploader-upload-btn');
 
     if (elExistingUploadButton) {
-        logger.debug('Removing existing upload button', LOG_LEVEL);
+        logger.debug('Removing existing upload button');
         elExistingUploadButton.remove();
     }
 }
@@ -476,7 +474,7 @@ function uploadImage(fileId) {
 
                     src.value = assetUrl.trim();
                     src.dispatchEvent(new Event('input', { bubbles: true }));
-                    logger.debug('Added image path to URI', LOG_LEVEL);
+                    logger.debug('Added image path to URI');
 
                     setTimeout(() => {
                         removeUploadButton();
@@ -490,7 +488,7 @@ function uploadImage(fileId) {
                             const btnOk = document.querySelector('[data-authorapi-selector="asset-uploader-okay"]');
                             if (btnOk) {
                                 btnOk.click();
-                                logger.debug('Clicked OK button for background images', LOG_LEVEL);
+                                logger.debug('Clicked OK button for background images');
                             }
                         }
                         prepareModalButtons();
@@ -507,7 +505,7 @@ function uploadImage(fileId) {
  * @ignore
  */
 function listenForSelfHostedImages() {
-    logger.debug('listenForSelfHostedImages()', LOG_LEVEL);
+    logger.debug('listenForSelfHostedImages()');
 
     /**
      * It looks like Question Editor reloads the modal after opening. It could be based on the
@@ -532,7 +530,7 @@ function listenForSelfHostedImages() {
  * @ignore
  */
 function handleSelfHostedImage() {
-    logger.debug('handleSelfHostedImage()', LOG_LEVEL);
+    logger.debug('handleSelfHostedImage()');
     setTimeout(() => {
         prepareModalButtons();
     }, 1500);
@@ -546,7 +544,7 @@ function handleSelfHostedImage() {
  * @param {object} modalParent
  */
 function prepareModalButtons() {
-    logger.debug('prepareModalButtons()', LOG_LEVEL);
+    logger.debug('prepareModalButtons()');
     const elCloseButtons = [
         `lrn-${state.classNamePrefix}modal-button-close`,
         `lrn-${state.classNamePrefix}btn-default`,
@@ -583,20 +581,20 @@ function prepareModalButtons() {
 
     setTimeout(() => {
         waitForElement(modalParent, `.lrn-${state.classNamePrefix}modal-footer .lrn-${state.classNamePrefix}delete-btn-wrapper`, element => {
-            logger.debug('waitForElement() observed', LOG_LEVEL);
+            logger.debug('waitForElement() observed');
             for (let btn of elCloseButtons) {
                 let elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
                 if (elBtn) {
                     elBtn.addEventListener('click', clickHandler);
-                    logger.debug(`Adding clickHanders for: ${btn}`, LOG_LEVEL);
-                    logger.debug(elBtn, LOG_LEVEL);
+                    logger.debug(`Adding clickHanders for: ${btn}`);
+                    logger.debug(elBtn);
                 }
             }
         });
     }, 100);
 
     function clickHandler() {
-        logger.debug('clickHandler()', LOG_LEVEL);
+        logger.debug('clickHandler()');
         removeHandler();
         // Wait to set a click event for the modal to close
         // We don't want the observer firing while still open
@@ -609,7 +607,7 @@ function prepareModalButtons() {
         for (let btn of elCloseButtons) {
             let elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
             if (elBtn) {
-                logger.debug('Removed clickHandler', LOG_LEVEL);
+                logger.debug('Removed clickHandler');
                 elBtn.removeEventListener('click', clickHandler);
             }
         }

@@ -71,16 +71,16 @@ export function run(num) {
                                     }
                                 });
                             } else {
-                                console.info(logPrefix, 'No correct answer found in validation object');
+                                logger.info(logPrefix, 'No correct answer found in validation object');
                             }
                         } else {
-                            console.info(logPrefix, ' No validation object found');
+                            logger.info(logPrefix, ' No validation object found');
                         }
                     } else {
-                        console.info(logPrefix, 'Invalid number of options to hide:', numToHide);
+                        logger.info(logPrefix, 'Invalid number of options to hide:', numToHide);
                     }
                 } else {
-                    console.info(logPrefix, 'Only supports single response mode');
+                    logger.info(logPrefix, 'Only supports single response mode');
                 }
             }
         });

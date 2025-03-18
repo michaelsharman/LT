@@ -19,8 +19,6 @@ import logger from '../../../../utils/logger';
  * @module Extensions/Assessment/toggleTimer
  */
 
-const LOG_LEVEL = 'ERROR';
-
 const state = {
     _initialised: false,
     elTimerWrapper: null,
@@ -87,7 +85,7 @@ export function run(showTimerLimit = 60) {
             logger.warn('Timer wrapper, or `lrn-sm`, not found');
         }
     } else {
-        logger.debug('Toggle timer already initialised, ignoring run();', LOG_LEVEL);
+        logger.debug('Toggle timer already initialised, ignoring run();');
     }
 }
 

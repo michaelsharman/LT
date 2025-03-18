@@ -31,7 +31,6 @@ import { dialog, hideDialog } from '../../core/player';
  * @module Extensions/Assessment/checkAnswerValidation
  */
 
-const LOG_LEVEL = 'ERROR';
 const state = {
     message: {
         header: 'Please check your answers',
@@ -86,7 +85,7 @@ function setup(e) {
 
     if (itemHasCheckAnswer) {
         if (!hasUsedCheckAnswer()) {
-            logger.debug('Disabling navigation.', LOG_LEVEL);
+            logger.debug('Disabling navigation.');
             e.preventDefault();
             launchMessage();
         }
