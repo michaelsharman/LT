@@ -1,4 +1,5 @@
 import * as app from '../../../core/app';
+import { checkAppVersion } from '../../../utils/styling';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -14,6 +15,7 @@ import * as app from '../../../core/app';
  */
 
 const state = {
+    classNamePrefix: null,
     elements: {},
 };
 
@@ -40,7 +42,10 @@ export function run() {
  * @since 2.20.0
  * @ignore
  */
-function checkQuestions(e) {
+function checkQuestions() {
+    // Have to call this here because in run() the `diagnostics().versions` object isn't yet populated
+    state.classNamePrefix = checkAppVersion(state.classNamePrefix);
+
     const item = app.appInstance().getItem();
     if (item.questions.length) {
         hideAddButton();
@@ -61,7 +66,7 @@ function hideAddButton() {
 
     if (allElements) {
         allElements.forEach(el => {
-            el.classList.add('lrn-hide');
+            el.classList.add(`lrn-${state.classNamePrefix}hide`);
         });
     }
 }
@@ -78,7 +83,7 @@ function showAddButton() {
 
     if (allElements) {
         allElements.forEach(el => {
-            el.classList.remove('lrn-hide');
+            el.classList.remove(`lrn-${state.classNamePrefix}hide`);
         });
     }
 }
