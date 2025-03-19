@@ -3,7 +3,7 @@
 <head>
     
     <meta charset="utf-8">
-    <title>Extensions/Assessment/whiteNoise - Learnosity Toolkit - Docs</title>
+    <title>Utils/Dom - Learnosity Toolkit - Docs</title>
     
     <meta name="description" content="Documentation for the Learnosity Toolkit JavaScript library." />
     
@@ -44,7 +44,7 @@
 
 <div id="main" role="main">
     
-    <h1 class="page-title">Extensions/Assessment/whiteNoise</h1>
+    <h1 class="page-title">Utils/Dom</h1>
     
 
     
@@ -65,72 +65,7 @@
             
 
 
-<p>Extensions add specific functionality to Items API.
-They rely on modules within LT being available.</p>
-<p>--</p>
-<p>Renders an audio player that the end-user can use
-to play white noise sounds. Helps for some users
-with focus and concentration.</p>
-<p>By default the player renders inside a custom dialog
-from Items API. This is the simplest set up, just call
-<code>run()</code> and add something like the following to your
-Items API config object (the essential piece is the
-custom button):</p>
-<pre class="prettyprint source"><code>{
-    &quot;config&quot;: {
-        &quot;regions&quot;: &quot;main&quot;,
-        &quot;region_overrides&quot;: {
-            &quot;right&quot;: [
-                {
-                    &quot;type&quot;: &quot;save_button&quot;
-                },
-                {
-                    &quot;type&quot;: &quot;fullscreen_button&quot;
-                },
-                {
-                    &quot;type&quot;: &quot;reviewscreen_button&quot;
-                },
-                {
-                    &quot;type&quot;: &quot;accessibility_button&quot;
-                },
-                {
-                    &quot;type&quot;: &quot;flagitem_button&quot;
-                },
-                {
-                    &quot;type&quot;: &quot;custom_button&quot;,
-                    &quot;options&quot;: {
-                        &quot;name&quot;: &quot;btn-whitenoise&quot;,
-                        &quot;label&quot;: &quot;White noise player&quot;,
-                        &quot;icon_class&quot;: &quot;lt__whitenoise-player-icon&quot;
-                    }
-                },
-                {
-                    &quot;type&quot;: &quot;masking_button&quot;
-                }
-            ]
-        }
-    }
-}
-</code></pre>
-<p>This will render a button in the vertical toolbar of the player with a headphones
-icon. Click this and the player will launch (see below).</p>
-<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/whitenoise.gif" alt="" width="900"></p>
-<p>If you want to render the player inside a custom element, pass an <code>id</code> to
-<code>launchPlayer(id)</code> after calling <code>run()</code>. This will render the player
-inside an element of your choice. You will be responsible for showing/hiding
-the player, or just leave it always visible.</p>
-<pre class="prettyprint source"><code>&lt;div id=&quot;player-wrapper&quot;>&lt;/div>
-&lt;div id=&quot;learnosity_assess&quot;>&lt;/div>
-
-&lt;script>
-  LT.init(app);
-  LT.extensions.whiteNoise.run();
-
-  // Trigger this on a click event or anything defining when
-  // you want to load the white noise player
-  LT.extensions.whiteNoise.launchPlayer('player-wrapper');
-&lt;/script>
-</code></pre>
+<p>A utility DOM object.</p>
 
 <dl class="details">
     
@@ -200,7 +135,7 @@ the player, or just leave it always visible.</p>
 
     
 
-    <h4 class="name" id=".launchPlayer">launchPlayer<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".waitForElement">waitForElement<span class="signature">(id, callback, retries)</span><span class="type-signature"></span></h4>
 
     
 
@@ -208,9 +143,8 @@ the player, or just leave it always visible.</p>
 
 
 
-<p>Launches the white noise audio player. Defaults to rendering inside an
-Items API custom dialog, in which case you never need to call this
-method directly.</p>
+<p>Checks DOM element for existence. If not found we retry
+n number of times with a delay.</p>
 
 <dl class="details">
     
@@ -221,7 +155,7 @@ method directly.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">2.7.0</dd>
+    <dd class="tag-since">2.22.2</dd>
     
 
     
@@ -259,97 +193,6 @@ method directly.</p>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        
-            
-
-    
-
-    <h4 class="name" id=".run">run<span class="signature">(id<span class="signature-attributes">opt</span>, shadowRoot<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-<p>Sets up the white noise audio player.</p>
-
-<dl class="details">
-    
-
-    
-
-    
-
-    
-    <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">2.7.0</dd>
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-    <h5 class="h5-examples">Example</h5>
-    
-    <pre class="prettyprint"><code>import { LT } from '@caspingus/lt/src/assessment/index';
-
-LT.init(itemsApp); // Set up LT with the Items API application instance variable
-LT.extensions.whiteNoise.run();</code></pre>
 
 
 
@@ -366,8 +209,6 @@ LT.extensions.whiteNoise.run();</code></pre>
 
         <th>Type</th>
 
-        
-        <th>Attributes</th>
         
 
         
@@ -395,33 +236,23 @@ LT.extensions.whiteNoise.run();</code></pre>
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
-
-                
-
-                
-                </td>
-            
 
             
 
-            <td class="description last"><p>Optional id of an element, or element, to render the player into</p></td>
+            <td class="description last"></td>
         </tr>
 
     
 
         <tr>
             
-                <td class="name"><code>shadowRoot</code></td>
+                <td class="name"><code>callback</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">object</span>
+<span class="param-type">*</span>
 
 
 
@@ -429,20 +260,34 @@ LT.extensions.whiteNoise.run();</code></pre>
             </td>
 
             
-                <td class="attributes">
-                
-                    &lt;optional><br>
-                
 
-                
+            
 
+            <td class="description last"></td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>retries</code></td>
+            
+
+            <td class="type">
+            
                 
-                </td>
+<span class="param-type">number</span>
+
+
+
+            
+            </td>
+
             
 
             
 
-            <td class="description last"><p>Optional A shadow root to render the player into</p></td>
+            <td class="description last"></td>
         </tr>
 
     

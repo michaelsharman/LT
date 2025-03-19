@@ -25,13 +25,13 @@ npm install @caspingus/lt
 
 ## Usage
 
-You can import `core` or `index` into your project, from the `src` folder.
+From either the assessment or authoring folders, you can import `src/core` or `src/index` into your project.
 
 ### core vs index
 
 **Recommendation** - use `core` in all production settings.
 
-The `core` module contains the LT toolkit only, no extensions. This is the smallest file size (around 3.5k gzipped) and may be all you need.
+The `core` module contains the LT toolkit only, no extensions. This is the smallest file size (around 12kB for assessment and 5kB for authoring) and may be all you need.
 
 If you want 1 or 2 extensions, you can import them manually to keep the overall file size down.
 
@@ -40,7 +40,7 @@ import { LT } from '@caspingus/lt/src/assessment/core';
 import * as columnResizer from '@caspingus/lt/src/assessment/extensions/accessibility/ux/columnResizer';
 ```
 
-The `index` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (~400k) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
+The `index` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 520kB for assessment and 740kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
 
 ```
 import { LT } from '@caspingus/lt/src/assessment/index';
