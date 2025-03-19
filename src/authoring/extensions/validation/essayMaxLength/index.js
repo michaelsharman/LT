@@ -41,7 +41,7 @@ const state = {
  * @since 2.4.0
  */
 export function run() {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
     setupListeners();
 }
 

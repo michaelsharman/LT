@@ -32,7 +32,7 @@ const state = {
  * @since 0.5.0
  */
 export function run() {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     app.appInstance().on('item:load', () => {
         setupResizer();
@@ -86,7 +86,8 @@ function setupResizer() {
  * @ignore
  */
 function clearResizer(elItem, elColumns) {
-    let elResizer = elItem.querySelector('.lrn-resizer');
+    const elResizer = elItem.querySelector('.lrn-resizer');
+
     if (elResizer) {
         elResizer.remove();
     }
@@ -100,7 +101,7 @@ function clearResizer(elItem, elColumns) {
  * @ignore
  */
 function doResize(elItem) {
-    const resizable = function (elResizer) {
+    const resizable = elResizer => {
         const prevSibling = elResizer.previousElementSibling;
 
         let x = 0;
@@ -132,7 +133,9 @@ function doResize(elItem) {
                 dx = e.targetTouches[0].clientX - x;
             }
             const w = ((prevSiblingWidth + dx) * 100) / elResizer.parentNode.getBoundingClientRect().width;
-            if (w >= 10 && w <= 90) prevSibling.style.width = w + '%';
+            if (w >= 10 && w <= 90) {
+                prevSibling.style.width = w + '%';
+            }
         };
 
         const handleInteractionEnd = () => {
@@ -149,8 +152,10 @@ function doResize(elItem) {
         elResizer.addEventListener('touchstart', handleInteractionStart);
     };
 
-    let elResizer = elItem.querySelector('.lrn-resizer');
-    if (elResizer) resizable(elResizer);
+    const elResizer = elItem.querySelector('.lrn-resizer');
+    if (elResizer) {
+        resizable(elResizer);
+    }
 }
 
 /**

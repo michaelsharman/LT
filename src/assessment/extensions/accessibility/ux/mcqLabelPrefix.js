@@ -58,7 +58,7 @@ export function run(mask = 'upperAlpha', suffix = '.', prefixes) {
         state.explicitPrefixes = prefixes;
     }
 
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     app.appInstance().on('item:load', () => {
         addPrefix(question.questions());
@@ -76,14 +76,14 @@ function addPrefix(itemQuestions) {
     const suffix = state.suffix;
 
     try {
-        for (let q of itemQuestions) {
+        for (const q of itemQuestions) {
             if (q.type === 'mcq' && q?.ui_style?.type !== 'block' && q?.ui_style?.type !== 'horizontal-input-bottom') {
-                let r = q.response_id;
-                let elOptions = document.getElementById(r).querySelectorAll('.lrn-mcq-option');
+                const r = q.response_id;
+                const elOptions = document.getElementById(r).querySelectorAll('.lrn-mcq-option');
                 let responseIndex = 0;
-                for (let o of elOptions) {
-                    let elLabels = o.querySelector('.lrn-possible-answer').children;
-                    let elExistingPrefixes = o.querySelector('.lrn-prefix-label');
+                for (const o of elOptions) {
+                    const elLabels = o.querySelector('.lrn-possible-answer').children;
+                    const elExistingPrefixes = o.querySelector('.lrn-prefix-label');
                     // If we haven't already printed prefixes
                     if (!elExistingPrefixes) {
                         let prefixValue;
@@ -98,7 +98,7 @@ function addPrefix(itemQuestions) {
                             prefixValue = String.fromCharCode(asciiStart + responseIndex);
                         }
                         for (let i = 0; i < elLabels.length; i++) {
-                            let p = document.createElement('span');
+                            const p = document.createElement('span');
                             p.classList.add('lrn-prefix-label');
                             p.append(`${prefixValue}${suffix}`);
                             elLabels[i].prepend(p);

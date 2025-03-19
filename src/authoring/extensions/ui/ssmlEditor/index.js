@@ -109,7 +109,7 @@ const state = {
  * @since 2.8.0
  */
 export function run() {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 }
 
 /**
@@ -166,7 +166,7 @@ export function launchSsmlEditor(attribute, callback) {
 
     document.querySelector('.learnosity-question-editor').insertAdjacentHTML('beforeEnd', templateSsmlEditor);
 
-    let elClose = [];
+    const elClose = [];
     elClose.push(document.querySelector('#lt__ssmlModalWrapper .lrn-qe-btn-default'));
     elClose.push(document.querySelector('#lt__ssmlModalWrapper .lrn-qe-modal-btn-close'));
     for (let i = 0; i < elClose.length; i++) {

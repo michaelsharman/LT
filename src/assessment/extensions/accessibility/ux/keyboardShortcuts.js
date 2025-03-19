@@ -142,10 +142,10 @@ export function run(map = getDefaultBindings()) {
  * @ignore
  */
 function enableMasking(bindings) {
-    let q = questions.questionInstance();
+    const q = questions.questionInstance();
 
     if (q.isMaskable()) {
-        Mousetrap.bind(bindings, e => {
+        Mousetrap.bind(bindings, () => {
             app.appInstance().questionsApp().masking(!items.isMaskingEnabled());
         });
     } else {
@@ -230,8 +230,8 @@ function getPlatform() {
  * @ignore
  */
 function overrideCallback() {
-    Mousetrap.prototype.stopCallback = function (e, element, combo) {
-        let activeEl = document.activeElement;
+    Mousetrap.prototype.stopCallback = (e, element) => {
+        const activeEl = document.activeElement;
 
         // We don't stop if focus is on a radio button
         if (activeEl.getAttribute('type') === 'radio' || activeEl.getAttribute('type') === 'checkbox') {
@@ -260,7 +260,7 @@ function overrideCallback() {
  * @ignore
  */
 function setMcqOption(bindings) {
-    let qs = questions.questions();
+    const qs = questions.questions();
     let numMCQs = 0;
 
     qs.forEach(q => {
@@ -270,12 +270,12 @@ function setMcqOption(bindings) {
     });
 
     if (numMCQs === 1) {
-        Object.values(qs).forEach(function (question) {
+        Object.values(qs).forEach(question => {
             if (question.type === 'mcq') {
                 Mousetrap.bind(bindings, e => {
                     if (question.options?.length >= e.key) {
-                        let domWrapper = document.getElementById(`${question.response_id}`);
-                        let domOptions = domWrapper.querySelectorAll('.lrn-input');
+                        const domWrapper = document.getElementById(`${question.response_id}`);
+                        const domOptions = domWrapper.querySelectorAll('.lrn-input');
                         domOptions[e.key - 1].click();
                     }
                 });
@@ -293,7 +293,7 @@ function setMcqOption(bindings) {
  * @ignore
  */
 function setResponseMask(bindings) {
-    let qs = questions.questions();
+    const qs = questions.questions();
     let numMCQs = 0;
 
     qs.forEach(q => {
@@ -303,15 +303,15 @@ function setResponseMask(bindings) {
     });
 
     if (numMCQs === 1) {
-        Object.values(qs).forEach(function (question) {
+        Object.values(qs).forEach(question => {
             if (question.type === 'mcq') {
                 Mousetrap.bind(bindings, (e, combo) => {
                     if (items.isMaskingEnabled()) {
-                        let index = Number(combo.at(-1));
+                        const index = Number(combo.at(-1));
                         if (question.options?.length >= index) {
-                            let domWrapper = items.itemElement();
-                            let domOptions = domWrapper.querySelectorAll('.lrn-mcq-option');
-                            let elMask = domOptions[index - 1].querySelector('.lrn-mask');
+                            const domWrapper = items.itemElement();
+                            const domOptions = domWrapper.querySelectorAll('.lrn-mcq-option');
+                            const elMask = domOptions[index - 1].querySelector('.lrn-mask');
                             if (elMask) {
                                 elMask.click();
                             }
@@ -332,7 +332,5 @@ function setResponseMask(bindings) {
  * @ignore
  */
 function toggleFlag(bindings) {
-    Mousetrap.bind(bindings, (e, combo) => {
-        items.flag();
-    });
+    Mousetrap.bind(bindings, items.flag);
 }

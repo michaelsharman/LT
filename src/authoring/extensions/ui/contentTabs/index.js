@@ -1,5 +1,5 @@
 import * as app from '../../../core/app';
-import { escapeHTML, getTabsTheme, validateOptions } from '../../../../assessment/extensions/ui/contentTabs/index';
+import { getTabsTheme, validateOptions } from '../../../../assessment/extensions/ui/contentTabs/index';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -134,7 +134,7 @@ const state = {
 export function run(options) {
     state.options = validateOptions(options);
 
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     // Inject class for specificity
     const elLrnApi = document.querySelector('.lrn-author');
@@ -153,7 +153,7 @@ export function run(options) {
  * @param {*} callback
  */
 export function addContentTabs(attribute, callback) {
-    let templateNumTabs = `
+    const templateNumTabs = `
     <div class="lrn-qe lrn-qe-modal" style="display: block;" id="lt__addTabs">
         <div class="lrn-qe-ui">
             <div class="lrn-qe-modal-dialog">
@@ -195,7 +195,7 @@ export function addContentTabs(attribute, callback) {
 
     document.querySelector('.learnosity-question-editor').insertAdjacentHTML('beforeEnd', templateNumTabs);
 
-    let elClose = [];
+    const elClose = [];
     elClose.push(document.querySelector('#lt__addTabs .lrn-qe-btn-default'));
     elClose.push(document.querySelector('#lt__addTabs .lrn-qe-modal-btn-close'));
     for (let i = 0; i < elClose.length; i++) {
@@ -205,9 +205,9 @@ export function addContentTabs(attribute, callback) {
         });
     }
 
-    let elAdd = document.querySelector('#lt__addTabs .lrn-qe-btn-primary');
+    const elAdd = document.querySelector('#lt__addTabs .lrn-qe-btn-primary');
     elAdd.addEventListener('click', () => {
-        let n = document.getElementById('numtabs').value;
+        const n = document.getElementById('numtabs').value;
         removeElement('lt__addTabs');
         return callback(getTabsTemplate(n));
     });
@@ -232,7 +232,7 @@ function modifyTabsContainer() {
     const tabsContainer = document.querySelectorAll('ul.lt__nav-tabs');
 
     if (tabsContainer) {
-        for (let tabContainer of tabsContainer) {
+        for (const tabContainer of tabsContainer) {
             const tabs = tabContainer.querySelectorAll('li');
             tabContainer.style.setProperty('--tab-count', tabs.length);
         }
@@ -257,10 +257,10 @@ function removeElement(id) {
  * @ignore
  */
 function getTabsTemplate(n) {
-    let templateTabsUI = `<div class="tabs lt__tabs"><ul class="nav nav-tabs lt__nav-tabs" role="tablist">`;
+    let templateTabsUI = '<div class="tabs lt__tabs"><ul class="nav nav-tabs lt__nav-tabs" role="tablist">';
     let activeListAttributes = ' class="active"'; //  aria-selected="true" << App isn't acknowledging this when you change tabs
     let activePanelAttribute = ' active';
-    let widgetUniqueKey = '_' + generateRandomString();
+    const widgetUniqueKey = '_' + generateRandomString();
 
     for (let i = 1; i <= n; i++) {
         templateTabsUI += `<li role="tab"${activeListAttributes}><a data-tab-target="[data-tab-id='${i}${widgetUniqueKey}']" data-toggle="tab" href="#">Tab ${i}</a></li>`;
@@ -269,7 +269,7 @@ function getTabsTemplate(n) {
         }
     }
 
-    templateTabsUI += `</ul><div class="tab-content lt__tab-content">`;
+    templateTabsUI += '</ul><div class="tab-content lt__tab-content">';
 
     for (let j = 1; j <= n; j++) {
         templateTabsUI += `<div class="tab-pane lt__tab-pane${activePanelAttribute}" data-tab-id="${j}${widgetUniqueKey}">Tab ${j} content</div>`;
@@ -278,7 +278,7 @@ function getTabsTemplate(n) {
         }
     }
 
-    templateTabsUI += `</div></div>`;
+    templateTabsUI += '</div></div>';
 
     return templateTabsUI;
 }
@@ -290,7 +290,7 @@ function getTabsTemplate(n) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    let css = `/* Learnosity content tab styles */`;
+    let css = '/* Learnosity content tab styles */';
 
     css += getTabsTheme();
 

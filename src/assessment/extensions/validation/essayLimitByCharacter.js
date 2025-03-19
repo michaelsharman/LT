@@ -208,12 +208,12 @@ const state = {
 export function run(includeSpaces = false) {
     state.includeSpaces = Boolean(includeSpaces);
 
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     setQuestionListeners();
 
     // Set up a listener on item load to check Finish button state
-    app.appInstance().on('item:load', function (el) {
+    app.appInstance().on('item:load', () => {
         setSubmitButtonState();
     });
 
@@ -234,28 +234,25 @@ export function run(includeSpaces = false) {
  * @ignore
  */
 function setQuestionListeners() {
-    const questions = app.appInstance().getQuestions();
+    const appInstance = app.appInstance();
+    const questions = Object.values(appInstance.getQuestions());
 
-    for (const [key, value] of Object.entries(questions)) {
-        if (state.validTypes.indexOf(value.type) >= 0) {
-            let questionInstance = app.appInstance().question(value.response_id);
+    questions
+        .filter(question => state.validTypes.includes(question.type))
+        .forEach(question => {
+            const questionInstance = appInstance.question(question.response_id);
 
-            app.appInstance()
-                .question(value.response_id)
-                .on('rendered', () => {
-                    setupEssayValidationUI(questionInstance);
+            questionInstance.on('rendered', () => {
+                setupEssayValidationUI(questionInstance);
 
-                    // Check on load for existing responses
-                    if (activity.isResuming()) {
-                        checkLimit(questionInstance);
-                    }
-                });
-
-            questionInstance.on('changed', () => {
-                checkLimit(questionInstance);
+                // Check on load for existing responses
+                if (activity.isResuming()) {
+                    checkLimit(questionInstance);
+                }
             });
-        }
-    }
+
+            questionInstance.on('changed', () => checkLimit(questionInstance));
+        });
 }
 
 /**
@@ -371,8 +368,8 @@ function setupSubmitPrevention() {
     if (elCustomSubmit) {
         elCustomSubmit.addEventListener('click', checkValidResponses);
 
-        app.appInstance().on('test:panel:shown', e => {
-            let elReviewSubmit = document.querySelector('.panel-footer .test-submit');
+        app.appInstance().on('test:panel:shown', () => {
+            const elReviewSubmit = document.querySelector('.panel-footer .test-submit');
             if (elReviewSubmit) {
                 elReviewSubmit.addEventListener('click', checkValidResponses);
             }
@@ -393,7 +390,7 @@ function setupSubmitPrevention() {
  */
 function checkValidResponses(e) {
     const sessionQuestions = app.appInstance().getQuestions();
-    let invalidResponseIds = [];
+    const invalidResponseIds = [];
 
     for (const q in sessionQuestions) {
         if (state.validTypes.includes(sessionQuestions[q].type)) {
@@ -408,9 +405,9 @@ function checkValidResponses(e) {
         e.preventDefault();
         e.stopPropagation();
 
-        let itemReferences = [];
+        const itemReferences = [];
         for (let i = 0; i < invalidResponseIds.length; i++) {
-            let temp = items.itemByResponseId(invalidResponseIds[i]);
+            const temp = items.itemByResponseId(invalidResponseIds[i]);
             if (temp) {
                 itemReferences.push(temp.source.reference);
             }
@@ -508,7 +505,7 @@ function loadErrorDialog(itemReferences) {
             const elLinks = document.querySelectorAll('.essay-limit-character-item');
             if (elLinks) {
                 elLinks.forEach(el => {
-                    let itemReference = el.getAttribute('data-item-reference');
+                    const itemReference = el.getAttribute('data-item-reference');
                     el.addEventListener('click', () => {
                         app.appInstance().items().goto(itemReference);
                         player.hideDialog();
@@ -552,11 +549,11 @@ function submit() {
             show_submit_confirmation: true,
             show_submit_ui: true,
 
-            success: function (response_ids) {
+            success: response_ids => {
                 logger.info('Submit was successful', response_ids);
             },
 
-            error: function (event) {
+            error: event => {
                 logger.error('Submit has failed', event);
             },
         };

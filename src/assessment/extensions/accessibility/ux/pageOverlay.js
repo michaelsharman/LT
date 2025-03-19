@@ -45,7 +45,7 @@ export function run(customColor, customZIndex) {
         document.querySelector('body').append(elOverlay);
     }
 
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 }
 
 /**

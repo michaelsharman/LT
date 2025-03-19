@@ -86,7 +86,6 @@ export function toggle() {
     state.magnifier.toggle();
 }
 
-/* global MutationObserver */
 function HTMLMagnifier(options) {
     const _this = this;
 
@@ -105,16 +104,14 @@ function HTMLMagnifier(options) {
                                 <div class="magnifier-glass" style="position: absolute;top: 0px;left: 0px;width: 100%;height: 100%;opacity: 0.0;-ms-filter: alpha(opacity=0);background-color: white;cursor: move;"></div>
                             </div>`;
 
-    const MutationObserver = window.MutationObserver || window.WebKitMutationObserver;
-
     let magnifier, magnifierContent;
     let observerObj;
     let syncTimeout;
     let isVisible = false;
     let magnifierBody;
-    let events = {};
+    const events = {};
 
-    document.addEventListener('keydown', function (event) {
+    document.addEventListener('keydown', event => {
         if (event.key === 'Escape') {
             if (_this.isVisible()) {
                 _this.hide();
@@ -193,32 +190,6 @@ function HTMLMagnifier(options) {
         }
     }
 
-    function bindDOMObserver() {
-        if (MutationObserver) {
-            observerObj = new MutationObserver(function (mutations, observer) {
-                for (let i = 0; i < mutations.length; i++) {
-                    if (!isDescendant(magnifier, mutations[i].target)) {
-                        try {
-                            triggerEvent('checkMutation', mutations[i]);
-                            domChanged();
-                            break;
-                        } catch (error) {}
-                    }
-                }
-            });
-            observerObj.observe(document, {
-                childList: true,
-                subtree: true,
-                attributes: true,
-                attributeFilter: ['class', 'width', 'height', 'style'],
-                attributeOldValue: true,
-            });
-        } else if (document.addEventListener) {
-            document.addEventListener('DOMNodeInserted', domChanged, false);
-            document.addEventListener('DOMNodeRemoved', domChanged, false);
-        }
-    }
-
     function triggerEvent(event, data) {
         const handlers = events[event];
         if (handlers) {
@@ -264,7 +235,7 @@ function HTMLMagnifier(options) {
         if (canvasOriginal.length > 0) {
             if (canvasOriginal.length === canvasCopy.length) {
                 for (let i = 0; i < canvasOriginal.length; i++) {
-                    let ctx = canvasCopy[i].getContext('2d');
+                    const ctx = canvasCopy[i].getContext('2d');
                     ctx.drawImage(canvasOriginal[i], 0, 0);
                 }
             }
@@ -296,7 +267,7 @@ function HTMLMagnifier(options) {
                 selectors.push('.' + ctrl.className.split(' ').join('.'));
             }
             for (let i = 0; i < selectors.length; i++) {
-                let t = magnifierBody.querySelectorAll(selectors[i]);
+                const t = magnifierBody.querySelectorAll(selectors[i]);
                 if (t.length == 1) {
                     t[0].scrollTop = ctrl.scrollTop;
                     t[0].scrollLeft = ctrl.scrollLeft;
@@ -314,8 +285,8 @@ function HTMLMagnifier(options) {
             if (e && e.target) {
                 syncScroll(e.target);
             } else {
-                let scrolled = [];
-                let elements = document.querySelectorAll('div');
+                const scrolled = [];
+                const elements = document.querySelectorAll('div');
                 for (let i = 0; i < elements.length; i++) {
                     if (elements[i].scrollTop > 0) {
                         scrolled.push(elements[i]);
@@ -351,7 +322,7 @@ function HTMLMagnifier(options) {
             element.style.top = `${top}px`;
         }
 
-        let drg_h, drg_w, pos_y, pos_x, ofs_x, ofs_y;
+        let pos_y, pos_x, ofs_x, ofs_y;
 
         ctrl.style.cursor = 'move';
 
@@ -392,34 +363,20 @@ function HTMLMagnifier(options) {
             }
         }
 
-        function upHandler(e) {
+        function upHandler() {
             if (dragObject !== null) {
                 dragObject = null;
             }
         }
 
-        dragHandler.addEventListener('mousedown', function (e) {
-            downHandler(e);
-        });
+        const events = [
+            { target: dragHandler, types: ['mousedown', 'touchstart'], handler: downHandler },
+            { target: window, types: ['mousemove', 'touchmove'], handler: moveHandler },
+            { target: window, types: ['mouseup', 'touchend'], handler: upHandler },
+        ];
 
-        window.addEventListener('mousemove', function (e) {
-            moveHandler(e);
-        });
-
-        window.addEventListener('mouseup', function (e) {
-            upHandler(e);
-        });
-
-        dragHandler.addEventListener('touchstart', function (e) {
-            downHandler(e);
-        });
-
-        window.addEventListener('touchmove', function (e) {
-            moveHandler(e);
-        });
-
-        window.addEventListener('touchend', function (e) {
-            upHandler(e);
+        events.forEach(({ target, types, handler }) => {
+            types.forEach(type => target.addEventListener(type, handler));
         });
 
         return _this;
@@ -440,12 +397,12 @@ function HTMLMagnifier(options) {
         });
     }
 
-    _this.setZoom = function (value) {
+    _this.setZoom = value => {
         _this.options.zoom = value;
         setupMagnifier();
     };
 
-    _this.setShape = function (shape, width, height) {
+    _this.setShape = (shape, width, height) => {
         _this.options.shape = shape;
         if (width) {
             _this.options.width = width;
@@ -456,57 +413,57 @@ function HTMLMagnifier(options) {
         setupMagnifier();
     };
 
-    _this.setWidth = function (value) {
+    _this.setWidth = value => {
         _this.options.width = value;
         setupMagnifier();
     };
 
-    _this.setHeight = function (value) {
+    _this.setHeight = value => {
         _this.options.height = value;
         setupMagnifier();
     };
 
-    _this.getZoom = function () {
+    _this.getZoom = () => {
         return _this.options.zoom;
     };
 
-    _this.getShape = function () {
+    _this.getShape = () => {
         return _this.options.shape;
     };
 
-    _this.getWidth = function () {
+    _this.getWidth = () => {
         return _this.options.width;
     };
 
-    _this.getHeight = function () {
+    _this.getHeight = () => {
         return _this.options.height;
     };
 
-    _this.isVisible = function () {
+    _this.isVisible = () => {
         return isVisible;
     };
 
-    _this.on = function (event, callback) {
+    _this.on = (event, callback) => {
         events[event] = events[event] || [];
         events[event].push(callback);
     };
 
-    _this.syncScrollBars = function (event) {
+    _this.syncScrollBars = () => {
         syncScrollBars();
     };
 
-    _this.syncContent = function (event) {
+    _this.syncContent = () => {
         syncContentQueued();
     };
 
-    _this.hide = function (event) {
+    _this.hide = () => {
         unBindDOMObserver();
         magnifierContent.innerHTML = '';
         magnifier.style.display = 'none';
         isVisible = false;
     };
 
-    _this.show = function (event) {
+    _this.show = event => {
         let left, top;
         if (event) {
             left = event.pageX - 175;
@@ -526,7 +483,7 @@ function HTMLMagnifier(options) {
         isVisible = true;
     };
 
-    _this.toggle = function (event) {
+    _this.toggle = () => {
         if (_this.isVisible()) {
             _this.hide();
         } else {
@@ -540,8 +497,8 @@ function HTMLMagnifier(options) {
 }
 
 function checkImageContent() {
-    let elItem = items.itemElement();
-    let elImages = elItem.querySelectorAll('img');
+    const elItem = items.itemElement();
+    const elImages = elItem.querySelectorAll('img');
 
     if (elImages) {
         elImages.forEach(img => {

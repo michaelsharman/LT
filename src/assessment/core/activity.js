@@ -329,8 +329,7 @@ export function state() {
  * @returns {number|null}
  */
 export function timeRemaining() {
-    if (maxTime() === 0) return null;
-    return maxTime() - elapsedTime();
+    return maxTime() === 0 ? null : maxTime() - elapsedTime();
 }
 
 /**
@@ -342,7 +341,7 @@ export function timeRemaining() {
 export function totalItems() {
     if (hasSections()) {
         let numItems = 0;
-        let allSections = sections.sections();
+        const allSections = sections.sections();
         for (let i = 0; i < allSections.length; i++) {
             numItems += allSections[i].items.length;
         }

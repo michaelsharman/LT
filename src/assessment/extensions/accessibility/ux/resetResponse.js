@@ -48,7 +48,7 @@ export function run(customLabel, customTypes) {
         state.types = customTypes;
     }
 
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     app.appInstance().on('item:load', () => {
         setupResetUI();

@@ -29,13 +29,14 @@ const state = {
  * @since 2.2.0
  */
 export function run() {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
-    app.appInstance().on('widgetedit:widget:ready', e => {
-        let elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');
+    app.appInstance().on('widgetedit:widget:ready', () => {
+        const elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');
+
         elResourceButtons.forEach(btn => {
             logger.debug('Found resource button in editor');
-            btn.addEventListener('click', e => {
+            btn.addEventListener('click', () => {
                 addRenderOption();
             });
         });

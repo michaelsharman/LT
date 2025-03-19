@@ -48,7 +48,7 @@ export function run(showTimerLimit = 60) {
         state.elTimerWrapper = document.querySelector('.lrn-timer-wrapper');
 
         if (elLrnResponsiveWrapper && state.elTimerWrapper) {
-            if (!state.renderedCss) injectCSS();
+            state.renderedCss || injectCSS();
             state._initialised = true;
 
             const childElements = Array.from(state.elTimerWrapper.children);

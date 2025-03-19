@@ -124,7 +124,7 @@ export function run(id, shadowRoot) {
     state.elementId = id || null;
     state.queryRoot = shadowRoot || document;
 
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     // Listener for an Items API custom button
     try {
@@ -135,7 +135,7 @@ export function run(id, shadowRoot) {
         // Not very clean. But we don't want to log this error
         // which happens when you use the toolbar outside of Items API
         if (!(e instanceof TypeError)) {
-            console.log('Error with white noise player:', e);
+            logger.error('Error with white noise player:', e);
         }
     }
 }
@@ -161,7 +161,6 @@ export function launchPlayer() {
         }
     } else if (state.elementId && state.queryRoot !== document) {
         const el = state.queryRoot.querySelector(`#${state.elementId}`);
-        console.log(el);
 
         if (el) {
             el.innerHTML = content;
@@ -185,7 +184,7 @@ export function launchPlayer() {
 
     setTimeout(() => {
         const elSounds = state.queryRoot.querySelectorAll('.lt__controls-sound');
-        const elVolume = state.queryRoot.querySelector(`#ld-volume`);
+        const elVolume = state.queryRoot.querySelector('#ld-volume');
 
         elSounds.forEach(el => {
             el.addEventListener('keydown', event => {
@@ -200,7 +199,9 @@ export function launchPlayer() {
             });
         });
 
-        if (state.player.sound) setSoundsClass(state.player.sound);
+        if (state.player.sound) {
+            setSoundsClass(state.player.sound);
+        }
 
         elVolume.value = state.player.volume || 1.0;
         volume();
@@ -217,7 +218,7 @@ export function launchPlayer() {
         });
     } catch (e) {
         if (!(e instanceof TypeError)) {
-            console.log('Error with white noise player:', e);
+            logger.error('Error with white noise player:', e);
         }
     }
 }
@@ -233,7 +234,9 @@ function actionTriggered(el) {
     const sound = el.getAttribute('data-lt-sound');
     const targetSound = state.queryRoot.querySelector(`[data-lt-sound="${sound}"]`);
 
-    if (state.player.sound) stop(state.player.sound);
+    if (state.player.sound) {
+        stop(state.player.sound);
+    }
 
     if (targetSound.classList.contains('lt__sound-active')) {
         stop(sound);
@@ -288,8 +291,8 @@ function stop(sound) {
  * @ignore
  */
 function volume() {
-    const elVolume = state.queryRoot.querySelector(`#ld-volume`);
-    const elVolumeValue = state.queryRoot.querySelector(`#ld-volume-value`);
+    const elVolume = state.queryRoot.querySelector('#ld-volume');
+    const elVolumeValue = state.queryRoot.querySelector('#ld-volume-value');
     const currentVolume = elVolume.value;
 
     state.player.volume = currentVolume;

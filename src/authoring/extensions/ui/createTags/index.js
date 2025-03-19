@@ -28,7 +28,7 @@ const state = {
  * @since 2.18.0
  */
 export function run() {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     // We need to wait for the UI to be ready
     setTimeout(() => {
@@ -57,7 +57,9 @@ function setup() {
     const elTagsInput = document.querySelector('[data-authorapi-selector="tag-search-input"]');
     const elTagList = document.querySelector('.lrn-author-tag-suggestion-list');
 
-    if (elTagsInput) elTagsInput.addEventListener('input', debounce(handleInput, 750));
+    if (elTagsInput) {
+        elTagsInput.addEventListener('input', debounce(handleInput, 750));
+    }
 
     function handleInput() {
         const elNoSuggestions = elTagList.querySelector('li.lrn-author-tag-no-suggestions');
@@ -87,8 +89,12 @@ function showCreateTagsUI(elNoSuggestions) {
         </div>
 
     `;
-    if (!elNewTagsContainer) elNoSuggestions.insertAdjacentHTML('beforeend', template);
-    if (elInvalidSyntax) elInvalidSyntax.classList.add('hidden');
+    if (!elNewTagsContainer) {
+        elNoSuggestions.insertAdjacentHTML('beforeend', template);
+    }
+    if (elInvalidSyntax) {
+        elInvalidSyntax.classList.add('hidden');
+    }
 
     const elNewTagsBtn = document.getElementById('lt__createTagsBtn');
     elNewTagsBtn.addEventListener('click', createTag);

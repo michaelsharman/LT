@@ -146,14 +146,16 @@ const state = {
  * Default values are `0.7`, `1500`, and `1500` respectively.
  */
 export function run(security, request, options = {}) {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     state.upload.security = security;
     state.upload.request = request;
 
     overrideOptions(options);
 
-    if (validateRunParams()) app.appInstance().on('widgetedit:widget:ready', setupModalObserver);
+    if (validateRunParams()) {
+        app.appInstance().on('widgetedit:widget:ready', setupModalObserver);
+    }
 }
 
 /**
@@ -217,7 +219,7 @@ function activateObserver() {
  * @ignore
  */
 function clearObserver() {
-    if (state.observer) state.observer.disconnect();
+    state.observer?.disconnect();
     state.observedElements.clear();
 }
 
@@ -354,7 +356,7 @@ function compressImage(file) {
 
                     const files = state.uppy.store.state.files;
                     let newFileId;
-                    for (let file in files) {
+                    for (const file in files) {
                         newFileId = file;
                     }
                     addUploadButton(newFileId);
@@ -377,7 +379,7 @@ function addUploadButton(fileId) {
 
     removeUploadButton();
 
-    let elUploadButton = document.createElement('button');
+    const elUploadButton = document.createElement('button');
     const cssOldSuffix = state.classNamePrefix ? '-old' : '';
     elUploadButton.setAttribute(
         'class',
@@ -414,14 +416,15 @@ function uploadImage(fileId) {
     elUploadButton.removeEventListener('click', () => uploadImage(fileId));
 
     const elEditButton = document.querySelector('.uppy-Dashboard-Item-action--edit');
-    if (elEditButton) elEditButton.setAttribute('disabled', '');
+    elEditButton?.setAttribute('disabled', '');
 
     const file = state.uppy.getFile(fileId);
 
     // Add loading spinner and hide text
     const elButton = document.querySelector('.lt__image-uploader-upload-btn');
     elButton.setAttribute('style', 'width:105px;');
-    elButton.innerHTML = `<span class="lt__upload-spinner"><svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_6kVp{transform-origin:center;animation:spinner_irSm .75s infinite linear}@keyframes spinner_irSm{100%{transform:rotate(360deg)};fill:#ffffff;}</style><path d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z" class="spinner_6kVp" style="fill: white"/></svg></span>`;
+    elButton.innerHTML =
+        '<span class="lt__upload-spinner"><svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_6kVp{transform-origin:center;animation:spinner_irSm .75s infinite linear}@keyframes spinner_irSm{100%{transform:rotate(360deg)};fill:#ffffff;}</style><path d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z" class="spinner_6kVp" style="fill: white"/></svg></span>';
     elButton.setAttribute('disabled', '');
 
     // Make the first request to get access details
@@ -442,7 +445,7 @@ function uploadImage(fileId) {
             method: 'POST',
             body: formData,
         });
-        return await response.json();
+        return response.json();
     }
 
     fetchTokens()
@@ -464,7 +467,7 @@ function uploadImage(fileId) {
                     method: 'POST',
                     body: uploadData,
                 });
-                return await uploadImageResponse;
+                return uploadImageResponse;
             }
 
             uploadImageToCDN()
@@ -558,7 +561,7 @@ function prepareModalButtons() {
     // Waiting for footer buttons to appear so we can add click events
     function waitForElement(parentWrapper, selector, callback) {
         const observer = new MutationObserver((mutationsList, observer) => {
-            for (let mutation of mutationsList) {
+            for (const mutation of mutationsList) {
                 if (mutation.type === 'childList') {
                     const element = document.querySelector(selector);
                     if (element) {
@@ -580,10 +583,10 @@ function prepareModalButtons() {
     }
 
     setTimeout(() => {
-        waitForElement(modalParent, `.lrn-${state.classNamePrefix}modal-footer .lrn-${state.classNamePrefix}delete-btn-wrapper`, element => {
+        waitForElement(modalParent, `.lrn-${state.classNamePrefix}modal-footer .lrn-${state.classNamePrefix}delete-btn-wrapper`, () => {
             logger.debug('waitForElement() observed');
-            for (let btn of elCloseButtons) {
-                let elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
+            for (const btn of elCloseButtons) {
+                const elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
                 if (elBtn) {
                     elBtn.addEventListener('click', clickHandler);
                     logger.debug(`Adding clickHanders for: ${btn}`);
@@ -604,8 +607,8 @@ function prepareModalButtons() {
     }
 
     function removeHandler() {
-        for (let btn of elCloseButtons) {
-            let elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
+        for (const btn of elCloseButtons) {
+            const elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
             if (elBtn) {
                 logger.debug('Removed clickHandler');
                 elBtn.removeEventListener('click', clickHandler);
@@ -647,9 +650,11 @@ function checkUploadFormUri(uri) {
  * @param {object} options
  */
 function overrideOptions(options) {
-    if (options?.quality && typeof options.quality === 'number') state.options.quality = options.quality;
-    if (options?.maxWidth && typeof options.maxWidth === 'number') state.options.maxWidth = options.maxWidth;
-    if (options?.maxHeight && typeof options.maxHeight === 'number') state.options.maxHeight = options.maxHeight;
+    ['quality', 'maxWidth', 'maxHeight'].forEach(prop => {
+        if (typeof options?.[prop] === 'number') {
+            state.options[prop] = options[prop];
+        }
+    });
 }
 
 /**

@@ -107,8 +107,8 @@ function hasCheckAnswer() {
     const itemQuestions = questions.questions();
     let hasCheckAnswer = false;
 
-    for (let q of itemQuestions) {
-        let response_id = q.response_id;
+    for (const q of itemQuestions) {
+        const response_id = q.response_id;
 
         if (questions.hasCheckAnswer(response_id)) {
             hasCheckAnswer = true;
@@ -131,8 +131,8 @@ function hasCheckAnswer() {
 function hasUsedCheckAnswer() {
     const itemQuestions = questions.questions();
 
-    for (let q of itemQuestions) {
-        let response_id = q.response_id;
+    for (const q of itemQuestions) {
+        const response_id = q.response_id;
 
         if (
             questions.hasCheckAnswer(response_id) &&

@@ -28,24 +28,24 @@ import { shuffle } from 'lodash-es';
  * @since 0.3.0
  */
 export function run(num) {
-    let numToHide = num || 1;
-    let qt = 'mcq'; // Limited to MCQ only (see targeted classnames when hiding options)
-    let logPrefix = 'LRN Hide Alternatives:';
+    const numToHide = num || 1;
+    const qt = 'mcq'; // Limited to MCQ only (see targeted classnames when hiding options)
+    const logPrefix = 'LRN Hide Alternatives:';
 
     app.appInstance().on('item:load', () => {
-        let qs = questions.questions();
+        const qs = questions.questions();
 
-        Object.values(qs).forEach(function (question) {
+        Object.values(qs).forEach(question => {
             if (question.type === qt) {
                 if (isSingleResponseMode(question)) {
                     if (hasValidNumToHide(question, numToHide)) {
                         if (hasValidationObject(question)) {
                             if (hasCorrectAnswers(question.validation)) {
                                 // Create a question options list excluding the correct answer
-                                let optionsList = [];
-                                let correctAnswers = getCorrectAnswers(question.validation);
-                                Object.values(correctAnswers).forEach(function (answer) {
-                                    Object.values(question.options).forEach(function (option) {
+                                const optionsList = [];
+                                const correctAnswers = getCorrectAnswers(question.validation);
+                                Object.values(correctAnswers).forEach(answer => {
+                                    Object.values(question.options).forEach(option => {
                                         if (answer !== option.value) {
                                             optionsList.push(String(option.value));
                                         }
@@ -53,16 +53,27 @@ export function run(num) {
                                 });
 
                                 // Shuffle the options list
-                                let optionsToHide = [];
+                                const optionsToHide = [];
                                 for (let j = 0; j < numToHide; j++) {
                                     optionsToHide.push(shuffleArrayWithSeed(optionsList, question.response_id)[j]);
                                 }
                                 // Hide the option(s)
-                                let responseParent;
                                 waitForElement(question.response_id, responseParent => {
-                                    let responsesEl = responseParent.getElementsByClassName('lrn_mcqgroup');
+                                    if (!responseParent) {
+                                        return; // Ensure responseParent is valid
+                                    }
+
+                                    const responsesEl = responseParent.getElementsByClassName('lrn_mcqgroup');
+                                    if (responsesEl.length === 0) {
+                                        return; // Ensure the element exists
+                                    }
+
                                     for (let i = 0; i < responsesEl[0].children.length; i++) {
-                                        let inputEl = responsesEl[0].children[i].getElementsByClassName('lrn-input');
+                                        const inputEl = responsesEl[0].children[i].getElementsByClassName('lrn-input');
+                                        if (inputEl.length === 0) {
+                                            continue; // Ensure input exists
+                                        }
+
                                         for (const val of optionsToHide) {
                                             if (inputEl[0].getAttribute('value') === val) {
                                                 responsesEl[0].children[i].style.display = 'none';

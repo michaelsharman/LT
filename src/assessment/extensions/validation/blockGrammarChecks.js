@@ -26,21 +26,18 @@ import * as activity from '../../core/activity';
  * @since 0.3.0
  */
 export function run() {
+    const appInstance = app.appInstance();
+    const annotationsApp = app.annotationsApp();
+
     // Set up a listener on item load for any Plain Text or Essay question types
-    app.appInstance().on('item:load', function (el) {
-        setupGrammarBlocker();
-    });
+    appInstance.on('item:load', setupGrammarBlocker);
 
     if (activity.hasAnnotations()) {
-        // Set up a listener for the Annotations API notepad
-        app.annotationsApp().on('notepad:toggleVisibility', function (ev) {
-            setupGrammarBlocker();
-        });
+        // Define annotation-related events
+        const annotationEvents = ['notepad:toggleVisibility', 'stickynote:add'];
 
-        // Set up a listener for any Annotations API sticky notes
-        app.annotationsApp().on('stickynote:add', function (ev) {
-            setupGrammarBlocker();
-        });
+        // Attach listeners for annotation events
+        annotationEvents.forEach(event => annotationsApp.on(event, setupGrammarBlocker));
     }
 }
 
@@ -56,9 +53,9 @@ function setupGrammarBlocker() {
     let $els = [];
     let $elTextareas = [];
     // CSS classname added to Learnosity plain text and essay question types
-    let elementClassnames = ['lrn_texteditor_editable'];
+    const elementClassnames = ['lrn_texteditor_editable'];
     // Parent Items API element
-    let $elLearnosityNode = document.getElementById('learnosity_assess');
+    const $elLearnosityNode = document.getElementById('learnosity_assess');
 
     // Look for found plain text or essay question types
     for (let i = 0; i < elementClassnames.length; i++) {

@@ -1,6 +1,5 @@
 import * as app from '../../../core/app';
 import * as items from '../../../core/items';
-import * as pdfjsLib from 'pdfjs-dist/webpack.mjs';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -36,11 +35,9 @@ const state = {
  * @since 2.2.0
  */
 export function run() {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
-    app.appInstance().on('item:load', e => {
-        renderPDF();
-    });
+    app.appInstance().on('item:load', renderPDF);
 }
 
 /**
@@ -54,8 +51,8 @@ function renderPDF() {
     const resources = elItem.querySelectorAll('.lrn_widget .resource');
 
     if (resources.length) {
-        resources.forEach((resource, k) => {
-            let url = resource.querySelector('a').getAttribute('href');
+        resources.forEach(resource => {
+            const url = resource.querySelector('a').getAttribute('href');
 
             // Only operate on PDFs
             if (url.substring(url.length - 3) === 'pdf') {

@@ -24,26 +24,23 @@ import { hasCheckAnswer, questionInstance, questionResponseIds } from '../../cor
  * @since 2.17.0
  */
 export function run() {
-    app.appInstance().on('item:load', e => {
-        setup(e);
-    });
+    app.appInstance().on('item:load', setup);
 }
 
 /**
  * Determines if the "Check Answer" button is enabled for the current question.
  * If so, the question is disabled after validation (click of the button).
- * @param {object} e Item event object
  * @since 2.17.0
  * @ignore
  */
-function setup(e) {
+function setup() {
     const responses = questionResponseIds();
 
     for (const response_id of responses) {
         if (hasCheckAnswer(response_id)) {
             app.appInstance()
                 .question(response_id)
-                .on('validated', ev => {
+                .on('validated', () => {
                     questionInstance(response_id).disable();
                 });
         }

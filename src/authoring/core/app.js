@@ -53,19 +53,9 @@ export function questionEditorApp() {
  */
 function setupListeners() {
     // Sends all Author API events for handling.
-    state.app.on('all', e => {
-        handleEvent(e);
-    });
-    state.app.on('widgetedit:editor:ready', e => {
-        handleEvent('widgetedit:editor:ready');
-    });
-    state.app.on('widgetedit:widget:ready', e => {
-        handleEvent('widgetedit:widget:ready');
-    });
-    state.app.on('widgetedit:preview:changed', e => {
-        handleEvent('widgetedit:preview:changed');
-    });
-    state.app.on('widgetedit:widget:changed', e => {
-        handleEvent('widgetedit:widget:changed');
-    });
+    state.app.on('all', handleEvent);
+
+    const events = ['widgetedit:editor:ready', 'widgetedit:widget:ready', 'widgetedit:preview:changed', 'widgetedit:widget:changed'];
+
+    events.forEach(event => state.app.on(event, () => handleEvent(event)));
 }

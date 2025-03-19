@@ -24,13 +24,13 @@ import * as activity from '../../../core/activity';
  */
 export function run() {
     app.appInstance().on('item:load', () => {
-        let numItems = activity.totalItems();
-        let elPrevious = Array.from(document.getElementsByClassName('item-prev'));
-        let elNext = Array.from(document.getElementsByClassName('item-next'));
-        let elNav = elPrevious.concat(elNext);
+        const numItems = activity.totalItems();
+        const elPrevious = Array.from(document.getElementsByClassName('item-prev'));
+        const elNext = Array.from(document.getElementsByClassName('item-next'));
+        const elNav = elPrevious.concat(elNext);
 
         for (let i = 0; i < elNav.length; i++) {
-            let attr = elNav[i].getAttribute('aria-label');
+            const attr = elNav[i].getAttribute('aria-label');
             elNav[i].setAttribute('aria-live', attr + ' of ' + numItems);
         }
     });

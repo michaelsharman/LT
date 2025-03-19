@@ -70,8 +70,9 @@ const state = {
  *  }
  */
 export function diagnostics() {
-    let v = window.LearnosityApp ? LearnosityApp.versions : {};
-    let d = {
+    /* global LearnosityApp */
+    const v = window.LearnosityApp ? LearnosityApp.versions : {};
+    const d = {
         apps: {
             annotations: {
                 app: app.annotationsApp(),

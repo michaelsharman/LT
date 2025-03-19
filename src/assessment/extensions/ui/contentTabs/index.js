@@ -35,16 +35,16 @@ const state = {
 export function run(options) {
     state.options = validateOptions(options);
 
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
-    app.appInstance().on('item:load', e => {
+    app.appInstance().on('item:load', () => {
         const itemReference = items.itemReference();
         const elItem = document.querySelector(`div[data-reference="${itemReference}"]`);
         const tabsContainer = elItem.querySelectorAll('ul.lt__nav-tabs');
 
         // Were tabs found on the item?
         if (tabsContainer) {
-            for (let tabContainer of tabsContainer) {
+            for (const tabContainer of tabsContainer) {
                 const styleExists = tabContainer.getAttribute('style');
                 if (!styleExists || !styleExists.includes('--tab-count')) {
                     const tabs = tabContainer.querySelectorAll('li');
@@ -93,7 +93,7 @@ export function validateOptions(options) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    let css = `/* Learnosity content tab styles */`;
+    let css = '/* Learnosity content tab styles */';
 
     css += getTabsTheme();
     elStyle.textContent = css;

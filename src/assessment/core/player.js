@@ -1,4 +1,3 @@
-import { hasAnswerMasking } from './activity';
 import * as app from './app';
 import * as items from './items';
 import logger from '../../utils/logger';
@@ -36,7 +35,9 @@ export function answerMasking(action) {
     }
 
     if (state.answerMasking.enabled) {
-        if (action !== undefined) app.appInstance().questionsApp().masking(action);
+        if (action !== undefined) {
+            app.appInstance().questionsApp().masking(action);
+        }
     } else {
         logger.warn('Answer masking is not enabled in the Items API configuration.');
     }
@@ -180,15 +181,15 @@ export function navigate(target) {
             }
             break;
         case 'submit':
-            let submitSettings = {
+            const submitSettings = {
                 show_submit_confirmation: true,
                 show_submit_ui: true,
-                success: function (response_ids) {
+                success: () => {
                     alert('Test saved!');
                 },
-                error: function (event) {
+                error: event => {
                     alert('Test submit failed...check browser log');
-                    console.log('Submission failed: ', event);
+                    logger.error('Submission failed: ', event);
                 },
             };
             app.appInstance().submit(submitSettings);

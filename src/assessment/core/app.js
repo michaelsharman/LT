@@ -86,20 +86,14 @@ function setupListeners() {
     });
 
     // Sends Questions API events for handling.
-    state.app.on('item:load', e => {
-        let response_ids = questionResponseIds();
+    state.app.on('item:load', () => {
+        const response_ids = questionResponseIds();
+
         response_ids.forEach(id => {
-            state.app.question(id).on('changed', ev => {
-                handleEvent('changed');
-            });
-            state.app.question(id).on('beforeValidate', ev => {
-                handleEvent('beforeValidate');
-            });
-            state.app.question(id).on('rendered', ev => {
-                handleEvent('rendered');
-            });
-            state.app.question(id).on('validated', ev => {
-                handleEvent('validated');
+            const question = state.app.question(id);
+
+            ['changed', 'beforeValidate', 'rendered', 'validated'].forEach(event => {
+                question.on(event, () => handleEvent(event));
             });
         });
     });

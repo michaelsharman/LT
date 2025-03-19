@@ -89,14 +89,14 @@ export function isItemFullyAttempted(reference) {
     let r;
 
     if (reference) {
-        itemQuestions = app.appInstance().getItems()[reference]['questions'];
+        itemQuestions = app.appInstance().getItems()[reference].questions;
     } else {
         itemQuestions = questions.questions();
     }
 
     if (Array.isArray(itemQuestions) && itemQuestions.length) {
         for (let i = 0; i < itemQuestions.length; i++) {
-            let q = itemQuestions[i];
+            const q = itemQuestions[i];
             r = questions.questionResponse(q.response_id);
             if (r) {
                 if (q.hasOwnProperty('metadata') && q.metadata.hasOwnProperty('valid_response_count')) {

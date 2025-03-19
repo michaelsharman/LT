@@ -1,5 +1,3 @@
-import logger from '../../../../utils/logger';
-
 /**
  * Extensions add specific functionality to Items API.
  * They rely on modules within LT being available.
@@ -41,7 +39,7 @@ const state = {
  * @since 2.12.0
  */
 export function run(options) {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 
     validateOptions(options);
 
@@ -88,13 +86,13 @@ async function checkOnlineStatus() {
  */
 async function checkInternetConnectivity() {
     try {
-        const response = await fetch(state.options.uri, {
+        await fetch(state.options.uri, {
             method: 'HEAD',
             mode: 'no-cors',
             cache: 'no-store',
         });
         return true;
-    } catch (error) {
+    } catch {
         return false;
     }
 }

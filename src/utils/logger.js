@@ -3,6 +3,8 @@
  * @module Utils/Logger
  */
 
+/* eslint-disable no-console */
+
 /**
  * Debug only logs to the console when verbose (or debug) mode is enabled.
  * @static
@@ -10,7 +12,7 @@
  * @param {*} msg
  */
 function debug(...msg) {
-    let style = 'display:inline-block;background-color:purple;color:#fff;font-weight:bold;padding:3px 7px;border-radius:3px';
+    const style = 'display:inline-block;background-color:purple;color:#fff;font-weight:bold;padding:3px 7px;border-radius:3px';
     console.debug('%cDebug:', style, '', ...msg);
 }
 
@@ -21,7 +23,7 @@ function debug(...msg) {
  * @param {*} msg
  */
 function error(...msg) {
-    let style = 'display:inline-block;background-color:#e0005a;color:#fff;font-weight:bold;padding:3px 7px;border-radius:3px';
+    const style = 'display:inline-block;background-color:#e0005a;color:#fff;font-weight:bold;padding:3px 7px;border-radius:3px';
     console.error('%cError:', style, '', ...msg);
 }
 
@@ -32,7 +34,7 @@ function error(...msg) {
  * @param {*} msg
  */
 function info(...msg) {
-    let style = 'display:inline-block;background-color:#46C0FF;color:#000;font-weight:bold;padding:3px 7px;border-radius:3px';
+    const style = 'display:inline-block;background-color:#46C0FF;color:#000;font-weight:bold;padding:3px 7px;border-radius:3px';
     console.info('%cInfo:', style, '', ...msg);
 }
 
@@ -53,7 +55,7 @@ function log(...msg) {
  * @param {*} msg
  */
 function warn(...msg) {
-    let style = 'display:inline-block;background-color:gold;color:#000;font-weight:bold;padding:3px 7px;border-radius:3px';
+    const style = 'display:inline-block;background-color:gold;color:#000;font-weight:bold;padding:3px 7px;border-radius:3px';
     console.warn('%cWarning:', style, '', ...msg);
 }
 
@@ -66,3 +68,5 @@ const logger = {
 };
 
 export default logger;
+
+/* eslint-enable no-console */

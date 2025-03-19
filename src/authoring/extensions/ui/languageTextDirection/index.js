@@ -119,7 +119,7 @@ const state = {
  * @since 2.0.0
  */
 export function run() {
-    if (!state.renderedCss) injectCSS();
+    state.renderedCss || injectCSS();
 }
 
 /**
@@ -132,6 +132,7 @@ export function run() {
  * @param {*} callback
  */
 export function addLanguageAttribute(attribute, callback) {
+    /* global LRNCKEDITOR */
     const codes = getLanguageCodes();
     const selectedRichText = LRNCKEDITOR.currentInstance.getSelectedHtml().getHtml();
     const allContents = LRNCKEDITOR.currentInstance.getData();
@@ -139,8 +140,8 @@ export function addLanguageAttribute(attribute, callback) {
 
     document.querySelector('.learnosity-question-editor').insertAdjacentHTML('beforeend', template);
 
-    let elLangSelect = document.getElementById('lrn__ltd_language');
-    let elNoTranslate = document.getElementById('lrn__ltd_notranslate');
+    const elLangSelect = document.getElementById('lrn__ltd_language');
+    const elNoTranslate = document.getElementById('lrn__ltd_notranslate');
 
     // Populate the language select dropdown
     for (let i = 0; i < codes.length; i++) {
@@ -161,7 +162,7 @@ export function addLanguageAttribute(attribute, callback) {
     }
 
     // Set up click events for closing the modal
-    let elClose = [];
+    const elClose = [];
     elClose.push(document.querySelector('#ltLanguageModal .lrn-qe-btn-default'));
     elClose.push(document.querySelector('#ltLanguageModal .lrn-qe-modal-btn-close'));
     for (let i = 0; i < elClose.length; i++) {
@@ -172,10 +173,10 @@ export function addLanguageAttribute(attribute, callback) {
     }
 
     // Set up click events for the primary button
-    let elAdd = document.querySelector('#ltLanguageModal .lrn-qe-btn-primary');
+    const elAdd = document.querySelector('#ltLanguageModal .lrn-qe-btn-primary');
     elAdd.addEventListener('click', () => {
         const typeElement = getLinebreakType(selectedRichText);
-        let o = {};
+        const o = {};
 
         document.getElementById('ltLanguageModal').remove();
 
@@ -200,8 +201,8 @@ export function addLanguageAttribute(attribute, callback) {
  * @returns {string}
  * @ignore
  */
-function getModalTemplate(text) {
-    let template = `
+function getModalTemplate() {
+    const template = `
     <div class="lrn-qe lrn-qe-modal lt__languageModal" style="display: block;" id="ltLanguageModal">
         <div class="lrn-qe-ui">
             <div class="lrn-qe-modal-dialog">
@@ -277,11 +278,11 @@ function getReturnTemplate(o, el, content, allContents) {
     }
 
     if (o?.noTranslate) {
-        attr += ` translate="no"`;
+        attr += ' translate="no"';
     }
 
     if (el === 'block') {
-        let numParagraphs = numParagraphsInString(content);
+        const numParagraphs = numParagraphsInString(content);
         switch (numParagraphs) {
             // Selecting a single line strips the surrounding <p></p>.
             // We add an empty <p> so that we can add the correct
