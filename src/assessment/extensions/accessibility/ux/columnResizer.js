@@ -33,9 +33,11 @@ const state = {
  */
 export function run() {
     if (!state.renderedCss) injectCSS();
+
     app.appInstance().on('item:load', () => {
         setupResizer();
     });
+
     window.addEventListener('resize', debounce(setupResizer, 250));
 }
 
@@ -49,18 +51,18 @@ export function run() {
  * @ignore
  */
 function setupResizer() {
-    let elItem = item.itemElement();
-    let elColumns = elItem.querySelectorAll('[class^="col-"]');
-    let hasResizer = Boolean(elItem.querySelector('.lrn-resizer'));
-    let isResponsiveMode = Boolean(document.querySelector('.lrn-layout-single-column'));
+    const elItem = item.itemElement();
+    const elColumns = elItem.querySelectorAll('[class^="col-"]');
+    const hasResizer = Boolean(elItem.querySelector('.lrn-resizer'));
+    const isResponsiveMode = Boolean(document.querySelector('.lrn-layout-single-column'));
 
     // Only add the resizable UI if we have 2 columns
     if (elColumns.length === 2) {
         if (!isResponsiveMode && !hasResizer) {
-            let elResizer = document.createElement('div');
+            const elResizer = document.createElement('div');
             elResizer.setAttribute('tooltip', 'Click and hold to drag column width');
             // elResizer.setAttribute('tabindex', '0');
-            let elTab = document.createElement('span');
+            const elTab = document.createElement('span');
             elTab.innerHTML = '↤ ↦';
 
             elResizer.classList.add('lrn-resizer');
@@ -194,6 +196,7 @@ function injectCSS() {
 }
 .col-xs-6.lrn-column-left {
     display: flex;
+    flex-direction: column;
     min-width: 5em;
     overflow: hidden;
 }
