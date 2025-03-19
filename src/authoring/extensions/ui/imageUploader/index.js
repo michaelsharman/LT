@@ -1,5 +1,5 @@
 import * as app from '../../../core/app';
-import { diagnostics } from '../../../core/diagnostics';
+import { checkAppVersion } from '../../../utils/styling';
 import logger from '../../../../utils/logger';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
@@ -164,7 +164,7 @@ export function run(security, request, options = {}) {
 function setupModalObserver() {
     logger.debug('setupModalObserver()');
 
-    checkAppVersion();
+    state.classNamePrefix = checkAppVersion(state.classNamePrefix);
     clearObserver();
 
     const callback = mutationsList => {
@@ -638,20 +638,6 @@ function checkUploadFormUri(uri) {
     }
 
     return uri;
-}
-
-/**
- * Checks for Author API version to determine if we need to
- * add a new CSS string to certain classnames.
- * @since 2.23.0
- * @ignore
- */
-function checkAppVersion() {
-    if (state.classNamePrefix === null) {
-        const appVersion = parseFloat(diagnostics().versions.concrete.replace(/^v/, '').split('.').slice(0, 2).join(''));
-
-        state.classNamePrefix = appVersion >= 2227 ? 'author-' : '';
-    }
 }
 
 /**
