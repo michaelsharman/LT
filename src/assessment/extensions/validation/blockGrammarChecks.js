@@ -1,4 +1,5 @@
 import * as app from '../../core/app';
+import * as activity from '../../core/activity';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -30,15 +31,17 @@ export function run() {
         setupGrammarBlocker();
     });
 
-    // Set up a listener for the Annotations API notepad
-    app.annotationsApp().on('notepad:toggleVisibility', function (ev) {
-        setupGrammarBlocker();
-    });
+    if (activity.hasAnnotations()) {
+        // Set up a listener for the Annotations API notepad
+        app.annotationsApp().on('notepad:toggleVisibility', function (ev) {
+            setupGrammarBlocker();
+        });
 
-    // Set up a listener for any Annotations API sticky notes
-    app.annotationsApp().on('stickynote:add', function (ev) {
-        setupGrammarBlocker();
-    });
+        // Set up a listener for any Annotations API sticky notes
+        app.annotationsApp().on('stickynote:add', function (ev) {
+            setupGrammarBlocker();
+        });
+    }
 }
 
 /**
