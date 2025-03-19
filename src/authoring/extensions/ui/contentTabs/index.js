@@ -128,6 +128,7 @@ const state = {
  * LT.extensions.contentTabs.run();
  * @param {object=} options - Optional configuration object includes:
  *  - `theme` (string) Which tabs theme to load. Default is `default`. Also `rounded`.
+ *  - `maxTabs` (number) Maximum number of tabs that can be added. Default is 5.
  * @since 2.1.0
  */
 export function run(options) {
