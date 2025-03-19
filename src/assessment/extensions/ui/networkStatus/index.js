@@ -12,8 +12,6 @@ import logger from '../../../../utils/logger';
  * @module Extensions/Assessment/networkStatus
  */
 
-const LOG_LEVEL = 'ERROR';
-
 const state = {
     options: {
         iconWrapper: 'top-right-wrapper',

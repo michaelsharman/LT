@@ -1,4 +1,5 @@
 import * as app from '../../../core/app';
+import logger from '../../../../utils/logger';
 
 /**
  * <h4 class="name">############ Incomplete - DO NOT USE</h4>
@@ -33,7 +34,7 @@ export function run() {
     app.appInstance().on('widgetedit:widget:ready', e => {
         let elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');
         elResourceButtons.forEach(btn => {
-            console.log('Found!');
+            logger.debug('Found resource button in editor');
             btn.addEventListener('click', e => {
                 addRenderOption();
             });
@@ -55,7 +56,9 @@ function addRenderOption() {
         </div>
     </div>`;
 
-    elAdvOptionsGroup.insertAdjacentHTML('beforeend', elRenderRow);
+    if (elAdvOptionsGroup) {
+        elAdvOptionsGroup.insertAdjacentHTML('beforeend', elRenderRow);
+    }
 }
 
 /**
