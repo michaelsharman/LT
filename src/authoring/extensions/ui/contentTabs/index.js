@@ -114,6 +114,7 @@ import { escapeHTML, getTabsTheme, validateOptions } from '../../../../assessmen
 const state = {
     options: {
         theme: 'default',
+        maxTabs: 5,
     },
     renderedCss: false,
 };
@@ -130,7 +131,7 @@ const state = {
  * @since 2.1.0
  */
 export function run(options) {
-    validateOptions(options);
+    state.options = validateOptions(options);
 
     if (!state.renderedCss) injectCSS();
 
@@ -170,7 +171,7 @@ export function addContentTabs(attribute, callback) {
                             <div class="lrn-qe-edit-aria-label">
                                 <div class="lrn-qe-form-group-wrapper">
                                     <label class="lrn-qe-label lrn-qe-form-label" for="numtabs">Number of tabs</label>
-                                    <input class="lrn-qe-input lrn-qe-form-control" type="number" id="numtabs" value="2" min="1" max="4" required>
+                                    <input class="lrn-qe-input lrn-qe-form-control" type="number" id="numtabs" value="2" min="1" max="${state.options.maxTabs}" required>
                                 </div>
                             </div>
                         </div>

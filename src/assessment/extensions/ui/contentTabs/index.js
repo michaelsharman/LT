@@ -33,7 +33,7 @@ const state = {
  * @since 2.19.0
  */
 export function run(options) {
-    validateOptions(options);
+    state.options = validateOptions(options);
 
     if (!state.renderedCss) injectCSS();
 
@@ -77,9 +77,13 @@ export function escapeHTML(str) {
  * @ignore
  */
 export function validateOptions(options) {
+    let opt = options;
+
     if (options && typeof options === 'object') {
-        state.options = { ...state.options, ...options };
+        opt = { ...state.options, ...options };
     }
+
+    return opt;
 }
 
 /**
