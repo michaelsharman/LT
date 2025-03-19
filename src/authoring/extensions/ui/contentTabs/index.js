@@ -292,7 +292,7 @@ function injectCSS() {
     const elStyle = document.createElement('style');
     let css = '/* Learnosity content tab styles */';
 
-    css += getTabsTheme();
+    css += getTabsTheme(state.options.theme);
 
     elStyle.textContent = css;
     document.head.append(elStyle);
