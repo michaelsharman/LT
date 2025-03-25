@@ -34,3 +34,13 @@ export function hasValue(value) {
             return true;
     }
 }
+
+/**
+ * Checks whether an object is empty
+ * @since 2.23.1
+ * @param {Object} obj
+ * @returns {boolean}
+ */
+export function isEmptyObject(obj) {
+    return Object.keys(obj).length === 0;
+}

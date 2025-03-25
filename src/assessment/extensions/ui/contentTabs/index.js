@@ -16,9 +16,10 @@ import * as items from '../../../core/items';
 
 const state = {
     options: {
-        theme: 'default',
+        theme: 'api-column-tabs',
     },
     renderedCss: false,
+    visitedItems: new Set(),
 };
 
 /**
@@ -29,38 +30,54 @@ const state = {
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * contentTabs.run();
  * @param {object=} options - Optional configuration object includes:
- *  - `theme` (string) Which tabs theme to load. Default is `default`. Also `rounded`.
+ *  - `theme` (string) Which tabs theme to load. Options are `rounded` (default) and `api-column-tabs`.
  * @since 2.19.0
  */
 export function run(options) {
     state.options = validateOptions(options);
-
     state.renderedCss || injectCSS();
 
     app.appInstance().on('item:load', () => {
         const itemReference = items.itemReference();
-        const elItem = document.querySelector(`div[data-reference="${itemReference}"]`);
-        const tabsContainer = elItem.querySelectorAll('ul.lt__nav-tabs');
 
-        // Were tabs found on the item?
-        if (tabsContainer) {
-            for (const tabContainer of tabsContainer) {
-                const styleExists = tabContainer.getAttribute('style');
-                if (!styleExists || !styleExists.includes('--tab-count')) {
-                    const tabs = tabContainer.querySelectorAll('li');
-                    tabContainer.style.setProperty('--tab-count', tabs.length);
+        if (!state.visitedItems.has(itemReference)) {
+            const elItem = document.querySelector(`div[data-reference="${itemReference}"]`);
+            const tabsContainer = elItem.querySelectorAll('ul.lt__nav-tabs');
+
+            // Were tabs found on the item?
+            if (tabsContainer) {
+                for (const tabContainer of tabsContainer) {
+                    // Make sure the first tab is active (fixing a hole in authoring)
+                    tabContainer.querySelectorAll('li[role=tab]').forEach((list, index) => {
+                        if (index === 0) {
+                            list.classList.add('active');
+                        } else {
+                            list.classList.remove('active');
+                        }
+                    });
+
+                    // Add the title value from the text label for responsive tooltips
                     tabContainer.querySelectorAll('a[data-tab-target]').forEach(anchor => {
-                        if (!anchor.hasAttribute('title')) {
+                        if (!anchor.hasAttribute('title') || anchor.getAttribute('title') === '') {
                             const escapedText = escapeHTML(anchor.textContent.trim());
                             anchor.setAttribute('title', escapedText);
                         }
                     });
                 }
             }
+
+            state.visitedItems.add(itemReference);
         }
     });
 }
 
+/**
+ * Replace special characters with HTML entities
+ * @param {*} str
+ * @returns String
+ * @since 2.23.1
+ * @ignore
+ */
 export function escapeHTML(str) {
     return str
         .replace(/&/g, '&amp;') // Escape `&`
@@ -77,10 +94,16 @@ export function escapeHTML(str) {
  * @ignore
  */
 export function validateOptions(options) {
-    let opt = options;
+    const validThemes = ['rounded', 'api-column-tabs'];
+    let opt = options || {};
 
     if (options && typeof options === 'object') {
         opt = { ...state.options, ...options };
+        if (!validThemes.includes(opt.theme)) {
+            opt.theme = 'api-column-tabs';
+        }
+    } else {
+        opt = { ...state.options };
     }
 
     return opt;
@@ -93,98 +116,150 @@ export function validateOptions(options) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    let css = '/* Learnosity content tab styles */';
+    const css = '/* Learnosity content tab styles */';
 
-    css += getTabsTheme();
-    elStyle.textContent = css;
+    elStyle.textContent = css.concat('\n', getTabsTheme(state.options.theme));
     document.head.append(elStyle);
 
     state.renderedCss = true;
 }
 
-export function getTabsTheme() {
-    let themeCss = '';
+/**
+ * Appends the base CSS styles and the chosen theme for tabs
+ * @param {String} theme
+ * @returns String
+ * @since 2.23.1
+ * @ignore
+ */
+export function getTabsTheme(theme) {
+    const base = `/* Base tabs styles */
+        .lrn.lrn-assess .lt__tabs,
+        .lrn-author-item-content-wrapper .lt__tabs {
+            container-type: inline-size;
 
-    switch (state.options.theme) {
-        case 'default':
-            themeCss = `
-            /* Default theme */
-            .lrn.lrn-assess .lt__tabs,
-            .lrn-author-item-content-wrapper .lt__tabs {
-                .lt__nav-tabs {
-                    container-type: inline-size;
-                    display: block;
+            .lt__nav-tabs {
+                display: flex;
+                box-shadow: none;
+                flex-wrap: nowrap;
+                overflow: hidden;
+                padding-top: 1px;
 
-                    li {
-                        min-width: 0;
+                li {
+                    flex: 0 1 auto; /* don't grow, but shrink if needed */
+                    border: 1px solid var(--tab-border);
+                    border-top-left-radius: 10px;
+                    border-top-right-radius: 10px;
+                    margin-right: 6px;
+                    background-color: var(--bg-grey);
+                    box-shadow: none;
+                    min-width: 0;
 
-                        a {
-                            text-decoration: none;
-                            color: #333;
-                            overflow: hidden;
-                            max-width: 100px;
-                            text-overflow: ellipsis;
-                            display: inline-block;
-                            white-space: nowrap;
-                        }
-
-                        @container (min-width: 200px) {
-                            a {
-                                max-width: calc(200px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 250px) {
-                            a {
-                                max-width: calc(240px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 300px) {
-                            a {
-                                max-width: calc(290px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 330px) {
-                            a {
-                                max-width: calc(320px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 400px) {
-                            a {
-                                max-width: calc(400px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 500px) {
-                            a {
-                                max-width: calc(550px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 600px) {
-                            a {
-                                max-width: calc(700px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 700px) {
-                            a {
-                                max-width: calc(1000px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 800px) {
-                            a {
-                                max-width: calc(1200px / var(--tab-count));
-                            }
-                        }
+                    a {
+                        text-decoration: none;
+                        font-weight: bold;
+                        color: var(--tab-color);
+                        text-overflow: ellipsis;
+                        white-space: nowrap;
+                        display: block;
+                        overflow: hidden;
                     }
+                }
+
+                li.active {
+                    border-bottom: none;
+                    background: var(--tab-bg-active);
+                    color: var(--color-active);
+                    border-bottom: none;
+                }
+
+                > li:after,
+                .nav-tabs:after {
+                    background: none;
                 }
             }
 
-            .lrn-author-item-content-wrapper .lt__tabs .lt__tab-pane {
-                padding-top: 10px;
-            }`;
+            .lt__tab-content {
+                border: 1px solid var(--tab-border);
+                padding: 15px;
+                margin-top: -1px; /* Fix for the tabs bottom border */
+
+                .lt__guard {
+                    user-select: none;
+                    width: 0;
+                    height: 0;
+                    margin: 0;
+                }
+
+                .lt__tab-pane p:last-child {
+                    margin-bottom: 0;
+                }
+            }
+
+            .tab-content>.active {
+                padding-top: 0;
+            }
+        }
+
+        .lrn-author-item-content-wrapper .lt__tabs .lt__tab-pane {
+            padding-top: 10px;
+        }
+    `;
+    let themeCss = '';
+
+    switch (theme || state.options.theme) {
+        case 'default':
+        case 'api-column-tabs':
+            themeCss = `/* API column tabs theme */
+            :root {
+                --tab-border: #d9d9d9;
+                --tab-color: #333333;
+            }
+            .lrn.lrn-assess .lt__tabs {
+                .lt__nav-tabs {
+                    overflow: initial;
+
+                    li {
+                        border: none;
+
+                        a {
+                            text-decoration: none;
+                            font-weight: normal;
+                        }
+                    }
+                }
+
+                .nav-tabs {
+                    -webkit-box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .2);
+                    box-shadow: 0 4px 2px -2px rgba(0, 0, 0, .2);
+                    text-align: center;
+                }
+
+                .nav-tabs>li:after, .nav-tabs .nav-tab:after {
+                    background: #1877b1;
+                    border: none;
+                    content: "";
+                    display: block;
+                    height: 2px;
+                    outline: none;
+                    transition: all .2s ease-in-out;
+                    width: 100%;
+                }
+
+                .nav-tabs>li:focus-within {
+                    outline: none;
+                }
+
+                .lt__tab-content {
+                    border: none;
+                    padding: 15px;
+                    margin-top: -1px;
+                }
+            }
+            `;
             break;
 
         case 'rounded':
-            themeCss = `
-            /* Rounded theme */
+            themeCss = `/* Rounded tabs theme */
             :root {
                 --color-active: #333333;
                 --customer-bg-blue: #e6f1ff;
@@ -192,112 +267,8 @@ export function getTabsTheme() {
                 --tab-bg-active: #ffffff;
                 --tab-border: #d9d9d9;
                 --tab-border-bottom: #eeeeee;
+                --tab-color: inherit;
                 --input-border: #898989;
-            }
-
-            .lrn.lrn-assess .lt__tabs,
-            .lrn-author-item-content-wrapper .lt__tabs {
-                container-type: inline-size;
-
-                .lt__nav-tabs {
-                    display: flex;
-                    flex-wrap: wrap;
-                    box-shadow: none;
-
-                    li {
-                        border: 1px solid var(--tab-border);
-                        border-top-left-radius: 10px;
-                        border-top-right-radius: 10px;
-                        margin-right: 6px;
-                        background-color: var(--bg-grey);
-                        border-bottom: 1px solid var(--tab-border-bottom);
-                        box-shadow: none;
-                        min-width: 0;
-
-                        .active {
-                            border-bottom: none;
-                            background: var(--tab-bg-active);
-                            color: var(--color-active);
-                        }
-
-                        a {
-                            text-decoration: none;
-                            font-weight: bold;
-                            color: inherit;
-
-                            overflow: hidden;
-                            max-width: 100px;
-                            text-overflow: ellipsis;
-                            display: inline-block;
-                            white-space: nowrap;
-                        }
-
-                        @container (min-width: 200px) {
-                            a {
-                                max-width: calc(180px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 250px) {
-                            a {
-                                max-width: calc(210px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 300px) {
-                            a {
-                                max-width: calc(260px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 330px) {
-                            a {
-                                max-width: calc(290px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 400px) {
-                            a {
-                                max-width: calc(370px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 500px) {
-                            a {
-                                max-width: calc(550px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 600px) {
-                            a {
-                                max-width: calc(650px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 700px) {
-                            a {
-                                max-width: calc(900px / var(--tab-count));
-                            }
-                        }
-                        @container (min-width: 800px) {
-                            a {
-                                max-width: calc(1000px / var(--tab-count));
-                            }
-                        }
-                    }
-
-                    li.active {
-                        border-bottom: none;
-                        background: var(--tab-bg-active);
-                    }
-
-                    > li:after,
-                    .nav-tabs:after {
-                        background: none;
-                    }
-                }
-
-                .lt__tab-content {
-                    border: 1px solid var(--tab-border);
-                    padding: 15px;
-                }
-            }
-
-            .lrn-author-item-content-wrapper .lt__tabs .lt__tab-pane {
-                padding-top: 10px;
             }`;
             break;
 
@@ -305,5 +276,6 @@ export function getTabsTheme() {
             break;
     }
 
-    return themeCss;
+    // return themeCss.concat('\n', base);
+    return base.concat('\n', themeCss);
 }
