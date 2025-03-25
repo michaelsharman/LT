@@ -3,6 +3,7 @@ import * as items from '../../../core/items';
 import * as questions from '../../../core/questions';
 import * as platform from 'platform-detect';
 import * as Mousetrap from 'mousetrap';
+import { isEmptyObject } from '../../../../utils/validation';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -144,7 +145,7 @@ export function run(map = getDefaultBindings()) {
 function enableMasking(bindings) {
     const q = questions.questionInstance();
 
-    if (q.isMaskable()) {
+    if (!isEmptyObject(q) && q.isMaskable()) {
         Mousetrap.bind(bindings, () => {
             app.appInstance().questionsApp().masking(!items.isMaskingEnabled());
         });
