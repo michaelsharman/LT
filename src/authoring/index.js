@@ -9,9 +9,11 @@ import { LT as core } from './core';
 
 import * as contentTabs from './extensions/ui/contentTabs/index';
 import * as createTags from './extensions/ui/createTags/index';
+import * as dynamicContent from './extensions/ui/dynamicContent/index';
 import * as essayMaxLength from './extensions/validation/essayMaxLength/index';
 import * as imageUploader from './extensions/ui/imageUploader/index';
 import * as languageTextDirection from './extensions/ui/languageTextDirection/index';
+import * as nativeTabs from './extensions/ui/nativeTabs/index';
 import * as renderPDF from './extensions/ui/renderPDF/index';
 import * as singleQuestion from './extensions/validation/singleQuestion/index';
 import * as ssmlEditor from './extensions/ui/ssmlEditor/index';
@@ -20,9 +22,11 @@ const extensions = {
     extensions: {
         contentTabs: { ...contentTabs },
         createTags: { ...createTags },
+        dynamicContent: { ...dynamicContent },
         essayMaxLength: { ...essayMaxLength },
         imageUploader: { ...imageUploader },
         languageTextDirection: { ...languageTextDirection },
+        nativeTabs: { ...nativeTabs },
         renderPDF: { ...renderPDF },
         singleQuestion: { ...singleQuestion },
         ssmlEditor: { ...ssmlEditor },
