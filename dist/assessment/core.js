@@ -14,7 +14,7 @@
   \*************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   version: () => (/* binding */ version)\n/* harmony export */ });\nvar version = '2.23.1';//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9kaXN0L3ZlcnNpb24uanMiLCJtYXBwaW5ncyI6Ijs7OztBQUFPLElBQU1BLE9BQU8sR0FBRyxRQUFRIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vQGNhc3Bpbmd1cy9sdC8uL2Rpc3QvdmVyc2lvbi5qcz80OWMxIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCB2ZXJzaW9uID0gJzIuMjMuMSc7XG4iXSwibmFtZXMiOlsidmVyc2lvbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./dist/version.js\n");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   version: () => (/* binding */ version)\n/* harmony export */ });\nvar version = '2.24.0';//# sourceURL=[module]\n//# sourceMappingURL=data:application/json;charset=utf-8;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiLi9kaXN0L3ZlcnNpb24uanMiLCJtYXBwaW5ncyI6Ijs7OztBQUFPLElBQU1BLE9BQU8sR0FBRyxRQUFRIiwic291cmNlcyI6WyJ3ZWJwYWNrOi8vQGNhc3Bpbmd1cy9sdC8uL2Rpc3QvdmVyc2lvbi5qcz80OWMxIl0sInNvdXJjZXNDb250ZW50IjpbImV4cG9ydCBjb25zdCB2ZXJzaW9uID0gJzIuMjQuMCc7XG4iXSwibmFtZXMiOlsidmVyc2lvbiJdLCJzb3VyY2VSb290IjoiIn0=\n//# sourceURL=webpack-internal:///./dist/version.js\n");
 
 /***/ }),
 
