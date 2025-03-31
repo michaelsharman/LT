@@ -68,9 +68,11 @@
 <p>Extensions add specific functionality to Learnosity APIs.
 They rely on modules within LT being available.</p>
 <p>--</p>
-<p>Adds the ability for authors to create tags (type:tag)
-via the Author API if they don't yet exist in the item bank.</p>
-<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/dynamicContent.gif" alt="" width="660"></p>
+<p>Adds an interactive table for users to author dynamic content.
+Users can also upload a file to populate the table, and export any data
+to work on it locally.</p>
+<p>Supported file types for import: csv, xls, xlsx, ods, and txt.</p>
+<p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/dynamicContent/screenshot.gif" alt="" width="660"></p>
 
 <dl class="details">
     
@@ -140,7 +142,7 @@ via the Author API if they don't yet exist in the item bank.</p>
 
     
 
-    <h4 class="name" id=".run">run<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id=".run">run<span class="signature">(options<span class="signature-attributes">opt</span>)</span><span class="type-signature"></span></h4>
 
     
 
@@ -148,8 +150,8 @@ via the Author API if they don't yet exist in the item bank.</p>
 
 
 
-<p>Sets up a listener when the tags panel opens to inject
-new behaviour to create a tag type:tag.</p>
+<p>Sets up a listener when the data table panel opens to inject
+new behaviour to author dynamic content.</p>
 
 <dl class="details">
     
@@ -160,7 +162,7 @@ new behaviour to create a tag type:tag.</p>
 
     
     <dt class="tag-since"><h5>Since</h5></dt>
-    <dd class="tag-since">2.22.0</dd>
+    <dd class="tag-since">2.24.0</dd>
     
 
     
@@ -208,6 +210,76 @@ LT.init(authorApp); // Set up LT with the Author API application instance variab
 LT.extensions.dynamicContent.run();</code></pre>
 
 
+
+
+    <h5 class="h5-parameters">Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+        <th>Attributes</th>
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>options</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">object</span>
+
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last"><p>Optional configuration.</p>
+<pre class="prettyprint source"><code>{
+   labels: {
+       btnContinue: 'Confirm',
+       csvUploadHelp: 'Add dynamic data to your item by typing directly into the table below. Or, import a file
+           (csv, xls, xlsx, ods, and txt are supported).'
+   }
+}
+</code></pre></td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
