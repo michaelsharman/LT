@@ -1,7 +1,8 @@
 import * as app from '../../../core/app';
 import logger from '../../../../utils/logger';
 import { setObserver } from '../../../../utils/dom';
-import activeTable from 'active-table';
+import 'active-table';
+import { debounce } from 'lodash-es';
 import Papa from 'papaparse';
 import * as xlsx from 'xlsx/xlsx.mjs';
 
@@ -25,7 +26,7 @@ const state = {
     currentData: [],
     dataTable: null,
     defaultData: [
-        ['Heading1', 'Heading2', 'Heading3'],
+        ['var_1', 'var_2', 'var_3'],
         ['sample1', 'sample2', 'sample3'],
         ['', '', ''],
         ['', '', ''],
@@ -37,6 +38,8 @@ const state = {
             btnContinue: 'Confirm',
             csvUploadHelp: `Add dynamic data to your item by typing directly into the table below. Or, import a file
             (csv, xls, xlsx, ods, and txt are supported).`,
+            headerValidationHelp: `The header row must contain only lowercase letters, numbers, and underscores.
+            Hyphens are not allowed.`,
         },
     },
     renderedCss: false,
@@ -56,8 +59,10 @@ const state = {
  * {
     labels: {
         btnContinue: 'Confirm',
-        csvUploadHelp: 'Add dynamic data to your item by typing directly into the table below. Or, import a file
-            (csv, xls, xlsx, ods, and txt are supported).'
+        csvUploadHelp: `Add dynamic data to your item by typing directly into the table below. Or, import a file
+            (csv, xls, xlsx, ods, and txt are supported).`,
+        headerValidationHelp: `The header row must contain only lowercase letters, numbers, and underscores.
+            Hyphens are not allowed.`,
     }
 }
  *```
@@ -121,14 +126,26 @@ export function setup() {
 
         if (!dataTableExists) {
             const existingData = document.querySelector('.CodeMirror').CodeMirror.getDoc().getValue();
-            const elHelpText = document.createElement('p');
             const elDataTable = getTableTemplate();
 
             elContinueBtn.textContent = state.options.labels.btnContinue;
-            elHelpText.className = 'lt-dynamic-content-help-text';
-            elHelpText.textContent = state.options.labels.csvUploadHelp;
             elAPIDataSourceHeader.insertAdjacentHTML('afterend', elDataTable);
-            elAPIDataSourceHeader.appendChild(elHelpText);
+
+            // Add help text
+            if (state.options.labels.csvUploadHelp.length) {
+                const elHelpText = document.createElement('p');
+                elHelpText.className = 'lt-dynamic-content-help-text';
+                elHelpText.textContent = state.options.labels.csvUploadHelp;
+                elAPIDataSourceHeader.appendChild(elHelpText);
+            }
+
+            // Add validation help text for the header row
+            if (state.options.labels.headerValidationHelp.length) {
+                const elValidationText = document.createElement('p');
+                elValidationText.className = 'lrn-author-message lrn-author-message-small lrn-author-message-info';
+                elValidationText.textContent = state.options.labels.headerValidationHelp;
+                elAPIDataSourceHeader.appendChild(elValidationText);
+            }
 
             if (existingData.length) {
                 state.currentData = Papa.parse(existingData.trim()).data;
@@ -138,23 +155,17 @@ export function setup() {
         const dataTable = getElement('#dynamic-content-table');
         if (dataTable) {
             const currentData = state.currentData.length ? state.currentData : state.defaultData;
+            const debouncedUpdateAPI = debounce(updateAPIDataTable, 200);
+            const debouncedCheckHeader = debounce(checkHeader, 200);
+
+            state.dataTable = dataTable;
+            state.dataTable.updateData(currentData);
+            state.dataTable.onDataUpdate = data => {
+                debouncedUpdateAPI(data);
+                debouncedCheckHeader(data);
+            };
 
             elContinueBtn.addEventListener('click', actionContinue);
-            dataTable.updateData(currentData);
-            dataTable.onDataUpdate = data => {
-                updateAPIDataTable(data);
-            };
-
-            // Remove hyphens from header row (API doesn't like them)
-            dataTable.onCellUpdate = cell => {
-                if (cell.rowIndex === 0 && cell.text.includes('-')) {
-                    dataTable.updateCell({
-                        newText: cell.text.replace(/-/g, '_'),
-                        rowIndex: cell.rowIndex,
-                        columnIndex: cell.columnIndex,
-                    });
-                }
-            };
         } else {
             logger.error(`${state.logPrefix}Dynamic table element not found`);
         }
@@ -172,17 +183,51 @@ export function setup() {
  */
 export function updateAPIDataTable(data) {
     const config = {
-        quotes: true,
-        quoteChar: '"',
-        escapeChar: '"',
         delimiter: ',',
+        escapeChar: '"',
         header: true,
         newline: '\r\n',
-        skipEmptyLines: false,
+        quotes: true,
+        quoteChar: '"',
+        skipEmptyLines: 'greedy',
     };
     const csv = Papa.unparse(data, config);
     document.querySelector('.CodeMirror').CodeMirror.getDoc().setValue(csv);
     state.currentData = data;
+}
+
+/**
+ * Validates the header row of the data table and updates it if needed.
+ * The API doesn't like hyphens or invalid characters in the header row.
+ * This function replaces hyphens with underscores and removes invalid characters.
+ * It also converts the header row to lowercase.
+ * @param {array} data
+ * @since 2.24.0
+ * @ignore
+ */
+function checkHeader(data) {
+    // Replace hyphens and remove invalid characters from the header row (API doesn't like them)
+    if (Array.isArray(data) && data.length) {
+        for (const [i, cell] of data[0].entries()) {
+            if (!/^[a-z0-9 _]+$/.test(cell)) {
+                try {
+                    state.dataTable.updateCell({
+                        newText: cell
+                            .replace(/-/g, '_')
+                            .replace(/[^a-zA-Z0-9 _]/g, '')
+                            .toLowerCase(),
+                        rowIndex: 0,
+                        columnIndex: i,
+                    });
+                } catch (error) {
+                    // ActiveTable throws an error when you programmatically update the header cell.
+                    if (error.message !== "Cannot read properties of undefined (reading 'settings')") {
+                        logger.error(`${state.logPrefix}Error updating header cell: ${error}`);
+                    }
+                }
+            }
+        }
+    }
 }
 
 /**
@@ -252,17 +297,33 @@ function getTableTemplate() {
     const elSettingsContainer = document.querySelector('.lrn-author-item-settings-container');
     const dataTableHeight = elSettingsContainer.offsetHeight - 165 || 300;
 
+    // We define customColumnTypes here (with changeTextFunc) to allow for custom
+    // text processing, stripping surrounding double quotes from each data row cell
+    // text on change.
+
     return `<active-table
         id='dynamic-content-table'
-        enterkeymovedown='true'
         allowduplicateheaders='false'
-        maxcolumns='25'
-        maxrows='500'
+        availableDefaultColumnTypes='[]'
+        customColumnTypes='[
+            {
+                "name": "api-column",
+                "customTextProcessing": {
+                    "changeTextFunc": "(cellText) => cellText.replace(/^\\"(.*)\\"$/, \\"$1\\")"
+                }
+            }
+        ]'
+        defaultColumnTypeName="api-column"
+        displayHeaderIcons='true'
         dragcolumns='true'
         dragrows='true'
         draganddrop='true'
+        enterkeymovedown='true'
+        maxcolumns='25'
+        maxrows='500'
         preserveNarrowColumns='true'
         spellcheck='false'
+        stickyHeader='true'
         files='{
             "buttons": [
                 {

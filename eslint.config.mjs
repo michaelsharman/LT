@@ -15,7 +15,7 @@ export default [
         rules: {
             '@stylistic/js/indent': ['error', 4, { SwitchCase: 1 }], // 4-space indent
             '@stylistic/js/semi': ['error', 'always'], // Always semicolons
-            '@stylistic/js/quotes': ['error', 'single'], // Single quotes
+            '@stylistic/js/quotes': ['error', 'single', { avoidEscape: true }], // Single quotes
             '@stylistic/js/object-curly-spacing': ['error', 'always'], // Spaces in `{ }`
             '@stylistic/js/space-before-function-paren': ['error', 'never'], // No space before function parens
 
