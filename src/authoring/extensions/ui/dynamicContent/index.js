@@ -39,7 +39,7 @@ const state = {
             csvUploadHelp: `Add dynamic data to your item by typing directly into the table below. Or, import a file
             (csv, xls, xlsx, ods, and txt are supported).`,
             headerValidationHelp: `The header row must contain only lowercase letters, numbers, and underscores.
-            Hyphens are not allowed. Supports a maximum of 20 columns and 50 rows.`,
+            Supports a maximum of 20 columns and 50 rows.`,
         },
     },
     renderedCss: false,
@@ -71,6 +71,10 @@ const state = {
 export function run(options) {
     state.options = validateOptions(options);
     state.renderedCss || injectCSS();
+
+    // Inject class for specificity
+    const elLrnApi = document.querySelector('.lrn-author');
+    elLrnApi.classList.add('lt__dynamiccontent');
 
     // Needed for importing anything other than csv
     window.XLSX = xlsx;
@@ -367,7 +371,7 @@ function getTableTemplate() {
         }'
         overflow='{
             "maxHeight":"${dataTableHeight}px",
-            "maxWidth":"560px"
+            "maxWidth":"481px"
         }'
         framecomponentsstyles='{
             "styles":{
@@ -412,12 +416,7 @@ function injectCSS() {
     const elStyle = document.createElement('style');
     const css = `
 /* Learnosity dynamic content styles */
-.lrn.lrn-author .lrn-author-api-react-container .lrn-author-item-settings .tab-content,
-.lrn.lrn-author .lrn-author-api-react-container .lrn-author-activity-labels .tab-content {
-    max-width: 600px;
-}
-
-.lt__contenttabs.lrn-author.lrn-author  {
+.lt__dynamiccontent.lrn-author.lrn-author  {
     .lt-dynamic-content-help-text {
         font-size: 15.4px;
         line-height: 1.4em;
