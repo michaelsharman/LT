@@ -39,7 +39,7 @@ const state = {
             csvUploadHelp: `Add dynamic data to your item by typing directly into the table below. Or, import a file
             (csv, xls, xlsx, ods, and txt are supported).`,
             headerValidationHelp: `The header row must contain only lowercase letters, numbers, and underscores.
-            Hyphens are not allowed.`,
+            Hyphens are not allowed. Supports a maximum of 20 columns and 50 rows.`,
         },
     },
     renderedCss: false,
@@ -319,8 +319,8 @@ function getTableTemplate() {
         dragrows='true'
         draganddrop='true'
         enterkeymovedown='true'
-        maxcolumns='25'
-        maxrows='500'
+        maxcolumns='20'
+        maxrows='51'
         preserveNarrowColumns='true'
         spellcheck='false'
         stickyHeader='true'
@@ -367,7 +367,7 @@ function getTableTemplate() {
         }'
         overflow='{
             "maxHeight":"${dataTableHeight}px",
-            "maxWidth":"480px"
+            "maxWidth":"560px"
         }'
         framecomponentsstyles='{
             "styles":{
