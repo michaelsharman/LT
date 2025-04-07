@@ -204,16 +204,19 @@ export function getTabsTheme(theme) {
             padding-top: 10px;
         }
     `;
-    let themeCss = '';
+    let themeCss = '',
+        customProperties = '';
 
     switch (theme || state.options.theme) {
         case 'default':
         case 'api-column-tabs':
-            themeCss = `/* API column tabs theme */
+            customProperties = `
+            /* API column tabs theme */
             :root {
                 --tab-border: #d9d9d9;
                 --tab-color: #333333;
-            }
+            }`;
+            themeCss = `
             .lrn.lrn-assess .lt__tabs {
                 .lt__nav-tabs {
                     overflow: initial;
@@ -254,12 +257,12 @@ export function getTabsTheme(theme) {
                     padding: 15px;
                     margin-top: -1px;
                 }
-            }
-            `;
+            }`;
             break;
 
         case 'rounded':
-            themeCss = `/* Rounded tabs theme */
+            customProperties = `
+            /* Rounded tabs theme */
             :root {
                 --color-active: #333333;
                 --customer-bg-blue: #e6f1ff;
@@ -276,6 +279,5 @@ export function getTabsTheme(theme) {
             break;
     }
 
-    // return themeCss.concat('\n', base);
-    return base.concat('\n', themeCss);
+    return customProperties.concat('\n', base, '\n', themeCss);
 }
