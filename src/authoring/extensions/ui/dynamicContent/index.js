@@ -299,7 +299,7 @@ function getElement(selector) {
  */
 function getTableTemplate() {
     const elSettingsContainer = document.querySelector('.lrn-author-item-settings-container');
-    const dataTableHeight = elSettingsContainer.offsetHeight - 165 || 300;
+    const dataTableHeight = elSettingsContainer.offsetHeight - 230 || 300;
 
     // We define customColumnTypes here (with changeTextFunc) to allow for custom
     // text processing, stripping surrounding double quotes from each data row cell
