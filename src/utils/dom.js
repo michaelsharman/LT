@@ -36,9 +36,11 @@ export function waitForElement(id, callback, retries = 5) {
  * @since 2.24.0
  * @ignore
  */
-export function setObserver(selector, callback, options, state) {
+export function setObserver(selector, callback, options) {
+    const dispatchEvent = options.dispatchEvent || false;
+    const name = options.name || 'lt:datatable';
     const root = options.root || document.body;
-
+    const state = options.state || { activeObservers: new Set() };
     const observeConfig = {
         childList: true,
         subtree: true,
@@ -78,6 +80,7 @@ export function setObserver(selector, callback, options, state) {
                     observerInstance.disconnect();
                     logger.debug(`${state.logPrefix}Disconnecting ${selector}`);
                     state.activeObservers.delete(selector);
+                    dispatchCustomEvent(selector, name, dispatchEvent);
                     callback(node);
                     return;
                 }
@@ -88,6 +91,7 @@ export function setObserver(selector, callback, options, state) {
                         observerInstance.disconnect();
                         logger.debug(`${state.logPrefix}Disconnecting ${selector}`);
                         state.activeObservers.delete(selector);
+                        dispatchCustomEvent(selector, name, dispatchEvent);
                         callback(match);
                         return;
                     }
@@ -98,9 +102,22 @@ export function setObserver(selector, callback, options, state) {
 
     logger.debug(`${state.logPrefix}Observing for ${selector}`);
     observer.observe(root, observeConfig);
+}
 
-    return function disconnect() {
-        observer.disconnect();
-        state.activeObservers.delete(selector);
-    };
+/**
+ * Dispatchs a custom event so the calling page
+ * knows that the element is ready.
+ * @param {string} selector
+ * @param {string} name
+ * @param {boolean} dispatchEvent
+ * @since 2.24.5
+ * @ignore
+ */
+function dispatchCustomEvent(selector, name, dispatchEvent) {
+    if (!dispatchEvent) {
+        return;
+    }
+
+    const event = new CustomEvent(name);
+    document.dispatchEvent(event);
 }

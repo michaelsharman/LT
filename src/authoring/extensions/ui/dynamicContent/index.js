@@ -74,7 +74,7 @@ export function run(options) {
 
     // Inject class for specificity
     const elLrnApi = document.querySelector('.lrn-author');
-    elLrnApi.classList.add('lt__dynamiccontent');
+    elLrnApi.classList.add('lt__dynamicContent');
 
     // Needed for importing anything other than csv
     window.XLSX = xlsx;
@@ -86,22 +86,16 @@ export function run(options) {
             if (['items/:reference/settings/:tab', undefined].includes(app.appInstance().getLocation().route)) {
                 const lastElement = app.appInstance().getLocation().location.split('/').pop();
                 if (lastElement === 'data-table') {
-                    setObserver(
-                        '.lrn-author-datatable-editor',
-                        setup,
-                        {
-                            root: getElement('[data-tab-content="data-table"]'),
-                        },
-                        state
-                    );
-                    setObserver(
-                        '.lrn-author-datatable-preview',
-                        actionContinue,
-                        {
-                            root: getElement('[data-tab-content="data-table"]'),
-                        },
-                        state
-                    );
+                    setObserver('.lrn-author-datatable-editor', setup, {
+                        dispatchEvent: false,
+                        root: getElement('[data-tab-content="data-table"]'),
+                        state: state,
+                    });
+                    setObserver('.lrn-author-datatable-preview', actionContinue, {
+                        dispatchEvent: false,
+                        root: getElement('[data-tab-content="data-table"]'),
+                        state: state,
+                    });
                 }
             }
         }, 150);
@@ -124,6 +118,14 @@ export function setup() {
     const elAPIDataSource = getElement('.lrn-author-datatable-source');
     const elAPIDataSourceHeader = getElement('.lrn-author-datatable-header');
     const elContinueBtn = getElement('[data-authorapi-selector="datatable-source-continue"]');
+
+    // Let any call page know when the data table has been rendered
+    setObserver('#dynamic-content-table', () => {}, {
+        dispatchEvent: true,
+        name: 'lt:datatable:editor',
+        root: getElement('[data-tab-content="data-table"]'),
+        state: state,
+    });
 
     if (elAPIDataSource) {
         const dataTableExists = getElement('#dynamic-content-table');
@@ -416,7 +418,7 @@ function injectCSS() {
     const elStyle = document.createElement('style');
     const css = `
 /* Learnosity dynamic content styles */
-.lt__dynamiccontent.lrn-author.lrn-author  {
+.lt__dynamicContent.lrn-author.lrn-author  {
     .lt-dynamic-content-help-text {
         font-size: 15.4px;
         line-height: 1.4em;
