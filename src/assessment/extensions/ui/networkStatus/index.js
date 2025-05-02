@@ -7,10 +7,13 @@
  * Checks for an active network connection. If none found, adds
  * an icon to the UI to indicate the status to the end user.
  *
+ * Can also be used to check the current download speed.
+ *
  * @module Extensions/Assessment/networkStatus
  */
 
 const state = {
+    logPrefix: 'LT Network Status: ',
     options: {
         iconWrapper: 'top-right-wrapper',
         interval: 30000,
@@ -43,7 +46,7 @@ export function run(options) {
 
     validateOptions(options);
 
-    setInterval(checkOnlineStatus, state.options.interval);
+    setInterval(getOnlineStatus, state.options.interval);
 }
 
 /**
@@ -51,8 +54,8 @@ export function run(options) {
  * @since 2.12.0
  * @ignore
  */
-async function checkOnlineStatus() {
-    const status = await checkInternetConnectivity();
+async function getOnlineStatus() {
+    const status = await checkConnection();
     const elIndicator = document.querySelector('.lt__networkStatus-indicator');
 
     dispatchNetworkEvent(status);
@@ -79,12 +82,11 @@ async function checkOnlineStatus() {
 }
 
 /**
- * Makes a HEAD request to the specified URI to check for network connectivity.
+ * Checks for network connectivity using a HEAD request.
  * @since 2.12.0
- * @ignore
- * @returns {promise}
+ * @returns {promise} - Resolves to true if the request is successful, false otherwise.
  */
-async function checkInternetConnectivity() {
+export async function checkConnection() {
     try {
         await fetch(state.options.uri, {
             method: 'HEAD',
@@ -94,6 +96,19 @@ async function checkInternetConnectivity() {
         return true;
     } catch {
         return false;
+    }
+}
+
+/**
+ * Checks the current download speed using the Network Information API.
+ * @since 2.25.0
+ * @returns {string} - The current download speed in Mbps or a message indicating that the API is not supported. Eg `10 Mbps`.
+ */
+export function checkSpeed() {
+    if (navigator?.connection) {
+        return `${navigator.connection.downlink} Mbps`;
+    } else {
+        return 'Network Information API not supported';
     }
 }
 
