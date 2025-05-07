@@ -7,6 +7,7 @@ const { log } = require('console');
 const app = express();
 const PORT = process.env.PORT || 5150;
 let server;
+let startedByUs = false;
 
 app.set('view engine', 'ejs');
 app.set('views', './tests/api-server/src/views');
@@ -29,37 +30,50 @@ app.get('/itemsapi', (req, res) => {
     res.render('itemsapi', { signature: JSON.stringify(signatureData) });
 });
 
-async function startServer() {
-    checkServer(PORT, async isRunning => {
-        if (!isRunning) {
-            console.time('server-start-complete');
-            console.log('Starting the server...');
-            server = app.listen(PORT, () => {
-                console.log('Server started on port', PORT);
-                console.timeEnd('server-start-complete');
-            });
-        }
+function checkServer(port) {
+    return new Promise(resolve => {
+        const testServer = net.createServer();
+
+        testServer.once('error', err => {
+            if (err.code === 'EADDRINUSE') {
+                resolve(true);
+            }
+        });
+
+        testServer.once('listening', () => {
+            testServer.close();
+            resolve(false);
+        });
+
+        testServer.listen(port);
     });
 }
 
-function checkServer(port, callback) {
-    const server = net.createServer();
-    server.once('error', function (err) {
-        if (err.code === 'EADDRINUSE') {
-            callback(true);
-        }
-    });
+async function startServer() {
+    const isRunning = await checkServer(PORT);
+    if (!isRunning) {
+        console.time('server-start-complete');
+        console.log('Starting the server...');
+        server = app.listen(PORT, () => {
+            console.log('Server started on port', PORT);
+            console.timeEnd('server-start-complete');
+        });
 
-    server.once('listening', function () {
-        server.close();
-        callback(false);
-    });
-
-    server.listen(port);
+        // Wait for server to be ready
+        await new Promise(resolve => server.once('listening', resolve));
+        startedByUs = true;
+    } else {
+        console.log('Server already running on port', PORT);
+    }
 }
 
 function stopServer() {
-    server.close();
+    if (startedByUs && server) {
+        console.log('Server stopped');
+        server.close();
+    } else {
+        console.log('Server was not started by this process, so not stopping it.');
+    }
 }
 
 module.exports = { startServer, stopServer };
