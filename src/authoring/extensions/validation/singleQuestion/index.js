@@ -7,10 +7,12 @@ import { checkAppVersion } from '../../../utils/styling';
  *
  * --
  *
- * Restricts authors to add only none question to an item.
+ * Restricts authors to add only one question to an item.
  * Allows multiple features to be added to the item, but only one question.
  *
  * If you want any features, they must be added first.
+ *
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/singleQuestion/singlequestion.gif" alt="" width="860"></p>
  * @module Extensions/Authoring/singleQuestion
  */
 

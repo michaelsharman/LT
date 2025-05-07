@@ -11,7 +11,7 @@ import { max } from 'lodash-es';
  * Adds the ability for authors to add more native column tabs
  * than is currently possible today in the Layout area.
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/nativeTabs/tabs.gif" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/nativeTabs/tabs.gif" alt="" width="860"></p>
  * @module Extensions/Authoring/nativeTabs
  */
 
