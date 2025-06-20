@@ -1,6 +1,6 @@
-import * as app from './app';
-import * as sections from './sections';
-import logger from '../../utils/logger';
+import * as app from './app.js';
+import * as sections from './sections.js';
+import logger from '../../utils/logger.js';
 
 /**
  * Everything relating to the activity currently

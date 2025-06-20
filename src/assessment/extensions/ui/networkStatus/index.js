@@ -26,11 +26,10 @@ const state = {
 
 /**
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/core';
- * import * as networkStatus from '@caspingus/lt/src/assessment/extensions/ui/networkStatus/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * networkStatus.run();
+ * LT.extensions.networkStatus.run();
  * @param {object=} options - Optional configuration object includes:
  *  - `iconWrapper` (string) classname of element to inject the broken connection icon. You
  * should never need this if using any of the Learnosity regions.
@@ -155,6 +154,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Render Network Status');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

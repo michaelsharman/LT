@@ -1,6 +1,6 @@
-import * as app from '../../../../core/app';
-import * as player from '../../../../core/player';
-import logger from '../../../../../utils/logger';
+import * as app from '../../../../core/app.js';
+import * as player from '../../../../core/player.js';
+import logger from '../../../../../utils/logger.js';
 import { Howl, Howler } from 'howler';
 
 /**
@@ -112,7 +112,7 @@ const state = {
 /**
  * Sets up the white noise audio player.
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.whiteNoise.run();

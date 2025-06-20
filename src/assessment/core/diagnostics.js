@@ -1,7 +1,7 @@
-import * as app from './app';
-import * as activity from './activity';
-import logger from '../../utils/logger';
-import { version } from '../../../dist/version.js';
+import * as app from './app.js';
+import * as activity from './activity.js';
+import logger from '../../utils/logger.js';
+import { version } from '../../version.js';
 
 /**
  * Diagnostic/metadata information for Items API.

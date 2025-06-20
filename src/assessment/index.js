@@ -5,25 +5,26 @@
  * any extensions you might want separately.
  */
 
-import { LT as core } from './core';
+import { LT as core } from './core.js';
 
-import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav';
-import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks';
-import * as checkAnswerValidation from './extensions/validation/checkAnswerValidation';
-import * as columnResizer from './extensions/accessibility/ux/columnResizer';
-import * as contentTabs from './extensions/ui/contentTabs';
-import * as disableOnValidate from './extensions/validation/disableOnValidate';
-import * as essayLimitByCharacter from './extensions/validation/essayLimitByCharacter';
-import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives';
-import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts';
-import * as magnifier from './extensions/accessibility/ux/magnifier';
-import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix';
-import * as networkStatus from './extensions/ui/networkStatus/index';
-import * as pageOverlay from './extensions/accessibility/ux/pageOverlay';
-import * as renderPDF from './extensions/ui/renderPDF/index';
-import * as resetResponse from './extensions/accessibility/ux/resetResponse';
-import * as toggleTimer from './extensions/accessibility/ux/toggleTimer';
-import * as whiteNoise from './extensions/accessibility/ux/whiteNoise/index';
+import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav.js';
+import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks.js';
+import * as checkAnswerValidation from './extensions/validation/checkAnswerValidation.js';
+import * as columnResizer from './extensions/accessibility/ux/columnResizer.js';
+import * as contentTabs from './extensions/ui/contentTabs/index.js';
+import * as disableOnValidate from './extensions/validation/disableOnValidate.js';
+import * as essayLimitByCharacter from './extensions/validation/essayLimitByCharacter.js';
+import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives.js';
+import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts.js';
+import * as magnifier from './extensions/accessibility/ux/magnifier.js';
+import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix.js';
+import * as networkStatus from './extensions/ui/networkStatus/index.js';
+import * as pageOverlay from './extensions/accessibility/ux/pageOverlay.js';
+import * as renderPDF from './extensions/ui/renderPDF/index.js';
+import * as resetResponse from './extensions/accessibility/ux/resetResponse.js';
+import * as telemetry from './extensions/telemetry/index.js';
+import * as toggleTimer from './extensions/accessibility/ux/toggleTimer.js';
+import * as whiteNoise from './extensions/accessibility/ux/whiteNoise/index.js';
 
 const extensions = {
     extensions: {
@@ -42,6 +43,7 @@ const extensions = {
         pageOverlay: { ...pageOverlay },
         renderPDF: { ...renderPDF },
         resetResponse: { ...resetResponse },
+        telemetry: { ...telemetry },
         toggleTimer: { ...toggleTimer },
         whiteNoise: { ...whiteNoise },
     },

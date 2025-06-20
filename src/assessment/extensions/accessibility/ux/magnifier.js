@@ -1,6 +1,6 @@
-import * as app from '../../../core/app';
-import * as items from '../../../core/items';
-import logger from '../../../../utils/logger';
+import * as app from '../../../core/app.js';
+import * as items from '../../../core/items.js';
+import logger from '../../../../utils/logger.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -29,7 +29,7 @@ const state = {
 /**
  * Initialises the screen magnifier.
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.magnifier.run();

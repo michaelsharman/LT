@@ -1,6 +1,6 @@
-import * as app from '../../../core/app';
-import logger from '../../../../utils/logger';
-import { setObserver } from '../../../../utils/dom';
+import * as app from '../../../core/app.js';
+import logger from '../../../../utils/logger.js';
+import { setObserver } from '../../../../utils/dom.js';
 import 'active-table';
 import { debounce } from 'lodash-es';
 import Papa from 'papaparse';
@@ -50,7 +50,7 @@ const state = {
  * Sets up a listener when the data table panel opens to inject
  * new behaviour to author dynamic content.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.dynamicContent.run();
@@ -455,6 +455,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Dynamic Content');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

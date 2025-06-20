@@ -1,5 +1,5 @@
-import * as activity from './activity';
-import * as items from './items';
+import * as activity from './activity.js';
+import * as items from './items.js';
 
 /**
  * Everything relating to any sections defined

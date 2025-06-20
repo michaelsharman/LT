@@ -5,18 +5,18 @@
  * you might want separately.
  */
 
-import { LT as core } from './core';
+import { LT as core } from './core.js';
 
-import * as contentTabs from './extensions/ui/contentTabs/index';
-import * as createTags from './extensions/ui/createTags/index';
-import * as dynamicContent from './extensions/ui/dynamicContent/index';
-import * as essayMaxLength from './extensions/validation/essayMaxLength/index';
-import * as imageUploader from './extensions/ui/imageUploader/index';
-import * as languageTextDirection from './extensions/ui/languageTextDirection/index';
-import * as nativeTabs from './extensions/ui/nativeTabs/index';
-import * as renderPDF from './extensions/ui/renderPDF/index';
-import * as singleQuestion from './extensions/validation/singleQuestion/index';
-import * as ssmlEditor from './extensions/ui/ssmlEditor/index';
+import * as contentTabs from './extensions/ui/contentTabs/index.js';
+import * as createTags from './extensions/ui/createTags/index.js';
+import * as dynamicContent from './extensions/ui/dynamicContent/index.js';
+import * as essayMaxLength from './extensions/validation/essayMaxLength/index.js';
+import * as imageUploader from './extensions/ui/imageUploader/index.js';
+import * as languageTextDirection from './extensions/ui/languageTextDirection/index.js';
+import * as nativeTabs from './extensions/ui/nativeTabs/index.js';
+import * as renderPDF from './extensions/ui/renderPDF/index.js';
+import * as singleQuestion from './extensions/validation/singleQuestion/index.js';
+import * as ssmlEditor from './extensions/ui/ssmlEditor/index.js';
 
 const extensions = {
     extensions: {

@@ -1,0 +1,38 @@
+.lt__theme-nextGen {
+    .lrn {
+        font-family: var(--font-stack--base);
+        font-size: var(--font-size--base);
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-family: var(--font-stack--base);
+        }
+
+        .lrn-annotations-c-modal--notepad {
+            font-family: var(--font-stack--base);
+        }
+
+        input,
+        select,
+        textarea .lds_btn,
+        .lds-btn {
+            font-family: var(--font-stack--base);
+        }
+    }
+}
+
+/* Needed for the rating question type which is rendered outside the main API DOM */
+.lrn {
+    .lrn_ratingInfo .lrn_ratingInfo_inner .lrn_ratingInfo_row span,
+    .lrn_ratingInfo .lrn_ratingInfo_inner .lrn_ratingInfo_row .lrn_ratingInfo_description {
+        font-family: var(--font-stack--base);
+    }
+
+    .lrn_rating_tooltip {
+        font-family: var(--font-stack--base);
+    }
+}

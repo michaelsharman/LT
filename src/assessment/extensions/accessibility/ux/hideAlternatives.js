@@ -1,7 +1,7 @@
-import * as app from '../../../core/app';
-import * as questions from '../../../core/questions';
-import { waitForElement } from '../../../../utils/dom';
-import logger from '../../../../utils/logger';
+import * as app from '../../../core/app.js';
+import * as questions from '../../../core/questions.js';
+import { waitForElement } from '../../../../utils/dom.js';
+import logger from '../../../../utils/logger.js';
 import seedrandom from 'seedrandom';
 import { shuffle } from 'lodash-es';
 
@@ -21,7 +21,7 @@ import { shuffle } from 'lodash-es';
  * Sets up an item load listener to hide distractor(s).
  * @param {number=} num The number of MCQ options to hide. Defaults to `1`.
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.hideAlternatives.run();

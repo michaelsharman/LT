@@ -25,36 +25,28 @@ npm install @caspingus/lt
 
 ## Usage
 
-From either the assessment or authoring folders, you can import `src/core` or `src/index` into your project.
+Depending on where you are, import either the assessment or authoring into your project. You can import `index` or `core` from both areas.
 
-### core vs index
+## core vs index
 
-**Recommendation** - use `core` in all production settings.
+**Recommendation** - use `core` in all production settings for greater control on file size.
 
-The `core` module contains the LT toolkit only, no extensions. This is the smallest file size (around 12kB for assessment and 5kB for authoring) and may be all you need.
+The `core` module contains the LT toolkit only, no extensions. This is the smallest file size (around 16kB for assessment and 3kB for authoring) and may be all you need.
 
 If you want 1 or 2 extensions, you can import them manually to keep the overall file size down.
 
 ```
-import { LT } from '@caspingus/lt/src/assessment/core';
-import * as columnResizer from '@caspingus/lt/src/assessment/extensions/accessibility/ux/columnResizer';
+import { LT } from '@caspingus/lt/assessment/core';
+import * as columnResizer from '@caspingus/lt/assessment/extensions/accessibility/columnResizer';
 ```
 
-The `index` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 520kB for assessment and 740kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
+The `index` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 160kB for assessment and 1700kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
 
 ```
-import { LT } from '@caspingus/lt/src/assessment/index';
+import { LT } from '@caspingus/lt/assessment';
 ```
 
 ^^ Importing `index` puts all extensions in `LT.extensions`.
-
-### src vs dist
-
-**Recommendation** - use `src` and have your local build process bundle LT along with your application.
-
-As this library will be imported into existing projects, it's recommended to use the `src` folder and include LT as a part of your build process.
-
-In which case, import from the `src` folder and you're good to go. Another option is to import from `dist` which has been prod bundled by Webpack, but then you need to exclude this from your build process.
 
 ## Initialize
 
@@ -72,8 +64,8 @@ const itemsApp = LearnosityItems.init(signedConfigObject);
 
 
 // Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/assessment/core';
-import * as renderPDF from '@caspingus/lt/src/assessment/extensions/ui/renderPDF/index';
+import { LT } from '@caspingus/lt/assessment/core';
+import * as renderPDF from '@caspingus/lt/assessment/extensions/renderPDF';
 
 LT.init(itemsApp);
 
@@ -94,7 +86,7 @@ window.LT = LT;
 ## Usage examples
 
 ```
-import { LT } from '@caspingus/lt/src/assessment/core';
+import { LT } from '@caspingus/lt/assessment/core';
 
 // See if the item was _fully_ attempted
 LT.isItemFullyAttempted();
@@ -114,7 +106,7 @@ const authorApp = LearnosityAuthor.init(signedConfigObject);
 
 
 // Pass that app instance to the Toolkit constructor
-import { LT } from '@caspingus/lt/src/authoring/core';
+import { LT } from '@caspingus/lt/authoring/core';
 LT.init(authorApp);
 
 
@@ -125,7 +117,7 @@ window.LT = LT;
 ## Usage examples
 
 ```
-import { LT } from '@caspingus/lt/src/authoring/core';
+import { LT } from '@caspingus/lt/authoring/core';
 
 // Injects a route hash to the URI so SPAs can load to a deep view from a full page refresh.
 LT.routingHash();
@@ -133,7 +125,7 @@ LT.routingHash();
 
 # Building
 
-You should import from `@caspingus/lt/src/*` and let your build tool handle minifying and tree shaking etc.
+You should import from `@caspingus/lt/authoring` and let your build tool handle minifying and tree shaking etc.
 
 Right now, the Authoring extension ssmlEditor requires that css be imported. Here is an example webpack.config:
 
@@ -147,5 +139,44 @@ Right now, the Authoring extension ssmlEditor requires that css be imported. Her
             },
         ],
     },
+};
+```
+
+# CDN
+
+If you don't have a build system, or want to get up and running quickly, you can import LT via a CDN.
+
+You will still need to have a module to initialize, eg:
+
+```
+<script src="./src/my-module.js" type="module"></script>
+<script src="https://items.learnosity.com"></script>
+<script>
+const initializationObject = mySignedRequest;
+const callbacks = {
+    readyListener: init,
+    errorListener: error
+};
+
+function init() {
+    // widow.launch() is an example method that is inside my-module.js
+    window.launch(itemsApp);
+}
+
+function error(err) {
+    console.error(err);
+}
+
+const itemsApp = LearnosityItems.init(initializationObject, callbacks);
+</script>
+
+// my-module.js
+import { LT } from 'https://cdn.jsdelivr.net/npm/@caspingus/lt/dist/assessment/index.js';
+
+window.launch = function (app) {
+    LT.init(app);
+    window.LT = LT;
+
+    LT.extensions.toggleTimer.run();
 };
 ```

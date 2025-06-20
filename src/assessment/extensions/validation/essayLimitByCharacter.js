@@ -1,9 +1,9 @@
-import * as app from '../../core/app';
-import logger from '../../../utils/logger';
-import * as activity from '../../core/activity';
-import * as player from '../../core/player';
-import * as items from '../../core/items';
-import * as questions from '../../core/questions';
+import * as app from '../../core/app.js';
+import logger from '../../../utils/logger.js';
+import * as activity from '../../core/activity.js';
+import * as player from '../../core/player.js';
+import * as items from '../../core/items.js';
+import * as questions from '../../core/questions.js';
 import * as entities from 'entities';
 
 /**
@@ -197,7 +197,7 @@ const state = {
  * ```
  *
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.essayLimitByCharacter.run();

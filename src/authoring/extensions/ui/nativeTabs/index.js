@@ -1,5 +1,5 @@
-import * as app from '../../../core/app';
-import logger from '../../../../utils/logger';
+import * as app from '../../../core/app.js';
+import logger from '../../../../utils/logger.js';
 import { max } from 'lodash-es';
 
 /**
@@ -31,7 +31,7 @@ const state = {
 /**
  * Extension constructor.
  * @example
- * import { LT } from '@caspingus/lt/src/authoring/index';
+ * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.nativeTabs.run();
@@ -367,6 +367,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Native Tabs');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

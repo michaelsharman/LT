@@ -1,7 +1,20 @@
 {
     "name": "@caspingus/lt",
-    "version": "2.26.2",
-    "description": "A utility library of helpers and tools for working with Learnosity APIs.",
+    "version": "3.0.0-beta.1",
+    "type": "module",
+    "exports": {
+        ".": null,
+        "./assessment": "./dist/assessment/index.js",
+        "./assessment/core": "./dist/assessment/core.js",
+        "./assessment/extensions/*": "./dist/assessment/extensions/*",
+        "./authoring": "./dist/authoring/index.js",
+        "./authoring/core": "./dist/authoring/core.js",
+        "./authoring/extensions/*": "./dist/authoring/extensions/*"
+    },
+    "sideEffects": [
+        "**/*.css"
+    ],
+    "description": "A utility library of helpers and extensions useful when working with Learnosity APIs.",
     "author": "michael@learnosity.com",
     "license": "MIT",
     "repository": {
@@ -23,10 +36,8 @@
         "@eslint/js": "^9.24.0",
         "@stylistic/eslint-plugin-js": "^4.2.0",
         "@types/jest": "^29.5.14",
-        "babel-jest": "^29.7.0",
+        "babel-jest": "^30.0.0",
         "babel-loader": "^10.0.0",
-        "clean-webpack-plugin": "^4.0.0",
-        "copy-webpack-plugin": "^13.0.0",
         "css-loader": "^7.1.2",
         "docdash": "^2.0.2",
         "ejs": "^3.1.10",
@@ -34,25 +45,21 @@
         "eslint-formatter-table": "^7.32.1",
         "express": "^5.1.0",
         "globals": "^16.0.0",
-        "jest": "^29.7.0",
+        "jest": "^30.0.0",
         "learnosity-sdk-nodejs": "github:Learnosity/learnosity-sdk-nodejs",
         "nodemon": "^3.1.9",
         "npm": "^11.2.0",
         "puppeteer": "^24.8.0",
-        "sass": "^1.86.3",
-        "sass-loader": "^16.0.5",
         "style-loader": "^4.0.0",
         "svg-inline-loader": "^0.8.2",
-        "webpack": "^5.98.0",
-        "webpack-cli": "^6.0.1",
-        "webpack-version-file": "^0.1.7"
+        "vite": "^6.3.5"
     },
     "scripts": {
-        "dev": "npm install && webpack watch --mode development --devtool eval-source-map",
+        "dev": "vite",
+        "build": "vite build",
         "lint": "npx eslint --format table",
-        "build": "npm install && npm run lint && webpack --mode production",
         "docs": "jsdoc -c jsdoc.json -R README.md --verbose",
-        "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose",
+        "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand",
         "start:server": "nodemon ./tests/api-server/src/server.js",
         "start:server:background": "nodemon ./tests/api-server/src/server.js &"
     },
@@ -71,6 +78,8 @@
         "papaparse": "^5.5.2",
         "pdfjs-dist": "^5.2.133",
         "platform-detect": "^3.0.1",
+        "postcss": "^8.5.4",
+        "postcss-import": "^16.1.0",
         "seedrandom": "^3.0.5",
         "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
     }

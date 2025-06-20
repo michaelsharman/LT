@@ -1,5 +1,5 @@
-import * as app from '../../../core/app';
-import * as items from '../../../core/items';
+import * as app from '../../../core/app.js';
+import * as items from '../../../core/items.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -28,7 +28,7 @@ const state = {
  *
  * If the resource is a PDF, render using the pdf.js viewer.
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.renderPDF.run();
@@ -113,6 +113,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Render PDF');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

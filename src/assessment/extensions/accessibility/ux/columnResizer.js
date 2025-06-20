@@ -1,5 +1,5 @@
-import * as app from '../../../core/app';
-import * as item from '../../../core/items';
+import * as app from '../../../core/app.js';
+import * as item from '../../../core/items.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -25,7 +25,7 @@ const state = {
  * Sets up an item load listener to add a UI element allowing
  * users to drag to resize the column divider.
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.columnResizer.run();
@@ -38,7 +38,9 @@ export function run() {
         setupResizer();
     });
 
-    window.addEventListener('resize', debounce(setupResizer, 250));
+    window.addEventListener('resize', () => {
+        debounce(setupResizer, 250);
+    });
 }
 
 /**
@@ -225,6 +227,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Column Resizer');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

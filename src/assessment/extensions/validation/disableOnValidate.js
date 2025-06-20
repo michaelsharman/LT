@@ -1,5 +1,5 @@
-import * as app from '../../core/app';
-import { hasCheckAnswer, questionInstance, questionResponseIds } from '../../core/questions';
+import * as app from '../../core/app.js';
+import { hasCheckAnswer, questionInstance, questionResponseIds } from '../../core/questions.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -15,12 +15,11 @@ import { hasCheckAnswer, questionInstance, questionResponseIds } from '../../cor
 
 /**
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/core';
- * import * as disableOnValidate from '@caspingus/lt/src/assessment/extensions/validation/disableOnValidate
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  *
- * disableOnValidate.run();
+ * LT.extensions.disableOnValidate.run();
  * @since 2.17.0
  */
 export function run() {

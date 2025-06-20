@@ -1,5 +1,5 @@
-import * as app from '../../../core/app';
-import * as items from '../../../core/items';
+import * as app from '../../../core/app.js';
+import * as items from '../../../core/items.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -24,11 +24,10 @@ const state = {
 
 /**
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/core';
- * import * as contentTabs from '@caspingus/lt/src/assessment/extensions/ui/contentTabs/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * contentTabs.run();
+ * LT.extensions.contentTabs.run();
  * @param {object=} options - Optional configuration object includes:
  *  - `theme` (string) Which tabs theme to load. Options are `rounded` (default) and `api-column-tabs`.
  * @since 2.19.0
@@ -118,6 +117,7 @@ function injectCSS() {
     const elStyle = document.createElement('style');
     const css = '/* Learnosity content tab styles */';
 
+    elStyle.setAttribute('data-style', 'LT Content Tabs');
     elStyle.textContent = css.concat('\n', getTabsTheme(state.options.theme));
     document.head.append(elStyle);
 

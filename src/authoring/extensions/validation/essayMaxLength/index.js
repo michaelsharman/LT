@@ -1,5 +1,5 @@
-import * as app from '../../../core/app';
-import * as widgets from '../../../core/widgets';
+import * as app from '../../../core/app.js';
+import * as widgets from '../../../core/widgets.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -34,7 +34,7 @@ const state = {
 /**
  * Extension constructor.
  * @example
- * import { LT } from '@caspingus/lt/src/authoring/index';
+ * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.essayMaxLength.run();
@@ -117,6 +117,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Essay Max Length');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

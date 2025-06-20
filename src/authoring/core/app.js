@@ -1,4 +1,4 @@
-import { handleEvent } from './diagnostics';
+import { handleEvent } from './diagnostics.js';
 
 /**
  * Learnosity Toolkit constructor module.

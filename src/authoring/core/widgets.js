@@ -1,4 +1,4 @@
-import * as app from './app';
+import * as app from './app.js';
 
 /**
  * Everything relating to a widget being created/edited.

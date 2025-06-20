@@ -1,4 +1,4 @@
-import './sass/index.scss';
+import './styles/index.css';
 
 /**
  * Extensions add specific functionality to Items API.

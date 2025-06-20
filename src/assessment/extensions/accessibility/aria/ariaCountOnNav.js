@@ -1,5 +1,5 @@
-import * as app from '../../../core/app';
-import * as activity from '../../../core/activity';
+import * as app from '../../../core/app.js';
+import * as activity from '../../../core/activity.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -16,7 +16,7 @@ import * as activity from '../../../core/activity';
 /**
  * Executes on item load to add custom label.
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.ariaCountOnNav.run();

@@ -20,7 +20,7 @@ const state = {
 
 /**
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.pageOverlay.run();
@@ -80,6 +80,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Page Overlay');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

@@ -1,4 +1,4 @@
-import * as app from '../../../core/app';
+import * as app from '../../../core/app.js';
 import { debounce } from 'lodash-es';
 
 /**
@@ -21,7 +21,7 @@ const state = {
  * Sets up a listener when the tags panel opens to inject
  * new behaviour to create a tag type:tag.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.createTags.run();
@@ -189,6 +189,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Create Tags');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

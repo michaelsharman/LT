@@ -1,7 +1,7 @@
-import * as app from './app';
-import * as items from './items';
-import { activity } from './activity';
-import logger from '../../utils/logger';
+import * as app from './app.js';
+import * as items from './items.js';
+import { activity } from './activity.js';
+import logger from '../../utils/logger.js';
 
 /**
  * Everything relating to questions currently

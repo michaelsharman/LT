@@ -1,5 +1,5 @@
-import { handleEvent } from './diagnostics';
-import { questionResponseIds } from './questions';
+import { handleEvent } from './diagnostics.js';
+import { questionResponseIds } from './questions.js';
 
 /**
  * Learnosity Toolkit constructor module.

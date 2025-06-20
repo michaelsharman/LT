@@ -1,48 +1,56 @@
-const puppeteer = require('puppeteer');
-const server = require('./api-server/src/server');
+process.on('unhandledRejection', (reason, promise) => {
+    console.error('== Unhandled Rejection:', reason);
+});
+
+process.on('uncaughtException', err => {
+    console.error('== Uncaught Exception:', err);
+});
+
+import puppeteer from 'puppeteer';
+import { startServer, stopServer } from './api-server/src/server.js';
+
+let browser;
+let page;
+
+beforeAll(async () => {
+    await startServer();
+
+    browser = await puppeteer.launch();
+    page = await browser.newPage();
+
+    // Log all console messages from the test page
+    page.on('console', consoleMsg => {
+        if (!consoleMsg.text().includes('Learnosity developer version')) {
+            console.log(`== From test page console: ${consoleMsg.text()}`);
+        }
+    });
+    page.on('requestfailed', request => {
+        console.log(`${request.url()} failed to load. Reason: ${request.failure().errorText}`);
+    });
+    page.on('pageerror', error => {
+        console.log(`Page error: ${error.message}`);
+    });
+    page.on('response', response => {
+        if (!response.ok()) {
+            console.log(`HTTP error: ${response.status()} on ${response.url()}`);
+        }
+    });
+
+    console.time('page-load-complete');
+    await page.goto('http://localhost:5150/itemsapi');
+    console.timeEnd('page-load-complete');
+
+    console.time('selector-lookup');
+    await page.waitForSelector('.has-loaded', { timeout: 6000 });
+    console.timeEnd('selector-lookup');
+});
+
+afterAll(async () => {
+    await browser.close();
+    stopServer();
+});
 
 describe('LT Core', () => {
-    let browser;
-    let page;
-
-    beforeAll(async () => {
-        await server.startServer();
-
-        browser = await puppeteer.launch();
-        page = await browser.newPage();
-
-        // Log all console messages from the test page
-        page.on('console', consoleMsg => {
-            if (!consoleMsg.text().includes('Learnosity developer version')) {
-                console.log(`== From test page console: ${consoleMsg.text()}`);
-            }
-        });
-        page.on('requestfailed', request => {
-            console.log(`${request.url()} failed to load. Reason: ${request.failure().errorText}`);
-        });
-        page.on('pageerror', error => {
-            console.log(`Page error: ${error.message}`);
-        });
-        page.on('response', response => {
-            if (!response.ok()) {
-                console.log(`HTTP error: ${response.status()} on ${response.url()}`);
-            }
-        });
-
-        console.time('page-load-complete');
-        await page.goto('http://localhost:5150/itemsapi');
-        console.timeEnd('page-load-complete');
-
-        console.time('selector-lookup');
-        await page.waitForSelector('.has-loaded', { timeout: 6000 });
-        console.timeEnd('selector-lookup');
-    });
-
-    afterAll(async () => {
-        await browser.close();
-        server.stopServer();
-    });
-
     describe('Activity module', () => {
         describe('activity()', () => {
             test('is an object', async () => {
@@ -195,6 +203,7 @@ describe('LT Core', () => {
                     return window.LT.item().user_flagged;
                 });
                 expect(value).toBeTruthy();
+                expect(typeof value).toBe('boolean');
             });
 
             test('is not a flagged item', async () => {

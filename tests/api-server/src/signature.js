@@ -1,6 +1,8 @@
+import { createRequire } from 'module';
+const require = createRequire(import.meta.url);
 const LearnositySDK = require('learnosity-sdk-nodejs/index');
 
-function itemsApi() {
+export function itemsApi() {
     const signature = new LearnositySDK().init(
         'items',
         {
@@ -27,5 +29,3 @@ function itemsApi() {
 
     return signature;
 }
-
-module.exports = { itemsApi };

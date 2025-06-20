@@ -42,6 +42,6 @@ export default [
         files: ['src/**/*.js'],
     },
     {
-        ignores: ['src/vendor/**', 'tests/**', 'docs/**', 'dist/**', 'webpack.config.js'],
+        ignores: ['src/vendor/**', 'tests/**', 'docs/**', 'dist/**', 'vite.config.js'],
     },
 ];

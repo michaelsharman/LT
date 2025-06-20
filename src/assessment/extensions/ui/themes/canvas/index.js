@@ -1,5 +1,5 @@
-import * as app from '../../../../core/app';
-import './sass/index.scss';
+import * as app from '../../../../core/app.js';
+import './styles/index.css';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -90,10 +90,9 @@ const state = {
  *
  * @example
  * import { LT } from '@caspingus/lt/src/assessment/core';
- * import * as theme from '@caspingus/lt/src/assessment/extensions/ui/themes/canvas/index';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * theme.run();
+ * LT.extensions.themes.canvas.run();
  * @since 2.14.0
  */
 export function run() {

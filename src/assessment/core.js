@@ -1,11 +1,11 @@
-import * as app from './core/app';
-import * as activity from './core/activity';
-import * as diagnostics from './core/diagnostics';
-import * as items from './core/items';
-import * as player from './core/player';
-import * as questions from './core/questions';
-import * as sections from './core/sections';
-import logger from '../utils/logger';
+import * as app from './core/app.js';
+import * as activity from './core/activity.js';
+import * as diagnostics from './core/diagnostics.js';
+import * as items from './core/items.js';
+import * as player from './core/player.js';
+import * as questions from './core/questions.js';
+import * as sections from './core/sections.js';
+import logger from '../utils/logger.js';
 
 const utils = {
     utils: {

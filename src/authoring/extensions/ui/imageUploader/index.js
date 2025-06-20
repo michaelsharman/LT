@@ -1,14 +1,14 @@
-import * as app from '../../../core/app';
-import { checkAppVersion } from '../../../utils/styling';
-import logger from '../../../../utils/logger';
+import * as app from '../../../core/app.js';
+import { checkAppVersion } from '../../../utils/styling.js';
+import logger from '../../../../utils/logger.js';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import Compressor from '@uppy/compressor';
 import ImageEditor from '@uppy/image-editor';
 
-import '@uppy/core/dist/style.min.css';
-import '@uppy/dashboard/dist/style.min.css';
-import '@uppy/image-editor/dist/style.min.css';
+import uppyCore from '@uppy/core/dist/style.min.css?inline';
+import uppyDashboard from '@uppy/dashboard/dist/style.min.css?inline';
+import uppyImageEditor from '@uppy/image-editor/dist/style.min.css?inline';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -129,15 +129,9 @@ const state = {
  * Extension constructor. We require `security` and `request` from the Author API
  * initialisation to be passed in.
  * @example
- * import { LT } from '@caspingus/lt/src/authoring/core';
- * import * as imageUploader from '@caspingus/lt/src/authoring/extensions/ui/imageUploader/index';
+ * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
- *
- * // Put individual extensions in the LT object if that makes your life easier
- * LT.extensions = {
- *     imageUploader,
- * };
  *
  * LT.extensions.imageUploader.run(security, request);
  * @since 2.10.0
@@ -701,6 +695,7 @@ function toggleElement(classname, action) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
+    const vendorCSS = [uppyCore, uppyDashboard, uppyImageEditor].join('\n');
     const css = `
 /* Learnosity custom image uploader (DAM) */
 /* Used to style content tabs added by via rich-text editor */
@@ -738,7 +733,8 @@ function injectCSS() {
 }
 `;
 
-    elStyle.textContent = css;
+    elStyle.setAttribute('data-style', 'LT Image Uploader');
+    elStyle.textContent = `${vendorCSS}\n\n${css}`;
     document.head.append(elStyle);
 
     state.renderedCss = true;

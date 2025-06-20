@@ -1,8 +1,13 @@
-const express = require('express');
-const net = require('net');
-const path = require('path');
-const signature = require('./signature');
-const { log } = require('console');
+import express from 'express';
+import net from 'net';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import * as signature from './signature.js';
+import { log } from 'console';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 const app = express();
 const PORT = process.env.PORT || 5150;
@@ -10,13 +15,13 @@ let server;
 let startedByUs = false;
 
 app.set('view engine', 'ejs');
-app.set('views', './tests/api-server/src/views');
-app.use(express.static('./tests/api-server/public'));
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(path.join(__dirname, '../public')));
 app.use('/src', express.static(path.join(__dirname, '../../../src')));
 app.use('/dist', express.static(path.join(__dirname, '../../../dist')));
+
 app.use('/src', (req, res, next) => {
-    if (req.path.indexOf('.js', req.path.length - 3) === -1) {
-        // If the request does not end in '.js', append '.js' and try to resolve the file
+    if (!req.path.endsWith('.js')) {
         const jsPath = path.join(__dirname, '../../../src', `${req.path}.js`);
         res.sendFile(jsPath);
     } else {
@@ -24,7 +29,6 @@ app.use('/src', (req, res, next) => {
     }
 });
 
-// Route for testing LT modules (initalises Items API)
 app.get('/itemsapi', (req, res) => {
     const signatureData = signature.itemsApi();
     res.render('itemsapi', { signature: JSON.stringify(signatureData) });
@@ -49,7 +53,7 @@ function checkServer(port) {
     });
 }
 
-async function startServer() {
+export async function startServer() {
     const isRunning = await checkServer(PORT);
     if (!isRunning) {
         console.time('server-start-complete');
@@ -59,7 +63,6 @@ async function startServer() {
             console.timeEnd('server-start-complete');
         });
 
-        // Wait for server to be ready
         await new Promise(resolve => server.once('listening', resolve));
         startedByUs = true;
     } else {
@@ -67,7 +70,7 @@ async function startServer() {
     }
 }
 
-function stopServer() {
+export function stopServer() {
     if (startedByUs && server) {
         console.log('Server stopped');
         server.close();
@@ -75,5 +78,3 @@ function stopServer() {
         console.log('Server was not started by this process, so not stopping it.');
     }
 }
-
-module.exports = { startServer, stopServer };

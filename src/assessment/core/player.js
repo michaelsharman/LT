@@ -1,6 +1,6 @@
-import * as app from './app';
-import * as items from './items';
-import logger from '../../utils/logger';
+import * as app from './app.js';
+import * as items from './items.js';
+import logger from '../../utils/logger.js';
 
 /**
  * Everything relating to the assessment player.

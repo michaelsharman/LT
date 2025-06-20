@@ -112,7 +112,7 @@ const state = {
 /**
  * Extension constructor.
  * @example
- * import { LT } from '@caspingus/lt/src/authoring/index';
+ * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.languageTextDirection.run();
@@ -987,6 +987,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Language Text Direction');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

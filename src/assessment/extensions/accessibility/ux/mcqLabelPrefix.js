@@ -1,6 +1,6 @@
-import * as app from '../../../core/app';
-import logger from '../../../../utils/logger';
-import * as question from '../../../core/questions';
+import * as app from '../../../core/app.js';
+import logger from '../../../../utils/logger.js';
+import * as question from '../../../core/questions.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -24,6 +24,7 @@ import * as question from '../../../core/questions';
 
 const state = {
     chosenMask: 'upperAlpha',
+    logPrefix: 'LRN MCQ Label Prefix:',
     prefixMask: {
         lowerAlpha: 97,
         upperAlpha: 65,
@@ -38,7 +39,7 @@ const state = {
  * Sets up an item load listener to add a prefix to all
  * MCQ possible response labels.
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.mcqLabelPrefix.run();
@@ -60,7 +61,7 @@ export function run(mask = 'upperAlpha', suffix = '.', prefixes) {
 
     state.renderedCss || injectCSS();
 
-    app.appInstance().on('item:load', () => {
+    app.appInstance().on('item:changed', () => {
         addPrefix(question.questions());
     });
 }
@@ -79,33 +80,41 @@ function addPrefix(itemQuestions) {
         for (const q of itemQuestions) {
             if (q.type === 'mcq' && q?.ui_style?.type !== 'block' && q?.ui_style?.type !== 'horizontal-input-bottom') {
                 const r = q.response_id;
-                const elOptions = document.getElementById(r).querySelectorAll('.lrn-mcq-option');
-                let responseIndex = 0;
-                for (const o of elOptions) {
-                    const elLabels = o.querySelector('.lrn-possible-answer').children;
-                    const elExistingPrefixes = o.querySelector('.lrn-prefix-label');
-                    // If we haven't already printed prefixes
-                    if (!elExistingPrefixes) {
-                        let prefixValue;
-                        // Check whether we're using a prefix mask or an explicit set of prefixes
-                        if (
-                            Array.isArray(state.explicitPrefixes) &&
-                            state.explicitPrefixes.length &&
-                            typeof state.explicitPrefixes[responseIndex] === 'string'
-                        ) {
-                            prefixValue = state.explicitPrefixes[responseIndex];
+                app.appInstance()
+                    .question(r)
+                    .on('rendered', () => {
+                        const elOptions = document.getElementById(r).querySelectorAll('.lrn-mcq-option');
+                        if (elOptions) {
+                            let responseIndex = 0;
+                            for (const o of elOptions) {
+                                const elLabels = o.querySelector('.lrn-possible-answer').children;
+                                const elExistingPrefixes = o.querySelector('.lrn-prefix-label');
+                                // If we haven't already printed prefixes
+                                if (!elExistingPrefixes) {
+                                    let prefixValue;
+                                    // Check whether we're using a prefix mask or an explicit set of prefixes
+                                    if (
+                                        Array.isArray(state.explicitPrefixes) &&
+                                        state.explicitPrefixes.length &&
+                                        typeof state.explicitPrefixes[responseIndex] === 'string'
+                                    ) {
+                                        prefixValue = state.explicitPrefixes[responseIndex];
+                                    } else {
+                                        prefixValue = String.fromCharCode(asciiStart + responseIndex);
+                                    }
+                                    for (let i = 0; i < elLabels.length; i++) {
+                                        const p = document.createElement('span');
+                                        p.classList.add('lrn-prefix-label');
+                                        p.append(`${prefixValue}${suffix}`);
+                                        elLabels[i].prepend(p);
+                                    }
+                                    responseIndex++;
+                                }
+                            }
                         } else {
-                            prefixValue = String.fromCharCode(asciiStart + responseIndex);
+                            logger.warn(state.logPrefix, 'Options element not found');
                         }
-                        for (let i = 0; i < elLabels.length; i++) {
-                            const p = document.createElement('span');
-                            p.classList.add('lrn-prefix-label');
-                            p.append(`${prefixValue}${suffix}`);
-                            elLabels[i].prepend(p);
-                        }
-                        responseIndex++;
-                    }
-                }
+                    });
             }
         }
     } catch (err) {
@@ -138,6 +147,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT MCQ Label Prefix');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

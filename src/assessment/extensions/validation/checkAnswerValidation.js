@@ -1,7 +1,7 @@
-import * as app from '../../core/app';
-import * as questions from '../../core/questions';
-import logger from '../../../utils/logger';
-import { dialog, hideDialog } from '../../core/player';
+import * as app from '../../core/app.js';
+import * as questions from '../../core/questions.js';
+import logger from '../../../utils/logger.js';
+import { dialog, hideDialog } from '../../core/player.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -41,8 +41,7 @@ const state = {
 
 /**
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/core';
- * import * as checkAnswerValidation from '@caspingus/lt/src/assessment/extensions/validation/checkAnswerValidation
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  *
@@ -53,7 +52,7 @@ const state = {
  *         body: '<p>Before moving on, attempt all questions and click the "Check Answer" button.</p><p>Note: the "Check Answer" button may not appear on every question.</p>'
  *     }
  * }
- * checkAnswerValidation.run(config);
+ * LT.extensions.checkAnswerValidation.run(config);
  * @param {object=} config Object of configuration options. Currently only supports a message object with
  *  2 keys, `header` and `body`.
  * @since 2.11.0

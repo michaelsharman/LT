@@ -1,8 +1,8 @@
-import * as app from './core/app';
-import * as diagnostics from './core/diagnostics';
-import * as navigation from './core/navigation';
-import * as widgets from './core/widgets';
-import logger from '../utils/logger';
+import * as app from './core/app.js';
+import * as diagnostics from './core/diagnostics.js';
+import * as navigation from './core/navigation.js';
+import * as widgets from './core/widgets.js';
+import logger from '../utils/logger.js';
 
 const utils = {
     utils: {

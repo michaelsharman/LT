@@ -1,6 +1,6 @@
-import * as app from '../../../core/app';
-import logger from '../../../../utils/logger';
-import * as question from '../../../core/questions';
+import * as app from '../../../core/app.js';
+import logger from '../../../../utils/logger.js';
+import * as question from '../../../core/questions.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -23,6 +23,7 @@ import * as question from '../../../core/questions';
 const state = {
     class: 'lrn__resetResponse',
     label: 'Reset question',
+    logPrefix: 'LRN Reset Responses:',
     renderedCss: false,
     types: ['mcq'],
 };
@@ -32,7 +33,7 @@ const state = {
  * to the UI at the bottom of each configured question on the item.
  *
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.resetResponse.run();
@@ -50,7 +51,7 @@ export function run(customLabel, customTypes) {
 
     state.renderedCss || injectCSS();
 
-    app.appInstance().on('item:load', () => {
+    app.appInstance().on('item:changed', () => {
         setupResetUI();
     });
 }
@@ -69,14 +70,22 @@ function setupResetUI() {
         for (const q of itemQuestions) {
             if (state.types.includes('*') || state.types.includes(q.type)) {
                 const r = q.response_id;
-                const elQuestion = document.getElementById(r);
-                const elResponse = elQuestion.querySelector('.lrn_response');
-                let elResetUI = elQuestion.querySelector(`.${state.class}`);
-                if (!elResetUI) {
-                    elResponse.append(getResetUI());
-                    elResetUI = elQuestion.querySelector(`.${state.class}`);
-                    elResetUI.addEventListener('click', resetResponse);
-                }
+                app.appInstance()
+                    .question(r)
+                    .on('rendered', () => {
+                        const elQuestion = document.getElementById(r);
+                        if (elQuestion) {
+                            const elResponse = elQuestion.querySelector('.lrn_response');
+                            let elResetUI = elQuestion.querySelector(`.${state.class}`);
+                            if (!elResetUI) {
+                                elResponse.append(getResetUI());
+                                elResetUI = elQuestion.querySelector(`.${state.class}`);
+                                elResetUI.addEventListener('click', resetResponse);
+                            }
+                        } else {
+                            logger.warn(state.logPrefix, 'Question element not found');
+                        }
+                    });
             }
         }
     } catch (err) {
@@ -101,6 +110,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Reset Response');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

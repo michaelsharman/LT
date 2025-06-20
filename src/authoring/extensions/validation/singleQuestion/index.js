@@ -1,5 +1,5 @@
-import * as app from '../../../core/app';
-import { checkAppVersion } from '../../../utils/styling';
+import * as app from '../../../core/app.js';
+import { checkAppVersion } from '../../../utils/styling.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -25,7 +25,7 @@ const state = {
  * Sets up a listener to hide the "+" button if a question is
  * already added to the item.
  * @example
- * import { LT } from '@caspingus/lt/src/index';
+ * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.singleQuestion.run();

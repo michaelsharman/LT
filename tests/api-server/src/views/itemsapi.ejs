@@ -2,12 +2,11 @@
 <html lang="en">
     <head>
         <meta charset="utf-8" />
-        <link rel="shortcut icon" href="https://demos.learnosity.com/static/images/favicon.ico" type="image/x-icon" />
     </head>
     <body>
         <div id="flag"></div>
         <div id="learnosity_assess"></div>
-        <script src="https://items.learnosity.com?developer"></script>
+        <script src="https://items.learnosity.com?latest-lts"></script>
         <script src="./index.mjs" type="module"></script>
         <script>
             const signature = <%- locals.signature || {} %>;
@@ -17,6 +16,7 @@
             });
 
             function init() {
+                window.itemsApp = itemsApp;
                 // A DOM element that we can set so the test script knows the API has rendered
                 document.getElementById('flag').classList.add('has-loaded');
                 // console.log('Items API ready!');

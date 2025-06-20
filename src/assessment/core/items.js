@@ -1,7 +1,7 @@
-import * as app from './app';
-import * as activity from './activity';
-import * as questions from './questions';
-import * as sections from './sections';
+import * as app from './app.js';
+import * as activity from './activity.js';
+import * as questions from './questions.js';
+import * as sections from './sections.js';
 
 /**
  * Everything relating to the items in the activity.

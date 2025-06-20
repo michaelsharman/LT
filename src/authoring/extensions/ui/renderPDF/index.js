@@ -1,5 +1,5 @@
-import * as app from '../../../core/app';
-import logger from '../../../../utils/logger';
+import * as app from '../../../core/app.js';
+import logger from '../../../../utils/logger.js';
 
 /**
  * <h4 class="name">############ Incomplete - DO NOT USE</h4>
@@ -22,7 +22,7 @@ const state = {
 /**
  * Extension constructor.
  * @example
- * import { LT } from '@caspingus/lt/src/authoring/index';
+ * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
  * LT.extensions.renderPDF.run();
