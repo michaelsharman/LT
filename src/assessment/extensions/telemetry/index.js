@@ -38,23 +38,20 @@ const state = {
 export function run() {
     setupTelemetry();
 
-    addEvent({
-        type: 'session:start',
-        timestamp: getTimestamp(),
-        network: {
-            speed: checkSpeed(),
-        },
-    });
-
-    app.appInstance().on('item:load', () => {
-        if (!state.initialised) {
-            setupPlayerEvents();
-            setupQuestionEvents();
-            setupFeatureEvents();
-            setupNetworkEvents();
-            state.initialised = true;
-        }
-    });
+    if (!state.initialised) {
+        addEvent({
+            type: 'test:start',
+            timestamp: getTimestamp(),
+            network: {
+                speed: checkSpeed(),
+            },
+        });
+        setupPlayerEvents();
+        setupQuestionEvents();
+        setupFeatureEvents();
+        setupNetworkEvents();
+        state.initialised = true;
+    }
 }
 
 function setupTelemetry() {
@@ -63,13 +60,6 @@ function setupTelemetry() {
 }
 
 function setupPlayerEvents() {
-    app.appInstance().on('test:start', () => {
-        addEvent({
-            type: 'test:start',
-            timestamp: getTimestamp(),
-        });
-    });
-
     app.appInstance().on('unfocused', () => {
         addEvent({
             type: 'unfocused',
@@ -130,6 +120,21 @@ function setupPlayerEvents() {
     app.appInstance().on('section:changed', () => {
         addEvent({
             type: 'section:changed',
+            timestamp: getTimestamp(),
+        });
+    });
+
+    app.appInstance().on('test:panel:show', async () => {
+        const event = await getEventFromDialog();
+        addEvent({
+            type: event,
+            timestamp: getTimestamp(),
+        });
+    });
+
+    app.appInstance().on('test:panel:hide', () => {
+        addEvent({
+            type: 'dialog:hide',
             timestamp: getTimestamp(),
         });
     });
@@ -418,6 +423,73 @@ function setupNetworkEvents() {
 
 function addEvent(event) {
     state.telemetry.events.push(event);
+}
+
+function getEventFromDialog() {
+    return new Promise(resolve => {
+        setTimeout(() => {
+            const dialogs = document.querySelectorAll('.lrn-assess-dialogs > .lrn-dialog-default');
+            let dialog = '';
+            let dialogEventName = '';
+            const dialogInfo = Array.from(dialogs)
+                .filter(el => el.style.display === 'block')
+                .map(el => ({
+                    id: el.id,
+                    class: el.className,
+                }));
+
+            if (dialogInfo.length === 0) {
+                resolve('');
+                return;
+            }
+
+            const info = dialogInfo[0];
+            if (info?.id) {
+                dialog = info.id.replace(/\d+/g, '');
+            } else if (info?.class.includes('review-screen')) {
+                dialog = 'review-screen';
+            }
+
+            switch (dialog) {
+                case 'accessibility-panel':
+                    dialogEventName = 'dialog:accessibility';
+                    break;
+
+                case 'custom-dialog':
+                    dialogEventName = 'dialog:custom-dialog';
+                    break;
+
+                case 'module-load-error-dialog':
+                    dialogEventName = 'dialog:module-load-error';
+                    break;
+
+                case 'review-screen':
+                    dialogEventName = 'dialog:review-screen';
+                    break;
+
+                case 'test-asset-upload-error-dialog':
+                    dialogEventName = 'dialog:asset-upload-error';
+                    break;
+
+                case 'test-error-dialog':
+                    dialogEventName = 'dialog:error';
+                    break;
+
+                case 'test-pause-dialog':
+                    dialogEventName = 'dialog:pause';
+                    break;
+
+                case 'test-save-submit':
+                    dialogEventName = 'dialog:save-submit';
+                    break;
+
+                default:
+                    break;
+            }
+
+            resolve(dialogEventName);
+        }, 500);
+    });
 }
 
 function getTimestamp() {

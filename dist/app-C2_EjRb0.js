@@ -353,7 +353,7 @@ const Le = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   timeRemaining: Pe,
   totalItems: qe,
   userId: C
-}, Symbol.toStringTag, { value: "Module" })), ke = "3.0.0", g = {
+}, Symbol.toStringTag, { value: "Module" })), ke = "3.0.0-beta.1", g = {
   events: {
     broadcast: !1,
     listenFor: "item"

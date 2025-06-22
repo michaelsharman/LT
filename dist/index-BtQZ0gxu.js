@@ -1,4 +1,4 @@
-import { c, o as p } from "./app-c1Nmxn4r.js";
+import { c, o as p } from "./app-C2_EjRb0.js";
 const a = {
   options: {
     theme: "api-column-tabs"

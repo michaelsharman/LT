@@ -1,4 +1,4 @@
-import { a, c as n, r as o } from "../../../index-Co9T1f1i.js";
+import { a, c as n, r as o } from "../../index-BlrzqTbR.js";
 export {
   a as checkConnection,
   n as checkSpeed,

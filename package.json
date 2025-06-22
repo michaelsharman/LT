@@ -57,6 +57,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
+        "build:watch": "vite build --watch",
         "lint": "npx eslint --format table",
         "docs": "jsdoc -c jsdoc.json -R README.md --verbose",
         "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand",

@@ -1,4 +1,4 @@
-import { y as i, c, z as m } from "./app-c1Nmxn4r.js";
+import { y as i, c, z as m } from "./app-C2_EjRb0.js";
 function u() {
   const t = c(), a = i();
   t.on("item:load", l), m() && ["notepad:toggleVisibility", "stickynote:add"].forEach((n) => a.on(n, l));

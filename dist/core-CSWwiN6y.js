@@ -1,5 +1,5 @@
 import { l as n } from "./logger-BpyELtLr.js";
-const l = "3.0.0", c = {
+const l = "3.0.0-beta.1", c = {
   version: l
 }, o = {
   events: {
@@ -54,16 +54,16 @@ const w = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   init: u,
   questionEditorApp: h
 }, Symbol.toStringTag, { value: "Module" }));
-function _() {
+function b() {
   i().on("navigate", (e) => {
     window.location.hash = "#" + e.data.locationEncoded;
   }), i().navigate(window.location.hash.replace(/^#/, "")), window.onhashchange = () => {
     i().navigate(window.location.hash.replace(/^#/, ""));
   };
 }
-const b = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const _ = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  routingHash: _
+  routingHash: b
 }, Symbol.toStringTag, { value: "Module" }));
 function y() {
   return i().getWidget()?.type;
@@ -75,7 +75,7 @@ const W = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   utils: {
     logger: n
   }
-}, j = { ...w, ...g, ...b, ...W, ...O };
+}, j = { ...w, ...g, ..._, ...W, ...O };
 export {
   j as L,
   i as a,

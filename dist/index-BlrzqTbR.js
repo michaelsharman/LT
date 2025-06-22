@@ -9,10 +9,10 @@ const e = {
   },
   renderedCss: !1
 };
-function i(t) {
-  e.renderedCss || u(), p(t), setInterval(a, e.options.interval);
+function a(t) {
+  e.renderedCss || u(), p(t), setInterval(i, e.options.interval);
 }
-async function a() {
+async function i() {
   const t = await r(), n = document.querySelector(".lt__networkStatus-indicator");
   if (l(t), e.options.render)
     if (t)
@@ -60,17 +60,17 @@ function u() {
     top: 9px;
 }
 `;
-  t.textContent = n, document.head.append(t), e.renderedCss = !0;
+  t.setAttribute("data-style", "LT Render Network Status"), t.textContent = n, document.head.append(t), e.renderedCss = !0;
 }
 const d = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   checkConnection: r,
   checkSpeed: c,
-  run: i
+  run: a
 }, Symbol.toStringTag, { value: "Module" }));
 export {
   r as a,
   c,
   d as n,
-  i as r
+  a as r
 };

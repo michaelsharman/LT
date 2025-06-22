@@ -1,4 +1,4 @@
-import { c as s, t as l } from "./app-c1Nmxn4r.js";
+import { c as s, t as l } from "./app-C2_EjRb0.js";
 function m() {
   s().on("item:load", () => {
     const a = l(), o = Array.from(document.getElementsByClassName("item-prev")), n = Array.from(document.getElementsByClassName("item-next")), e = o.concat(n);

@@ -8,25 +8,10 @@ import postcssImport from 'postcss-import';
 const writeVersionFile = () => ({
     name: 'write-version',
     buildStart() {
-        const versionOut = path.resolve(__dirname, 'src/version.js');
+        const versionOut = path.resolve(__dirname, 'dist/version.js');
         fs.writeFileSync(versionOut, `export const version = '${pkg.version}';\n`);
     },
 });
-
-function findAllStylesJS(dir, results = []) {
-    const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-    for (const entry of entries) {
-        const fullPath = path.join(dir, entry.name);
-        if (entry.isDirectory()) {
-            findAllStylesJS(fullPath, results);
-        } else if (entry.isFile() && entry.name === 'styles.js') {
-            results.push(fullPath);
-        }
-    }
-
-    return results;
-}
 
 function inlineCSSPluginFromStylesJS() {
     const watchedFiles = new Set();
@@ -138,18 +123,23 @@ const SRC_DIR = path.resolve(__dirname, '');
 const entry = Object.fromEntries(Object.entries(manualEntries).map(([importPath, srcPath]) => [importPath, path.resolve(SRC_DIR, srcPath)]));
 
 export default defineConfig({
-    plugins: [writeVersionFile(), inlineCSSPluginFromStylesJS()],
+    plugins: [writeVersionFile()], //, inlineCSSPluginFromStylesJS()
 
     build: {
         target: 'esnext',
         outDir: 'dist',
-        emptyOutDir: true,
+        emptyOutDir: false,
         cssCodeSplit: false,
 
         lib: {
             entry,
             formats: ['es'],
             fileName: '[name]',
+        },
+
+        watch: {
+            include: 'src/**',
+            exclude: ['dist/**', '**/*.test.js'],
         },
 
         rollupOptions: {

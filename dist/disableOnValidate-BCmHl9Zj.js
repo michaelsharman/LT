@@ -1,4 +1,4 @@
-import { c as s, r as o, A as t, g as a } from "./app-c1Nmxn4r.js";
+import { c as s, r as o, A as t, g as a } from "./app-C2_EjRb0.js";
 function i() {
   s().on("item:load", r);
 }
