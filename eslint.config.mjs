@@ -6,7 +6,8 @@ export default [
     js.configs.recommended,
     {
         languageOptions: {
-            ecmaVersion: 2021,
+            ecmaVersion: 2022,
+            sourceType: 'module',
             globals: globals.browser,
         },
         plugins: {
@@ -17,7 +18,14 @@ export default [
             '@stylistic/js/semi': ['error', 'always'], // Always semicolons
             '@stylistic/js/quotes': ['error', 'single', { avoidEscape: true }], // Single quotes
             '@stylistic/js/object-curly-spacing': ['error', 'always'], // Spaces in `{ }`
-            '@stylistic/js/space-before-function-paren': ['error', 'never'], // No space before function parens
+            '@stylistic/js/space-before-function-paren': [
+                'error',
+                {
+                    anonymous: 'never',
+                    named: 'never',
+                    asyncArrow: 'always', // allow `async () => {}` to have space
+                },
+            ],
 
             'array-bracket-spacing': ['error', 'never'],
             curly: 'error',

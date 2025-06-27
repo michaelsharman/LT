@@ -122,31 +122,37 @@ const manualEntries = {
 const SRC_DIR = path.resolve(__dirname, '');
 const entry = Object.fromEntries(Object.entries(manualEntries).map(([importPath, srcPath]) => [importPath, path.resolve(SRC_DIR, srcPath)]));
 
-export default defineConfig({
-    plugins: [writeVersionFile()], //, inlineCSSPluginFromStylesJS()
+export default defineConfig(({ command }) => {
+    const isBuild = command === 'build';
 
-    build: {
-        target: 'esnext',
-        outDir: 'dist',
-        emptyOutDir: false,
-        cssCodeSplit: false,
+    return {
+        build: {
+            ...(isBuild
+                ? {}
+                : {
+                      watch: {
+                          include: 'src/**',
+                          exclude: ['dist/**', '**/*.test.js'],
+                      },
+                  }),
+            target: 'esnext',
+            outDir: 'dist',
+            emptyOutDir: false,
+            cssCodeSplit: false,
 
-        lib: {
-            entry,
-            formats: ['es'],
-            fileName: '[name]',
-        },
+            lib: {
+                entry,
+                formats: ['es'],
+                fileName: '[name]',
+            },
 
-        watch: {
-            include: 'src/**',
-            exclude: ['dist/**', '**/*.test.js'],
-        },
-
-        rollupOptions: {
-            output: {
-                // preserveModules: true,
-                // preserveModulesRoot: 'src',
+            rollupOptions: {
+                output: {
+                    // preserveModules: true,
+                    // preserveModulesRoot: 'src',
+                },
             },
         },
-    },
+        plugins: [writeVersionFile()], //, inlineCSSPluginFromStylesJS()
+    };
 });

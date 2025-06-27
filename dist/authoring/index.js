@@ -1,8 +1,8 @@
-import { a as appInstance, t as type, d as diagnostics, L as LT$1 } from "../core-CSWwiN6y.js";
-import { v as validateOptions$1, g as getTabsTheme } from "../index-BtQZ0gxu.js";
+import { a as appInstance, t as type, d as diagnostics, L as LT$1 } from "../core-BRhMMRSb.js";
+import { v as validateOptions$1, g as getTabsTheme } from "../index-DAhdQLJY.js";
 import { a as isObjectLike, b as baseGetTag, d as isObject$1, r as root, e as isFunction$1, f as isArrayLike, g as isIndex, h as isPrototype, j as arrayLikeKeys, o as overArg, i as isArray, k as keys$1, S as Symbol$1, l as baseUnary, n as nodeUtil, m as isBuffer, p as isTypedArray, c as copyArray, q as isArguments, s as setObserver } from "../keys-DsUdP_cB.js";
 import { l as logger } from "../logger-BpyELtLr.js";
-import { a as getDefaultExportFromCjs, c as commonjsGlobal } from "../_commonjsHelpers-BItOPCY9.js";
+import { a as getDefaultExportFromCjs, c as commonjsGlobal } from "../_commonjsHelpers-DQNKXVTB.js";
 var symbolTag$3 = "[object Symbol]";
 function isSymbol(le) {
   return typeof le == "symbol" || isObjectLike(le) && baseGetTag(le) == symbolTag$3;
