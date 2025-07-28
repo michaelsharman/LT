@@ -1,5 +1,5 @@
-import * as app from '../../../../core/app.js';
-import * as player from '../../../../core/player.js';
+import { assessApp } from '../../../../core/app.js';
+import { dialog, hideDialog } from '../../../../core/player.js';
 import logger from '../../../../../utils/logger.js';
 import { Howl, Howler } from 'howler';
 
@@ -128,7 +128,7 @@ export function run(id, shadowRoot) {
 
     // Listener for an Items API custom button
     try {
-        app.assessApp().on('button:btn-whitenoise:clicked', () => {
+        assessApp().on('button:btn-whitenoise:clicked', () => {
             launchPlayer();
         });
     } catch (e) {
@@ -169,7 +169,7 @@ export function launchPlayer() {
             return;
         }
     } else {
-        player.dialog({
+        dialog({
             header: 'White noise player',
             body: content,
             buttons: [
@@ -213,8 +213,8 @@ export function launchPlayer() {
 
     // Setup logic to close the dialog
     try {
-        app.assessApp().on('button:dialog_btn_whitenoise_player:clicked', () => {
-            player.hideDialog();
+        assessApp().on('button:dialog_btn_whitenoise_player:clicked', () => {
+            hideDialog();
         });
     } catch (e) {
         if (!(e instanceof TypeError)) {
@@ -363,6 +363,7 @@ function injectCSS() {
     }
 
     const elStyle = document.createElement('style');
+    elStyle.setAttribute('data-style', 'LT White Noise');
     const css = `
 /* Learnosity white noise player styles */
 ${root} {
@@ -378,11 +379,11 @@ ${root} {
 @container (max-width: 300px) {
     .lt__player {
         min-height: var(--lt-wn-min-height);
-        svg {
+        :is(svg) {
             --lt-wn-svg-size: 3rem;
         }
         .lt__control-wrapper {
-            svg {
+            :is(svg) {
                 --lt-wn-control-svg-size: 1rem;
             }
             input[type="range"] {

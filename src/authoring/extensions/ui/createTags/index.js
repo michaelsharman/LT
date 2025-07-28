@@ -1,4 +1,4 @@
-import * as app from '../../../core/app.js';
+import { appInstance } from '../../../core/app.js';
 import { debounce } from 'lodash-es';
 
 /**
@@ -35,11 +35,11 @@ export function run() {
         checkForSetup();
     }, 1500);
 
-    app.appInstance().on('navigate', checkForSetup);
+    appInstance().on('navigate', checkForSetup);
 
     function checkForSetup() {
         setTimeout(() => {
-            if (app.appInstance().getLocation().route === 'items/:reference/settings/:tab') {
+            if (appInstance().getLocation().route === 'items/:reference/settings/:tab') {
                 setup();
             }
         }, 300);
@@ -110,14 +110,14 @@ function showCreateTagsUI(elNoSuggestions) {
 function createTag() {
     const elTagsInput = document.querySelector('[data-authorapi-selector="tag-search-input"]');
     const elErrorContainer = document.querySelector('.lt__error');
-    const currentTags = app.appInstance().getItemTags();
+    const currentTags = appInstance().getItemTags();
     const newTag = elTagsInput.value;
 
     if (checkTagSyntax(newTag)) {
         const parts = newTag.split(':').map(part => part.trim());
         if (validateTag(currentTags, { type: parts[0], name: parts[1] })) {
             currentTags.push({ type: parts[0], name: parts[1] });
-            app.appInstance().setItemTags(currentTags);
+            appInstance().setItemTags(currentTags);
         } else {
             const elErrorMessage = elErrorContainer.querySelector('.lt__errorMessage');
             elErrorMessage.textContent = 'Tag already exists';
@@ -180,7 +180,7 @@ function injectCSS() {
     color: #dd002f;
     padding-right: 2px;
 
-    svg {
+    :is(svg) {
         vertical-align: middle;
     }
 }

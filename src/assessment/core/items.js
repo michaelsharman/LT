@@ -1,7 +1,7 @@
-import * as app from './app.js';
-import * as activity from './activity.js';
-import * as questions from './questions.js';
-import * as sections from './sections.js';
+import { appInstance, assessApp } from './app.js';
+import { activity, hasSections } from './activity.js';
+import { questions, questionResponse } from './questions.js';
+import { sections } from './sections.js';
 
 /**
  * Everything relating to the items in the activity.
@@ -17,7 +17,7 @@ import * as sections from './sections.js';
  */
 export function dynamic() {
     const reference = itemReference();
-    return app.assessApp().item(reference).dynamic || {};
+    return assessApp().item(reference).dynamic || {};
 }
 
 /**
@@ -26,7 +26,7 @@ export function dynamic() {
  */
 export function flag() {
     const reference = itemReference();
-    app.assessApp().item(reference).flag();
+    assessApp().item(reference).flag();
 }
 
 /**
@@ -47,11 +47,11 @@ export function isDynamicItem() {
 export function isFirstItem() {
     let reference;
 
-    if (activity.hasSections()) {
-        reference = typeof sections.sections()[0].items[0] === 'object' ? sections.sections()[0].items[0].reference : sections.sections()[0].items[0];
+    if (hasSections()) {
+        reference = typeof sections()[0].items[0] === 'object' ? sections()[0].items[0].reference : sections()[0].items[0];
         return reference === item().reference;
     } else {
-        reference = typeof activity.activity().items[0] === 'object' ? activity.activity().items[0].reference : activity.activity().items[0];
+        reference = typeof activity().items[0] === 'object' ? activity().items[0].reference : activity().items[0];
         return reference === item().reference;
     }
 }
@@ -83,21 +83,21 @@ export function isFlagged() {
  * @param {string} reference Optionally pass an exact item reference.
  * @returns {boolean}
  */
-export function isItemFullyAttempted(reference) {
+export function isItemFullyAttempted(reference = undefined) {
     let itemQuestions;
     let attempted;
     let r;
 
     if (reference) {
-        itemQuestions = app.appInstance().getItems()[reference].questions;
+        itemQuestions = appInstance().getItems()[reference].questions;
     } else {
-        itemQuestions = questions.questions();
+        itemQuestions = questions();
     }
 
     if (Array.isArray(itemQuestions) && itemQuestions.length) {
         for (let i = 0; i < itemQuestions.length; i++) {
             const q = itemQuestions[i];
-            r = questions.questionResponse(q.response_id);
+            r = questionResponse(q.response_id);
             if (r) {
                 if (q.hasOwnProperty('metadata') && q.metadata.hasOwnProperty('valid_response_count')) {
                     if (Array.isArray(r.value)) {
@@ -141,11 +141,11 @@ export function isMaskingEnabled() {
  * @param {string} reference Optionally pass an exact item reference.
  * @returns {object} An item JSON object.
  */
-export function item(reference) {
+export function item(reference = undefined) {
     if (reference) {
-        return app.appInstance().getItems()[reference];
+        return appInstance().getItems()[reference];
     }
-    return app.appInstance().getCurrentItem();
+    return appInstance().getCurrentItem();
 }
 
 /**
@@ -165,7 +165,7 @@ export function item(reference) {
  * @returns {string}
  */
 export function itemAttemptStatus() {
-    return app.appInstance().getCurrentItem().attempt_status;
+    return appInstance().getCurrentItem().attempt_status;
 }
 
 /**
@@ -175,7 +175,7 @@ export function itemAttemptStatus() {
  * @returns {object} An item JSON object.
  */
 export function itemByResponseId(response_id) {
-    const items = app.appInstance().getItems();
+    const items = appInstance().getItems();
     let item;
 
     for (const ref in items) {
@@ -209,7 +209,7 @@ export function itemElement() {
  * @returns {number}
  */
 export function itemPosition() {
-    return app.appInstance().assessApp().getItemPosition(itemReference()) + 1;
+    return appInstance().assessApp().getItemPosition(itemReference()) + 1;
 }
 
 /**
@@ -218,7 +218,7 @@ export function itemPosition() {
  * @returns {string}
  */
 export function itemReference() {
-    return app.appInstance().getCurrentItem().reference;
+    return appInstance().getCurrentItem().reference;
 }
 
 /**
@@ -228,8 +228,8 @@ export function itemReference() {
  * @since 2.9.0
  * @returns {array}
  */
-export function itemTags(reference) {
-    const tags = app.appInstance().getTags();
+export function itemTags(reference = undefined) {
+    const tags = appInstance().getTags();
     const itemRef = reference || itemReference();
 
     return tags[itemRef] || [];

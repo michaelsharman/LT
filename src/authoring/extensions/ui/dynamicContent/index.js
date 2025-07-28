@@ -1,4 +1,4 @@
-import * as app from '../../../core/app.js';
+import { appInstance } from '../../../core/app.js';
 import logger from '../../../../utils/logger.js';
 import { setObserver } from '../../../../utils/dom.js';
 import 'active-table';
@@ -79,12 +79,12 @@ export function run(options) {
     // Needed for importing anything other than csv
     window.XLSX = xlsx;
 
-    app.appInstance().on('navigate', checkForSetup);
+    appInstance().on('navigate', checkForSetup);
 
     function checkForSetup() {
         setTimeout(() => {
-            if (['items/:reference/settings/:tab', undefined].includes(app.appInstance().getLocation().route)) {
-                const lastElement = app.appInstance().getLocation().location.split('/').pop();
+            if (['items/:reference/settings/:tab', undefined].includes(appInstance().getLocation().route)) {
+                const lastElement = appInstance().getLocation().location.split('/').pop();
                 if (lastElement === 'data-table') {
                     setObserver('.lrn-author-datatable-editor', setup, {
                         dispatchEvent: false,
@@ -101,7 +101,7 @@ export function run(options) {
         }, 150);
 
         // Reset the state when an item is first rendered
-        app.appInstance().on('render:item', () => {
+        appInstance().on('render:item', () => {
             state.currentData = [];
             state.dataTable = null;
             state.elements = {};

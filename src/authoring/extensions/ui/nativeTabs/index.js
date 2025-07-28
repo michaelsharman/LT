@@ -1,4 +1,4 @@
-import * as app from '../../../core/app.js';
+import { appInstance } from '../../../core/app.js';
 import logger from '../../../../utils/logger.js';
 import { max } from 'lodash-es';
 
@@ -44,18 +44,25 @@ export function run(options = {}) {
     overrideOptions(options);
 
     // Reset state on item render
-    app.appInstance().on('render:item', () => {
+    appInstance().on('render:item', () => {
         state.columns.numTabsLeft = 2;
         state.columns.numTabsRight = 2;
         state.dirty = false;
     });
-    app.appInstance().on('navigate', checkForSetup);
-    // app.appInstance().on('itemsettings:applied', saveTabsToItem);
+
+    appInstance().on('navigate', () => {
+        if (appInstance().getItem()) {
+            checkForSetup();
+        } else {
+            // Safety fallback in case the item is not yet available. Happens when you load the API with the settings tab open.
+            setTimeout(checkForSetup, 1500);
+        }
+    });
 
     function checkForSetup() {
         setTimeout(() => {
-            if (['items/:reference/settings/:tab', 'items/:reference/settings', undefined].includes(app.appInstance().getLocation().route)) {
-                const lastElement = app.appInstance().getLocation().location.split('/').pop();
+            if (['items/:reference/settings/:tab', 'items/:reference/settings', undefined].includes(appInstance().getLocation().route)) {
+                const lastElement = appInstance().getLocation().location.split('/').pop();
                 if (['layout', 'settings'].includes(lastElement)) {
                     setup();
                 }
@@ -72,10 +79,12 @@ export function run(options = {}) {
 function setup() {
     const elTabsWrapper1 = document.querySelector('[data-authorapi-selector="lrn-author-tabs-col1"]');
     const elTabsWrapper2 = document.querySelector('[data-authorapi-selector="lrn-author-tabs-col2"]');
+    const elTabsEnabledLeft = document.querySelector('[data-authorapi-selector="itemLayoutTabLabel - Left"]');
+    const elTabsEnabledRight = document.querySelector('[data-authorapi-selector="itemLayoutTabLabel - Right"]');
     const elNumTabs1 = document.getElementById('lt__nativeTabs-col1');
     const elNumTabs2 = document.getElementById('lt__nativeTabs-col2');
     const elSettingsApply = document.querySelector('[data-authorapi-selector="lrn-author-apply-settings"]');
-    const itemJson = app.appInstance().getItem();
+    const itemJson = appInstance().getItem();
     const numCurrentTabs = countTabs(itemJson.item.definition);
 
     state.columns.numTabsLeft = max([numCurrentTabs[0], state.columns.numTabsLeft]);
@@ -94,6 +103,24 @@ function setup() {
         elSettingsApply.addEventListener('click', () => {
             saveTabsToItem(numCurrentTabs);
         });
+
+        if (!elTabsEnabledLeft.hasAttribute('data-lt-event')) {
+            const elNumTabs1 = document.getElementById('lt__nativeTabs-col1');
+            elNumTabs1.disabled = !checkTabsEnabled().leftEnabled;
+            elTabsEnabledLeft.addEventListener('change', () => {
+                elNumTabs1.disabled = !checkTabsEnabled().leftEnabled;
+            });
+            elTabsEnabledLeft.setAttribute('data-lt-event', 'true');
+        }
+
+        if (!elTabsEnabledRight.hasAttribute('data-lt-event')) {
+            const elNumTabs2 = document.getElementById('lt__nativeTabs-col2');
+            elNumTabs2.disabled = !checkTabsEnabled().rightEnabled;
+            elTabsEnabledRight.addEventListener('change', () => {
+                elNumTabs2.disabled = !checkTabsEnabled().rightEnabled;
+            });
+            elTabsEnabledRight.setAttribute('data-lt-event', 'true');
+        }
     } else {
         logger.warn(`${state.logPrefix}Settings apply button not found`);
     }
@@ -105,7 +132,7 @@ function setup() {
                 <span class="label-short">Num tabs</span>
             </label>
             <div class="lrn-form-group">
-                <input id="lt__nativeTabs-${idSuffix}" class="lrn-author-form-control lt__nativeTabsInput" type="number" min="2" max="${state.options.maxTabs}" value="${numTabs}" class="lrn-form-control lt__width-sm">
+                <input id="lt__nativeTabs-${idSuffix}" type="number" min="2" max="${state.options.maxTabs}" value="${numTabs}" class="lrn-author-form-control lt__nativeTabsInput lrn-form-control lt__width-sm" disabled>
             </div>
         `;
     }
@@ -223,14 +250,14 @@ function saveTabsToItem(numCurrentTabs) {
     const tabsEnabled = checkTabsEnabled();
 
     setTimeout(() => {
-        const itemJson = app.appInstance().getItem();
+        const itemJson = appInstance().getItem();
         const currentDefinition = itemJson.item.definition;
 
         adjustTabs(0, state.columns.numTabsLeft, tabsEnabled.leftEnabled, numCurrentTabs[0], currentDefinition);
         adjustTabs(1, state.columns.numTabsRight, tabsEnabled.rightEnabled, numCurrentTabs[1], currentDefinition);
 
         itemJson.item.definition = currentDefinition;
-        app.appInstance().setItemJson(itemJson);
+        appInstance().setItemJson(itemJson);
     }, 100);
 
     function adjustTabs(columnIndex, tabCount, isEnabled, currentCount, currentDefinition) {

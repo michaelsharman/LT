@@ -1,4 +1,4 @@
-import * as app from '../../../core/app.js';
+import { appInstance } from '../../../core/app.js';
 import { getTabsTheme, validateOptions } from '../../../../assessment/extensions/ui/contentTabs/index.js';
 
 /**
@@ -143,13 +143,13 @@ export function run(options) {
     elLrnApi.classList.add('lt__contenttabs');
 
     // Remove any previous keydown listeners once when the editor is ready
-    app.appInstance().on('widgetedit:editor:ready', () => {
+    appInstance().on('widgetedit:editor:ready', () => {
         document.removeEventListener('keydown', handleKeydown);
         state.events.keydownRegistered = false;
     });
 
     // Check for tabs every time the content has been updated
-    app.appInstance().on('widgetedit:preview:changed', preventDOMBreaking);
+    appInstance().on('widgetedit:preview:changed', preventDOMBreaking);
 }
 
 /**

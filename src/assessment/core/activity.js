@@ -1,5 +1,5 @@
-import * as app from './app.js';
-import * as sections from './sections.js';
+import { appInstance } from './app.js';
+import { sections } from './sections.js';
 import logger from '../../utils/logger.js';
 
 /**
@@ -8,6 +8,11 @@ import logger from '../../utils/logger.js';
  * @module Assessment/Activity
  */
 
+const _state = {
+    activity: null,
+    maxTime: -1,
+};
+
 /**
  * The activity configuration object, including anything
  * overridden at runtime if using activity templates.
@@ -15,7 +20,10 @@ import logger from '../../utils/logger.js';
  * @returns {object}
  */
 export function activity() {
-    return app.appInstance().getActivity();
+    if (_state.activity === null) {
+        _state.activity = appInstance().getActivity();
+    }
+    return _state.activity;
 }
 
 /**
@@ -64,7 +72,7 @@ export function activitySubTitle() {
  * @returns {array}
  */
 export function activityTags() {
-    return app.appInstance().getTags();
+    return appInstance().getTags();
 }
 
 /**
@@ -108,7 +116,7 @@ export function autoSaveConfig() {
  * @returns {number}
  */
 export function elapsedTime() {
-    return app.appInstance().getTime();
+    return appInstance().getTime();
 }
 
 /**
@@ -238,6 +246,22 @@ export function isResuming() {
 }
 
 /**
+ * Whether the activity is rendered using the vertical layout.
+ * In which case, things like `items.item()` are not available.
+ * @since 3.0.0
+ * @returns {boolean}
+ */
+export function isVerticalLayout() {
+    const itemsRegion = activity().config?.regions?.items;
+
+    if (itemsRegion) {
+        return itemsRegion.some(obj => obj.type === 'vertical_element');
+    }
+
+    return false;
+}
+
+/**
  * The global `organisation_id` used for this activity instance.
  * @since 0.1.0
  * @returns {string}
@@ -262,7 +286,10 @@ export function itemPool() {
  * @returns {number}
  */
 export function maxTime() {
-    return activity()?.config?.time?.max_time ? activity().config.time.max_time : 0;
+    if (_state.maxTime === -1) {
+        _state.maxTime = activity()?.config?.time?.max_time ?? 0;
+    }
+    return _state.maxTime;
 }
 
 /**
@@ -329,7 +356,8 @@ export function state() {
  * @returns {number|null}
  */
 export function timeRemaining() {
-    return maxTime() === 0 ? null : maxTime() - elapsedTime();
+    const max = maxTime();
+    return max ? max - elapsedTime() : null;
 }
 
 /**
@@ -341,7 +369,7 @@ export function timeRemaining() {
 export function totalItems() {
     if (hasSections()) {
         let numItems = 0;
-        const allSections = sections.sections();
+        const allSections = sections();
         for (let i = 0; i < allSections.length; i++) {
             numItems += allSections[i].items.length;
         }

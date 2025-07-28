@@ -5,7 +5,7 @@
                 .lrn_cloze_response:focus,
                 .lrn-gridded-input:focus,
                 .lrn_widget.lrn_shorttext .lrn_textinput input:focus {
-                    box-shadow: 0 0 0 2px $lt__theme-main-focus-border;
+                    box-shadow: 0 0 0 2px var(--lt__theme-main-focus-border);
                 }
             }
 
@@ -40,7 +40,7 @@
                 .lrn-gridded-input:focus,
                 .lrn_widget.lrn_shorttext .lrn_textinput input:focus,
                 .lrn_widget .lrn_texteditor_editable:focus {
-                    box-shadow: 0 0 0 2px $lt__theme-main-focus-border;
+                    box-shadow: 0 0 0 2px var(--lt__theme-main-focus-border);
                     position: relative;
                 }
             }

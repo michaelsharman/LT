@@ -1,4 +1,4 @@
-import * as app from '../../../core/app.js';
+import { appInstance } from '../../../core/app.js';
 import logger from '../../../../utils/logger.js';
 
 /**
@@ -31,7 +31,7 @@ const state = {
 export function run() {
     state.renderedCss || injectCSS();
 
-    app.appInstance().on('widgetedit:widget:ready', () => {
+    appInstance().on('widgetedit:widget:ready', () => {
         const elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');
 
         elResourceButtons.forEach(btn => {

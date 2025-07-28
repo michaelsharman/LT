@@ -1,8 +1,9 @@
-import * as app from '../../core/app.js';
-import * as activity from '../../core/activity.js';
-import * as items from '../../core/items.js';
-import * as questions from '../../core/questions.js';
+import { appInstance } from '../../core/app.js';
+import { isVerticalLayout, userId, sessionId } from '../../core/activity.js';
+import { item, itemPosition, itemReference } from '../../core/items.js';
+import { questionResponse, questionResponseIds } from '../../core/questions.js';
 import { checkSpeed } from '../ui/networkStatus/index.js';
+import logger from '../../../utils/logger.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -36,6 +37,11 @@ const state = {
  * @since 3.0.0
  */
 export function run() {
+    if (isVerticalLayout()) {
+        logger.warn('Telemetry extension is not supported in vertical layout.');
+        return;
+    }
+
     setupTelemetry();
 
     if (!state.initialised) {
@@ -55,76 +61,76 @@ export function run() {
 }
 
 function setupTelemetry() {
-    state.telemetry.user = activity.userId();
-    state.telemetry.session = activity.sessionId();
+    state.telemetry.user = userId();
+    state.telemetry.session = sessionId();
 }
 
 function setupPlayerEvents() {
-    app.appInstance().on('unfocused', () => {
+    appInstance().on('unfocused', () => {
         addEvent({
             type: 'unfocused',
-            item: items.itemReference(),
+            item: itemReference(),
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('focused', () => {
+    appInstance().on('focused', () => {
         addEvent({
             type: 'focused',
-            item: items.itemReference(),
+            item: itemReference(),
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:reading:start', () => {
+    appInstance().on('test:reading:start', () => {
         addEvent({
             type: 'test:reading:start',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:reading:end', () => {
+    appInstance().on('test:reading:end', () => {
         addEvent({
             type: 'test:reading:end',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('item:warningOnChange', () => {
+    appInstance().on('item:warningOnChange', () => {
         addEvent({
             type: 'item:warningOnChange',
-            item: items.itemReference(),
+            item: itemReference(),
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('item:load', () => {
+    appInstance().on('item:load', () => {
         addEvent({
             type: 'item:load',
-            item: items.itemReference(),
+            item: itemReference(),
             data: {
-                num: items.itemPosition(),
+                num: itemPosition(),
             },
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('items:fetch:done', () => {
+    appInstance().on('items:fetch:done', () => {
         addEvent({
             type: 'items:fetch:done',
-            item: items.itemReference(),
+            item: itemReference(),
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('section:changed', () => {
+    appInstance().on('section:changed', () => {
         addEvent({
             type: 'section:changed',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:panel:show', async () => {
+    appInstance().on('test:panel:show', async () => {
         const event = await getEventFromDialog();
         addEvent({
             type: event,
@@ -132,91 +138,91 @@ function setupPlayerEvents() {
         });
     });
 
-    app.appInstance().on('test:panel:hide', () => {
+    appInstance().on('test:panel:hide', () => {
         addEvent({
             type: 'dialog:hide',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:pause', () => {
+    appInstance().on('test:pause', () => {
         addEvent({
             type: 'test:pause',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:resume', () => {
+    appInstance().on('test:resume', () => {
         addEvent({
             type: 'test:resume',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:save', () => {
+    appInstance().on('test:save', () => {
         addEvent({
             type: 'test:save',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:save:success', () => {
+    appInstance().on('test:save:success', () => {
         addEvent({
             type: 'test:save:success',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:save:error', () => {
+    appInstance().on('test:save:error', () => {
         addEvent({
             type: 'test:save:error',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:submit', () => {
+    appInstance().on('test:submit', () => {
         addEvent({
             type: 'test:submit',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:submit:success', () => {
+    appInstance().on('test:submit:success', () => {
         addEvent({
             type: 'test:submit:success',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:submit:error', () => {
+    appInstance().on('test:submit:error', () => {
         addEvent({
             type: 'test:submit:error',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:finished:save', () => {
+    appInstance().on('test:finished:save', () => {
         addEvent({
             type: 'test:finished:save',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:finished:submit', () => {
+    appInstance().on('test:finished:submit', () => {
         addEvent({
             type: 'test:finished:submit',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('test:finished:discard', () => {
+    appInstance().on('test:finished:discard', () => {
         addEvent({
             type: 'test:finished:discard',
             timestamp: getTimestamp(),
         });
     });
 
-    app.appInstance().on('time:end', () => {
+    appInstance().on('time:end', () => {
         addEvent({
             type: 'time:end',
             timestamp: getTimestamp(),
@@ -242,41 +248,42 @@ function setupQuestionEvents() {
     const DEBOUNCE_INTERVAL = 30_000; // 30 seconds
     const lastTrackedTimestamps = {};
 
-    app.appInstance().on('item:load', () => {
-        questions.questionResponseIds().forEach(responseId => {
-            const question = app.appInstance().question(responseId);
-            const type = questions.question(responseId).type;
+    appInstance().on('item:load', () => {
+        questionResponseIds().forEach(responseId => {
+            const question = appInstance().question(responseId);
+            const questionJson = question.getQuestion();
+            const type = questionJson.type;
 
             if (['audio', 'video'].includes(type)) {
                 question.on('recording:started', () => {
                     addEvent({
                         type: 'recording:started',
-                        item: items.itemReference(),
-                        question: questions.question(responseId).metadata.widget_reference,
+                        item: itemReference(),
+                        question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
                 });
                 question.on('recording:paused', () => {
                     addEvent({
                         type: 'recording:paused',
-                        item: items.itemReference(),
-                        question: questions.question(responseId).metadata.widget_reference,
+                        item: itemReference(),
+                        question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
                 });
                 question.on('recording:resumed', () => {
                     addEvent({
                         type: 'recording:resumed',
-                        item: items.itemReference(),
-                        question: questions.question(responseId).metadata.widget_reference,
+                        item: itemReference(),
+                        question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
                 });
                 question.on('recording:stopped', () => {
                     addEvent({
                         type: 'recording:stopped',
-                        item: items.itemReference(),
-                        question: questions.question(responseId).metadata.widget_reference,
+                        item: itemReference(),
+                        question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
                 });
@@ -284,15 +291,15 @@ function setupQuestionEvents() {
 
             question.on('changed', () => {
                 const lastTracked = lastTrackedTimestamps[responseId] || 0;
-                const { revision, value } = questions.questionResponse(responseId);
+                const { revision, value } = questionResponse(responseId);
 
                 if (debounceQuestions.includes(type)) {
                     if (getTimestamp() - lastTracked >= DEBOUNCE_INTERVAL) {
                         lastTrackedTimestamps[responseId] = getTimestamp();
                         addEvent({
                             type: 'question:changed',
-                            item: items.itemReference(),
-                            question: questions.question(responseId).metadata.widget_reference,
+                            item: itemReference(),
+                            question: questionJson.metadata.widget_reference,
                             data: {},
                             timestamp: getTimestamp(),
                         });
@@ -300,21 +307,21 @@ function setupQuestionEvents() {
                 } else {
                     addEvent({
                         type: 'question:changed',
-                        item: items.itemReference(),
-                        question: questions.question(responseId).metadata.widget_reference,
+                        item: itemReference(),
+                        question: questionJson.metadata.widget_reference,
                         data: { revision, value },
                         timestamp: getTimestamp(),
                     });
                     addEvent({
                         type: 'question:masked',
-                        item: items.itemReference(),
-                        question: questions.question(responseId).metadata.widget_reference,
+                        item: itemReference(),
+                        question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
                     addEvent({
                         type: 'question:validated',
-                        item: items.itemReference(),
-                        question: questions.question(responseId).metadata.widget_reference,
+                        item: itemReference(),
+                        question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
                 }
@@ -324,71 +331,71 @@ function setupQuestionEvents() {
 }
 
 function setupFeatureEvents() {
-    app.appInstance().on('item:load', () => {
-        const features = [...items.item().feature_ids, ...items.item().simplefeature_ids];
+    appInstance().on('item:load', () => {
+        const features = [...item().feature_ids, ...item().simplefeature_ids];
 
         features.forEach(id => {
-            if (app.appInstance().feature(id)) {
-                app.appInstance()
+            if (appInstance().feature(id)) {
+                appInstance()
                     .feature(id)
                     .on('begin', () => {
                         addEvent({
                             type: 'begin',
-                            item: items.itemReference(),
+                            item: itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                app.appInstance()
+                appInstance()
                     .feature(id)
                     .on('complete', () => {
                         addEvent({
                             type: 'complete',
-                            item: items.itemReference(),
+                            item: itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                app.appInstance()
+                appInstance()
                     .feature(id)
                     .on('playback:started', () => {
                         addEvent({
                             type: 'playback:started',
-                            item: items.itemReference(),
+                            item: itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                app.appInstance()
+                appInstance()
                     .feature(id)
                     .on('playback:paused', () => {
                         addEvent({
                             type: 'playback:paused',
-                            item: items.itemReference(),
+                            item: itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                app.appInstance()
+                appInstance()
                     .feature(id)
                     .on('playback:resumed', () => {
                         addEvent({
                             type: 'playback:resumed',
-                            item: items.itemReference(),
+                            item: itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                app.appInstance()
+                appInstance()
                     .feature(id)
                     .on('playback:stopped', () => {
                         addEvent({
                             type: 'playback:stopped',
-                            item: items.itemReference(),
+                            item: itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                app.appInstance()
+                appInstance()
                     .feature(id)
                     .on('playback:complete', () => {
                         addEvent({
                             type: 'playback:complete',
-                            item: items.itemReference(),
+                            item: itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
@@ -403,7 +410,7 @@ function setupNetworkEvents() {
             state.network = 'online';
             addEvent({
                 type: 'network:online',
-                item: items.itemReference(),
+                item: itemReference(),
                 timestamp: getTimestamp(),
             });
         }
@@ -414,7 +421,7 @@ function setupNetworkEvents() {
             state.network = 'offline';
             addEvent({
                 type: 'network:offline',
-                item: items.itemReference(),
+                item: itemReference(),
                 timestamp: getTimestamp(),
             });
         }

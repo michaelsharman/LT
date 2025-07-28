@@ -1,32 +1,10 @@
 import * as app from '../../../../core/app.js';
-import './styles/index.css';
+import styles from './styles/index.css?inline';
 
 /**
  * Extensions add specific functionality to Items API.
  * They rely on modules within LT being available.
  *
- * Themes use sass files to style the UI. You will need to handle them
- * using your build tool of choice. Here is a sample webpack config:
- *
- * ```
- * module.exports = {
- *     entry: {
- *         main: './src/index.js',
- *     },
- *     output: {
- *         path: __dirname + '/dist',
- *         filename: 'bundle.js',
- *     },
- *     module: {
- *         rules: [
- *             {
- *                 test: /\.s[ac]ss$/i,
- *                 use: ['style-loader', 'css-loader', 'sass-loader'],
- *             },
- *         ],
- *     },
- * };
- * ```
  * --
  *
  * This script loads a custom UI theme for Items API.
@@ -81,21 +59,23 @@ import './styles/index.css';
 
 const state = {
     elements: {},
+    renderedCss: false,
     theme: 'canvas',
 };
 
 /**
  * Loads the `Canvas` theme for Items API (the player).
  *
- *
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/core';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.themes.canvas.run();
  * @since 2.14.0
  */
 export function run() {
+    state.renderedCss || injectCSS();
+
     cacheElements();
     addThemeWrapperElement();
     setupItemFlags();
@@ -215,4 +195,20 @@ function checkLegacyItemLayout() {
             elQuestionNumber.classList.add('extra-left-position');
         }
     });
+}
+
+/**
+ * Injects the necessary CSS to the header
+ * @since 3.0.0
+ * @ignore
+ */
+function injectCSS() {
+    const elStyle = document.createElement('style');
+    const css = styles;
+
+    elStyle.setAttribute('data-style', 'LT Theme Canvas');
+    elStyle.textContent = css;
+    document.head.append(elStyle);
+
+    state.renderedCss = true;
 }

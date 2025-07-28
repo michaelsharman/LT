@@ -1,31 +1,9 @@
-import './styles/index.css';
+import styles from './styles/index.css?inline';
 
 /**
  * Extensions add specific functionality to Items API.
  * They rely on modules within LT being available.
  *
- * Themes use sass files to style the UI. You will need to handle them
- * using your build tool of choice. Here is a sample webpack config:
- *
- * ```
- * module.exports = {
- *     entry: {
- *         main: './src/index.js',
- *     },
- *     output: {
- *         path: __dirname + '/dist',
- *         filename: 'bundle.js',
- *     },
- *     module: {
- *         rules: [
- *             {
- *                 test: /\.s[ac]ss$/i,
- *                 use: ['style-loader', 'css-loader', 'sass-loader'],
- *             },
- *         ],
- *     },
- * };
- * ```
  * --
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/themes/theme-juniorquest.png" alt="" width="900"></p>
@@ -78,22 +56,23 @@ import './styles/index.css';
 
 const state = {
     elements: {},
+    renderedCss: false,
     theme: 'juniorQuest',
 };
 
 /**
  * Loads the `Junior Quest` theme for Items API (the player).
  *
- *
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/core';
- * import * as theme from '@caspingus/lt/src/assessment/extensions/ui/themes/juniorQuest/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * theme.run();
+ * LT.extensions.themes.juniorQuest.run();
  * @since 2.13.0
  */
 export function run() {
+    state.renderedCss || injectCSS();
+
     cacheElements();
     addThemeWrapperElement();
 }
@@ -119,4 +98,20 @@ function addThemeWrapperElement() {
  */
 function cacheElements() {
     state.elements.apiWrapper = document.querySelector('.lrn-assess');
+}
+
+/**
+ * Injects the necessary CSS to the header
+ * @since 3.0.0
+ * @ignore
+ */
+function injectCSS() {
+    const elStyle = document.createElement('style');
+    const css = styles;
+
+    elStyle.setAttribute('data-style', 'LT Theme Junior Quest');
+    elStyle.textContent = css;
+    document.head.append(elStyle);
+
+    state.renderedCss = true;
 }

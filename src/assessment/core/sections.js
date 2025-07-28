@@ -1,5 +1,5 @@
-import * as activity from './activity.js';
-import * as items from './items.js';
+import { activity, hasSections } from './activity.js';
+import { itemReference } from './items.js';
 
 /**
  * Everything relating to any sections defined
@@ -33,8 +33,8 @@ export function isLastItemInSection() {
  * @returns {object}
  */
 export function section() {
-    if (activity.hasSections()) {
-        const currentRef = items.itemReference();
+    if (hasSections()) {
+        const currentRef = itemReference();
         const allSections = sections();
         let section = -1;
         let found = false;
@@ -73,8 +73,8 @@ export function sectionHasShuffledItems() {
  * @returns {number}
  */
 export function sectionIndex() {
-    if (activity.hasSections()) {
-        const currentRef = items.itemReference();
+    if (hasSections()) {
+        const currentRef = itemReference();
         const sections = sections();
         let section = 0;
         let found = false;
@@ -104,7 +104,7 @@ export function sectionIndex() {
  * @returns {number|null}
  */
 export function sectionItemPosition() {
-    const currentRef = items.itemReference();
+    const currentRef = itemReference();
     const currentSection = section();
     let itemPos = 0;
 
@@ -129,8 +129,8 @@ export function sectionItemPosition() {
  * @returns {array}
  */
 export function sections() {
-    if (activity.hasSections()) {
-        return activity.activity().sections;
+    if (hasSections()) {
+        return activity().sections;
     } else {
         return [];
     }

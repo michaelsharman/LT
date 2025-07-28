@@ -1,5 +1,5 @@
 import logger from '../../utils/logger.js';
-import packageJSON from '../../../package.json';
+import { version } from '../../../package.json';
 
 /**
  * Diagnostic/metadata information for Author API.
@@ -39,7 +39,7 @@ export function diagnostics() {
     const d = {
         apps: {},
         LT: {
-            version: packageJSON.version,
+            version: version,
         },
         versions: v,
     };

@@ -106,7 +106,7 @@
         .lrn_widget.lrn_mcq .lrn_mcqgroup {
             overflow-x: visible;
         }
-        input[type='radio'] {
+        :is(input[type='radio']) {
             transform: scale(1.5);
         }
 

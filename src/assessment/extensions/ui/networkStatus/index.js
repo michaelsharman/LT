@@ -154,7 +154,7 @@ function injectCSS() {
 }
 `;
 
-    elStyle.setAttribute('data-style', 'LT Render Network Status');
+    elStyle.setAttribute('data-style', 'LT Network Status');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

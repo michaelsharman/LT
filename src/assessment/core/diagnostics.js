@@ -1,5 +1,19 @@
-import * as app from './app.js';
-import * as activity from './activity.js';
+import { annotationsApp, appInstance, assessApp, eventsApp, questionsApp } from './app.js';
+import {
+    activity,
+    annotationsConfig,
+    hasAnnotations,
+    hasEvents,
+    activityId,
+    activityTemplateId,
+    autoSaveConfig,
+    hasAutoSave,
+    itemBank,
+    itemPool,
+    sessionId,
+    state as activityState,
+    userId,
+} from './activity.js';
 import logger from '../../utils/logger.js';
 import { version } from '../../../dist/version.js';
 
@@ -75,38 +89,38 @@ export function diagnostics() {
     const d = {
         apps: {
             annotations: {
-                app: app.annotationsApp(),
-                config: activity.annotationsConfig(),
-                enabled: activity.hasAnnotations(),
+                app: annotationsApp(),
+                config: annotationsConfig(),
+                enabled: hasAnnotations(),
             },
             assess: {
-                app: app.assessApp(),
+                app: assessApp(),
             },
             events: {
-                app: app.eventsApp(),
-                enabled: activity.hasEvents(),
+                app: eventsApp(),
+                enabled: hasEvents(),
             },
             items: {
-                app: app.appInstance(),
-                metadata: activity.activity().config.metadata,
+                app: appInstance(),
+                metadata: activity().config.metadata,
             },
             questions: {
-                app: app.questionsApp(),
+                app: questionsApp(),
             },
         },
         activity: {
-            activity: activity.activityId(),
-            activityTemplate: activity.activityTemplateId(),
+            activity: activityId(),
+            activityTemplate: activityTemplateId(),
             autoSave: {
-                config: activity.autoSaveConfig(),
-                enabled: activity.hasAutoSave(),
+                config: autoSaveConfig(),
+                enabled: hasAutoSave(),
             },
-            itemBank: activity.itemBank(),
-            itemPool: activity.itemPool(),
-            session: activity.sessionId(),
-            state: activity.state(),
-            type: activity.activity().type,
-            user: activity.userId(),
+            itemBank: itemBank(),
+            itemPool: itemPool(),
+            session: sessionId(),
+            state: activityState(),
+            type: activity().type,
+            user: userId(),
         },
         LT: {
             version: version,

@@ -37,7 +37,7 @@ If you want 1 or 2 extensions, you can import them manually to keep the overall 
 
 ```
 import { LT } from '@caspingus/lt/assessment/core';
-import * as columnResizer from '@caspingus/lt/assessment/extensions/accessibility/columnResizer';
+import * as columnResizer from '@caspingus/lt/assessment/extensions/columnResizer';
 ```
 
 The `index` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 160kB for assessment and 1700kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.

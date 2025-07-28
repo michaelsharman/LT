@@ -16,7 +16,6 @@ import * as languageTextDirection from './extensions/ui/languageTextDirection/in
 import * as nativeTabs from './extensions/ui/nativeTabs/index.js';
 import * as renderPDF from './extensions/ui/renderPDF/index.js';
 import * as singleQuestion from './extensions/validation/singleQuestion/index.js';
-import * as ssmlEditor from './extensions/ui/ssmlEditor/index.js';
 
 const extensions = {
     extensions: {
@@ -29,7 +28,6 @@ const extensions = {
         nativeTabs: { ...nativeTabs },
         renderPDF: { ...renderPDF },
         singleQuestion: { ...singleQuestion },
-        ssmlEditor: { ...ssmlEditor },
     },
 };
 

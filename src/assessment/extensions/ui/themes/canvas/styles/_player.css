@@ -19,7 +19,7 @@
                 .lrn_widget.lrn_mcq .lrn_mcqgroup {
                     overflow-x: visible;
 
-                    input[type='radio'] {
+                    :is(input[type='radio']) {
                         transform: scale(1.5);
                     }
                 }
@@ -91,7 +91,7 @@
                     padding: 0.5em 0.8em;
                     z-index: 2;
 
-                    svg {
+                    :is(svg) {
                         pointer-events: none;
                         width: 18px;
                         vertical-align: middle;
@@ -105,7 +105,7 @@
                     border: 2px solid var(--lt__theme-main-btn-bgcolor);
                     border-radius: 5px;
 
-                    svg * {
+                    :is(svg *) {
                         stroke: var(--lt__theme-main-btn-bgcolor);
                     }
                 }

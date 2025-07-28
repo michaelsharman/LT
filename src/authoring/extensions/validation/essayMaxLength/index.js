@@ -1,5 +1,5 @@
-import * as app from '../../../core/app.js';
-import * as widgets from '../../../core/widgets.js';
+import { appInstance } from '../../../core/app.js';
+import { type } from '../../../core/widgets.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -51,11 +51,11 @@ export function run() {
  * @ignore
  */
 function setupListeners() {
-    app.appInstance().on('widgetedit:widget:ready', () => {
+    appInstance().on('widgetedit:widget:ready', () => {
         // Race condition with the event firing and the instance
         // actually being loaded
         setTimeout(() => {
-            const widgetType = widgets.type();
+            const widgetType = type();
 
             if (state.validTypes.includes(widgetType)) {
                 const elMaxLength = document.querySelector('[data-lrn-qe-input-path="max_length"] input.lrn-qe-input');

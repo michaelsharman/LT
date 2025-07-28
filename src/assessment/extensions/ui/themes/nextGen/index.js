@@ -1,31 +1,9 @@
-import { styles } from './css/bundle.js';
+// import { styles } from './css/bundle.js';
 
 /**
  * Extensions add specific functionality to Items API.
  * They rely on modules within LT being available.
  *
- * Themes use sass files to style the UI. You will need to handle them
- * using your build tool of choice. Here is a sample webpack config:
- *
- * ```
- * module.exports = {
- *     entry: {
- *         main: './src/index.js',
- *     },
- *     output: {
- *         path: __dirname + '/dist',
- *         filename: 'bundle.js',
- *     },
- *     module: {
- *         rules: [
- *             {
- *                 test: /\.s[ac]ss$/i,
- *                 use: ['style-loader', 'css-loader', 'sass-loader'],
- *             },
- *         ],
- *     },
- * };
- * ```
  * --
  *
  * This script loads a custom UI theme for Items API.
@@ -75,7 +53,8 @@ import { styles } from './css/bundle.js';
  * }
  * ```
  *
- * @module Extensions/Assessment/themes/canvas
+ * @module Extensions/Assessment/themes/nextGen
+ * @ignore
  */
 
 const state = {
@@ -86,17 +65,15 @@ const state = {
 /**
  * Loads the `nextGen` theme for Items API (the player).
  *
- *
  * @example
- * import { LT } from '@caspingus/lt/src/assessment/core';
- * import * as theme from '@caspingus/lt/src/assessment/extensions/ui/themes/nextGen/index';
+ * import { LT } from '@caspingus/lt/assessment';
  *
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * theme.run();
+ * LT.extensions.themes.nextGen.run();
  * @since 2.27.0
  */
 export function run() {
-    injectCSS(styles);
+    // injectCSS(styles);
     cacheElements();
     addThemeWrapperElement();
 }

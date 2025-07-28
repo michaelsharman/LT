@@ -7,29 +7,31 @@
 
 import { LT as core } from './core.js';
 
-import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav.js';
-import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks.js';
-import * as checkAnswerValidation from './extensions/validation/checkAnswerValidation.js';
-import * as columnResizer from './extensions/accessibility/ux/columnResizer.js';
+import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav/index.js';
+import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks/index.js';
+import * as blueLightFilter from './extensions/accessibility/ux/blueLightFilter/index.js';
+import * as checkAnswerValidation from './extensions/validation/checkAnswerValidation/index.js';
+import * as columnResizer from './extensions/accessibility/ux/columnResizer/index.js';
 import * as contentTabs from './extensions/ui/contentTabs/index.js';
-import * as disableOnValidate from './extensions/validation/disableOnValidate.js';
-import * as essayLimitByCharacter from './extensions/validation/essayLimitByCharacter.js';
-import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives.js';
-import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts.js';
-import * as magnifier from './extensions/accessibility/ux/magnifier.js';
-import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix.js';
+import * as disableOnValidate from './extensions/validation/disableOnValidate/index.js';
+import * as essayLimitByCharacter from './extensions/validation/essayLimitByCharacter/index.js';
+import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives/index.js';
+import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts/index.js';
+import * as magnifier from './extensions/accessibility/ux/magnifier/index.js';
+import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix/index.js';
 import * as networkStatus from './extensions/ui/networkStatus/index.js';
-import * as pageOverlay from './extensions/accessibility/ux/pageOverlay.js';
+import * as readingMask from './extensions/accessibility/ux/readingMask/index.js';
 import * as renderPDF from './extensions/ui/renderPDF/index.js';
-import * as resetResponse from './extensions/accessibility/ux/resetResponse.js';
+import * as resetResponse from './extensions/accessibility/ux/resetResponse/index.js';
 import * as telemetry from './extensions/telemetry/index.js';
-import * as toggleTimer from './extensions/accessibility/ux/toggleTimer.js';
+import * as toggleTimer from './extensions/accessibility/ux/toggleTimer/index.js';
 import * as whiteNoise from './extensions/accessibility/ux/whiteNoise/index.js';
 
 const extensions = {
     extensions: {
         ariaCountOnNav: { ...ariaCountOnNav },
         blockGrammarChecks: { ...blockGrammarChecks },
+        blueLightFilter: { ...blueLightFilter },
         checkAnswerValidation: { ...checkAnswerValidation },
         columnResizer: { ...columnResizer },
         contentTabs: { ...contentTabs },
@@ -40,7 +42,7 @@ const extensions = {
         magnifier: { ...magnifier },
         mcqLabelPrefix: { ...mcqLabelPrefix },
         networkStatus: { ...networkStatus },
-        pageOverlay: { ...pageOverlay },
+        readingMask: { ...readingMask },
         renderPDF: { ...renderPDF },
         resetResponse: { ...resetResponse },
         telemetry: { ...telemetry },

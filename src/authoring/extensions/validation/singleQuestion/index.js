@@ -1,4 +1,4 @@
-import * as app from '../../../core/app.js';
+import { appInstance } from '../../../core/app.js';
 import { checkAppVersion } from '../../../utils/styling.js';
 
 /**
@@ -33,9 +33,9 @@ const state = {
  */
 export function run() {
     cacheElements();
-    app.appInstance().on('render:item', checkQuestions);
-    app.appInstance().on('render:widgets', checkQuestions);
-    app.appInstance().on('itemedit:changed', checkQuestions);
+    appInstance().on('render:item', checkQuestions);
+    appInstance().on('render:widgets', checkQuestions);
+    appInstance().on('itemedit:changed', checkQuestions);
 }
 
 /**
@@ -48,7 +48,7 @@ function checkQuestions() {
     // Have to call this here because in run() the `diagnostics().versions` object isn't yet populated
     state.classNamePrefix = checkAppVersion(state.classNamePrefix);
 
-    const item = app.appInstance().getItem();
+    const item = appInstance().getItem();
     if (item.questions.length) {
         hideAddButton();
     } else {

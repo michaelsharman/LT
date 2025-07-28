@@ -1,4 +1,4 @@
-import * as app from '../../../core/app.js';
+import { appInstance } from '../../../core/app.js';
 import { checkAppVersion } from '../../../utils/styling.js';
 import logger from '../../../../utils/logger.js';
 import Uppy from '@uppy/core';
@@ -132,7 +132,6 @@ const state = {
  * import { LT } from '@caspingus/lt/authoring';
  *
  * LT.init(authorApp); // Set up LT with the Author API application instance variable
- *
  * LT.extensions.imageUploader.run(security, request);
  * @since 2.10.0
  * @param {object} security The security object returned from the SDK.
@@ -149,7 +148,7 @@ export function run(security, request, options = {}) {
     overrideOptions(options);
 
     if (validateRunParams()) {
-        app.appInstance().on('widgetedit:widget:ready', setupModalObserver);
+        appInstance().on('widgetedit:widget:ready', setupModalObserver);
     }
 }
 

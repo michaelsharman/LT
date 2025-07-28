@@ -4,3 +4,7 @@
 @import './_player.css';
 @import '../../_utilities/styles/_variables.css';
 @import '../../_utilities/styles/_apiFixes.css';
+
+body {
+    /* no-op rule to prevent PostCSS/Rollup crash */
+}
