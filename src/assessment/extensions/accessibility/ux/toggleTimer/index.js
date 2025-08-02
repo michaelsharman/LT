@@ -1,5 +1,5 @@
-import * as app from '../../../../core/app.js';
-import * as activity from '../../../../core/activity.js';
+import { appInstance } from '../../../../core/app.js';
+import { maxTime, timeRemaining } from '../../../../core/activity.js';
 import logger from '../../../../../utils/logger.js';
 
 /**
@@ -73,14 +73,14 @@ export function run(showTimerLimit = 60) {
              * Removing this logic for now as it's creating a callstack
              * exceeded issue.
              */
-            if (state.enableForceTimerShow && activity.maxTime() > 0) {
-                app.appInstance().on('time:change', () => {
-                    const timeRemaining = activity.timeRemaining();
+            if (state.enableForceTimerShow && maxTime() > 0) {
+                appInstance().on('time:change', () => {
+                    const secondsRemaining = timeRemaining();
 
                     if (
                         !state.forceRenderTimer &&
-                        typeof timeRemaining === 'number' &&
-                        timeRemaining <= Number(showTimerLimit) &&
+                        typeof secondsRemaining === 'number' &&
+                        secondsRemaining <= Number(showTimerLimit) &&
                         timerDisplay.classList.contains('hidden')
                     ) {
                         state.forceRenderTimer = true;
@@ -149,7 +149,6 @@ function updateAccessibilityState(isVisible) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    elStyle.setAttribute('data-style', 'LT Toggle Timer');
     const css = `
 /* Learnosity toggle timer styles */
 .lrn-timer-wrapper.lt__timer-wrapper {
@@ -182,7 +181,8 @@ function injectCSS() {
 
         &:before {
             font-family: "LearnosityIconsRegular";
-            top: 0;
+            top: 1px;
+            position: relative;
             float: left;
             padding-left: .4em;
             padding-right: .4em;

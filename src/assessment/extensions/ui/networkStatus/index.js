@@ -49,35 +49,55 @@ export function run(options) {
 }
 
 /**
- * Sets UI message if network is down.
+ * Checks connection and dispatches event.
  * @since 2.12.0
  * @ignore
  */
 async function getOnlineStatus() {
     const status = await checkConnection();
     const elIndicator = document.querySelector('.lt__networkStatus-indicator');
+    const { render, iconWrapper, message } = state.options;
 
     dispatchNetworkEvent(status);
 
-    if (state.options.render) {
-        if (!status) {
-            const elWrapper = document.querySelector(`.${state.options.iconWrapper}`);
-            const template = `<div class="lt__networkStatus-indicator pos-left" role="status" aria-live="polite" aria-atomic="true" aria-relevant="all">
-                <span title="${state.options.message}" aria-hidden="true">
-                    <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#333333">
-                        <path d="M790-56 414-434q-47 11-87.5 33T254-346l-84-86q32-32 69-56t79-42l-90-90q-41 21-76.5 46.5T84-516L0-602q32-32 66.5-57.5T140-708l-84-84 56-56 736 736-58 56Zm-310-64q-42 0-71-29.5T380-220q0-42 29-71t71-29q42 0 71 29t29 71q0 41-29 70.5T480-120Zm236-238-29-29-29-29-144-144q81 8 151.5 41T790-432l-74 74Zm160-158q-77-77-178.5-120.5T480-680q-21 0-40.5 1.5T400-674L298-776q44-12 89.5-18t92.5-6q142 0 265 53t215 145l-84 86Z"/>
-                    </svg>
-                </span>
-                <span class="sr-only">${state.options.message}</span>
-            </div>`;
-
-            if (elWrapper && !elIndicator) {
-                elWrapper.insertAdjacentHTML('afterbegin', template);
-            }
-        } else if (elIndicator) {
-            elIndicator.remove();
-        }
+    if (!render) {
+        return;
     }
+
+    if (!status) {
+        injectOfflineIndicator(elIndicator, iconWrapper, message);
+    } else if (elIndicator) {
+        elIndicator.remove();
+    }
+}
+
+/**
+ * Sets UI message if network is down.
+ * @since 2.12.0
+ * @ignore
+ */
+function injectOfflineIndicator(elIndicator, wrapperClass, message) {
+    if (elIndicator) {
+        return;
+    }
+
+    const elWrapper = document.querySelector(`.${wrapperClass}`);
+    if (!elWrapper) {
+        return;
+    }
+
+    const template = `
+        <div class="lt__networkStatus-indicator pos-left" role="status" aria-live="polite" aria-atomic="true" aria-relevant="all">
+            <span title="${message}" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#333333">
+                    <path d="M790-56 414-434q-47 11-87.5 33T254-346l-84-86q32-32 69-56t79-42l-90-90q-41 21-76.5 46.5T84-516L0-602q32-32 66.5-57.5T140-708l-84-84 56-56 736 736-58 56Zm-310-64q-42 0-71-29.5T380-220q0-42 29-71t71-29q42 0 71 29t29 71q0 41-29 70.5T480-120Zm236-238-29-29-29-29-144-144q81 8 151.5 41T790-432l-74 74Zm160-158q-77-77-178.5-120.5T480-680q-21 0-40.5 1.5T400-674L298-776q44-12 89.5-18t92.5-6q142 0 265 53t215 145l-84 86Z"/>
+                </svg>
+            </span>
+            <span class="sr-only">${message}</span>
+        </div>
+    `;
+
+    elWrapper.insertAdjacentHTML('afterbegin', template);
 }
 
 /**

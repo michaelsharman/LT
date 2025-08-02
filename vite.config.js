@@ -39,6 +39,7 @@ const manualEntries = {
     'assessment/extensions/telemetry': 'src/assessment/extensions/telemetry/index.js',
     'assessment/extensions/toggleTimer': 'src/assessment/extensions/accessibility/ux/toggleTimer/index.js',
     'assessment/extensions/whiteNoise': 'src/assessment/extensions/accessibility/ux/whiteNoise/index.js',
+    'assessment/extensions/resources/periodicTable': 'src/assessment/extensions/ui/resources/periodicTable/index.js',
     'assessment/extensions/themes/canvas': 'src/assessment/extensions/ui/themes/canvas/index.js',
     'assessment/extensions/themes/juniorQuest': 'src/assessment/extensions/ui/themes/juniorQuest/index.js',
     'assessment/extensions/themes/nextGen': 'src/assessment/extensions/ui/themes/nextGen/index.js',

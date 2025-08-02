@@ -53,10 +53,7 @@ export function run(customColor, customZIndex) {
  * @since 0.9.0
  */
 export function halt() {
-    const elOverlay = document.querySelector('.lrn__overlay');
-    if (elOverlay) {
-        elOverlay.remove();
-    }
+    document.querySelector('.lrn__overlay')?.remove();
 }
 
 /**
@@ -66,7 +63,6 @@ export function halt() {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    elStyle.setAttribute('data-style', 'LT Blue Light Filter');
     const css = `
 /* Learnosity blue light filter styles */
 .lrn__overlay {

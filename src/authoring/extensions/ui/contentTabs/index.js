@@ -410,7 +410,7 @@ function generateRandomString() {
  * @ignore
  */
 function removeElement(id) {
-    document.getElementById(id).remove();
+    document.getElementById(id)?.remove();
 }
 
 /**

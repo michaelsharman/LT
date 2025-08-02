@@ -162,7 +162,6 @@ export function hide() {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    elStyle.setAttribute('data-style', 'LT Reading Mask');
     const css = `
 /* Learnosity reading mask styles */
 .lt__reading-mask {
@@ -184,6 +183,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Reading Mask');
     elStyle.textContent = css;
     document.head.append(elStyle);
 

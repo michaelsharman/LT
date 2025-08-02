@@ -1,5 +1,5 @@
-import * as app from '../../../core/app.js';
-import * as questions from '../../../core/questions.js';
+import { appInstance, assessApp } from '../../../core/app.js';
+import { hasCheckAnswer, questions, questionResponse } from '../../../core/questions.js';
 import logger from '../../../../utils/logger.js';
 import { dialog, hideDialog } from '../../../core/player.js';
 
@@ -67,7 +67,7 @@ export function run(config) {
         }
     }
 
-    app.appInstance().on('item:beforeunload', e => {
+    appInstance().on('item:beforeunload', e => {
         setup(e);
     });
 }
@@ -80,7 +80,7 @@ export function run(config) {
  * @ignore
  */
 function setup(e) {
-    const itemHasCheckAnswer = hasCheckAnswer();
+    const itemHasCheckAnswer = hasCheckAnswerButton();
 
     if (itemHasCheckAnswer) {
         if (!hasUsedCheckAnswer()) {
@@ -102,20 +102,20 @@ function setup(e) {
  * @ignore
  * @returns {boolean}
  */
-function hasCheckAnswer() {
-    const itemQuestions = questions.questions();
-    let hasCheckAnswer = false;
+function hasCheckAnswerButton() {
+    const itemQuestions = questions();
+    let hasCheckAnswerButton = false;
 
     for (const q of itemQuestions) {
         const response_id = q.response_id;
 
-        if (questions.hasCheckAnswer(response_id)) {
-            hasCheckAnswer = true;
+        if (hasCheckAnswer(response_id)) {
+            hasCheckAnswerButton = true;
             break;
         }
     }
 
-    return hasCheckAnswer;
+    return hasCheckAnswerButton;
 }
 
 /**
@@ -128,15 +128,12 @@ function hasCheckAnswer() {
  * @returns {boolean}
  */
 function hasUsedCheckAnswer() {
-    const itemQuestions = questions.questions();
+    const itemQuestions = questions();
 
     for (const q of itemQuestions) {
         const response_id = q.response_id;
 
-        if (
-            questions.hasCheckAnswer(response_id) &&
-            (!questions.questionResponse(response_id) || !questions.questionResponse(response_id).hasOwnProperty('feedbackAttemptsCount'))
-        ) {
+        if (hasCheckAnswer(response_id) && (!questionResponse(response_id) || !questionResponse(response_id).hasOwnProperty('feedbackAttemptsCount'))) {
             return false;
         }
     }
@@ -162,7 +159,7 @@ function launchMessage() {
             },
         ],
     });
-    app.assessApp().on('button:lt__check_answer_validation:clicked', () => {
+    assessApp().on('button:lt__check_answer_validation:clicked', () => {
         hideDialog();
     });
 }

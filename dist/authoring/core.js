@@ -1,5 +1,5 @@
-import { a as o, b as n, d as t } from "../app-BXKmoa_A.js";
-import { w as i } from "../widgets-CNU-p20I.js";
+import { a as o, b as n, d as t } from "../app-C8cT1zZy.js";
+import { w as i } from "../widgets-BnOM6eRt.js";
 import e from "../logger.js";
 function s() {
   o().on("navigate", (a) => {

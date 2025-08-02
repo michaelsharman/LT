@@ -94,7 +94,6 @@ function setupResetUI() {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    elStyle.setAttribute('data-style', 'LT Reset Response');
     const css = `
 /* Learnosity reset question styles */
 .lrn .lrn_btn.${state.class} {

@@ -218,7 +218,7 @@ export function itemPosition() {
  * @returns {string}
  */
 export function itemReference() {
-    return appInstance().getCurrentItem().reference;
+    return appInstance().getCurrentItem()?.reference;
 }
 
 /**

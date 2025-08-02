@@ -117,7 +117,14 @@ export function questionResponse(response_id) {
     const id = response_id ? response_id : questionResponseIds()[0];
 
     if (id) {
-        return response(id);
+        const r = appInstance().question(id);
+
+        if (r) {
+            return appInstance().question(id).getResponse();
+        } else {
+            logger.error(`Response not found ${id}`);
+            return undefined;
+        }
     } else {
         return {};
     }
@@ -152,25 +159,5 @@ export function questionScore(response_id) {
         return appInstance().getScores()[id] || {};
     } else {
         return {};
-    }
-}
-
-/**
- * A response object for a single question on the current item.
- *
- * Returns {} if a response isn't found.
- * @since 0.1.0
- * @param {string} response_id
- * @returns {object | null} The response object for the question
- * @ignore
- */
-function response(response_id) {
-    const r = appInstance().question(response_id);
-
-    if (r) {
-        return appInstance().question(response_id).getResponse();
-    } else {
-        logger.error(`Response not found ${response_id}`);
-        return undefined;
     }
 }

@@ -125,7 +125,6 @@ function addPrefix(itemQuestions) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    elStyle.setAttribute('data-style', 'LT MCQ Label Prefix');
     const css = `
 /* Learnosity MCQ label prefix styles */
 .lrn-prefix-label {

@@ -591,7 +591,6 @@ function stripSpaces(s) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    elStyle.setAttribute('data-style', 'LT Essay Limit By Character');
     const css = `
 /* Learnosity essay limit by character styles */
 .lrn_widget .lrn_word_count,
@@ -600,6 +599,7 @@ function injectCSS() {
 }
 `;
 
+    elStyle.setAttribute('data-style', 'LT Essay Limit By Character');
     elStyle.textContent = css;
     document.head.append(elStyle);
 
