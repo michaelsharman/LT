@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "3.0.0-beta.4",
+    "version": "3.0.0-beta.5",
     "private": false,
     "type": "module",
     "description": "A utility library of helpers and extensions useful when working with Learnosity APIs.",
@@ -21,10 +21,10 @@
     },
     "exports": {
         ".": null,
-        "./assessment": "./dist/assessment/index.js",
+        "./assessment": "./dist/assessment/bundle.js",
         "./assessment/core": "./dist/assessment/core.js",
         "./assessment/extensions/*": "./dist/assessment/extensions/*",
-        "./authoring": "./dist/authoring/index.js",
+        "./authoring": "./dist/authoring/bundle.js",
         "./authoring/core": "./dist/authoring/core.js",
         "./authoring/extensions/*": "./dist/authoring/extensions/*",
         "./logger": "./dist/logger.js"

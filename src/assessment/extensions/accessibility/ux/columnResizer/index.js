@@ -10,7 +10,7 @@ import { itemElement } from '../../../../core/items.js';
  * Adds a UI border in between the left and right columns (for
  * items with 2 columns) providing the ability for the end user
  * to resize the layout by dragging the element left or right.
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/columnResize/resize.gif" alt="" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/columnResize/resize.gif" alt="" width="900"></p>
  * @module Extensions/Assessment/columnResizer
  */
 

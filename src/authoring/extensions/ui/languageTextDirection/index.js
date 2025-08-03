@@ -101,7 +101,7 @@
  * }
  * ```
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/languageTextDirection/screenshot.png" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/languageTextDirection/screenshot.png" alt="" width="660"></p>
  * @module Extensions/Authoring/languageTextDirection
  */
 

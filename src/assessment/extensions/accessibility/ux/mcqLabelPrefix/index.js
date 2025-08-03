@@ -18,7 +18,7 @@ import { questions } from '../../../../core/questions.js';
  *  - shuffle responses
  *  - columns
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/mcqprefix.png" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/mcqprefix.png" alt="" width="660"></p>
  * @module Extensions/Assessment/mcqLabelPrefix
  */
 

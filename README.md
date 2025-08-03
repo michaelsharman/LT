@@ -25,9 +25,9 @@ npm install @caspingus/lt
 
 ## Usage
 
-Depending on where you are, import either the assessment or authoring into your project. You can import `index` or `core` from both areas.
+Depending on where you are, import either the assessment or authoring into your project. You can import `bundle` or `core` from both areas.
 
-## core vs index
+## core vs bundle
 
 **Recommendation** - use `core` in all production settings for greater control on file size.
 
@@ -40,13 +40,13 @@ import { LT } from '@caspingus/lt/assessment/core';
 import * as columnResizer from '@caspingus/lt/assessment/extensions/columnResizer';
 ```
 
-The `index` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 160kB for assessment and 1700kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
+The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 160kB for assessment and 1700kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
 
 ```
 import { LT } from '@caspingus/lt/assessment';
 ```
 
-^^ Importing `index` puts all extensions in `LT.extensions`.
+^^ Importing `bundle` puts all extensions in `LT.extensions`.
 
 ## Initialize
 
@@ -127,21 +127,6 @@ LT.routingHash();
 
 You should import from `@caspingus/lt/authoring` and let your build tool handle minifying and tree shaking etc.
 
-Right now, the Authoring extension ssmlEditor requires that css be imported. Here is an example webpack.config:
-
-```
-{
-    module: {
-        rules: [
-            {
-                test: /\.((c|s[ac])ss)$/i,
-                use: ['style-loader', 'css-loader', 'sass-loader'],
-            },
-        ],
-    },
-};
-```
-
 # CDN
 
 If you don't have a build system, or want to get up and running quickly, you can import LT via a CDN.
@@ -171,7 +156,7 @@ const itemsApp = LearnosityItems.init(initializationObject, callbacks);
 </script>
 
 // my-module.js
-import { LT } from 'https://cdn.jsdelivr.net/npm/@caspingus/lt/dist/assessment/index.js';
+import { LT } from 'https://cdn.jsdelivr.net/npm/@caspingus/lt/dist/assessment/bundle.js';
 
 window.launch = function (app) {
     LT.init(app);

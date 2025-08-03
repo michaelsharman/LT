@@ -15,7 +15,7 @@ import logger from '../../../../../utils/logger.js';
  * because that is a separate layout that doesn't include the
  * clock icon. It's a future TODO to rectify this extension
  * in the narrowest layout.
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/toggletimer.gif" alt="Animated gif showing the toggle timer feature" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/toggletimer.gif" alt="Animated gif showing the toggle timer feature" width="900"></p>
  * @module Extensions/Assessment/toggleTimer
  */
 

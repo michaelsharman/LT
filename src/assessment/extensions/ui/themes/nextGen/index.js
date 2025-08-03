@@ -13,7 +13,7 @@
  * Items are vertically stacked with a flag button for each item. Because the assessment
  * player is still present, you can have a timed test, auto-save, and other features.
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/themes/theme-canvas.png" alt="" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/themes/theme-canvas.png" alt="" width="900"></p>
  *
  * Use the following custom region configuration in Items API to load this theme:
  *

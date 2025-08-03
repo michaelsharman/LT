@@ -15,7 +15,7 @@ import logger from '../../../../../utils/logger.js';
  * TODO:
  *  - make movable via keyboard
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/magnifier.png" alt="" width="800"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/magnifier.png" alt="" width="800"></p>
  * @module Extensions/Assessment/magnifier
  */
 

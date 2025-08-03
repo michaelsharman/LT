@@ -6,7 +6,7 @@ import styles from './styles/index.css?inline';
  *
  * --
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/themes/theme-juniorquest.png" alt="" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/themes/theme-juniorquest.png" alt="" width="900"></p>
  *
  * This script loads a custom UI theme for Items API.
  *

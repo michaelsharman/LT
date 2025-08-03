@@ -60,7 +60,7 @@ import { Howl, Howler } from 'howler';
  * This will render a button in the vertical toolbar of the player with a headphones
  * icon. Click this and the player will launch (see below).
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/whitenoise.gif" alt="" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/whitenoise.gif" alt="" width="900"></p>
  *
  * If you want to render the player inside a custom element, pass an `id` to
  * `launchPlayer(id)` after calling `run()`. This will render the player

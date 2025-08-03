@@ -13,7 +13,7 @@ import * as items from '../../../core/items.js';
  *
  * By enabling this extension, all PDFs will be rendered in the viewer.
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/renderpdf.png" alt="" width="700"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/renderpdf.png" alt="" width="700"></p>
  * @module Extensions/Assessment/renderPDF
  */
 

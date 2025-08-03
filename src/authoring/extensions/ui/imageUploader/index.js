@@ -44,54 +44,54 @@ import uppyImageEditor from '@uppy/image-editor/dist/style.min.css?inline';
  *  </thead>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic2.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic2.jpg" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/periodic2.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/periodic2.jpg" width="200"></a>
  *          <br><code>205kB (2000x1589)</code></td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic2.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic2.jpg" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/periodic2.jpg" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/periodic2.jpg" width="200"></a>
  *          <br><code>128kB (1500x1091)</code></td>
  *      </td>
  *      <td><code>37.56%</code></td>
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/periodic1.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/periodic1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/periodic1.png" width="200"></a>
  *          <br><code>480kB (2584x1518)</code></td>
  *      </td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/periodic1.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/periodic1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/periodic1.png" width="200"></a>
  *          <br><code>305kB (1500x881)</code></td>
  *      </td>
  *      <td><code>36.46%</code></td>
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene2.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene2.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/scene2.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/scene2.png" width="200"></a>
  *          <br><code>16.5mb (5102x2488)</code>
  *      </td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene2.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene2.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/scene2.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/scene2.png" width="200"></a>
  *          <br><code>155kB (1500x731)</code>
  *      </td>
  *      <td><code>99.06%</code></td>
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/scene1.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/scene1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/scene1.png" width="200"></a>
  *          <br><code>11.9mb (5098x2480)</code>
  *      </td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/scene1.png" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/scene1.png" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/scene1.png" width="200"></a>
  *          <br><code>97kB (1500x729)</code></td>
  *      </td>
  *      <td><code>99.18%</code></td>
  *  </tr>
  *  <tr>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/thumb.gif" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/original/thumb.gif" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/thumb.gif" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/original/thumb.gif" width="200"></a>
  *          <br><code>4.7mb (770x702)</code>
  *      </td>
  *      <td>
- *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/thumb.gif" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUploader/compressed-0.7-1500px/thumb.gif" width="200"></a>
+ *          <a href="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/thumb.gif" target="blank"><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUploader/compressed-0.7-1500px/thumb.gif" width="200"></a>
  *          <br><code>50kB (770x702)</code></td>
  *      </td>
  *      <td><code>98.94%</code></td>
@@ -99,7 +99,7 @@ import uppyImageEditor from '@uppy/image-editor/dist/style.min.css?inline';
  * </table>
  * <br>
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/imageUpload.gif" alt="" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/imageUpload.gif" alt="" width="900"></p>
  *
  * <h2>Exclusions</h2>
  * <p>This extension doesn't run inside the simple features dialog. This mainly impacts posters for video files and background images for audio files.</p>

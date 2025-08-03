@@ -9,7 +9,7 @@ import { debounce } from 'lodash-es';
  *
  * Adds the ability for authors to create tags (type:tag)
  * via the Author API if they don't yet exist in the item bank.
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/createtags.gif" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/createtags.gif" alt="" width="660"></p>
  * @module Extensions/Authoring/createTags
  */
 

@@ -38,7 +38,7 @@
             "displayModuleHeader": true,
             "favicon": "./src/assets/images/favicon.ico",
             "homepageTitle": "Learnosity Toolkit",
-            "title": "<div class='logo'><a href='/LT/index.html'><img src='./src/assets/images/lt-logo.svg' alt='Learnosity Toolkit logo'></a><span class='sr-only'>Learnosity Toolkit</span></div>",
+            "title": "<div class='logo'><a href='/LT/index.html'><img src='./src/assets/docs/images/lt-logo.svg' alt='Learnosity Toolkit logo'></a><span class='sr-only'>Learnosity Toolkit</span></div>",
             "menu": [
                 {
                     "title": "Github",

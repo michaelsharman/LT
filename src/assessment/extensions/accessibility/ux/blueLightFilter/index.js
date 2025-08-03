@@ -8,7 +8,7 @@
  * This is for users who have sensitivity to bright light,
  * high contrast, or blue light.
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/pageoverlay.png" alt="" width="860"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/pageoverlay.png" alt="" width="860"></p>
  * @module Extensions/Assessment/blueLightFilter
  */
 

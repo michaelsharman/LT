@@ -17,7 +17,7 @@ import * as xlsx from 'xlsx/xlsx.mjs';
  * to work on it locally.
  *
  * Supported file types for import: csv, xls, xlsx, ods, and txt.
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/dynamicContent/screenshot.gif" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/dynamicContent/screenshot.gif" alt="" width="660"></p>
  * @module Extensions/Authoring/dynamicContent
  */
 

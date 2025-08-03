@@ -14,7 +14,7 @@ import logger from '../../../utils/logger.js';
  * Tracks user activity and telemetry within Items API.
  * JSON events are stored in the telemetry object and can be
  * rendered in a chart for analysis.
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/telemetry/telemetry.png" alt="" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/telemetry/telemetry.png" alt="" width="900"></p>
  * @module Extensions/Assessment/telemetry
  */
 

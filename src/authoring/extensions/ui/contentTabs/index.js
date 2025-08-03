@@ -106,8 +106,8 @@ import { getTabsTheme, validateOptions } from '../../../../assessment/extensions
  *     }
  * }
  * ```
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/contenttabs1.png" alt="" width="660"></p>
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/contenttabs2.png" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contenttabs1.png" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contenttabs2.png" alt="" width="660"></p>
  * @module Extensions/Authoring/contentTabs
  */
 

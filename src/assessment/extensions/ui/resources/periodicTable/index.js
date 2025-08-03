@@ -9,7 +9,7 @@ import { dialog, hideDialog } from '../../../../core/player.js';
  *
  * Renders the periodic table of elements as HTML, either in a dialog or a new tab.
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/resources/periodicTable/periodicTable.png" alt="" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/resources/periodicTable/periodicTable.png" alt="" width="900"></p>
  * @module Extensions/Assessment/resources/periodicTable
  */
 

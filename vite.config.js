@@ -3,8 +3,6 @@ import { visualizer } from 'rollup-plugin-visualizer';
 import fs from 'fs';
 import path from 'path';
 import pkg from './package.json' assert { type: 'json' };
-import postcss from 'postcss';
-import postcssImport from 'postcss-import';
 
 const writeVersionFile = () => ({
     name: 'write-version',
@@ -19,7 +17,7 @@ const writeVersionFile = () => ({
 
 const manualEntries = {
     'assessment/core': 'src/assessment/core.js',
-    'assessment/index': 'src/assessment/index.js',
+    'assessment/bundle': 'src/assessment/bundle.js',
     'assessment/extensions/ariaCountOnNav': 'src/assessment/extensions/accessibility/aria/ariaCountOnNav/index.js',
     'assessment/extensions/blockGrammarChecks': 'src/assessment/extensions/validation/blockGrammarChecks/index.js',
     'assessment/extensions/blueLightFilter': 'src/assessment/extensions/accessibility/ux/blueLightFilter/index.js',
@@ -44,7 +42,7 @@ const manualEntries = {
     'assessment/extensions/themes/juniorQuest': 'src/assessment/extensions/ui/themes/juniorQuest/index.js',
     'assessment/extensions/themes/nextGen': 'src/assessment/extensions/ui/themes/nextGen/index.js',
     'authoring/core': 'src/authoring/core.js',
-    'authoring/index': 'src/authoring/index.js',
+    'authoring/bundle': 'src/authoring/bundle.js',
     'authoring/extensions/contentTabs': 'src/authoring/extensions/ui/contentTabs/index.js',
     'authoring/extensions/createTags': 'src/authoring/extensions/ui/createTags/index.js',
     'authoring/extensions/dynamicContent': 'src/authoring/extensions/ui/dynamicContent/index.js',
@@ -77,7 +75,7 @@ export default defineConfig(({ command }) => {
                   }),
             target: 'esnext',
             outDir: 'dist',
-            emptyOutDir: false,
+            emptyOutDir: true,
             cssCodeSplit: false,
 
             lib: {

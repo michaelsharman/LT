@@ -16,7 +16,7 @@ import logger from '../../../../../utils/logger.js';
  * If you want a subset, pass an array of type alias' as the second argument.
  * See the `type` property for each type here https://reference.learnosity.com/questions-api/questiontypes
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/resetresponse.gif" alt="" width="600"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/resetresponse.gif" alt="" width="600"></p>
  * @module Extensions/Assessment/resetResponse
  */
 
