@@ -1,3 +1,5 @@
+import logger from '../../../../../utils/logger';
+
 /**
  * Extensions add specific functionality to Items API.
  * They rely on modules within LT being available.
@@ -13,6 +15,7 @@
  */
 
 const state = {
+    blueLightFilter: null,
     color: 'rgba(250, 170, 140, 0.5)',
     renderedCss: false,
     zindex: 99999,
@@ -29,6 +32,8 @@ const state = {
  * @since 0.9.0
  */
 export function run(customColor, customZIndex) {
+    state.renderedCss || injectCSS();
+
     if (customColor && typeof customColor === 'string') {
         state.color = customColor;
     }
@@ -36,24 +41,54 @@ export function run(customColor, customZIndex) {
         state.zindex = customZIndex;
     }
 
-    const elOverlayExists = document.querySelector('.lrn__overlay');
+    let elOverlay = document.getElementById('lt__blue-light-filter');
 
-    if (!elOverlayExists) {
-        const elOverlay = document.createElement('div');
-
-        elOverlay.classList.add('lrn__overlay');
-        document.querySelector('body').append(elOverlay);
+    if (!elOverlay) {
+        elOverlay = document.createElement('div');
+        elOverlay.id = 'lt__blue-light-filter';
+        elOverlay.hidden = true;
+        elOverlay.classList.add('lt__blue-light-filter');
+        const elPlayer = document.querySelector('.lrn-assess');
+        elPlayer.appendChild(elOverlay);
     }
 
-    state.renderedCss || injectCSS();
+    state.blueLightFilter = elOverlay;
 }
 
 /**
- * Turns off the blue light filter.
- * @since 0.9.0
+ * Shows the blue light filter if it is currently hidden.
+ * If the filter is already visible, it does nothing.
+ * @since 3.0.0
  */
-export function halt() {
-    document.querySelector('.lrn__overlay')?.remove();
+export function show() {
+    if (state.blueLightFilter?.hidden) {
+        toggle(); // handles adding class
+    }
+}
+
+/**
+ * Hides the blue light filter if it is currently visible.
+ * If the filter is already hidden, it does nothing.
+ * @since 3.0.0
+ */
+export function hide() {
+    if (!state.blueLightFilter?.hidden) {
+        toggle(); // handles removing class
+    }
+}
+
+/**
+ * Shows or hides the blue light filter.
+ * @returns {boolean} - Returns true if the blue light filter is currently visible, false otherwise.
+ * @since 3.0.0
+ */
+export function toggle() {
+    if (!state.blueLightFilter) {
+        logger.warn('[BlueLightFilter] visibility called before run()');
+        return;
+    }
+
+    state.blueLightFilter.hidden = !state.blueLightFilter.hidden;
 }
 
 /**
@@ -65,7 +100,7 @@ function injectCSS() {
     const elStyle = document.createElement('style');
     const css = `
 /* Learnosity blue light filter styles */
-.lrn__overlay {
+.lt__blue-light-filter {
     position: fixed;
     top: 0;
     left: 0;

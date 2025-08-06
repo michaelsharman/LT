@@ -59,6 +59,7 @@
 
 const state = {
     elements: {},
+    renderedCss: false,
     theme: 'nextGen',
 };
 
@@ -73,7 +74,8 @@ const state = {
  * @since 2.27.0
  */
 export function run() {
-    // injectCSS(styles);
+    state.renderedCss || injectCSS();
+
     cacheElements();
     addThemeWrapperElement();
 }
@@ -103,7 +105,7 @@ function cacheElements() {
 
 function injectCSS(styles) {
     const style = document.createElement('style');
-    style.setAttribute('data-lt-style', 'true');
+    style.setAttribute('data-lt-style', 'LT Theme NextGen');
     style.textContent = styles;
     document.head.appendChild(style);
 }

@@ -1,4 +1,3 @@
-/* eslint-disable */
 export const styles = `
 
     /* Learnosity theme nextGen styles */

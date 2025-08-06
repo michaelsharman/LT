@@ -368,12 +368,12 @@ function injectCSS() {
 /* Learnosity white noise player styles */
 ${root} {
     --lt-wn-border: #888888;
-    --lt-wn-border-radius: 10px;
+    --lt-wn-border-radius: 8px;
     --lt-wn-color: #333333;
-    --lt-wn-svg-size: 4rem;
-    --lt-wn-control-svg-size: 1.5rem;
-    --lt-wn-range-size: 15rem;
-    --lt-wn-min-height: 19rem;
+    --lt-wn-svg-size: 4.5em;
+    --lt-wn-control-svg-size: 2em;
+    --lt-wn-range-size: 19em;
+    --lt-wn-min-height: 23em;
 }
 
 @container (max-width: 300px) {
@@ -397,7 +397,7 @@ ${root} {
     container-type: size;
     background-color: #fff;
     width: 100%;
-    max-width: 30rem;
+    max-width: 45em;
     min-height: var(--lt-wn-min-height);
     border: 1px solid #dddddd;
     border-radius: var(--lt-wn-border-radius);

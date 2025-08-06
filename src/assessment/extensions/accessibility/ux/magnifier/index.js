@@ -15,7 +15,7 @@ import logger from '../../../../../utils/logger.js';
  * TODO:
  *  - make movable via keyboard
  *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/magnifier.png" alt="" width="800"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/magnifier.png" alt="" width="800"></p>
  * @module Extensions/Assessment/magnifier
  */
 
@@ -387,7 +387,8 @@ function HTMLMagnifier(options) {
         const div = document.createElement('div');
         div.innerHTML = magnifierTemplate;
         magnifier = div.querySelector('.magnifier');
-        document.body.appendChild(magnifier);
+        const elPlayer = document.querySelector('.lrn-assess');
+        elPlayer.appendChild(magnifier);
         magnifierContent = magnifier.querySelector('.magnifier-content');
         if (window.addEventListener) {
             window.addEventListener('resize', syncContent, false);

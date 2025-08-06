@@ -10,7 +10,7 @@ import logger from '../../../../../utils/logger';
  * The reading mask is a semi-transparent overlay that highlights the area around the mouse cursor,
  * allowing users to read text more easily without distractions.
  * It can be toggled on and off, and it updates its position based on mouse movements
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/readingMask/mask.png" alt="Reading Mask feature" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/readingMask/mask.png" alt="Reading Mask feature" width="900"></p>
  * @module Extensions/Assessment/readingMask
  */
 
@@ -69,7 +69,8 @@ function createReadingMask() {
     readingMask.classList.add('lt__reading-mask');
     readingMask.hidden = true; // Off (hidden) by default
 
-    document.body.appendChild(readingMask);
+    const elPlayer = document.querySelector('.lrn-assess');
+    elPlayer.appendChild(readingMask);
 
     state.readingMask = readingMask;
 }

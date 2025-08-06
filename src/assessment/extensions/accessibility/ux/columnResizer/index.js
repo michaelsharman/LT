@@ -1,3 +1,4 @@
+import { region } from '../../../../core/activity.js';
 import { appInstance } from '../../../../core/app.js';
 import { itemElement } from '../../../../core/items.js';
 
@@ -7,9 +8,12 @@ import { itemElement } from '../../../../core/items.js';
  *
  * --
  *
- * Adds a UI border in between the left and right columns (for
+ * Adds a UI divider in between the left and right columns (for
  * items with 2 columns) providing the ability for the end user
  * to resize the layout by dragging the element left or right.
+ *
+ * The tooltip provides instructions on how to use the resizer.
+ * The resizer is not available for the `horizontal-fixed` region.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/columnResize/resize.gif" alt="" width="900"></p>
  * @module Extensions/Assessment/columnResizer
  */
@@ -64,22 +68,35 @@ function setupResizer() {
     const hasResizer = Boolean(elItem.querySelector('.lt__resizer'));
     const isResponsiveMode = Boolean(document.querySelector('.lrn-layout-single-column'));
 
-    // Only add the resizable UI if we have 2 columns
+    // Only add the resizable UI if we have 2 columns, not in responsive mode, and no resizer exists.
     if (elColumns.length === 2) {
         if (!isResponsiveMode && !hasResizer) {
+            const helpId = randomId();
             const elResizer = document.createElement('div');
-            elResizer.setAttribute('tooltip', 'Click and hold to drag column width');
-            // elResizer.setAttribute('tabindex', '0');
+            elResizer.classList.add('lt__resizer');
+            elResizer.setAttribute('role', 'separator');
+            elResizer.setAttribute('aria-orientation', 'horizontal');
+            elResizer.setAttribute('aria-pressed', 'false');
+            elResizer.setAttribute('aria-label', 'Resize columns');
+            elResizer.setAttribute('aria-describedby', `lt__helpText-${helpId}`);
+
             const elTab = document.createElement('span');
-            elTab.classList.add('lt__resizer-tab');
+            elTab.classList.add('lt__resizer-tab', 'lt__tooltip');
+            elTab.setAttribute('data-tooltip', 'Click and hold to drag column width');
+            elTab.setAttribute('tabindex', '0');
             elTab.innerHTML =
                 '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip-vertical-icon lucide-grip-vertical"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg>';
 
-            elResizer.classList.add('lt__resizer');
-            elColumns[0].classList.add('lrn-column-left');
-            elColumns[1].classList.add('lrn-column-right');
+            const elHelpText = document.createElement('span');
+            elHelpText.classList.add('sr-only');
+            elHelpText.setAttribute('id', `lt__helpText-${helpId}`);
+            elHelpText.textContent = 'Press space to activate resize mode. Then use arrow keys to adjust the panel width. Press space again to finish.';
+
+            elColumns[0].classList.add('lt__column-left');
+            elColumns[1].classList.add('lt__column-right');
 
             elResizer.append(elTab);
+            elResizer.append(elHelpText);
             elColumns[0].after(elResizer);
         } else if (isResponsiveMode && hasResizer) {
             clearResizer(elItem, elColumns);
@@ -200,11 +217,6 @@ function doResize(elItem) {
 
     const elResizer = elItem.querySelector('.lt__resizer');
     if (elResizer) {
-        elResizer.setAttribute('tabindex', '0');
-        elResizer.setAttribute('role', 'separator');
-        elResizer.setAttribute('aria-orientation', 'horizontal');
-        elResizer.setAttribute('aria-pressed', 'false');
-        elResizer.setAttribute('aria-label', 'Resize panel');
         resizable(elResizer);
     }
 }
@@ -232,13 +244,23 @@ function debounce(func, wait) {
 }
 
 /**
+ * Generates a random ID for the help text element.
+ * @returns {string} Random ID string
+ * @since 3.0.0
+ * @ignore
+ */
+function randomId() {
+    return crypto.getRandomValues(new Uint32Array(1))[0].toString(36);
+}
+
+/**
  * Injects the necessary CSS to the header
  * @since 0.5.0
  * @ignore
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    const css = `
+    let css = `
 /* Learnosity column resizer styles */
 .lt__resizer {
     background-color: #e8e8e8;
@@ -246,78 +268,137 @@ function injectCSS() {
     padding: 0;
     position: relative;
     outline: none;
-}
-.lt__resizer .lt__resizer-tab {
-    position: relative;
-    width: 45px;
-    height: 30px;
-    border: 1px solid #e4e4e4;
-    left: -21px;
-    top: -2px;
-    border-radius: 3px;
-    cursor: col-resize;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 1.5em;
-    z-index: 2;
-    padding-bottom: 4px;
-    color: #444;
-    -webkit-user-select: none;
-    user-select: none;
-    background: linear-gradient(0deg, rgba(245,245,245,1) 0%, rgba(250,250,250,1) 51%, rgba(245,245,245,1) 100%);
 
-    svg {
-        width: 18px;
-        height: 18px;
-        top: 2px;
-        position: relative;
+    &:hover {
+        background-color: rgba(0, 0, 0, 0.05);
     }
-}
-.lt__resizer:focus {
-    background-color: rgba(0, 123, 255, 0.1);
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
-}
 
-.lt__resizer:hover {
-    background-color: rgba(0, 0, 0, 0.05);
-}
-
-.lt__resizer[aria-pressed="true"] {
-    background-color: rgba(0, 123, 255, 0.2);
+    &[aria-pressed='true'] {
+        background-color: rgba(0, 123, 255, 0.2);
+        box-shadow:
+            0 0 0 2px rgba(0, 123, 255, 0.5),
+            0 0 0 2px rgba(0, 123, 255, 0.2);
+    }
 
     .lt__resizer-tab {
-        box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.5);
+        position: relative;
+        width: 45px;
+        height: 30px;
+        border: 1px solid #e4e4e4;
+        left: -21px;
+        top: -2px;
+        border-radius: 3px;
+        cursor: col-resize;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5em;
+        z-index: 2;
+        padding-bottom: 4px;
+        color: #444;
+        -webkit-user-select: none;
+        user-select: none;
+        background: linear-gradient(0deg, rgba(245,245,245,1) 0%, rgba(250,250,250,1) 51%, rgba(245,245,245,1) 100%);
+
+        svg {
+            width: 18px;
+            height: 18px;
+            top: 2px;
+            position: relative;
+        }
     }
 }
+
+.lt__resizer[aria-pressed='true'] .lt__resizer-tab:focus {
+  background-color: rgba(0, 123, 255, 0.25);
+  box-shadow:
+    0 0 0 2px rgba(0, 123, 255, 0.5),
+    0 0 0 4px rgba(0, 123, 255, 0.2);
+}
+
 .row {
     display: flex;
 }
-.col-xs-6.lrn-column-left {
-    display: flex;
-    flex-direction: column;
-    min-width: 5em;
-    overflow: hidden;
-}
-.col-xs-6.lrn-column-right {
-    display: flex;
 
-    flex: 1;
+[class*="col-xs-"].lt__column-left,
+[class*="col-xs-"].lt__column-right {
     display: flex;
     flex-direction: column;
     min-width: 5em;
-    overflow: hidden;
+    overflow: auto;
 }
-.lrn-column-left .lrn_widget,
-.lrn-column-right .lrn_widget {
-    padding: 1.5em;
+
+[class*="col-xs-"].lt__column-right {
+    flex: 1;
 }
-@media (max-width: 650px) {
+
+.lt__column-left .lrn_widget {
+    padding-right: 0.75em;
+}
+.lt__column-right .lrn_widget {
+    padding-left: 0.75em;
+}
+
+.lrn-layout-single-column {
     .lt__resizer {
+        all: unset;
         display: none;
+    }
+
+    .lt__column-left .lrn_widget,
+    .lt__column-right .lrn_widget {
+        padding: 0;
     }
 }
 `;
+
+    if (region() !== 'horizontal-fixed') {
+        css += `
+            .lt__resizer:not(:is(.lrn-fullscreen *)) {
+                .lt__tooltip {
+                    &::before,
+                    &::after {
+                        opacity: 0;
+                        pointer-events: none;
+                        transition: opacity 0.2s ease-in 0.2s, visibility 0s linear 0.2s;
+                        visibility: hidden;
+                        z-index: 10;
+                        }
+
+                    &::before {
+                        box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+                        content: attr(data-tooltip);
+                        position: absolute;
+                        bottom: 140%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        background: #4d4d4d;
+                        color: #fff;
+                        padding: 10px 30px;
+                        border-radius: 4px;
+                        white-space: nowrap;
+                        font-size: 14px;
+                    }
+
+                    &::after {
+                        content: '';
+                        position: absolute;
+                        bottom: 105%;
+                        left: 50%;
+                        transform: translateX(-50%);
+                        border: 6px solid transparent;
+                        border-top-color: #4d4d4d;
+                    }
+
+                    &:is(:hover, :focus)::before,
+                    &:is(:hover, :focus)::after {
+                        opacity: 1;
+                        visibility: visible;
+                    }
+                }
+            }
+        `;
+    }
 
     elStyle.setAttribute('data-style', 'LT Column Resizer');
     elStyle.textContent = css;

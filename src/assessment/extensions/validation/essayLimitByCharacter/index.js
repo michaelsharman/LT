@@ -1,10 +1,10 @@
-import * as app from '../../../core/app.js';
+import { appInstance, assessApp } from '../../../core/app.js';
 import logger from '../../../../utils/logger.js';
-import * as activity from '../../../core/activity.js';
-import * as player from '../../../core/player.js';
-import * as items from '../../../core/items.js';
-import * as questions from '../../../core/questions.js';
-import * as entities from 'entities';
+import { activity, isResuming, region } from '../../../core/activity.js';
+import { dialog, hideDialog, isResponsiveMode } from '../../../core/player.js';
+import { isLastItem, itemByResponseId } from '../../../core/items.js';
+import { questionInstance } from '../../../core/questions.js';
+import { decodeHTML } from 'entities';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -213,7 +213,7 @@ export function run(includeSpaces = false) {
     setQuestionListeners();
 
     // Set up a listener on item load to check Finish button state
-    app.appInstance().on('item:load', () => {
+    appInstance().on('item:load', () => {
         setSubmitButtonState();
     });
 
@@ -234,19 +234,18 @@ export function run(includeSpaces = false) {
  * @ignore
  */
 function setQuestionListeners() {
-    const appInstance = app.appInstance();
-    const questions = Object.values(appInstance.getQuestions());
+    const itemQuestions = Object.values(appInstance().getQuestions());
 
-    questions
+    itemQuestions
         .filter(question => state.validTypes.includes(question.type))
         .forEach(question => {
-            const questionInstance = appInstance.question(question.response_id);
+            const questionInstance = appInstance().question(question.response_id);
 
             questionInstance.on('rendered', () => {
                 setupEssayValidationUI(questionInstance);
 
                 // Check on load for existing responses
-                if (activity.isResuming()) {
+                if (isResuming()) {
                     checkLimit(questionInstance);
                 }
             });
@@ -277,7 +276,7 @@ function checkLimit(questionInstance, setUI = true) {
         strLength = response.length;
     } else {
         response = state.includeSpaces ? stripHtml(rawResponse) : stripSpaces(stripHtml(rawResponse));
-        strLength = entities.decodeHTML(response).length;
+        strLength = decodeHTML(response).length;
     }
 
     if (maxLength) {
@@ -310,7 +309,7 @@ function setValidationUI(questionInstance, isValid, strLength) {
     const elLengthIndicator = elContainer.querySelector('.lrn_length_indicator');
     const warningClassIndicator = 'lrn_wordcount_warning_label';
     const warningClassEditor = 'lrn_wordcount_warning';
-    let characterCount = strLength;
+    let characterCount = String(strLength);
 
     if (questionInstance.getQuestion().type === 'plaintext') {
         characterCount = strLength + ' /';
@@ -341,7 +340,7 @@ function setValidationUI(questionInstance, isValid, strLength) {
  * @ignore
  */
 function setupEssayValidationUI(questionInstance) {
-    const hasLabelBundle = activity.activity()?.config?.questions_api_init_options?.labelBundle?.wordLength;
+    const hasLabelBundle = activity()?.config?.questions_api_init_options?.labelBundle?.wordLength;
 
     if (!hasLabelBundle) {
         const id = questionInstance.getQuestion().response_id;
@@ -368,7 +367,7 @@ function setupSubmitPrevention() {
     if (elCustomSubmit) {
         elCustomSubmit.addEventListener('click', checkValidResponses);
 
-        app.appInstance().on('test:panel:shown', () => {
+        appInstance().on('test:panel:shown', () => {
             const elReviewSubmit = document.querySelector('.panel-footer .test-submit');
             if (elReviewSubmit) {
                 elReviewSubmit.addEventListener('click', checkValidResponses);
@@ -389,12 +388,12 @@ function setupSubmitPrevention() {
  * @ignore
  */
 function checkValidResponses(e) {
-    const sessionQuestions = app.appInstance().getQuestions();
+    const sessionQuestions = appInstance().getQuestions();
     const invalidResponseIds = [];
 
     for (const q in sessionQuestions) {
         if (state.validTypes.includes(sessionQuestions[q].type)) {
-            if (!sessionQuestions[q]?.submit_over_limit && !checkLimit(questions.questionInstance(q), false)) {
+            if (!sessionQuestions[q]?.submit_over_limit && !checkLimit(questionInstance(q), false)) {
                 invalidResponseIds.push(q);
             }
         }
@@ -407,7 +406,7 @@ function checkValidResponses(e) {
 
         const itemReferences = [];
         for (let i = 0; i < invalidResponseIds.length; i++) {
-            const temp = items.itemByResponseId(invalidResponseIds[i]);
+            const temp = itemByResponseId(invalidResponseIds[i]);
             if (temp) {
                 itemReferences.push(temp.source.reference);
             }
@@ -432,11 +431,11 @@ function setSubmitButtonState() {
     const elDefaultSubmit = document.querySelector('.test-submit.item-next');
     const elCustomSubmit = document.querySelector('.custom_btn.item-next');
 
-    if (elCustomSubmit && !player.isResponsiveMode()) {
-        if (!items.isLastItem()) {
+    if (elCustomSubmit && !isResponsiveMode()) {
+        if (!isLastItem()) {
             elCustomSubmit.classList.add('hidden');
         } else {
-            if (hasReviewScreenOnFinish() && activity.region()) {
+            if (hasReviewScreenOnFinish() && region()) {
                 elCustomSubmit.classList.add('hidden');
             } else {
                 elDefaultSubmit.classList.add('hidden');
@@ -457,7 +456,7 @@ function setSubmitButtonState() {
  */
 function hasReviewScreenOnFinish() {
     const hasReviewElement = document.querySelector('.review-screen');
-    const isDecoupled = activity.activity()?.config?.configuration?.decouple_submit_from_review;
+    const isDecoupled = activity()?.config?.configuration?.decouple_submit_from_review;
 
     if (!hasReviewElement || isDecoupled) {
         return false;
@@ -478,12 +477,11 @@ function hasReviewScreenOnFinish() {
  */
 function loadErrorDialog(itemReferences) {
     const labels = {
-        question: activity.activity()?.config?.labelBundle?.question || 'Question',
-        submitTest: activity.activity()?.config?.labelBundle?.submitTest || 'Submit activity',
-        decline: activity.activity()?.config?.labelBundle?.decline || 'Cancel',
+        question: activity()?.config?.labelBundle?.question || 'Question',
+        submitTest: activity()?.config?.labelBundle?.submitTest || 'Submit activity',
+        decline: activity()?.config?.labelBundle?.decline || 'Cancel',
         invalidQuestionsMessage:
-            activity.activity()?.config?.labelBundle?.invalidQuestionsMessage ||
-            'The following questions are not currently valid. Please follow the links to review',
+            activity()?.config?.labelBundle?.invalidQuestionsMessage || 'The following questions are not currently valid. Please follow the links to review',
     };
     let template = `
         <p>${labels.invalidQuestionsMessage}</p>
@@ -496,26 +494,26 @@ function loadErrorDialog(itemReferences) {
 
     template += '</ul>';
 
-    app.assessApp().on('button:btn_essay_character_limit_cancel:clicked', () => {
-        player.hideDialog();
+    assessApp().on('button:btn_essay_character_limit_cancel:clicked', () => {
+        hideDialog();
     });
 
-    app.appInstance().on('test:panel:show', () => {
+    appInstance().on('test:panel:show', () => {
         setTimeout(() => {
             const elLinks = document.querySelectorAll('.essay-limit-character-item');
             if (elLinks) {
                 elLinks.forEach(el => {
                     const itemReference = el.getAttribute('data-item-reference');
                     el.addEventListener('click', () => {
-                        app.appInstance().items().goto(itemReference);
-                        player.hideDialog();
+                        appInstance().items().goto(itemReference);
+                        hideDialog();
                     });
                 });
             }
         }, 500);
     });
 
-    player.dialog({
+    dialog({
         header: labels.submitTest,
         body: template,
         buttons: [
@@ -558,7 +556,7 @@ function submit() {
             },
         };
 
-        app.appInstance().submit(settings);
+        appInstance().submit(settings);
     }
 }
 
