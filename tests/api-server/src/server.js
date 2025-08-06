@@ -4,7 +4,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import * as signature from './signature.js';
-import { log } from 'console';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -27,6 +26,10 @@ app.use('/src', (req, res, next) => {
     } else {
         next();
     }
+});
+
+app.get('/favicon.ico', (req, res) => {
+    res.status(204).end(); // No Content
 });
 
 app.get('/itemsapi', (req, res) => {

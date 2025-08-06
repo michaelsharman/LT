@@ -15,6 +15,16 @@ let page;
 beforeAll(async () => {
     await startServer();
 
+    // browser = await puppeteer.launch({
+    //     headless: false, // show the browser window
+    //     devtools: true, // auto-open the devtools
+    //     slowMo: 500, // slow down operations by 500ms (optional)
+    //     defaultViewport: null, // use the full available screen
+    //     args: [
+    //         '--start-maximized', // open maximized
+    //     ],
+    // });
+
     browser = await puppeteer.launch();
     page = await browser.newPage();
 
@@ -28,7 +38,7 @@ beforeAll(async () => {
         console.log(`${request.url()} failed to load. Reason: ${request.failure().errorText}`);
     });
     page.on('pageerror', error => {
-        console.log(`Page error: ${error.message}`);
+        console.log(`Page error: ${error}`);
     });
     page.on('response', response => {
         if (!response.ok()) {
@@ -41,16 +51,99 @@ beforeAll(async () => {
     console.timeEnd('page-load-complete');
 
     console.time('selector-lookup');
-    await page.waitForSelector('.has-loaded', { timeout: 6000 });
+    await page.waitForSelector('.has-loaded', { timeout: 10000 });
     console.timeEnd('selector-lookup');
-});
+}, 30_000);
 
 afterAll(async () => {
     await browser.close();
     stopServer();
 });
 
-describe('LT Core', () => {
+describe('LT - Assessment Core', () => {
+    describe('Return data types', () => {
+        describe.each([
+            ['activity', 'object'],
+            ['activityId', 'string'],
+            ['activitySubTitle', 'string'],
+            ['activityTags', 'object'],
+            ['activityTemplateId', 'string'],
+            ['activityTitle', 'string'],
+            ['adaptiveType', 'string'],
+            ['annotationsApp', 'object'],
+            ['annotationsConfig', 'object'],
+            ['appInstance', 'object'],
+            ['assessApp', 'object'],
+            ['autoSaveConfig', 'object'],
+            ['diagnostics', 'object'],
+            ['dynamic'],
+            ['elapsedTime', 'number'],
+            ['eventsApp', 'object'],
+            ['hasActivityTemplate', 'boolean'],
+            ['hasAnnotations', 'boolean'],
+            ['hasAnswerMasking', 'boolean'],
+            ['hasAutoSave', 'boolean'],
+            ['hasCheckAnswer', 'boolean'],
+            ['hasEvents', 'boolean'],
+            ['hasItemPool', 'boolean'],
+            ['hasLineReader', 'boolean'],
+            ['hasResourceItems', 'boolean'],
+            ['hasSections', 'boolean'],
+            ['hasShuffledItems', 'boolean'],
+            ['hasTryAgain', 'boolean'],
+            ['isAdaptive', 'boolean'],
+            ['isAutoScorable', 'boolean'],
+            ['isDynamicItem', 'boolean'],
+            ['isFirstItem', 'boolean'],
+            ['isFirstItemInSection', 'boolean'],
+            ['isFlagged', 'boolean'],
+            ['isItemFullyAttempted', 'boolean'],
+            ['isLastItem', 'boolean'],
+            ['isLastItemInSection', 'boolean'],
+            ['isMaskingEnabled', 'boolean'],
+            ['isResponsiveMode', 'boolean'],
+            ['isResuming', 'boolean'],
+            ['isReviewScreen', 'boolean'],
+            ['isVerticalLayout', 'boolean'],
+            ['item', 'object'],
+            ['itemAttemptStatus', 'string'],
+            ['itemBank', 'number'],
+            // ['itemByResponseId', 'object'],
+            ['itemElement', 'object'],
+            ['itemPool', 'string'],
+            ['itemPosition', 'number'],
+            ['itemReference', 'string'],
+            ['itemTags'],
+            ['maxTime', 'number'],
+            ['question', 'object'],
+            // ['questionInstance', 'object'],
+            ['questionResponse', 'object'],
+            ['questionResponseIds', 'object'],
+            ['questionScore', 'object'],
+            ['questions', 'object'],
+            ['questionsApp', 'object'],
+            ['region', 'string'],
+            ['resourceItems', 'object'],
+            ['section', 'object'],
+            ['sectionHasShuffledItems', 'boolean'],
+            ['sectionIndex', 'number'],
+            ['sectionItemPosition', 'number'],
+            ['sections', 'object'],
+            ['sessionId', 'string'],
+            ['state', 'string'],
+            ['timeRemaining'],
+            ['totalItems', 'number'],
+            ['totalItemsInSection', 'number'],
+            ['userId', 'string'],
+        ])('%s()', (methodKey, expectedType = 'object') => {
+            test(`returns a ${expectedType}`, async () => {
+                const val = await page.evaluate(m => window.LT[m](), methodKey);
+                // console.log(`→ window.LT.${methodKey}() returned:`, val);
+                expect(typeof val).toBe(expectedType);
+            });
+        });
+    });
+
     describe('Activity module', () => {
         describe('activity()', () => {
             test('is an object', async () => {

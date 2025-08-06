@@ -1,4 +1,4 @@
-import { LT } from './src/assessment/core.js';
+import { LT } from './dist/assessment/core.js';
 
 window.launch = function (app) {
     LT.init(app);

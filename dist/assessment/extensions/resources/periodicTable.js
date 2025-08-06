@@ -1,5 +1,5 @@
-import { k as v } from "../../../app-Cwqt7Ekx.js";
-import { d as a, h as e } from "../../../player-BoYE2lT6.js";
+import { k as v } from "../../../app-C0Ni2tF_.js";
+import { d as a, h as e } from "../../../player-D6ARyL5B.js";
 const l = {
   message: {
     header: "Periodic Table of Elements",
