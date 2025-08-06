@@ -79,6 +79,16 @@ export function hideDialog() {
 }
 
 /**
+ * Checks whether the player is in fullscreen mode.
+ * @since 3.0.0
+ * @returns {boolean}
+ */
+export function isFullscreen() {
+    const elPlayer = document.querySelector('.lrn-assess');
+    return elPlayer?.classList.contains('lrn-fullscreen') ?? false;
+}
+
+/**
  * Checks whether the player is in responsive mode. This will be either the
  * small or medium breakpoints. See more https://help.learnosity.com/hc/en-us/articles/360000758337-Customizing-the-Assessment-Player-experience-with-User-Interface-Regions#responsive-behavior
  * @since 1.2.0
@@ -94,15 +104,10 @@ export function isResponsiveMode() {
  * @returns {boolean}
  */
 export function isReviewScreen() {
-    let loaded = false;
-    // The API event fires when loading the panel. We need a delay to
-    // detect that this particular panel has loaded.
-    setTimeout(() => {
-        if (document.getElementsByClassName('review-screen')[0].getAttribute('aria-hidden') === null) {
-            loaded = true;
-        }
-        return loaded;
-    }, 500);
+    if (document.getElementsByClassName('review-screen')[0].getAttribute('aria-hidden') === null) {
+        return true;
+    }
+    return false;
 }
 
 /**
