@@ -4,17 +4,6 @@ import fs from 'fs';
 import path from 'path';
 import pkg from './package.json' assert { type: 'json' };
 
-const writeVersionFile = () => ({
-    name: 'write-version',
-    buildStart() {
-        const versionOut = path.resolve(__dirname, 'dist/version.js');
-        const versionString = `export const version = '${pkg.version}';\n`;
-        if (!fs.existsSync(versionOut) || fs.readFileSync(versionOut, 'utf8') !== versionString) {
-            fs.writeFileSync(versionOut, versionString);
-        }
-    },
-});
-
 const manualEntries = {
     'assessment/core': 'src/assessment/core.js',
     'assessment/bundle': 'src/assessment/bundle.js',
@@ -88,11 +77,10 @@ export default defineConfig(({ command }) => {
                 treeshake: true,
             },
         },
-        plugins: [
-            writeVersionFile(),
-            ...(isTrace ? [traceModuleAnalysis()] : []),
-            ...(isStats ? [visualizer({ open: true, filename: 'dist/stats.html' })] : []),
-        ],
+        define: {
+            __LT_VERSION__: JSON.stringify(pkg.version),
+        },
+        plugins: [...(isTrace ? [traceModuleAnalysis()] : []), ...(isStats ? [visualizer({ open: true, filename: 'dist/stats.html' })] : [])],
     };
 });
 

@@ -15,7 +15,6 @@ import {
     userId,
 } from './activity.js';
 import logger from '../../utils/logger.js';
-import { version } from '../../../dist/version.js';
 
 /**
  * Diagnostic/metadata information for Items API.
@@ -123,7 +122,7 @@ export function diagnostics() {
             user: userId(),
         },
         LT: {
-            version: version,
+            version: typeof __LT_VERSION__ !== 'undefined' ? __LT_VERSION__ : 'development',
         },
         versions: v,
     };

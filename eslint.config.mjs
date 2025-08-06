@@ -1,6 +1,6 @@
 import globals from 'globals';
 import js from '@eslint/js';
-import stylistic from '@stylistic/eslint-plugin-js';
+import stylistic from '@stylistic/eslint-plugin';
 
 export default [
     js.configs.recommended,
@@ -8,7 +8,10 @@ export default [
         languageOptions: {
             ecmaVersion: 2022,
             sourceType: 'module',
-            globals: globals.browser,
+            globals: {
+                ...globals.browser,
+                __LT_VERSION__: 'readonly',
+            },
         },
         plugins: {
             '@stylistic/js': stylistic,

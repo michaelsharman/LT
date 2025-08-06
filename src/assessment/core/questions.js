@@ -81,13 +81,9 @@ export function question(response_id) {
  * @returns {object} A question app instance.
  */
 export function questionInstance(response_id) {
-    const id = response_id ? response_id : questionResponseIds()[0];
+    const id = response_id ?? questionResponseIds()[0];
 
-    if (id) {
-        return appInstance().question(id);
-    } else {
-        return {};
-    }
+    return id ? appInstance().question(id) : {};
 }
 
 /**

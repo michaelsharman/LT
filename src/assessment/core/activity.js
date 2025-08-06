@@ -37,31 +37,12 @@ export function activityId() {
 }
 
 /**
- * The `activity_template_id` if templates are used.
- * Returns '' if templates aren't being used.
- * @since 0.1.0
- * @returns {string}
- */
-export function activityTemplateId() {
-    return activity().activity_template_id;
-}
-
-/**
- * The visible title from the configuration object.
- * @since 0.1.0
- * @returns {string}
- */
-export function activityTitle() {
-    return activity().config.title;
-}
-
-/**
  * The visible subtitle from the configuration object.
  * @since 0.1.0
  * @returns {string}
  */
 export function activitySubTitle() {
-    return activity().config.subtitle;
+    return activity().config?.subtitle ?? '';
 }
 
 /**
@@ -72,7 +53,26 @@ export function activitySubTitle() {
  * @returns {array}
  */
 export function activityTags() {
-    return appInstance().getTags();
+    return appInstance().getTags() ?? [];
+}
+
+/**
+ * The `activity_template_id` if templates are used.
+ * Returns '' if templates aren't being used.
+ * @since 0.1.0
+ * @returns {string}
+ */
+export function activityTemplateId() {
+    return activity()?.activity_template_id ?? '';
+}
+
+/**
+ * The visible title from the configuration object.
+ * @since 0.1.0
+ * @returns {string}
+ */
+export function activityTitle() {
+    return activity().config?.title ?? '';
 }
 
 /**
@@ -264,10 +264,10 @@ export function isVerticalLayout() {
 /**
  * The global `organisation_id` used for this activity instance.
  * @since 0.1.0
- * @returns {string}
+ * @returns {number|null}
  */
 export function itemBank() {
-    return activity()?.organisation_id;
+    return activity()?.organisation_id ?? null;
 }
 
 /**
@@ -276,7 +276,7 @@ export function itemBank() {
  * @returns {string}
  */
 export function itemPool() {
-    return activity()?.item_pool_id;
+    return activity()?.item_pool_id ?? '';
 }
 
 /**
@@ -305,7 +305,7 @@ export function maxTime() {
  * @returns {string}
  */
 export function region() {
-    return activity()?.config?.regions;
+    return activity()?.config?.regions ?? '';
 }
 
 /**
@@ -314,7 +314,7 @@ export function region() {
  * @returns {array}
  */
 export function resourceItems() {
-    return activity()?.config?.navigation?.resource_items;
+    return activity()?.config?.navigation?.resource_items ?? [];
 }
 
 /**

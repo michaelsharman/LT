@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "3.0.0-beta.5",
+    "version": "3.0.0-beta.6",
     "private": false,
     "type": "module",
     "description": "A utility library of helpers and extensions useful when working with Learnosity APIs.",
@@ -22,9 +22,11 @@
     "exports": {
         ".": null,
         "./assessment": "./dist/assessment/bundle.js",
+        "./assessment/bundle": "./dist/assessment/bundle.js",
         "./assessment/core": "./dist/assessment/core.js",
         "./assessment/extensions/*": "./dist/assessment/extensions/*",
         "./authoring": "./dist/authoring/bundle.js",
+        "./authoring/bundle": "./dist/authoring/bundle.js",
         "./authoring/core": "./dist/authoring/core.js",
         "./authoring/extensions/*": "./dist/authoring/extensions/*",
         "./logger": "./dist/logger.js"
@@ -66,7 +68,7 @@
         "@babel/core": "^7.26.10",
         "@babel/preset-env": "^7.26.9",
         "@eslint/js": "^9.24.0",
-        "@stylistic/eslint-plugin-js": "^4.2.0",
+        "@stylistic/eslint-plugin": "^5.2.2",
         "@types/jest": "^30.0.0",
         "babel-jest": "^30.0.0",
         "babel-loader": "^10.0.0",

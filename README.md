@@ -25,7 +25,7 @@ npm install @caspingus/lt
 
 ## Usage
 
-Depending on where you are, import either the assessment or authoring into your project. You can import `bundle` or `core` from both areas.
+Depending on where you are, import either the assessment or authoring into your project. You can import `core` or `bundle` from both areas.
 
 ## core vs bundle
 
@@ -33,17 +33,17 @@ Depending on where you are, import either the assessment or authoring into your 
 
 The `core` module contains the LT toolkit only, no extensions. This is the smallest file size (around 16kB for assessment and 3kB for authoring) and may be all you need.
 
-If you want 1 or 2 extensions, you can import them manually to keep the overall file size down.
+If you want 1 or 2 extensions, you should import them individually to keep the overall file size down.
 
 ```
 import { LT } from '@caspingus/lt/assessment/core';
 import * as columnResizer from '@caspingus/lt/assessment/extensions/columnResizer';
 ```
 
-The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 160kB for assessment and 1700kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
+The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 240kB for assessment and 1400kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
 
 ```
-import { LT } from '@caspingus/lt/assessment';
+import { LT } from '@caspingus/lt/assessment/bundle';
 ```
 
 ^^ Importing `bundle` puts all extensions in `LT.extensions`.
@@ -53,7 +53,7 @@ import { LT } from '@caspingus/lt/assessment';
 Everything is written using ES6 modules. By default we use `LT` as a variable for
 the toolkit. If you want to change this, use named imports.
 
-`LT` expects to be given the application instance in the `readyListener`, either Items API
+`LT` expects to be given the API application instance in the `readyListener`, either Items API
 or Author API. From there you can call any method you want off the `LT` object.
 
 ## Items API
@@ -62,6 +62,7 @@ or Author API. From there you can call any method you want off the `LT` object.
 // Declare and set your variable with the Items API LearnosityItems.init() method
 const itemsApp = LearnosityItems.init(signedConfigObject);
 
+// The rest of your API set-up code
 
 // Pass that app instance to the Toolkit constructor
 import { LT } from '@caspingus/lt/assessment/core';
@@ -77,7 +78,6 @@ LT.extensions = {
     renderPDF,
 };
 LT.extensions.renderPDF.run();
-
 
 // Optionally add to the global scope (handy for development)
 window.LT = LT;
@@ -104,11 +104,11 @@ LT.questionResponse();
 // Declare and set your variable with the Author API LearnosityItems.init() method
 const authorApp = LearnosityAuthor.init(signedConfigObject);
 
+// The rest of your API set-up code
 
 // Pass that app instance to the Toolkit constructor
 import { LT } from '@caspingus/lt/authoring/core';
 LT.init(authorApp);
-
 
 // Optionally add to the global scope (for development)
 window.LT = LT;
@@ -122,10 +122,6 @@ import { LT } from '@caspingus/lt/authoring/core';
 // Injects a route hash to the URI so SPAs can load to a deep view from a full page refresh.
 LT.routingHash();
 ```
-
-# Building
-
-You should import from `@caspingus/lt/authoring` and let your build tool handle minifying and tree shaking etc.
 
 # CDN
 

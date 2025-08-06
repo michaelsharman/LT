@@ -99,9 +99,9 @@ export function sectionIndex() {
 /**
  * The item position in the current section.
  *
- * Returns `null` if the activity isn't using sections.
+ * Returns `-1` if the activity isn't using sections.
  * @since 0.1.0
- * @returns {number|null}
+ * @returns {number}
  */
 export function sectionItemPosition() {
     const currentRef = itemReference();
@@ -109,7 +109,7 @@ export function sectionItemPosition() {
     let itemPos = 0;
 
     if (!Object.keys(currentSection).length) {
-        return null;
+        return -1;
     }
 
     for (let i = 0; i < currentSection.items.length; i++) {
@@ -129,20 +129,16 @@ export function sectionItemPosition() {
  * @returns {array}
  */
 export function sections() {
-    if (hasSections()) {
-        return activity().sections;
-    } else {
-        return [];
-    }
+    return activity()?.sections ?? [];
 }
 
 /**
  * The total number of items in the current section.
  *
- * Returns `null` if sections aren't being used.
+ * Returns `-1` if sections aren't being used.
  * @since 0.1.0
- * @returns {number|null}
+ * @returns {number}
  */
 export function totalItemsInSection() {
-    return section()?.items?.length || null;
+    return section()?.items?.length || -1;
 }
