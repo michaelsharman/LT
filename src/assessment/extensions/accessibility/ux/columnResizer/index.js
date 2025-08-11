@@ -36,7 +36,7 @@ const state = {
  * @since 0.5.0
  */
 export function run() {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     appInstance().on('item:load', () => {
         setupResizer();

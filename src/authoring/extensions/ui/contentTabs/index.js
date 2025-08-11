@@ -136,7 +136,7 @@ const state = {
  */
 export function run(options) {
     state.options = validateOptions(options);
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     // Inject class for specificity
     const elLrnApi = document.querySelector('.lrn-author');

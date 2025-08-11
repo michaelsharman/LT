@@ -32,7 +32,7 @@ const state = {
  * @since 0.9.0
  */
 export function run(customColor, customZIndex) {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     if (customColor && typeof customColor === 'string') {
         state.color = customColor;
@@ -59,6 +59,7 @@ export function run(customColor, customZIndex) {
  * Shows the blue light filter if it is currently hidden.
  * If the filter is already visible, it does nothing.
  * @since 3.0.0
+ * @returns {void}
  */
 export function show() {
     if (state.blueLightFilter?.hidden) {
@@ -70,6 +71,7 @@ export function show() {
  * Hides the blue light filter if it is currently visible.
  * If the filter is already hidden, it does nothing.
  * @since 3.0.0
+ * @returns {void}
  */
 export function hide() {
     if (!state.blueLightFilter?.hidden) {
@@ -79,8 +81,9 @@ export function hide() {
 
 /**
  * Shows or hides the blue light filter.
- * @returns {boolean} - Returns true if the blue light filter is currently visible, false otherwise.
+ * Returns true if the blue light filter is currently visible, false otherwise.
  * @since 3.0.0
+ * @returns {boolean}
  */
 export function toggle() {
     if (!state.blueLightFilter) {

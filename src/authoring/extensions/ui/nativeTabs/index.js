@@ -39,7 +39,7 @@ const state = {
  * @param {object=} options Override for `maxTabs` (value between 2 and 10). Default is 5.
  */
 export function run(options = {}) {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     overrideOptions(options);
 

@@ -1,6 +1,6 @@
-import { k as v } from "../../../app-C0Ni2tF_.js";
-import { d as a, h as e } from "../../../player-D6ARyL5B.js";
-const l = {
+import { k as v } from "../../../app-nM0lhDJq.js";
+import { d as a, h as e } from "../../../player-Ci5NZyjp.js";
+const i = {
   message: {
     header: "Periodic Table of Elements",
     body: t()
@@ -8,7 +8,7 @@ const l = {
   renderedCss: !1
 };
 function b(d) {
-  l.renderedCss || _(), d && d?.message && l.message?.header.length && (l.message.header = d.message.header);
+  i.renderedCss || (_(), i.renderedCss = !0), d && d?.message && i.message?.header.length && (i.message.header = d.message.header);
 }
 function t() {
   return `<div class="lt__resource-periodic-table">
@@ -1333,8 +1333,8 @@ function u(d = "dialog") {
 }
 function c() {
   a({
-    header: l.message.header,
-    body: l.message.body,
+    header: i.message.header,
+    body: i.message.body,
     buttons: [
       {
         button_id: "lt__resource-periodic-table-close",
@@ -1347,13 +1347,13 @@ function c() {
   });
 }
 function m() {
-  const d = _("get") + t(), i = new Blob([d], { type: "text/html" }), s = URL.createObjectURL(i);
+  const d = _("get") + t(), l = new Blob([d], { type: "text/html" }), s = URL.createObjectURL(l);
   window.open(s, "_blank").addEventListener("unload", () => {
     URL.revokeObjectURL(s);
   });
 }
 function _(d = "inject") {
-  const i = document.createElement("style"), s = `
+  const l = document.createElement("style"), s = `
 /* Periodic Table styles */
 .lt__resource-periodic-table {
     min-width: 1500px;
@@ -1531,10 +1531,10 @@ function _(d = "inject") {
     overflow: auto;
 }
 `;
-  if (i.setAttribute("data-style", "LT Resource - Periodic Table"), i.textContent = s, d === "inject")
-    document.head.append(i), l.renderedCss = !0;
+  if (l.setAttribute("data-style", "LT Resource - Periodic Table"), l.textContent = s, d === "inject")
+    document.head.append(l), i.renderedCss = !0;
   else if (d === "get")
-    return i.outerHTML;
+    return l.outerHTML;
 }
 export {
   t as getContents,

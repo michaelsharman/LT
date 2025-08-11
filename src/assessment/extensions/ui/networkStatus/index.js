@@ -41,7 +41,7 @@ const state = {
  * @since 2.12.0
  */
 export function run(options) {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     validateOptions(options);
 
@@ -102,8 +102,9 @@ function injectOfflineIndicator(elIndicator, wrapperClass, message) {
 
 /**
  * Checks for network connectivity using a HEAD request.
+ * The return promise resolves to true if the request is successful, false otherwise.
  * @since 2.12.0
- * @returns {promise} - Resolves to true if the request is successful, false otherwise.
+ * @returns {promise}
  */
 export async function checkConnection() {
     try {
@@ -120,8 +121,9 @@ export async function checkConnection() {
 
 /**
  * Checks the current download speed using the Network Information API.
+ * Returns the current download speed in Mbps or a message indicating that the API is not supported. Eg `10 Mbps`.
  * @since 2.25.0
- * @returns {string} - The current download speed in Mbps or a message indicating that the API is not supported. Eg `10 Mbps`.
+ * @returns {string}
  */
 export function checkSpeed() {
     if (navigator?.connection) {

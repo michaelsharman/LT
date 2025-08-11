@@ -71,7 +71,7 @@ const state = {
  * @since 2.13.0
  */
 export function run() {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     cacheElements();
     addThemeWrapperElement();

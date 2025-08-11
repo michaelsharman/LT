@@ -124,7 +124,7 @@ export function run(id, shadowRoot) {
     state.elementId = id || null;
     state.queryRoot = shadowRoot || document;
 
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     // Listener for an Items API custom button
     try {

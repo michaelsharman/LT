@@ -34,7 +34,7 @@ const state = {
  */
 export function run(options) {
     state.options = validateOptions(options);
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     app.appInstance().on('item:load', () => {
         const itemReference = items.itemReference();

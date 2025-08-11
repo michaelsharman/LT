@@ -49,7 +49,7 @@ export function run(customLabel, customTypes) {
         state.types = customTypes;
     }
 
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     appInstance().on('item:changed', setupResetUI);
 }

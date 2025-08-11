@@ -3,6 +3,7 @@ import { diagnostics } from '../core/diagnostics.js';
 /**
  * A utility object relating to Author API styling.
  * @module Utils/Styling
+ * @ignore
  */
 
 /**

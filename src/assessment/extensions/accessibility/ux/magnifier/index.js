@@ -66,6 +66,7 @@ export function run(options) {
  * Sets up listeners on custom buttons to toggle the magnifier.
  * @param {string} classname CSS class value of the element to launch the magnifier
  * @since 2.16.0
+ * @returns {void}
  */
 export function setupButtons(classname = 'lrn__magnifier') {
     const elButtons = document.querySelectorAll(`.${classname}`);
@@ -82,6 +83,7 @@ export function setupButtons(classname = 'lrn__magnifier') {
 /**
  * Toggle visibility of the magnifier.
  * @since 2.16.0
+ * @returns {void}
  */
 export function toggle() {
     state.magnifier.toggle();

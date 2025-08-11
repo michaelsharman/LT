@@ -59,7 +59,7 @@ export function run(mask = 'upperAlpha', suffix = '.', prefixes) {
         state.explicitPrefixes = prefixes;
     }
 
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     appInstance().on('item:changed', () => {
         addPrefix(questions());

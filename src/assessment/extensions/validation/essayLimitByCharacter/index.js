@@ -208,7 +208,7 @@ const state = {
 export function run(includeSpaces = false) {
     state.includeSpaces = Boolean(includeSpaces);
 
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     setQuestionListeners();
 

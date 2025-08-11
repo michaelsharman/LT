@@ -28,7 +28,7 @@ const state = {
  * @since 2.18.0
  */
 export function run() {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     // We need to wait for the UI to be ready
     setTimeout(() => {

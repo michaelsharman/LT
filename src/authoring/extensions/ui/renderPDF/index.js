@@ -29,7 +29,7 @@ const state = {
  * @since 2.2.0
  */
 export function run() {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     appInstance().on('widgetedit:widget:ready', () => {
         const elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');

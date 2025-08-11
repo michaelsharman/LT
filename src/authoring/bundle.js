@@ -14,6 +14,7 @@ import * as essayMaxLength from './extensions/validation/essayMaxLength/index.js
 import * as imageUploader from './extensions/ui/imageUploader/index.js';
 import * as languageTextDirection from './extensions/ui/languageTextDirection/index.js';
 import * as nativeTabs from './extensions/ui/nativeTabs/index.js';
+import * as requiredTags from './extensions/validation/requiredTags/index.js';
 import * as renderPDF from './extensions/ui/renderPDF/index.js';
 import * as singleQuestion from './extensions/validation/singleQuestion/index.js';
 
@@ -26,6 +27,7 @@ const extensions = {
         imageUploader: { ...imageUploader },
         languageTextDirection: { ...languageTextDirection },
         nativeTabs: { ...nativeTabs },
+        requiredTags: { ...requiredTags },
         renderPDF: { ...renderPDF },
         singleQuestion: { ...singleQuestion },
     },

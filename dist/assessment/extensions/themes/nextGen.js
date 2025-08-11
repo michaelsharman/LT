@@ -4,16 +4,16 @@ const n = {
   theme: "nextGen"
 };
 function l() {
-  s(), r(), a();
+  n.renderedCss || (a(), n.renderedCss = !0), s(), r();
 }
-function a() {
+function r() {
   const t = n.elements.apiWrapper, e = document.createElement("main");
   e.className = `lt__theme lt__theme-${n.theme}`, t.parentNode.insertBefore(e, t), e.appendChild(t);
 }
-function r() {
+function s() {
   n.elements.apiWrapper = document.querySelector(".lrn-assess");
 }
-function s(t) {
+function a(t) {
   const e = document.createElement("style");
   e.setAttribute("data-lt-style", "LT Theme NextGen"), e.textContent = t, document.head.appendChild(e);
 }

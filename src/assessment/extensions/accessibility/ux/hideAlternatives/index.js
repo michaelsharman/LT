@@ -152,7 +152,9 @@ function getCorrectAnswers(validation) {
  * Utility function to randomise an array with a seed.
  * @param {array} arr Array to randomise
  * @param {string} seed
+ * @since 0.3.0
  * @returns array
+ * @ignore
  */
 function shuffleArrayWithSeed(arr, seed) {
     const prng = seedrandom(seed);

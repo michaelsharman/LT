@@ -35,7 +35,7 @@ const state = {
  * @since 3.0.0
  */
 export function run(config) {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     if (config && config?.message) {
         if (state.message?.header.length) {

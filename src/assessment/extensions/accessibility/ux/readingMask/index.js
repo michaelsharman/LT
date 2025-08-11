@@ -10,7 +10,7 @@ import logger from '../../../../../utils/logger';
  * The reading mask is a semi-transparent overlay that highlights the area around the mouse cursor,
  * allowing users to read text more easily without distractions.
  * It can be toggled on and off, and it updates its position based on mouse movements
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/images/readingMask/mask.png" alt="Reading Mask feature" width="900"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/readingMask/mask.png" alt="Reading Mask feature" width="900"></p>
  * @module Extensions/Assessment/readingMask
  */
 
@@ -32,7 +32,7 @@ const state = {
  * @since 3.0.0
  */
 export function run() {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     if (!state.readingMask) {
         createReadingMask();
@@ -76,6 +76,55 @@ function createReadingMask() {
 }
 
 /**
+ * Hides the reading mask if it is currently visible.
+ * If the mask is already hidden, it does nothing.
+ * @since 3.0.0
+ * @returns {void}
+ */
+export function hide() {
+    if (!state.readingMask?.hidden) {
+        toggle(); // handles removing class
+    }
+}
+
+/**
+ * Shows the reading mask if it is currently hidden.
+ * If the mask is already visible, it does nothing.
+ * @since 3.0.0
+ * @returns {void}
+ */
+export function show() {
+    if (state.readingMask?.hidden) {
+        toggle(); // handles adding class
+    }
+}
+
+/**
+ * Shows or hides the reading mask.
+ * Returns true if the reading mask is currently visible, false otherwise.
+ * @since 3.0.0
+ * @returns {boolean}
+ */
+export function toggle() {
+    if (!state.readingMask) {
+        logger.warn('[ReadingMask] toggle() called before run()');
+        return;
+    }
+
+    const willBeVisible = state.readingMask.hidden;
+    state.readingMask.hidden = !willBeVisible;
+
+    if (willBeVisible) {
+        state.readingMask.classList.add('has-mask');
+        updateMask(state.mouse.y); // Apply mask immediately
+    } else {
+        state.readingMask.classList.remove('has-mask');
+    }
+
+    return willBeVisible;
+}
+
+/**
  * Moves the reading mask to the specified Y coordinate.
  * This function updates the mask's position based on the mouse Y coordinate.
  * It creates a linear gradient mask that covers the top and bottom of the viewport,
@@ -106,54 +155,6 @@ function updateMask(y) {
 
     state.readingMask.style.maskImage = maskStyle;
     state.readingMask.style.webkitMaskImage = maskStyle;
-}
-
-/**
- * Shows or hides the reading mask.
- * @returns {boolean} - Returns true if the reading mask is currently visible, false otherwise.
- * @since 3.0.0
- */
-export function toggle() {
-    if (!state.readingMask) {
-        logger.warn('[ReadingMask] toggle() called before run()');
-        return;
-    }
-
-    const willBeVisible = state.readingMask.hidden;
-    state.readingMask.hidden = !willBeVisible;
-
-    if (willBeVisible) {
-        state.readingMask.classList.add('has-mask');
-        updateMask(state.mouse.y); // Apply mask immediately
-    } else {
-        state.readingMask.classList.remove('has-mask');
-    }
-
-    return willBeVisible;
-}
-
-/**
- * Shows the reading mask if it is currently hidden.
- * If the mask is already visible, it does nothing.
- * @since 3.0.0
- * @returns {void}
- */
-export function show() {
-    if (state.readingMask?.hidden) {
-        toggle(); // handles adding class
-    }
-}
-
-/**
- * Hides the reading mask if it is currently visible.
- * If the mask is already hidden, it does nothing.
- * @since 3.0.0
- * @returns {void}
- */
-export function hide() {
-    if (!state.readingMask?.hidden) {
-        toggle(); // handles removing class
-    }
 }
 
 /**

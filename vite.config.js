@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import { visualizer } from 'rollup-plugin-visualizer';
-import fs from 'fs';
 import path from 'path';
 import pkg from './package.json' assert { type: 'json' };
 
@@ -39,6 +38,7 @@ const manualEntries = {
     'authoring/extensions/imageUploader': 'src/authoring/extensions/ui/imageUploader/index.js',
     'authoring/extensions/languageTextDirection': 'src/authoring/extensions/ui/languageTextDirection/index.js',
     'authoring/extensions/nativeTabs': 'src/authoring/extensions/ui/nativeTabs/index.js',
+    'authoring/extensions/requiredTags': 'src/authoring/extensions/validation/requiredTags/index.js',
     'authoring/extensions/renderPDF': 'src/authoring/extensions/ui/renderPDF/index.js',
     'authoring/extensions/singleQuestion': 'src/authoring/extensions/validation/singleQuestion/index.js',
     logger: 'src/utils/logger.js',

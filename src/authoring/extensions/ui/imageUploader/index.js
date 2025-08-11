@@ -140,7 +140,7 @@ const state = {
  * Default values are `0.7`, `1500`, and `1500` respectively.
  */
 export function run(security, request, options = {}) {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     state.upload.security = security;
     state.upload.request = request;

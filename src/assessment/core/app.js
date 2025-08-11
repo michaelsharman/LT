@@ -23,7 +23,7 @@ const state = {};
  * // Can be handy in the global scope for development
  * window.LT = LT;
  */
-export function init(app) {
+export async function init(app) {
     state.app = app;
     setupListeners();
 }

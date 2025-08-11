@@ -35,7 +35,7 @@ const state = {
  * @since 2.2.0
  */
 export function run() {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     app.appInstance().on('item:load', renderPDF);
 }

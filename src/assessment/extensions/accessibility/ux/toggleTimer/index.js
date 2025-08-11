@@ -57,7 +57,7 @@ export function run(showTimerLimit = 60) {
         state.elClock = state.elTimerWrapper.querySelector('.clock');
 
         if (elLrnResponsiveWrapper && state.elTimerWrapper) {
-            state.renderedCss || injectCSS();
+            state.renderedCss || (injectCSS(), (state.renderedCss = true));
             state._initialised = true;
 
             const timerDisplay = state.elTimerWrapper.querySelector('.timer');
@@ -108,6 +108,7 @@ export function run(showTimerLimit = 60) {
 /**
  * Toggles the timer visibility. Assumes run() has been called.
  * @since 2.6.0
+ * @returns {void}
  */
 export function toggle() {
     if (!state.elTimerWrapper) {

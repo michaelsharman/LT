@@ -119,7 +119,7 @@ const state = {
  * @since 2.0.0
  */
 export function run() {
-    state.renderedCss || injectCSS();
+    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 }
 
 /**
