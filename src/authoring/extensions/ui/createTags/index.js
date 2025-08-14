@@ -1,5 +1,6 @@
 import { appInstance } from '../../../core/app.js';
 import { debounce } from 'lodash-es';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -27,7 +28,7 @@ const state = {
  * LT.extensions.createTags.run();
  * @since 2.18.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     // We need to wait for the UI to be ready
@@ -195,3 +196,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const createTags = createModule('createTags', run);

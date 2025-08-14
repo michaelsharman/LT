@@ -1,8 +1,7 @@
-import "../../app-nM0lhDJq.js";
+import "../../app-DrpANbC0.js";
+import "../../moduleFactory-Ck7axszi.js";
 import "../../logger.js";
-import { r as p, s as a, t as e } from "../../index-s-YWaNQ8.js";
+import { a as t } from "../../index-CGIHWsGJ.js";
 export {
-  p as run,
-  a as setupButtons,
-  e as toggle
+  t as magnifier
 };

@@ -1,4 +1,5 @@
 import logger from '../../../../../utils/logger';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -31,7 +32,7 @@ const state = {
  * @param {number=} customZIndex A custom z-index value to use for the overlay. Defaults to 99999.
  * @since 0.9.0
  */
-export function run(customColor, customZIndex) {
+function run(customColor, customZIndex) {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     if (customColor && typeof customColor === 'string') {
@@ -61,7 +62,7 @@ export function run(customColor, customZIndex) {
  * @since 3.0.0
  * @returns {void}
  */
-export function show() {
+function show() {
     if (state.blueLightFilter?.hidden) {
         toggle(); // handles adding class
     }
@@ -73,7 +74,7 @@ export function show() {
  * @since 3.0.0
  * @returns {void}
  */
-export function hide() {
+function hide() {
     if (!state.blueLightFilter?.hidden) {
         toggle(); // handles removing class
     }
@@ -85,7 +86,7 @@ export function hide() {
  * @since 3.0.0
  * @returns {boolean}
  */
-export function toggle() {
+function toggle() {
     if (!state.blueLightFilter) {
         logger.warn('[BlueLightFilter] visibility called before run()');
         return;
@@ -121,3 +122,9 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const blueLightFilter = createModule('blueLightFilter', run, {
+    show,
+    hide,
+    toggle,
+});

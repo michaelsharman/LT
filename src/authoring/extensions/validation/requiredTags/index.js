@@ -1,4 +1,5 @@
 import { appInstance } from '../../../core/app.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 import logger from '../../../../utils/logger.js';
 
 /**
@@ -44,7 +45,7 @@ const state = {
  * ```
  * @since 3.0.0
  */
-export function run(options = {}) {
+function run(options = {}) {
     state.options = { ...state.options, ...options };
 
     // When we render an item, check whether it's new. If so, force the status to be unpublished.
@@ -289,3 +290,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const requiredTags = createModule('requiredTags', run);

@@ -1,5 +1,6 @@
 import * as app from '../../../core/app.js';
 import { hasCheckAnswer, questionInstance, questionResponseIds } from '../../../core/questions.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -21,7 +22,7 @@ import { hasCheckAnswer, questionInstance, questionResponseIds } from '../../../
  * LT.extensions.disableOnValidate.run();
  * @since 2.17.0
  */
-export function run() {
+function run() {
     app.appInstance().on('item:load', setup);
 }
 
@@ -44,3 +45,5 @@ function setup() {
         }
     }
 }
+
+export const disableOnValidate = createModule('disableOnValidate', run);

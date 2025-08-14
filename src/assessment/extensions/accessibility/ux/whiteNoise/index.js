@@ -1,5 +1,6 @@
 import { assessApp } from '../../../../core/app.js';
 import { dialog, hideDialog } from '../../../../core/player.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import logger from '../../../../../utils/logger.js';
 import { Howl, Howler } from 'howler';
 
@@ -120,7 +121,7 @@ const state = {
  * @param {string=} id Optional id of an element, or element, to render the player into
  * @param {object=} shadowRoot Optional A shadow root to render the player into
  */
-export function run(id, shadowRoot) {
+function run(id, shadowRoot) {
     state.elementId = id || null;
     state.queryRoot = shadowRoot || document;
 
@@ -148,7 +149,7 @@ export function run(id, shadowRoot) {
 
  * @since 2.7.0
  */
-export function launchPlayer() {
+function launchPlayer() {
     const content = playerTemplate();
 
     if (state.elementId && !state.shadowRoot) {
@@ -566,3 +567,7 @@ input[type="range"]:focus::-moz-range-thumb {
 
     state.renderedCss = true;
 }
+
+export const whiteNoise = createModule('whiteNoise', run, {
+    launchPlayer,
+});

@@ -1,5 +1,6 @@
 import { appInstance } from '../../../core/app.js';
 import { checkAppVersion } from '../../../utils/styling.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 import logger from '../../../../utils/logger.js';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
@@ -139,7 +140,7 @@ const state = {
  * @param {object=} options Override for `quality` (value between 0 and 1), `maxWidth` (number), and `maxHeight` (number).
  * Default values are `0.7`, `1500`, and `1500` respectively.
  */
-export function run(security, request, options = {}) {
+function run(security, request, options = {}) {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     state.upload.security = security;
@@ -738,3 +739,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const imageUploader = createModule('imageUploader', run);

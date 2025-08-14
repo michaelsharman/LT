@@ -1,5 +1,6 @@
-import "../../app-nM0lhDJq.js";
-import { r as p } from "../../index-CXj6N9FE.js";
+import "../../app-DrpANbC0.js";
+import "../../moduleFactory-Ck7axszi.js";
+import { a as p } from "../../index-BszK4Qby.js";
 export {
-  p as run
+  p as blockGrammarChecks
 };

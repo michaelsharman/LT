@@ -1,6 +1,5 @@
-import { a, c as n, r as o } from "../../index-WwONpkFZ.js";
+import "../../moduleFactory-Ck7axszi.js";
+import { a } from "../../index-DE-E8q8p.js";
 export {
-  a as checkConnection,
-  n as checkSpeed,
-  o as run
+  a as networkStatus
 };

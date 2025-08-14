@@ -1,5 +1,6 @@
 import * as app from '../../../core/app.js';
 import * as items from '../../../core/items.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -34,10 +35,10 @@ const state = {
  * LT.extensions.renderPDF.run();
  * @since 2.2.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
-    app.appInstance().on('item:load', renderPDF);
+    app.appInstance().on('item:load', doRenderPDF);
 }
 
 /**
@@ -45,7 +46,7 @@ export function run() {
  * @since 2.2.0
  * @ignore
  */
-function renderPDF() {
+function doRenderPDF() {
     const currentItemRef = items.itemReference();
     const elItem = document.querySelector(`.learnosity-item[data-reference="${currentItemRef}"]`);
     const resources = elItem.querySelectorAll('.lrn_widget .resource');
@@ -119,3 +120,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const renderPDF = createModule('renderPDF', run);

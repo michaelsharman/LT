@@ -1,6 +1,7 @@
-import "../../app-Cp7l631V.js";
+import "../../app-DSq6w2-y.js";
+import "../../moduleFactory-Ck7axszi.js";
 import "../../logger.js";
-import { r as t } from "../../index-BcQPgaet.js";
+import { a as m } from "../../index-D3aIfK5T.js";
 export {
-  t as run
+  m as nativeTabs
 };

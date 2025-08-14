@@ -1,5 +1,6 @@
 import { appInstance, questionsApp } from '../../../../core/app.js';
 import { questions } from '../../../../core/questions.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import logger from '../../../../../utils/logger.js';
 
 /**
@@ -41,7 +42,7 @@ const state = {
  * @param {array} type Which question types to support. `['*']` for all types.
  * @since 0.8.0
  */
-export function run(customLabel, customTypes) {
+function run(customLabel, customTypes) {
     if (customLabel && typeof customLabel === 'string') {
         state.label = customLabel;
     }
@@ -75,7 +76,7 @@ function setupResetUI() {
                     if (!elResetUI) {
                         elResponse.append(getResetUI());
                         elResetUI = elQuestion.querySelector(`.${state.class}`);
-                        elResetUI.addEventListener('click', resetResponse);
+                        elResetUI.addEventListener('click', doResetResponse);
                     }
                 } else {
                     logger.warn(state.logPrefix, 'Question element not found');
@@ -134,9 +135,11 @@ function getResetUI() {
  * @since 0.8.0
  * @ignore
  */
-function resetResponse(e) {
+function doResetResponse(e) {
     const elQuestion = e.srcElement.closest('.lrn_widget');
     const responseId = elQuestion.getAttribute('id');
     const questionInstance = questionsApp().question(responseId);
     questionInstance.resetResponse();
 }
+
+export const resetResponse = createModule('resetResponse', run);

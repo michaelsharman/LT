@@ -1,4 +1,4 @@
-import { handleEvent } from './diagnostics.js';
+import { handleEvent, extensionsListener } from './diagnostics.js';
 import { questionResponseIds } from './questions.js';
 
 /**
@@ -97,4 +97,6 @@ function setupListeners() {
             });
         });
     });
+
+    extensionsListener();
 }

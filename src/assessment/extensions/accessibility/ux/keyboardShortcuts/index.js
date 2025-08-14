@@ -3,6 +3,7 @@ import * as items from '../../../../core/items.js';
 import * as questions from '../../../../core/questions.js';
 import * as platform from 'platform-detect';
 import * as Mousetrap from 'mousetrap';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import { isEmptyObject } from '../../../../../utils/validation.js';
 
 /**
@@ -83,7 +84,7 @@ const state = {
  * LT.extensions.keyboardShortcuts.run();
  * @since 0.4.0
  */
-export function run(map = getDefaultBindings()) {
+function run(map = getDefaultBindings()) {
     const currentPlatform = getPlatform();
 
     state.bindings = map;
@@ -337,3 +338,5 @@ function setResponseMask(bindings) {
 function toggleFlag(bindings) {
     Mousetrap.bind(bindings, items.flag);
 }
+
+export const keyboardShortcuts = createModule('keyboardShortcuts', run);

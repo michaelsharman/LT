@@ -2,7 +2,8 @@ import { appInstance } from '../../core/app.js';
 import { isVerticalLayout, userId, sessionId } from '../../core/activity.js';
 import { item, itemPosition, itemReference } from '../../core/items.js';
 import { questionResponse, questionResponseIds } from '../../core/questions.js';
-import { checkSpeed } from '../ui/networkStatus/index.js';
+import { networkStatus } from '../ui/networkStatus/index.js';
+import { createModule } from '../../../utils/moduleFactory.js';
 import logger from '../../../utils/logger.js';
 
 /**
@@ -36,7 +37,7 @@ const state = {
  * LT.extensions.telemetry.run();
  * @since 3.0.0
  */
-export function run() {
+function run() {
     if (isVerticalLayout()) {
         logger.warn('Telemetry extension is not supported in vertical layout.');
         return;
@@ -49,7 +50,7 @@ export function run() {
             type: 'test:start',
             timestamp: getTimestamp(),
             network: {
-                speed: checkSpeed(),
+                speed: networkStatus.checkSpeed(),
             },
         });
         setupPlayerEvents();
@@ -503,6 +504,15 @@ function getTimestamp() {
     return Date.now();
 }
 
-export function getTelemetry() {
+/**
+ * Gets the current telemetry state.
+ * @since 3.0.0
+ * @returns {object} The telemetry state
+ */
+function getTelemetry() {
     return state.telemetry;
 }
+
+export const telemetry = createModule('telemetry', run, {
+    getTelemetry,
+});

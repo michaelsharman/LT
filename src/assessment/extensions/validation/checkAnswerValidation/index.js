@@ -2,6 +2,7 @@ import { appInstance, assessApp } from '../../../core/app.js';
 import { hasCheckAnswer, questions, questionResponse } from '../../../core/questions.js';
 import logger from '../../../../utils/logger.js';
 import { dialog, hideDialog } from '../../../core/player.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -57,7 +58,7 @@ const state = {
  *  2 keys, `header` and `body`.
  * @since 2.11.0
  */
-export function run(config) {
+function run(config) {
     if (config && config?.message) {
         if (state.message?.header.length) {
             state.message.header = config.message.header;
@@ -163,3 +164,5 @@ function launchMessage() {
         hideDialog();
     });
 }
+
+export const checkAnswerValidation = createModule('checkAnswerValidation', run);

@@ -1,5 +1,6 @@
 import { assessApp } from '../../../../core/app.js';
 import { dialog, hideDialog } from '../../../../core/player.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -34,7 +35,7 @@ const state = {
  *                          message.header - Header text for the periodic table.
  * @since 3.0.0
  */
-export function run(config) {
+function run(config) {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     if (config && config?.message) {
@@ -44,7 +45,7 @@ export function run(config) {
     }
 }
 
-export function getContents() {
+function getContents() {
     return `<div class="lt__resource-periodic-table">
         <p class="sr-only">This is a periodic table of elements, with each element's atomic number, symbol, name, and atomic weight.</p>
         <p class="sr-only">Use the table to explore the properties of different chemical elements.</p>
@@ -1371,7 +1372,7 @@ export function getContents() {
  * @since 3.0.0
  * @ignore
  */
-export function launch(mode = 'dialog') {
+function launch(mode = 'dialog') {
     if (mode === 'dialog') {
         launchDialog();
     } else if (mode === 'tab') {
@@ -1617,3 +1618,8 @@ function injectCSS(mode = 'inject') {
         return elStyle.outerHTML;
     }
 }
+
+export const periodicTable = createModule('periodicTable', run, {
+    getContents,
+    launch,
+});

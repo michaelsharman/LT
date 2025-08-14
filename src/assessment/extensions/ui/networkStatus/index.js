@@ -1,3 +1,5 @@
+import { createModule } from '../../../../utils/moduleFactory.js';
+
 /**
  * Extensions add specific functionality to Items API.
  * They rely on modules within LT being available.
@@ -40,7 +42,7 @@ const state = {
  * is already whitelisted.
  * @since 2.12.0
  */
-export function run(options) {
+function run(options) {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     validateOptions(options);
@@ -106,7 +108,7 @@ function injectOfflineIndicator(elIndicator, wrapperClass, message) {
  * @since 2.12.0
  * @returns {promise}
  */
-export async function checkConnection() {
+async function checkConnection() {
     try {
         await fetch(state.options.uri, {
             method: 'HEAD',
@@ -125,7 +127,7 @@ export async function checkConnection() {
  * @since 2.25.0
  * @returns {string}
  */
-export function checkSpeed() {
+function checkSpeed() {
     if (navigator?.connection) {
         return `${navigator.connection.downlink} Mbps`;
     } else {
@@ -182,3 +184,8 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const networkStatus = createModule('networkStatus', run, {
+    checkConnection,
+    checkSpeed,
+});

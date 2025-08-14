@@ -1,6 +1,7 @@
-import "../../app-nM0lhDJq.js";
+import "../../app-DrpANbC0.js";
+import "../../moduleFactory-Ck7axszi.js";
 import "../../logger.js";
-import { r as t } from "../../index-DnQX2Dn3.js";
+import { a as t } from "../../index-D032kSB-.js";
 export {
-  t as run
+  t as mcqLabelPrefix
 };

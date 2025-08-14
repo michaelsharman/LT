@@ -1,5 +1,6 @@
 import { appInstance } from '../../../core/app.js';
-import { getTabsTheme, validateOptions } from '../../../../assessment/extensions/ui/contentTabs/index.js';
+import { contentTabs as authorContentTabs } from '../../../../assessment/extensions/ui/contentTabs/index.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -134,8 +135,8 @@ const state = {
  *  - `maxTabs` (number) Maximum number of tabs that can be added. Default is 5.
  * @since 2.1.0
  */
-export function run(options) {
-    state.options = validateOptions(options);
+function run(options) {
+    state.options = authorContentTabs.validateOptions(options);
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     // Inject class for specificity
@@ -160,7 +161,7 @@ export function run(options) {
  * @param {*} attribute
  * @param {*} callback
  */
-export function addContentTabs(attribute, callback) {
+function addContentTabs(attribute, callback) {
     const templateNumTabs = `
     <div class="lrn-qe lrn-qe-modal" style="display: block;" id="lt__addTabs">
         <div class="lrn-qe-ui">
@@ -420,7 +421,7 @@ function removeElement(id) {
  */
 function injectCSS() {
     const elStyle = document.createElement('style');
-    const css = getTabsTheme(state.options.theme).concat(
+    const css = authorContentTabs.getTabsTheme(state.options.theme).concat(
         '\n',
         `/* Learnosity content tab authoring styles */
         .lrn.lrn-author .lrn-author-item-content-wrapper .lrn-qe-col-edit-inner {
@@ -504,3 +505,7 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const contentTabs = createModule('contentTabs', run, {
+    addContentTabs,
+});

@@ -1,3 +1,4 @@
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import logger from '../../../../../utils/logger';
 
 /**
@@ -31,7 +32,7 @@ const state = {
  * LT.extensions.readingMask.run();
  * @since 3.0.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     if (!state.readingMask) {
@@ -81,7 +82,7 @@ function createReadingMask() {
  * @since 3.0.0
  * @returns {void}
  */
-export function hide() {
+function hide() {
     if (!state.readingMask?.hidden) {
         toggle(); // handles removing class
     }
@@ -93,7 +94,7 @@ export function hide() {
  * @since 3.0.0
  * @returns {void}
  */
-export function show() {
+function show() {
     if (state.readingMask?.hidden) {
         toggle(); // handles adding class
     }
@@ -105,7 +106,7 @@ export function show() {
  * @since 3.0.0
  * @returns {boolean}
  */
-export function toggle() {
+function toggle() {
     if (!state.readingMask) {
         logger.warn('[ReadingMask] toggle() called before run()');
         return;
@@ -191,3 +192,9 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const readingMask = createModule('readingMask', run, {
+    hide,
+    show,
+    toggle,
+});

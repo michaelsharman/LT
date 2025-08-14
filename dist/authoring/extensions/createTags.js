@@ -1,6 +1,7 @@
-import "../../app-Cp7l631V.js";
+import "../../app-DSq6w2-y.js";
+import "../../moduleFactory-Ck7axszi.js";
 import "../../debounce-CqEeJcMa.js";
-import { r as t } from "../../index-BF3jcJ8W.js";
+import { a as p } from "../../index-CHwvqTlk.js";
 export {
-  t as run
+  p as createTags
 };

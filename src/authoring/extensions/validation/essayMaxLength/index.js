@@ -1,4 +1,5 @@
 import { appInstance } from '../../../core/app.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 import { type } from '../../../core/widgets.js';
 
 /**
@@ -40,7 +41,7 @@ const state = {
  * LT.extensions.essayMaxLength.run();
  * @since 2.4.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
     setupListeners();
 }
@@ -123,3 +124,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const essayMaxLength = createModule('essayMaxLength', run);

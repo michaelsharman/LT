@@ -1,5 +1,6 @@
 import * as app from '../../../../core/app.js';
 import * as questions from '../../../../core/questions.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import { waitForElement } from '../../../../../utils/dom.js';
 import logger from '../../../../../utils/logger.js';
 import seedrandom from 'seedrandom';
@@ -27,7 +28,7 @@ import { shuffle } from 'lodash-es';
  * LT.extensions.hideAlternatives.run();
  * @since 0.3.0
  */
-export function run(num) {
+function run(num) {
     const numToHide = num || 1;
     const qt = 'mcq'; // Limited to MCQ only (see targeted classnames when hiding options)
     const logPrefix = 'LRN Hide Alternatives:';
@@ -163,3 +164,5 @@ function shuffleArrayWithSeed(arr, seed) {
         .sort((a, b) => a.sort - b.sort)
         .map(({ value }) => value);
 }
+
+export const hideAlternatives = createModule('hideAlternatives', run);

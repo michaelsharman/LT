@@ -25,7 +25,9 @@ const state = {
     events: {
         broadcast: false,
         listenFor: 'item',
+        extensions: [],
     },
+    initialised: false,
 };
 
 /**
@@ -122,6 +124,7 @@ export function diagnostics() {
             user: userId(),
         },
         LT: {
+            extensions: state.events.extensions,
             version: typeof __LT_VERSION__ !== 'undefined' ? __LT_VERSION__ : 'development',
         },
         versions: v,
@@ -197,5 +200,20 @@ export function listen(status = true) {
         logger.info(`👂 listening for '${state.events.listenFor}'`);
     } else {
         logger.info('🚫👂 not listening');
+    }
+}
+
+/**
+ * Listen for extensions to be run
+ * @since 3.0.0
+ * @ignore
+ */
+export function extensionsListener() {
+    if (!state.initialised) {
+        window.addEventListener('module:run', e => {
+            const { name, timestamp } = e.detail;
+            state.events.extensions.push({ name, timestamp });
+        });
+        state.initialised = true;
     }
 }

@@ -1,6 +1,7 @@
-import "../../app-Cp7l631V.js";
-import "../../styling-D3G23PGa.js";
-import { r as t } from "../../index-DynyVV7l.js";
+import "../../app-DSq6w2-y.js";
+import "../../styling-Clo4owDN.js";
+import "../../moduleFactory-Ck7axszi.js";
+import { a as p } from "../../index-B6RHNjP6.js";
 export {
-  t as run
+  p as singleQuestion
 };

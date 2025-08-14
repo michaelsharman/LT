@@ -5,6 +5,7 @@ import { dialog, hideDialog, isResponsiveMode } from '../../../core/player.js';
 import { isLastItem, itemByResponseId } from '../../../core/items.js';
 import { questionInstance } from '../../../core/questions.js';
 import { decodeHTML } from 'entities';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -205,7 +206,7 @@ const state = {
  * Default is `false`.
  * @since 0.10.0
  */
-export function run(includeSpaces = false) {
+function run(includeSpaces = false) {
     state.includeSpaces = Boolean(includeSpaces);
 
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
@@ -603,3 +604,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const essayLimitByCharacter = createModule('essayLimitByCharacter', run);

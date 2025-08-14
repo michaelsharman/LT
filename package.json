@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "3.0.0-beta.7",
+    "version": "3.0.0-beta.8",
     "private": false,
     "type": "module",
     "description": "A utility library of helpers and extensions useful when working with Learnosity APIs.",
@@ -88,7 +88,7 @@
         "rollup-plugin-visualizer": "^6.0.3",
         "style-loader": "^4.0.0",
         "svg-inline-loader": "^0.8.2",
-        "vite": "7.0.3"
+        "vite": "^7.0.6"
     },
     "overrides": {
         "rollup": "4.29.1"

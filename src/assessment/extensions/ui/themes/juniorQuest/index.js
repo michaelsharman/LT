@@ -1,3 +1,4 @@
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import styles from './styles/index.css?inline';
 
 /**
@@ -70,7 +71,7 @@ const state = {
  * LT.extensions.themes.juniorQuest.run();
  * @since 2.13.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     cacheElements();
@@ -115,3 +116,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const juniorQuest = createModule('juniorQuest', run);

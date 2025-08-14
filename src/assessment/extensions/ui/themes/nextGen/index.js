@@ -73,7 +73,7 @@ const state = {
  * LT.extensions.themes.nextGen.run();
  * @since 2.27.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     cacheElements();

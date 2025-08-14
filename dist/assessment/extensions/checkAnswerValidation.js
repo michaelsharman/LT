@@ -1,7 +1,8 @@
-import "../../app-nM0lhDJq.js";
+import "../../app-DrpANbC0.js";
 import "../../logger.js";
-import "../../player-Ci5NZyjp.js";
-import { r as i } from "../../index-DhMyFgJ1.js";
+import "../../player-IETdC3gL.js";
+import "../../moduleFactory-Ck7axszi.js";
+import { a } from "../../index-DggC91Qt.js";
 export {
-  i as run
+  a as checkAnswerValidation
 };

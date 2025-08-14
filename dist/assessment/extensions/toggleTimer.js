@@ -1,6 +1,6 @@
+import "../../moduleFactory-Ck7axszi.js";
 import "../../logger.js";
-import { r as t, a as e } from "../../index-CwRMPgc9.js";
+import { a as e } from "../../index-D_6xxP6H.js";
 export {
-  t as run,
-  e as toggle
+  e as toggleTimer
 };

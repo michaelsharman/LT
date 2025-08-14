@@ -1,5 +1,6 @@
-import { k as v } from "../../../app-nM0lhDJq.js";
-import { d as a, h as e } from "../../../player-Ci5NZyjp.js";
+import { k as v } from "../../../app-DrpANbC0.js";
+import { d as a, h as e } from "../../../player-IETdC3gL.js";
+import { c } from "../../../moduleFactory-Ck7axszi.js";
 const i = {
   message: {
     header: "Periodic Table of Elements",
@@ -7,7 +8,7 @@ const i = {
   },
   renderedCss: !1
 };
-function b(d) {
+function m(d) {
   i.renderedCss || (_(), i.renderedCss = !0), d && d?.message && i.message?.header.length && (i.message.header = d.message.header);
 }
 function t() {
@@ -1328,10 +1329,10 @@ function t() {
         </table>
     </div>`;
 }
-function u(d = "dialog") {
-  d === "dialog" ? c() : d === "tab" && m();
+function n(d = "dialog") {
+  d === "dialog" ? o() : d === "tab" && r();
 }
-function c() {
+function o() {
   a({
     header: i.message.header,
     body: i.message.body,
@@ -1346,7 +1347,7 @@ function c() {
     e();
   });
 }
-function m() {
+function r() {
   const d = _("get") + t(), l = new Blob([d], { type: "text/html" }), s = URL.createObjectURL(l);
   window.open(s, "_blank").addEventListener("unload", () => {
     URL.revokeObjectURL(s);
@@ -1536,8 +1537,10 @@ function _(d = "inject") {
   else if (d === "get")
     return l.outerHTML;
 }
+const g = c("periodicTable", m, {
+  getContents: t,
+  launch: n
+});
 export {
-  t as getContents,
-  u as launch,
-  b as run
+  g as periodicTable
 };

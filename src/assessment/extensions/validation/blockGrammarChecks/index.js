@@ -1,5 +1,6 @@
 import * as app from '../../../core/app.js';
 import * as activity from '../../../core/activity.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -25,7 +26,7 @@ import * as activity from '../../../core/activity.js';
  * LT.extensions.blockGrammarChecks.run();
  * @since 0.3.0
  */
-export function run() {
+function run() {
     const appInstance = app.appInstance();
     const annotationsApp = app.annotationsApp();
 
@@ -90,3 +91,5 @@ function addBlockingAttributes($el) {
     $el.setAttribute('autocomplete', 'false');
     $el.setAttribute('autocapitalize', 'false');
 }
+
+export const blockGrammarChecks = createModule('blockGrammarChecks', run);

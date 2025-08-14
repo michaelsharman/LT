@@ -1,4 +1,5 @@
 import { appInstance } from '../../../core/app.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 import logger from '../../../../utils/logger.js';
 import { setObserver } from '../../../../utils/dom.js';
 import 'active-table';
@@ -68,7 +69,7 @@ const state = {
  *```
  * @since 2.24.0
  */
-export function run(options) {
+function run(options) {
     state.options = validateOptions(options);
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
@@ -114,7 +115,7 @@ export function run(options) {
  * @since 2.24.0
  * @ignore
  */
-export function setup() {
+function setup() {
     const elAPIDataSource = getElement('.lrn-author-datatable-source');
     const elAPIDataSourceHeader = getElement('.lrn-author-datatable-header');
     const elContinueBtn = getElement('[data-authorapi-selector="datatable-source-continue"]');
@@ -187,7 +188,7 @@ export function setup() {
  * @since 2.24.0
  * @ignore
  */
-export function updateAPIDataTable(data) {
+function updateAPIDataTable(data) {
     const config = {
         delimiter: ',',
         escapeChar: '"',
@@ -397,7 +398,7 @@ function getTableTemplate() {
  * @since 2.24.0
  * @ignore
  */
-export function validateOptions(options) {
+function validateOptions(options) {
     let opt = options || {};
 
     if (options && typeof options === 'object') {
@@ -461,3 +462,9 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const dynamicContent = createModule('dynamicContent', run, {
+    setup,
+    updateAPIDataTable,
+    validateOptions,
+});

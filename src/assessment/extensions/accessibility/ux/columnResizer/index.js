@@ -1,6 +1,7 @@
 import { region } from '../../../../core/activity.js';
 import { appInstance } from '../../../../core/app.js';
 import { itemElement } from '../../../../core/items.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -35,7 +36,7 @@ const state = {
  * LT.extensions.columnResizer.run();
  * @since 0.5.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     appInstance().on('item:load', () => {
@@ -363,7 +364,7 @@ function injectCSS() {
                         transition: opacity 0.2s ease-in 0.2s, visibility 0s linear 0.2s;
                         visibility: hidden;
                         z-index: 10;
-                        }
+                    }
 
                     &::before {
                         box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
@@ -406,3 +407,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const columnResizer = createModule('columnResizer', run);

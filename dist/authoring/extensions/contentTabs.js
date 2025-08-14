@@ -1,7 +1,7 @@
-import "../../app-Cp7l631V.js";
-import "../../index-5A9l2Q5l.js";
-import { a as m, r as n } from "../../index-BxtlMoG0.js";
+import "../../app-DSq6w2-y.js";
+import "../../index-BsABOMI-.js";
+import "../../moduleFactory-Ck7axszi.js";
+import { a } from "../../index-0zKzta30.js";
 export {
-  m as addContentTabs,
-  n as run
+  a as contentTabs
 };

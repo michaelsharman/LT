@@ -1,4 +1,5 @@
 import * as app from '../../../../core/app.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import styles from './styles/index.css?inline';
 
 /**
@@ -73,7 +74,7 @@ const state = {
  * LT.extensions.themes.canvas.run();
  * @since 2.14.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     cacheElements();
@@ -212,3 +213,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const canvas = createModule('canvas', run);

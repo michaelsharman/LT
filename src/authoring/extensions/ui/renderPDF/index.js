@@ -1,4 +1,5 @@
 import { appInstance } from '../../../core/app.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 import logger from '../../../../utils/logger.js';
 
 /**
@@ -28,7 +29,7 @@ const state = {
  * LT.extensions.renderPDF.run();
  * @since 2.2.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     appInstance().on('widgetedit:widget:ready', () => {
@@ -92,3 +93,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const renderPDF = createModule('renderPDF', run);

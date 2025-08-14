@@ -1,21 +1,21 @@
-import { a as o, b as n, d as t } from "../app-Cp7l631V.js";
-import { w as i } from "../widgets-BxvIhqg8.js";
-import e from "../logger.js";
+import { a as t, b as n, c as e } from "../app-DSq6w2-y.js";
+import { w as a } from "../widgets-Cxh4wPXN.js";
+import i from "../logger.js";
 function s() {
-  o().on("navigate", (a) => {
-    window.location.hash = "#" + a.data.locationEncoded;
-  }), o().navigate(window.location.hash.replace(/^#/, "")), window.onhashchange = () => {
-    o().navigate(window.location.hash.replace(/^#/, ""));
+  t().on("navigate", (o) => {
+    window.location.hash = "#" + o.data.locationEncoded;
+  }), t().navigate(window.location.hash.replace(/^#/, "")), window.onhashchange = () => {
+    t().navigate(window.location.hash.replace(/^#/, ""));
   };
 }
 const c = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   routingHash: s
-}, Symbol.toStringTag, { value: "Module" })), r = {
+}, Symbol.toStringTag, { value: "Module" })), r = Object.fromEntries(Object.entries(n).filter(([o]) => !["extensionsListener", "handleEvent"].includes(o))), l = {
   utils: {
-    logger: e
+    logger: i
   }
-}, p = { ...n, ...t, ...c, ...i, ...r };
+}, h = { ...e, ...r, ...c, ...a, ...l };
 export {
-  p as LT
+  h as LT
 };

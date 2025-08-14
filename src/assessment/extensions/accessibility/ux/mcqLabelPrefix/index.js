@@ -1,6 +1,7 @@
 import { appInstance } from '../../../../core/app.js';
-import logger from '../../../../../utils/logger.js';
 import { questions } from '../../../../core/questions.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
+import logger from '../../../../../utils/logger.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -48,7 +49,7 @@ const state = {
  * @param {array} prefixes Array of custom string prefixes to use.
  * @since 0.6.0
  */
-export function run(mask = 'upperAlpha', suffix = '.', prefixes) {
+function run(mask = 'upperAlpha', suffix = '.', prefixes) {
     if (state.prefixMask.hasOwnProperty(mask)) {
         state.chosenMask = mask;
     }
@@ -149,3 +150,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const mcqLabelPrefix = createModule('mcqLabelPrefix', run);

@@ -1,5 +1,5 @@
-import { a as t, r as e } from "../../index-CuyXyRmn.js";
+import "../../moduleFactory-Ck7axszi.js";
+import { a as r } from "../../index-CI6xjJM-.js";
 export {
-  t as addLanguageAttribute,
-  e as run
+  r as languageTextDirection
 };

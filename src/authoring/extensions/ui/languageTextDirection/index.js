@@ -1,3 +1,5 @@
+import { createModule } from '../../../../utils/moduleFactory.js';
+
 /**
  * Extensions add specific functionality to Learnosity APIs.
  * They rely on modules within LT being available.
@@ -118,7 +120,7 @@ const state = {
  * LT.extensions.languageTextDirection.run();
  * @since 2.0.0
  */
-export function run() {
+function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 }
 
@@ -131,7 +133,7 @@ export function run() {
  * @param {*} attribute
  * @param {*} callback
  */
-export function addLanguageAttribute(attribute, callback) {
+function addLanguageAttribute(attribute, callback) {
     /* global LRNCKEDITOR */
     const codes = getLanguageCodes();
     const selectedRichText = LRNCKEDITOR.currentInstance.getSelectedHtml().getHtml();
@@ -993,3 +995,7 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const languageTextDirection = createModule('languageTextDirection', run, {
+    addLanguageAttribute,
+});

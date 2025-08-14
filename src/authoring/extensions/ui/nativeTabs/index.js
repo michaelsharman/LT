@@ -1,4 +1,5 @@
 import { appInstance } from '../../../core/app.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 import logger from '../../../../utils/logger.js';
 import { max } from 'lodash-es';
 
@@ -38,7 +39,7 @@ const state = {
  * @since 2.26.0
  * @param {object=} options Override for `maxTabs` (value between 2 and 10). Default is 5.
  */
-export function run(options = {}) {
+function run(options = {}) {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     overrideOptions(options);
@@ -400,3 +401,5 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const nativeTabs = createModule('nativeTabs', run);

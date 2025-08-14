@@ -1,5 +1,6 @@
 import * as app from '../../../core/app.js';
 import * as items from '../../../core/items.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -32,7 +33,7 @@ const state = {
  *  - `theme` (string) Which tabs theme to load. Options are `rounded` (default) and `api-column-tabs`.
  * @since 2.19.0
  */
-export function run(options) {
+function run(options) {
     state.options = validateOptions(options);
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
@@ -77,7 +78,7 @@ export function run(options) {
  * @since 2.23.1
  * @ignore
  */
-export function escapeHTML(str) {
+function escapeHTML(str) {
     return str
         .replace(/&/g, '&amp;') // Escape `&`
         .replace(/</g, '&lt;') // Escape `<`
@@ -92,7 +93,7 @@ export function escapeHTML(str) {
  * @since 2.19.0
  * @ignore
  */
-export function validateOptions(options) {
+function validateOptions(options) {
     const validThemes = ['rounded', 'api-column-tabs'];
     let opt = options || {};
 
@@ -131,7 +132,7 @@ function injectCSS() {
  * @since 2.23.1
  * @ignore
  */
-export function getTabsTheme(theme) {
+function getTabsTheme(theme) {
     const base = `/* Base tabs styles */
         .lrn.lrn-assess .lt__tabs,
         .lrn-author-item-content-wrapper .lt__tabs {
@@ -281,3 +282,9 @@ export function getTabsTheme(theme) {
 
     return customProperties.concat('\n', base, '\n', themeCss);
 }
+
+export const contentTabs = createModule('contentTabs', run, {
+    escapeHTML,
+    getTabsTheme,
+    validateOptions,
+});

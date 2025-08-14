@@ -1,5 +1,6 @@
 import { appInstance } from '../../../core/app.js';
 import { checkAppVersion } from '../../../utils/styling.js';
+import { createModule } from '../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -31,7 +32,7 @@ const state = {
  * LT.extensions.singleQuestion.run();
  * @since 2.20.0
  */
-export function run() {
+function run() {
     cacheElements();
     appInstance().on('render:item', checkQuestions);
     appInstance().on('render:widgets', checkQuestions);
@@ -98,3 +99,5 @@ function showAddButton() {
 function cacheElements() {
     state.elements.apiWrapper = document.querySelector('.lrn-author');
 }
+
+export const singleQuestion = createModule('singleQuestion', run);

@@ -1,5 +1,6 @@
 import * as app from '../../../../core/app.js';
 import * as activity from '../../../../core/activity.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -22,7 +23,7 @@ import * as activity from '../../../../core/activity.js';
  * LT.extensions.ariaCountOnNav.run();
  * @since 0.3.0
  */
-export function run() {
+function run() {
     app.appInstance().on('item:load', () => {
         const numItems = activity.totalItems();
         const elPrevious = Array.from(document.getElementsByClassName('item-prev'));
@@ -35,3 +36,5 @@ export function run() {
         }
     });
 }
+
+export const ariaCountOnNav = createModule('ariaCountOnNav', run);

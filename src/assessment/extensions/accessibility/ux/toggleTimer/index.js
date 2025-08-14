@@ -1,5 +1,6 @@
 import { appInstance } from '../../../../core/app.js';
 import { maxTime, timeRemaining } from '../../../../core/activity.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import logger from '../../../../../utils/logger.js';
 
 /**
@@ -43,7 +44,7 @@ const state = {
  * LT.extensions.toggleTimer.run();
  * @since 2.6.0
  */
-export function run(showTimerLimit = 60) {
+function run(showTimerLimit = 60) {
     if (!state._initialised) {
         const elLrnResponsiveWrapper = document.querySelector('.lrn-sm');
         state.elTimerWrapper = document.querySelector('.lrn-timer-wrapper');
@@ -63,7 +64,7 @@ export function run(showTimerLimit = 60) {
             const timerDisplay = state.elTimerWrapper.querySelector('.timer');
 
             // Inject accessibility and interactivity
-            state.elTimerWrapper.classList.add('lt__timer-wrapper', 'lrn_btn');
+            state.elTimerWrapper.classList.add('lt__timer-wrapper', 'lrn_btn', 'lt__tooltip');
             state.elTimerWrapper.setAttribute('role', 'button');
             state.elTimerWrapper.setAttribute('tabindex', '0');
             state.elTimerWrapper.setAttribute('aria-pressed', 'true');
@@ -110,7 +111,7 @@ export function run(showTimerLimit = 60) {
  * @since 2.6.0
  * @returns {void}
  */
-export function toggle() {
+function toggle() {
     if (!state.elTimerWrapper) {
         return;
     }
@@ -192,6 +193,49 @@ function injectCSS() {
             content: "";
         }
     }
+
+    &.lt__tooltip {
+        &::before,
+        &::after {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.2s ease-in 0.2s, visibility 0s linear 0.2s;
+            visibility: hidden;
+            z-index: 10;
+            font-family: inherit;
+        }
+
+        &::before {
+            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+            content: attr(aria-label);
+            position: absolute;
+            top: -55px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #4d4d4d;
+            color: #fff;
+            padding: 10px 30px;
+            border-radius: 4px;
+            white-space: nowrap;
+            font-size: 14px;
+        }
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: 105%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #4d4d4d;
+        }
+
+        &:is(:hover, :focus)::before,
+        &:is(:hover, :focus)::after {
+            opacity: 1;
+            visibility: visible;
+        }
+    }
 }
 
 .lrn.lrn-assess .lrn-region:not(.lrn-items-region) .lrn_btn.lt__timer-wrapper {
@@ -206,3 +250,7 @@ function injectCSS() {
 
     state.renderedCss = true;
 }
+
+export const toggleTimer = createModule('toggleTimer', run, {
+    toggle,
+});

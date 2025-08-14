@@ -1,4 +1,4 @@
-import { handleEvent } from './diagnostics.js';
+import { handleEvent, extensionsListener } from './diagnostics.js';
 
 /**
  * Learnosity Toolkit constructor module.
@@ -58,4 +58,6 @@ function setupListeners() {
     const events = ['widgetedit:editor:ready', 'widgetedit:widget:ready', 'widgetedit:preview:changed', 'widgetedit:widget:changed'];
 
     events.forEach(event => state.app.on(event, () => handleEvent(event)));
+
+    extensionsListener();
 }

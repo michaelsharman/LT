@@ -1,5 +1,6 @@
 import { appInstance } from '../../../../core/app.js';
 import { itemElement } from '../../../../core/items.js';
+import { createModule } from '../../../../../utils/moduleFactory.js';
 import logger from '../../../../../utils/logger.js';
 
 /**
@@ -44,7 +45,7 @@ const state = {
  * @param {object} options Optional config object to override defaults
  * @since 0.7.0
  */
-export function run(options) {
+function run(options) {
     if (!state._initialised) {
         if (!options) {
             options = {
@@ -68,7 +69,7 @@ export function run(options) {
  * @since 2.16.0
  * @returns {void}
  */
-export function setupButtons(classname = 'lrn__magnifier') {
+function setupButtons(classname = 'lrn__magnifier') {
     const elButtons = document.querySelectorAll(`.${classname}`);
 
     elButtons.forEach(btn => {
@@ -85,7 +86,7 @@ export function setupButtons(classname = 'lrn__magnifier') {
  * @since 2.16.0
  * @returns {void}
  */
-export function toggle() {
+function toggle() {
     state.magnifier.toggle();
 }
 
@@ -514,3 +515,8 @@ function checkImageContent() {
         });
     }
 }
+
+export const magnifier = createModule('magnifier', run, {
+    setupButtons,
+    toggle,
+});
