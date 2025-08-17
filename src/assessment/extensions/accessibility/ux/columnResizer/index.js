@@ -1,7 +1,7 @@
 import { region } from '../../../../core/activity.js';
 import { appInstance } from '../../../../core/app.js';
 import { itemElement } from '../../../../core/items.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -408,4 +408,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const columnResizer = createModule('columnResizer', run);
+export const columnResizer = createExtension('columnResizer', run);

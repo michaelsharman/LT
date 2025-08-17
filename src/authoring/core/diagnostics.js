@@ -9,7 +9,9 @@ const state = {
     events: {
         broadcast: false,
         listenFor: 'all',
-        extensions: [],
+    },
+    extensions: {
+        running: [],
     },
     initialised: false,
 };
@@ -126,9 +128,9 @@ export function listen(status = true) {
  */
 export function extensionsListener() {
     if (!state.initialised) {
-        window.addEventListener('module:run', e => {
+        window.addEventListener('extension:run', e => {
             const { name, timestamp } = e.detail;
-            state.events.extensions.push({ name, timestamp });
+            state.extensions.running.push({ name, timestamp });
         });
         state.initialised = true;
     }

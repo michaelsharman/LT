@@ -1,6 +1,6 @@
 import { appInstance } from '../../../../core/app.js';
 import { maxTime, timeRemaining } from '../../../../core/activity.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import logger from '../../../../../utils/logger.js';
 
 /**
@@ -251,6 +251,6 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const toggleTimer = createModule('toggleTimer', run, {
+export const toggleTimer = createExtension('toggleTimer', run, {
     toggle,
 });

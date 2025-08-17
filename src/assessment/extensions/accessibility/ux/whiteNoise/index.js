@@ -1,6 +1,6 @@
 import { assessApp } from '../../../../core/app.js';
 import { dialog, hideDialog } from '../../../../core/player.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import logger from '../../../../../utils/logger.js';
 import { Howl, Howler } from 'howler';
 
@@ -568,6 +568,6 @@ input[type="range"]:focus::-moz-range-thumb {
     state.renderedCss = true;
 }
 
-export const whiteNoise = createModule('whiteNoise', run, {
+export const whiteNoise = createExtension('whiteNoise', run, {
     launchPlayer,
 });

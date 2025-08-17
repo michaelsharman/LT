@@ -1,6 +1,6 @@
 import { appInstance } from '../../../core/app.js';
 import { debounce } from 'lodash-es';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -197,4 +197,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const createTags = createModule('createTags', run);
+export const createTags = createExtension('createTags', run);

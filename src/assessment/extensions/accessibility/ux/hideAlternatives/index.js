@@ -1,6 +1,6 @@
 import * as app from '../../../../core/app.js';
 import * as questions from '../../../../core/questions.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import { waitForElement } from '../../../../../utils/dom.js';
 import logger from '../../../../../utils/logger.js';
 import seedrandom from 'seedrandom';
@@ -165,4 +165,4 @@ function shuffleArrayWithSeed(arr, seed) {
         .map(({ value }) => value);
 }
 
-export const hideAlternatives = createModule('hideAlternatives', run);
+export const hideAlternatives = createExtension('hideAlternatives', run);

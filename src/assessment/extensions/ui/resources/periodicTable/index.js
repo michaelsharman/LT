@@ -1,6 +1,6 @@
 import { assessApp } from '../../../../core/app.js';
 import { dialog, hideDialog } from '../../../../core/player.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -1619,7 +1619,7 @@ function injectCSS(mode = 'inject') {
     }
 }
 
-export const periodicTable = createModule('periodicTable', run, {
+export const periodicTable = createExtension('periodicTable', run, {
     getContents,
     launch,
 });

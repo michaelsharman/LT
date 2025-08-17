@@ -1,5 +1,5 @@
-import "../../moduleFactory-Ck7axszi.js";
-import { a } from "../../index-DE-E8q8p.js";
+import "../../extensionsFactory-DRAOPv5d.js";
+import { a } from "../../index-BMA0ebqk.js";
 export {
   a as networkStatus
 };

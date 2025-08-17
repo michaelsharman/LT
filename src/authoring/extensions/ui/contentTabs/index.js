@@ -1,6 +1,6 @@
 import { appInstance } from '../../../core/app.js';
 import { contentTabs as authorContentTabs } from '../../../../assessment/extensions/ui/contentTabs/index.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -506,6 +506,6 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const contentTabs = createModule('contentTabs', run, {
+export const contentTabs = createExtension('contentTabs', run, {
     addContentTabs,
 });

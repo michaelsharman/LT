@@ -1,6 +1,6 @@
 import * as app from '../../../core/app.js';
 import * as activity from '../../../core/activity.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -92,4 +92,4 @@ function addBlockingAttributes($el) {
     $el.setAttribute('autocapitalize', 'false');
 }
 
-export const blockGrammarChecks = createModule('blockGrammarChecks', run);
+export const blockGrammarChecks = createExtension('blockGrammarChecks', run);

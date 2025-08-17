@@ -1,4 +1,4 @@
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -996,6 +996,6 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const languageTextDirection = createModule('languageTextDirection', run, {
+export const languageTextDirection = createExtension('languageTextDirection', run, {
     addLanguageAttribute,
 });

@@ -1,5 +1,5 @@
 import { appInstance } from '../../../core/app.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 import logger from '../../../../utils/logger.js';
 
 /**
@@ -291,4 +291,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const requiredTags = createModule('requiredTags', run);
+export const requiredTags = createExtension('requiredTags', run);

@@ -1,5 +1,5 @@
 import { appInstance } from '../../../core/app.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 import logger from '../../../../utils/logger.js';
 import { max } from 'lodash-es';
 
@@ -402,4 +402,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const nativeTabs = createModule('nativeTabs', run);
+export const nativeTabs = createExtension('nativeTabs', run);

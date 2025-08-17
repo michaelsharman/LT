@@ -1,5 +1,5 @@
 import * as app from '../../../../core/app.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import styles from './styles/index.css?inline';
 
 /**
@@ -214,4 +214,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const canvas = createModule('canvas', run);
+export const canvas = createExtension('canvas', run);

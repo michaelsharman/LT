@@ -3,7 +3,7 @@ import * as items from '../../../../core/items.js';
 import * as questions from '../../../../core/questions.js';
 import * as platform from 'platform-detect';
 import * as Mousetrap from 'mousetrap';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import { isEmptyObject } from '../../../../../utils/validation.js';
 
 /**
@@ -339,4 +339,4 @@ function toggleFlag(bindings) {
     Mousetrap.bind(bindings, items.flag);
 }
 
-export const keyboardShortcuts = createModule('keyboardShortcuts', run);
+export const keyboardShortcuts = createExtension('keyboardShortcuts', run);

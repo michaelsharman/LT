@@ -1,6 +1,6 @@
 import { appInstance } from '../../../../core/app.js';
 import { itemElement } from '../../../../core/items.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import logger from '../../../../../utils/logger.js';
 
 /**
@@ -516,7 +516,7 @@ function checkImageContent() {
     }
 }
 
-export const magnifier = createModule('magnifier', run, {
+export const magnifier = createExtension('magnifier', run, {
     setupButtons,
     toggle,
 });

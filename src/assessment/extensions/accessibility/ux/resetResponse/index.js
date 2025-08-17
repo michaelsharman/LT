@@ -1,6 +1,6 @@
 import { appInstance, questionsApp } from '../../../../core/app.js';
 import { questions } from '../../../../core/questions.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import logger from '../../../../../utils/logger.js';
 
 /**
@@ -142,4 +142,4 @@ function doResetResponse(e) {
     questionInstance.resetResponse();
 }
 
-export const resetResponse = createModule('resetResponse', run);
+export const resetResponse = createExtension('resetResponse', run);

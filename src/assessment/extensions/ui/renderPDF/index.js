@@ -1,6 +1,6 @@
 import * as app from '../../../core/app.js';
 import * as items from '../../../core/items.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -121,4 +121,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const renderPDF = createModule('renderPDF', run);
+export const renderPDF = createExtension('renderPDF', run);

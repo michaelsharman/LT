@@ -1,5 +1,5 @@
 import { appInstance } from '../../../core/app.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 import { type } from '../../../core/widgets.js';
 
 /**
@@ -125,4 +125,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const essayMaxLength = createModule('essayMaxLength', run);
+export const essayMaxLength = createExtension('essayMaxLength', run);

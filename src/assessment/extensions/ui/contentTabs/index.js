@@ -1,6 +1,6 @@
 import * as app from '../../../core/app.js';
 import * as items from '../../../core/items.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -283,7 +283,7 @@ function getTabsTheme(theme) {
     return customProperties.concat('\n', base, '\n', themeCss);
 }
 
-export const contentTabs = createModule('contentTabs', run, {
+export const contentTabs = createExtension('contentTabs', run, {
     escapeHTML,
     getTabsTheme,
     validateOptions,

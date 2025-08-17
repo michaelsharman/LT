@@ -15,6 +15,7 @@ import * as columnResizer from './extensions/accessibility/ux/columnResizer/inde
 import * as contentTabs from './extensions/ui/contentTabs/index.js';
 import * as disableOnValidate from './extensions/validation/disableOnValidate/index.js';
 import * as essayLimitByCharacter from './extensions/validation/essayLimitByCharacter/index.js';
+import * as events from './extensions/events/index.js';
 import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives/index.js';
 import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts/index.js';
 import * as magnifier from './extensions/accessibility/ux/magnifier/index.js';
@@ -23,7 +24,6 @@ import * as networkStatus from './extensions/ui/networkStatus/index.js';
 import * as readingMask from './extensions/accessibility/ux/readingMask/index.js';
 import * as renderPDF from './extensions/ui/renderPDF/index.js';
 import * as resetResponse from './extensions/accessibility/ux/resetResponse/index.js';
-import * as telemetry from './extensions/telemetry/index.js';
 import * as toggleTimer from './extensions/accessibility/ux/toggleTimer/index.js';
 import * as whiteNoise from './extensions/accessibility/ux/whiteNoise/index.js';
 
@@ -37,6 +37,7 @@ const extensions = {
         contentTabs: { ...contentTabs },
         disableOnValidate: { ...disableOnValidate },
         essayLimitByCharacter: { ...essayLimitByCharacter },
+        events: { ...events },
         hideAlternatives: { ...hideAlternatives },
         keyboardShortcuts: { ...keyboardShortcuts },
         magnifier: { ...magnifier },
@@ -45,7 +46,6 @@ const extensions = {
         readingMask: { ...readingMask },
         renderPDF: { ...renderPDF },
         resetResponse: { ...resetResponse },
-        telemetry: { ...telemetry },
         toggleTimer: { ...toggleTimer },
         whiteNoise: { ...whiteNoise },
     },

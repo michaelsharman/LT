@@ -1,6 +1,6 @@
-import { k as v } from "../../../app-DrpANbC0.js";
-import { d as a, h as e } from "../../../player-IETdC3gL.js";
-import { c } from "../../../moduleFactory-Ck7axszi.js";
+import { k as v } from "../../../app-BC_Cj6Pt.js";
+import { d as a, h as e } from "../../../player-Ja5E2l_p.js";
+import { c } from "../../../extensionsFactory-DRAOPv5d.js";
 const i = {
   message: {
     header: "Periodic Table of Elements",

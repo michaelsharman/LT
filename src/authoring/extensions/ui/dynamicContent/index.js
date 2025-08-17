@@ -1,5 +1,5 @@
 import { appInstance } from '../../../core/app.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 import logger from '../../../../utils/logger.js';
 import { setObserver } from '../../../../utils/dom.js';
 import 'active-table';
@@ -463,7 +463,7 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const dynamicContent = createModule('dynamicContent', run, {
+export const dynamicContent = createExtension('dynamicContent', run, {
     setup,
     updateAPIDataTable,
     validateOptions,

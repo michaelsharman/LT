@@ -1,4 +1,4 @@
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import logger from '../../../../../utils/logger';
 
 /**
@@ -193,7 +193,7 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const readingMask = createModule('readingMask', run, {
+export const readingMask = createExtension('readingMask', run, {
     hide,
     show,
     toggle,

@@ -2,7 +2,7 @@ import { appInstance, assessApp } from '../../../core/app.js';
 import { hasCheckAnswer, questions, questionResponse } from '../../../core/questions.js';
 import logger from '../../../../utils/logger.js';
 import { dialog, hideDialog } from '../../../core/player.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -165,4 +165,4 @@ function launchMessage() {
     });
 }
 
-export const checkAnswerValidation = createModule('checkAnswerValidation', run);
+export const checkAnswerValidation = createExtension('checkAnswerValidation', run);

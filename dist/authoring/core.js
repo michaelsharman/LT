@@ -1,5 +1,5 @@
-import { a as t, b as n, c as e } from "../app-DSq6w2-y.js";
-import { w as a } from "../widgets-Cxh4wPXN.js";
+import { a as t, d as n, b as e } from "../app-BFYad37a.js";
+import { w as a } from "../widgets-6yrsWoDe.js";
 import i from "../logger.js";
 function s() {
   t().on("navigate", (o) => {
@@ -8,14 +8,14 @@ function s() {
     t().navigate(window.location.hash.replace(/^#/, ""));
   };
 }
-const c = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const r = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
   routingHash: s
-}, Symbol.toStringTag, { value: "Module" })), r = Object.fromEntries(Object.entries(n).filter(([o]) => !["extensionsListener", "handleEvent"].includes(o))), l = {
+}, Symbol.toStringTag, { value: "Module" })), c = Object.fromEntries(Object.entries(n).filter(([o]) => !["extensionsListener", "handleEvent"].includes(o))), l = {
   utils: {
     logger: i
   }
-}, h = { ...e, ...r, ...c, ...a, ...l };
+}, h = { ...e, ...c, ...r, ...a, ...l };
 export {
   h as LT
 };

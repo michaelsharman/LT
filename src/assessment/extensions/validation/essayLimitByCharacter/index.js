@@ -5,7 +5,7 @@ import { dialog, hideDialog, isResponsiveMode } from '../../../core/player.js';
 import { isLastItem, itemByResponseId } from '../../../core/items.js';
 import { questionInstance } from '../../../core/questions.js';
 import { decodeHTML } from 'entities';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -605,4 +605,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const essayLimitByCharacter = createModule('essayLimitByCharacter', run);
+export const essayLimitByCharacter = createExtension('essayLimitByCharacter', run);

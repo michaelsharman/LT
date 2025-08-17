@@ -1,6 +1,6 @@
 import { appInstance } from '../../../core/app.js';
 import { checkAppVersion } from '../../../utils/styling.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 import logger from '../../../../utils/logger.js';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
@@ -740,4 +740,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const imageUploader = createModule('imageUploader', run);
+export const imageUploader = createExtension('imageUploader', run);

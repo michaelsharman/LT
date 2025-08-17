@@ -37,7 +37,7 @@ If you want 1 or 2 extensions, you should import them individually to keep the o
 
 ```
 import { LT } from '@caspingus/lt/assessment/core';
-import * as columnResizer from '@caspingus/lt/assessment/extensions/columnResizer';
+import { columnResizer } from '@caspingus/lt/assessment/extensions/columnResizer';
 ```
 
 The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 240kB for assessment and 1400kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
@@ -66,7 +66,7 @@ const itemsApp = LearnosityItems.init(signedConfigObject);
 
 // Pass that app instance to the Toolkit constructor
 import { LT } from '@caspingus/lt/assessment/core';
-import * as renderPDF from '@caspingus/lt/assessment/extensions/renderPDF';
+import { renderPDF } from '@caspingus/lt/assessment/extensions/renderPDF';
 
 LT.init(itemsApp);
 

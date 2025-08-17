@@ -1,7 +1,7 @@
-import "../../app-DSq6w2-y.js";
-import "../../moduleFactory-Ck7axszi.js";
+import "../../app-BFYad37a.js";
+import "../../extensionsFactory-DRAOPv5d.js";
 import "../../logger.js";
-import { a as m } from "../../index-D3aIfK5T.js";
+import { a as m } from "../../index-DyONdwKu.js";
 export {
   m as nativeTabs
 };

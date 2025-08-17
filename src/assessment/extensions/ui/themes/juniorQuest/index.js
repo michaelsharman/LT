@@ -1,4 +1,4 @@
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import styles from './styles/index.css?inline';
 
 /**
@@ -117,4 +117,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const juniorQuest = createModule('juniorQuest', run);
+export const juniorQuest = createExtension('juniorQuest', run);

@@ -1,7 +1,7 @@
-import "../../app-DSq6w2-y.js";
-import "../../styling-Clo4owDN.js";
-import "../../moduleFactory-Ck7axszi.js";
-import { a as p } from "../../index-B6RHNjP6.js";
+import "../../app-BFYad37a.js";
+import "../../styling-vNuWbS3G.js";
+import "../../extensionsFactory-DRAOPv5d.js";
+import { a as p } from "../../index-DMHudnoE.js";
 export {
   p as singleQuestion
 };

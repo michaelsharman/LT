@@ -1,6 +1,6 @@
 import { appInstance } from '../../../../core/app.js';
 import { questions } from '../../../../core/questions.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 import logger from '../../../../../utils/logger.js';
 
 /**
@@ -151,4 +151,4 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const mcqLabelPrefix = createModule('mcqLabelPrefix', run);
+export const mcqLabelPrefix = createExtension('mcqLabelPrefix', run);

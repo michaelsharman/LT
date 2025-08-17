@@ -1,4 +1,4 @@
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -185,7 +185,7 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const networkStatus = createModule('networkStatus', run, {
+export const networkStatus = createExtension('networkStatus', run, {
     checkConnection,
     checkSpeed,
 });

@@ -1,5 +1,5 @@
 import logger from '../../../../../utils/logger';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -123,7 +123,7 @@ function injectCSS() {
     state.renderedCss = true;
 }
 
-export const blueLightFilter = createModule('blueLightFilter', run, {
+export const blueLightFilter = createExtension('blueLightFilter', run, {
     show,
     hide,
     toggle,

@@ -1,3 +1,4 @@
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 // import { styles } from './css/bundle.js';
 
 /**
@@ -109,3 +110,5 @@ function injectCSS(styles) {
     style.textContent = styles;
     document.head.appendChild(style);
 }
+
+export const nextGen = createExtension('nextGen', run);

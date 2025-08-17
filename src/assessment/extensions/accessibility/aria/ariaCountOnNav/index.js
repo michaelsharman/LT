@@ -1,6 +1,6 @@
 import * as app from '../../../../core/app.js';
 import * as activity from '../../../../core/activity.js';
-import { createModule } from '../../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -37,4 +37,4 @@ function run() {
     });
 }
 
-export const ariaCountOnNav = createModule('ariaCountOnNav', run);
+export const ariaCountOnNav = createExtension('ariaCountOnNav', run);

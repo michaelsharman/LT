@@ -1,6 +1,6 @@
 import * as app from '../../../core/app.js';
 import { hasCheckAnswer, questionInstance, questionResponseIds } from '../../../core/questions.js';
-import { createModule } from '../../../../utils/moduleFactory.js';
+import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -46,4 +46,4 @@ function setup() {
     }
 }
 
-export const disableOnValidate = createModule('disableOnValidate', run);
+export const disableOnValidate = createExtension('disableOnValidate', run);
