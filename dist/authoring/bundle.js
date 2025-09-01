@@ -1,28 +1,26 @@
-import { LT as e } from "./core.js";
-import { c as r } from "../index-CVy0-7iF.js";
-import { c as a } from "../index-BBAmsuj-.js";
-import { d as o } from "../index-CwTJRDCG.js";
-import { e as t } from "../index-G1q_afF5.js";
-import { i as s } from "../index-7GoJfRHg.js";
-import { l as n } from "../index--sLhAvJK.js";
-import { n as i } from "../index-DyONdwKu.js";
-import { r as m } from "../index-br6Ob6Ea.js";
-import { r as g } from "../index-CCVAWiok.js";
-import { s as p } from "../index-DMHudnoE.js";
-const T = {
-  extensions: {
-    contentTabs: { ...r },
-    createTags: { ...a },
-    dynamicContent: { ...o },
-    essayMaxLength: { ...t },
-    imageUploader: { ...s },
-    languageTextDirection: { ...n },
-    nativeTabs: { ...i },
-    requiredTags: { ...m },
-    renderPDF: { ...g },
-    singleQuestion: { ...p }
+import { LT as n } from "./core.js";
+import { E as c } from "../initExtensions-DZqnPDuf.js";
+const a = Object.freeze(
+  Object.keys(c.authoring).sort()
+  // sort for deterministic order
+), T = {
+  ...n,
+  /**
+   * LT.init(authorApp, options?)
+   *  - authorApp: Learnosity Author API instance (object, required)
+   *  - options: { extensions?: string[], security?: object, request?: object }
+   */
+  async init(t, s = {}) {
+    if (typeof t != "object" || t === null)
+      throw new TypeError("LT.init(authorApp, options): the first argument must be the Learnosity Author API instance object.");
+    const { extensions: e, security: r, request: o } = s || {}, i = Array.isArray(e) && e.length > 0 ? e : a;
+    return n.init(t, {
+      extensions: i,
+      security: r,
+      request: o
+    });
   }
-}, q = { ...e, ...T };
+};
 export {
-  q as LT
+  T as LT
 };

@@ -1,6 +1,18 @@
-import "../../app-BC_Cj6Pt.js";
-import "../../extensionsFactory-DRAOPv5d.js";
-import { b as i } from "../../index-CYLJ-hQA.js";
+import { c as r, L as i } from "../../extensionsFactory-CJF5B414.js";
+const e = {
+  initialised: !1,
+  totalItems: 0
+};
+function l() {
+  e.initialised || (e.initialised = !0, e.totalItems = Number(i.totalItems()) || 0, i.itemsApp().on("item:load", () => {
+    const n = Array.from(document.getElementsByClassName("item-prev")), o = Array.from(document.getElementsByClassName("item-next")), a = n.concat(o);
+    for (let t = 0; t < a.length; t++) {
+      const s = a[t].getAttribute("aria-label");
+      a[t].setAttribute("aria-live", s + " of " + e.totalItems);
+    }
+  }));
+}
+const c = r("ariaCountOnNav", l);
 export {
-  i as ariaCountOnNav
+  c as ariaCountOnNav
 };

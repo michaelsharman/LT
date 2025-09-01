@@ -1,17 +1,14 @@
-import { k as v } from "../../../app-BC_Cj6Pt.js";
-import { d as a, h as e } from "../../../player-Ja5E2l_p.js";
-import { c } from "../../../extensionsFactory-DRAOPv5d.js";
+import { c as a, L as l } from "../../../extensionsFactory-CJF5B414.js";
 const i = {
   message: {
     header: "Periodic Table of Elements",
-    body: t()
-  },
-  renderedCss: !1
+    body: s()
+  }
 };
-function m(d) {
-  i.renderedCss || (_(), i.renderedCss = !0), d && d?.message && i.message?.header.length && (i.message.header = d.message.header);
+function e(d = {}) {
+  d && d?.message && i.message?.header.length && (i.message.header = d.message.header);
 }
-function t() {
+function s() {
   return `<div class="lt__resource-periodic-table">
         <p class="sr-only">This is a periodic table of elements, with each element's atomic number, symbol, name, and atomic weight.</p>
         <p class="sr-only">Use the table to explore the properties of different chemical elements.</p>
@@ -1329,11 +1326,11 @@ function t() {
         </table>
     </div>`;
 }
-function n(d = "dialog") {
-  d === "dialog" ? o() : d === "tab" && r();
+function c(d = "dialog") {
+  d === "dialog" ? m() : d === "tab" && n();
 }
-function o() {
-  a({
+function m() {
+  l.dialog({
     header: i.message.header,
     body: i.message.body,
     buttons: [
@@ -1343,204 +1340,201 @@ function o() {
         is_primary: !1
       }
     ]
-  }), v().on("button:lt__resource-periodic-table-close:clicked", () => {
-    e();
+  }), l.assessApp().on("button:lt__resource-periodic-table-close:clicked", () => {
+    l.hideDialog();
   });
 }
-function r() {
-  const d = _("get") + t(), l = new Blob([d], { type: "text/html" }), s = URL.createObjectURL(l);
-  window.open(s, "_blank").addEventListener("unload", () => {
-    URL.revokeObjectURL(s);
+function n() {
+  const d = _() + s(), v = new Blob([d], { type: "text/html" }), t = URL.createObjectURL(v);
+  window.open(t, "_blank").addEventListener("unload", () => {
+    URL.revokeObjectURL(t);
   });
 }
-function _(d = "inject") {
-  const l = document.createElement("style"), s = `
-/* Periodic Table styles */
-.lt__resource-periodic-table {
-    min-width: 1500px;
+function _() {
+  return `
+        /* Periodic Table styles */
+        .lt__resource-periodic-table {
+            min-width: 1500px;
 
-    table {
-        width: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
-    }
+            table {
+                width: 100%;
+                table-layout: fixed;
+                border-collapse: collapse;
+            }
 
-    td,
-    th {
-        padding: 2px;
-        box-sizing: border-box;
-    }
+            td,
+            th {
+                padding: 2px;
+                box-sizing: border-box;
+            }
 
-    .row-spacer th,
-    .row-spacer td {
-        padding-top: 1em;
-    }
+            .row-spacer th,
+            .row-spacer td {
+                padding-top: 1em;
+            }
 
-    th[scope='row'],
-    th#period {
-        text-indent: -9999px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
+            th[scope='row'],
+            th#period {
+                text-indent: -9999px;
+                white-space: nowrap;
+                overflow: hidden;
+            }
 
-    /* ==== WCAG 2.2 AA Accessible Color Combos ==== */
+            /* ==== WCAG 2.2 AA Accessible Color Combos ==== */
 
-    /* Groups 1–3 (Alkali & Alkaline earth metals) */
-    td:nth-child(-n + 3) .lt__element {
-        background-color: #ffcdd2; /* pastel red (contrast ≈ 14.9:1) */
-    }
+            /* Groups 1–3 (Alkali & Alkaline earth metals) */
+            td:nth-child(-n + 3) .lt__element {
+                background-color: #ffcdd2; /* pastel red (contrast ≈ 14.9:1) */
+            }
 
-    /* Groups 4–13 (Transition & Post-transition metals) */
-    td:nth-child(n + 4) .lt__element {
-        background-color: #bbdefb; /* pastel blue (contrast ≈ 15.0:1) */
-    }
+            /* Groups 4–13 (Transition & Post-transition metals) */
+            td:nth-child(n + 4) .lt__element {
+                background-color: #bbdefb; /* pastel blue (contrast ≈ 15.0:1) */
+            }
 
-    /* Custom “ides” category */
-    tr.ides td .lt__element {
-        background-color: #c8e6c9; /* pastel green (contrast ≈ 15.6:1) */
-    }
+            /* Custom “ides” category */
+            tr.ides td .lt__element {
+                background-color: #c8e6c9; /* pastel green (contrast ≈ 15.6:1) */
+            }
 
-    /* Groups 14–18 (Metalloids, Nonmetals, Halogens, Noble gases) */
-    td:nth-child(n + 14) .lt__element {
-        background-color: #fff9c4; /* pastel yellow (contrast ≈ 19.6:1) */
-    }
+            /* Groups 14–18 (Metalloids, Nonmetals, Halogens, Noble gases) */
+            td:nth-child(n + 14) .lt__element {
+                background-color: #fff9c4; /* pastel yellow (contrast ≈ 19.6:1) */
+            }
 
-    caption {
-        padding: 1em 0 2em;
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 1rem;
-    }
+            caption {
+                padding: 1em 0 2em;
+                font-family: Helvetica, Arial, sans-serif;
+                font-size: 1rem;
+            }
 
-    .lt__card {
-        container-type: inline-size;
-        container-name: tile;
-        -webkit-container-type: inline-size;
-        -webkit-container-name: tile;
-        contain: layout;
-        border-radius: 0.5em;
-    }
+            .lt__card {
+                container-type: inline-size;
+                container-name: tile;
+                -webkit-container-type: inline-size;
+                -webkit-container-name: tile;
+                contain: layout;
+                border-radius: 0.5em;
+            }
 
-    .lt__element {
-        position: relative;
-        width: 100%;
-        padding-top: 100%;
-        font-size: 1.5rem;
-        border-radius: 0.3em;
-    }
+            .lt__element {
+                position: relative;
+                width: 100%;
+                padding-top: 100%;
+                font-size: 1.5rem;
+                border-radius: 0.3em;
+            }
 
-    @container tile (width < 100px) {
-        .lt__element {
-            font-size: 1.3rem;
+            @container tile (width < 100px) {
+                .lt__element {
+                    font-size: 1.3rem;
+                }
+            }
+
+            @container tile (width < 90px) {
+                .lt__element {
+                    font-size: 1.05rem;
+                }
+            }
+
+            @container tile (width < 80px) {
+                .lt__element {
+                    font-size: 0.95rem;
+                }
+            }
+
+            @container tile (width < 70px) {
+                .lt__element {
+                    font-size: 0.8rem;
+                }
+            }
+
+            @container tile (width < 61px) {
+                .lt__element {
+                    font-size: 0.7rem;
+                }
+            }
+
+            @container tile (width < 49px) {
+                .lt__element {
+                    font-size: 0.6rem;
+                }
+            }
+
+            @container tile (width < 39px) {
+                .lt__element {
+                    font-size: 0.3rem;
+                }
+            }
+
+            /* Atomic number stays in top-left */
+            .lt__element > .lt__number {
+                position: absolute;
+                top: 0.3em;
+                left: 0.3em;
+                font-size: 0.8em;
+                font-weight: normal;
+            }
+
+            /* Atomic weight stays in top-right */
+            .lt__element > .lt__atomic-weight {
+                position: absolute;
+                top: 0.4em;
+                right: 0.3em;
+                font-size: 0.6em;
+            }
+
+            /* Symbol centered a bit above middle */
+            .lt__element > .lt__symbol {
+                position: absolute;
+                top: 35%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.6em;
+                margin-top: 0.5em;
+            }
+
+            .lt__element > .lt__name {
+                position: absolute;
+                top: 70%;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.7em;
+                margin-top: 0.2em;
+            }
+
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                padding: 0;
+                border: 0;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+            }
+
+            .period-col {
+                width: 0 !important;
+                min-width: 0 !important;
+                max-width: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                visibility: collapse;
+            }
         }
-    }
 
-    @container tile (width < 90px) {
-        .lt__element {
-            font-size: 1.05rem;
+        .lrn-assess .app-panel .lrn-assess-modal-header+.lrn-assess-modal-body {
+            overflow: auto;
         }
-    }
-
-    @container tile (width < 80px) {
-        .lt__element {
-            font-size: 0.95rem;
-        }
-    }
-
-    @container tile (width < 70px) {
-        .lt__element {
-            font-size: 0.8rem;
-        }
-    }
-
-    @container tile (width < 61px) {
-        .lt__element {
-            font-size: 0.7rem;
-        }
-    }
-
-    @container tile (width < 49px) {
-        .lt__element {
-            font-size: 0.6rem;
-        }
-    }
-
-    @container tile (width < 39px) {
-        .lt__element {
-            font-size: 0.3rem;
-        }
-    }
-
-    /* Atomic number stays in top-left */
-    .lt__element > .lt__number {
-        position: absolute;
-        top: 0.3em;
-        left: 0.3em;
-        font-size: 0.8em;
-        font-weight: normal;
-    }
-
-    /* Atomic weight stays in top-right */
-    .lt__element > .lt__atomic-weight {
-        position: absolute;
-        top: 0.4em;
-        right: 0.3em;
-        font-size: 0.6em;
-    }
-
-    /* Symbol centered a bit above middle */
-    .lt__element > .lt__symbol {
-        position: absolute;
-        top: 35%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1.6em;
-        margin-top: 0.5em;
-    }
-
-    .lt__element > .lt__name {
-        position: absolute;
-        top: 70%;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 0.7em;
-        margin-top: 0.2em;
-    }
-
-    .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        margin: -1px;
-        padding: 0;
-        border: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-    }
-
-    .period-col {
-        width: 0 !important;
-        min-width: 0 !important;
-        max-width: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-        visibility: collapse;
-    }
+    `;
 }
-
-.lrn-assess .app-panel .lrn-assess-modal-header+.lrn-assess-modal-body {
-    overflow: auto;
-}
-`;
-  if (l.setAttribute("data-style", "LT Resource - Periodic Table"), l.textContent = s, d === "inject")
-    document.head.append(l), i.renderedCss = !0;
-  else if (d === "get")
-    return l.outerHTML;
-}
-const g = c("periodicTable", m, {
-  getContents: t,
-  launch: n
+const b = a("periodicTable", e, {
+  getStyles: _,
+  getContents: s,
+  launch: c
 });
 export {
-  g as periodicTable
+  b as periodicTable
 };
