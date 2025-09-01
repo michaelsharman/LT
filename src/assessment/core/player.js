@@ -1,4 +1,4 @@
-import { appInstance, assessApp } from './app.js';
+import { itemsApp, assessApp } from './app.js';
 import { isLastItem } from './items.js';
 import logger from '../../utils/logger.js';
 
@@ -36,7 +36,7 @@ export function answerMasking(action) {
 
     if (state.answerMasking.enabled) {
         if (action !== undefined) {
-            appInstance().questionsApp().masking(action);
+            itemsApp().questionsApp().masking(action);
         }
     } else {
         logger.warn('Answer masking is not enabled in the Items API configuration.');
@@ -137,7 +137,7 @@ export function lineReader(action) {
     }
 
     if (state.lineReader.enabled && state.lineReader.id !== null) {
-        const lineReader = appInstance().features()[`lrn-assessapp-feature_${state.lineReader.id}`];
+        const lineReader = itemsApp().features()[`lrn-assessapp-feature_${state.lineReader.id}`];
 
         switch (action) {
             case 'show':
@@ -170,19 +170,19 @@ export function lineReader(action) {
 export function navigate(target) {
     switch (target) {
         case 'previous':
-            appInstance().items().previous();
+            itemsApp().items().previous();
             break;
         case 'next':
             if (!isLastItem()) {
-                appInstance().items().next();
+                itemsApp().items().next();
             }
             break;
         case 'review':
             // Allow opening and closing the `Review progress` modal.
             if (document.getElementsByClassName('review-screen')[0].getAttribute('aria-hidden') === null) {
-                appInstance().dialogs().reviewScreen.hide();
+                itemsApp().dialogs().reviewScreen.hide();
             } else {
-                appInstance().dialogs().reviewScreen.show();
+                itemsApp().dialogs().reviewScreen.show();
             }
             break;
         case 'submit':
@@ -197,11 +197,11 @@ export function navigate(target) {
                     logger.error('Submission failed: ', event);
                 },
             };
-            appInstance().submit(submitSettings);
+            itemsApp().submit(submitSettings);
             break;
         default:
             if (typeof Number(target) === 'number' && Number(target) >= 0) {
-                appInstance().items().goto(Number(target));
+                itemsApp().items().goto(Number(target));
             } else {
                 logger.warn(`Invalid target (${target})`);
             }

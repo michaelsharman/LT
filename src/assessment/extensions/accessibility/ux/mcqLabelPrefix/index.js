@@ -1,14 +1,6 @@
-import { appInstance } from '../../../../core/app.js';
-import { questions } from '../../../../core/questions.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
-import logger from '../../../../../utils/logger.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Adds a prefix to all multiple-choice labels (correct
  * answer and distractors).
  *
@@ -20,6 +12,28 @@ import logger from '../../../../../utils/logger.js';
  *  - columns
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/mcqprefix.png" alt="" width="660"></p>
+ *
+ * Sets up an item load listener to add a prefix to all
+ * MCQ possible response labels.
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.mask Which mask pattern to use. Supports `upperAlpha` (default), `lowerAlpha`, and `numeric`.
+ * @param {string=} options.suffix Any suffix you want added to the label prefix. Defaults to `.`.
+ * @param {array=} options.prefixes Array of custom string prefixes to use.
+ *
+ * @example
+ * const options = {
+ *      mask: 'upperAlpha',
+ *      suffix: '.',
+ *      prefixes: [],
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'mcqLabelPrefix', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Assessment/mcqLabelPrefix
  */
 
@@ -32,24 +46,19 @@ const state = {
         numeric: 49,
     },
     explicitPrefixes: [],
-    renderedCss: false,
     suffix: '.',
 };
 
 /**
  * Sets up an item load listener to add a prefix to all
  * MCQ possible response labels.
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.mcqLabelPrefix.run();
- * @param {string} mask Which mask pattern to use. Supports `upperAlpha` (default), `lowerAlpha`, and `numeric`.
- * @param {string} suffix Any suffix you want added to the label prefix. Defaults to `.`.
- * @param {array} prefixes Array of custom string prefixes to use.
+ * @param {object=} config The optional configuration for the extension.
  * @since 0.6.0
+ * @ignore
  */
-function run(mask = 'upperAlpha', suffix = '.', prefixes) {
+function run(config) {
+    const { mask, suffix, prefixes } = config || {};
+
     if (state.prefixMask.hasOwnProperty(mask)) {
         state.chosenMask = mask;
     }
@@ -60,10 +69,8 @@ function run(mask = 'upperAlpha', suffix = '.', prefixes) {
         state.explicitPrefixes = prefixes;
     }
 
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
-    appInstance().on('item:changed', () => {
-        addPrefix(questions());
+    LT.itemsApp().on('item:changed', () => {
+        addPrefix(LT.questions());
     });
 }
 
@@ -110,45 +117,38 @@ function addPrefix(itemQuestions) {
                         }
                     }
                 } else {
-                    logger.warn(state.logPrefix, 'Options element not found');
+                    LT.utils.logger.warn(state.logPrefix, 'Options element not found');
                 }
             }
         }
     } catch (err) {
-        logger.error(err);
+        LT.utils.logger.error(err);
     }
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 0.6.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity MCQ label prefix styles */
-.lrn-prefix-label {
-    padding-right: 15px;
-    font-weight: 500;
-}
-@media (max-width: 750px) {
-    .lrn-prefix-label {
-        padding-right: 10px;
-    }
-}
-@media (max-width: 650px) {
-    .lrn-prefix-label {
-        padding-right: 5px;
-    }
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT MCQ Label Prefix');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+function getStyles() {
+    return `
+        /* Learnosity MCQ label prefix styles */
+        .lrn-prefix-label {
+            padding-right: 15px;
+            font-weight: 500;
+        }
+        @media (max-width: 750px) {
+            .lrn-prefix-label {
+                padding-right: 10px;
+            }
+        }
+        @media (max-width: 650px) {
+            .lrn-prefix-label {
+                padding-right: 5px;
+            }
+        }
+    `;
 }
 
-export const mcqLabelPrefix = createExtension('mcqLabelPrefix', run);
+export const mcqLabelPrefix = createExtension('mcqLabelPrefix', run, { getStyles });

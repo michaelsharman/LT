@@ -1,21 +1,17 @@
-import { appInstance } from '../../core/app.js';
-import { isVerticalLayout, userId, sessionId } from '../../core/activity.js';
-import { item, itemPosition, itemReference } from '../../core/items.js';
-import { questionResponse, questionResponseIds } from '../../core/questions.js';
 import { networkStatus } from '../ui/networkStatus/index.js';
-import { createExtension } from '../../../utils/extensionsFactory.js';
-import logger from '../../../utils/logger.js';
+import { createExtension, LT } from '../../../utils/extensionsFactory.js';
 import { detectEnv } from '../../../utils/userAgent.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Tracks user activity and events within Items API.
  * JSON events are stored in the events object and can be rendered for analysis.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/telemetry/telemetry.png" alt="" width="900"></p>
+ *
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['events'],
+ * });
+ *
  * @module Extensions/Assessment/events
  */
 
@@ -30,16 +26,12 @@ const state = {
 };
 
 /**
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.telemetry.run();
  * @since 3.0.0
+ * @ignore
  */
 function run() {
-    if (isVerticalLayout()) {
-        logger.warn('Event log is not currently supported in vertical layout.');
+    if (LT.isVerticalLayout()) {
+        LT.utils.logger.warn('Event log is not currently supported in vertical layout.');
         return;
     }
 
@@ -54,8 +46,8 @@ function run() {
 }
 
 async function setupEnvironment() {
-    state.events.user = userId();
-    state.events.session = sessionId();
+    state.events.user = LT.userId();
+    state.events.session = LT.sessionId();
     state.events.environment = await getEnvironmentInformation();
     state.events.network = {
         speed: networkStatus.checkSpeed(),
@@ -63,78 +55,78 @@ async function setupEnvironment() {
 }
 
 function setupPlayerEvents() {
-    appInstance().on('test:start', () => {
+    LT.itemsApp().on('test:start', () => {
         addEvent({
             type: 'test:start',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('unfocused', () => {
+    LT.itemsApp().on('unfocused', () => {
         addEvent({
             type: 'unfocused',
-            item: itemReference(),
+            item: LT.itemReference(),
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('focused', () => {
+    LT.itemsApp().on('focused', () => {
         addEvent({
             type: 'focused',
-            item: itemReference(),
+            item: LT.itemReference(),
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:reading:start', () => {
+    LT.itemsApp().on('test:reading:start', () => {
         addEvent({
             type: 'test:reading:start',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:reading:end', () => {
+    LT.itemsApp().on('test:reading:end', () => {
         addEvent({
             type: 'test:reading:end',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('item:warningOnChange', () => {
+    LT.itemsApp().on('item:warningOnChange', () => {
         addEvent({
             type: 'item:warningOnChange',
-            item: itemReference(),
+            item: LT.itemReference(),
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('item:load', () => {
+    LT.itemsApp().on('item:load', () => {
         addEvent({
             type: 'item:load',
-            item: itemReference(),
+            item: LT.itemReference(),
             data: {
-                num: itemPosition(),
+                num: LT.itemPosition(),
             },
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('items:fetch:done', () => {
+    LT.itemsApp().on('items:fetch:done', () => {
         addEvent({
             type: 'items:fetch:done',
-            item: itemReference(),
+            item: LT.itemReference(),
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('section:changed', () => {
+    LT.itemsApp().on('section:changed', () => {
         addEvent({
             type: 'section:changed',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:panel:show', async () => {
+    LT.itemsApp().on('test:panel:show', async () => {
         const event = await getEventFromDialog();
         addEvent({
             type: event,
@@ -142,91 +134,91 @@ function setupPlayerEvents() {
         });
     });
 
-    appInstance().on('test:panel:hide', () => {
+    LT.itemsApp().on('test:panel:hide', () => {
         addEvent({
             type: 'dialog:hide',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:pause', () => {
+    LT.itemsApp().on('test:pause', () => {
         addEvent({
             type: 'test:pause',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:resume', () => {
+    LT.itemsApp().on('test:resume', () => {
         addEvent({
             type: 'test:resume',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:save', () => {
+    LT.itemsApp().on('test:save', () => {
         addEvent({
             type: 'test:save',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:save:success', () => {
+    LT.itemsApp().on('test:save:success', () => {
         addEvent({
             type: 'test:save:success',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:save:error', () => {
+    LT.itemsApp().on('test:save:error', () => {
         addEvent({
             type: 'test:save:error',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:submit', () => {
+    LT.itemsApp().on('test:submit', () => {
         addEvent({
             type: 'test:submit',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:submit:success', () => {
+    LT.itemsApp().on('test:submit:success', () => {
         addEvent({
             type: 'test:submit:success',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:submit:error', () => {
+    LT.itemsApp().on('test:submit:error', () => {
         addEvent({
             type: 'test:submit:error',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:finished:save', () => {
+    LT.itemsApp().on('test:finished:save', () => {
         addEvent({
             type: 'test:finished:save',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:finished:submit', () => {
+    LT.itemsApp().on('test:finished:submit', () => {
         addEvent({
             type: 'test:finished:submit',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('test:finished:discard', () => {
+    LT.itemsApp().on('test:finished:discard', () => {
         addEvent({
             type: 'test:finished:discard',
             timestamp: getTimestamp(),
         });
     });
 
-    appInstance().on('time:end', () => {
+    LT.itemsApp().on('time:end', () => {
         addEvent({
             type: 'time:end',
             timestamp: getTimestamp(),
@@ -252,9 +244,9 @@ function setupQuestionEvents() {
     const DEBOUNCE_INTERVAL = 30_000; // 30 seconds
     const lastTrackedTimestamps = {};
 
-    appInstance().on('item:load', () => {
-        questionResponseIds().forEach(responseId => {
-            const question = appInstance().question(responseId);
+    LT.itemsApp().on('item:load', () => {
+        LT.questionResponseIds().forEach(responseId => {
+            const question = LT.itemsApp().question(responseId);
             const questionJson = question.getQuestion();
             const type = questionJson.type;
 
@@ -262,7 +254,7 @@ function setupQuestionEvents() {
                 question.on('recording:started', () => {
                     addEvent({
                         type: 'recording:started',
-                        item: itemReference(),
+                        item: LT.itemReference(),
                         question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
@@ -270,7 +262,7 @@ function setupQuestionEvents() {
                 question.on('recording:paused', () => {
                     addEvent({
                         type: 'recording:paused',
-                        item: itemReference(),
+                        item: LT.itemReference(),
                         question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
@@ -278,7 +270,7 @@ function setupQuestionEvents() {
                 question.on('recording:resumed', () => {
                     addEvent({
                         type: 'recording:resumed',
-                        item: itemReference(),
+                        item: LT.itemReference(),
                         question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
@@ -286,7 +278,7 @@ function setupQuestionEvents() {
                 question.on('recording:stopped', () => {
                     addEvent({
                         type: 'recording:stopped',
-                        item: itemReference(),
+                        item: LT.itemReference(),
                         question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
@@ -295,14 +287,14 @@ function setupQuestionEvents() {
 
             question.on('changed', () => {
                 const lastTracked = lastTrackedTimestamps[responseId] || 0;
-                const { revision, value } = questionResponse(responseId);
+                const { revision, value } = LT.questionResponse(responseId);
 
                 if (debounceQuestions.includes(type)) {
                     if (getTimestamp() - lastTracked >= DEBOUNCE_INTERVAL) {
                         lastTrackedTimestamps[responseId] = getTimestamp();
                         addEvent({
                             type: 'question:changed',
-                            item: itemReference(),
+                            item: LT.itemReference(),
                             question: questionJson.metadata.widget_reference,
                             data: {},
                             timestamp: getTimestamp(),
@@ -311,20 +303,20 @@ function setupQuestionEvents() {
                 } else {
                     addEvent({
                         type: 'question:changed',
-                        item: itemReference(),
+                        item: LT.itemReference(),
                         question: questionJson.metadata.widget_reference,
                         data: { revision, value },
                         timestamp: getTimestamp(),
                     });
                     addEvent({
                         type: 'question:masked',
-                        item: itemReference(),
+                        item: LT.itemReference(),
                         question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
                     addEvent({
                         type: 'question:validated',
-                        item: itemReference(),
+                        item: LT.itemReference(),
                         question: questionJson.metadata.widget_reference,
                         timestamp: getTimestamp(),
                     });
@@ -335,71 +327,71 @@ function setupQuestionEvents() {
 }
 
 function setupFeatureEvents() {
-    appInstance().on('item:load', () => {
-        const features = [...item().feature_ids, ...item().simplefeature_ids];
+    LT.itemsApp().on('item:load', () => {
+        const features = [...LT.item().feature_ids, ...LT.item().simplefeature_ids];
 
         features.forEach(id => {
-            if (appInstance().feature(id)) {
-                appInstance()
+            if (LT.itemsApp().feature(id)) {
+                LT.itemsApp()
                     .feature(id)
                     .on('begin', () => {
                         addEvent({
                             type: 'begin',
-                            item: itemReference(),
+                            item: LT.itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                appInstance()
+                LT.itemsApp()
                     .feature(id)
                     .on('complete', () => {
                         addEvent({
                             type: 'complete',
-                            item: itemReference(),
+                            item: LT.itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                appInstance()
+                LT.itemsApp()
                     .feature(id)
                     .on('playback:started', () => {
                         addEvent({
                             type: 'playback:started',
-                            item: itemReference(),
+                            item: LT.itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                appInstance()
+                LT.itemsApp()
                     .feature(id)
                     .on('playback:paused', () => {
                         addEvent({
                             type: 'playback:paused',
-                            item: itemReference(),
+                            item: LT.itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                appInstance()
+                LT.itemsApp()
                     .feature(id)
                     .on('playback:resumed', () => {
                         addEvent({
                             type: 'playback:resumed',
-                            item: itemReference(),
+                            item: LT.itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                appInstance()
+                LT.itemsApp()
                     .feature(id)
                     .on('playback:stopped', () => {
                         addEvent({
                             type: 'playback:stopped',
-                            item: itemReference(),
+                            item: LT.itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
-                appInstance()
+                LT.itemsApp()
                     .feature(id)
                     .on('playback:complete', () => {
                         addEvent({
                             type: 'playback:complete',
-                            item: itemReference(),
+                            item: LT.itemReference(),
                             timestamp: getTimestamp(),
                         });
                     });
@@ -414,7 +406,7 @@ function setupNetworkEvents() {
             state.network = 'online';
             addEvent({
                 type: 'network:online',
-                item: itemReference(),
+                item: LT.itemReference(),
                 timestamp: getTimestamp(),
             });
         }
@@ -425,7 +417,7 @@ function setupNetworkEvents() {
             state.network = 'offline';
             addEvent({
                 type: 'network:offline',
-                item: itemReference(),
+                item: LT.itemReference(),
                 timestamp: getTimestamp(),
             });
         }

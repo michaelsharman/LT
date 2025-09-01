@@ -1,5 +1,5 @@
 import { createExtension } from '../../../../../utils/extensionsFactory.js';
-// import { styles } from './css/bundle.js';
+import styles from './styles/index.css?inline';
 
 /**
  * Extensions add specific functionality to Items API.
@@ -60,7 +60,6 @@ import { createExtension } from '../../../../../utils/extensionsFactory.js';
 
 const state = {
     elements: {},
-    renderedCss: false,
     theme: 'nextGen',
 };
 
@@ -75,8 +74,6 @@ const state = {
  * @since 2.27.0
  */
 function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
     cacheElements();
     addThemeWrapperElement();
 }
@@ -104,11 +101,15 @@ function cacheElements() {
     state.elements.apiWrapper = document.querySelector('.lrn-assess');
 }
 
-function injectCSS(styles) {
-    const style = document.createElement('style');
-    style.setAttribute('data-lt-style', 'LT Theme NextGen');
-    style.textContent = styles;
-    document.head.appendChild(style);
+/**
+ * Returns the extension CSS
+ * @since 3.0.0
+ * @ignore
+ */
+function getStyles() {
+    return styles;
 }
 
-export const nextGen = createExtension('nextGen', run);
+export const nextGen = createExtension('nextGen', run, {
+    getStyles,
+});

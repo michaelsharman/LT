@@ -1,4 +1,4 @@
-import { appInstance } from './app.js';
+import { authorApp } from './app.js';
 
 /**
  * Everything relating to a widget being created/edited.
@@ -12,5 +12,5 @@ import { appInstance } from './app.js';
  * @returns {string | undefined}
  */
 export function type() {
-    return appInstance().getWidget()?.type;
+    return authorApp().getWidget()?.type;
 }

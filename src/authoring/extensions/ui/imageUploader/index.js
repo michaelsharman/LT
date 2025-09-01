@@ -1,12 +1,9 @@
-import { appInstance } from '../../../core/app.js';
 import { checkAppVersion } from '../../../utils/styling.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
-import logger from '../../../../utils/logger.js';
+import { createExtension, LT, apiSecurity, apiRequest } from '../../../../utils/extensionsFactory.js';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import Compressor from '@uppy/compressor';
 import ImageEditor from '@uppy/image-editor';
-
 import uppyCore from '@uppy/core/dist/style.min.css?inline';
 import uppyDashboard from '@uppy/dashboard/dist/style.min.css?inline';
 import uppyImageEditor from '@uppy/image-editor/dist/style.min.css?inline';
@@ -104,6 +101,31 @@ import uppyImageEditor from '@uppy/image-editor/dist/style.min.css?inline';
  *
  * <h2>Exclusions</h2>
  * <p>This extension doesn't run inside the simple features dialog. This mainly impacts posters for video files and background images for audio files.</p>
+ *
+ * @param {object} options.security - Security object returned from the SDK.
+ * @param {object} options.request  - Request object returned from the SDK.
+ * @param {object=} [options.options={}] - Image upload options.
+ * @param {number=} [options.options.quality=0.7]   - JPEG/WebP quality (0–1).
+ * @param {number=} [options.options.maxWidth=1500]  - Max output width (px).
+ * @param {number=} [options.options.maxHeight=1500] - Max output height (px).
+ *
+ * @example
+ * const options = {
+ *     security,
+ *     request,
+ *     options: {
+ *         quality: 0.8,
+ *         maxWidth: 1200,
+ *         maxHeight: 1200
+ *     }
+ * }
+ *
+ * LT.init(authorApp, {
+ *     extensions: [
+ *         { id: 'imageUploader', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Authoring/imageUploader
  */
 
@@ -112,7 +134,6 @@ const state = {
     logPrefix: 'LT Image Uploader: ',
     observer: null,
     observedElements: new Map(),
-    renderedCss: false,
     options: {
         quality: 0.7,
         maxWidth: 1500,
@@ -127,21 +148,20 @@ const state = {
 };
 
 /**
- * Extension constructor. We require `security` and `request` from the Author API
- * initialisation to be passed in.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.imageUploader.run(security, request);
+ * Extension constructor. We require `security` and `request` to be passed in.
  * @since 2.10.0
- * @param {object} security The security object returned from the SDK.
- * @param {object} request The request object returned from the SDK.
- * @param {object=} options Override for `quality` (value between 0 and 1), `maxWidth` (number), and `maxHeight` (number).
- * Default values are `0.7`, `1500`, and `1500` respectively.
+ * @param {object} args - Arguments object.
+ * @ignore
  */
-function run(security, request, options = {}) {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
+function run(args = {}) {
+    // let { security = {}, request = {}, options = {} } = args;
+    const { options = {} } = args;
+    const security = apiSecurity;
+    const request = apiRequest;
+
+    if (!security || !request) {
+        throw new TypeError('imageUploader.run: Missing `security` or `request`');
+    }
 
     state.upload.security = security;
     state.upload.request = request;
@@ -149,7 +169,7 @@ function run(security, request, options = {}) {
     overrideOptions(options);
 
     if (validateRunParams()) {
-        appInstance().on('widgetedit:widget:ready', setupModalObserver);
+        LT.authorApp().on('widgetedit:widget:ready', setupModalObserver);
     }
 }
 
@@ -159,7 +179,7 @@ function run(security, request, options = {}) {
  * @ignore
  */
 function setupModalObserver() {
-    logger.debug(`${state.logPrefix}setupModalObserver()`);
+    LT.utils.logger.debug(`${state.logPrefix}setupModalObserver()`);
 
     state.classNamePrefix = checkAppVersion(state.classNamePrefix);
     clearObserver();
@@ -172,7 +192,7 @@ function setupModalObserver() {
                 );
                 const elResourceDisplayName = document.querySelector('[data-authorapi-selector="asset-display-name"]');
                 if (modal && !elResourceDisplayName) {
-                    logger.debug(`${state.logPrefix}Disconnecting observer`);
+                    LT.utils.logger.debug(`${state.logPrefix}Disconnecting observer`);
                     clearObserver();
                     setupUploderUI();
                     break;
@@ -187,7 +207,7 @@ function setupModalObserver() {
 
         activateObserver();
     } else {
-        logger.debug(`${state.logPrefix}Observed elements full`);
+        LT.utils.logger.debug(`${state.logPrefix}Observed elements full`);
     }
 }
 
@@ -198,11 +218,11 @@ function setupModalObserver() {
  * @ignore
  */
 function activateObserver() {
-    logger.debug(`${state.logPrefix}Looking to activate observer`);
+    LT.utils.logger.debug(`${state.logPrefix}Looking to activate observer`);
     const parentElement = document.querySelector('.lrn-author-item');
 
     if (!state.observedElements.has(parentElement)) {
-        logger.debug(`${state.logPrefix}Activated observer`);
+        LT.utils.logger.debug(`${state.logPrefix}Activated observer`);
         state.observer.observe(parentElement, { childList: true, subtree: true });
         state.observedElements.set(parentElement, state.observer);
     }
@@ -286,7 +306,7 @@ function setupUploadLibrary() {
         .use(ImageEditor, { target: Dashboard });
 
     state.uppy.on('file-added', file => {
-        logger.debug(`${state.logPrefix}file-added: ${file.source}`);
+        LT.utils.logger.debug(`${state.logPrefix}file-added: ${file.source}`);
         const elMoreOptions = document.querySelector(`.lrn-${state.classNamePrefix}adv-options`);
         elMoreOptions.setAttribute('hidden', '');
 
@@ -296,28 +316,28 @@ function setupUploadLibrary() {
     });
 
     state.uppy.on('file-removed', () => {
-        logger.debug(`${state.logPrefix}file-removed`);
+        LT.utils.logger.debug(`${state.logPrefix}file-removed`);
         toggleElement('lt__image-uploader-upload-btn', 'remove');
     });
 
     state.uppy.on('file-editor:start', () => {
-        logger.debug(`${state.logPrefix}file-editor:start`);
+        LT.utils.logger.debug(`${state.logPrefix}file-editor:start`);
         toggleElement('lt__image-uploader-upload-btn', 'disable');
     });
 
     state.uppy.on('file-editor:complete', updatedFile => {
-        logger.debug(`${state.logPrefix}file-editor:complete`);
+        LT.utils.logger.debug(`${state.logPrefix}file-editor:complete`);
         compressImage(updatedFile);
         toggleElement('lt__image-uploader-upload-btn', 'enable');
     });
 
     state.uppy.on('file-editor:cancel', () => {
-        logger.debug(`${state.logPrefix}file-editor:cancel`);
+        LT.utils.logger.debug(`${state.logPrefix}file-editor:cancel`);
         toggleElement('lt__image-uploader-upload-btn', 'enable');
     });
 
     state.uppy.on('error', error => {
-        logger.error(error.stack);
+        LT.utils.logger.error(error.stack);
     });
 }
 
@@ -334,7 +354,7 @@ function compressImage(file) {
 
     // We don't try to compress SVGs
     if (type !== 'image/svg+xml') {
-        logger.debug(`${state.logPrefix}Compressing image`);
+        LT.utils.logger.debug(`${state.logPrefix}Compressing image`);
         state.uppy
             .getPlugin('Compressor')
             .compress(file.data)
@@ -394,7 +414,7 @@ function removeUploadButton() {
     const elExistingUploadButton = document.querySelector('.lt__image-uploader-upload-btn');
 
     if (elExistingUploadButton) {
-        logger.debug(`${state.logPrefix}Removing existing upload button`);
+        LT.utils.logger.debug(`${state.logPrefix}Removing existing upload button`);
         elExistingUploadButton.remove();
     }
 }
@@ -472,7 +492,7 @@ function uploadImage(fileId) {
 
                     src.value = assetUrl.trim();
                     src.dispatchEvent(new Event('input', { bubbles: true }));
-                    logger.debug(`${state.logPrefix}Added image path to URI`);
+                    LT.utils.logger.debug(`${state.logPrefix}Added image path to URI`);
 
                     setTimeout(() => {
                         removeUploadButton();
@@ -486,7 +506,7 @@ function uploadImage(fileId) {
                             const btnOk = document.querySelector('[data-authorapi-selector="asset-uploader-okay"]');
                             if (btnOk) {
                                 btnOk.click();
-                                logger.debug(`${state.logPrefix}Clicked OK button for background images`);
+                                LT.utils.logger.debug(`${state.logPrefix}Clicked OK button for background images`);
                             }
                         }
                         prepareModalButtons();
@@ -503,7 +523,7 @@ function uploadImage(fileId) {
  * @ignore
  */
 function listenForSelfHostedImages() {
-    logger.debug(`${state.logPrefix}listenForSelfHostedImages()`);
+    LT.utils.logger.debug(`${state.logPrefix}listenForSelfHostedImages()`);
 
     /**
      * It looks like Question Editor reloads the modal after opening. It could be based on the
@@ -528,7 +548,7 @@ function listenForSelfHostedImages() {
  * @ignore
  */
 function handleSelfHostedImage() {
-    logger.debug(`${state.logPrefix}handleSelfHostedImage()`);
+    LT.utils.logger.debug(`${state.logPrefix}handleSelfHostedImage()`);
     setTimeout(() => {
         prepareModalButtons();
     }, 1500);
@@ -542,7 +562,7 @@ function handleSelfHostedImage() {
  * @param {object} modalParent
  */
 function prepareModalButtons() {
-    logger.debug(`${state.logPrefix}prepareModalButtons()`);
+    LT.utils.logger.debug(`${state.logPrefix}prepareModalButtons()`);
     const elCloseButtons = [
         `lrn-${state.classNamePrefix}modal-button-close`,
         `lrn-${state.classNamePrefix}btn-default`,
@@ -579,20 +599,20 @@ function prepareModalButtons() {
 
     setTimeout(() => {
         waitForElement(modalParent, `.lrn-${state.classNamePrefix}modal-footer .lrn-${state.classNamePrefix}delete-btn-wrapper`, () => {
-            logger.debug(`${state.logPrefix}waitForElement() observed`);
+            LT.utils.logger.debug(`${state.logPrefix}waitForElement() observed`);
             for (const btn of elCloseButtons) {
                 const elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
                 if (elBtn) {
                     elBtn.addEventListener('click', clickHandler);
-                    logger.debug(`Adding clickHanders for: ${btn}`);
-                    logger.debug(elBtn);
+                    LT.utils.logger.debug(`Adding clickHanders for: ${btn}`);
+                    LT.utils.logger.debug(elBtn);
                 }
             }
         });
     }, 100);
 
     function clickHandler() {
-        logger.debug(`${state.logPrefix}clickHandler()`);
+        LT.utils.logger.debug(`${state.logPrefix}clickHandler()`);
         removeHandler();
         // Wait to set a click event for the modal to close
         // We don't want the observer firing while still open
@@ -605,7 +625,7 @@ function prepareModalButtons() {
         for (const btn of elCloseButtons) {
             const elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
             if (elBtn) {
-                logger.debug(`${state.logPrefix}Removed clickHandler`);
+                LT.utils.logger.debug(`${state.logPrefix}Removed clickHandler`);
                 elBtn.removeEventListener('click', clickHandler);
             }
         }
@@ -661,7 +681,7 @@ function overrideOptions(options) {
  */
 function validateRunParams() {
     if (!state.upload.security || !state.upload.request || typeof state.upload.security !== 'object' || typeof state.upload.request !== 'object') {
-        logger.error(`${state.logPrefix}imageUploader extension failed to run - Missing/invalid security or request parameters`);
+        LT.utils.logger.error(`${state.logPrefix}imageUploader extension failed to run - Missing/invalid security or request parameters`);
         return false;
     }
     return true;
@@ -689,55 +709,52 @@ function toggleElement(classname, action) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.10.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
+function getStyles() {
     const vendorCSS = [uppyCore, uppyDashboard, uppyImageEditor].join('\n');
     const css = `
-/* Learnosity custom image uploader (DAM) */
-/* Used to style content tabs added by via rich-text editor */
-.lrn .lrn-author-ui-no-preview .uppy-c-btn,
-.lrn .lrn-author-ui-no-preview button.uppy-c-btn {
-    color: #fff;
-}
-.lrn .lrn-author-ui-no-preview button.uppy-Dashboard-browse {
-    color: #1269cf;
-}
-.lrn .uppy-Dashboard-inner {
-    margin-bottom: 15px;
-}
-.lrn .lrn-author-ui-no-preview .uppy-Dashboard-Item-actionWrapper button {
-    color: inherit;
-}
-.lrn .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload,
-.lrn .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover {
-    background-color: #1877b1;
-}
-.lrn .lrn-author-ui-no-preview button.lt__image-uploader-upload-btn {
-    color: #fff;
-    background: #1877b1;
-}
-.lrn .lrn-author-ui-no-preview button.lt__image-uploader-upload-btn[disabled],
-.lrn .lrn-author-ui-no-preview button.lt__image-uploader-upload-btn[disabled]:hover,
-.lrn .lrn-author-ui-no-preview button.lt__image-uploader-upload-btn[disabled]:focus {
-    color: #d9d9d9;
-    border-color: #96b7cb;
-    background: #96b7cb;
+        /* Learnosity custom image uploader (DAM) */
+        /* Used to style content tabs added by via rich-text editor */
+        .lrn .lrn-author-ui-no-preview .uppy-c-btn,
+        .lrn .lrn-author-ui-no-preview button.uppy-c-btn {
+            color: #fff;
+        }
+        .lrn .lrn-author-ui-no-preview button.uppy-Dashboard-browse {
+            color: #1269cf;
+        }
+        .lrn .uppy-Dashboard-inner {
+            margin-bottom: 15px;
+        }
+        .lrn .lrn-author-ui-no-preview .uppy-Dashboard-Item-actionWrapper button {
+            color: inherit;
+        }
+        .lrn .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload,
+        .lrn .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover {
+            background-color: #1877b1;
+        }
+        .lrn .lrn-author-ui-no-preview button.lt__image-uploader-upload-btn {
+            color: #fff;
+            background: #1877b1;
+        }
+        .lrn .lrn-author-ui-no-preview button.lt__image-uploader-upload-btn[disabled],
+        .lrn .lrn-author-ui-no-preview button.lt__image-uploader-upload-btn[disabled]:hover,
+        .lrn .lrn-author-ui-no-preview button.lt__image-uploader-upload-btn[disabled]:focus {
+            color: #d9d9d9;
+            border-color: #96b7cb;
+            background: #96b7cb;
+        }
+
+        .lrn .uppy-Dashboard-input[type=file] {
+            display: none;
+        }
+    `;
+
+    return `${vendorCSS}\n\n${css}`;
 }
 
-.lrn .uppy-Dashboard-input[type=file] {
-    display: none;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Image Uploader');
-    elStyle.textContent = `${vendorCSS}\n\n${css}`;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
-}
-
-export const imageUploader = createExtension('imageUploader', run);
+export const imageUploader = createExtension('imageUploader', run, {
+    getStyles,
+});

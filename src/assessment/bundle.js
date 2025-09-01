@@ -2,53 +2,39 @@
  * bundle.js is a "kitchen sink" file that will load everything when imported. The
  * core LT library, plus all extensions (excluding themes). Probably only use this
  * for development because of the size. In production, try importing core.js and
- * any extensions you might want separately.
+ * define any extensions you might want separately.
  */
 
 import { LT as core } from './core.js';
+import { EXTENSIONS } from '../utils/extensionsRegistry.js';
 
-import * as ariaCountOnNav from './extensions/accessibility/aria/ariaCountOnNav/index.js';
-import * as blockGrammarChecks from './extensions/validation/blockGrammarChecks/index.js';
-import * as blueLightFilter from './extensions/accessibility/ux/blueLightFilter/index.js';
-import * as checkAnswerValidation from './extensions/validation/checkAnswerValidation/index.js';
-import * as columnResizer from './extensions/accessibility/ux/columnResizer/index.js';
-import * as contentTabs from './extensions/ui/contentTabs/index.js';
-import * as disableOnValidate from './extensions/validation/disableOnValidate/index.js';
-import * as essayLimitByCharacter from './extensions/validation/essayLimitByCharacter/index.js';
-import * as events from './extensions/events/index.js';
-import * as hideAlternatives from './extensions/accessibility/ux/hideAlternatives/index.js';
-import * as keyboardShortcuts from './extensions/accessibility/ux/keyboardShortcuts/index.js';
-import * as magnifier from './extensions/accessibility/ux/magnifier/index.js';
-import * as mcqLabelPrefix from './extensions/accessibility/ux/mcqLabelPrefix/index.js';
-import * as networkStatus from './extensions/ui/networkStatus/index.js';
-import * as readingMask from './extensions/accessibility/ux/readingMask/index.js';
-import * as renderPDF from './extensions/ui/renderPDF/index.js';
-import * as resetResponse from './extensions/accessibility/ux/resetResponse/index.js';
-import * as toggleTimer from './extensions/accessibility/ux/toggleTimer/index.js';
-import * as whiteNoise from './extensions/accessibility/ux/whiteNoise/index.js';
+const ALL_ASSESSMENT_EXT_IDS = Object.freeze(
+    Object.keys(EXTENSIONS.assessment || {}).sort() // sort for deterministic order
+);
 
-const extensions = {
-    extensions: {
-        ariaCountOnNav: { ...ariaCountOnNav },
-        blockGrammarChecks: { ...blockGrammarChecks },
-        blueLightFilter: { ...blueLightFilter },
-        checkAnswerValidation: { ...checkAnswerValidation },
-        columnResizer: { ...columnResizer },
-        contentTabs: { ...contentTabs },
-        disableOnValidate: { ...disableOnValidate },
-        essayLimitByCharacter: { ...essayLimitByCharacter },
-        events: { ...events },
-        hideAlternatives: { ...hideAlternatives },
-        keyboardShortcuts: { ...keyboardShortcuts },
-        magnifier: { ...magnifier },
-        mcqLabelPrefix: { ...mcqLabelPrefix },
-        networkStatus: { ...networkStatus },
-        readingMask: { ...readingMask },
-        renderPDF: { ...renderPDF },
-        resetResponse: { ...resetResponse },
-        toggleTimer: { ...toggleTimer },
-        whiteNoise: { ...whiteNoise },
+export const LT = {
+    ...core,
+
+    /**
+     * LT.init(itemsApp, options?)
+     *  - itemsApp: Learnosity Items API instance (object, required)
+     *  - options: { extensions?: string[] }
+     */
+    async init(itemsApp, options = {}) {
+        // Hard guard: first arg must be the Items API instance object
+        if (typeof itemsApp !== 'object' || itemsApp === null) {
+            throw new TypeError('LT.init(itemsApp, options): the first argument must be the Learnosity Items API instance object.');
+        }
+
+        // Extract options (second arg)
+        const { extensions: userExtensions } = options || {};
+
+        // If caller provides an array, use it; otherwise load all (minus disabled)
+        const finalExtensions = Array.isArray(userExtensions) && userExtensions.length > 0 ? userExtensions : ALL_ASSESSMENT_EXT_IDS;
+
+        // Delegate to core.init (which calls runExtensions with 'assessment')
+        return core.init(itemsApp, {
+            extensions: finalExtensions,
+        });
     },
 };
-
-export const LT = { ...core, ...extensions };

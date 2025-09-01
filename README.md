@@ -12,7 +12,7 @@ This package is unofficial and wasn't created by Learnosity.
 
 No modules contained within:
 
--   ever have access to the consumer private key
+-   ever have access to the consumer private key (i.e. `consumer_secret`)
 -   track any usage or personal information
 
 Everything is open source under the MIT license. Feel free to use as you see fit.
@@ -37,7 +37,14 @@ If you want 1 or 2 extensions, you should import them individually to keep the o
 
 ```
 import { LT } from '@caspingus/lt/assessment/core';
-import { columnResizer } from '@caspingus/lt/assessment/extensions/columnResizer';
+
+LT.init(itemsApp, {
+    extensions: [
+        'blockGrammarChecks',
+        'columnResizer',
+        'disableOnValidate',
+    ],
+});
 ```
 
 The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 240kB for assessment and 1400kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
@@ -45,8 +52,6 @@ The `bundle` module contains everything in `core` along with _all_ extensions ex
 ```
 import { LT } from '@caspingus/lt/assessment/bundle';
 ```
-
-^^ Importing `bundle` puts all extensions in `LT.extensions`.
 
 ## Initialize
 
@@ -66,18 +71,10 @@ const itemsApp = LearnosityItems.init(signedConfigObject);
 
 // Pass that app instance to the Toolkit constructor
 import { LT } from '@caspingus/lt/assessment/core';
-import { renderPDF } from '@caspingus/lt/assessment/extensions/renderPDF';
 
-LT.init(itemsApp);
-
-// Optionally call any extensions you might want
-renderPDF.run();
-
-// Put individual extensions in the LT object if that makes your life easier
-LT.extensions = {
-    renderPDF,
-};
-LT.extensions.renderPDF.run();
+LT.init(itemsApp, {
+    extensions: ['renderPDF'],
+});
 
 // Optionally add to the global scope (handy for development)
 window.LT = LT;
@@ -155,9 +152,9 @@ const itemsApp = LearnosityItems.init(initializationObject, callbacks);
 import { LT } from 'https://cdn.jsdelivr.net/npm/@caspingus/lt/dist/assessment/bundle.js';
 
 window.launch = function (app) {
-    LT.init(app);
+    LT.init(app, {
+        extensions: ['toggleTimer']
+    });
     window.LT = LT;
-
-    LT.extensions.toggleTimer.run();
 };
 ```

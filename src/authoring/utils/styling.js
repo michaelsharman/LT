@@ -17,7 +17,7 @@ export function checkAppVersion(prefix) {
     if (prefix === null && diagnostics()?.versions?.concrete) {
         const appVersion = parseFloat(diagnostics().versions.concrete.replace(/^v/, '').split('.').slice(0, 2).join(''));
 
-        prefix = appVersion >= 2227 ? 'author-' : '';
+        prefix = appVersion >= 1115 ? 'author-' : '';
     }
 
     return prefix;

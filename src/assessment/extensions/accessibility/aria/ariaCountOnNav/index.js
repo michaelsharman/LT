@@ -1,38 +1,42 @@
-import * as app from '../../../../core/app.js';
-import * as activity from '../../../../core/activity.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
+ * Appends ` of {totalItems}` to the aria-label for the previous and next buttons.
  *
- * --
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['ariaCountOnNav'],
+ * });
  *
- * Listens for the item load event and appends
- * ` of {totalItems}` to the aria-label for the
- * previous and next buttons.
  * @module Extensions/Assessment/ariaCountOnNav
  */
 
+const state = {
+    initialised: false,
+    totalItems: 0,
+};
+
 /**
  * Executes on item load to add custom label.
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.ariaCountOnNav.run();
  * @since 0.3.0
+ * @ignore
  */
 function run() {
-    app.appInstance().on('item:load', () => {
-        const numItems = activity.totalItems();
+    if (state.initialised) {
+        return;
+    }
+
+    state.initialised = true;
+    state.totalItems = Number(LT.totalItems()) || 0;
+
+    LT.itemsApp().on('item:load', () => {
         const elPrevious = Array.from(document.getElementsByClassName('item-prev'));
         const elNext = Array.from(document.getElementsByClassName('item-next'));
         const elNav = elPrevious.concat(elNext);
 
         for (let i = 0; i < elNav.length; i++) {
             const attr = elNav[i].getAttribute('aria-label');
-            elNav[i].setAttribute('aria-live', attr + ' of ' + numItems);
+            elNav[i].setAttribute('aria-live', attr + ' of ' + state.totalItems);
         }
     });
 }

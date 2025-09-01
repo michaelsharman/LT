@@ -9,20 +9,11 @@ const state = {};
 
 /**
  * Constructor method for Learnosity Toolkit.
- * @since 2.0.0
+ * @since 3.0.0
+ * @ignore
  * @param {object} app - Author API app instance
- * @example
- * // Declare and set your variable with the Author API LearnosityAuthor.init() method
- * const authorApp = LearnosityAuthor.init(signedConfigObject);
- *
- * // Pass that app instance to the Toolkit constructor in the Author API readyListener()
- * import { LT } from '[path/to/tookit/index]';
- * LT.init(authorApp);
- *
- * // Can be handy in the global scope for development
- * window.LT = LT;
  */
-export function init(app) {
+export function setup(app) {
     state.app = app;
     setupListeners();
 }
@@ -32,7 +23,7 @@ export function init(app) {
  * @since 2.0.0
  * @returns {object}
  */
-export function appInstance() {
+export function authorApp() {
     return state.app;
 }
 
@@ -42,7 +33,7 @@ export function appInstance() {
  * @returns {object | null}
  */
 export function questionEditorApp() {
-    return appInstance().editorApp() !== undefined ? appInstance().editorApp() : null;
+    return authorApp().editorApp() !== undefined ? authorApp().editorApp() : null;
 }
 
 /**

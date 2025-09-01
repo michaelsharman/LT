@@ -1,6 +1,5 @@
-import { appInstance } from '../../../core/app.js';
 import { debounce } from 'lodash-es';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -11,36 +10,32 @@ import { createExtension } from '../../../../utils/extensionsFactory.js';
  * Adds the ability for authors to create tags (type:tag)
  * via the Author API if they don't yet exist in the item bank.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/createtags.gif" alt="" width="660"></p>
+ *
+ * @example
+ * LT.init(authorApp, {
+ *     extensions: ['createTags'],
+ * });
+ *
  * @module Extensions/Authoring/createTags
  */
-
-const state = {
-    renderedCss: false,
-};
 
 /**
  * Sets up a listener when the tags panel opens to inject
  * new behaviour to create a tag type:tag.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.createTags.run();
  * @since 2.18.0
+ * @ignore
  */
 function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
     // We need to wait for the UI to be ready
     setTimeout(() => {
         checkForSetup();
     }, 1500);
 
-    appInstance().on('navigate', checkForSetup);
+    LT.authorApp().on('navigate', checkForSetup);
 
     function checkForSetup() {
         setTimeout(() => {
-            if (appInstance().getLocation().route === 'items/:reference/settings/:tab') {
+            if (LT.authorApp().getLocation().route === 'items/:reference/settings/:tab') {
                 setup();
             }
         }, 300);
@@ -111,14 +106,14 @@ function showCreateTagsUI(elNoSuggestions) {
 function createTag() {
     const elTagsInput = document.querySelector('[data-authorapi-selector="tag-search-input"]');
     const elErrorContainer = document.querySelector('.lt__error');
-    const currentTags = appInstance().getItemTags();
+    const currentTags = LT.authorApp().getItemTags();
     const newTag = elTagsInput.value;
 
     if (checkTagSyntax(newTag)) {
         const parts = newTag.split(':').map(part => part.trim());
         if (validateTag(currentTags, { type: parts[0], name: parts[1] })) {
             currentTags.push({ type: parts[0], name: parts[1] });
-            appInstance().setItemTags(currentTags);
+            LT.authorApp().setItemTags(currentTags);
         } else {
             const elErrorMessage = elErrorContainer.querySelector('.lt__errorMessage');
             elErrorMessage.textContent = 'Tag already exists';
@@ -159,42 +154,37 @@ function checkTagSyntax(s) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.18.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity create tags styles */
-.lt__createTagsContainer {
-    position: relative;
-    top: -21px;
-    float: right;
-    font-size: 85%;
-    height: 1px;
-}
-:is(#lds, body) .lds-btn.lt__btn {
-    font-size: 115%;
-}
-.lt__error {
-    color: #dd002f;
-    padding-right: 2px;
+function getStyles() {
+    return `
+        /* Learnosity create tags styles */
+        .lt__createTagsContainer {
+            position: relative;
+            top: -21px;
+            float: right;
+            font-size: 85%;
+            height: 1px;
+        }
+        :is(#lds, body) .lds-btn.lt__btn {
+            font-size: 115%;
+        }
+        .lt__error {
+            color: #dd002f;
+            padding-right: 2px;
 
-    :is(svg) {
-        vertical-align: middle;
-    }
-}
-.lrn.lrn-author .lrn-author-api-react-container .lrn-author-settings-tag-search span.lt__errorMessage {
-    margin-left: 0;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Create Tags');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+            :is(svg) {
+                vertical-align: middle;
+            }
+        }
+        .lrn.lrn-author .lrn-author-api-react-container .lrn-author-settings-tag-search span.lt__errorMessage {
+            margin-left: 0;
+        }
+    `;
 }
 
-export const createTags = createExtension('createTags', run);
+export const createTags = createExtension('createTags', run, {
+    getStyles,
+});

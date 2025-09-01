@@ -1,15 +1,6 @@
-import { appInstance, assessApp } from '../../../core/app.js';
-import { hasCheckAnswer, questions, questionResponse } from '../../../core/questions.js';
-import logger from '../../../../utils/logger.js';
-import { dialog, hideDialog } from '../../../core/player.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * This extension is used in scenarios where you want the
  * user to attempt all questions, and check the answer,
  * prior to navigating to the next question.
@@ -29,6 +20,25 @@ import { createExtension } from '../../../../utils/extensionsFactory.js';
  *     }
  * }
  * ```
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.message.header The header text for the message dialog.
+ * @param {string=} options.message.body The body text for the message dialog.
+ *
+ * @example
+ * const options = {
+ *     message: {
+ *         header: 'Please check your answers',
+ *         body: '<p>Before moving on, attempt all questions and click the "Check Answer" button.</p><p>Note: the "Check Answer" button may not appear on every question.</p>'
+ *     }
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'checkAnswerValidation', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Assessment/checkAnswerValidation
  */
 
@@ -41,34 +51,21 @@ const state = {
 };
 
 /**
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- *
- * // These are the default values. Override as needed.
- * const config = {
- *     message: {
- *         header: 'Please check your answers',
- *         body: '<p>Before moving on, attempt all questions and click the "Check Answer" button.</p><p>Note: the "Check Answer" button may not appear on every question.</p>'
- *     }
- * }
- * LT.extensions.checkAnswerValidation.run(config);
- * @param {object=} config Object of configuration options. Currently only supports a message object with
- *  2 keys, `header` and `body`.
+ * @param {object=} config Object of configuration options. Currently only supports a message object with 2 keys, `header` and `body`.
  * @since 2.11.0
+ * @ignore
  */
 function run(config) {
-    if (config && config?.message) {
-        if (state.message?.header.length) {
-            state.message.header = config.message.header;
-        }
-        if (state.message?.body.length) {
-            state.message.body = config.message.body;
-        }
+    const { header, body } = config?.message || {};
+
+    if (header?.length) {
+        state.message.header = header;
+    }
+    if (body?.length) {
+        state.message.body = body;
     }
 
-    appInstance().on('item:beforeunload', e => {
+    LT.itemsApp().on('item:beforeunload', e => {
         setup(e);
     });
 }
@@ -85,7 +82,7 @@ function setup(e) {
 
     if (itemHasCheckAnswer) {
         if (!hasUsedCheckAnswer()) {
-            logger.debug('Disabling navigation.');
+            LT.utils.logger.debug('Disabling navigation.');
             e.preventDefault();
             launchMessage();
         }
@@ -104,13 +101,13 @@ function setup(e) {
  * @returns {boolean}
  */
 function hasCheckAnswerButton() {
-    const itemQuestions = questions();
+    const itemQuestions = LT.questions();
     let hasCheckAnswerButton = false;
 
     for (const q of itemQuestions) {
         const response_id = q.response_id;
 
-        if (hasCheckAnswer(response_id)) {
+        if (LT.hasCheckAnswer(response_id)) {
             hasCheckAnswerButton = true;
             break;
         }
@@ -129,12 +126,15 @@ function hasCheckAnswerButton() {
  * @returns {boolean}
  */
 function hasUsedCheckAnswer() {
-    const itemQuestions = questions();
+    const itemQuestions = LT.questions();
 
     for (const q of itemQuestions) {
         const response_id = q.response_id;
 
-        if (hasCheckAnswer(response_id) && (!questionResponse(response_id) || !questionResponse(response_id).hasOwnProperty('feedbackAttemptsCount'))) {
+        if (
+            LT.hasCheckAnswer(response_id) &&
+            (!LT.questionResponse(response_id) || !LT.questionResponse(response_id).hasOwnProperty('feedbackAttemptsCount'))
+        ) {
             return false;
         }
     }
@@ -149,7 +149,7 @@ function hasUsedCheckAnswer() {
  * @ignore
  */
 function launchMessage() {
-    dialog({
+    LT.dialog({
         header: state.message.header,
         body: state.message.body,
         buttons: [
@@ -160,8 +160,8 @@ function launchMessage() {
             },
         ],
     });
-    assessApp().on('button:lt__check_answer_validation:clicked', () => {
-        hideDialog();
+    LT.assessApp().on('button:lt__check_answer_validation:clicked', () => {
+        LT.hideDialog();
     });
 }
 

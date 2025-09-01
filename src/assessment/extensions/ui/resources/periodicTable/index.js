@@ -1,16 +1,28 @@
-import { assessApp } from '../../../../core/app.js';
-import { dialog, hideDialog } from '../../../../core/player.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Renders the periodic table of elements as HTML, either in a dialog or a new tab.
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/resources/periodicTable/periodicTable.png" alt="" width="900"></p>
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.message.header Header message for the dialog.
+ *
+ * @example
+ * const options = {
+ *     message: {
+ *         header: 'Periodic Table of Elements',
+ *     }
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'periodicTable', args: options },
+ *     ],
+ * });
+ * LT.extensions.resources.periodicTable.launch(); // Default to native Learnosity dialog
+ * LT.extensions.resources.periodicTable.launch('tab');
+ *
  * @module Extensions/Assessment/resources/periodicTable
  */
 
@@ -19,25 +31,14 @@ const state = {
         header: 'Periodic Table of Elements',
         body: getContents(),
     },
-    renderedCss: false,
 };
 
 /**
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.resources.periodicTable.run();
- * LT.extensions.resources.periodicTable.launch(); // Default to native Learnosity dialog
- *
- * LT.extensions.resources.periodicTable.launch('tab');
- * @param {Object} config - Configuration object for the periodic table.
- *                          message.header - Header text for the periodic table.
+ * @param {object=} config - Configuration object for the periodic table.
  * @since 3.0.0
+ * @ignore
  */
-function run(config) {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
+function run(config = {}) {
     if (config && config?.message) {
         if (state.message?.header.length) {
             state.message.header = config.message.header;
@@ -1386,7 +1387,7 @@ function launch(mode = 'dialog') {
  * @ignore
  */
 function launchDialog() {
-    dialog({
+    LT.dialog({
         header: state.message.header,
         body: state.message.body,
         buttons: [
@@ -1397,8 +1398,8 @@ function launchDialog() {
             },
         ],
     });
-    assessApp().on('button:lt__resource-periodic-table-close:clicked', () => {
-        hideDialog();
+    LT.assessApp().on('button:lt__resource-periodic-table-close:clicked', () => {
+        LT.hideDialog();
     });
 }
 
@@ -1410,7 +1411,7 @@ function launchDialog() {
  * @ignore
  */
 function launchTab() {
-    const contents = injectCSS('get') + getContents();
+    const contents = getStyles() + getContents();
     const blob = new Blob([contents], { type: 'text/html' });
     const blobUrl = URL.createObjectURL(blob);
     const newWindow = window.open(blobUrl, '_blank');
@@ -1421,205 +1422,193 @@ function launchTab() {
 }
 
 /**
- * Injects the necessary CSS to the header.
- * Or, returns the CSS as a string if `mode` is 'get'. This
- * includes the <style> element wrapper.
+ * Returns the extension CSS
  * @since 3.0.0
  * @ignore
  */
-function injectCSS(mode = 'inject') {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Periodic Table styles */
-.lt__resource-periodic-table {
-    min-width: 1500px;
+function getStyles() {
+    return `
+        /* Periodic Table styles */
+        .lt__resource-periodic-table {
+            min-width: 1500px;
 
-    table {
-        width: 100%;
-        table-layout: fixed;
-        border-collapse: collapse;
-    }
+            table {
+                width: 100%;
+                table-layout: fixed;
+                border-collapse: collapse;
+            }
 
-    td,
-    th {
-        padding: 2px;
-        box-sizing: border-box;
-    }
+            td,
+            th {
+                padding: 2px;
+                box-sizing: border-box;
+            }
 
-    .row-spacer th,
-    .row-spacer td {
-        padding-top: 1em;
-    }
+            .row-spacer th,
+            .row-spacer td {
+                padding-top: 1em;
+            }
 
-    th[scope='row'],
-    th#period {
-        text-indent: -9999px;
-        white-space: nowrap;
-        overflow: hidden;
-    }
+            th[scope='row'],
+            th#period {
+                text-indent: -9999px;
+                white-space: nowrap;
+                overflow: hidden;
+            }
 
-    /* ==== WCAG 2.2 AA Accessible Color Combos ==== */
+            /* ==== WCAG 2.2 AA Accessible Color Combos ==== */
 
-    /* Groups 1–3 (Alkali & Alkaline earth metals) */
-    td:nth-child(-n + 3) .lt__element {
-        background-color: #ffcdd2; /* pastel red (contrast ≈ 14.9:1) */
-    }
+            /* Groups 1–3 (Alkali & Alkaline earth metals) */
+            td:nth-child(-n + 3) .lt__element {
+                background-color: #ffcdd2; /* pastel red (contrast ≈ 14.9:1) */
+            }
 
-    /* Groups 4–13 (Transition & Post-transition metals) */
-    td:nth-child(n + 4) .lt__element {
-        background-color: #bbdefb; /* pastel blue (contrast ≈ 15.0:1) */
-    }
+            /* Groups 4–13 (Transition & Post-transition metals) */
+            td:nth-child(n + 4) .lt__element {
+                background-color: #bbdefb; /* pastel blue (contrast ≈ 15.0:1) */
+            }
 
-    /* Custom “ides” category */
-    tr.ides td .lt__element {
-        background-color: #c8e6c9; /* pastel green (contrast ≈ 15.6:1) */
-    }
+            /* Custom “ides” category */
+            tr.ides td .lt__element {
+                background-color: #c8e6c9; /* pastel green (contrast ≈ 15.6:1) */
+            }
 
-    /* Groups 14–18 (Metalloids, Nonmetals, Halogens, Noble gases) */
-    td:nth-child(n + 14) .lt__element {
-        background-color: #fff9c4; /* pastel yellow (contrast ≈ 19.6:1) */
-    }
+            /* Groups 14–18 (Metalloids, Nonmetals, Halogens, Noble gases) */
+            td:nth-child(n + 14) .lt__element {
+                background-color: #fff9c4; /* pastel yellow (contrast ≈ 19.6:1) */
+            }
 
-    caption {
-        padding: 1em 0 2em;
-        font-family: Helvetica, Arial, sans-serif;
-        font-size: 1rem;
-    }
+            caption {
+                padding: 1em 0 2em;
+                font-family: Helvetica, Arial, sans-serif;
+                font-size: 1rem;
+            }
 
-    .lt__card {
-        container-type: inline-size;
-        container-name: tile;
-        -webkit-container-type: inline-size;
-        -webkit-container-name: tile;
-        contain: layout;
-        border-radius: 0.5em;
-    }
+            .lt__card {
+                container-type: inline-size;
+                container-name: tile;
+                -webkit-container-type: inline-size;
+                -webkit-container-name: tile;
+                contain: layout;
+                border-radius: 0.5em;
+            }
 
-    .lt__element {
-        position: relative;
-        width: 100%;
-        padding-top: 100%;
-        font-size: 1.5rem;
-        border-radius: 0.3em;
-    }
+            .lt__element {
+                position: relative;
+                width: 100%;
+                padding-top: 100%;
+                font-size: 1.5rem;
+                border-radius: 0.3em;
+            }
 
-    @container tile (width < 100px) {
-        .lt__element {
-            font-size: 1.3rem;
+            @container tile (width < 100px) {
+                .lt__element {
+                    font-size: 1.3rem;
+                }
+            }
+
+            @container tile (width < 90px) {
+                .lt__element {
+                    font-size: 1.05rem;
+                }
+            }
+
+            @container tile (width < 80px) {
+                .lt__element {
+                    font-size: 0.95rem;
+                }
+            }
+
+            @container tile (width < 70px) {
+                .lt__element {
+                    font-size: 0.8rem;
+                }
+            }
+
+            @container tile (width < 61px) {
+                .lt__element {
+                    font-size: 0.7rem;
+                }
+            }
+
+            @container tile (width < 49px) {
+                .lt__element {
+                    font-size: 0.6rem;
+                }
+            }
+
+            @container tile (width < 39px) {
+                .lt__element {
+                    font-size: 0.3rem;
+                }
+            }
+
+            /* Atomic number stays in top-left */
+            .lt__element > .lt__number {
+                position: absolute;
+                top: 0.3em;
+                left: 0.3em;
+                font-size: 0.8em;
+                font-weight: normal;
+            }
+
+            /* Atomic weight stays in top-right */
+            .lt__element > .lt__atomic-weight {
+                position: absolute;
+                top: 0.4em;
+                right: 0.3em;
+                font-size: 0.6em;
+            }
+
+            /* Symbol centered a bit above middle */
+            .lt__element > .lt__symbol {
+                position: absolute;
+                top: 35%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                font-size: 1.6em;
+                margin-top: 0.5em;
+            }
+
+            .lt__element > .lt__name {
+                position: absolute;
+                top: 70%;
+                left: 50%;
+                transform: translateX(-50%);
+                font-size: 0.7em;
+                margin-top: 0.2em;
+            }
+
+            .sr-only {
+                position: absolute;
+                width: 1px;
+                height: 1px;
+                margin: -1px;
+                padding: 0;
+                border: 0;
+                overflow: hidden;
+                clip: rect(0, 0, 0, 0);
+                white-space: nowrap;
+            }
+
+            .period-col {
+                width: 0 !important;
+                min-width: 0 !important;
+                max-width: 0 !important;
+                padding: 0 !important;
+                border: none !important;
+                visibility: collapse;
+            }
         }
-    }
 
-    @container tile (width < 90px) {
-        .lt__element {
-            font-size: 1.05rem;
+        .lrn-assess .app-panel .lrn-assess-modal-header+.lrn-assess-modal-body {
+            overflow: auto;
         }
-    }
-
-    @container tile (width < 80px) {
-        .lt__element {
-            font-size: 0.95rem;
-        }
-    }
-
-    @container tile (width < 70px) {
-        .lt__element {
-            font-size: 0.8rem;
-        }
-    }
-
-    @container tile (width < 61px) {
-        .lt__element {
-            font-size: 0.7rem;
-        }
-    }
-
-    @container tile (width < 49px) {
-        .lt__element {
-            font-size: 0.6rem;
-        }
-    }
-
-    @container tile (width < 39px) {
-        .lt__element {
-            font-size: 0.3rem;
-        }
-    }
-
-    /* Atomic number stays in top-left */
-    .lt__element > .lt__number {
-        position: absolute;
-        top: 0.3em;
-        left: 0.3em;
-        font-size: 0.8em;
-        font-weight: normal;
-    }
-
-    /* Atomic weight stays in top-right */
-    .lt__element > .lt__atomic-weight {
-        position: absolute;
-        top: 0.4em;
-        right: 0.3em;
-        font-size: 0.6em;
-    }
-
-    /* Symbol centered a bit above middle */
-    .lt__element > .lt__symbol {
-        position: absolute;
-        top: 35%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        font-size: 1.6em;
-        margin-top: 0.5em;
-    }
-
-    .lt__element > .lt__name {
-        position: absolute;
-        top: 70%;
-        left: 50%;
-        transform: translateX(-50%);
-        font-size: 0.7em;
-        margin-top: 0.2em;
-    }
-
-    .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        margin: -1px;
-        padding: 0;
-        border: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-    }
-
-    .period-col {
-        width: 0 !important;
-        min-width: 0 !important;
-        max-width: 0 !important;
-        padding: 0 !important;
-        border: none !important;
-        visibility: collapse;
-    }
-}
-
-.lrn-assess .app-panel .lrn-assess-modal-header+.lrn-assess-modal-body {
-    overflow: auto;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Resource - Periodic Table');
-    elStyle.textContent = css;
-
-    if (mode === 'inject') {
-        document.head.append(elStyle);
-        state.renderedCss = true;
-    } else if (mode === 'get') {
-        return elStyle.outerHTML;
-    }
+    `;
 }
 
 export const periodicTable = createExtension('periodicTable', run, {
+    getStyles,
     getContents,
     launch,
 });

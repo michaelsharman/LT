@@ -1,14 +1,6 @@
-import { region } from '../../../../core/activity.js';
-import { appInstance } from '../../../../core/app.js';
-import { itemElement } from '../../../../core/items.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Adds a UI divider in between the left and right columns (for
  * items with 2 columns) providing the ability for the end user
  * to resize the layout by dragging the element left or right.
@@ -16,11 +8,15 @@ import { createExtension } from '../../../../../utils/extensionsFactory.js';
  * The tooltip provides instructions on how to use the resizer.
  * The resizer is not available for the `horizontal-fixed` region.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/columnResize/resize.gif" alt="" width="900"></p>
+ *
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['columnResizer'],
+ * });
  * @module Extensions/Assessment/columnResizer
  */
 
 const state = {
-    renderedCss: false,
     resize: {
         triggered: false,
     },
@@ -29,17 +25,11 @@ const state = {
 /**
  * Sets up an item load listener to add a UI element allowing
  * users to drag to resize the column divider.
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.columnResizer.run();
  * @since 0.5.0
+ * @ignore
  */
 function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
-    appInstance().on('item:load', () => {
+    LT.itemsApp().on('item:load', () => {
         setupResizer();
     });
 
@@ -58,7 +48,7 @@ function run() {
  * @ignore
  */
 function setupResizer() {
-    const elItem = itemElement();
+    const elItem = LT.itemElement();
 
     // We may be on the Start page.
     if (!elItem) {
@@ -255,105 +245,104 @@ function randomId() {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 0.5.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
+function getStyles() {
     let css = `
-/* Learnosity column resizer styles */
-.lt__resizer {
-    background-color: #e8e8e8;
-    width: 3px;
-    padding: 0;
-    position: relative;
-    outline: none;
+        /* Learnosity column resizer styles */
+        .lt__resizer {
+            background-color: #e8e8e8;
+            width: 3px;
+            padding: 0;
+            position: relative;
+            outline: none;
 
-    &:hover {
-        background-color: rgba(0, 0, 0, 0.05);
-    }
+            &:hover {
+                background-color: rgba(0, 0, 0, 0.05);
+            }
 
-    &[aria-pressed='true'] {
-        background-color: rgba(0, 123, 255, 0.2);
+            &[aria-pressed='true'] {
+                background-color: rgba(0, 123, 255, 0.2);
+                box-shadow:
+                    0 0 0 2px rgba(0, 123, 255, 0.5),
+                    0 0 0 2px rgba(0, 123, 255, 0.2);
+            }
+
+            .lt__resizer-tab {
+                position: relative;
+                width: 45px;
+                height: 30px;
+                border: 1px solid #e4e4e4;
+                left: -21px;
+                top: -2px;
+                border-radius: 3px;
+                cursor: col-resize;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1.5em;
+                z-index: 2;
+                padding-bottom: 4px;
+                color: #444;
+                -webkit-user-select: none;
+                user-select: none;
+                background: linear-gradient(0deg, rgba(245,245,245,1) 0%, rgba(250,250,250,1) 51%, rgba(245,245,245,1) 100%);
+
+                svg {
+                    width: 18px;
+                    height: 18px;
+                    top: 2px;
+                    position: relative;
+                }
+            }
+        }
+
+        .lt__resizer[aria-pressed='true'] .lt__resizer-tab:focus {
+        background-color: rgba(0, 123, 255, 0.25);
         box-shadow:
             0 0 0 2px rgba(0, 123, 255, 0.5),
-            0 0 0 2px rgba(0, 123, 255, 0.2);
-    }
-
-    .lt__resizer-tab {
-        position: relative;
-        width: 45px;
-        height: 30px;
-        border: 1px solid #e4e4e4;
-        left: -21px;
-        top: -2px;
-        border-radius: 3px;
-        cursor: col-resize;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 1.5em;
-        z-index: 2;
-        padding-bottom: 4px;
-        color: #444;
-        -webkit-user-select: none;
-        user-select: none;
-        background: linear-gradient(0deg, rgba(245,245,245,1) 0%, rgba(250,250,250,1) 51%, rgba(245,245,245,1) 100%);
-
-        svg {
-            width: 18px;
-            height: 18px;
-            top: 2px;
-            position: relative;
+            0 0 0 4px rgba(0, 123, 255, 0.2);
         }
-    }
-}
 
-.lt__resizer[aria-pressed='true'] .lt__resizer-tab:focus {
-  background-color: rgba(0, 123, 255, 0.25);
-  box-shadow:
-    0 0 0 2px rgba(0, 123, 255, 0.5),
-    0 0 0 4px rgba(0, 123, 255, 0.2);
-}
+        .row {
+            display: flex;
+        }
 
-.row {
-    display: flex;
-}
+        [class*="col-xs-"].lt__column-left,
+        [class*="col-xs-"].lt__column-right {
+            display: flex;
+            flex-direction: column;
+            min-width: 5em;
+            overflow: auto;
+        }
 
-[class*="col-xs-"].lt__column-left,
-[class*="col-xs-"].lt__column-right {
-    display: flex;
-    flex-direction: column;
-    min-width: 5em;
-    overflow: auto;
-}
+        [class*="col-xs-"].lt__column-right {
+            flex: 1;
+        }
 
-[class*="col-xs-"].lt__column-right {
-    flex: 1;
-}
+        .lt__column-left .lrn_widget {
+            padding-right: 0.75em;
+        }
+        .lt__column-right .lrn_widget {
+            padding-left: 0.75em;
+        }
 
-.lt__column-left .lrn_widget {
-    padding-right: 0.75em;
-}
-.lt__column-right .lrn_widget {
-    padding-left: 0.75em;
-}
+        .lrn-layout-single-column {
+            .lt__resizer {
+                all: unset;
+                display: none;
+            }
 
-.lrn-layout-single-column {
-    .lt__resizer {
-        all: unset;
-        display: none;
-    }
+            .lt__column-left .lrn_widget,
+            .lt__column-right .lrn_widget {
+                padding: 0;
+            }
+        }
+    `;
 
-    .lt__column-left .lrn_widget,
-    .lt__column-right .lrn_widget {
-        padding: 0;
-    }
-}
-`;
-
-    if (region() !== 'horizontal-fixed') {
+    if (LT.region() !== 'horizontal-fixed') {
         css += `
             .lt__resizer:not(:is(.lrn-fullscreen *)) {
                 .lt__tooltip {
@@ -401,11 +390,7 @@ function injectCSS() {
         `;
     }
 
-    elStyle.setAttribute('data-style', 'LT Column Resizer');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+    return css;
 }
 
-export const columnResizer = createExtension('columnResizer', run);
+export const columnResizer = createExtension('columnResizer', run, { getStyles });

@@ -1,4 +1,4 @@
-import { appInstance } from './app.js';
+import { itemsApp } from './app.js';
 import { sections } from './sections.js';
 import logger from '../../utils/logger.js';
 
@@ -21,7 +21,7 @@ const _state = {
  */
 export function activity() {
     if (_state.activity === null) {
-        _state.activity = appInstance().getActivity();
+        _state.activity = itemsApp().getActivity();
     }
     return _state.activity;
 }
@@ -53,7 +53,7 @@ export function activitySubTitle() {
  * @returns {array}
  */
 export function activityTags() {
-    return appInstance().getTags() ?? [];
+    return itemsApp().getTags() ?? [];
 }
 
 /**
@@ -116,7 +116,7 @@ export function autoSaveConfig() {
  * @returns {number}
  */
 export function elapsedTime() {
-    return appInstance().getTime();
+    return itemsApp().getTime();
 }
 
 /**

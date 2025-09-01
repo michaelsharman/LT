@@ -1,3 +1,13 @@
+export let LT = null;
+export let apiSecurity = null;
+export let apiRequest = null;
+
+export function attachDependencies(instance, security, request) {
+    LT = instance;
+    apiSecurity = security;
+    apiRequest = request;
+}
+
 /**
  * Creates a module with a tracked run() method and optional extra methods.
  * Automatically dispatches a 'module:run' event.
@@ -8,52 +18,40 @@
  * @returns {Object} - A wrapped module object
  */
 export function createExtension(name, runFn, methods = {}) {
-    let running = false;
+    let hasRun = false;
+    let ready = null;
+
+    function run(...args) {
+        if (hasRun) {
+            return ready ?? undefined;
+        }
+
+        dispatch('extension:run', name);
+
+        try {
+            const result = runFn(...args); // sync or Promise
+            hasRun = true;
+
+            if (result && typeof result.then === 'function') {
+                // cache promise so subsequent calls await the same work
+                ready = result;
+                return ready;
+            }
+
+            // sync path: normalize to a resolved promise if callers await
+            ready = Promise.resolve();
+            return result;
+        } catch (e) {
+            // allow retry on next call
+            hasRun = false;
+            throw e;
+        }
+    }
 
     return {
-        run(...args) {
-            if (running) {
-                return;
-            }
-            dispatch('extension:run', name);
-
-            // User Timing marks (show up in Performance panel)
-            const startMark = `lt:ext:${name}:start`;
-            const endMark = `lt:ext:${name}:end`;
-            performance.mark(startMark);
-            const t0 = performance.now();
-
-            const finish = () => {
-                const ms = performance.now() - t0;
-                performance.mark(endMark);
-                // Name your measure per extension so you can filter in the Performance panel
-                performance.measure(`lt:ext:${name}`, startMark, endMark);
-                recordPerf(name, ms);
-            };
-
-            try {
-                const maybe = runFn(...args); // may be sync or a Promise
-                running = true;
-
-                if (maybe && typeof maybe.then === 'function') {
-                    finish();
-                    maybe.catch(err => {
-                        running = false;
-                        console.error(err);
-                    });
-                } else {
-                    finish();
-                }
-            } catch (e) {
-                finish();
-                running = false;
-                throw e;
-            }
-        },
-
-        isRunning: () => running,
-
         name,
+        run,
+        hasRun: () => hasRun,
         ...methods,
     };
 }
@@ -75,13 +73,5 @@ function dispatch(type, name, extra = {}) {
                 },
             })
         );
-    }
-}
-
-function recordPerf(name, ms) {
-    (window.__LT_PERF ??= []).push({ name, ms, at: new Date().toISOString() });
-    // Optional: log tersely in dev
-    if (typeof process !== 'undefined' && process.env?.NODE_ENV === 'development') {
-        console.debug(`[LT] ${name} init ${ms.toFixed(1)}ms`);
     }
 }

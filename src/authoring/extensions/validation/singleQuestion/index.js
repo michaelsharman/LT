@@ -1,6 +1,5 @@
-import { appInstance } from '../../../core/app.js';
 import { checkAppVersion } from '../../../utils/styling.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -14,6 +13,12 @@ import { createExtension } from '../../../../utils/extensionsFactory.js';
  * If you want any features, they must be added first.
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/singleQuestion/singlequestion.gif" alt="" width="860"></p>
+ *
+ * @example
+ * LT.init(authorApp, {
+ *     extensions: ['singleQuestion'],
+ * });
+ *
  * @module Extensions/Authoring/singleQuestion
  */
 
@@ -25,18 +30,14 @@ const state = {
 /**
  * Sets up a listener to hide the "+" button if a question is
  * already added to the item.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.singleQuestion.run();
  * @since 2.20.0
+ * @ignore
  */
 function run() {
     cacheElements();
-    appInstance().on('render:item', checkQuestions);
-    appInstance().on('render:widgets', checkQuestions);
-    appInstance().on('itemedit:changed', checkQuestions);
+    LT.authorApp().on('render:item', checkQuestions);
+    LT.authorApp().on('render:widgets', checkQuestions);
+    LT.authorApp().on('itemedit:changed', checkQuestions);
 }
 
 /**
@@ -49,7 +50,7 @@ function checkQuestions() {
     // Have to call this here because in run() the `diagnostics().versions` object isn't yet populated
     state.classNamePrefix = checkAppVersion(state.classNamePrefix);
 
-    const item = appInstance().getItem();
+    const item = LT.authorApp().getItem();
     if (item.questions.length) {
         hideAddButton();
     } else {

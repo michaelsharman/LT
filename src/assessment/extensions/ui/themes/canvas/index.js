@@ -1,13 +1,7 @@
-import * as app from '../../../../core/app.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 import styles from './styles/index.css?inline';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * This script loads a custom UI theme for Items API.
  *
  * Canvas is a minimal theme based on the Canvas LMS New Quizzes look and feel.
@@ -55,28 +49,25 @@ import styles from './styles/index.css?inline';
  * }
  * ```
  *
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['canvas'],
+ * });
+ *
  * @module Extensions/Assessment/themes/canvas
  */
 
 const state = {
     elements: {},
-    renderedCss: false,
     theme: 'canvas',
 };
 
 /**
  * Loads the `Canvas` theme for Items API (the player).
- *
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.themes.canvas.run();
  * @since 2.14.0
+ * @ignore
  */
 function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
     cacheElements();
     addThemeWrapperElement();
     setupItemFlags();
@@ -149,7 +140,7 @@ function setupItemFlags() {
 function flagItem(el) {
     const reference = el.target.getAttribute('data-reference');
 
-    app.appInstance().assessApp().item(reference).flag();
+    LT.itemsApp().assessApp().item(reference).flag();
     el.target.classList.toggle('flagged');
 }
 
@@ -161,12 +152,12 @@ function flagItem(el) {
 function setupShowQuestionScore() {
     state.elements.items.forEach(elItem => {
         const reference = elItem.getAttribute('data-reference');
-        const item = app.appInstance().getItems()[reference];
+        const item = LT.itemsApp().getItems()[reference];
         const questions = item.questions;
 
         questions.forEach((question, index) => {
             const score =
-                (app.appInstance().question(question.response_id).checkValidation().has_validation && question?.validation?.valid_response?.score) ||
+                (LT.itemsApp().question(question.response_id).checkValidation().has_validation && question?.validation?.valid_response?.score) ||
                 question?.validation?.max_score ||
                 0;
 
@@ -199,19 +190,14 @@ function checkLegacyItemLayout() {
 }
 
 /**
- * Injects the necessary CSS to the header
+ * Returns the extension CSS
  * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = styles;
-
-    elStyle.setAttribute('data-style', 'LT Theme Canvas');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+function getStyles() {
+    return styles;
 }
 
-export const canvas = createExtension('canvas', run);
+export const canvas = createExtension('canvas', run, {
+    getStyles,
+});

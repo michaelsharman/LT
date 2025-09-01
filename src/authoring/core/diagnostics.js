@@ -1,3 +1,4 @@
+import { authorApp, questionEditorApp } from './app.js';
 import logger from '../../utils/logger.js';
 
 /**
@@ -37,12 +38,19 @@ const state = {
  *  }
  */
 export function diagnostics() {
-    /* global LearnosityApp */
-    const v = window.LearnosityApp ? LearnosityApp.versions : {};
+    /* global LearnosityAuthor */
+    const v = window.LearnosityAuthor ? LearnosityAuthor.versions : {};
     const d = {
-        apps: {},
+        apps: {
+            author: {
+                app: authorApp(),
+            },
+            questionEditor: {
+                app: questionEditorApp(),
+            },
+        },
         LT: {
-            extensions: state.events.extensions,
+            extensions: state.extensions,
             version: typeof __LT_VERSION__ !== 'undefined' ? __LT_VERSION__ : 'development',
         },
         versions: v,

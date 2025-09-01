@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "3.0.0-beta.8",
+    "version": "3.0.0-beta.9",
     "private": false,
     "type": "module",
     "description": "A utility library of helpers and extensions useful when working with Learnosity APIs.",
@@ -51,7 +51,7 @@
         "@uppy/dashboard": "^4.3.2",
         "@uppy/drag-drop": "^4.1.1",
         "@uppy/image-editor": "^3.3.1",
-        "active-table": "^1.1.6",
+        "active-table": "^1.1.7",
         "entities": "^6.0.0",
         "howler": "^2.2.4",
         "lodash-es": "^4.17.21",

@@ -72,7 +72,7 @@ describe('LT - Assessment Core', () => {
             ['adaptiveType', 'string'],
             ['annotationsApp', 'object'],
             ['annotationsConfig', 'object'],
-            ['appInstance', 'object'],
+            ['itemsApp', 'object'],
             ['assessApp', 'object'],
             ['autoSaveConfig', 'object'],
             ['diagnostics', 'object'],

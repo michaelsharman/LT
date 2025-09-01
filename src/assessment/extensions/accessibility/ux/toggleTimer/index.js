@@ -1,139 +1,135 @@
-import { appInstance } from '../../../../core/app.js';
-import { maxTime, timeRemaining } from '../../../../core/activity.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
-import logger from '../../../../../utils/logger.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
+ * Allows end users to click and show/hide the assessment timer. This is an accommodations tool.
  *
- * --
+ * @param {object=} options Object of configuration options.
+ * @param {number=} options.showTimerLimit The time limit for showing the timer (in seconds).
  *
- * Allows the end-user to toggle visibility of the timer,
- * leaving the clock icon only. This can reduce test anxiety.
+ * @example
+ * const options = {
+ *     showTimerLimit: 60
+ * }
  *
- * Note: this does not work on the smallest (mobile) breakpoint
- * because that is a separate layout that doesn't include the
- * clock icon. It's a future TODO to rectify this extension
- * in the narrowest layout.
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/toggletimer.gif" alt="Animated gif showing the toggle timer feature" width="900"></p>
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'toggleTimer', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Assessment/toggleTimer
  */
 
 const state = {
-    _initialised: false,
+    initialised: false,
     elTimerWrapper: null,
+    elTimer: null,
+    elClock: null,
     enableForceTimerShow: false,
     forceRenderTimer: false,
-    renderedCss: false,
 };
 
 /**
- * Wraps clock and timer elements inside a button. Adds a
- * click event to toggle the timer.
- *
- * By passing `showTimerLimit`, you can force render the timer
- * in the final moments. Will force render one time only, if
- * the user hides the timer again we don't force render.
- *
- * @param {number} showTimerLimit The clock value to force render the timer element.
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.toggleTimer.run();
- * @since 2.6.0
+ * Toggle Timer
+ * @param {object=} config Object of configuration options.
+ * @since 3.0.0
+ * @ignore
  */
-function run(showTimerLimit = 60) {
-    if (!state._initialised) {
-        const elLrnResponsiveWrapper = document.querySelector('.lrn-sm');
-        state.elTimerWrapper = document.querySelector('.lrn-timer-wrapper');
+function run(config) {
+    const { showTimerLimit = 60 } = config || {};
 
-        if (!state.elTimerWrapper) {
-            logger.warn('Timer wrapper not found, cannot run toggle timer extension');
-            return;
+    if (state.initialised) {
+        LT.utils.logger.debug('Toggle timer already initialised, ignoring run();');
+        return;
+    }
+
+    // Fast presence checks only (no writes yet)
+    const elResponsive = document.querySelector('.lrn-sm');
+    const elWrapper = document.querySelector('.lrn-timer-wrapper');
+
+    if (!elResponsive || !elWrapper) {
+        LT.utils.logger.warn('Timer wrapper, or `.lrn-sm`, not found');
+        return;
+    }
+
+    const elTimer = elWrapper.querySelector('.timer');
+    const elClock = elWrapper.querySelector('.clock');
+    if (!elTimer) {
+        LT.utils.logger.warn('Timer element not found, cannot run toggle timer extension');
+        return;
+    }
+
+    // Cache references
+    state.elTimerWrapper = elWrapper;
+    state.elTimer = elTimer;
+    state.elClock = elClock;
+
+    // Batch DOM writes and listeners in one paint step
+    requestAnimationFrame(() => {
+        // Accessibility + interactive affordances
+        state.elTimerWrapper.classList.add('lt__timer-wrapper', 'lrn_btn', 'lt__tooltip');
+        state.elTimerWrapper.setAttribute('role', 'button');
+        state.elTimerWrapper.setAttribute('tabindex', '0');
+        // Timer starts visible
+        updateAccessibilityState(true);
+
+        state.elTimerWrapper.addEventListener('click', onClick);
+        state.elTimerWrapper.addEventListener('keydown', onKeydown);
+
+        if (!state.elTimerWrapper.querySelector('.lt__clock-glyph')) {
+            const glyph = document.createElement('span');
+            glyph.className = 'lt__clock-glyph';
+            state.elTimerWrapper.appendChild(glyph);
         }
 
-        state.elTimer = state.elTimerWrapper.querySelector('.timer');
-        state.elClock = state.elTimerWrapper.querySelector('.clock');
+        // Optional: force show near end; subscribe once and then unsubscribe
+        if (state.enableForceTimerShow && LT.maxTime() > 0) {
+            const app = LT.itemsApp();
+            const handler = () => {
+                const secondsRemaining = LT.timeRemaining();
+                const hidden = state.elTimerWrapper.classList.contains('lt--timer-hidden');
 
-        if (elLrnResponsiveWrapper && state.elTimerWrapper) {
-            state.renderedCss || (injectCSS(), (state.renderedCss = true));
-            state._initialised = true;
-
-            const timerDisplay = state.elTimerWrapper.querySelector('.timer');
-
-            // Inject accessibility and interactivity
-            state.elTimerWrapper.classList.add('lt__timer-wrapper', 'lrn_btn', 'lt__tooltip');
-            state.elTimerWrapper.setAttribute('role', 'button');
-            state.elTimerWrapper.setAttribute('tabindex', '0');
-            state.elTimerWrapper.setAttribute('aria-pressed', 'true');
-            state.elTimerWrapper.setAttribute('aria-label', 'Assessment time. Timer is visible. Click to hide it.');
-
-            /*
-             * Removing this logic for now as it's creating a callstack
-             * exceeded issue.
-             */
-            if (state.enableForceTimerShow && maxTime() > 0) {
-                appInstance().on('time:change', () => {
-                    const secondsRemaining = timeRemaining();
-
-                    if (
-                        !state.forceRenderTimer &&
-                        typeof secondsRemaining === 'number' &&
-                        secondsRemaining <= Number(showTimerLimit) &&
-                        timerDisplay.classList.contains('hidden')
-                    ) {
-                        state.forceRenderTimer = true;
-                        toggle();
-                        logger.info(`Force show the timer limit (${showTimerLimit}) reached.`);
-                    }
-                });
-            }
-
-            state.elTimerWrapper.addEventListener('click', toggle);
-            state.elTimerWrapper.addEventListener('keydown', e => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
+                if (!state.forceRenderTimer && typeof secondsRemaining === 'number' && secondsRemaining <= Number(showTimerLimit) && hidden) {
+                    state.forceRenderTimer = true;
                     toggle();
+                    LT.utils.logger.info(`Force show: timer limit (${showTimerLimit}) reached.`);
+                    if (typeof app.off === 'function') {
+                        app.off('time:change', handler);
+                    }
                 }
-            });
-        } else {
-            logger.warn('Timer wrapper, or `lrn-sm`, not found');
+            };
+            app.on('time:change', handler);
         }
-    } else {
-        logger.debug('Toggle timer already initialised, ignoring run();');
+
+        state.initialised = true;
+    });
+}
+
+function onClick() {
+    toggle();
+}
+
+function onKeydown(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        toggle();
     }
 }
 
 /**
- * Toggles the timer visibility. Assumes run() has been called.
- * @since 2.6.0
- * @returns {void}
+ * Toggle visibility without cloning nodes.
+ * CSS does the heavy lifting via .lt--timer-hidden
  */
 function toggle() {
-    if (!state.elTimerWrapper) {
+    if (!state.elTimerWrapper || !state.elTimer) {
         return;
     }
 
-    const isVisible = !state.elTimer.classList.contains('hidden');
+    const willHide = !state.elTimerWrapper.classList.contains('lt--timer-hidden');
+    state.elTimerWrapper.classList.toggle('lt--timer-hidden', willHide);
 
-    if (isVisible) {
-        state.elTimer.classList.add('hidden');
-        const elClock = state.elTimerWrapper.querySelector('.clock');
-        const elClockCopy = elClock.cloneNode(true);
-        elClockCopy.classList.add('clock-copy');
-        elClockCopy.classList.remove('clock');
-        state.elTimerWrapper.appendChild(elClockCopy);
-    } else {
-        const elClockCopy = state.elTimerWrapper.querySelector('.clock-copy');
-        if (elClockCopy) {
-            elClockCopy.remove();
-        }
-        state.elTimer.classList.remove('hidden');
-    }
-
-    updateAccessibilityState(!isVisible);
+    // Update ARIA to reflect *timer* visibility (pressed = visible)
+    updateAccessibilityState(!willHide);
 }
 
 function updateAccessibilityState(isVisible) {
@@ -145,58 +141,67 @@ function updateAccessibilityState(isVisible) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.6.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity toggle timer styles */
-.lrn-timer-wrapper.lt__timer-wrapper {
-    position: relative;
-    border-radius: 2px;
-    cursor: pointer;
-    background-color: #eaeaea;
-    color: #333;
-    border: 1px solid #d9d9d9;
-
-    &:hover {
-        background-color: #d9d9d9;
-        color: #333;
-    }
-
-    &:focus {
-        box-shadow: none;
-        border: 1px solid #1877b1;
-    }
-
-    &:active {
-        box-shadow: none;
-    }
-
-    .clock-copy {
-        display: inline-block;
-        vertical-align: top;
-        max-width: 100%;
-        padding: .68em .9em;
-
-        &:before {
-            font-family: "LearnosityIconsRegular";
-            top: 1px;
+function getStyles() {
+    return `
+        /* Learnosity toggle timer styles */
+        .lrn-timer-wrapper.lt__timer-wrapper {
             position: relative;
-            float: left;
-            padding-left: .4em;
-            padding-right: .4em;
+            border-radius: 2px;
+            cursor: pointer;
+            background-color: #eaeaea;
+            color: #333;
+            border: 1px solid #d9d9d9;
+        }
+        .lrn-timer-wrapper.lt__timer-wrapper:hover {
+            background-color: #d9d9d9;
+            color: #333;
+        }
+        .lrn-timer-wrapper.lt__timer-wrapper:focus {
+            box-shadow: none;
+            border: 1px solid #1877b1;
+        }
+        .lrn-timer-wrapper.lt__timer-wrapper:active {
+            box-shadow: none;
+        }
+
+        /* When hidden, suppress the timer number and show the clock icon via ::before */
+        .lrn-timer-wrapper.lt__timer-wrapper.lt--timer-hidden .timer {
+            display: none !important;
+        }
+        /* Hide numbers when off */
+        .lrn-timer-wrapper.lt__timer-wrapper.lt--timer-hidden .timer {
+            display: none !important;
+        }
+
+        /* Clock glyph element (no tooltip conflict) */
+        .lrn-timer-wrapper.lt__timer-wrapper .lt__clock-glyph {
+            display: none;
+        }
+
+        .lrn-timer-wrapper.lt__timer-wrapper.lt--timer-hidden .lt__clock-glyph {
+            display: inline-block;
+            vertical-align: top;
+            max-width: 100%;
+            padding: .68em .9em;
+        }
+
+        /* Render the clock via icon font */
+        .lrn-timer-wrapper.lt__timer-wrapper .lt__clock-glyph::before {
+            font-family: "LearnosityIconsRegular";
+            position: relative;
+            top: 1px;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            content: "";
+            content: ""; /* same glyph you used before */
         }
-    }
 
-    &.lt__tooltip {
-        &::before,
-        &::after {
+        /* Tooltip */
+        .lrn-timer-wrapper.lt__timer-wrapper.lt__tooltip::before,
+        .lrn-timer-wrapper.lt__timer-wrapper.lt__tooltip::after {
             opacity: 0;
             pointer-events: none;
             transition: opacity 0.2s ease-in 0.2s, visibility 0s linear 0.2s;
@@ -204,9 +209,8 @@ function injectCSS() {
             z-index: 10;
             font-family: inherit;
         }
-
-        &::before {
-            box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.2);
+        .lrn-timer-wrapper.lt__timer-wrapper.lt__tooltip::before {
+            box-shadow: 2px 2px 2px rgba(0,0,0,0.2);
             content: attr(aria-label);
             position: absolute;
             top: -55px;
@@ -219,8 +223,7 @@ function injectCSS() {
             white-space: nowrap;
             font-size: 14px;
         }
-
-        &::after {
+        .lrn-timer-wrapper.lt__timer-wrapper.lt__tooltip::after {
             content: '';
             position: absolute;
             bottom: 105%;
@@ -229,28 +232,21 @@ function injectCSS() {
             border: 6px solid transparent;
             border-top-color: #4d4d4d;
         }
-
-        &:is(:hover, :focus)::before,
-        &:is(:hover, :focus)::after {
+        .lrn-timer-wrapper.lt__timer-wrapper.lt__tooltip:is(:hover, :focus)::before,
+        .lrn-timer-wrapper.lt__timer-wrapper.lt__tooltip:is(:hover, :focus)::after {
             opacity: 1;
             visibility: visible;
         }
-    }
-}
 
-.lrn.lrn-assess .lrn-region:not(.lrn-items-region) .lrn_btn.lt__timer-wrapper {
-    font-size: inherit;
-    padding: 0.01em;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Toggle Timer');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+        /* Layout adjustment */
+        .lrn.lrn-assess .lrn-region:not(.lrn-items-region) .lrn_btn.lt__timer-wrapper {
+            font-size: inherit;
+            padding: 0.01em;
+        }
+    `;
 }
 
 export const toggleTimer = createExtension('toggleTimer', run, {
+    getStyles,
     toggle,
 });

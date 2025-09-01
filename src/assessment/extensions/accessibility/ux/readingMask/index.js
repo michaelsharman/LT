@@ -1,17 +1,17 @@
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
-import logger from '../../../../../utils/logger';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Renders a reading mask that helps users focus on specific parts of the content.
  * The reading mask is a semi-transparent overlay that highlights the area around the mouse cursor,
  * allowing users to read text more easily without distractions.
  * It can be toggled on and off, and it updates its position based on mouse movements
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/readingMask/mask.png" alt="Reading Mask feature" width="900"></p>
+ *
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['readingMask'],
+ * });
+ *
  * @module Extensions/Assessment/readingMask
  */
 
@@ -19,22 +19,14 @@ const state = {
     mouse: { x: 0, y: 0 },
     mouseTrackingInitialised: false,
     readingMask: null,
-    renderedCss: false,
 };
 
 /**
- * Initializes the reading mask extension.
- *
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.readingMask.run();
+ * This function sets up the reading mask element and mouse tracking.
  * @since 3.0.0
+ * @ignore
  */
 function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
     if (!state.readingMask) {
         createReadingMask();
     }
@@ -108,7 +100,7 @@ function show() {
  */
 function toggle() {
     if (!state.readingMask) {
-        logger.warn('[ReadingMask] toggle() called before run()');
+        LT.utils.logger.warn('[ReadingMask] toggle() called before run()');
         return;
     }
 
@@ -159,41 +151,35 @@ function updateMask(y) {
 }
 
 /**
- * Injects the necessary CSS to the header
+ * Returns the extension CSS
  * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity reading mask styles */
-.lt__reading-mask {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none; /* Let mouse events pass through */
-    z-index: 9999;
-    mask-image: linear-gradient(to bottom, black 0, black 100px, transparent 100px, transparent 300px, black 300px, black 100%);
-    -webkit-mask-image: linear-gradient(to bottom, black 0, black 100px, transparent 100px, transparent 300px, black 300px, black 100%);
-    background: rgba(0, 0, 0, 0.6);
+function getStyles() {
+    return `
+        /* Learnosity reading mask styles */
+        .lt__reading-mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* Let mouse events pass through */
+            z-index: 9999;
+            mask-image: linear-gradient(to bottom, black 0, black 100px, transparent 100px, transparent 300px, black 300px, black 100%);
+            -webkit-mask-image: linear-gradient(to bottom, black 0, black 100px, transparent 100px, transparent 300px, black 300px, black 100%);
+            background: rgba(0, 0, 0, 0.6);
 
-    .has-mask {
-        mask-image: linear-gradient(to bottom, black 0, black 100px, transparent 100px, transparent 300px, black 300px, black 100%);
-        -webkit-mask-image: linear-gradient(to bottom, black 0, black 100px, transparent 100px, transparent 300px, black 300px, black 100%);
-    }
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Reading Mask');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+            .has-mask {
+                mask-image: linear-gradient(to bottom, black 0, black 100px, transparent 100px, transparent 300px, black 300px, black 100%);
+                -webkit-mask-image: linear-gradient(to bottom, black 0, black 100px, transparent 100px, transparent 300px, black 300px, black 100%);
+            }
+        }
+    `;
 }
 
 export const readingMask = createExtension('readingMask', run, {
+    getStyles,
     hide,
     show,
     toggle,

@@ -34,7 +34,7 @@ export default [
             curly: 'error',
             'dot-notation': 'error',
             'no-case-declarations': 'off',
-            'no-console': ['warn', { allow: ['warn', 'error'] }],
+            'no-console': ['warn', { allow: ['error', 'groupEnd', 'groupCollapsed', 'table', 'time', 'timeEnd', 'warn'] }],
             'no-duplicate-imports': 'error',
             'no-empty': 'error',
             'no-eval': 'error',

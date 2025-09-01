@@ -1,13 +1,6 @@
-import * as app from '../../../core/app.js';
-import * as items from '../../../core/items.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Renders any PDF uploaded as a <a href="https://authorguide.learnosity.com/hc/en-us/articles/360000759117-Adding-Resources-to-Questions-and-Features" target="_blank">resource</a>
  * to any item in the activity. Uses the pdf.js webviewer that has a
  * toolbar to zoom, view thumbnails, and download etc.
@@ -15,12 +8,14 @@ import { createExtension } from '../../../../utils/extensionsFactory.js';
  * By enabling this extension, all PDFs will be rendered in the viewer.
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/renderpdf.png" alt="" width="700"></p>
+ *
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['renderPDF'],
+ * });
+ *
  * @module Extensions/Assessment/renderPDF
  */
-
-const state = {
-    renderedCss: false,
-};
 
 /**
  * Sets up an item load listener to the current item for any resources that
@@ -28,17 +23,11 @@ const state = {
  * they aren't available in the item or question JSON.
  *
  * If the resource is a PDF, render using the pdf.js viewer.
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.renderPDF.run();
  * @since 2.2.0
+ * @ignore
  */
 function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
-    app.appInstance().on('item:load', doRenderPDF);
+    LT.itemsApp().on('item:load', doRenderPDF);
 }
 
 /**
@@ -47,7 +36,7 @@ function run() {
  * @ignore
  */
 function doRenderPDF() {
-    const currentItemRef = items.itemReference();
+    const currentItemRef = LT.itemReference();
     const elItem = document.querySelector(`.learnosity-item[data-reference="${currentItemRef}"]`);
     const resources = elItem.querySelectorAll('.lrn_widget .resource');
 
@@ -99,26 +88,21 @@ async function createHash(input) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.2.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity render PDF styles */
-.lt__renderPDF_pdf .pdf-viewer {
-    border: none;
-    width: 100%;
-    height: 650px;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Render PDF');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+function getStyles() {
+    return `
+        /* Learnosity render PDF styles */
+        .lt__renderPDF_pdf .pdf-viewer {
+            border: none;
+            width: 100%;
+            height: 650px;
+        }
+    `;
 }
 
-export const renderPDF = createExtension('renderPDF', run);
+export const renderPDF = createExtension('renderPDF', run, {
+    getStyles,
+});

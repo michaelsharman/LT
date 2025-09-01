@@ -1,6 +1,5 @@
-import { appInstance } from '../../../core/app.js';
 import { contentTabs as authorContentTabs } from '../../../../assessment/extensions/ui/contentTabs/index.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -109,6 +108,22 @@ import { createExtension } from '../../../../utils/extensionsFactory.js';
  * ```
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contenttabs1.png" alt="" width="660"></p>
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contenttabs2.png" alt="" width="660"></p>
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.theme The theme to apply to the content tabs. Options are `rounded` (default) and `api-column-tabs`.
+ * @param {number=} options.maxTabs The maximum number of tabs to display. Defaults to `5`.
+ *
+ * @example
+ * const options = {
+ *     maxTabs: 5
+ * }
+ *
+ * LT.init(authorApp, {
+ *     extensions: [
+ *         { id: 'contentTabs', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Authoring/contentTabs
  */
 
@@ -120,37 +135,29 @@ const state = {
         theme: 'default',
         maxTabs: 5,
     },
-    renderedCss: false,
 };
 
 /**
  * Extension constructor.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.contentTabs.run();
- * @param {object=} options - Optional configuration object includes:
- *  - `theme` (string) Which tabs theme to load. Options are `rounded` (default) and `api-column-tabs`.
- *  - `maxTabs` (number) Maximum number of tabs that can be added. Default is 5.
+ * @param {object=} options - Optional configuration.
  * @since 2.1.0
+ * @ignore
  */
 function run(options) {
     state.options = authorContentTabs.validateOptions(options);
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     // Inject class for specificity
     const elLrnApi = document.querySelector('.lrn-author');
     elLrnApi.classList.add('lt__contenttabs');
 
     // Remove any previous keydown listeners once when the editor is ready
-    appInstance().on('widgetedit:editor:ready', () => {
+    LT.authorApp().on('widgetedit:editor:ready', () => {
         document.removeEventListener('keydown', handleKeydown);
         state.events.keydownRegistered = false;
     });
 
     // Check for tabs every time the content has been updated
-    appInstance().on('widgetedit:preview:changed', preventDOMBreaking);
+    LT.authorApp().on('widgetedit:preview:changed', preventDOMBreaking);
 }
 
 /**
@@ -415,15 +422,16 @@ function removeElement(id) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.1.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = authorContentTabs.getTabsTheme(state.options.theme).concat(
-        '\n',
-        `/* Learnosity content tab authoring styles */
+function getStyles() {
+    const css = '';
+    return css.concat(
+        authorContentTabs.getTabsTheme(state.options.theme).concat(
+            '\n',
+            `/* Learnosity content tab authoring styles */
         .lrn.lrn-author .lrn-author-item-content-wrapper .lrn-qe-col-edit-inner {
             .lt__tabs.nav-tabs>li>a,
             .lt__tabs.nav-tabs>li>a:focus,
@@ -497,15 +505,11 @@ function injectCSS() {
             }
         }
     `
+        )
     );
-
-    elStyle.setAttribute('data-style', 'LT Content Tabs');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
 }
 
 export const contentTabs = createExtension('contentTabs', run, {
     addContentTabs,
+    getStyles,
 });

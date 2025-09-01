@@ -1,40 +1,43 @@
-import * as app from '../../../../core/app.js';
-import * as questions from '../../../../core/questions.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 import { waitForElement } from '../../../../../utils/dom.js';
-import logger from '../../../../../utils/logger.js';
-import seedrandom from 'seedrandom';
 import { shuffle } from 'lodash-es';
+import seedrandom from 'seedrandom';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Hides a number of MCQ distractors/alternatives, that aren't
  * the correct answer, as an accommodation capability for
  * students wanting to avoid cognitive load.
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {number=} options.numToHide The number of MCQ options to hide. Defaults to `1`.
+ *
+ * @example
+ * const options = {
+ *     numToHide: 1
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'hideAlternatives', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Assessment/hideAlternatives
  */
 
 /**
  * Sets up an item load listener to hide distractor(s).
- * @param {number=} num The number of MCQ options to hide. Defaults to `1`.
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.hideAlternatives.run();
+ * @param {object=} config The config object, `num` number of MCQ options to hide. Defaults to `1`.
  * @since 0.3.0
+ * @ignore
  */
-function run(num) {
-    const numToHide = num || 1;
+function run(config) {
+    const { numToHide = 1 } = config || {};
     const qt = 'mcq'; // Limited to MCQ only (see targeted classnames when hiding options)
     const logPrefix = 'LRN Hide Alternatives:';
 
-    app.appInstance().on('item:load', () => {
-        const qs = questions.questions();
+    LT.itemsApp().on('item:load', () => {
+        const qs = LT.questions();
 
         Object.values(qs).forEach(question => {
             if (question.type === qt) {
@@ -83,16 +86,16 @@ function run(num) {
                                     }
                                 });
                             } else {
-                                logger.info(logPrefix, 'No correct answer found in validation object');
+                                LT.utils.logger.info(logPrefix, 'No correct answer found in validation object');
                             }
                         } else {
-                            logger.info(logPrefix, ' No validation object found');
+                            LT.utils.logger.info(logPrefix, ' No validation object found');
                         }
                     } else {
-                        logger.info(logPrefix, 'Invalid number of options to hide:', numToHide);
+                        LT.utils.logger.info(logPrefix, 'Invalid number of options to hide:', numToHide);
                     }
                 } else {
-                    logger.info(logPrefix, 'Only supports single response mode');
+                    LT.utils.logger.info(logPrefix, 'Only supports single response mode');
                 }
             }
         });

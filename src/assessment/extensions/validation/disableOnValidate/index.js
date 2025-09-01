@@ -1,29 +1,23 @@
-import * as app from '../../../core/app.js';
-import { hasCheckAnswer, questionInstance, questionResponseIds } from '../../../core/questions.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * This extension is used to disable the question after it has been validated
  * using the "Check Answer" button.
+ *
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['disableOnValidate'],
+ * });
  *
  * @module Extensions/Assessment/disableOnValidate
  */
 
 /**
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.disableOnValidate.run();
  * @since 2.17.0
+ * @ignore
  */
 function run() {
-    app.appInstance().on('item:load', setup);
+    LT.itemsApp().on('item:load', setup);
 }
 
 /**
@@ -33,14 +27,14 @@ function run() {
  * @ignore
  */
 function setup() {
-    const responses = questionResponseIds();
+    const responses = LT.questionResponseIds();
 
     for (const response_id of responses) {
-        if (hasCheckAnswer(response_id)) {
-            app.appInstance()
+        if (LT.hasCheckAnswer(response_id)) {
+            LT.itemsApp()
                 .question(response_id)
                 .on('validated', () => {
-                    questionInstance(response_id).disable();
+                    LT.questionInstance(response_id).disable();
                 });
         }
     }

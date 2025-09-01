@@ -1,6 +1,4 @@
-import { appInstance } from '../../../core/app.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
-import logger from '../../../../utils/logger.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
  * <h4 class="name">############ Incomplete - DO NOT USE</h4>
@@ -13,30 +11,25 @@ import logger from '../../../../utils/logger.js';
  * Adds the ability for authors to choose whether uploaded (PDF)
  * resources should be rendered to the learner on the front-end.
  *
+ * @example
+ * LT.init(authorApp, {
+ *     extensions: ['renderPDF'],
+ * });
+ *
  * @module Extensions/Authoring/renderPDF
  */
 
-const state = {
-    renderedCss: false,
-};
-
 /**
  * Extension constructor.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.renderPDF.run();
  * @since 2.2.0
+ * @ignore
  */
 function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
-    appInstance().on('widgetedit:widget:ready', () => {
+    LT.authorApp().on('widgetedit:widget:ready', () => {
         const elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');
 
         elResourceButtons.forEach(btn => {
-            logger.debug('Found resource button in editor');
+            LT.utils.logger.debug('Found resource button in editor');
             btn.addEventListener('click', () => {
                 addRenderOption();
             });
@@ -74,24 +67,20 @@ function generateRandomString() {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.2.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity language text direction styles */
-/* Used to style render PDF options added to the resource upload panel */
-.lrn .lrn-author-ui .lrn-form-control.lt__renderPDFOption {
-    width: auto;
-}
-`;
-
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+function getStyles() {
+    return `
+        /* Learnosity language text direction styles */
+        /* Used to style render PDF options added to the resource upload panel */
+        .lrn .lrn-author-ui .lrn-form-control.lt__renderPDFOption {
+            width: auto;
+        }
+    `;
 }
 
-export const renderPDF = createExtension('renderPDF', run);
+export const renderPDF = createExtension('renderPDF', run, {
+    getStyles,
+});

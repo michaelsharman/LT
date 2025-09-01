@@ -1,14 +1,6 @@
-import { appInstance, questionsApp } from '../../../../core/app.js';
-import { questions } from '../../../../core/questions.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
-import logger from '../../../../../utils/logger.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Resets a question by clearing (resetting) the UI
  * and setting the `attempted` status to false.
  *
@@ -18,6 +10,23 @@ import logger from '../../../../../utils/logger.js';
  * See the `type` property for each type here https://reference.learnosity.com/questions-api/questiontypes
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/resetresponse.gif" alt="" width="600"></p>
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.label A custom label to use for the reset button.
+ * @param {array=} options.types Which question types to support. `['*']` for all types.
+ *
+ * @example
+ * const options = {
+ *     label: 'Reset question',
+ *     types: ['mcq']
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'resetResponse', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Assessment/resetResponse
  */
 
@@ -25,34 +34,27 @@ const state = {
     class: 'lrn__resetResponse',
     label: 'Reset question',
     logPrefix: 'LRN Reset Responses:',
-    renderedCss: false,
     types: ['mcq'],
 };
 
 /**
  * Sets up an item load listener and injects a reset response button
  * to the UI at the bottom of each configured question on the item.
- *
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.resetResponse.run();
- * @param {string} label A custom label to use for the reset button.
- * @param {array} type Which question types to support. `['*']` for all types.
+ * @param {object} config Optional config object to override defaults
  * @since 0.8.0
+ * @ignore
  */
-function run(customLabel, customTypes) {
-    if (customLabel && typeof customLabel === 'string') {
-        state.label = customLabel;
+function run(config) {
+    const { label, types } = config || {};
+
+    if (label && typeof label === 'string') {
+        state.label = label;
     }
-    if (customTypes && Array.isArray(customTypes)) {
-        state.types = customTypes;
+    if (types && Array.isArray(types)) {
+        state.types = types;
     }
 
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
-    appInstance().on('item:changed', setupResetUI);
+    LT.itemsApp().on('item:changed', setupResetUI);
 }
 
 /**
@@ -62,7 +64,7 @@ function run(customLabel, customTypes) {
  * @ignore
  */
 function setupResetUI() {
-    const itemQuestions = questions();
+    const itemQuestions = LT.questions();
 
     // Add a reset UI to each supported question type on the item
     try {
@@ -79,37 +81,13 @@ function setupResetUI() {
                         elResetUI.addEventListener('click', doResetResponse);
                     }
                 } else {
-                    logger.warn(state.logPrefix, 'Question element not found');
+                    LT.utils.logger.warn(state.logPrefix, 'Question element not found');
                 }
             }
         }
     } catch (err) {
-        logger.error(err);
+        LT.utils.logger.error(err);
     }
-}
-
-/**
- * Injects the necessary CSS to the header
- * @since 0.8.0
- * @ignore
- */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity reset question styles */
-.lrn .lrn_btn.${state.class} {
-    margin-top: 1em;
-    margin-bottom: 0.5em;
-    clear: both;
-    display: block;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Reset Response');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
 }
 
 /**
@@ -138,8 +116,27 @@ function getResetUI() {
 function doResetResponse(e) {
     const elQuestion = e.srcElement.closest('.lrn_widget');
     const responseId = elQuestion.getAttribute('id');
-    const questionInstance = questionsApp().question(responseId);
+    const questionInstance = LT.questionsApp().question(responseId);
     questionInstance.resetResponse();
 }
 
-export const resetResponse = createExtension('resetResponse', run);
+/**
+ * Returns the extension CSS
+ * @since 3.0.0
+ * @ignore
+ */
+function getStyles() {
+    return `
+        /* Learnosity reset question styles */
+        .lrn .lrn_btn.${state.class} {
+            margin-top: 1em;
+            margin-bottom: 0.5em;
+            clear: both;
+            display: block;
+        }
+    `;
+}
+
+export const resetResponse = createExtension('resetResponse', run, {
+    getStyles,
+});

@@ -1,6 +1,4 @@
-import { appInstance } from '../../../core/app.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
-import logger from '../../../../utils/logger.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 import { max } from 'lodash-es';
 
 /**
@@ -13,6 +11,21 @@ import { max } from 'lodash-es';
  * than is currently possible today in the Layout area.
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/nativeTabs/tabs.gif" alt="" width="860"></p>
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {number=} options.maxTabs The maximum number of tabs to display. Defaults to `5`.
+ *
+ * @example
+ * const options = {
+ *     maxTabs: 5
+ * }
+ *
+ * LT.init(authorApp, {
+ *     extensions: [
+ *         { id: 'nativeTabs', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Authoring/nativeTabs
  */
 
@@ -26,33 +39,26 @@ const state = {
     options: {
         maxTabs: 5,
     },
-    renderedCss: false,
 };
 
 /**
  * Extension constructor.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.nativeTabs.run();
- * @since 2.26.0
  * @param {object=} options Override for `maxTabs` (value between 2 and 10). Default is 5.
+ * @since 2.26.0
+ * @ignore
  */
 function run(options = {}) {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
     overrideOptions(options);
 
     // Reset state on item render
-    appInstance().on('render:item', () => {
+    LT.authorApp().on('render:item', () => {
         state.columns.numTabsLeft = 2;
         state.columns.numTabsRight = 2;
         state.dirty = false;
     });
 
-    appInstance().on('navigate', () => {
-        if (appInstance().getItem()) {
+    LT.authorApp().on('navigate', () => {
+        if (LT.authorApp().getItem()) {
             checkForSetup();
         } else {
             // Safety fallback in case the item is not yet available. Happens when you load the API with the settings tab open.
@@ -62,8 +68,8 @@ function run(options = {}) {
 
     function checkForSetup() {
         setTimeout(() => {
-            if (['items/:reference/settings/:tab', 'items/:reference/settings', undefined].includes(appInstance().getLocation().route)) {
-                const lastElement = appInstance().getLocation().location.split('/').pop();
+            if (['items/:reference/settings/:tab', 'items/:reference/settings', undefined].includes(LT.authorApp().getLocation().route)) {
+                const lastElement = LT.authorApp().getLocation().location.split('/').pop();
                 if (['layout', 'settings'].includes(lastElement)) {
                     setup();
                 }
@@ -85,7 +91,7 @@ function setup() {
     const elNumTabs1 = document.getElementById('lt__nativeTabs-col1');
     const elNumTabs2 = document.getElementById('lt__nativeTabs-col2');
     const elSettingsApply = document.querySelector('[data-authorapi-selector="lrn-author-apply-settings"]');
-    const itemJson = appInstance().getItem();
+    const itemJson = LT.authorApp().getItem();
     const numCurrentTabs = countTabs(itemJson.item.definition);
 
     state.columns.numTabsLeft = max([numCurrentTabs[0], state.columns.numTabsLeft]);
@@ -123,7 +129,7 @@ function setup() {
             elTabsEnabledRight.setAttribute('data-lt-event', 'true');
         }
     } else {
-        logger.warn(`${state.logPrefix}Settings apply button not found`);
+        LT.utils.logger.warn(`${state.logPrefix}Settings apply button not found`);
     }
 
     function getNumTabsUI(idSuffix, numTabs) {
@@ -251,14 +257,14 @@ function saveTabsToItem(numCurrentTabs) {
     const tabsEnabled = checkTabsEnabled();
 
     setTimeout(() => {
-        const itemJson = appInstance().getItem();
+        const itemJson = LT.authorApp().getItem();
         const currentDefinition = itemJson.item.definition;
 
         adjustTabs(0, state.columns.numTabsLeft, tabsEnabled.leftEnabled, numCurrentTabs[0], currentDefinition);
         adjustTabs(1, state.columns.numTabsRight, tabsEnabled.rightEnabled, numCurrentTabs[1], currentDefinition);
 
         itemJson.item.definition = currentDefinition;
-        appInstance().setItemJson(itemJson);
+        LT.authorApp().setItemJson(itemJson);
     }, 100);
 
     function adjustTabs(columnIndex, tabCount, isEnabled, currentCount, currentDefinition) {
@@ -348,58 +354,53 @@ function overrideOptions(options) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.26.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity native tab styles */
-.lrn .lrn-author-ui,
-.lrn.lrn-author {
-    .lrn-author-api-react-container .lrn-author-item-settings .lrn-author-layout-settings .lrn-author-layout-tab .lrn-author-layout-content,
-    .lrn-author-api-react-container .lrn-author-activity-labels .lrn-author-layout-settings .lrn-author-layout-tab .lrn-author-layout-content {
-        padding: 9px;
-    }
-
-    .lrn-form-control.lt__width-sm,
-    .lrn-author-form-control.lt__nativeTabsInput {
-        width: 80px;
-    }
-
-    .lrn-author-checkbox-label {
-        padding-bottom: .5714285714em;
-    }
-
-    [data-authorapi-selector="lrn-author-tabs-col1"],
-    [data-authorapi-selector="lrn-author-tabs-col2"] {
-        .lrn-author-layout-content {
-            container-type: inline-size;
-
-            .label-short {
-                display: none;
+function getStyles() {
+    return `
+        /* Learnosity native tab styles */
+        .lrn .lrn-author-ui,
+        .lrn.lrn-author {
+            .lrn-author-api-react-container .lrn-author-item-settings .lrn-author-layout-settings .lrn-author-layout-tab .lrn-author-layout-content,
+            .lrn-author-api-react-container .lrn-author-activity-labels .lrn-author-layout-settings .lrn-author-layout-tab .lrn-author-layout-content {
+                padding: 9px;
             }
 
-            @container (max-width: 120px) {
-                .label-full {
-                    display: none;
-                }
+            .lrn-form-control.lt__width-sm,
+            .lrn-author-form-control.lt__nativeTabsInput {
+                width: 80px;
+            }
 
-                .label-short {
-                    display: inline;
+            .lrn-author-checkbox-label {
+                padding-bottom: .5714285714em;
+            }
+
+            [data-authorapi-selector="lrn-author-tabs-col1"],
+            [data-authorapi-selector="lrn-author-tabs-col2"] {
+                .lrn-author-layout-content {
+                    container-type: inline-size;
+
+                    .label-short {
+                        display: none;
+                    }
+
+                    @container (max-width: 120px) {
+                        .label-full {
+                            display: none;
+                        }
+
+                        .label-short {
+                            display: inline;
+                        }
+                    }
                 }
             }
         }
-    }
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Native Tabs');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+    `;
 }
 
-export const nativeTabs = createExtension('nativeTabs', run);
+export const nativeTabs = createExtension('nativeTabs', run, {
+    getStyles,
+});

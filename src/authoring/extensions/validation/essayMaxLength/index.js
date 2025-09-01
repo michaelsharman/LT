@@ -1,6 +1,4 @@
-import { appInstance } from '../../../core/app.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
-import { type } from '../../../core/widgets.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -24,6 +22,11 @@ import { type } from '../../../core/widgets.js';
  * If the value contains leading zeros, the input field
  * will be styled with a red border.
  *
+ * @example
+ * LT.init(authorApp, {
+ *     extensions: ['essayMaxLength'],
+ * });
+ *
  * @module Extensions/Authoring/essayMaxLength
  */
 
@@ -34,12 +37,8 @@ const state = {
 
 /**
  * Extension constructor.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.essayMaxLength.run();
  * @since 2.4.0
+ * @ignore
  */
 function run() {
     state.renderedCss || (injectCSS(), (state.renderedCss = true));
@@ -52,11 +51,11 @@ function run() {
  * @ignore
  */
 function setupListeners() {
-    appInstance().on('widgetedit:widget:ready', () => {
+    LT.authorApp().on('widgetedit:widget:ready', () => {
         // Race condition with the event firing and the instance
         // actually being loaded
         setTimeout(() => {
-            const widgetType = type();
+            const widgetType = LT.type();
 
             if (state.validTypes.includes(widgetType)) {
                 const elMaxLength = document.querySelector('[data-lrn-qe-input-path="max_length"] input.lrn-qe-input');

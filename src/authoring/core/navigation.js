@@ -1,4 +1,4 @@
-import { appInstance } from './app.js';
+import { authorApp } from './app.js';
 
 /**
  * Everything relating to navigating Author API.
@@ -11,13 +11,13 @@ import { appInstance } from './app.js';
  * @since 2.0.0
  */
 export function routingHash() {
-    appInstance().on('navigate', event => {
+    authorApp().on('navigate', event => {
         window.location.hash = '#' + event.data.locationEncoded;
     });
 
-    appInstance().navigate(window.location.hash.replace(/^#/, ''));
+    authorApp().navigate(window.location.hash.replace(/^#/, ''));
 
     window.onhashchange = () => {
-        appInstance().navigate(window.location.hash.replace(/^#/, ''));
+        authorApp().navigate(window.location.hash.replace(/^#/, ''));
     };
 }

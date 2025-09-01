@@ -1,28 +1,10 @@
-import * as app from '../../../../core/app.js';
-import * as items from '../../../../core/items.js';
-import * as questions from '../../../../core/questions.js';
 import * as platform from 'platform-detect';
 import * as Mousetrap from 'mousetrap';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 import { isEmptyObject } from '../../../../../utils/validation.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
- * Enables keyboard shortcuts to perform an action against
- * a question or on the assessment player.
- * @module Extensions/Assessment/keyboardShortcuts
- */
-
-const state = {
-    supportedPlatforms: ['chromeos', 'macos', 'windows'],
-};
-
-/**
- * Sets up listeners to enable item or player keyboard shortcuts.
+ * Enables keyboard shortcuts to perform an action against a question or on the assessment player.
  *
  * Supports:
  *  - setting an MCQ response on items with a single MC questions, not multi-part.
@@ -33,128 +15,281 @@ const state = {
  * All listeners will fire when you call `run()`. Pass a custom
  * map if you want to remove any shortcuts.
  *
- * See example section below for bindings.
- * @param {object=} map A map of keyboard shortcut options.
- * ```
- * // Default configuration:
- * {
- *     global: [
- *         {
- *             bindings: {
- *                 chromeos: ['ctrl+shift+v'],
- *                 macos: ['command+shift+v'],
- *                 windows: ['ctrl+shift+v'],
- *             },
- *             type: 'item.flag',
- *         },
- *         {
- *             bindings: {
- *                 chromeos: ['ctrl+alt+0'],
- *                 macos: ['command+option+0'],
- *                 windows: ['ctrl+alt+0'],
- *             },
- *             type: 'masking.enable',
- *         },
- *     ],
- *     item: [
- *         {
- *             bindings: {
- *                 chromeos: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
- *                 macos: ['command+ctrl+1', 'command+ctrl+2', 'command+ctrl+3', 'command+ctrl+4', 'command+ctrl+5', 'command+ctrl+6'],
- *                 windows: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
- *             },
- *             restrictTo: ['mcq'],
- *             type: 'response.set',
- *         },
- *         {
- *             bindings: {
- *                 chromeos: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
- *                 macos: ['command+option+1', 'command+option+2', 'command+option+3', 'command+option+4', 'command+option+5', 'command+option+6'],
- *                 windows: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
- *             },
- *             type: 'response.mask',
- *         },
- *     ],
- * };
- * ```
- * @example
- * import { LT } from '@caspingus/lt/assessment';
+ * @param {object=} options Object of configuration options.
+ * @param {array=} options.global An array of global keyboard shortcuts.
+ * @param {array=} options.item An array of item-specific keyboard shortcuts.
  *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.keyboardShortcuts.run();
- * @since 0.4.0
+ * @example
+ * const options = {
+ *      global: [
+ *          {
+ *              bindings: {
+ *                  chromeos: ['ctrl+shift+v'],
+ *                  macos: ['command+shift+v'],
+ *                  windows: ['ctrl+shift+v'],
+ *              },
+ *              type: 'item.flag',
+ *          },
+ *          {
+ *              bindings: {
+ *                  chromeos: ['ctrl+alt+0'],
+ *                  macos: ['command+option+0'],
+ *                  windows: ['ctrl+alt+0'],
+ *              },
+ *              type: 'masking.enable',
+ *          },
+ *      ],
+ *      item: [
+ *          {
+ *              bindings: {
+ *                  chromeos: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
+ *                  macos: ['command+ctrl+1', 'command+ctrl+2', 'command+ctrl+3', 'command+ctrl+4', 'command+ctrl+5', 'command+ctrl+6'],
+ *                  windows: ['ctrl+shift+1', 'ctrl+shift+2', 'ctrl+shift+3', 'ctrl+shift+4', 'ctrl+shift+5', 'ctrl+shift+6'],
+ *              },
+ *              restrictTo: ['mcq'],
+ *              type: 'response.set',
+ *          },
+ *          {
+ *              bindings: {
+ *                  chromeos: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
+ *                  macos: ['command+option+1', 'command+option+2', 'command+option+3', 'command+option+4', 'command+option+5', 'command+option+6'],
+ *                  windows: ['ctrl+alt+1', 'ctrl+alt+2', 'ctrl+alt+3', 'ctrl+alt+4', 'ctrl+alt+5', 'ctrl+alt+6'],
+ *              },
+ *              type: 'response.mask',
+ *          },
+ *      ],
+ *  };
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'keyboardShortcuts', args: options },
+ *     ]
+ * });
+ *
+ * @module Extensions/Assessment/keyboardShortcuts
  */
-function run(map = getDefaultBindings()) {
-    const currentPlatform = getPlatform();
 
-    state.bindings = map;
+const state = {
+    bound: false,
+    effective: null,
+    overrideDone: false,
+    platform: null,
+    supportedPlatforms: ['chromeos', 'macos', 'windows'],
+};
 
-    if (currentPlatform) {
+/**
+ * Sets up listeners to enable item or player keyboard shortcuts.
+ * @param {object=} config A map of keyboard shortcut options.
+ * @since 0.4.0
+ * @ignore
+ */
+function run(config = getDefaultBindings()) {
+    if (!state.platform) {
+        state.platform = getPlatform();
+    }
+
+    if (!state.platform) {
+        return;
+    }
+
+    if (!state.overrideDone) {
         overrideCallback();
+        state.overrideDone = true;
+    }
 
-        // Global (player wide) bindings
-        if (state.bindings.hasOwnProperty('global') && Array.isArray(state.bindings.global)) {
-            state.bindings.global.forEach(obj => {
-                if (obj.hasOwnProperty('type')) {
-                    switch (obj.type) {
-                        case 'item.flag':
-                            toggleFlag(obj.bindings[currentPlatform]);
-                            break;
+    if (!state.effective) {
+        state.effective = buildEffectiveBindings(config, state.platform);
+    }
 
-                        case 'masking.enable':
-                            enableMasking(obj.bindings[currentPlatform]);
-                            break;
+    if (!state.bound) {
+        bindAll(state.effective);
+        state.bound = true;
+    }
+}
 
-                        default:
-                            break;
-                    }
-                }
-            });
+function bindAll(eff) {
+    if (eff.global.itemFlag.length) {
+        Mousetrap.bind(eff.global.itemFlag, onToggleFlag);
+    }
+
+    if (eff.global.maskingEnable.length) {
+        Mousetrap.bind(eff.global.maskingEnable, onEnableMasking);
+    }
+
+    if (eff.item.responseSet.length) {
+        Mousetrap.bind(eff.item.responseSet, onSetMcqOption);
+    }
+
+    if (eff.item.responseMask.length) {
+        Mousetrap.bind(eff.item.responseMask, onSetResponseMask);
+    }
+}
+
+function onToggleFlag() {
+    LT.items.flag();
+}
+
+function onEnableMasking() {
+    const q = LT.questions.questionInstance();
+    if (!isEmptyObject(q) && typeof q.isMaskable === 'function' && q.isMaskable()) {
+        LT.itemsApp().questionsApp().masking(!LT.items.isMaskingEnabled());
+    }
+}
+
+function onSetMcqOption(e, combo) {
+    const mcq = getSingleMcq();
+    if (!mcq) {
+        return;
+    }
+
+    const idx = extractLastDigit(combo);
+    if (idx == null) {
+        return;
+    }
+
+    if (Array.isArray(mcq.options) && mcq.options.length >= idx) {
+        const wrapper = document.getElementById(mcq.response_id);
+        if (!wrapper) {
+            return;
         }
-
-        // Per item bindings
-        if (state.bindings.hasOwnProperty('item') && Array.isArray(state.bindings.item)) {
-            app.appInstance().on('item:load', () => {
-                state.bindings.item.forEach(obj => {
-                    if (obj.hasOwnProperty('type')) {
-                        switch (obj.type) {
-                            case 'response.mask':
-                                setResponseMask(obj.bindings[currentPlatform]);
-                                break;
-
-                            case 'response.set':
-                                setMcqOption(obj.bindings[currentPlatform]);
-                                break;
-
-                            default:
-                                break;
-                        }
-                    }
-                });
-            });
+        const inputs = wrapper.querySelectorAll('.lrn-input');
+        if (inputs && inputs[idx - 1]) {
+            inputs[idx - 1].click();
         }
     }
 }
 
-/**
- * Enables masking mode for a single question on the active
- * item (if supported).
- * @param {object} bindings Platform specific bindings for this action.
- * @since 0.4.0
- * @ignore
- */
-function enableMasking(bindings) {
-    app.appInstance().on('item:load', () => {
-        const q = questions.questionInstance();
+function onSetResponseMask(e, combo) {
+    if (!LT.items.isMaskingEnabled()) {
+        return;
+    }
 
-        if (!isEmptyObject(q) && q.isMaskable()) {
-            Mousetrap.bind(bindings, () => {
-                app.appInstance().questionsApp().masking(!items.isMaskingEnabled());
-            });
-        } else {
-            // Ignoring items with more than one question
+    const mcq = getSingleMcq();
+    if (!mcq) {
+        return;
+    }
+
+    const idx = extractLastDigit(combo);
+    if (idx == null) {
+        return;
+    }
+
+    const root = LT.items.itemElement();
+    if (!root) {
+        return;
+    }
+    const optionsEls = root.querySelectorAll('.lrn-mcq-option');
+    const optionEl = optionsEls && optionsEls[idx - 1];
+    if (!optionEl) {
+        return;
+    }
+    const maskBtn = optionEl.querySelector('.lrn-mask');
+    if (maskBtn) {
+        maskBtn.click();
+    }
+}
+
+function extractLastDigit(combo) {
+    const m = /(\d)$/.exec(combo);
+    if (!m) {
+        return null;
+    }
+    const n = Number(m[1]);
+    return Number.isFinite(n) ? n : null;
+}
+
+function getSingleMcq() {
+    const qs = LT.questions.questions();
+    let mcq = null;
+
+    for (const q of qs) {
+        if (q && q.type === 'mcq') {
+            if (mcq) {
+                return null;
+            }
+            mcq = q;
         }
-    });
+    }
+    return mcq;
+}
+
+function buildEffectiveBindings(map, platformKey) {
+    const eff = {
+        global: {
+            itemFlag: [],
+            maskingEnable: [],
+        },
+        item: {
+            responseSet: [],
+            responseMask: [],
+        },
+    };
+
+    if (map && Array.isArray(map.global)) {
+        for (const entry of map.global) {
+            if (!entry || !entry.type || !entry.bindings) {
+                continue;
+            }
+            const combos = entry.bindings[platformKey] || [];
+            if (!Array.isArray(combos) || combos.length === 0) {
+                continue;
+            }
+            if (entry.type === 'item.flag') {
+                eff.global.itemFlag.push(...combos);
+            } else if (entry.type === 'masking.enable') {
+                eff.global.maskingEnable.push(...combos);
+            }
+        }
+    }
+
+    if (map && Array.isArray(map.item)) {
+        for (const entry of map.item) {
+            if (!entry || !entry.type || !entry.bindings) {
+                continue;
+            }
+            const combos = entry.bindings[platformKey] || [];
+            if (!Array.isArray(combos) || combos.length === 0) {
+                continue;
+            }
+            if (entry.type === 'response.set') {
+                eff.item.responseSet.push(...combos);
+            } else if (entry.type === 'response.mask') {
+                eff.item.responseMask.push(...combos);
+            }
+        }
+    }
+
+    return eff;
+}
+
+function getPlatform() {
+    for (const p of state.supportedPlatforms) {
+        if (platform[p]) {
+            return p;
+        }
+    }
+    return null;
+}
+
+function overrideCallback() {
+    Mousetrap.prototype.stopCallback = (e, element) => {
+        const activeEl = document.activeElement;
+
+        if (activeEl && (activeEl.getAttribute('type') === 'radio' || activeEl.getAttribute('type') === 'checkbox')) {
+            return false;
+        }
+
+        if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
+            return false;
+        }
+
+        return (
+            element.tagName === 'INPUT' ||
+            element.tagName === 'SELECT' ||
+            element.tagName === 'TEXTAREA' ||
+            (element.contentEditable && element.contentEditable === 'true')
+        );
+    };
 }
 
 /**
@@ -203,140 +338,6 @@ function getDefaultBindings() {
             },
         ],
     };
-}
-
-/**
- * Checks to see whether the user platform is supported
- * for keyboard shortcuts. Eg we won't support touch
- * platforms.
- * @returns {boolean}
- * @since 0.4.0
- * @ignore
- */
-function getPlatform() {
-    let currentPlatform;
-
-    state.supportedPlatforms.forEach(p => {
-        if (platform[p]) {
-            currentPlatform = p;
-        }
-    });
-
-    return currentPlatform;
-}
-
-/**
- * Override the default stop callback method of mousetrap
- * because if the focus is on an MCQ element (radio or
- * checkbox) we still want to fire an event if the user
- * chooses a different option.
- * @since 0.4.0
- * @ignore
- */
-function overrideCallback() {
-    Mousetrap.prototype.stopCallback = (e, element) => {
-        const activeEl = document.activeElement;
-
-        // We don't stop if focus is on a radio button
-        if (activeEl.getAttribute('type') === 'radio' || activeEl.getAttribute('type') === 'checkbox') {
-            return false;
-        }
-
-        // if the element has the class "mousetrap" then no need to stop
-        if ((' ' + element.className + ' ').indexOf(' mousetrap ') > -1) {
-            return false;
-        }
-
-        // stop for input, select, and textarea
-        return (
-            element.tagName == 'INPUT' ||
-            element.tagName == 'SELECT' ||
-            element.tagName == 'TEXTAREA' ||
-            (element.contentEditable && element.contentEditable == 'true')
-        );
-    };
-}
-
-/**
- * Manually clicks an MCQ possible response.
- * @param {object} bindings Platform specific bindings for this action.
- * @since 0.4.0
- * @ignore
- */
-function setMcqOption(bindings) {
-    const qs = questions.questions();
-    let numMCQs = 0;
-
-    qs.forEach(q => {
-        if (q.type === 'mcq') {
-            numMCQs++;
-        }
-    });
-
-    if (numMCQs === 1) {
-        Object.values(qs).forEach(question => {
-            if (question.type === 'mcq') {
-                Mousetrap.bind(bindings, e => {
-                    if (question.options?.length >= e.key) {
-                        const domWrapper = document.getElementById(`${question.response_id}`);
-                        const domOptions = domWrapper.querySelectorAll('.lrn-input');
-                        domOptions[e.key - 1].click();
-                    }
-                });
-            }
-        });
-    } else {
-        // Ignoring items with more than one MCQ
-    }
-}
-
-/**
- * Manually masks a possible response.
- * @param {object} bindings Platform specific bindings for this action.
- * @since 0.4.0
- * @ignore
- */
-function setResponseMask(bindings) {
-    const qs = questions.questions();
-    let numMCQs = 0;
-
-    qs.forEach(q => {
-        if (q.type === 'mcq') {
-            numMCQs++;
-        }
-    });
-
-    if (numMCQs === 1) {
-        Object.values(qs).forEach(question => {
-            if (question.type === 'mcq') {
-                Mousetrap.bind(bindings, (e, combo) => {
-                    if (items.isMaskingEnabled()) {
-                        const index = Number(combo.at(-1));
-                        if (question.options?.length >= index) {
-                            const domWrapper = items.itemElement();
-                            const domOptions = domWrapper.querySelectorAll('.lrn-mcq-option');
-                            const elMask = domOptions[index - 1].querySelector('.lrn-mask');
-                            if (elMask) {
-                                elMask.click();
-                            }
-                        }
-                    }
-                });
-            }
-        });
-    } else {
-        // Ignoring items with more than one MCQ
-    }
-}
-
-/**
- * Manually toggles the item flag button.
- * @param {object} bindings Platform specific bindings for this action.
- * @since 0.4.0
- * @ignore
- */
-function toggleFlag(bindings) {
-    Mousetrap.bind(bindings, items.flag);
 }
 
 export const keyboardShortcuts = createExtension('keyboardShortcuts', run);

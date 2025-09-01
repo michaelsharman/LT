@@ -1,15 +1,7 @@
-import { assessApp } from '../../../../core/app.js';
-import { dialog, hideDialog } from '../../../../core/player.js';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
-import logger from '../../../../../utils/logger.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 import { Howl, Howler } from 'howler';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Renders an audio player that the end-user can use
  * to play white noise sounds. Helps for some users
  * with focus and concentration.
@@ -64,23 +56,31 @@ import { Howl, Howler } from 'howler';
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/whitenoise.gif" alt="" width="900"></p>
  *
  * If you want to render the player inside a custom element, pass an `id` to
- * `launchPlayer(id)` after calling `run()`. This will render the player
+ * `launchPlayer(id)`. This will render the player
  * inside an element of your choice. You will be responsible for showing/hiding
  * the player, or just leave it always visible.
  *
  * ```
  * <div id="player-wrapper"></div>
  * <div id="learnosity_assess"></div>
- *
- * <script>
- *   LT.init(app);
- *   LT.extensions.whiteNoise.run();
- *
- *   // Trigger this on a click event or anything defining when
- *   // you want to load the white noise player
- *   LT.extensions.whiteNoise.launchPlayer('player-wrapper');
- * </script>
  * ```
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.id Optional, if you want to render the player inside a custom element
+ * @param {object=} options.shadowRoot Optional, if you want to render the player inside a shadow root
+ *
+ * @example
+ * const options = {
+ *     id: 'yourElementId',
+ *     shadowRoot: document.querySelector('#yourShadowRootId').attachShadow({ mode: 'open' })
+ * };
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'whiteNoise', args: options }
+ *     ],
+ * });
+ *
  * @module Extensions/Assessment/whiteNoise
  */
 
@@ -107,36 +107,30 @@ const state = {
         rain: 'https://assets.learnosity.com/learnosity_toolkit/whitenoise/rain.mp3',
     },
     queryRoot: document,
-    renderedCss: false,
 };
 
 /**
  * Sets up the white noise audio player.
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.whiteNoise.run();
+ * @param {object=} config Optional config object to override defaults
  * @since 2.7.0
- * @param {string=} id Optional id of an element, or element, to render the player into
- * @param {object=} shadowRoot Optional A shadow root to render the player into
+ * @ignore
  */
-function run(id, shadowRoot) {
-    state.elementId = id || null;
-    state.queryRoot = shadowRoot || document;
+function run(config = {}) {
+    const { id: elementId = null, shadowRoot: queryRoot = document } = config;
 
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
+    state.elementId = elementId;
+    state.queryRoot = queryRoot;
 
     // Listener for an Items API custom button
     try {
-        assessApp().on('button:btn-whitenoise:clicked', () => {
+        LT.assessApp().on('button:btn-whitenoise:clicked', () => {
             launchPlayer();
         });
     } catch (e) {
         // Not very clean. But we don't want to log this error
         // which happens when you use the toolbar outside of Items API
         if (!(e instanceof TypeError)) {
-            logger.error('Error with white noise player:', e);
+            LT.utils.logger.error('Error with white noise player:', e);
         }
     }
 }
@@ -146,7 +140,6 @@ function run(id, shadowRoot) {
  * Items API custom dialog, in which case you never need to call this
  * method directly.
  *
-
  * @since 2.7.0
  */
 function launchPlayer() {
@@ -157,7 +150,7 @@ function launchPlayer() {
         if (customWrapper) {
             customWrapper.innerHTML = content;
         } else {
-            logger.error(`Element id '${state.elementId}' not found, could not render player.`);
+            LT.utils.logger.error(`Element id '${state.elementId}' not found, could not render player.`);
             return;
         }
     } else if (state.elementId && state.queryRoot !== document) {
@@ -166,11 +159,11 @@ function launchPlayer() {
         if (el) {
             el.innerHTML = content;
         } else {
-            logger.error(`Shadow root element id '${state.elementId}' not found, could not render player.`);
+            LT.utils.logger.error(`Shadow root element id '${state.elementId}' not found, could not render player.`);
             return;
         }
     } else {
-        dialog({
+        LT.dialog({
             header: 'White noise player',
             body: content,
             buttons: [
@@ -214,12 +207,12 @@ function launchPlayer() {
 
     // Setup logic to close the dialog
     try {
-        assessApp().on('button:dialog_btn_whitenoise_player:clicked', () => {
-            hideDialog();
+        LT.assessApp().on('button:dialog_btn_whitenoise_player:clicked', () => {
+            LT.hideDialog();
         });
     } catch (e) {
         if (!(e instanceof TypeError)) {
-            logger.error('Error with white noise player:', e);
+            LT.utils.logger.error('Error with white noise player:', e);
         }
     }
 }
@@ -353,221 +346,216 @@ function playerTemplate() {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.7.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    let root = ':root';
-    if (state.queryRoot !== document) {
-        root = ':host';
-    }
-
-    const elStyle = document.createElement('style');
-    elStyle.setAttribute('data-style', 'LT White Noise');
+function getStyles() {
+    const ROOT = state.queryRoot !== document ? ':host' : ':root';
     const css = `
-/* Learnosity white noise player styles */
-${root} {
-    --lt-wn-border: #888888;
-    --lt-wn-border-radius: 8px;
-    --lt-wn-color: #333333;
-    --lt-wn-svg-size: 4.5em;
-    --lt-wn-control-svg-size: 2em;
-    --lt-wn-range-size: 19em;
-    --lt-wn-min-height: 23em;
-}
-
-@container (max-width: 300px) {
-    .lt__player {
-        min-height: var(--lt-wn-min-height);
-        :is(svg) {
-            --lt-wn-svg-size: 3rem;
+        /* Learnosity white noise player styles */
+        ${ROOT} {
+            --lt-wn-border: #888888;
+            --lt-wn-border-radius: 8px;
+            --lt-wn-color: #333333;
+            --lt-wn-svg-size: 4.5em;
+            --lt-wn-control-svg-size: 2em;
+            --lt-wn-range-size: 19em;
+            --lt-wn-min-height: 23em;
         }
-        .lt__control-wrapper {
-            :is(svg) {
-                --lt-wn-control-svg-size: 1rem;
+
+        @container (max-width: 300px) {
+            .lt__player {
+                min-height: var(--lt-wn-min-height);
+                :is(svg) {
+                    --lt-wn-svg-size: 3rem;
+                }
+                .lt__control-wrapper {
+                    :is(svg) {
+                        --lt-wn-control-svg-size: 1rem;
+                    }
+                    input[type="range"] {
+                        --lt-wn-range-size: 10rem;
+                    }
+                }
+            }
+        }
+
+        .lt__player {
+            container-type: size;
+            background-color: #fff;
+            width: 100%;
+            max-width: 45em;
+            min-height: var(--lt-wn-min-height);
+            border: 1px solid #dddddd;
+            border-radius: var(--lt-wn-border-radius);
+            padding: 1rem;
+            filter: drop-shadow(4px 5px 7px #8d8d8d);
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: var(--lt-wn-color);
+            margin: 0 auto;
+        }
+        .lt__player svg {
+            width: var(--lt-wn-svg-size);
+            height: var(--lt-wn-svg-size);
+            display: inline;
+        }
+        .lt__meta ul {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            list-style: none;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        .lt__meta ul li {
+            box-sizing: border-box;
+            border-radius: var(--lt-wn-border-radius);
+            border: 1px solid var(--lt-wn-border);
+            margin: 0.3rem;
+
+            &:hover {
+                background-color: #f2f4f5;
+            }
+        }
+        .lt__meta ul li button {
+            display: block;
+            text-decoration: none;
+            border-radius: inherit;
+            width: 100%;
+            border: none;
+            background: none;
+
+            &:hover,
+            &:focus {
+                outline: 5px auto -webkit-focus-ring-color;
+                outline-offset: -2px;
+                background-color: #f2f4f5;
+            }
+
+            &:active {
+                box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+            }
+        }
+        .lt__meta ul li button.lt__sound-active {
+            box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
+            background: #efefef;
+        }
+        .lt__meta ul li svg {
+            padding: 1rem 1rem 0.3rem 1rem;
+            vertical-align: middle;
+        }
+        .lt__control-wrapper svg {
+            width: var(--lt-wn-control-svg-size);
+        }
+        .lt__control-wrapper svg:last-child {
+            position: relative;
+            left: 0.6rem;
+        }
+        .lt__sound-label {
+            display: block;
+            padding-bottom: 0.7rem;
+        }
+        .lt__toolbar {
+            margin-top: 0.5rem;
+            text-align: center;
+        }
+        .lt__control-wrapper label {
+            text-align: center;
+            padding-bottom: 0;
+            margin-bottom: 0;
+            display: block;
+            position: relative;
+            top: 10px;
+        }
+        .lt__control-wrapper button {
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+        input[type="range"] {
+        -webkit-appearance: none;
+            appearance: none;
+            background: transparent;
+            cursor: pointer;
+            width: var(--lt-wn-range-size);
+        }
+        /* Removes default focus */
+        input[type="range"]:focus {
+        outline: none;
+        }
+        input[type="range"]::-webkit-slider-runnable-track {
+        background-color: #01243d;
+        border-radius: 0.5rem;
+        height: 0.5rem;
+        }
+        input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        margin-top: -12px;
+        background-color: #fff;
+        border: 2px solid #01243d;
+        height: 2rem;
+        width: 1rem;
+        }
+        input[type="range"]:focus::-webkit-slider-thumb {
+        border: 1px solid #01243d;
+        outline: 3px solid #01243d;
+        outline-offset: 0.125rem;
+        }
+        input[type="range"]::-moz-range-track {
+        background-color: #01243d;
+        border-radius: 0.5rem;
+        height: 0.5rem;
+        }
+        input[type="range"]::-moz-range-thumb {
+        border: none;
+        border-radius: 0;
+        border: 1px solid #01243d;
+        background-color: #fff;
+        height: 2rem;
+        width: 1rem;
+        }
+        input[type="range"]:focus::-moz-range-thumb {
+        border: 1px solid #01243d;
+        outline: 3px solid #01243d;
+        outline-offset: 0.125rem;
+        }
+
+        @media (max-width: 400px) {
+            .lt__meta ul {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
             }
             input[type="range"] {
-                --lt-wn-range-size: 10rem;
+                width: 10rem;
             }
         }
-    }
-}
 
-.lt__player {
-    container-type: size;
-    background-color: #fff;
-    width: 100%;
-    max-width: 45em;
-    min-height: var(--lt-wn-min-height);
-    border: 1px solid #dddddd;
-    border-radius: var(--lt-wn-border-radius);
-    padding: 1rem;
-    filter: drop-shadow(4px 5px 7px #8d8d8d);
-    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-    color: var(--lt-wn-color);
-    margin: 0 auto;
-}
-.lt__player svg {
-    width: var(--lt-wn-svg-size);
-    height: var(--lt-wn-svg-size);
-    display: inline;
-}
-.lt__meta ul {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    list-style: none;
-    text-align: center;
-    margin: 0;
-    padding: 0;
-}
-.lt__meta ul li {
-    box-sizing: border-box;
-    border-radius: var(--lt-wn-border-radius);
-    border: 1px solid var(--lt-wn-border);
-    margin: 0.3rem;
-
-    &:hover {
-        background-color: #f2f4f5;
-    }
-}
-.lt__meta ul li button {
-    display: block;
-    text-decoration: none;
-    border-radius: inherit;
-    width: 100%;
-    border: none;
-    background: none;
-
-    &:hover,
-    &:focus {
-        outline: 5px auto -webkit-focus-ring-color;
-        outline-offset: -2px;
-        background-color: #f2f4f5;
-    }
-
-    &:active {
-        box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
-    }
-}
-.lt__meta ul li button.lt__sound-active {
-    box-shadow: 0 0 0 0.25rem rgba(49, 132, 253, 0.5);
-    background: #efefef;
-}
-.lt__meta ul li svg {
-    padding: 1rem 1rem 0.3rem 1rem;
-    vertical-align: middle;
-}
-.lt__control-wrapper svg {
-    width: var(--lt-wn-control-svg-size);
-}
-.lt__control-wrapper svg:last-child {
-    position: relative;
-    left: 0.6rem;
-}
-.lt__sound-label {
-    display: block;
-    padding-bottom: 0.7rem;
-}
-.lt__toolbar {
-    margin-top: 0.5rem;
-    text-align: center;
-}
-.lt__control-wrapper label {
-    text-align: center;
-    padding-bottom: 0;
-    margin-bottom: 0;
-    display: block;
-    position: relative;
-    top: 10px;
-}
-.lt__control-wrapper button {
-    background: none;
-    border: none;
-    cursor: pointer;
-}
-input[type="range"] {
-   -webkit-appearance: none;
-    appearance: none;
-    background: transparent;
-    cursor: pointer;
-    width: var(--lt-wn-range-size);
-}
-/* Removes default focus */
-input[type="range"]:focus {
-  outline: none;
-}
-input[type="range"]::-webkit-slider-runnable-track {
-   background-color: #01243d;
-   border-radius: 0.5rem;
-   height: 0.5rem;
-}
-input[type="range"]::-webkit-slider-thumb {
-  -webkit-appearance: none;
-   appearance: none;
-   margin-top: -12px;
-   background-color: #fff;
-   border: 2px solid #01243d;
-   height: 2rem;
-   width: 1rem;
-}
-input[type="range"]:focus::-webkit-slider-thumb {
-  border: 1px solid #01243d;
-  outline: 3px solid #01243d;
-  outline-offset: 0.125rem;
-}
-input[type="range"]::-moz-range-track {
-   background-color: #01243d;
-   border-radius: 0.5rem;
-   height: 0.5rem;
-}
-input[type="range"]::-moz-range-thumb {
-   border: none;
-   border-radius: 0;
-   border: 1px solid #01243d;
-   background-color: #fff;
-   height: 2rem;
-   width: 1rem;
-}
-input[type="range"]:focus::-moz-range-thumb {
-  border: 1px solid #01243d;
-  outline: 3px solid #01243d;
-  outline-offset: 0.125rem;
-}
-
-@media (max-width: 400px) {
-    .lt__meta ul {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-    }
-    input[type="range"] {
-        width: 10rem;
-    }
-}
-
-.lt__whitenoise-player-icon::before {
-    content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V384 336 288C0 146.6 114.6 32 256 32s256 114.6 256 256v48 48 16c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z"/></svg>');
-    width: 16px;
-    color: var(--lt-wn-color);
-    margin-top: 0;
-    font-size: 16px;
-    -webkit-transition: color .2s;
-    transition: color .2s;
-    -webkit-font-smoothing: antialiased;
-}
-`;
-
-    elStyle.textContent = css;
+        .lt__whitenoise-player-icon::before {
+            content: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M256 80C149.9 80 62.4 159.4 49.6 262c9.4-3.8 19.6-6 30.4-6c26.5 0 48 21.5 48 48V432c0 26.5-21.5 48-48 48c-44.2 0-80-35.8-80-80V384 336 288C0 146.6 114.6 32 256 32s256 114.6 256 256v48 48 16c0 44.2-35.8 80-80 80c-26.5 0-48-21.5-48-48V304c0-26.5 21.5-48 48-48c10.8 0 21 2.1 30.4 6C449.6 159.4 362.1 80 256 80z"/></svg>');
+            width: 16px;
+            color: var(--lt-wn-color);
+            margin-top: 0;
+            font-size: 16px;
+            -webkit-transition: color .2s;
+            transition: color .2s;
+            -webkit-font-smoothing: antialiased;
+        }
+    `;
 
     if (state.queryRoot === document) {
-        document.head.append(elStyle);
+        return css;
     } else {
+        const elStyle = document.createElement('style');
+        elStyle.setAttribute('data-style', 'LT White Noise');
+        elStyle.textContent = css;
         state.queryRoot.appendChild(elStyle);
+        return '';
     }
-
-    state.renderedCss = true;
 }
 
 export const whiteNoise = createExtension('whiteNoise', run, {
+    getStyles,
     launchPlayer,
 });

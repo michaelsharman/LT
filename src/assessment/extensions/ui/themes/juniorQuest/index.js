@@ -52,28 +52,25 @@ import styles from './styles/index.css?inline';
  * }
  * ```
  *
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['juniorQuest'],
+ * });
+ *
  * @module Extensions/Assessment/themes/juniorQuest
  */
 
 const state = {
     elements: {},
-    renderedCss: false,
     theme: 'juniorQuest',
 };
 
 /**
  * Loads the `Junior Quest` theme for Items API (the player).
- *
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.themes.juniorQuest.run();
  * @since 2.13.0
+ * @ignore
  */
 function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
     cacheElements();
     addThemeWrapperElement();
 }
@@ -102,19 +99,14 @@ function cacheElements() {
 }
 
 /**
- * Injects the necessary CSS to the header
+ * Returns the extension CSS
  * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = styles;
-
-    elStyle.setAttribute('data-style', 'LT Theme Junior Quest');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+function getStyles() {
+    return styles;
 }
 
-export const juniorQuest = createExtension('juniorQuest', run);
+export const juniorQuest = createExtension('juniorQuest', run, {
+    getStyles,
+});

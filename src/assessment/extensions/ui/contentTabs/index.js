@@ -1,16 +1,23 @@
-import * as app from '../../../core/app.js';
-import * as items from '../../../core/items.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Renders styles and responsive logic for LT content tabs.
  *
  * Pass in a theme option to change the look of the tabs.
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.theme Defaults to `api-column-tabs`. Also accepts `rounded`.
+ *
+ * @example
+ * const options = {
+ *     theme: 'rounded'
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'contentTabs', args: options },
+ *     ],
+ * });
  *
  * @module Extensions/Assessment/contentTabs
  */
@@ -19,26 +26,19 @@ const state = {
     options: {
         theme: 'api-column-tabs',
     },
-    renderedCss: false,
     visitedItems: new Set(),
 };
 
 /**
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.contentTabs.run();
- * @param {object=} options - Optional configuration object includes:
- *  - `theme` (string) Which tabs theme to load. Options are `rounded` (default) and `api-column-tabs`.
+ * @param {object=} config - Optional configuration object.
  * @since 2.19.0
+ * @ignore
  */
-function run(options) {
-    state.options = validateOptions(options);
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
+function run(config = {}) {
+    state.options = validateOptions(config);
 
-    app.appInstance().on('item:load', () => {
-        const itemReference = items.itemReference();
+    LT.itemsApp().on('item:load', () => {
+        const itemReference = LT.itemReference();
 
         if (!state.visitedItems.has(itemReference)) {
             const elItem = document.querySelector(`div[data-reference="${itemReference}"]`);
@@ -95,34 +95,29 @@ function escapeHTML(str) {
  */
 function validateOptions(options) {
     const validThemes = ['rounded', 'api-column-tabs'];
-    let opt = options || {};
+    const opt = {};
 
     if (options && typeof options === 'object') {
-        opt = { ...state.options, ...options };
-        if (!validThemes.includes(opt.theme)) {
-            opt.theme = 'api-column-tabs';
+        if (validThemes.includes(options.theme)) {
+            opt.theme = options.theme;
+        } else {
+            opt.theme = 'api-column-tabs'; // fallback
         }
     } else {
-        opt = { ...state.options };
+        opt.theme = 'api-column-tabs'; // fallback if input is null or not an object
     }
 
     return opt;
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.19.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
+function getStyles() {
     const css = '/* Learnosity content tab styles */';
-
-    elStyle.setAttribute('data-style', 'LT Content Tabs');
-    elStyle.textContent = css.concat('\n', getTabsTheme(state.options.theme));
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+    return css.concat('\n', getTabsTheme(state.options.theme));
 }
 
 /**
@@ -284,6 +279,7 @@ function getTabsTheme(theme) {
 }
 
 export const contentTabs = createExtension('contentTabs', run, {
+    getStyles,
     escapeHTML,
     getTabsTheme,
     validateOptions,

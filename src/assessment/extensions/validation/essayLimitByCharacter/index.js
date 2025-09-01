@@ -1,18 +1,7 @@
-import { appInstance, assessApp } from '../../../core/app.js';
-import logger from '../../../../utils/logger.js';
-import { activity, isResuming, region } from '../../../core/activity.js';
-import { dialog, hideDialog, isResponsiveMode } from '../../../core/player.js';
-import { isLastItem, itemByResponseId } from '../../../core/items.js';
-import { questionInstance } from '../../../core/questions.js';
 import { decodeHTML } from 'entities';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * This script changes the essay validation check on
  * string length to be character based, instead of
  * the default word based.
@@ -21,16 +10,7 @@ import { createExtension } from '../../../../utils/extensionsFactory.js';
  * treated as characters to validate length.
  *
  * Works with `longtextV2` and `plaintext` question types.
- * @module Extensions/Assessment/essayLimitByCharacter
- */
-
-const state = {
-    includeSpaces: false,
-    renderedCss: false,
-    validTypes: ['longtextV2', 'plaintext'],
-};
-
-/**
+ *
  * Looks for relevent question types and overrides validation
  * to be on character length. Uses the `max_length` (Word limit)
  * that was set up in authoring, treating the value as a character
@@ -197,24 +177,42 @@ const state = {
  * }
  * ```
  *
- * @example
- * import { LT } from '@caspingus/lt/assessment';
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.includeSpaces Whether to include spaces in the character count. Defaults to false.
  *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.essayLimitByCharacter.run();
- * @param {boolean} includeSpaces Whether to include spaces in the character count
- * Default is `false`.
- * @since 0.10.0
+ * @example
+ * const options = {
+ *     includeSpaces: false
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'essayLimitByCharacter', args: options },
+ *     ],
+ * });
+ *
+ * @module Extensions/Assessment/essayLimitByCharacter
  */
-function run(includeSpaces = false) {
-    state.includeSpaces = Boolean(includeSpaces);
 
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
+const state = {
+    includeSpaces: false,
+    validTypes: ['longtextV2', 'plaintext'],
+};
+
+/**
+ * @param {object=} config Object of configuration options.
+ * @since 0.10.0
+ * @ignore
+ */
+function run(config) {
+    const { includeSpaces = false } = config;
+
+    state.includeSpaces = Boolean(includeSpaces);
 
     setQuestionListeners();
 
     // Set up a listener on item load to check Finish button state
-    appInstance().on('item:load', () => {
+    LT.itemsApp().on('item:load', () => {
         setSubmitButtonState();
     });
 
@@ -223,7 +221,7 @@ function run(includeSpaces = false) {
         elCustomSubmit.classList.add('lrn_btn_blue');
         setupSubmitPrevention();
     } else {
-        logger.warn('No custom submit button found. Character length validation will occur, but no submission prevention.');
+        LT.utils.logger.warn('No custom submit button found. Character length validation will occur, but no submission prevention.');
     }
 }
 
@@ -235,18 +233,18 @@ function run(includeSpaces = false) {
  * @ignore
  */
 function setQuestionListeners() {
-    const itemQuestions = Object.values(appInstance().getQuestions());
+    const itemQuestions = Object.values(LT.itemsApp().getQuestions());
 
     itemQuestions
         .filter(question => state.validTypes.includes(question.type))
         .forEach(question => {
-            const questionInstance = appInstance().question(question.response_id);
+            const questionInstance = LT.itemsApp().question(question.response_id);
 
             questionInstance.on('rendered', () => {
                 setupEssayValidationUI(questionInstance);
 
                 // Check on load for existing responses
-                if (isResuming()) {
+                if (LT.isResuming()) {
                     checkLimit(questionInstance);
                 }
             });
@@ -341,7 +339,7 @@ function setValidationUI(questionInstance, isValid, strLength) {
  * @ignore
  */
 function setupEssayValidationUI(questionInstance) {
-    const hasLabelBundle = activity()?.config?.questions_api_init_options?.labelBundle?.wordLength;
+    const hasLabelBundle = LT.activity()?.config?.questions_api_init_options?.labelBundle?.wordLength;
 
     if (!hasLabelBundle) {
         const id = questionInstance.getQuestion().response_id;
@@ -368,7 +366,7 @@ function setupSubmitPrevention() {
     if (elCustomSubmit) {
         elCustomSubmit.addEventListener('click', checkValidResponses);
 
-        appInstance().on('test:panel:shown', () => {
+        LT.itemsApp().on('test:panel:shown', () => {
             const elReviewSubmit = document.querySelector('.panel-footer .test-submit');
             if (elReviewSubmit) {
                 elReviewSubmit.addEventListener('click', checkValidResponses);
@@ -389,25 +387,25 @@ function setupSubmitPrevention() {
  * @ignore
  */
 function checkValidResponses(e) {
-    const sessionQuestions = appInstance().getQuestions();
+    const sessionQuestions = LT.itemsApp().getQuestions();
     const invalidResponseIds = [];
 
     for (const q in sessionQuestions) {
         if (state.validTypes.includes(sessionQuestions[q].type)) {
-            if (!sessionQuestions[q]?.submit_over_limit && !checkLimit(questionInstance(q), false)) {
+            if (!sessionQuestions[q]?.submit_over_limit && !checkLimit(LT.questionInstance(q), false)) {
                 invalidResponseIds.push(q);
             }
         }
     }
 
     if (invalidResponseIds.length) {
-        logger.warn('Invalid essay response length found.');
+        LT.utils.logger.warn('Invalid essay response length found.');
         e.preventDefault();
         e.stopPropagation();
 
         const itemReferences = [];
         for (let i = 0; i < invalidResponseIds.length; i++) {
-            const temp = itemByResponseId(invalidResponseIds[i]);
+            const temp = LT.itemByResponseId(invalidResponseIds[i]);
             if (temp) {
                 itemReferences.push(temp.source.reference);
             }
@@ -432,11 +430,11 @@ function setSubmitButtonState() {
     const elDefaultSubmit = document.querySelector('.test-submit.item-next');
     const elCustomSubmit = document.querySelector('.custom_btn.item-next');
 
-    if (elCustomSubmit && !isResponsiveMode()) {
-        if (!isLastItem()) {
+    if (elCustomSubmit && !LT.isResponsiveMode()) {
+        if (!LT.isLastItem()) {
             elCustomSubmit.classList.add('hidden');
         } else {
-            if (hasReviewScreenOnFinish() && region()) {
+            if (hasReviewScreenOnFinish() && LT.region()) {
                 elCustomSubmit.classList.add('hidden');
             } else {
                 elDefaultSubmit.classList.add('hidden');
@@ -457,7 +455,7 @@ function setSubmitButtonState() {
  */
 function hasReviewScreenOnFinish() {
     const hasReviewElement = document.querySelector('.review-screen');
-    const isDecoupled = activity()?.config?.configuration?.decouple_submit_from_review;
+    const isDecoupled = LT.activity()?.config?.configuration?.decouple_submit_from_review;
 
     if (!hasReviewElement || isDecoupled) {
         return false;
@@ -478,11 +476,11 @@ function hasReviewScreenOnFinish() {
  */
 function loadErrorDialog(itemReferences) {
     const labels = {
-        question: activity()?.config?.labelBundle?.question || 'Question',
-        submitTest: activity()?.config?.labelBundle?.submitTest || 'Submit activity',
-        decline: activity()?.config?.labelBundle?.decline || 'Cancel',
+        question: LT.activity()?.config?.labelBundle?.question || 'Question',
+        submitTest: LT.activity()?.config?.labelBundle?.submitTest || 'Submit activity',
+        decline: LT.activity()?.config?.labelBundle?.decline || 'Cancel',
         invalidQuestionsMessage:
-            activity()?.config?.labelBundle?.invalidQuestionsMessage || 'The following questions are not currently valid. Please follow the links to review',
+            LT.activity()?.config?.labelBundle?.invalidQuestionsMessage || 'The following questions are not currently valid. Please follow the links to review',
     };
     let template = `
         <p>${labels.invalidQuestionsMessage}</p>
@@ -495,26 +493,26 @@ function loadErrorDialog(itemReferences) {
 
     template += '</ul>';
 
-    assessApp().on('button:btn_essay_character_limit_cancel:clicked', () => {
-        hideDialog();
+    LT.assessApp().on('button:btn_essay_character_limit_cancel:clicked', () => {
+        LT.hideDialog();
     });
 
-    appInstance().on('test:panel:show', () => {
+    LT.itemsApp().on('test:panel:show', () => {
         setTimeout(() => {
             const elLinks = document.querySelectorAll('.essay-limit-character-item');
             if (elLinks) {
                 elLinks.forEach(el => {
                     const itemReference = el.getAttribute('data-item-reference');
                     el.addEventListener('click', () => {
-                        appInstance().items().goto(itemReference);
-                        hideDialog();
+                        LT.itemsApp().items().goto(itemReference);
+                        LT.hideDialog();
                     });
                 });
             }
         }, 500);
     });
 
-    dialog({
+    LT.dialog({
         header: labels.submitTest,
         body: template,
         buttons: [
@@ -549,15 +547,15 @@ function submit() {
             show_submit_ui: true,
 
             success: response_ids => {
-                logger.info('Submit was successful', response_ids);
+                LT.utils.logger.info('Submit was successful', response_ids);
             },
 
             error: event => {
-                logger.error('Submit has failed', event);
+                LT.utils.logger.error('Submit has failed', event);
             },
         };
 
-        appInstance().submit(settings);
+        LT.itemsApp().submit(settings);
     }
 }
 
@@ -584,25 +582,20 @@ function stripSpaces(s) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 0.10.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity essay limit by character styles */
-.lrn_widget .lrn_word_count,
-.lrn_widget .lrn_character_count {
-    margin-right: 0px;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Essay Limit By Character');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+function getStyles() {
+    return `
+        /* Learnosity essay limit by character styles */
+        .lrn_widget .lrn_word_count,
+        .lrn_widget .lrn_character_count {
+            margin-right: 0px;
+        }
+    `;
 }
 
-export const essayLimitByCharacter = createExtension('essayLimitByCharacter', run);
+export const essayLimitByCharacter = createExtension('essayLimitByCharacter', run, {
+    getStyles,
+});

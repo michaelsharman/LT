@@ -2,7 +2,7 @@ import { handleEvent, extensionsListener } from './diagnostics.js';
 import { questionResponseIds } from './questions.js';
 
 /**
- * Learnosity Toolkit constructor module.
+ * Learnosity Toolkit app module.
  * @module Assessment/App
  */
 
@@ -10,20 +10,11 @@ const state = {};
 
 /**
  * Constructor method for Learnosity Toolkit.
- * @since 0.1.0
+ * @since 3.0.0
+ * @ignore
  * @param {object} app - Items API app instance
- * @example
- * // Declare and set your variable with the Items API LearnosityItems.init() method
- * const itemsApp = LearnosityItems.init(signedConfigObject);
- *
- * // Pass that app instance to the Toolkit constructor in the Items API readyListener()
- * import { LT } from '[path/to/tookit/index]';
- * LT.init(itemsApp);
- *
- * // Can be handy in the global scope for development
- * window.LT = LT;
  */
-export async function init(app) {
+export function setup(app) {
     state.app = app;
     setupListeners();
 }
@@ -33,7 +24,7 @@ export async function init(app) {
  * @since 0.1.0
  * @returns {object}
  */
-export function appInstance() {
+export function itemsApp() {
     return state.app;
 }
 
@@ -43,7 +34,7 @@ export function appInstance() {
  * @returns {object | null}
  */
 export function annotationsApp() {
-    return appInstance().annotationsApp() !== undefined ? appInstance().annotationsApp() : null;
+    return itemsApp().annotationsApp() !== undefined ? itemsApp().annotationsApp() : null;
 }
 
 /**
@@ -52,7 +43,7 @@ export function annotationsApp() {
  * @returns {object | null}
  */
 export function assessApp() {
-    return appInstance().assessApp();
+    return itemsApp().assessApp();
 }
 
 /**
@@ -61,7 +52,7 @@ export function assessApp() {
  * @returns {object | null}
  */
 export function eventsApp() {
-    return appInstance().eventsApp();
+    return itemsApp().eventsApp();
 }
 
 /**
@@ -70,7 +61,7 @@ export function eventsApp() {
  * @returns {object | null}
  */
 export function questionsApp() {
-    return appInstance().questionsApp();
+    return itemsApp().questionsApp();
 }
 
 /**

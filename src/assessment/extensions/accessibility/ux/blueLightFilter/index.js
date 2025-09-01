@@ -1,39 +1,44 @@
-import logger from '../../../../../utils/logger';
-import { createExtension } from '../../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Adds a semi-transparent overlay on top of the entire page.
  * This is for users who have sensitivity to bright light,
  * high contrast, or blue light.
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/pageoverlay.png" alt="" width="860"></p>
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.customColor A custom color value to use for the overlay. Recommend rgba. Defaults to rgba(250, 170, 140, 0.5)
+ * @param {number=} options.customZIndex A custom z-index value to use for the overlay. Defaults to 99999.
+ *
+ * @example
+ * const options = {
+ *     customColor: 'rgba(250, 170, 140, 0.5)',
+ *     customZIndex: 99999
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'blueLightFilter', args: options }
+ *     ],
+ * });
+ *
  * @module Extensions/Assessment/blueLightFilter
  */
 
 const state = {
     blueLightFilter: null,
     color: 'rgba(250, 170, 140, 0.5)',
-    renderedCss: false,
     zindex: 99999,
 };
 
 /**
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.blueLightFilter.run();
- * @param {string=} customColor A custom color value to use for the overlay. Recommend rgba. Defaults to rgba(250, 170, 140, 0.5)
- * @param {number=} customZIndex A custom z-index value to use for the overlay. Defaults to 99999.
+ * @param {object=} config Optional config object to override defaults
  * @since 0.9.0
+ * @ignore
  */
-function run(customColor, customZIndex) {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
+function run(config) {
+    const { customColor, customZIndex } = config || {};
 
     if (customColor && typeof customColor === 'string') {
         state.color = customColor;
@@ -76,7 +81,7 @@ function show() {
  */
 function hide() {
     if (!state.blueLightFilter?.hidden) {
-        toggle(); // handles removing class
+        toggle();
     }
 }
 
@@ -88,7 +93,7 @@ function hide() {
  */
 function toggle() {
     if (!state.blueLightFilter) {
-        logger.warn('[BlueLightFilter] visibility called before run()');
+        LT.utils.logger.warn('[BlueLightFilter] visibility called before run()');
         return;
     }
 
@@ -96,34 +101,28 @@ function toggle() {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 0.9.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity blue light filter styles */
-.lt__blue-light-filter {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: ${state.color};
-    z-index: ${state.zindex};
-    pointer-events: none;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Blue Light Filter');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+function getStyles() {
+    return `
+        /* Learnosity blue light filter styles */
+        .lt__blue-light-filter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: ${state.color};
+            z-index: ${state.zindex};
+            pointer-events: none;
+        }
+    `;
 }
 
 export const blueLightFilter = createExtension('blueLightFilter', run, {
+    getStyles,
     show,
     hide,
     toggle,

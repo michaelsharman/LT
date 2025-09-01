@@ -104,25 +104,21 @@ import { createExtension } from '../../../../utils/extensionsFactory.js';
  * ```
  *
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/languageTextDirection/screenshot.png" alt="" width="660"></p>
+ *
+ * @example
+ * LT.init(authorApp, {
+ *     extensions: ['languageTextDirection'],
+ * });
+ *
  * @module Extensions/Authoring/languageTextDirection
  */
 
-const state = {
-    renderedCss: false,
-};
-
 /**
  * Extension constructor.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.languageTextDirection.run();
  * @since 2.0.0
+ * @ignore
  */
-function run() {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-}
+function run() {}
 
 /**
  * Called via a custom button in the rich text toolbar.
@@ -895,107 +891,101 @@ function getLinebreakType(text) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.0.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity language and no translation styles */
-/* Used to see elements inside the rich-text editor that have language or translate styles applied */
-.lrn.lrn-author .lt__languageModal {
-    h4 {
-        font-size: 1.43em;
-    }
+function getStyles() {
+    return `
+        /* Learnosity language and no translation styles */
+        /* Used to see elements inside the rich-text editor that have language or translate styles applied */
+        .lrn.lrn-author .lt__languageModal {
+            h4 {
+                font-size: 1.43em;
+            }
 
-    label {
-        font-weight: bold;
-    }
+            label {
+                font-weight: bold;
+            }
 
-    input[type="checkbox"] {
-        height: 16px;
-        width: 16px;
-        vertical-align: text-bottom;
-        margin: 0;
-    }
+            input[type="checkbox"] {
+                height: 16px;
+                width: 16px;
+                vertical-align: text-bottom;
+                margin: 0;
+            }
 
-    .lt__border {
-        border: 1px solid #eaeaea;
-    }
-}
-
-.lrn-qe-form-group-wrapper {
-    .lrn-qe-form-control-ckeditor *[translate],
-    .lrn-qe-form-control-ckeditor *[lang] {
-        border: 2px dashed #696969;
-        padding: 5px;
-        position: relative;
-    }
-
-    .lrn-qe .lrn-qe-ui div[translate],
-    .lrn-qe .lrn-qe-ui div[lang] {
-        margin-bottom: 1em;
-
-        p:last-child {
-            margin-bottom: 0;
+            .lt__border {
+                border: 1px solid #eaeaea;
+            }
         }
-    }
 
-    .lrn-qe-form-control-ckeditor *[translate]::after,
-    .lrn-qe-form-control-ckeditor *[lang]::after {
-        content: "No translate";
-        position: absolute;
-        left: 100px;
-        top: 0;
-        transform: translateX(-50%);
-        background-color: #333;
-        color: #fff;
-        padding: 5px;
-        border-radius: 4px;
-        white-space: nowrap;
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.3s;
-        z-index: 10000000;
-    }
+        .lrn-qe-form-group-wrapper {
+            .lrn-qe-form-control-ckeditor *[translate],
+            .lrn-qe-form-control-ckeditor *[lang] {
+                border: 2px dashed #696969;
+                padding: 5px;
+                position: relative;
+            }
 
-    .lrn-qe-form-control-ckeditor *[lang]::after {
-        content: "Language";
-    }
+            .lrn-qe .lrn-qe-ui div[translate],
+            .lrn-qe .lrn-qe-ui div[lang] {
+                margin-bottom: 1em;
 
-    .lrn-qe-form-control-ckeditor *[translate][lang]::after {
-        content: "No translate and Language";
-    }
+                p:last-child {
+                    margin-bottom: 0;
+                }
+            }
 
-    /* Show tooltip on hover */
-    .lrn-qe-form-control-ckeditor *[translate]:hover::after,
-    .lrn-qe-form-control-ckeditor *[lang]:hover::after {
-        opacity: 1;
-        visibility: visible;
-    }
+            .lrn-qe-form-control-ckeditor *[translate]::after,
+            .lrn-qe-form-control-ckeditor *[lang]::after {
+                content: "No translate";
+                position: absolute;
+                left: 100px;
+                top: 0;
+                transform: translateX(-50%);
+                background-color: #333;
+                color: #fff;
+                padding: 5px;
+                border-radius: 4px;
+                white-space: nowrap;
+                opacity: 0;
+                visibility: hidden;
+                transition: opacity 0.3s;
+                z-index: 10000000;
+            }
 
-    /* Force the icon to be the right size */
-    .lrn-qe-ckeditor-toolbar .cke_button__addlanguageattribute .cke_button__addlanguageattribute_icon {
-        background-position: -3px !important;
-        background-size: 22px !important;
-    }
+            .lrn-qe-form-control-ckeditor *[lang]::after {
+                content: "Language";
+            }
 
-    /* Size the "content" textarea and make is resizable */
-    .lrn-qe .lrn-qe-modal-content .lrn-qe-form-group-wrapper textarea#lrn__ltd_content {
-        resize: vertical;
-        min-height: 4em;
-    }
-}
-`;
+            .lrn-qe-form-control-ckeditor *[translate][lang]::after {
+                content: "No translate and Language";
+            }
 
-    elStyle.setAttribute('data-style', 'LT Language Text Direction');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
+            /* Show tooltip on hover */
+            .lrn-qe-form-control-ckeditor *[translate]:hover::after,
+            .lrn-qe-form-control-ckeditor *[lang]:hover::after {
+                opacity: 1;
+                visibility: visible;
+            }
 
-    state.renderedCss = true;
+            /* Force the icon to be the right size */
+            .lrn-qe-ckeditor-toolbar .cke_button__addlanguageattribute .cke_button__addlanguageattribute_icon {
+                background-position: -3px !important;
+                background-size: 22px !important;
+            }
+
+            /* Size the "content" textarea and make is resizable */
+            .lrn-qe .lrn-qe-modal-content .lrn-qe-form-group-wrapper textarea#lrn__ltd_content {
+                resize: vertical;
+                min-height: 4em;
+            }
+        }
+    `;
 }
 
 export const languageTextDirection = createExtension('languageTextDirection', run, {
     addLanguageAttribute,
+    getStyles,
 });

@@ -1,15 +1,33 @@
 import { createExtension } from '../../../../utils/extensionsFactory.js';
 
 /**
- * Extensions add specific functionality to Items API.
- * They rely on modules within LT being available.
- *
- * --
- *
  * Checks for an active network connection. If none found, adds
  * an icon to the UI to indicate the status to the end user.
  *
  * Can also be used to check the current download speed.
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {string=} options.iconWrapper Classname of element to inject the broken connection icon. You
+ *      should never need this if using any of the Learnosity regions. Defaults to `top-right-wrapper`.
+ * @param {number=} options.interval Millisecond interval to check connection. Defaults to 30000 (30 seconds).
+ * @param {string=} options.message Message for tooltip and screen reader users.
+ * @param {boolean=} options.render Whether to render the icon or not. Defaults to `true`.
+ * @param {string=} options.uri URI to check for network connectivity. Defaults to a Learnosity API endpoint which is already whitelisted.
+ *
+ * @example
+ * const options = {
+ *     iconWrapper: 'top-right-wrapper',
+ *     interval: 30000,
+ *     message: 'Internet connection is currently down.',
+ *     render: true,
+ *     uri: 'https://questions.learnosity.com?latest-lts',
+ * }
+ *
+ * LT.init(itemsApp, {
+ *     extensions: [
+ *         { id: 'networkStatus', args: options },
+ *     ],
+ * });
  *
  * @module Extensions/Assessment/networkStatus
  */
@@ -23,29 +41,15 @@ const state = {
         render: true,
         uri: 'https://questions.learnosity.com?latest-lts',
     },
-    renderedCss: false,
 };
 
 /**
- * @example
- * import { LT } from '@caspingus/lt/assessment';
- *
- * LT.init(itemsApp); // Set up LT with the Items API application instance variable
- * LT.extensions.networkStatus.run();
- * @param {object=} options - Optional configuration object includes:
- *  - `iconWrapper` (string) classname of element to inject the broken connection icon. You
- * should never need this if using any of the Learnosity regions.
- *  - `interval` (numeric) millisecond interval to check connection. Defaults to 30000 (30 seconds).
- *  - `message` (string) message for tooltip and screen reader users.
- *  - `render` (boolean) whether to render the icon or not. Defaults to `true`.
- *  - `uri` (string) URI to check for network connectivity. Defaults to a Learnosity API endpoint which
- * is already whitelisted.
+ * @param {object=} config - Optional configuration object includes:
  * @since 2.12.0
+ * @ignore
  */
-function run(options) {
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
-
-    validateOptions(options);
+function run(config = {}) {
+    validateOptions(config);
 
     setInterval(getOnlineStatus, state.options.interval);
 }
@@ -162,30 +166,24 @@ function validateOptions(options) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.12.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity render network status */
-.lt__networkStatus-indicator {
-    width: 24px;
-    text-align: center;
-    position: relative;
-    top: 9px;
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Network Status');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+function getStyles() {
+    return `
+        /* Learnosity render network status */
+        .lt__networkStatus-indicator {
+            width: 24px;
+            text-align: center;
+            position: relative;
+            top: 9px;
+        }
+    `;
 }
 
 export const networkStatus = createExtension('networkStatus', run, {
     checkConnection,
     checkSpeed,
+    getStyles,
 });

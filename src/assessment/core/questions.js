@@ -1,4 +1,4 @@
-import { appInstance } from './app.js';
+import { itemsApp } from './app.js';
 import { item } from './items.js';
 import { activity } from './activity.js';
 import logger from '../../utils/logger.js';
@@ -64,7 +64,7 @@ export function question(response_id) {
     const id = response_id ? response_id : questionResponseIds()[0];
 
     if (id) {
-        return appInstance().question(id).getQuestion();
+        return itemsApp().question(id).getQuestion();
     } else {
         logger.error(`Question not found (index ${id})`);
         return {};
@@ -83,7 +83,7 @@ export function question(response_id) {
 export function questionInstance(response_id) {
     const id = response_id ?? questionResponseIds()[0];
 
-    return id ? appInstance().question(id) : {};
+    return id ? itemsApp().question(id) : {};
 }
 
 /**
@@ -113,10 +113,10 @@ export function questionResponse(response_id) {
     const id = response_id ? response_id : questionResponseIds()[0];
 
     if (id) {
-        const r = appInstance().question(id);
+        const r = itemsApp().question(id);
 
         if (r) {
-            return appInstance().question(id).getResponse();
+            return itemsApp().question(id).getResponse();
         } else {
             logger.error(`Response not found ${id}`);
             return undefined;
@@ -152,7 +152,7 @@ export function questionScore(response_id) {
     const id = response_id ? response_id : questionResponseIds()[0];
 
     if (id) {
-        return appInstance().getScores()[id] || {};
+        return itemsApp().getScores()[id] || {};
     } else {
         return {};
     }

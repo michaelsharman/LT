@@ -1,4 +1,4 @@
-import { appInstance, assessApp } from './app.js';
+import { itemsApp, assessApp } from './app.js';
 import { activity, hasSections } from './activity.js';
 import { questions, questionResponse } from './questions.js';
 import { sections } from './sections.js';
@@ -89,7 +89,7 @@ export function isItemFullyAttempted(reference = undefined) {
     let r;
 
     if (reference) {
-        itemQuestions = appInstance().getItems()[reference].questions;
+        itemQuestions = itemsApp().getItems()[reference].questions;
     } else {
         itemQuestions = questions();
     }
@@ -143,9 +143,9 @@ export function isMaskingEnabled() {
  */
 export function item(reference = undefined) {
     if (reference) {
-        return appInstance().getItems()[reference];
+        return itemsApp().getItems()[reference];
     }
-    return appInstance().getCurrentItem();
+    return itemsApp().getCurrentItem();
 }
 
 /**
@@ -165,7 +165,7 @@ export function item(reference = undefined) {
  * @returns {string}
  */
 export function itemAttemptStatus() {
-    return appInstance().getCurrentItem().attempt_status;
+    return itemsApp().getCurrentItem().attempt_status;
 }
 
 /**
@@ -175,7 +175,7 @@ export function itemAttemptStatus() {
  * @returns {object} An item JSON object.
  */
 export function itemByResponseId(response_id) {
-    const items = appInstance().getItems();
+    const items = itemsApp().getItems();
     let item;
 
     for (const ref in items) {
@@ -209,7 +209,7 @@ export function itemElement() {
  * @returns {number}
  */
 export function itemPosition() {
-    return appInstance().assessApp().getItemPosition(itemReference()) + 1;
+    return itemsApp().assessApp().getItemPosition(itemReference()) + 1;
 }
 
 /**
@@ -218,7 +218,7 @@ export function itemPosition() {
  * @returns {string}
  */
 export function itemReference() {
-    return appInstance().getCurrentItem()?.reference;
+    return itemsApp().getCurrentItem()?.reference;
 }
 
 /**
@@ -229,7 +229,7 @@ export function itemReference() {
  * @returns {array}
  */
 export function itemTags(reference = undefined) {
-    const tags = appInstance().getTags();
+    const tags = itemsApp().getTags();
     const itemRef = reference || itemReference();
 
     return tags[itemRef] || [];

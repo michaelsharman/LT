@@ -1,4 +1,4 @@
-import { annotationsApp, appInstance, assessApp, eventsApp, questionsApp } from './app.js';
+import { annotationsApp, itemsApp, assessApp, eventsApp, questionsApp } from './app.js';
 import {
     activity,
     annotationsConfig,
@@ -104,7 +104,7 @@ export function diagnostics() {
                 enabled: hasEvents(),
             },
             items: {
-                app: appInstance(),
+                app: itemsApp(),
                 metadata: activity().config.metadata,
             },
             questions: {

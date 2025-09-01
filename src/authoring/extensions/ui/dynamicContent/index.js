@@ -1,11 +1,9 @@
-import { appInstance } from '../../../core/app.js';
-import { createExtension } from '../../../../utils/extensionsFactory.js';
-import logger from '../../../../utils/logger.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 import { setObserver } from '../../../../utils/dom.js';
-import 'active-table';
 import { debounce } from 'lodash-es';
-import Papa from 'papaparse';
 import * as xlsx from 'xlsx/xlsx.mjs';
+import 'active-table';
+import Papa from 'papaparse';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -19,6 +17,32 @@ import * as xlsx from 'xlsx/xlsx.mjs';
  *
  * Supported file types for import: csv, xls, xlsx, ods, and txt.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/dynamicContent/screenshot.gif" alt="" width="660"></p>
+ *
+ * @param {object=} options Object of configuration options.
+ * @param {number=} options.maxTabs Maximum number of tabs allowed.
+ * @param {boolean=} options.useElementCache Whether to use element caching.
+ * @param {object=} options.labels Custom labels for the UI.
+ * @param {string=} options.labels.btnContinue Text for the continue button.
+ * @param {string=} options.labels.csvUploadHelp Help text for CSV upload.
+ * @param {string=} options.labels.headerValidationHelp Help text for header validation.
+ *
+ * @example
+ * const options = {
+ *     labels: {
+ *         btnContinue: 'Confirm',
+ *         csvUploadHelp: `Add dynamic data to your item by typing directly into the table below. Or, import a file
+ *             (csv, xls, xlsx, ods, and txt are supported).`,
+ *         headerValidationHelp: `The header row must contain only lowercase letters, numbers, and underscores.
+ *             Hyphens are not allowed.`,
+ *     },
+ * }
+ *
+ * LT.init(authorApp, {
+ *     extensions: [
+ *         { id: 'dynamicContent', args: options },
+ *     ],
+ * });
+ *
  * @module Extensions/Authoring/dynamicContent
  */
 
@@ -43,35 +67,18 @@ const state = {
             Supports a maximum of 20 columns and 50 rows.`,
         },
     },
-    renderedCss: false,
     useElementCache: false,
 };
 
 /**
  * Sets up a listener when the data table panel opens to inject
  * new behaviour to author dynamic content.
- * @example
- * import { LT } from '@caspingus/lt/authoring';
- *
- * LT.init(authorApp); // Set up LT with the Author API application instance variable
- * LT.extensions.dynamicContent.run();
  * @param {object=} options - Optional configuration.
- *  ```
- * {
-    labels: {
-        btnContinue: 'Confirm',
-        csvUploadHelp: `Add dynamic data to your item by typing directly into the table below. Or, import a file
-            (csv, xls, xlsx, ods, and txt are supported).`,
-        headerValidationHelp: `The header row must contain only lowercase letters, numbers, and underscores.
-            Hyphens are not allowed.`,
-    }
-}
- *```
  * @since 2.24.0
+ * @ignore
  */
 function run(options) {
     state.options = validateOptions(options);
-    state.renderedCss || (injectCSS(), (state.renderedCss = true));
 
     // Inject class for specificity
     const elLrnApi = document.querySelector('.lrn-author');
@@ -80,12 +87,12 @@ function run(options) {
     // Needed for importing anything other than csv
     window.XLSX = xlsx;
 
-    appInstance().on('navigate', checkForSetup);
+    LT.authorApp().on('navigate', checkForSetup);
 
     function checkForSetup() {
         setTimeout(() => {
-            if (['items/:reference/settings/:tab', undefined].includes(appInstance().getLocation().route)) {
-                const lastElement = appInstance().getLocation().location.split('/').pop();
+            if (['items/:reference/settings/:tab', undefined].includes(LT.authorApp().getLocation().route)) {
+                const lastElement = LT.authorApp().getLocation().location.split('/').pop();
                 if (lastElement === 'data-table') {
                     setObserver('.lrn-author-datatable-editor', setup, {
                         dispatchEvent: false,
@@ -102,7 +109,7 @@ function run(options) {
         }, 150);
 
         // Reset the state when an item is first rendered
-        appInstance().on('render:item', () => {
+        LT.authorApp().on('render:item', () => {
             state.currentData = [];
             state.dataTable = null;
             state.elements = {};
@@ -174,10 +181,10 @@ function setup() {
 
             elContinueBtn.addEventListener('click', actionContinue);
         } else {
-            logger.error(`${state.logPrefix}Dynamic table element not found`);
+            LT.utils.logger.error(`${state.logPrefix}Dynamic table element not found`);
         }
     } else {
-        logger.error(`${state.logPrefix}Data element not found`);
+        LT.utils.logger.error(`${state.logPrefix}Data element not found`);
     }
 }
 
@@ -229,7 +236,7 @@ function checkHeader(data) {
                 } catch (error) {
                     // ActiveTable throws an error when you programmatically update the header cell.
                     if (error.message !== "Cannot read properties of undefined (reading 'settings')") {
-                        logger.error(`${state.logPrefix}Error updating header cell: ${error}`);
+                        LT.utils.logger.error(`${state.logPrefix}Error updating header cell: ${error}`);
                     }
                 }
             }
@@ -257,7 +264,7 @@ function actionContinue() {
                 }, 300);
             });
         } else {
-            logger.error(`${state.logPrefix}Edit button not found`);
+            LT.utils.logger.error(`${state.logPrefix}Edit button not found`);
         }
 
         const elResetBtn = getElement('[data-authorapi-selector="datatable-preview-reset"]');
@@ -411,59 +418,53 @@ function validateOptions(options) {
 }
 
 /**
- * Injects the necessary CSS to the header
- * @since 2.24.0
+ * Returns the extension CSS
+ * @since 3.0.0
  * @ignore
  */
-function injectCSS() {
-    const elStyle = document.createElement('style');
-    const css = `
-/* Learnosity dynamic content styles */
-.lt__dynamicContent.lrn-author.lrn-author  {
-    .lt-dynamic-content-help-text {
-        font-size: 15.4px;
-        line-height: 1.4em;
-    }
-
-    .lrn-author-datatable-footer {
-        justify-content: space-between;
-    }
-
-    .lrn-author-api-react-container .lrn-author-item-settings .lrn-author-datatable-footer button:nth-child(2),
-    .lrn-author-api-react-container .lrn-author-activity-labels .lrn-author-datatable-footer button:nth-child(2) {
-        margin: 0 2px;
-    }
-
-    .lrn-author-api-react-container .lrn-author-item-settings,
-    .lrn-author-api-react-container .lrn-author-activity-labels {
-        .lrn-author-datatable-editor {
-            .lrn-author-datatable-header {
-                height: auto;
-                padding-bottom: 0;
+function getStyles() {
+    return `
+        /* Learnosity dynamic content styles */
+        .lt__dynamicContent.lrn-author.lrn-author  {
+            .lt-dynamic-content-help-text {
+                font-size: 15.4px;
+                line-height: 1.4em;
             }
 
-            .lrn-author-datatable-source-wrapper {
-                display: none;
+            .lrn-author-datatable-footer {
+                justify-content: space-between;
+            }
+
+            .lrn-author-api-react-container .lrn-author-item-settings .lrn-author-datatable-footer button:nth-child(2),
+            .lrn-author-api-react-container .lrn-author-activity-labels .lrn-author-datatable-footer button:nth-child(2) {
+                margin: 0 2px;
+            }
+
+            .lrn-author-api-react-container .lrn-author-item-settings,
+            .lrn-author-api-react-container .lrn-author-activity-labels {
+                .lrn-author-datatable-editor {
+                    .lrn-author-datatable-header {
+                        height: auto;
+                        padding-bottom: 0;
+                    }
+
+                    .lrn-author-datatable-source-wrapper {
+                        display: none;
+                    }
+                }
+
+                .lrn-author-datatable-header {
+                    label {
+                        display: none;
+                    }
+                }
             }
         }
-
-        .lrn-author-datatable-header {
-            label {
-                display: none;
-            }
-        }
-    }
-}
-`;
-
-    elStyle.setAttribute('data-style', 'LT Dynamic Content');
-    elStyle.textContent = css;
-    document.head.append(elStyle);
-
-    state.renderedCss = true;
+    `;
 }
 
 export const dynamicContent = createExtension('dynamicContent', run, {
+    getStyles,
     setup,
     updateAPIDataTable,
     validateOptions,
