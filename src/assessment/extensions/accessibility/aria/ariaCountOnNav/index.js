@@ -3,6 +3,8 @@ import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 /**
  * Appends ` of {totalItems}` to the aria-label for the previous and next buttons.
  *
+ * Does not work for adaptive sessions (including branching) or sections.
+ *
  * @example
  * LT.init(itemsApp, {
  *     extensions: ['ariaCountOnNav'],

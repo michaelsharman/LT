@@ -1,10 +1,12 @@
+import { isIntroScreen, isReadingMode } from '../../core/player.js';
 import { networkStatus } from '../ui/networkStatus/index.js';
 import { createExtension, LT } from '../../../utils/extensionsFactory.js';
 import { detectEnv } from '../../../utils/userAgent.js';
 
 /**
  * Tracks user activity and events within Items API.
- * JSON events are stored in the events object and can be rendered for analysis.
+ * JSON events are stored in an events object and can be rendered for analysis.
+ * Use the `getEvents()` method to retrieve and store the event log.
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/telemetry/telemetry.png" alt="" width="900"></p>
  *
  * @example
@@ -19,7 +21,10 @@ const state = {
     initialised: false,
     events: {
         events: [],
-        network: null,
+        network: {
+            speed: null,
+            status: 'online',
+        },
         session: null,
         user: null,
     },
@@ -36,30 +41,80 @@ function run() {
     }
 
     if (!state.initialised) {
-        setupEnvironment();
+        setupSessionEvents();
+
+        LT.itemsApp().on('item:load', () => {
+            addItemLoadEvent();
+            setupQuestionEvents();
+            setupFeatureEvents();
+        });
+
         setupPlayerEvents();
-        setupQuestionEvents();
-        setupFeatureEvents();
+        setupEnvironment();
         setupNetworkEvents();
+
         state.initialised = true;
     }
 }
 
-async function setupEnvironment() {
-    state.events.user = LT.userId();
-    state.events.session = LT.sessionId();
-    state.events.environment = await getEnvironmentInformation();
-    state.events.network = {
-        speed: networkStatus.checkSpeed(),
-    };
-}
-
-function setupPlayerEvents() {
-    LT.itemsApp().on('test:start', () => {
+/**
+ * Sets up the initial session events depending on whether there is an intro screen or not.
+ * @since 3.0.0
+ * @ignore
+ */
+function setupSessionEvents() {
+    if (isIntroScreen()) {
+        addEvent({
+            type: 'test:ready',
+            timestamp: getTimestamp(),
+        });
+    } else {
         addEvent({
             type: 'test:start',
             timestamp: getTimestamp(),
         });
+        if (isReadingMode()) {
+            addEvent({
+                type: 'test:reading:start',
+                timestamp: getTimestamp(),
+            });
+        }
+        addItemLoadEvent();
+        setupQuestionEvents();
+        setupFeatureEvents();
+    }
+}
+
+/**
+ * Sets up the environment information and user/session details.
+ * @since 3.0.0
+ * @ignore
+ */
+async function setupEnvironment() {
+    state.events.user = LT.userId();
+    state.events.session = LT.sessionId();
+    state.events.environment = await getEnvironmentInformation();
+    state.events.network.speed = networkStatus.checkSpeed();
+}
+
+/**
+ * Sets up listeners for various player events like `test` and `item`.
+ * @since 3.0.0
+ * @ignore
+ */
+function setupPlayerEvents() {
+    LT.itemsApp().on('test:start', () => {
+        // This event is unreliable when there is no intro item due to this extension running late
+        // in the readyListener() cycle. Therefore we check that it hasn't alreay been set
+        // (in setupSessionEvents()).
+        const startEvent = state.events.events.find(e => e.type === 'test:start');
+
+        if (!startEvent) {
+            addEvent({
+                type: 'test:start',
+                timestamp: getTimestamp(),
+            });
+        }
     });
 
     LT.itemsApp().on('unfocused', () => {
@@ -79,10 +134,17 @@ function setupPlayerEvents() {
     });
 
     LT.itemsApp().on('test:reading:start', () => {
-        addEvent({
-            type: 'test:reading:start',
-            timestamp: getTimestamp(),
-        });
+        // This event is unreliable when there is no intro item due to this extension running late
+        // in the readyListener() cycle. Therefore we check that it hasn't alreay been set
+        // (in setupSessionEvents()).
+        const startEvent = state.events.events.find(e => e.type === 'test:reading:start');
+
+        if (!startEvent) {
+            addEvent({
+                type: 'test:reading:start',
+                timestamp: getTimestamp(),
+            });
+        }
     });
 
     LT.itemsApp().on('test:reading:end', () => {
@@ -96,17 +158,6 @@ function setupPlayerEvents() {
         addEvent({
             type: 'item:warningOnChange',
             item: LT.itemReference(),
-            timestamp: getTimestamp(),
-        });
-    });
-
-    LT.itemsApp().on('item:load', () => {
-        addEvent({
-            type: 'item:load',
-            item: LT.itemReference(),
-            data: {
-                num: LT.itemPosition(),
-            },
             timestamp: getTimestamp(),
         });
     });
@@ -128,18 +179,23 @@ function setupPlayerEvents() {
 
     LT.itemsApp().on('test:panel:show', async () => {
         const event = await getEventFromDialog();
-        addEvent({
-            type: event,
-            timestamp: getTimestamp(),
-        });
+
+        if (!['dialog:pause'].includes(event)) {
+            addEvent({
+                type: event,
+                timestamp: getTimestamp(),
+            });
+        }
     });
 
-    LT.itemsApp().on('test:panel:hide', () => {
-        addEvent({
-            type: 'dialog:hide',
-            timestamp: getTimestamp(),
-        });
-    });
+    // This is only useful to see when a11y or review screens close
+    // Otherwise it's noise.
+    // LT.itemsApp().on('test:panel:hide', () => {
+    //     addEvent({
+    //         type: 'dialog:hide',
+    //         timestamp: getTimestamp(),
+    //     });
+    // });
 
     LT.itemsApp().on('test:pause', () => {
         addEvent({
@@ -155,6 +211,7 @@ function setupPlayerEvents() {
         });
     });
 
+    // Only fires from the UI, not via itemsApp.save()
     LT.itemsApp().on('test:save', () => {
         addEvent({
             type: 'test:save',
@@ -226,184 +283,225 @@ function setupPlayerEvents() {
     });
 }
 
+/**
+ * Sets up question events including `changed`, `validated`, `masked` and media recording events.
+ * @since 3.0.0
+ * @ignore
+ */
 function setupQuestionEvents() {
-    // Types we don't store response data for
+    // Types we debounce events and don't store response data for
     const debounceQuestions = [
-        'longtextV2',
-        'longtext',
-        'plaintext',
-        'drawing',
-        'shorttext',
         'audio',
-        'video',
-        'formulaessayV2',
         'chemistryessayV2',
-        'imageupload',
+        'drawing',
         'fileupload',
+        'formulaessayV2',
+        'imageupload',
+        'longtext',
+        'longtextV2',
+        'plaintext',
+        'video',
+    ];
+    const debounceAndStoreResponse = [
+        'association',
+        'bowtie',
+        'classification',
+        'clozeassociation',
+        'clozedropdown',
+        'clozetext',
+        'graphplotting',
+        'gridded',
+        'hotspot',
+        'imageclozeassociation',
+        'imageclozedropdown',
+        'imageclozetext',
+        'numberline',
+        'numberlineplot',
+        'orderlist',
+        'shorttext',
+        'simplechart',
+        'simpleshading',
+        'tokenhighlight',
     ];
     const DEBOUNCE_INTERVAL = 30_000; // 30 seconds
     const lastTrackedTimestamps = {};
 
-    LT.itemsApp().on('item:load', () => {
-        LT.questionResponseIds().forEach(responseId => {
-            const question = LT.itemsApp().question(responseId);
-            const questionJson = question.getQuestion();
-            const type = questionJson.type;
+    LT.questionResponseIds().forEach(responseId => {
+        const question = LT.itemsApp().question(responseId);
+        const questionJson = question.getQuestion();
+        const type = questionJson.type;
+        const reference = questionJson.metadata.widget_reference;
 
-            if (['audio', 'video'].includes(type)) {
-                question.on('recording:started', () => {
-                    addEvent({
-                        type: 'recording:started',
-                        item: LT.itemReference(),
-                        question: questionJson.metadata.widget_reference,
-                        timestamp: getTimestamp(),
-                    });
+        if (['audio', 'video'].includes(type)) {
+            question.on('recording:started', () => {
+                addEvent({
+                    type: 'recording:started',
+                    item: LT.itemReference(),
+                    question: reference,
+                    timestamp: getTimestamp(),
                 });
-                question.on('recording:paused', () => {
-                    addEvent({
-                        type: 'recording:paused',
-                        item: LT.itemReference(),
-                        question: questionJson.metadata.widget_reference,
-                        timestamp: getTimestamp(),
-                    });
+            });
+            question.on('recording:paused', () => {
+                addEvent({
+                    type: 'recording:paused',
+                    item: LT.itemReference(),
+                    question: reference,
+                    timestamp: getTimestamp(),
                 });
-                question.on('recording:resumed', () => {
-                    addEvent({
-                        type: 'recording:resumed',
-                        item: LT.itemReference(),
-                        question: questionJson.metadata.widget_reference,
-                        timestamp: getTimestamp(),
-                    });
+            });
+            question.on('recording:resumed', () => {
+                addEvent({
+                    type: 'recording:resumed',
+                    item: LT.itemReference(),
+                    question: reference,
+                    timestamp: getTimestamp(),
                 });
-                question.on('recording:stopped', () => {
-                    addEvent({
-                        type: 'recording:stopped',
-                        item: LT.itemReference(),
-                        question: questionJson.metadata.widget_reference,
-                        timestamp: getTimestamp(),
-                    });
+            });
+            question.on('recording:stopped', () => {
+                addEvent({
+                    type: 'recording:stopped',
+                    item: LT.itemReference(),
+                    question: reference,
+                    timestamp: getTimestamp(),
                 });
-            }
+            });
+        }
 
-            question.on('changed', () => {
-                const lastTracked = lastTrackedTimestamps[responseId] || 0;
-                const { revision, value } = LT.questionResponse(responseId);
+        question.on('changed', () => {
+            const lastTracked = lastTrackedTimestamps[responseId] || 0;
+            const { revision, value } = LT.questionResponse(responseId);
 
-                if (debounceQuestions.includes(type)) {
-                    if (getTimestamp() - lastTracked >= DEBOUNCE_INTERVAL) {
-                        lastTrackedTimestamps[responseId] = getTimestamp();
-                        addEvent({
-                            type: 'question:changed',
-                            item: LT.itemReference(),
-                            question: questionJson.metadata.widget_reference,
-                            data: {},
-                            timestamp: getTimestamp(),
-                        });
-                    }
-                } else {
+            if (debounceQuestions.includes(type) || debounceAndStoreResponse.includes(type)) {
+                if (getTimestamp() - lastTracked >= DEBOUNCE_INTERVAL) {
+                    lastTrackedTimestamps[responseId] = getTimestamp();
+                    const responseData = debounceAndStoreResponse.includes(type) ? { revision, value } : {};
                     addEvent({
                         type: 'question:changed',
                         item: LT.itemReference(),
-                        question: questionJson.metadata.widget_reference,
-                        data: { revision, value },
-                        timestamp: getTimestamp(),
-                    });
-                    addEvent({
-                        type: 'question:masked',
-                        item: LT.itemReference(),
-                        question: questionJson.metadata.widget_reference,
-                        timestamp: getTimestamp(),
-                    });
-                    addEvent({
-                        type: 'question:validated',
-                        item: LT.itemReference(),
-                        question: questionJson.metadata.widget_reference,
+                        question: reference,
+                        responseId: responseId,
+                        data: responseData,
                         timestamp: getTimestamp(),
                     });
                 }
+            } else {
+                addEvent({
+                    type: 'question:changed',
+                    item: LT.itemReference(),
+                    question: reference,
+                    responseId: responseId,
+                    data: { revision, value },
+                    timestamp: getTimestamp(),
+                });
+            }
+        });
+
+        question.on('masked', () => {
+            addEvent({
+                type: 'question:masked',
+                item: LT.itemReference(),
+                question: reference,
+                timestamp: getTimestamp(),
+            });
+        });
+
+        question.on('validated', () => {
+            addEvent({
+                type: 'question:validated',
+                item: LT.itemReference(),
+                question: reference,
+                timestamp: getTimestamp(),
             });
         });
     });
 }
 
+/**
+ * Sets up feature events including media recording events.
+ * @since 3.0.0
+ * @ignore
+ */
 function setupFeatureEvents() {
-    LT.itemsApp().on('item:load', () => {
-        const features = [...LT.item().feature_ids, ...LT.item().simplefeature_ids];
+    const features = [...LT.item().feature_ids, ...LT.item().simplefeature_ids];
 
-        features.forEach(id => {
-            if (LT.itemsApp().feature(id)) {
-                LT.itemsApp()
-                    .feature(id)
-                    .on('begin', () => {
-                        addEvent({
-                            type: 'begin',
-                            item: LT.itemReference(),
-                            timestamp: getTimestamp(),
-                        });
+    features.forEach(id => {
+        if (LT.itemsApp().feature(id)) {
+            LT.itemsApp()
+                .feature(id)
+                .on('begin', () => {
+                    addEvent({
+                        type: 'begin',
+                        item: LT.itemReference(),
+                        timestamp: getTimestamp(),
                     });
-                LT.itemsApp()
-                    .feature(id)
-                    .on('complete', () => {
-                        addEvent({
-                            type: 'complete',
-                            item: LT.itemReference(),
-                            timestamp: getTimestamp(),
-                        });
+                });
+            LT.itemsApp()
+                .feature(id)
+                .on('complete', () => {
+                    addEvent({
+                        type: 'complete',
+                        item: LT.itemReference(),
+                        timestamp: getTimestamp(),
                     });
-                LT.itemsApp()
-                    .feature(id)
-                    .on('playback:started', () => {
-                        addEvent({
-                            type: 'playback:started',
-                            item: LT.itemReference(),
-                            timestamp: getTimestamp(),
-                        });
+                });
+            LT.itemsApp()
+                .feature(id)
+                .on('playback:started', () => {
+                    addEvent({
+                        type: 'playback:started',
+                        item: LT.itemReference(),
+                        timestamp: getTimestamp(),
                     });
-                LT.itemsApp()
-                    .feature(id)
-                    .on('playback:paused', () => {
-                        addEvent({
-                            type: 'playback:paused',
-                            item: LT.itemReference(),
-                            timestamp: getTimestamp(),
-                        });
+                });
+            LT.itemsApp()
+                .feature(id)
+                .on('playback:paused', () => {
+                    addEvent({
+                        type: 'playback:paused',
+                        item: LT.itemReference(),
+                        timestamp: getTimestamp(),
                     });
-                LT.itemsApp()
-                    .feature(id)
-                    .on('playback:resumed', () => {
-                        addEvent({
-                            type: 'playback:resumed',
-                            item: LT.itemReference(),
-                            timestamp: getTimestamp(),
-                        });
+                });
+            LT.itemsApp()
+                .feature(id)
+                .on('playback:resumed', () => {
+                    addEvent({
+                        type: 'playback:resumed',
+                        item: LT.itemReference(),
+                        timestamp: getTimestamp(),
                     });
-                LT.itemsApp()
-                    .feature(id)
-                    .on('playback:stopped', () => {
-                        addEvent({
-                            type: 'playback:stopped',
-                            item: LT.itemReference(),
-                            timestamp: getTimestamp(),
-                        });
+                });
+            LT.itemsApp()
+                .feature(id)
+                .on('playback:stopped', () => {
+                    addEvent({
+                        type: 'playback:stopped',
+                        item: LT.itemReference(),
+                        timestamp: getTimestamp(),
                     });
-                LT.itemsApp()
-                    .feature(id)
-                    .on('playback:complete', () => {
-                        addEvent({
-                            type: 'playback:complete',
-                            item: LT.itemReference(),
-                            timestamp: getTimestamp(),
-                        });
+                });
+            LT.itemsApp()
+                .feature(id)
+                .on('playback:complete', () => {
+                    addEvent({
+                        type: 'playback:complete',
+                        item: LT.itemReference(),
+                        timestamp: getTimestamp(),
                     });
-            }
-        });
+                });
+        }
     });
 }
 
+/**
+ * Sets up listeners for network online/offline events.
+ * @since 3.0.0
+ * @ignore
+ */
 function setupNetworkEvents() {
     document.addEventListener('LTNetworkOnline', () => {
-        if (state.network === 'offline') {
-            state.network = 'online';
+        if (state.events.network.status === 'offline') {
+            state.events.network.status = 'online';
             addEvent({
                 type: 'network:online',
                 item: LT.itemReference(),
@@ -413,8 +511,8 @@ function setupNetworkEvents() {
     });
 
     document.addEventListener('LTNetworkOffline', () => {
-        if (state.network === 'online') {
-            state.network = 'offline';
+        if (state.events.network.status === 'online') {
+            state.events.network.status = 'offline';
             addEvent({
                 type: 'network:offline',
                 item: LT.itemReference(),
@@ -424,10 +522,38 @@ function setupNetworkEvents() {
     });
 }
 
+/**
+ * Adds an event to the event log.
+ * @param {object} event
+ * @since 3.0.0
+ * @ignore
+ */
 function addEvent(event) {
     state.events.events.push(event);
 }
 
+/**
+ * Adds an item load event to the log.
+ * @since 3.0.0
+ * @ignore
+ */
+function addItemLoadEvent() {
+    addEvent({
+        type: 'item:load',
+        item: LT.itemReference(),
+        data: {
+            num: LT.itemPosition(),
+        },
+        timestamp: getTimestamp(),
+    });
+}
+
+/**
+ * Checks which dialog is open and returns the event name.
+ * @returns {Promise<string>} The dialog event name or empty string if no dialog found.
+ * @since 3.0.0
+ * @ignore
+ */
 function getEventFromDialog() {
     return new Promise(resolve => {
         setTimeout(() => {
@@ -495,10 +621,22 @@ function getEventFromDialog() {
     });
 }
 
+/**
+ * Gets the current timestamp.
+ * @returns {number} The current timestamp.
+ * @since 3.0.0
+ * @ignore
+ */
 function getTimestamp() {
     return Date.now();
 }
 
+/**
+ * Gets the environment information.
+ * @returns {Promise<object>} The environment information.
+ * @since 3.0.0
+ * @ignore
+ */
 async function getEnvironmentInformation() {
     return detectEnv();
 }

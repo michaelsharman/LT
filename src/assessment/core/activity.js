@@ -163,6 +163,16 @@ export function hasAutoSave() {
 }
 
 /**
+ * Whether reading_mode was configured with this activity.
+ * @since 3.0.0
+ * @returns {boolean}
+ */
+export function hasReadingMode() {
+    const a = activity();
+    return (a?.config?.configuration?.reading_mode?.reading_time || 0) > 0;
+}
+
+/**
  * Whether items have been shuffled within this activity.
  * @since 0.1.0
  * @returns {boolean}

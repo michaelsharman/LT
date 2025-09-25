@@ -3,22 +3,36 @@ import { attachDependencies } from '../utils/extensionsFactory.js';
 import logger from './logger.js';
 
 const now = () => performance.now();
-const PERF = (window.__LT_PERF = window.__LT_PERF || []);
+let PERF = null;
 
-/** push a perf row */
-function perfPush(row) {
-    // row: { id, phase, ms } OR { id: '__init__', phase: 'total', ms }
-    PERF.push(row);
+function getPerfBuffer() {
+    if (!PERF) {
+        PERF = window.__LT_PERF = window.__LT_PERF || [];
+    }
+    return PERF;
 }
 
-/** table reporter with grouping + totals */
-export function reportExtensionPerf({ limit = 50 } = {}) {
-    const DP = 3; // decimals to show
+function perfPush(enabled, row) {
+    if (!enabled) {
+        return;
+    }
+    getPerfBuffer().push(row); // row: { id, phase, ms }
+}
+
+/**
+ * table reporter with grouping + totals (no-op when disabled)
+ */
+export function reportExtensionPerf(enabled, { limit = 50 } = {}) {
+    if (!enabled || !PERF || !PERF.length) {
+        return;
+    }
+
+    const DP = 3;
     const f = 10 ** DP;
     const r = n => (Number.isFinite(n) ? Math.round((n + Number.EPSILON) * f) / f : n);
     const sum = (arr, key) => arr.reduce((acc, row) => acc + (Number.isFinite(row[key]) ? row[key] : 0), 0);
 
-    // Aggregate
+    // Aggregate by id
     const byId = new Map();
     for (const rec of PERF) {
         if (!byId.has(rec.id)) {
@@ -47,6 +61,7 @@ export function reportExtensionPerf({ limit = 50 } = {}) {
     }
 
     rows.sort((a, b) => b.totalMs - a.totalMs);
+
     const view = rows.slice(0, limit).map(row => ({
         id: row.id,
         importMs: r(row.importMs),
@@ -55,22 +70,23 @@ export function reportExtensionPerf({ limit = 50 } = {}) {
         totalMs: r(row.totalMs),
     }));
 
-    // totals row (computed from the unrounded rows)
-    const totals = {
+    // totals row (computed from unrounded rows)
+    view.push({
         id: 'TOTAL',
         importMs: r(sum(rows, 'importMs')),
         cssMs: r(sum(rows, 'cssMs')),
         runMs: r(sum(rows, 'runMs')),
         totalMs: r(sum(rows, 'totalMs')),
-    };
-    view.push(totals);
+    });
 
     console.groupCollapsed('[LT] extension performance');
     console.table(view, ['id', 'importMs', 'cssMs', 'runMs', 'totalMs']);
     console.groupEnd();
 }
 
-/** Inject a single <style> with all module CSS (SSR-safe). */
+/**
+ * Inject a single <style> with all module CSS (SSR-safe).
+ */
 function injectCombinedCSS(cssText, mountId = 'lt-extensions') {
     if (!cssText || typeof document === 'undefined') {
         return;
@@ -85,7 +101,9 @@ function injectCombinedCSS(cssText, mountId = 'lt-extensions') {
     el.textContent = cssText;
 }
 
-/** Accept "foo" or { id: "foo", args } and normalize to a descriptor. */
+/**
+ * Accept "foo" or { id: "foo", args } and normalize to a descriptor.
+ */
 function toDescriptor(x) {
     if (typeof x === 'string') {
         return { id: x, args: [] };
@@ -93,8 +111,10 @@ function toDescriptor(x) {
     return x || { id: '' };
 }
 
-/** Resolve a dynamic import for a known extension id and return the exported object with .run(). */
-async function loadExtension(type, id) {
+/**
+ * Resolve a dynamic import for a known extension id and return the exported object with .run().
+ */
+async function loadExtension(type, id, perfEnabled) {
     const loader = EXTENSIONS[type]?.[id];
     if (!loader) {
         throw new Error(`[LT] Unknown extension id "${id}"`);
@@ -102,7 +122,7 @@ async function loadExtension(type, id) {
 
     const t0 = now();
     const mod = await loader();
-    perfPush({ id, phase: 'import', ms: now() - t0 });
+    perfPush(perfEnabled, { id, phase: 'import', ms: now() - t0 });
 
     // Preferred: named export matching the id
     if (mod[id]?.run) {
@@ -121,8 +141,10 @@ async function loadExtension(type, id) {
     throw new Error(`[LT] Extension "${id}" does not export a runnable module`);
 }
 
-/** Extract CSS from an extension (Option A contract). */
-function getCssFromExtension(id, ext) {
+/**
+ * Extract CSS from an extension.
+ */
+function getCssFromExtension(id, ext, perfEnabled) {
     const t0 = now();
     let css = '';
     try {
@@ -134,8 +156,8 @@ function getCssFromExtension(id, ext) {
     } catch (e) {
         logger.warn(`[LT] getStyles() threw for "${id}"`, e);
     } finally {
-        if (css) {
-            perfPush({ id, phase: 'css', ms: now() - t0 });
+        if (perfEnabled && css) {
+            perfPush(true, { id, phase: 'css', ms: now() - t0 });
         }
     }
     return css;
@@ -151,12 +173,16 @@ function getCssFromExtension(id, ext) {
  * @param {boolean} [opts.collectCSS=true]
  * @param {boolean} [opts.dedupeCSS=true]
  * @param {string}  [opts.mountId='lt-extensions']
+ * @param {boolean} [opts.perf=false]
+ * @param {number}  [opts.perfLimit=50]
+ * @param {object}  [opts.security={}]
+ * @param {object}  [opts.request={}]
  */
 export async function runExtensions(
     LT,
     list,
     type,
-    { mode = 'sequential', collectCSS = true, dedupeCSS = true, mountId = 'lt-extensions', security = {}, request = {} } = {}
+    { mode = 'sequential', collectCSS = true, dedupeCSS = true, mountId = 'lt-extensions', perf = false, perfLimit = 50, security = {}, request = {} } = {}
 ) {
     const tInit0 = now();
 
@@ -169,30 +195,27 @@ export async function runExtensions(
     const toArgArray = args => (Array.isArray(args) ? args : args === undefined ? [] : [args]);
 
     async function runOne({ id, args = [] }) {
-        const ext = await loadExtension(type, id);
+        const ext = await loadExtension(type, id, perf);
         LT.extensions[id] = ext;
 
         // run()
         const tRun0 = now();
         try {
-            // Now you can call without passing LT
             const ret = ext.run(...toArgArray(args));
             if (ret && typeof ret.then === 'function') {
                 await ret;
             }
         } finally {
-            perfPush({ id, phase: 'run', ms: now() - tRun0 });
+            perfPush(perf, { id, phase: 'run', ms: now() - tRun0 });
         }
 
         // CSS
         if (collectCSS) {
-            const css = getCssFromExtension(id, ext).trim();
-            if (css) {
-                if (!dedupeCSS || !seenCss.has(id)) {
-                    cssChunks.push(`/* ${id} */\n${css}`);
-                    if (dedupeCSS) {
-                        seenCss.add(id);
-                    }
+            const css = getCssFromExtension(id, ext, perf).trim();
+            if (css && (!dedupeCSS || !seenCss.has(id))) {
+                cssChunks.push(`/* ${id} */\n${css}`);
+                if (dedupeCSS) {
+                    seenCss.add(id);
                 }
             }
         }
@@ -214,10 +237,11 @@ export async function runExtensions(
     if (collectCSS && cssChunks.length) {
         const tCssInject0 = now();
         injectCombinedCSS(cssChunks.join('\n\n'), mountId);
-        perfPush({ id: '__init__', phase: 'css:inject', ms: now() - tCssInject0 });
+        perfPush(perf, { id: '__init__', phase: 'css:inject', ms: now() - tCssInject0 });
     }
 
-    perfPush({ id: '__init__', phase: 'total', ms: now() - tInit0 });
+    perfPush(perf, { id: '__init__', phase: 'total', ms: now() - tInit0 });
 
-    reportExtensionPerf();
+    // Only print when asked
+    reportExtensionPerf(perf, { limit: perfLimit });
 }

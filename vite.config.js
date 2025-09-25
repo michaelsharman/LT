@@ -72,6 +72,7 @@ export default defineConfig(({ command }) => {
                 entry,
                 formats: ['es'],
                 fileName: '[name]',
+                // fileName: (format, entryName) => `${entryName}.js`,
             },
 
             rollupOptions: {

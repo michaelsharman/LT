@@ -57,7 +57,7 @@ const utils = {
 async function init(itemsApp, options = {}) {
     app.setup(itemsApp);
 
-    const { extensions = [], monitor: monitorOpt } = options;
+    const { extensions = [], monitor: monitorOpt, perf = false, perfLimit = 50 } = options;
 
     // Opt-in monitoring
     if (monitorOpt) {
@@ -71,7 +71,7 @@ async function init(itemsApp, options = {}) {
     }
 
     if (extensions.length) {
-        await runExtensions(LT, extensions, 'assessment');
+        await runExtensions(LT, extensions, 'assessment', { perf, perfLimit });
     }
 }
 

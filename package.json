@@ -24,11 +24,11 @@
         "./assessment": "./dist/assessment/bundle.js",
         "./assessment/bundle": "./dist/assessment/bundle.js",
         "./assessment/core": "./dist/assessment/core.js",
-        "./assessment/extensions/*": "./dist/assessment/extensions/*",
+        "./assessment/extensions/*": "./dist/assessment/extensions/*.js",
         "./authoring": "./dist/authoring/bundle.js",
         "./authoring/bundle": "./dist/authoring/bundle.js",
         "./authoring/core": "./dist/authoring/core.js",
-        "./authoring/extensions/*": "./dist/authoring/extensions/*",
+        "./authoring/extensions/*": "./dist/authoring/extensions/*.js",
         "./logger": "./dist/logger.js"
     },
     "sideEffects": [
