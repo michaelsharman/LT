@@ -1,4 +1,5 @@
 import { createExtension } from '../../../../utils/extensionsFactory.js';
+import logger from '../../../../utils/logger.js';
 
 /**
  * Checks for an active network connection. If none found, adds
@@ -50,6 +51,10 @@ const state = {
  */
 function run(config = {}) {
     validateOptions(config);
+
+    getOnlineStatus().catch(() => {
+        /* no-op */
+    });
 
     setInterval(getOnlineStatus, state.options.interval);
 }
@@ -113,15 +118,32 @@ function injectOfflineIndicator(elIndicator, wrapperClass, message) {
  * @returns {promise}
  */
 async function checkConnection() {
+    const { uri } = state.options;
+
+    // Prefer GET over HEAD — some edges/CDNs 405/redirect on HEAD
+    const controller = new AbortController();
+    const timeoutMs = 3500;
+    const tid = setTimeout(() => controller.abort(), timeoutMs);
+
     try {
-        await fetch(state.options.uri, {
-            method: 'HEAD',
-            mode: 'no-cors',
+        const res = await fetch(`${uri}${uri.includes('?') ? '&' : '?'}_=${Date.now()}`, {
+            method: 'GET',
             cache: 'no-store',
+            // Cross-origin probe: omit credentials unless you truly need cookies
+            credentials: 'omit',
+            // IMPORTANT: do NOT use `no-cors` — we want CORS to succeed or throw
+            signal: controller.signal,
         });
-        return true;
-    } catch {
+
+        // Treat only 2xx as online. 3xx is followed automatically; if it still
+        // isn’t 2xx here, call it offline.
+        return res.ok;
+    } catch (err) {
+        // AbortError, DNS failures, CORS rejections, etc. => offline
+        logger.error(`${state.logPrefix} offline`, err);
         return false;
+    } finally {
+        clearTimeout(tid);
     }
 }
 
