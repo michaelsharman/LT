@@ -1,37 +1,55 @@
-import { a as e, d as a, b as r, s as c } from "../app-BHwuGSUg.js";
-import l from "../logger.js";
-import { r as u } from "../initExtensions-DZqnPDuf.js";
-function d() {
-  e().on("navigate", (t) => {
-    window.location.hash = "#" + t.data.locationEncoded;
-  }), e().navigate(window.location.hash.replace(/^#/, "")), window.onhashchange = () => {
-    e().navigate(window.location.hash.replace(/^#/, ""));
+import { a as i, d as f, b as p, s as d } from "../app-BHwuGSUg.js";
+import m from "../logger.js";
+import { M as r, r as M } from "../memoryMonitor-DgwEyRXh.js";
+function b() {
+  i().on("navigate", (e) => {
+    window.location.hash = "#" + e.data.locationEncoded;
+  }), i().navigate(window.location.hash.replace(/^#/, "")), window.onhashchange = () => {
+    i().navigate(window.location.hash.replace(/^#/, ""));
   };
 }
-const p = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const h = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  routingHash: d
+  routingHash: b
 }, Symbol.toStringTag, { value: "Module" }));
-function g() {
-  return e().getWidget()?.type;
+function w() {
+  return i().getWidget()?.type;
 }
-const f = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const v = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  type: g
-}, Symbol.toStringTag, { value: "Module" })), h = Object.fromEntries(Object.entries(a).filter(([t]) => !["extensionsListener", "handleEvent"].includes(t))), b = Object.fromEntries(Object.entries(r).filter(([t]) => !["setup"].includes(t))), m = {
+  type: w
+}, Symbol.toStringTag, { value: "Module" }));
+let t = null;
+const y = Object.fromEntries(Object.entries(f).filter(([e]) => !["extensionsListener", "handleEvent"].includes(e))), j = Object.fromEntries(Object.entries(p).filter(([e]) => !["setup"].includes(e))), O = {
   utils: {
-    logger: l
+    logger: m,
+    get monitor() {
+      return t;
+    },
+    // optional convenience APIs
+    enableMonitoring(e = {}) {
+      return t || (t = new r()), t.isMonitoring || t.startMonitoring(e.intervalMs ?? 5e3), t;
+    },
+    disableMonitoring() {
+      t?.stopMonitoring();
+    }
   }
 };
-async function w(t, o = {}) {
-  c(t);
-  const { extensions: n = [], security: i, request: s } = o;
-  n.length && await u(j, n, "authoring", {
-    security: i,
-    request: s
+async function _(e, s = {}) {
+  d(e);
+  const { extensions: o = [], security: a, request: l, monitor: n, perf: c = !1, perfLimit: g = 50 } = s;
+  if (n) {
+    const u = typeof n == "object" && Number.isFinite(n.intervalMs) ? n.intervalMs : void 0;
+    t || (t = new r()), t.isMonitoring || t.startMonitoring(u);
+  }
+  o.length && await M(x, o, "authoring", {
+    security: a,
+    request: l,
+    perf: c,
+    perfLimit: g
   });
 }
-const j = { init: w, extensions: {}, ...b, ...h, ...p, ...f, ...m };
+const x = { init: _, extensions: {}, ...j, ...y, ...h, ...v, ...O };
 export {
-  j as LT
+  x as LT
 };

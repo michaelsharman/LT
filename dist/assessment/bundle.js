@@ -1,5 +1,5 @@
 import { LT as s } from "./core.js";
-import { E as r } from "../initExtensions-DZqnPDuf.js";
+import { E as r } from "../memoryMonitor-DgwEyRXh.js";
 const i = Object.freeze(
   Object.keys(r.assessment).sort()
   // sort for deterministic order

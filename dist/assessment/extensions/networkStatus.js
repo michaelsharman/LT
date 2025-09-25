@@ -1,5 +1,6 @@
-import { c as s } from "../../extensionsFactory-CJF5B414.js";
-const o = {
+import { c } from "../../extensionsFactory-CJF5B414.js";
+import l from "../../logger.js";
+const i = {
   logPrefix: "LT Network Status: ",
   options: {
     iconWrapper: "top-right-wrapper",
@@ -9,20 +10,21 @@ const o = {
     uri: "https://questions.learnosity.com?latest-lts"
   }
 };
-function c(t = {}) {
-  f(t), setInterval(l, o.options.interval);
+function u(t = {}) {
+  w(t), s().catch(() => {
+  }), setInterval(s, i.options.interval);
 }
-async function l() {
-  const t = await a(), e = document.querySelector(".lt__networkStatus-indicator"), { render: n, iconWrapper: r, message: i } = o.options;
-  d(t), n && (t ? e && e.remove() : u(e, r, i));
+async function s() {
+  const t = await a(), e = document.querySelector(".lt__networkStatus-indicator"), { render: n, iconWrapper: o, message: r } = i.options;
+  d(t), n && (t ? e && e.remove() : p(e, o, r));
 }
-function u(t, e, n) {
+function p(t, e, n) {
   if (t)
     return;
-  const r = document.querySelector(`.${e}`);
-  if (!r)
+  const o = document.querySelector(`.${e}`);
+  if (!o)
     return;
-  const i = `
+  const r = `
         <div class="lt__networkStatus-indicator pos-left" role="status" aria-live="polite" aria-atomic="true" aria-relevant="all">
             <span title="${n}" aria-hidden="true">
                 <svg xmlns="http://www.w3.org/2000/svg" height="16px" viewBox="0 -960 960 960" width="16px" fill="#333333">
@@ -32,30 +34,36 @@ function u(t, e, n) {
             <span class="sr-only">${n}</span>
         </div>
     `;
-  r.insertAdjacentHTML("afterbegin", i);
+  o.insertAdjacentHTML("afterbegin", r);
 }
 async function a() {
+  const { uri: t } = i.options, e = new AbortController(), o = setTimeout(() => e.abort(), 3500);
   try {
-    return await fetch(o.options.uri, {
-      method: "HEAD",
-      mode: "no-cors",
-      cache: "no-store"
-    }), !0;
-  } catch {
-    return !1;
+    return (await fetch(`${t}${t.includes("?") ? "&" : "?"}_=${Date.now()}`, {
+      method: "GET",
+      cache: "no-store",
+      // Cross-origin probe: omit credentials unless you truly need cookies
+      credentials: "omit",
+      // IMPORTANT: do NOT use `no-cors` — we want CORS to succeed or throw
+      signal: e.signal
+    })).ok;
+  } catch (r) {
+    return l.error(`${i.logPrefix} offline`, r), !1;
+  } finally {
+    clearTimeout(o);
   }
 }
-function p() {
+function f() {
   return navigator?.connection ? `${navigator.connection.downlink} Mbps` : "Network Information API not supported";
 }
 function d(t) {
   const e = t ? "LTNetworkOnline" : "LTNetworkOffline", n = new CustomEvent(e);
   document.dispatchEvent(n);
 }
-function f(t) {
-  t && typeof t == "object" && (o.options = { ...o.options, ...t });
+function w(t) {
+  t && typeof t == "object" && (i.options = { ...i.options, ...t });
 }
-function w() {
+function m() {
   return `
         /* Learnosity render network status */
         .lt__networkStatus-indicator {
@@ -66,11 +74,11 @@ function w() {
         }
     `;
 }
-const m = s("networkStatus", c, {
+const h = c("networkStatus", u, {
   checkConnection: a,
-  checkSpeed: p,
-  getStyles: w
+  checkSpeed: f,
+  getStyles: m
 });
 export {
-  m as networkStatus
+  h as networkStatus
 };

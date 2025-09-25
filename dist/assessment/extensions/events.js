@@ -1,5 +1,6 @@
-import { networkStatus as E } from "./networkStatus.js";
-import { c as R, L as t } from "../../extensionsFactory-CJF5B414.js";
+import { e as O, f as x } from "../../player-NvOpRVNY.js";
+import { networkStatus as q } from "./networkStatus.js";
+import { c as C, L as t } from "../../extensionsFactory-CJF5B414.js";
 const r = {
   // Browsers
   edge: /Edg(?:A|iOS)?\/([\d.]+)/,
@@ -26,53 +27,53 @@ const r = {
   // Engines
   webkit: /AppleWebKit\/([\d.]+)/
 };
-function S(e) {
-  return r.edge.test(e) ? f({ name: "Edge", version: p(r.edge, e) }) : r.opr.test(e) ? f({ name: "Opera", version: p(r.opr, e) }) : r.samsung.test(e) ? f({ name: "Samsung Internet", version: p(r.samsung, e) }) : /Chrome\//.test(e) && !r.edge.test(e) && !r.opr.test(e) && !r.samsung.test(e) ? f({ name: "Chrome", version: p(r.chrome, e) }) : r.firefox.test(e) ? f({ name: "Firefox", version: p(r.firefox, e) }) : !/Chrome|Chromium|Edg|OPR|SamsungBrowser/.test(e) && r.safariTail.test(e) ? f({ name: "Safari", version: p(r.version, e) }) : {};
+function T(e) {
+  return r.edge.test(e) ? l({ name: "Edge", version: c(r.edge, e) }) : r.opr.test(e) ? l({ name: "Opera", version: c(r.opr, e) }) : r.samsung.test(e) ? l({ name: "Samsung Internet", version: c(r.samsung, e) }) : /Chrome\//.test(e) && !r.edge.test(e) && !r.opr.test(e) && !r.samsung.test(e) ? l({ name: "Chrome", version: c(r.chrome, e) }) : r.firefox.test(e) ? l({ name: "Firefox", version: c(r.firefox, e) }) : !/Chrome|Chromium|Edg|OPR|SamsungBrowser/.test(e) && r.safariTail.test(e) ? l({ name: "Safari", version: c(r.version, e) }) : {};
 }
-function O(e) {
-  return /Macintosh/.test(e) && /Mobile\//.test(e) && /Safari/.test(e) ? { name: "iOS", version: void 0 } : r.win.test(e) ? { name: "Windows", version: p(r.win, e) || void 0 } : /iPhone|iPad|iPod/.test(e) ? { name: "iOS", version: w(p(r.ios, e)) } : r.android.test(e) ? { name: "Android", version: p(r.android, e) } : r.cros.test(e) ? { name: "Chrome OS", version: p(r.cros, e) } : r.mac.test(e) ? { name: "macOS", version: w(p(r.mac, e)) } : r.linux.test(e) ? { name: "Linux", version: void 0 } : {};
+function L(e) {
+  return /Macintosh/.test(e) && /Mobile\//.test(e) && /Safari/.test(e) ? { name: "iOS", version: void 0 } : r.win.test(e) ? { name: "Windows", version: c(r.win, e) || void 0 } : /iPhone|iPad|iPod/.test(e) ? { name: "iOS", version: A(c(r.ios, e)) } : r.android.test(e) ? { name: "Android", version: c(r.android, e) } : r.cros.test(e) ? { name: "Chrome OS", version: c(r.cros, e) } : r.mac.test(e) ? { name: "macOS", version: A(c(r.mac, e)) } : r.linux.test(e) ? { name: "Linux", version: void 0 } : {};
 }
-function q(e) {
+function P(e) {
   return r.bot.test(e) ? "bot" : r.ipad.test(e) || r.tablet.test(e) ? "tablet" : r.mobileHint.test(e) || /Android/.test(e) && !/Tablet|iPad/.test(e) ? "mobile" : "desktop";
 }
-function C(e) {
-  return r.webkit.test(e) ? { name: "WebKit", version: p(r.webkit, e) } : /Gecko\/\d/.test(e) && /Firefox\/([\d.]+)/.test(e) ? { name: "Gecko", version: p(r.firefox, e) } : /Chrome\/|Edg\/|OPR\/|SamsungBrowser\//.test(e) ? { name: "Blink" } : {};
+function V(e) {
+  return r.webkit.test(e) ? { name: "WebKit", version: c(r.webkit, e) } : /Gecko\/\d/.test(e) && /Firefox\/([\d.]+)/.test(e) ? { name: "Gecko", version: c(r.firefox, e) } : /Chrome\/|Edg\/|OPR\/|SamsungBrowser\//.test(e) ? { name: "Blink" } : {};
 }
-function x(e, s) {
+function B(e, i) {
   try {
-    const a = s && (s.brands || s.getBrands?.());
+    const a = i && (i.brands || i.getBrands?.());
     if (!a || !a.length)
       return e;
     const o = a.filter((m) => !/Not.?A.?Brand/i.test(m.brand)).sort((m, d) => parseInt(d.version, 10) - parseInt(m.version, 10))[0];
     if (o && o.brand)
-      return f({ name: o.brand, version: e.version });
+      return l({ name: o.brand, version: e.version });
   } catch {
   }
   return e;
 }
-function _(e) {
+function N(e) {
   return e = e || "", {
     ua: e,
-    browser: S(e),
-    os: O(e),
-    deviceType: q(e),
-    engine: C(e),
+    browser: T(e),
+    os: L(e),
+    deviceType: P(e),
+    engine: V(e),
     reducedUA: /\bChrome\/\d+\.0\.0\.0\b/.test(e) || /\bEdg\/\d+\.0\.0\.0\b/.test(e) || !1
   };
 }
-function T() {
-  const e = typeof navigator < "u" && navigator.userAgent ? navigator.userAgent : "", s = typeof navigator < "u" ? navigator.userAgentData : void 0, a = _(e);
-  return s && (s.brands || s.getBrands) && (a.browser = x(a.browser, s)), a.meta = {
-    source: s && (s.brands || s.getBrands) ? "ua-ch-low" : "ua",
+function F() {
+  const e = typeof navigator < "u" && navigator.userAgent ? navigator.userAgent : "", i = typeof navigator < "u" ? navigator.userAgentData : void 0, a = N(e);
+  return i && (i.brands || i.getBrands) && (a.browser = B(a.browser, i)), a.meta = {
+    source: i && (i.brands || i.getBrands) ? "ua-ch-low" : "ua",
     usedHighEntropy: !1,
-    isReducedUA: A(e)
+    isReducedUA: w(e)
   }, delete a.reducedUA, a;
 }
-async function P() {
-  const e = typeof navigator < "u" && navigator.userAgent ? navigator.userAgent : "", s = typeof navigator < "u" ? navigator.userAgentData : void 0;
-  if (s && typeof s.getHighEntropyValues == "function")
+async function I() {
+  const e = typeof navigator < "u" && navigator.userAgent ? navigator.userAgent : "", i = typeof navigator < "u" ? navigator.userAgentData : void 0;
+  if (i && typeof i.getHighEntropyValues == "function")
     try {
-      const o = await s.getHighEntropyValues([
+      const o = await i.getHighEntropyValues([
         "platform",
         // "Windows", "macOS", "Android", "Chrome OS", "Linux", "iOS"
         "platformVersion",
@@ -87,13 +88,13 @@ async function P() {
         // device model (mobile)
         "fullVersionList"
         // array of { brand, version }
-      ]), m = o.fullVersionList || s.brands || s.getBrands?.() || [], d = ["Chrome", "Google Chrome", "Microsoft Edge", "Edge", "Chromium", "Opera", "OPR", "Samsung Internet", "Firefox"], u = m.find((y) => d.some((k) => y.brand.toLowerCase().includes(k.toLowerCase()))) || m.find((y) => !/Not.?A.?Brand/i.test(y.brand)) || null, g = u?.brand || m[0] && m[0].brand || void 0, v = u?.version || o.uaFullVersion || void 0, l = o.platform || void 0, h = o.platformVersion || void 0;
-      let b;
-      return /Android/i.test(l) ? b = "mobile" : /Windows|macOS|Chrome OS|Linux|iOS/i.test(l) && (b = "desktop"), {
+      ]), m = o.fullVersionList || i.brands || i.getBrands?.() || [], d = ["Chrome", "Google Chrome", "Microsoft Edge", "Edge", "Chromium", "Opera", "OPR", "Samsung Internet", "Firefox"], u = m.find((y) => d.some((S) => y.brand.toLowerCase().includes(S.toLowerCase()))) || m.find((y) => !/Not.?A.?Brand/i.test(y.brand)) || null, g = u?.brand || m[0] && m[0].brand || void 0, f = u?.version || o.uaFullVersion || void 0, b = o.platform || void 0, h = o.platformVersion || void 0;
+      let v;
+      return /Android/i.test(b) ? v = "mobile" : /Windows|macOS|Chrome OS|Linux|iOS/i.test(b) && (v = "desktop"), {
         ua: e,
-        browser: f({ name: g, version: v }),
-        os: { name: l, version: h },
-        deviceType: b,
+        browser: l({ name: g, version: f }),
+        os: { name: b, version: h },
+        deviceType: v,
         engine: void 0,
         arch: o.architecture,
         bitness: o.bitness,
@@ -101,326 +102,365 @@ async function P() {
         meta: {
           source: "ua-ch-high",
           usedHighEntropy: !0,
-          isReducedUA: A(e)
+          isReducedUA: w(e)
         }
       };
     } catch {
     }
-  const a = T();
+  const a = F();
   return a.meta.source = a.meta && a.meta.source || "ua", a;
 }
-function p(e, s) {
-  const a = s.match(e);
+function c(e, i) {
+  const a = i.match(e);
   return a ? a[1] : void 0;
 }
-function A(e) {
+function w(e) {
   return /\bChrome\/\d+\.0\.0\.0\b/.test(e) || /\bEdg\/\d+\.0\.0\.0\b/.test(e);
 }
-function w(e) {
+function A(e) {
   return e ? e.replace(/_/g, ".") : void 0;
 }
-function f(e) {
+function l(e) {
   if (e && e.version && typeof e.version == "string") {
-    const s = e.version.split(".")[0];
-    s && (e.versionMajor = s);
+    const i = e.version.split(".")[0];
+    i && (e.versionMajor = i);
   }
   return e;
 }
-const c = {
+const p = {
   initialised: !1,
   events: {
     events: [],
-    network: null,
+    network: {
+      speed: null,
+      status: "online"
+    },
     session: null,
     user: null
   }
 };
-function V() {
+function U() {
   if (t.isVerticalLayout()) {
     t.utils.logger.warn("Event log is not currently supported in vertical layout.");
     return;
   }
-  c.initialised || (L(), B(), N(), F(), U(), c.initialised = !0);
+  p.initialised || (_(), t.itemsApp().on("item:load", () => {
+    R(), k(), E();
+  }), D(), M(), z(), p.initialised = !0);
 }
-async function L() {
-  c.events.user = t.userId(), c.events.session = t.sessionId(), c.events.environment = await M(), c.events.network = {
-    speed: E.checkSpeed()
-  };
+function _() {
+  O() ? s({
+    type: "test:ready",
+    timestamp: n()
+  }) : (s({
+    type: "test:start",
+    timestamp: n()
+  }), x() && s({
+    type: "test:reading:start",
+    timestamp: n()
+  }), R(), k(), E());
 }
-function B() {
+async function M() {
+  p.events.user = t.userId(), p.events.session = t.sessionId(), p.events.environment = await W(), p.events.network.speed = q.checkSpeed();
+}
+function D() {
   t.itemsApp().on("test:start", () => {
-    i({
+    p.events.events.find((i) => i.type === "test:start") || s({
       type: "test:start",
       timestamp: n()
     });
   }), t.itemsApp().on("unfocused", () => {
-    i({
+    s({
       type: "unfocused",
       item: t.itemReference(),
       timestamp: n()
     });
   }), t.itemsApp().on("focused", () => {
-    i({
+    s({
       type: "focused",
       item: t.itemReference(),
       timestamp: n()
     });
   }), t.itemsApp().on("test:reading:start", () => {
-    i({
+    p.events.events.find((i) => i.type === "test:reading:start") || s({
       type: "test:reading:start",
       timestamp: n()
     });
   }), t.itemsApp().on("test:reading:end", () => {
-    i({
+    s({
       type: "test:reading:end",
       timestamp: n()
     });
   }), t.itemsApp().on("item:warningOnChange", () => {
-    i({
+    s({
       type: "item:warningOnChange",
       item: t.itemReference(),
       timestamp: n()
     });
-  }), t.itemsApp().on("item:load", () => {
-    i({
-      type: "item:load",
-      item: t.itemReference(),
-      data: {
-        num: t.itemPosition()
-      },
-      timestamp: n()
-    });
   }), t.itemsApp().on("items:fetch:done", () => {
-    i({
+    s({
       type: "items:fetch:done",
       item: t.itemReference(),
       timestamp: n()
     });
   }), t.itemsApp().on("section:changed", () => {
-    i({
+    s({
       type: "section:changed",
       timestamp: n()
     });
   }), t.itemsApp().on("test:panel:show", async () => {
-    const e = await I();
-    i({
+    const e = await H();
+    ["dialog:pause"].includes(e) || s({
       type: e,
       timestamp: n()
     });
-  }), t.itemsApp().on("test:panel:hide", () => {
-    i({
-      type: "dialog:hide",
-      timestamp: n()
-    });
   }), t.itemsApp().on("test:pause", () => {
-    i({
+    s({
       type: "test:pause",
       timestamp: n()
     });
   }), t.itemsApp().on("test:resume", () => {
-    i({
+    s({
       type: "test:resume",
       timestamp: n()
     });
   }), t.itemsApp().on("test:save", () => {
-    i({
+    s({
       type: "test:save",
       timestamp: n()
     });
   }), t.itemsApp().on("test:save:success", () => {
-    i({
+    s({
       type: "test:save:success",
       timestamp: n()
     });
   }), t.itemsApp().on("test:save:error", () => {
-    i({
+    s({
       type: "test:save:error",
       timestamp: n()
     });
   }), t.itemsApp().on("test:submit", () => {
-    i({
+    s({
       type: "test:submit",
       timestamp: n()
     });
   }), t.itemsApp().on("test:submit:success", () => {
-    i({
+    s({
       type: "test:submit:success",
       timestamp: n()
     });
   }), t.itemsApp().on("test:submit:error", () => {
-    i({
+    s({
       type: "test:submit:error",
       timestamp: n()
     });
   }), t.itemsApp().on("test:finished:save", () => {
-    i({
+    s({
       type: "test:finished:save",
       timestamp: n()
     });
   }), t.itemsApp().on("test:finished:submit", () => {
-    i({
+    s({
       type: "test:finished:submit",
       timestamp: n()
     });
   }), t.itemsApp().on("test:finished:discard", () => {
-    i({
+    s({
       type: "test:finished:discard",
       timestamp: n()
     });
   }), t.itemsApp().on("time:end", () => {
-    i({
+    s({
       type: "time:end",
       timestamp: n()
     });
   });
 }
-function N() {
+function k() {
   const e = [
-    "longtextV2",
-    "longtext",
-    "plaintext",
-    "drawing",
-    "shorttext",
     "audio",
-    "video",
-    "formulaessayV2",
     "chemistryessayV2",
+    "drawing",
+    "fileupload",
+    "formulaessayV2",
     "imageupload",
-    "fileupload"
-  ], a = {};
-  t.itemsApp().on("item:load", () => {
-    t.questionResponseIds().forEach((o) => {
-      const m = t.itemsApp().question(o), d = m.getQuestion(), u = d.type;
-      ["audio", "video"].includes(u) && (m.on("recording:started", () => {
-        i({
-          type: "recording:started",
-          item: t.itemReference(),
-          question: d.metadata.widget_reference,
-          timestamp: n()
-        });
-      }), m.on("recording:paused", () => {
-        i({
-          type: "recording:paused",
-          item: t.itemReference(),
-          question: d.metadata.widget_reference,
-          timestamp: n()
-        });
-      }), m.on("recording:resumed", () => {
-        i({
-          type: "recording:resumed",
-          item: t.itemReference(),
-          question: d.metadata.widget_reference,
-          timestamp: n()
-        });
-      }), m.on("recording:stopped", () => {
-        i({
-          type: "recording:stopped",
-          item: t.itemReference(),
-          question: d.metadata.widget_reference,
-          timestamp: n()
-        });
-      })), m.on("changed", () => {
-        const g = a[o] || 0, { revision: v, value: l } = t.questionResponse(o);
-        e.includes(u) ? n() - g >= 3e4 && (a[o] = n(), i({
+    "longtext",
+    "longtextV2",
+    "plaintext",
+    "video"
+  ], i = [
+    "association",
+    "bowtie",
+    "classification",
+    "clozeassociation",
+    "clozedropdown",
+    "clozetext",
+    "graphplotting",
+    "gridded",
+    "hotspot",
+    "imageclozeassociation",
+    "imageclozedropdown",
+    "imageclozetext",
+    "numberline",
+    "numberlineplot",
+    "orderlist",
+    "shorttext",
+    "simplechart",
+    "simpleshading",
+    "tokenhighlight"
+  ], o = {};
+  t.questionResponseIds().forEach((m) => {
+    const d = t.itemsApp().question(m), u = d.getQuestion(), g = u.type, f = u.metadata.widget_reference;
+    ["audio", "video"].includes(g) && (d.on("recording:started", () => {
+      s({
+        type: "recording:started",
+        item: t.itemReference(),
+        question: f,
+        timestamp: n()
+      });
+    }), d.on("recording:paused", () => {
+      s({
+        type: "recording:paused",
+        item: t.itemReference(),
+        question: f,
+        timestamp: n()
+      });
+    }), d.on("recording:resumed", () => {
+      s({
+        type: "recording:resumed",
+        item: t.itemReference(),
+        question: f,
+        timestamp: n()
+      });
+    }), d.on("recording:stopped", () => {
+      s({
+        type: "recording:stopped",
+        item: t.itemReference(),
+        question: f,
+        timestamp: n()
+      });
+    })), d.on("changed", () => {
+      const b = o[m] || 0, { revision: h, value: v } = t.questionResponse(m);
+      if (e.includes(g) || i.includes(g)) {
+        if (n() - b >= 3e4) {
+          o[m] = n();
+          const y = i.includes(g) ? { revision: h, value: v } : {};
+          s({
+            type: "question:changed",
+            item: t.itemReference(),
+            question: f,
+            responseId: m,
+            data: y,
+            timestamp: n()
+          });
+        }
+      } else
+        s({
           type: "question:changed",
           item: t.itemReference(),
-          question: d.metadata.widget_reference,
-          data: {},
+          question: f,
+          responseId: m,
+          data: { revision: h, value: v },
           timestamp: n()
-        })) : (i({
-          type: "question:changed",
-          item: t.itemReference(),
-          question: d.metadata.widget_reference,
-          data: { revision: v, value: l },
-          timestamp: n()
-        }), i({
-          type: "question:masked",
-          item: t.itemReference(),
-          question: d.metadata.widget_reference,
-          timestamp: n()
-        }), i({
-          type: "question:validated",
-          item: t.itemReference(),
-          question: d.metadata.widget_reference,
-          timestamp: n()
-        }));
+        });
+    }), d.on("masked", () => {
+      s({
+        type: "question:masked",
+        item: t.itemReference(),
+        question: f,
+        timestamp: n()
+      });
+    }), d.on("validated", () => {
+      s({
+        type: "question:validated",
+        item: t.itemReference(),
+        question: f,
+        timestamp: n()
       });
     });
   });
 }
-function F() {
-  t.itemsApp().on("item:load", () => {
-    [...t.item().feature_ids, ...t.item().simplefeature_ids].forEach((s) => {
-      t.itemsApp().feature(s) && (t.itemsApp().feature(s).on("begin", () => {
-        i({
-          type: "begin",
-          item: t.itemReference(),
-          timestamp: n()
-        });
-      }), t.itemsApp().feature(s).on("complete", () => {
-        i({
-          type: "complete",
-          item: t.itemReference(),
-          timestamp: n()
-        });
-      }), t.itemsApp().feature(s).on("playback:started", () => {
-        i({
-          type: "playback:started",
-          item: t.itemReference(),
-          timestamp: n()
-        });
-      }), t.itemsApp().feature(s).on("playback:paused", () => {
-        i({
-          type: "playback:paused",
-          item: t.itemReference(),
-          timestamp: n()
-        });
-      }), t.itemsApp().feature(s).on("playback:resumed", () => {
-        i({
-          type: "playback:resumed",
-          item: t.itemReference(),
-          timestamp: n()
-        });
-      }), t.itemsApp().feature(s).on("playback:stopped", () => {
-        i({
-          type: "playback:stopped",
-          item: t.itemReference(),
-          timestamp: n()
-        });
-      }), t.itemsApp().feature(s).on("playback:complete", () => {
-        i({
-          type: "playback:complete",
-          item: t.itemReference(),
-          timestamp: n()
-        });
-      }));
-    });
+function E() {
+  [...t.item().feature_ids, ...t.item().simplefeature_ids].forEach((i) => {
+    t.itemsApp().feature(i) && (t.itemsApp().feature(i).on("begin", () => {
+      s({
+        type: "begin",
+        item: t.itemReference(),
+        timestamp: n()
+      });
+    }), t.itemsApp().feature(i).on("complete", () => {
+      s({
+        type: "complete",
+        item: t.itemReference(),
+        timestamp: n()
+      });
+    }), t.itemsApp().feature(i).on("playback:started", () => {
+      s({
+        type: "playback:started",
+        item: t.itemReference(),
+        timestamp: n()
+      });
+    }), t.itemsApp().feature(i).on("playback:paused", () => {
+      s({
+        type: "playback:paused",
+        item: t.itemReference(),
+        timestamp: n()
+      });
+    }), t.itemsApp().feature(i).on("playback:resumed", () => {
+      s({
+        type: "playback:resumed",
+        item: t.itemReference(),
+        timestamp: n()
+      });
+    }), t.itemsApp().feature(i).on("playback:stopped", () => {
+      s({
+        type: "playback:stopped",
+        item: t.itemReference(),
+        timestamp: n()
+      });
+    }), t.itemsApp().feature(i).on("playback:complete", () => {
+      s({
+        type: "playback:complete",
+        item: t.itemReference(),
+        timestamp: n()
+      });
+    }));
   });
 }
-function U() {
+function z() {
   document.addEventListener("LTNetworkOnline", () => {
-    c.network === "offline" && (c.network = "online", i({
+    p.events.network.status === "offline" && (p.events.network.status = "online", s({
       type: "network:online",
       item: t.itemReference(),
       timestamp: n()
     }));
   }), document.addEventListener("LTNetworkOffline", () => {
-    c.network === "online" && (c.network = "offline", i({
+    p.events.network.status === "online" && (p.events.network.status = "offline", s({
       type: "network:offline",
       item: t.itemReference(),
       timestamp: n()
     }));
   });
 }
-function i(e) {
-  c.events.events.push(e);
+function s(e) {
+  p.events.events.push(e);
 }
-function I() {
+function R() {
+  s({
+    type: "item:load",
+    item: t.itemReference(),
+    data: {
+      num: t.itemPosition()
+    },
+    timestamp: n()
+  });
+}
+function H() {
   return new Promise((e) => {
     setTimeout(() => {
-      const s = document.querySelectorAll(".lrn-assess-dialogs > .lrn-dialog-default");
+      const i = document.querySelectorAll(".lrn-assess-dialogs > .lrn-dialog-default");
       let a = "", o = "";
-      const m = Array.from(s).filter((u) => u.style.display === "block").map((u) => ({
+      const m = Array.from(i).filter((u) => u.style.display === "block").map((u) => ({
         id: u.id,
         class: u.className
       }));
@@ -462,15 +502,15 @@ function I() {
 function n() {
   return Date.now();
 }
-async function M() {
-  return P();
+async function W() {
+  return I();
 }
-function D() {
-  return c.events;
+function G() {
+  return p.events;
 }
-const G = R("events", V, {
-  getEvents: D
+const X = C("events", U, {
+  getEvents: G
 });
 export {
-  G as events
+  X as events
 };

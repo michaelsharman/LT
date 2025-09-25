@@ -1,4 +1,5 @@
 import { itemsApp, assessApp } from './app.js';
+import { elapsedTime, hasReadingMode } from './activity.js';
 import { isLastItem } from './items.js';
 import logger from '../../utils/logger.js';
 
@@ -86,6 +87,24 @@ export function hideDialog() {
 export function isFullscreen() {
     const elPlayer = document.querySelector('.lrn-assess');
     return elPlayer?.classList.contains('lrn-fullscreen') ?? false;
+}
+
+/**
+ * Checks whether the player is on the intro item.
+ * @since 3.0.0
+ * @returns {boolean}
+ */
+export function isIntroScreen() {
+    return !assessApp().hasStarted();
+}
+
+/**
+ * Checks whether the player is in reading mode.
+ * @since 3.0.0
+ * @returns {boolean}
+ */
+export function isReadingMode() {
+    return Boolean(hasReadingMode() && elapsedTime() === 0);
 }
 
 /**
