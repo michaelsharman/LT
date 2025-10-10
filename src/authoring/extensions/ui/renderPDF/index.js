@@ -1,3 +1,4 @@
+import { checkAppVersion } from '../../../utils/styling.js';
 import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
@@ -19,12 +20,18 @@ import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
  * @module Extensions/Authoring/renderPDF
  */
 
+const state = {
+    classNamePrefix: null,
+};
+
 /**
  * Extension constructor.
  * @since 2.2.0
  * @ignore
  */
 function run() {
+    state.classNamePrefix = checkAppVersion(state.classNamePrefix);
+
     LT.authorApp().on('widgetedit:widget:ready', () => {
         const elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');
 
@@ -38,10 +45,10 @@ function run() {
 }
 
 function addRenderOption() {
-    const elAdvOptionsGroup = document.querySelector('.lrn-adv-options-group');
+    const elAdvOptionsGroup = document.querySelector(`.lrn-${state.classNamePrefix}adv-options-group`);
     const randomId = generateRandomString();
     const elRenderRow = `<div class="lrn-row">
-        <div class="lrn-col-xs-12">
+        <div class="lrn-col-xs-12 lrn-author-padding-top-sm">
             <label for="lt__renderPDF-Id_${randomId}" class="lrn-author-asset-upload lrn-form-label-name">
                 <span class="lrn-author-asset-upload lrn-form-label-name">Render PDF inline?</span>
             </label>
