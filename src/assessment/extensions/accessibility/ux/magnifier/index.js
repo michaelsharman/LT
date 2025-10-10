@@ -84,6 +84,26 @@ function setupButtons(classname = 'lrn__magnifier') {
 }
 
 /**
+ * Hides the magnifier if it is currently visible.
+ * If the magnifier is already hidden, it does nothing.
+ * @since 3.0.0
+ * @returns {void}
+ */
+function hide() {
+    ensureInstance().hide();
+}
+
+/**
+ * Shows the magnifier if it is currently hidden.
+ * If the magnifier is already visible, it does nothing.
+ * @since 3.0.0
+ * @returns {void}
+ */
+function show() {
+    ensureInstance().show();
+}
+
+/**
  * Toggle visibility of the magnifier.
  * @since 2.16.0
  * @returns {void}
@@ -464,5 +484,7 @@ function checkImageContent() {
 
 export const magnifier = createExtension('magnifier', run, {
     setupButtons,
+    hide,
+    show,
     toggle,
 });
