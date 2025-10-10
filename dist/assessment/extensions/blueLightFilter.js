@@ -1,4 +1,4 @@
-import { c as o, L as u } from "../../extensionsFactory-CJF5B414.js";
+import { c as o, L as u } from "../../extensionsFactory-BHOEyOSK.js";
 const e = {
   blueLightFilter: null,
   color: "rgba(250, 170, 140, 0.5)",

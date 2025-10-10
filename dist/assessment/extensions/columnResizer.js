@@ -1,4 +1,4 @@
-import { c as w, L as b } from "../../extensionsFactory-CJF5B414.js";
+import { c as w, L as b } from "../../extensionsFactory-BHOEyOSK.js";
 const h = {
   resize: {
     triggered: !1

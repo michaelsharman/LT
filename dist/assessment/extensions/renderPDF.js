@@ -1,41 +1,68 @@
-import { c as l, L as i } from "../../extensionsFactory-CJF5B414.js";
-function u() {
-  i.itemsApp().on("item:load", f);
+import { c as u, L as a } from "../../extensionsFactory-BHOEyOSK.js";
+function m() {
+  a.itemsApp().on("item:load", l), queueMicrotask(l);
 }
-function f() {
-  const s = i.itemReference(), n = document.querySelector(`.learnosity-item[data-reference="${s}"]`).querySelectorAll(".lrn_widget .resource");
-  n.length && n.forEach((t) => {
-    const r = t.querySelector("a").getAttribute("href");
-    if (r.substring(r.length - 3) === "pdf") {
-      let c = function(e) {
-        if (!document.getElementById(e)) {
-          const o = document.createElement("div"), a = document.createElement("iframe");
-          o.setAttribute("id", e), o.setAttribute("class", "lt__renderPDF_pdf"), t.before(o), a.setAttribute("class", "pdf-viewer"), a.setAttribute("src", `${r}#sidebarViewOnLoad=0&_pagemode=none&_toolbar=0&view=FitH`), o.appendChild(a);
-        }
-      };
-      t.classList.add("sr-only"), m(r).then((e) => {
-        c(e);
-      });
-    }
+function l() {
+  const c = a.itemReference(), i = document.querySelector(`.learnosity-item[data-reference="${c}"]`);
+  if (!i)
+    return;
+  const t = i.querySelectorAll(".lrn_widget .resource");
+  t.length && t.forEach((e) => {
+    const s = e.querySelector("a");
+    if (!s)
+      return;
+    const o = s.getAttribute("href") || "";
+    o.toLowerCase().endsWith(".pdf") && e.dataset.ltRenderedPdf !== "1" && (e.dataset.ltRenderedPdf = "1", h(e, o));
   });
 }
-async function m(s) {
-  const n = new TextEncoder().encode(s), t = await crypto.subtle.digest("SHA-256", n);
-  return Array.from(new Uint8Array(t)).map((e) => e.toString(16).padStart(2, "0")).join("");
+function h(c, i) {
+  const t = document.createElement("div");
+  t.className = "lt__renderPDF_pdf";
+  const e = document.createElement("iframe");
+  e.className = "pdf-viewer", e.allow = "fullscreen", e.setAttribute("allowfullscreen", ""), t.appendChild(e), c.before(t);
+  const s = (n) => {
+    const r = n.getBoundingClientRect();
+    return r.width <= 0 || r.height <= 0 ? !1 : !!(n.ownerDocument && n.ownerDocument.defaultView);
+  }, o = () => {
+    const n = i.includes("?") ? "&" : "?", r = `v=${Date.now()}`, d = `${i}${n}${r}#view=FitH`;
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        e.src = d;
+      });
+    });
+  };
+  if (s(t))
+    o();
+  else {
+    const n = new IntersectionObserver(
+      (r) => {
+        r.some((f) => f.isIntersecting) && (n.disconnect(), o());
+      },
+      { root: null, threshold: 0.01 }
+    );
+    n.observe(t);
+  }
 }
-function h() {
+function p() {
   return `
         /* Learnosity render PDF styles */
+        .lt__renderPDF_pdf {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
         .lt__renderPDF_pdf .pdf-viewer {
-            border: none;
+            display: block;
             width: 100%;
             height: 650px;
+            border: 0;
+            background: #fff;
         }
     `;
 }
-const y = l("renderPDF", u, {
-  getStyles: h
+const b = u("renderPDF", m, {
+  getStyles: p
 });
 export {
-  y as renderPDF
+  b as renderPDF
 };

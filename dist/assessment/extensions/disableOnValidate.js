@@ -1,4 +1,4 @@
-import { c as o, L as e } from "../../extensionsFactory-CJF5B414.js";
+import { c as o, L as e } from "../../extensionsFactory-BHOEyOSK.js";
 function t() {
   e.itemsApp().on("item:load", i);
 }

@@ -1,6 +1,6 @@
-import { a as i, d as f, b as p, s as d } from "../app-BHwuGSUg.js";
+import { a as i, d as f, b as p, s as d } from "../app-D1j-k5Fq.js";
 import m from "../logger.js";
-import { M as r, r as M } from "../memoryMonitor-DgwEyRXh.js";
+import { M as r, r as M } from "../memoryMonitor-DBuv6WYK.js";
 function b() {
   i().on("navigate", (e) => {
     window.location.hash = "#" + e.data.locationEncoded;

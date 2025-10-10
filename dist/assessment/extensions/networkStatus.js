@@ -1,4 +1,4 @@
-import { c } from "../../extensionsFactory-CJF5B414.js";
+import { c } from "../../extensionsFactory-BHOEyOSK.js";
 import l from "../../logger.js";
 const i = {
   logPrefix: "LT Network Status: ",

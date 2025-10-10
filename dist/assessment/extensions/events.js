@@ -1,6 +1,6 @@
-import { e as O, f as x } from "../../player-NvOpRVNY.js";
+import { e as O, f as x } from "../../player-YcKAxXIZ.js";
 import { networkStatus as q } from "./networkStatus.js";
-import { c as C, L as t } from "../../extensionsFactory-CJF5B414.js";
+import { c as C, L as t } from "../../extensionsFactory-BHOEyOSK.js";
 const r = {
   // Browsers
   edge: /Edg(?:A|iOS)?\/([\d.]+)/,

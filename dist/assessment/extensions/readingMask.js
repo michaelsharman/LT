@@ -1,4 +1,4 @@
-import { c as o, L as l } from "../../extensionsFactory-CJF5B414.js";
+import { c as o, L as l } from "../../extensionsFactory-BHOEyOSK.js";
 const a = {
   mouse: { x: 0, y: 0 },
   mouseTrackingInitialised: !1,

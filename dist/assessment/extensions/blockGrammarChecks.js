@@ -1,4 +1,4 @@
-import { c, L as o } from "../../extensionsFactory-CJF5B414.js";
+import { c, L as o } from "../../extensionsFactory-BHOEyOSK.js";
 function m() {
   o.itemsApp().on("item:load", i), o.hasAnnotations() && ["notepad:toggleVisibility", "stickynote:add"].forEach((a) => o.annotationsApp.on(a, i));
 }

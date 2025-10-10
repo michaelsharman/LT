@@ -1,4 +1,4 @@
-import { c as p, L as l } from "../../extensionsFactory-CJF5B414.js";
+import { c as p, L as l } from "../../extensionsFactory-BHOEyOSK.js";
 const r = {
   options: {
     theme: "api-column-tabs"

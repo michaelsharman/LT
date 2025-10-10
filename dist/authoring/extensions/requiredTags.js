@@ -1,4 +1,4 @@
-import { c as A, L as r } from "../../extensionsFactory-CJF5B414.js";
+import { c as A, L as r } from "../../extensionsFactory-BHOEyOSK.js";
 const n = {
   options: {
     heading: "Required tag{s} missing",

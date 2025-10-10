@@ -1,4 +1,4 @@
-import { c as i, L as r } from "../../extensionsFactory-CJF5B414.js";
+import { c as i, L as r } from "../../extensionsFactory-BHOEyOSK.js";
 const t = {
   class: "lrn__resetResponse",
   label: "Reset question",

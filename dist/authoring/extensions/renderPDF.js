@@ -1,16 +1,20 @@
-import { c as o, L as n } from "../../extensionsFactory-CJF5B414.js";
-function l() {
-  n.authorApp().on("widgetedit:widget:ready", () => {
+import { c as l } from "../../styling-B1v3AcrI.js";
+import { c as a, L as t } from "../../extensionsFactory-BHOEyOSK.js";
+const n = {
+  classNamePrefix: null
+};
+function s() {
+  n.classNamePrefix = l(n.classNamePrefix), t.authorApp().on("widgetedit:widget:ready", () => {
     document.querySelectorAll(".cke_button__lrnresource").forEach((e) => {
-      n.utils.logger.debug("Found resource button in editor"), e.addEventListener("click", () => {
+      t.utils.logger.debug("Found resource button in editor"), e.addEventListener("click", () => {
         d();
       });
     });
   });
 }
 function d() {
-  const r = document.querySelector(".lrn-adv-options-group"), e = a(), t = `<div class="lrn-row">
-        <div class="lrn-col-xs-12">
+  const r = document.querySelector(`.lrn-${n.classNamePrefix}adv-options-group`), e = c(), o = `<div class="lrn-row">
+        <div class="lrn-col-xs-12 lrn-author-padding-top-sm">
             <label for="lt__renderPDF-Id_${e}" class="lrn-author-asset-upload lrn-form-label-name">
                 <span class="lrn-author-asset-upload lrn-form-label-name">Render PDF inline?</span>
             </label>
@@ -19,12 +23,12 @@ function d() {
             </div>
         </div>
     </div>`;
-  r && r.insertAdjacentHTML("beforeend", t);
+  r && r.insertAdjacentHTML("beforeend", o);
 }
-function a() {
+function c() {
   return Math.floor(Math.random() * Date.now()).toString(36);
 }
-function s() {
+function i() {
   return `
         /* Learnosity language text direction styles */
         /* Used to style render PDF options added to the resource upload panel */
@@ -33,9 +37,9 @@ function s() {
         }
     `;
 }
-const c = o("renderPDF", l, {
-  getStyles: s
+const m = a("renderPDF", s, {
+  getStyles: i
 });
 export {
-  c as renderPDF
+  m as renderPDF
 };

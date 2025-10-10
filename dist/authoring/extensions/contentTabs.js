@@ -1,5 +1,5 @@
 import { contentTabs as u } from "../../assessment/extensions/contentTabs.js";
-import { c as v, L as c } from "../../extensionsFactory-CJF5B414.js";
+import { c as v, L as c } from "../../extensionsFactory-BHOEyOSK.js";
 const s = {
   events: {
     keydownRegistered: !1

@@ -1,4 +1,4 @@
-import { c as d, L as n } from "../../extensionsFactory-CJF5B414.js";
+import { c as d, L as n } from "../../extensionsFactory-BHOEyOSK.js";
 const e = {
   chosenMask: "upperAlpha",
   logPrefix: "LRN MCQ Label Prefix:",

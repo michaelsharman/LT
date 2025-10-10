@@ -199,7 +199,7 @@ function extractLastDigit(combo) {
 }
 
 function getSingleMcq() {
-    const qs = LT.questions.questions();
+    const qs = LT.questions();
     let mcq = null;
 
     for (const q of qs) {

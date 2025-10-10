@@ -1,7 +1,7 @@
-import { c as Ps } from "../../styling-kUxUrNHM.js";
-import { c as Cs, L as z, b as Bs, d as Is } from "../../extensionsFactory-CJF5B414.js";
+import { c as Ps } from "../../styling-B1v3AcrI.js";
+import { c as Cs, L as z } from "../../extensionsFactory-BHOEyOSK.js";
 import { c as ht, a as $e } from "../../_commonjsHelpers-DQNKXVTB.js";
-function Fs(i, e, t) {
+function Bs(i, e, t) {
   const r = [];
   return i.forEach((a) => typeof a != "string" ? r.push(a) : e[Symbol.split](a).forEach((o, s, n) => {
     o !== "" && r.push(o), s < n.length - 1 && r.push(t);
@@ -25,16 +25,16 @@ function br(i, e) {
   for (const o of Object.keys(e))
     if (o !== "_") {
       let s = e[o];
-      typeof s == "string" && (s = t[Symbol.replace](s, r)), a = Fs(a, new RegExp(`%\\{${o}\\}`, "g"), s);
+      typeof s == "string" && (s = t[Symbol.replace](s, r)), a = Bs(a, new RegExp(`%\\{${o}\\}`, "g"), s);
     }
   return a;
 }
-const Ts = (i) => {
+const Is = (i) => {
   throw new Error(`missing string: ${i}`);
 };
 class no {
   locale;
-  constructor(e, { onMissingKey: t = Ts } = {}) {
+  constructor(e, { onMissingKey: t = Is } = {}) {
     this.locale = {
       strings: {},
       pluralize(r) {
@@ -146,13 +146,13 @@ function It() {
   const i = /* @__PURE__ */ new Date(), e = Lt(i.getHours()), t = Lt(i.getMinutes()), r = Lt(i.getSeconds());
   return `${e}:${t}:${r}`;
 }
-const Es = {
+const Fs = {
   debug: () => {
   },
   warn: () => {
   },
   error: (...i) => console.error(`[Uppy] [${It()}]`, ...i)
-}, As = {
+}, Ts = {
   debug: (...i) => console.debug(`[Uppy] [${It()}]`, ...i),
   warn: (...i) => console.warn(`[Uppy] [${It()}]`, ...i),
   error: (...i) => console.error(`[Uppy] [${It()}]`, ...i)
@@ -160,7 +160,7 @@ const Es = {
 function po(i) {
   return typeof i != "object" || i === null || !("nodeType" in i) ? !1 : i.nodeType === Node.ELEMENT_NODE;
 }
-function Os(i, e = document) {
+function Es(i, e = document) {
   return typeof i == "string" ? e.querySelector(i) : po(i) ? i : null;
 }
 function uo(i) {
@@ -168,7 +168,7 @@ function uo(i) {
     i = i.parentNode;
   return i?.dir;
 }
-var pt, P, co, Be, vr, ho, fo, mo, qi, Di, ki, it = {}, go = [], Ms = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i, dt = Array.isArray;
+var pt, P, co, Be, vr, ho, fo, mo, qi, Di, ki, it = {}, go = [], As = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i, dt = Array.isArray;
 function le(i, e) {
   for (var t in e) i[t] = e[t];
   return i;
@@ -186,7 +186,7 @@ function Je(i, e, t, r, a) {
   var o = { type: i, props: e, key: t, ref: r, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: a ?? ++co, __i: -1, __u: 0 };
   return a == null && P.vnode != null && P.vnode(o), o;
 }
-function zs() {
+function Os() {
   return { current: null };
 }
 function re(i) {
@@ -219,12 +219,12 @@ function Et() {
 }
 function bo(i, e, t, r, a, o, s, n, p, l, c) {
   var d, h, m, f, y, b, v = r && r.__k || go, x = e.length;
-  for (p = Rs(t, e, v, p, x), d = 0; d < x; d++) (m = t.__k[d]) != null && (h = m.__i == -1 ? it : v[m.__i] || it, m.__i = d, b = Vi(i, m, h, a, o, s, n, p, l, c), f = m.__e, m.ref && h.ref != m.ref && (h.ref && Gi(h.ref, null, m), c.push(m.ref, m.__c || f, m)), y == null && f != null && (y = f), 4 & m.__u || h.__k === m.__k ? p = vo(m, p, i) : typeof m.type == "function" && b !== void 0 ? p = b : f && (p = f.nextSibling), m.__u &= -7);
+  for (p = Ms(t, e, v, p, x), d = 0; d < x; d++) (m = t.__k[d]) != null && (h = m.__i == -1 ? it : v[m.__i] || it, m.__i = d, b = Vi(i, m, h, a, o, s, n, p, l, c), f = m.__e, m.ref && h.ref != m.ref && (h.ref && Gi(h.ref, null, m), c.push(m.ref, m.__c || f, m)), y == null && f != null && (y = f), 4 & m.__u || h.__k === m.__k ? p = vo(m, p, i) : typeof m.type == "function" && b !== void 0 ? p = b : f && (p = f.nextSibling), m.__u &= -7);
   return t.__e = y, p;
 }
-function Rs(i, e, t, r, a) {
+function Ms(i, e, t, r, a) {
   var o, s, n, p, l, c = t.length, d = c, h = 0;
-  for (i.__k = new Array(a), o = 0; o < a; o++) (s = e[o]) != null && typeof s != "boolean" && typeof s != "function" ? (p = o + h, (s = i.__k[o] = typeof s == "string" || typeof s == "number" || typeof s == "bigint" || s.constructor == String ? Je(null, s, null, null, null) : dt(s) ? Je(re, { children: s }, null, null, null) : s.constructor == null && s.__b > 0 ? Je(s.type, s.props, s.key, s.ref ? s.ref : null, s.__v) : s).__ = i, s.__b = i.__b + 1, n = null, (l = s.__i = Ns(s, t, p, d)) != -1 && (d--, (n = t[l]) && (n.__u |= 2)), n == null || n.__v == null ? (l == -1 && (a > c ? h-- : a < c && h++), typeof s.type != "function" && (s.__u |= 4)) : l != p && (l == p - 1 ? h-- : l == p + 1 ? h++ : (l > p ? h-- : h++, s.__u |= 4))) : i.__k[o] = null;
+  for (i.__k = new Array(a), o = 0; o < a; o++) (s = e[o]) != null && typeof s != "boolean" && typeof s != "function" ? (p = o + h, (s = i.__k[o] = typeof s == "string" || typeof s == "number" || typeof s == "bigint" || s.constructor == String ? Je(null, s, null, null, null) : dt(s) ? Je(re, { children: s }, null, null, null) : s.constructor == null && s.__b > 0 ? Je(s.type, s.props, s.key, s.ref ? s.ref : null, s.__v) : s).__ = i, s.__b = i.__b + 1, n = null, (l = s.__i = zs(s, t, p, d)) != -1 && (d--, (n = t[l]) && (n.__u |= 2)), n == null || n.__v == null ? (l == -1 && (a > c ? h-- : a < c && h++), typeof s.type != "function" && (s.__u |= 4)) : l != p && (l == p - 1 ? h-- : l == p + 1 ? h++ : (l > p ? h-- : h++, s.__u |= 4))) : i.__k[o] = null;
   if (d) for (o = 0; o < c; o++) (n = t[o]) != null && (2 & n.__u) == 0 && (n.__e == r && (r = Ue(n)), _o(n, n));
   return r;
 }
@@ -245,7 +245,7 @@ function te(i, e) {
     te(t, e);
   }) : e.push(i)), e;
 }
-function Ns(i, e, t, r) {
+function zs(i, e, t, r) {
   var a, o, s, n = i.key, p = i.type, l = e[t], c = l != null && (2 & l.__u) == 0;
   if (l === null && i.key == null || c && n == l.key && p == l.type) return t;
   if (r > (c ? 1 : 0)) {
@@ -254,7 +254,7 @@ function Ns(i, e, t, r) {
   return -1;
 }
 function xr(i, e, t) {
-  e[0] == "-" ? i.setProperty(e, t ?? "") : i[e] = t == null ? "" : typeof t != "number" || Ms.test(e) ? t : t + "px";
+  e[0] == "-" ? i.setProperty(e, t ?? "") : i[e] = t == null ? "" : typeof t != "number" || As.test(e) ? t : t + "px";
 }
 function ft(i, e, t, r, a) {
   var o, s;
@@ -289,7 +289,7 @@ function Vi(i, e, t, r, a, o, s, n, p, l) {
   if (e.constructor != null) return null;
   128 & t.__u && (p = !!(32 & t.__u), o = [n = e.__e = t.__e]), (c = P.__b) && c(e);
   e: if (typeof T == "function") try {
-    if (v = e.props, x = "prototype" in T && T.prototype.render, _ = (c = T.contextType) && r[c.__c], C = c ? _ ? _.props.value : c.__ : r, t.__c ? b = (d = e.__c = t.__c).__ = d.__E : (x ? e.__c = d = new T(v, C) : (e.__c = d = new X(v, C), d.constructor = T, d.render = $s), _ && _.sub(d), d.props = v, d.state || (d.state = {}), d.context = C, d.__n = r, h = d.__d = !0, d.__h = [], d._sb = []), x && d.__s == null && (d.__s = d.state), x && T.getDerivedStateFromProps != null && (d.__s == d.state && (d.__s = le({}, d.__s)), le(d.__s, T.getDerivedStateFromProps(v, d.__s))), m = d.props, f = d.state, d.__v = e, h) x && T.getDerivedStateFromProps == null && d.componentWillMount != null && d.componentWillMount(), x && d.componentDidMount != null && d.__h.push(d.componentDidMount);
+    if (v = e.props, x = "prototype" in T && T.prototype.render, _ = (c = T.contextType) && r[c.__c], C = c ? _ ? _.props.value : c.__ : r, t.__c ? b = (d = e.__c = t.__c).__ = d.__E : (x ? e.__c = d = new T(v, C) : (e.__c = d = new X(v, C), d.constructor = T, d.render = Ns), _ && _.sub(d), d.props = v, d.state || (d.state = {}), d.context = C, d.__n = r, h = d.__d = !0, d.__h = [], d._sb = []), x && d.__s == null && (d.__s = d.state), x && T.getDerivedStateFromProps != null && (d.__s == d.state && (d.__s = le({}, d.__s)), le(d.__s, T.getDerivedStateFromProps(v, d.__s))), m = d.props, f = d.state, d.__v = e, h) x && T.getDerivedStateFromProps == null && d.componentWillMount != null && d.componentWillMount(), x && d.componentDidMount != null && d.__h.push(d.componentDidMount);
     else {
       if (x && T.getDerivedStateFromProps == null && v !== m && d.componentWillReceiveProps != null && d.componentWillReceiveProps(v, C), !d.__e && d.shouldComponentUpdate != null && d.shouldComponentUpdate(v, d.__s, C) === !1 || e.__v == t.__v) {
         for (e.__v != t.__v && (d.props = v, d.state = d.__s, d.__d = !1), e.__e = t.__e, e.__k = t.__k, e.__k.some(function(M) {
@@ -320,7 +320,7 @@ function Vi(i, e, t, r, a, o, s, n, p, l) {
     else e.__e = t.__e, e.__k = t.__k, M.then || Si(e);
     P.__e(M, e, t);
   }
-  else o == null && e.__v == t.__v ? (e.__k = t.__k, e.__e = t.__e) : n = e.__e = Us(t.__e, e, t, r, a, o, s, p, l);
+  else o == null && e.__v == t.__v ? (e.__k = t.__k, e.__e = t.__e) : n = e.__e = Rs(t.__e, e, t, r, a, o, s, p, l);
   return (c = P.diffed) && c(e), 128 & e.__u ? void 0 : n;
 }
 function Si(i) {
@@ -341,7 +341,7 @@ function wo(i, e, t) {
 function xo(i) {
   return typeof i != "object" || i == null || i.__b && i.__b > 0 ? i : dt(i) ? i.map(xo) : le({}, i);
 }
-function Us(i, e, t, r, a, o, s, n, p) {
+function Rs(i, e, t, r, a, o, s, n, p) {
   var l, c, d, h, m, f, y, b = t.props, v = e.props, x = e.type;
   if (x == "svg" ? a = "http://www.w3.org/2000/svg" : x == "math" ? a = "http://www.w3.org/1998/Math/MathML" : a || (a = "http://www.w3.org/1999/xhtml"), o != null) {
     for (l = 0; l < o.length; l++) if ((m = o[l]) && "setAttribute" in m == !!x && (x ? m.localName == x : m.nodeType == 3)) {
@@ -393,10 +393,10 @@ function _o(i, e, t) {
   if (r = i.__k) for (a = 0; a < r.length; a++) r[a] && _o(r[a], e, t || typeof i.type != "function");
   t || Wi(i.__e), i.__c = i.__ = i.__e = void 0;
 }
-function $s(i, e, t) {
+function Ns(i, e, t) {
   return this.constructor(i, t);
 }
-function Ls(i, e, t) {
+function Us(i, e, t) {
   var r, a, o, s;
   e == document && (e = document.documentElement), P.__ && P.__(i, e), a = (r = typeof t == "function") ? null : e.__k, o = [], s = [], Vi(e, i = e.__k = rt(re, null, [i]), a || it, it, e.namespaceURI, a ? null : e.firstChild ? pt.call(e.childNodes) : null, o, a ? a.__e : e.firstChild, r, s), wo(o, i, s);
 }
@@ -427,9 +427,9 @@ function Xi(i, e) {
   return i >= t.__.length && t.__.push({}), t.__[i];
 }
 function At(i) {
-  return ot = 1, Hs(Po, i);
+  return ot = 1, $s(Po, i);
 }
-function Hs(i, e, t) {
+function $s(i, e, t) {
   var r = Xi(at++, 2);
   if (r.t = i, !r.__c && (r.__ = [t ? t(e) : Po(void 0, e), function(n) {
     var p = r.__N ? r.__N[0] : r.__[0], l = r.t(p, n);
@@ -476,12 +476,12 @@ function Yi(i, e) {
   var t = Xi(at++, 7);
   return So(t.__H, e) && (t.__ = i(), t.__H = e, t.__h = i), t.__;
 }
-function js(i, e) {
+function Ls(i, e) {
   return ot = 8, Yi(function() {
     return i;
   }, e);
 }
-function qs() {
+function Hs() {
   for (var i; i = ko.shift(); ) if (i.__P && i.__H) try {
     i.__H.__h.forEach(Tt), i.__H.__h.forEach(Ci), i.__H.__h = [];
   } catch (e) {
@@ -501,7 +501,7 @@ L.__b = function(i) {
 }, L.diffed = function(i) {
   Pr && Pr(i);
   var e = i.__c;
-  e && e.__H && (e.__H.__h.length && (ko.push(e) !== 1 && Dr === L.requestAnimationFrame || ((Dr = L.requestAnimationFrame) || Ws)(qs)), e.__H.__.forEach(function(t) {
+  e && e.__H && (e.__H.__h.length && (ko.push(e) !== 1 && Dr === L.requestAnimationFrame || ((Dr = L.requestAnimationFrame) || js)(Hs)), e.__H.__.forEach(function(t) {
     t.u && (t.__H = t.u), t.u = void 0;
   })), Ht = $ = null;
 }, L.__c = function(i, e) {
@@ -528,7 +528,7 @@ L.__b = function(i) {
   }), t.__H = void 0, e && L.__e(e, t.__v));
 };
 var Fr = typeof requestAnimationFrame == "function";
-function Ws(i) {
+function js(i) {
   var e, t = function() {
     clearTimeout(r), Fr && cancelAnimationFrame(e), setTimeout(i);
   }, r = setTimeout(t, 35);
@@ -550,7 +550,7 @@ function So(i, e) {
 function Po(i, e) {
   return typeof e == "function" ? e(i) : e;
 }
-function Vs(i, e) {
+function qs(i, e) {
   for (var t in e) i[t] = e[t];
   return i;
 }
@@ -569,18 +569,18 @@ var Ar = P.__b;
 P.__b = function(i) {
   i.type && i.type.__f && i.ref && (i.props.ref = i.ref, i.ref = null), Ar && Ar(i);
 };
-var Gs = P.__e;
+var Ws = P.__e;
 P.__e = function(i, e, t, r) {
   if (i.then) {
     for (var a, o = e; o = o.__; ) if ((a = o.__c) && a.__c) return e.__e == null && (e.__e = t.__e, e.__k = t.__k), a.__c(i, e);
   }
-  Gs(i, e, t, r);
+  Ws(i, e, t, r);
 };
 var Or = P.unmount;
 function Co(i, e, t) {
   return i && (i.__c && i.__c.__H && (i.__c.__H.__.forEach(function(r) {
     typeof r.__c == "function" && r.__c();
-  }), i.__c.__H = null), (i = Vs({}, i)).__c != null && (i.__c.__P === t && (i.__c.__P = e), i.__c.__e = !0, i.__c = null), i.__k = i.__k && i.__k.map(function(r) {
+  }), i.__c.__H = null), (i = qs({}, i)).__c != null && (i.__c.__P === t && (i.__c.__P = e), i.__c.__e = !0, i.__c = null), i.__k = i.__k && i.__k.map(function(r) {
     return Co(r, e, t);
   })), i;
 }
@@ -660,11 +660,11 @@ var Mr = function(i, e, t) {
     Mr(i, t, e);
   });
 };
-var Xs = typeof Symbol < "u" && Symbol.for && Symbol.for("react.element") || 60103, Ys = /^(?:accent|alignment|arabic|baseline|cap|clip(?!PathU)|color|dominant|fill|flood|font|glyph(?!R)|horiz|image(!S)|letter|lighting|marker(?!H|W|U)|overline|paint|pointer|shape|stop|strikethrough|stroke|text(?!L)|transform|underline|unicode|units|v|vector|vert|word|writing|x(?!C))[A-Z]/, Ks = /^on(Ani|Tra|Tou|BeforeInp|Compo)/, Zs = /[A-Z0-9]/g, Qs = typeof document < "u", Js = function(i) {
+var Vs = typeof Symbol < "u" && Symbol.for && Symbol.for("react.element") || 60103, Gs = /^(?:accent|alignment|arabic|baseline|cap|clip(?!PathU)|color|dominant|fill|flood|font|glyph(?!R)|horiz|image(!S)|letter|lighting|marker(?!H|W|U)|overline|paint|pointer|shape|stop|strikethrough|stroke|text(?!L)|transform|underline|unicode|units|v|vector|vert|word|writing|x(?!C))[A-Z]/, Xs = /^on(Ani|Tra|Tou|BeforeInp|Compo)/, Ys = /[A-Z0-9]/g, Ks = typeof document < "u", Zs = function(i) {
   return (typeof Symbol < "u" && typeof Symbol() == "symbol" ? /fil|che|rad/ : /fil|che|ra/).test(i);
 };
 function zr(i, e, t) {
-  return e.__k == null && (e.textContent = ""), Ls(i, e), typeof t == "function" && t(), i ? i.__c : null;
+  return e.__k == null && (e.textContent = ""), Us(i, e), typeof t == "function" && t(), i ? i.__c : null;
 }
 X.prototype.isReactComponent = {}, ["componentWillMount", "componentWillReceiveProps", "componentWillUpdate"].forEach(function(i) {
   Object.defineProperty(X.prototype, i, { configurable: !0, get: function() {
@@ -674,18 +674,18 @@ X.prototype.isReactComponent = {}, ["componentWillMount", "componentWillReceiveP
   } });
 });
 var Rr = P.event;
-function en() {
+function Qs() {
 }
-function tn() {
+function Js() {
   return this.cancelBubble;
 }
-function rn() {
+function en() {
   return this.defaultPrevented;
 }
 P.event = function(i) {
-  return Rr && (i = Rr(i)), i.persist = en, i.isPropagationStopped = tn, i.isDefaultPrevented = rn, i.nativeEvent = i;
+  return Rr && (i = Rr(i)), i.persist = Qs, i.isPropagationStopped = Js, i.isDefaultPrevented = en, i.nativeEvent = i;
 };
-var an = { enumerable: !1, configurable: !0, get: function() {
+var tn = { enumerable: !1, configurable: !0, get: function() {
   return this.class;
 } }, Nr = P.vnode;
 P.vnode = function(i) {
@@ -693,17 +693,17 @@ P.vnode = function(i) {
     var t = e.props, r = e.type, a = {}, o = r.indexOf("-") === -1;
     for (var s in t) {
       var n = t[s];
-      if (!(s === "value" && "defaultValue" in t && n == null || Qs && s === "children" && r === "noscript" || s === "class" || s === "className")) {
+      if (!(s === "value" && "defaultValue" in t && n == null || Ks && s === "children" && r === "noscript" || s === "class" || s === "className")) {
         var p = s.toLowerCase();
-        s === "defaultValue" && "value" in t && t.value == null ? s = "value" : s === "download" && n === !0 ? n = "" : p === "translate" && n === "no" ? n = !1 : p[0] === "o" && p[1] === "n" ? p === "ondoubleclick" ? s = "ondblclick" : p !== "onchange" || r !== "input" && r !== "textarea" || Js(t.type) ? p === "onfocus" ? s = "onfocusin" : p === "onblur" ? s = "onfocusout" : Ks.test(s) && (s = p) : p = s = "oninput" : o && Ys.test(s) ? s = s.replace(Zs, "-$&").toLowerCase() : n === null && (n = void 0), p === "oninput" && a[s = p] && (s = "oninputCapture"), a[s] = n;
+        s === "defaultValue" && "value" in t && t.value == null ? s = "value" : s === "download" && n === !0 ? n = "" : p === "translate" && n === "no" ? n = !1 : p[0] === "o" && p[1] === "n" ? p === "ondoubleclick" ? s = "ondblclick" : p !== "onchange" || r !== "input" && r !== "textarea" || Zs(t.type) ? p === "onfocus" ? s = "onfocusin" : p === "onblur" ? s = "onfocusout" : Xs.test(s) && (s = p) : p = s = "oninput" : o && Gs.test(s) ? s = s.replace(Ys, "-$&").toLowerCase() : n === null && (n = void 0), p === "oninput" && a[s = p] && (s = "oninputCapture"), a[s] = n;
       }
     }
     r == "select" && a.multiple && Array.isArray(a.value) && (a.value = te(t.children).forEach(function(l) {
       l.props.selected = a.value.indexOf(l.props.value) != -1;
     })), r == "select" && a.defaultValue != null && (a.value = te(t.children).forEach(function(l) {
       l.props.selected = a.multiple ? a.defaultValue.indexOf(l.props.value) != -1 : a.defaultValue == l.props.value;
-    })), t.class && !t.className ? (a.class = t.class, Object.defineProperty(a, "className", an)) : (t.className && !t.class || t.class && t.className) && (a.class = a.className = t.className), e.props = a;
-  }(i), i.$$typeof = Xs, Nr && Nr(i);
+    })), t.class && !t.className ? (a.class = t.class, Object.defineProperty(a, "className", tn)) : (t.className && !t.class || t.class && t.className) && (a.class = a.className = t.className), e.props = a;
+  }(i), i.$$typeof = Vs, Nr && Nr(i);
 };
 var Ur = P.__r;
 P.__r = function(i) {
@@ -715,7 +715,7 @@ P.diffed = function(i) {
   var e = i.props, t = i.__e;
   t != null && i.type === "textarea" && "value" in e && e.value !== t.value && (t.value = e.value == null ? "" : e.value);
 };
-function on(i) {
+function rn(i) {
   let e = null, t;
   return (...r) => (t = r, e || (e = Promise.resolve().then(() => (e = null, i(...t)))), e);
 }
@@ -743,11 +743,11 @@ class ve extends lo {
    * for a plugin with same name and return its target.
    */
   mount(e, t) {
-    const r = t.id, a = Os(e);
+    const r = t.id, a = Es(e);
     if (a) {
       this.isTargetDOMEl = !0;
       const n = document.createElement("div");
-      return n.classList.add("uppy-Root"), this.#e = on((p) => {
+      return n.classList.add("uppy-Root"), this.#e = rn((p) => {
         this.uppy.getPlugin(this.id) && (zr(this.render(p, n), n), this.afterUpdate());
       }), this.uppy.log(`Installing ${r} to a DOM element '${e}'`), this.opts.replaceTargetContent && (a.innerHTML = ""), zr(this.render(this.uppy.getState(), n), n), this.el = n, a.appendChild(n), n.dir = this.opts.direction || uo(n) || "ltr", this.onMount(), this.el;
     }
@@ -778,23 +778,23 @@ class ve extends lo {
   onUnmount() {
   }
 }
-const sn = "@uppy/store-default", nn = "The default simple object-based store for Uppy.", ln = "4.3.2", pn = "MIT", dn = "lib/index.js", un = "module", cn = { build: "tsc --build tsconfig.build.json", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, hn = ["file uploader", "uppy", "uppy-store"], fn = "https://uppy.io", mn = { url: "https://github.com/transloadit/uppy/issues" }, gn = { jsdom: "^26.1.0", typescript: "^5.8.3", vitest: "^3.2.4" }, yn = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, bn = ["src", "lib", "dist", "CHANGELOG.md"], vn = {
-  name: sn,
-  description: nn,
-  version: ln,
-  license: pn,
-  main: dn,
-  type: un,
-  scripts: cn,
-  keywords: hn,
-  homepage: fn,
-  bugs: mn,
-  devDependencies: gn,
-  repository: yn,
-  files: bn
+const an = "@uppy/store-default", on = "The default simple object-based store for Uppy.", sn = "4.3.2", nn = "MIT", ln = "lib/index.js", pn = "module", dn = { build: "tsc --build tsconfig.build.json", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, un = ["file uploader", "uppy", "uppy-store"], cn = "https://uppy.io", hn = { url: "https://github.com/transloadit/uppy/issues" }, fn = { jsdom: "^26.1.0", typescript: "^5.8.3", vitest: "^3.2.4" }, mn = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, gn = ["src", "lib", "dist", "CHANGELOG.md"], yn = {
+  name: an,
+  description: on,
+  version: sn,
+  license: nn,
+  main: ln,
+  type: pn,
+  scripts: dn,
+  keywords: un,
+  homepage: cn,
+  bugs: hn,
+  devDependencies: fn,
+  repository: mn,
+  files: gn
 };
-class wn {
-  static VERSION = vn.version;
+class bn {
+  static VERSION = yn.version;
   state = {};
   #e = /* @__PURE__ */ new Set();
   getState() {
@@ -886,18 +886,18 @@ function Fo(i) {
   const e = i.name ? Ot(i.name).extension?.toLowerCase() : null;
   return e && e in Lr ? Lr[e] : "application/octet-stream";
 }
-function xn(i) {
+function vn(i) {
   return i.charCodeAt(0).toString(32);
 }
 function Hr(i) {
   let e = "";
-  return i.replace(/[^A-Z0-9]/gi, (t) => (e += `-${xn(t)}`, "/")) + e;
+  return i.replace(/[^A-Z0-9]/gi, (t) => (e += `-${vn(t)}`, "/")) + e;
 }
-function _n(i, e) {
+function wn(i, e) {
   let t = e || "uppy";
   return typeof i.name == "string" && (t += `-${Hr(i.name.toLowerCase())}`), i.type !== void 0 && (t += `-${i.type}`), i.meta && typeof i.meta.relativePath == "string" && (t += `-${Hr(i.meta.relativePath.toLowerCase())}`), i.data.size !== void 0 && (t += `-${i.data.size}`), i.data.lastModified !== void 0 && (t += `-${i.data.lastModified}`), t;
 }
-function Dn(i) {
+function xn(i) {
   return !i.isRemote || !i.remote ? !1 : (/* @__PURE__ */ new Set([
     "box",
     "dropbox",
@@ -906,11 +906,11 @@ function Dn(i) {
     "unsplash"
   ])).has(i.remote.provider);
 }
-function kn(i, e) {
-  if (Dn(i))
+function _n(i, e) {
+  if (xn(i))
     return i.id;
   const t = Fo(i);
-  return _n({
+  return wn({
     ...i,
     type: t
   }, e);
@@ -926,7 +926,7 @@ function Ki() {
   return qt = i, qt;
 }
 var Wt, qr;
-function Sn() {
+function Dn() {
   if (qr) return Wt;
   qr = 1;
   var i = typeof ht == "object" && ht && ht.Object === Object && ht;
@@ -936,11 +936,11 @@ var Vt, Wr;
 function To() {
   if (Wr) return Vt;
   Wr = 1;
-  var i = Sn(), e = typeof self == "object" && self && self.Object === Object && self, t = i || e || Function("return this")();
+  var i = Dn(), e = typeof self == "object" && self && self.Object === Object && self, t = i || e || Function("return this")();
   return Vt = t, Vt;
 }
 var Gt, Vr;
-function Pn() {
+function kn() {
   if (Vr) return Gt;
   Vr = 1;
   var i = To(), e = function() {
@@ -949,7 +949,7 @@ function Pn() {
   return Gt = e, Gt;
 }
 var Xt, Gr;
-function Cn() {
+function Sn() {
   if (Gr) return Xt;
   Gr = 1;
   var i = /\s/;
@@ -961,10 +961,10 @@ function Cn() {
   return Xt = e, Xt;
 }
 var Yt, Xr;
-function Bn() {
+function Pn() {
   if (Xr) return Yt;
   Xr = 1;
-  var i = Cn(), e = /^\s+/;
+  var i = Sn(), e = /^\s+/;
   function t(r) {
     return r && r.slice(0, i(r) + 1).replace(e, "");
   }
@@ -978,7 +978,7 @@ function Eo() {
   return Kt = e, Kt;
 }
 var Zt, Kr;
-function In() {
+function Cn() {
   if (Kr) return Zt;
   Kr = 1;
   var i = Eo(), e = Object.prototype, t = e.hasOwnProperty, r = e.toString, a = i ? i.toStringTag : void 0;
@@ -995,7 +995,7 @@ function In() {
   return Zt = o, Zt;
 }
 var Qt, Zr;
-function Fn() {
+function Bn() {
   if (Zr) return Qt;
   Zr = 1;
   var i = Object.prototype, e = i.toString;
@@ -1005,17 +1005,17 @@ function Fn() {
   return Qt = t, Qt;
 }
 var Jt, Qr;
-function Tn() {
+function In() {
   if (Qr) return Jt;
   Qr = 1;
-  var i = Eo(), e = In(), t = Fn(), r = "[object Null]", a = "[object Undefined]", o = i ? i.toStringTag : void 0;
+  var i = Eo(), e = Cn(), t = Bn(), r = "[object Null]", a = "[object Undefined]", o = i ? i.toStringTag : void 0;
   function s(n) {
     return n == null ? n === void 0 ? a : r : o && o in Object(n) ? e(n) : t(n);
   }
   return Jt = s, Jt;
 }
 var ei, Jr;
-function En() {
+function Fn() {
   if (Jr) return ei;
   Jr = 1;
   function i(e) {
@@ -1024,20 +1024,20 @@ function En() {
   return ei = i, ei;
 }
 var ti, ea;
-function An() {
+function Tn() {
   if (ea) return ti;
   ea = 1;
-  var i = Tn(), e = En(), t = "[object Symbol]";
+  var i = In(), e = Fn(), t = "[object Symbol]";
   function r(a) {
     return typeof a == "symbol" || e(a) && i(a) == t;
   }
   return ti = r, ti;
 }
 var ii, ta;
-function On() {
+function En() {
   if (ta) return ii;
   ta = 1;
-  var i = Bn(), e = Ki(), t = An(), r = NaN, a = /^[-+]0x[0-9a-f]+$/i, o = /^0b[01]+$/i, s = /^0o[0-7]+$/i, n = parseInt;
+  var i = Pn(), e = Ki(), t = Tn(), r = NaN, a = /^[-+]0x[0-9a-f]+$/i, o = /^0b[01]+$/i, s = /^0o[0-7]+$/i, n = parseInt;
   function p(l) {
     if (typeof l == "number")
       return l;
@@ -1059,7 +1059,7 @@ var ri, ia;
 function Ao() {
   if (ia) return ri;
   ia = 1;
-  var i = Ki(), e = Pn(), t = On(), r = "Expected a function", a = Math.max, o = Math.min;
+  var i = Ki(), e = kn(), t = En(), r = "Expected a function", a = Math.max, o = Math.min;
   function s(n, p, l) {
     var c, d, h, m, f, y, b = 0, v = !1, x = !1, _ = !0;
     if (typeof n != "function")
@@ -1110,7 +1110,7 @@ function Ao() {
   return ri = s, ri;
 }
 var ai, ra;
-function Mn() {
+function An() {
   if (ra) return ai;
   ra = 1;
   var i = Ao(), e = Ki(), t = "Expected a function";
@@ -1126,10 +1126,10 @@ function Mn() {
   }
   return ai = r, ai;
 }
-var zn = Mn();
-const Rn = /* @__PURE__ */ $e(zn);
+var On = An();
+const Mn = /* @__PURE__ */ $e(On);
 var oi, aa;
-function Nn() {
+function zn() {
   return aa || (aa = 1, oi = function() {
     var e = {}, t = e._fns = {};
     e.emit = function(s, n, p, l, c, d, h) {
@@ -1170,36 +1170,36 @@ function Nn() {
     return e;
   }), oi;
 }
-var Un = Nn();
-const $n = /* @__PURE__ */ $e(Un);
-let Ln = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict", Zi = (i = 21) => {
+var Rn = zn();
+const Nn = /* @__PURE__ */ $e(Rn);
+let Un = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict", Zi = (i = 21) => {
   let e = "", t = i | 0;
   for (; t--; )
-    e += Ln[Math.random() * 64 | 0];
+    e += Un[Math.random() * 64 | 0];
   return e;
 };
-const Hn = "@uppy/core", jn = "Core module for the extensible JavaScript file upload widget with support for drag&drop, resumable uploads, previews, restrictions, file processing/encoding, remote providers like Instagram, Dropbox, Google Drive, S3 and more :dog:", qn = "4.5.2", Wn = "MIT", Vn = "lib/index.js", Gn = "dist/style.min.css", Xn = "module", Yn = ["*.css"], Kn = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, Zn = ["file uploader", "uppy", "uppy-plugin"], Qn = "https://uppy.io", Jn = { url: "https://github.com/transloadit/uppy/issues" }, el = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, tl = ["src", "lib", "dist", "CHANGELOG.md"], il = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/store-default": "^4.3.2", "@uppy/utils": "^6.2.2", lodash: "^4.17.21", "mime-match": "^1.0.2", "namespace-emitter": "^2.0.1", nanoid: "^5.0.9", preact: "^10.5.13" }, rl = { "@types/deep-freeze": "^0", cssnano: "^7.0.7", "deep-freeze": "^0.0.1", jsdom: "^26.1.0", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3", vitest: "^3.2.4" }, al = {
-  name: Hn,
-  description: jn,
-  version: qn,
-  license: Wn,
-  main: Vn,
-  style: Gn,
-  type: Xn,
-  sideEffects: Yn,
-  scripts: Kn,
-  keywords: Zn,
-  homepage: Qn,
-  bugs: Jn,
-  repository: el,
-  files: tl,
-  dependencies: il,
-  devDependencies: rl
+const $n = "@uppy/core", Ln = "Core module for the extensible JavaScript file upload widget with support for drag&drop, resumable uploads, previews, restrictions, file processing/encoding, remote providers like Instagram, Dropbox, Google Drive, S3 and more :dog:", Hn = "4.5.3", jn = "MIT", qn = "lib/index.js", Wn = "dist/style.min.css", Vn = "module", Gn = ["*.css"], Xn = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, Yn = ["file uploader", "uppy", "uppy-plugin"], Kn = "https://uppy.io", Zn = { url: "https://github.com/transloadit/uppy/issues" }, Qn = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, Jn = ["src", "lib", "dist", "CHANGELOG.md"], el = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/store-default": "^4.3.2", "@uppy/utils": "^6.2.2", lodash: "^4.17.21", "mime-match": "^1.0.2", "namespace-emitter": "^2.0.1", nanoid: "^5.0.9", preact: "^10.5.13" }, tl = { "@types/deep-freeze": "^0", cssnano: "^7.0.7", "deep-freeze": "^0.0.1", jsdom: "^26.1.0", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3", vitest: "^3.2.4" }, il = {
+  name: $n,
+  description: Ln,
+  version: Hn,
+  license: jn,
+  main: qn,
+  style: Wn,
+  type: Vn,
+  sideEffects: Gn,
+  scripts: Xn,
+  keywords: Yn,
+  homepage: Kn,
+  bugs: Zn,
+  repository: Qn,
+  files: Jn,
+  dependencies: el,
+  devDependencies: tl
 };
-function ol(i, e) {
+function rl(i, e) {
   return e.name ? e.name : i.split("/")[0] === "image" ? `${i.split("/")[0]}.${i.split("/")[1]}` : "noname";
 }
-const sl = {
+const al = {
   strings: {
     addBulkFilesFailed: {
       0: "Failed to add %{smart_count} file due to an internal error",
@@ -1265,7 +1265,7 @@ const sl = {
   }
 };
 var si, oa;
-function nl() {
+function ol() {
   return oa || (oa = 1, si = function(e) {
     if (typeof e != "number" || Number.isNaN(e))
       throw new TypeError(`Expected a number, got ${typeof e}`);
@@ -1277,10 +1277,10 @@ function nl() {
     return `${s >= 10 || s % 1 === 0 ? Math.round(s) : s.toFixed(1)} ${n}`;
   }), si;
 }
-var ll = nl();
-const ce = /* @__PURE__ */ $e(ll);
+var sl = ol();
+const ce = /* @__PURE__ */ $e(sl);
 var ni, sa;
-function pl() {
+function nl() {
   if (sa) return ni;
   sa = 1;
   function i(e, t) {
@@ -1311,10 +1311,10 @@ function pl() {
   }, ni;
 }
 var li, na;
-function dl() {
+function ll() {
   if (na) return li;
   na = 1;
-  var i = pl(), e = /[\/\+\.]/;
+  var i = nl(), e = /[\/\+\.]/;
   return li = function(t, r) {
     function a(o) {
       var s = i(o, t, e);
@@ -1323,8 +1323,8 @@ function dl() {
     return r ? a(r.split(";")[0]) : a;
   }, li;
 }
-var ul = dl();
-const cl = /* @__PURE__ */ $e(ul), hl = {
+var pl = ll();
+const dl = /* @__PURE__ */ $e(pl), ul = {
   maxFileSize: null,
   minFileSize: null,
   maxTotalFileSize: null,
@@ -1341,7 +1341,7 @@ class J extends Error {
   }
   isRestriction = !0;
 }
-class fl {
+class cl {
   getI18n;
   getOpts;
   constructor(e, t) {
@@ -1370,7 +1370,7 @@ class fl {
   }
   validateSingleFile(e) {
     const { maxFileSize: t, minFileSize: r, allowedFileTypes: a } = this.getOpts().restrictions;
-    if (a && !a.some((s) => s.includes("/") ? e.type ? cl(e.type.replace(/;.*?$/, ""), s) : !1 : s[0] === "." && e.extension ? e.extension.toLowerCase() === s.slice(1).toLowerCase() : !1)) {
+    if (a && !a.some((s) => s.includes("/") ? e.type ? dl(e.type.replace(/;.*?$/, ""), s) : !1 : s[0] === "." && e.extension ? e.extension.toLowerCase() === s.slice(1).toLowerCase() : !1)) {
       const s = a.join(", ");
       throw new J(this.getI18n()("youCanOnlyUploadFileTypes", {
         types: s
@@ -1407,7 +1407,7 @@ class fl {
     return { missingFields: a, error: t };
   }
 }
-function ml(i) {
+function hl(i) {
   if (i == null && typeof navigator < "u" && (i = navigator.userAgent), !i)
     return !0;
   const e = /Edge\/(\d+\.\d+)/.exec(i);
@@ -1423,11 +1423,11 @@ const gt = {
   recoveredState: null
 };
 class Qi {
-  static VERSION = al.version;
+  static VERSION = il.version;
   #e = /* @__PURE__ */ Object.create(null);
   #t;
   #r;
-  #i = $n();
+  #i = Nn();
   #a = /* @__PURE__ */ new Set();
   #s = /* @__PURE__ */ new Set();
   #n = /* @__PURE__ */ new Set();
@@ -1446,18 +1446,18 @@ class Qi {
    * Instantiate Uppy
    */
   constructor(e) {
-    this.defaultLocale = sl;
+    this.defaultLocale = al;
     const t = {
       id: "uppy",
       autoProceed: !1,
       allowMultipleUploadBatches: !0,
       debug: !1,
-      restrictions: hl,
+      restrictions: ul,
       meta: {},
       onBeforeFileAdded: (a, o) => !Object.hasOwn(o, a.id),
       onBeforeUpload: (a) => a,
-      store: new wn(),
-      logger: Es,
+      store: new bn(),
+      logger: Fs,
       infoTimeout: 5e3
     }, r = { ...t, ...e };
     this.opts = {
@@ -1466,19 +1466,19 @@ class Qi {
         ...t.restrictions,
         ...e?.restrictions
       }
-    }, e?.logger && e.debug ? this.log("You are using a custom `logger`, but also set `debug: true`, which uses built-in logger to output logs to console. Ignoring `debug: true` and using your custom `logger`.", "warning") : e?.debug && (this.opts.logger = As), this.log(`Using Core v${Qi.VERSION}`), this.i18nInit(), this.store = this.opts.store, this.setState({
+    }, e?.logger && e.debug ? this.log("You are using a custom `logger`, but also set `debug: true`, which uses built-in logger to output logs to console. Ignoring `debug: true` and using your custom `logger`.", "warning") : e?.debug && (this.opts.logger = Ts), this.log(`Using Core v${Qi.VERSION}`), this.i18nInit(), this.store = this.opts.store, this.setState({
       ...gt,
       plugins: {},
       files: {},
       currentUploads: {},
       capabilities: {
-        uploadProgress: ml(),
+        uploadProgress: hl(),
         individualCancellation: !0,
         resumableUploads: !1
       },
       meta: { ...this.opts.meta },
       info: []
-    }), this.#t = new fl(() => this.opts, () => this.i18n), this.#r = this.store.subscribe((a, o, s) => {
+    }), this.#t = new cl(() => this.opts, () => this.i18n), this.#r = this.store.subscribe((a, o, s) => {
       this.emit("state-update", a, o, s), this.updateAll(o);
     }), this.opts.debug && typeof window < "u" && (window[this.opts.id] = this), this.#S();
   }
@@ -1703,7 +1703,12 @@ class Qi {
   }
   #l(e) {
     const { missingFields: t, error: r } = this.#t.getMissingRequiredMetaFields(e);
-    return t.length > 0 ? (this.setFileState(e.id, { missingRequiredMetaFields: t }), this.log(r.message), this.emit("restriction-failed", e, r), !1) : (t.length === 0 && e.missingRequiredMetaFields && this.setFileState(e.id, { missingRequiredMetaFields: [] }), !0);
+    return t.length > 0 ? (this.setFileState(e.id, {
+      missingRequiredMetaFields: t,
+      error: r.message
+    }), this.log(r.message), this.emit("restriction-failed", e, r), !1) : (t.length === 0 && e.missingRequiredMetaFields && this.setFileState(e.id, {
+      missingRequiredMetaFields: []
+    }), !0);
   }
   #h(e) {
     let t = !0;
@@ -1733,7 +1738,7 @@ class Qi {
       type: e.type,
       size: e.size,
       data: e
-    } : e, r = Fo(t), a = ol(r, t), o = Ot(a).extension, s = kn(t, this.getID()), n = t.meta || {};
+    } : e, r = Fo(t), a = rl(r, t), o = Ot(a).extension, s = _n(t, this.getID()), n = t.meta || {};
     n.name = a, n.type = r;
     const p = Number.isFinite(t.data.size) ? t.data.size : null;
     return {
@@ -1922,7 +1927,10 @@ class Qi {
   }
   #f() {
     const { files: e } = this.getState();
-    return Object.keys(e).filter((t) => e[t].error);
+    return Object.keys(e).filter((t) => {
+      const r = e[t];
+      return r.error && (!r.missingRequiredMetaFields || r.missingRequiredMetaFields.length === 0);
+    });
   }
   async #m() {
     const e = this.#f(), t = { ...this.getState().files };
@@ -2013,7 +2021,7 @@ class Qi {
   //    and click 'ADD MORE FILES', - focus won't activate in Firefox.
   //    - We must throttle at around >500ms to avoid performance lags.
   //    [Practical Check] Firefox, try to upload a big file for a prolonged period of time. Laptop will start to heat up.
-  #y = Rn(() => this.#_(), 500, { leading: !0, trailing: !0 });
+  #y = Mn(() => this.#_(), 500, { leading: !0, trailing: !0 });
   [Symbol.for("uppy test: updateTotalProgress")]() {
     return this.#_();
   }
@@ -2423,35 +2431,35 @@ Uppy plugins must have unique \`id\` options.`;
     }));
   }
 }
-var gl = 0;
+var fl = 0;
 function u(i, e, t, r, a, o) {
   e || (e = {});
   var s, n, p = e;
   if ("ref" in p) for (n in p = {}, e) n == "ref" ? s = e[n] : p[n] = e[n];
-  var l = { type: i, props: p, key: t, ref: s, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: --gl, __i: -1, __u: 0, __source: a, __self: o };
+  var l = { type: i, props: p, key: t, ref: s, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: --fl, __i: -1, __u: 0, __source: a, __self: o };
   if (typeof i == "function" && (s = i.defaultProps)) for (n in s) p[n] === void 0 && (p[n] = s[n]);
   return P.vnode && P.vnode(l), l;
 }
-const yl = "@uppy/informer", bl = "A notification and error pop-up bar for Uppy.", vl = "4.3.2", wl = "MIT", xl = "lib/index.js", _l = "dist/style.min.css", Dl = "module", kl = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, Sl = ["file uploader", "uppy", "uppy-plugin", "notification", "bar", "ui"], Pl = "https://uppy.io", Cl = { url: "https://github.com/transloadit/uppy/issues" }, Bl = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, Il = ["src", "lib", "dist", "CHANGELOG.md"], Fl = { "@uppy/utils": "^6.2.2", preact: "^10.5.13" }, Tl = { "@uppy/core": "^4.5.2" }, El = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, Al = {
-  name: yl,
-  description: bl,
-  version: vl,
-  license: wl,
-  main: xl,
-  style: _l,
-  type: Dl,
-  scripts: kl,
-  keywords: Sl,
-  homepage: Pl,
-  bugs: Cl,
-  repository: Bl,
-  files: Il,
-  dependencies: Fl,
-  peerDependencies: Tl,
-  devDependencies: El
+const ml = "@uppy/informer", gl = "A notification and error pop-up bar for Uppy.", yl = "4.3.2", bl = "MIT", vl = "lib/index.js", wl = "dist/style.min.css", xl = "module", _l = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, Dl = ["file uploader", "uppy", "uppy-plugin", "notification", "bar", "ui"], kl = "https://uppy.io", Sl = { url: "https://github.com/transloadit/uppy/issues" }, Pl = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, Cl = ["src", "lib", "dist", "CHANGELOG.md"], Bl = { "@uppy/utils": "^6.2.2", preact: "^10.5.13" }, Il = { "@uppy/core": "^4.5.2" }, Fl = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, Tl = {
+  name: ml,
+  description: gl,
+  version: yl,
+  license: bl,
+  main: vl,
+  style: wl,
+  type: xl,
+  scripts: _l,
+  keywords: Dl,
+  homepage: kl,
+  bugs: Sl,
+  repository: Pl,
+  files: Cl,
+  dependencies: Bl,
+  peerDependencies: Il,
+  devDependencies: Fl
 }, la = 300;
-class Ol extends X {
-  ref = zs();
+class El extends X {
+  ref = Os();
   componentWillEnter(e) {
     this.ref.current.style.opacity = "1", this.ref.current.style.transform = "none", setTimeout(e, la);
   }
@@ -2463,13 +2471,13 @@ class Ol extends X {
     return u("div", { className: "uppy-Informer-animated", ref: this.ref, children: e });
   }
 }
-function Ml(i, e) {
+function Al(i, e) {
   return Object.assign(i, e);
 }
-function zl(i, e) {
+function Ol(i, e) {
   return i?.key ?? e;
 }
-function Rl(i, e) {
+function Ml(i, e) {
   const t = i._ptgLinkedRefs || (i._ptgLinkedRefs = {});
   return t[e] || // biome-ignore lint/suspicious/noAssignInExpressions: ...
   (t[e] = (r) => {
@@ -2480,12 +2488,12 @@ function qe(i) {
   const e = {};
   for (let t = 0; t < i.length; t++)
     if (i[t] != null) {
-      const r = zl(i[t], t.toString(36));
+      const r = Ol(i[t], t.toString(36));
       e[r] = i[t];
     }
   return e;
 }
-function Nl(i, e) {
+function zl(i, e) {
   i = i || {}, e = e || {};
   const t = (s) => Object.hasOwn(e, s) ? e[s] : i[s], r = {};
   let a = [];
@@ -2504,7 +2512,7 @@ function Nl(i, e) {
     o[a[s]] = t(a[s]);
   return o;
 }
-const Ul = (i) => i;
+const Rl = (i) => i;
 class Oo extends X {
   constructor(e, t) {
     super(e, t), this.refs = {}, this.state = {
@@ -2522,7 +2530,7 @@ class Oo extends X {
   componentWillReceiveProps(e) {
     const t = qe(te(e.children) || []), r = this.state.children;
     this.setState((o) => ({
-      children: Nl(o.children, t)
+      children: zl(o.children, t)
     }));
     let a;
     for (a in t)
@@ -2584,7 +2592,7 @@ class Oo extends X {
     if (a && Object.hasOwn(a, e))
       this.performEnter(e);
     else {
-      const o = Ml({}, this.state.children);
+      const o = Al({}, this.state.children);
       delete o[e], this.setState({ children: o });
     }
   }
@@ -2592,7 +2600,7 @@ class Oo extends X {
     const h = Object.entries(d).map(([m, f]) => {
       if (!f)
         return;
-      const y = Rl(this, m);
+      const y = Ml(this, m);
       return Do(e(f), { ref: y, key: m });
     }).filter(Boolean);
     return rt(l, c, h);
@@ -2600,14 +2608,14 @@ class Oo extends X {
 }
 Oo.defaultProps = {
   component: "span",
-  childFactory: Ul
+  childFactory: Rl
 };
-class $l extends ve {
-  static VERSION = Al.version;
+class Nl extends ve {
+  static VERSION = Tl.version;
   constructor(e, t) {
     super(e, t), this.type = "progressindicator", this.id = this.opts.id || "Informer", this.title = "Informer";
   }
-  render = (e) => u("div", { className: "uppy uppy-Informer", children: u(Oo, { children: e.info.map((t) => u(Ol, { children: u("p", { role: "alert", children: [t.message, " ", t.details && // biome-ignore lint/a11y/useKeyWithClickEvents: ...
+  render = (e) => u("div", { className: "uppy uppy-Informer", children: u(Oo, { children: e.info.map((t) => u(El, { children: u("p", { role: "alert", children: [t.message, " ", t.details && // biome-ignore lint/a11y/useKeyWithClickEvents: ...
   u("span", { "aria-label": t.details, "data-microtip-position": "top-left", "data-microtip-size": "medium", role: "tooltip", onClick: () => alert(`${t.message} 
 
  ${t.details}`), children: "?" })] }) }, t.message)) }) });
@@ -2623,7 +2631,7 @@ var pi = { exports: {} };
 	http://jedwatson.github.io/classnames
 */
 var pa;
-function Ll() {
+function Ul() {
   return pa || (pa = 1, function(i) {
     (function() {
       var e = {}.hasOwnProperty;
@@ -2655,8 +2663,8 @@ function Ll() {
     })();
   }(pi)), pi.exports;
 }
-var Hl = Ll();
-const ae = /* @__PURE__ */ $e(Hl), jl = {
+var $l = Ul();
+const ae = /* @__PURE__ */ $e($l), Ll = {
   position: "relative",
   // Disabled for our use case: the wrapper elements around FileList already deal with overflow,
   // and this additional property would hide things that we want to show.
@@ -2664,7 +2672,7 @@ const ae = /* @__PURE__ */ $e(Hl), jl = {
   // overflow: 'hidden',
   width: "100%",
   minHeight: "100%"
-}, ql = {
+}, Hl = {
   position: "absolute",
   top: 0,
   left: 0,
@@ -2676,7 +2684,7 @@ const ae = /* @__PURE__ */ $e(Hl), jl = {
   width: "100%",
   overflow: "visible"
 };
-class Wl extends X {
+class jl extends X {
   constructor(e) {
     super(e), this.focusElement = null, this.state = {
       offset: 0,
@@ -2712,34 +2720,34 @@ class Wl extends X {
     const { offset: s, height: n } = this.state;
     let p = Math.floor(s / t), l = Math.floor(n / t);
     a && (p = Math.max(0, p - p % a), l += a);
-    const c = p + l + 4, d = e.slice(p, c), h = { ...jl, height: e.length * t }, m = { ...ql, top: p * t };
+    const c = p + l + 4, d = e.slice(p, c), h = { ...Ll, height: e.length * t }, m = { ...Hl, top: p * t };
     return u("div", { onScroll: this.handleScroll, ...o, children: u("div", { role: "presentation", style: h, children: u("div", { role: "presentation", style: m, children: d.map(r) }) }) });
   }
 }
-function Vl() {
+function ql() {
   return u("svg", { "aria-hidden": "true", focusable: "false", width: "30", height: "30", viewBox: "0 0 30 30", children: u("path", { d: "M15 30c8.284 0 15-6.716 15-15 0-8.284-6.716-15-15-15C6.716 0 0 6.716 0 15c0 8.284 6.716 15 15 15zm4.258-12.676v6.846h-8.426v-6.846H5.204l9.82-12.364 9.82 12.364H19.26z" }) });
 }
 function da(i, e, t, r) {
   return i === e ? i : r === 0 ? e : i + (e - i) * 2 ** (-r / t);
 }
-const Gl = "@uppy/status-bar", Xl = "A progress bar for Uppy, with many bells and whistles.", Yl = "4.2.3", Kl = "MIT", Zl = "lib/index.js", Ql = "dist/style.min.css", Jl = "module", ep = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, tp = ["file uploader", "uppy", "uppy-plugin", "progress bar", "status bar", "progress", "upload", "eta", "speed"], ip = "https://uppy.io", rp = { url: "https://github.com/transloadit/uppy/issues" }, ap = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, op = ["src", "lib", "dist", "CHANGELOG.md"], sp = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/utils": "^6.2.2", classnames: "^2.2.6", preact: "^10.5.13" }, np = { "@uppy/core": "^4.5.2" }, lp = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, pp = {
-  name: Gl,
-  description: Xl,
-  version: Yl,
-  license: Kl,
-  main: Zl,
-  style: Ql,
-  type: Jl,
-  scripts: ep,
-  keywords: tp,
-  homepage: ip,
-  bugs: rp,
-  repository: ap,
-  files: op,
-  dependencies: sp,
-  peerDependencies: np,
-  devDependencies: lp
-}, dp = {
+const Wl = "@uppy/status-bar", Vl = "A progress bar for Uppy, with many bells and whistles.", Gl = "4.2.3", Xl = "MIT", Yl = "lib/index.js", Kl = "dist/style.min.css", Zl = "module", Ql = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, Jl = ["file uploader", "uppy", "uppy-plugin", "progress bar", "status bar", "progress", "upload", "eta", "speed"], ep = "https://uppy.io", tp = { url: "https://github.com/transloadit/uppy/issues" }, ip = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, rp = ["src", "lib", "dist", "CHANGELOG.md"], ap = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/utils": "^6.2.2", classnames: "^2.2.6", preact: "^10.5.13" }, op = { "@uppy/core": "^4.5.2" }, sp = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, np = {
+  name: Wl,
+  description: Vl,
+  version: Gl,
+  license: Xl,
+  main: Yl,
+  style: Kl,
+  type: Zl,
+  scripts: Ql,
+  keywords: Jl,
+  homepage: ep,
+  bugs: tp,
+  repository: ip,
+  files: rp,
+  dependencies: ap,
+  peerDependencies: op,
+  devDependencies: sp
+}, lp = {
   strings: {
     // Shown in the status bar while files are being uploaded.
     uploading: "Uploading",
@@ -2796,31 +2804,31 @@ const Gl = "@uppy/status-bar", Xl = "A progress bar for Uppy, with many bells an
   STATE_POSTPROCESSING: "postprocessing",
   STATE_COMPLETE: "complete"
 };
-function up(i) {
+function pp(i) {
   const e = Math.floor(i / 3600) % 24, t = Math.floor(i / 60) % 60, r = Math.floor(i % 60);
   return { hours: e, minutes: t, seconds: r };
 }
-function cp(i) {
-  const e = up(i), t = e.hours === 0 ? "" : `${e.hours}h`, r = e.minutes === 0 ? "" : `${e.hours === 0 ? e.minutes : ` ${e.minutes.toString(10).padStart(2, "0")}`}m`, a = e.hours !== 0 ? "" : `${e.minutes === 0 ? e.seconds : ` ${e.seconds.toString(10).padStart(2, "0")}`}s`;
+function dp(i) {
+  const e = pp(i), t = e.hours === 0 ? "" : `${e.hours}h`, r = e.minutes === 0 ? "" : `${e.hours === 0 ? e.minutes : ` ${e.minutes.toString(10).padStart(2, "0")}`}m`, a = e.hours !== 0 ? "" : `${e.minutes === 0 ? e.seconds : ` ${e.seconds.toString(10).padStart(2, "0")}`}s`;
   return `${t}${r}${a}`;
 }
-const hp = "·", ua = () => ` ${hp} `;
-function fp(i) {
+const up = "·", ua = () => ` ${up} `;
+function cp(i) {
   const { newFiles: e, isUploadStarted: t, recoveredState: r, i18n: a, uploadState: o, isSomeGhost: s, startUpload: n } = i, p = ae("uppy-u-reset", "uppy-c-btn", "uppy-StatusBar-actionBtn", "uppy-StatusBar-actionBtn--upload", {
     "uppy-c-btn-primary": o === ne.STATE_WAITING
   }, { "uppy-StatusBar-actionBtn--disabled": s }), l = e && t && !r ? a("uploadXNewFiles", { smart_count: e }) : a("uploadXFiles", { smart_count: e });
   return u("button", { type: "button", className: p, "aria-label": a("uploadXFiles", { smart_count: e }), onClick: n, disabled: s, "data-uppy-super-focusable": !0, children: l });
 }
-function mp(i) {
+function hp(i) {
   const { i18n: e, uppy: t } = i;
   return u("button", { type: "button", className: "uppy-u-reset uppy-c-btn uppy-StatusBar-actionBtn uppy-StatusBar-actionBtn--retry", "aria-label": e("retryUpload"), onClick: () => t.retryAll().catch(() => {
   }), "data-uppy-super-focusable": !0, "data-cy": "retry", children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "8", height: "10", viewBox: "0 0 8 10", children: u("path", { d: "M4 2.408a2.75 2.75 0 1 0 2.75 2.75.626.626 0 0 1 1.25.018v.023a4 4 0 1 1-4-4.041V.25a.25.25 0 0 1 .389-.208l2.299 1.533a.25.25 0 0 1 0 .416l-2.3 1.533A.25.25 0 0 1 4 3.316v-.908z" }) }), e("retry")] });
 }
-function gp(i) {
+function fp(i) {
   const { i18n: e, uppy: t } = i;
   return u("button", { type: "button", className: "uppy-u-reset uppy-StatusBar-actionCircleBtn", title: e("cancel"), "aria-label": e("cancel"), onClick: () => t.cancelAll(), "data-cy": "cancel", "data-uppy-super-focusable": !0, children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "16", height: "16", viewBox: "0 0 16 16", children: u("g", { fill: "none", fillRule: "evenodd", children: [u("circle", { fill: "#888", cx: "8", cy: "8", r: "8" }), u("path", { fill: "#FFF", d: "M9.283 8l2.567 2.567-1.283 1.283L8 9.283 5.433 11.85 4.15 10.567 6.717 8 4.15 5.433 5.433 4.15 8 6.717l2.567-2.567 1.283 1.283z" })] }) }) });
 }
-function yp(i) {
+function mp(i) {
   const { isAllPaused: e, i18n: t, isAllComplete: r, resumableUploads: a, uppy: o } = i, s = t(e ? "resume" : "pause");
   function n() {
     if (!r) {
@@ -2837,18 +2845,18 @@ function yp(i) {
   }
   return u("button", { title: s, "aria-label": s, className: "uppy-u-reset uppy-StatusBar-actionCircleBtn", type: "button", onClick: n, "data-cy": "togglePauseResume", "data-uppy-super-focusable": !0, children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "16", height: "16", viewBox: "0 0 16 16", children: u("g", { fill: "none", fillRule: "evenodd", children: [u("circle", { fill: "#888", cx: "8", cy: "8", r: "8" }), u("path", { fill: "#FFF", d: e ? "M6 4.25L11.5 8 6 11.75z" : "M5 4.5h2v7H5v-7zm4 0h2v7H9v-7z" })] }) }) });
 }
-function bp(i) {
+function gp(i) {
   const { i18n: e, doneButtonHandler: t } = i;
   return u("button", { type: "button", className: "uppy-u-reset uppy-c-btn uppy-StatusBar-actionBtn uppy-StatusBar-actionBtn--done", onClick: t, "data-uppy-super-focusable": !0, children: e("done") });
 }
 function Mo() {
   return u("svg", { className: "uppy-StatusBar-spinner", "aria-hidden": "true", focusable: "false", width: "14", height: "14", children: u("path", { d: "M13.983 6.547c-.12-2.509-1.64-4.893-3.939-5.936-2.48-1.127-5.488-.656-7.556 1.094C.524 3.367-.398 6.048.162 8.562c.556 2.495 2.46 4.52 4.94 5.183 2.932.784 5.61-.602 7.256-3.015-1.493 1.993-3.745 3.309-6.298 2.868-2.514-.434-4.578-2.349-5.153-4.84a6.226 6.226 0 0 1 2.98-6.778C6.34.586 9.74 1.1 11.373 3.493c.407.596.693 1.282.842 1.988.127.598.073 1.197.161 1.794.078.525.543 1.257 1.15.864.525-.341.49-1.05.456-1.592-.007-.15.02.3 0 0", fillRule: "evenodd" }) });
 }
-function vp(i) {
+function yp(i) {
   const { progress: e } = i, { value: t, mode: r, message: a } = e;
   return u("div", { className: "uppy-StatusBar-content", children: [u(Mo, {}), r === "determinate" ? `${Math.round(t * 100)}% · ` : "", a] });
 }
-function wp(i) {
+function bp(i) {
   const { numUploads: e, complete: t, totalUploadedSize: r, totalSize: a, totalETA: o, i18n: s } = i, n = e > 1, p = ce(r);
   return u("div", { className: "uppy-StatusBar-statusSecondary", children: [n && s("filesUploadedOfTotal", {
     complete: t,
@@ -2857,28 +2865,28 @@ function wp(i) {
     complete: p,
     total: ce(a)
   }) : s("dataUploadedOfUnknown", { complete: p }), ua(), o != null && s("xTimeLeft", {
-    time: cp(o)
+    time: dp(o)
   })] })] });
 }
 function zo(i) {
   const { i18n: e, complete: t, numUploads: r } = i;
   return u("div", { className: "uppy-StatusBar-statusSecondary", children: e("filesUploadedOfTotal", { complete: t, smart_count: r }) });
 }
-function xp(i) {
+function vp(i) {
   const { i18n: e, newFiles: t, startUpload: r } = i, a = ae("uppy-u-reset", "uppy-c-btn", "uppy-StatusBar-actionBtn", "uppy-StatusBar-actionBtn--uploadNewlyAdded");
   return u("div", { className: "uppy-StatusBar-statusSecondary", children: [u("div", { className: "uppy-StatusBar-statusSecondaryHint", children: e("xMoreFilesAdded", { smart_count: t }) }), u("button", { type: "button", className: a, "aria-label": e("uploadXFiles", { smart_count: t }), onClick: r, children: e("upload") })] });
 }
-function _p(i) {
+function wp(i) {
   const { i18n: e, supportsUploadProgress: t, totalProgress: r, showProgressDetails: a, isUploadStarted: o, isAllComplete: s, isAllPaused: n, newFiles: p, numUploads: l, complete: c, totalUploadedSize: d, totalSize: h, totalETA: m, startUpload: f } = i, y = p && o;
   if (!o || s)
     return null;
   const b = e(n ? "paused" : "uploading");
   function v() {
-    return !n && !y && a ? t ? u(wp, { numUploads: l, complete: c, totalUploadedSize: d, totalSize: h, totalETA: m, i18n: e }) : u(zo, { i18n: e, complete: c, numUploads: l }) : null;
+    return !n && !y && a ? t ? u(bp, { numUploads: l, complete: c, totalUploadedSize: d, totalSize: h, totalETA: m, i18n: e }) : u(zo, { i18n: e, complete: c, numUploads: l }) : null;
   }
-  return u("div", { className: "uppy-StatusBar-content", title: b, children: [n ? null : u(Mo, {}), u("div", { className: "uppy-StatusBar-status", children: [u("div", { className: "uppy-StatusBar-statusPrimary", children: t && r !== 0 ? `${b}: ${r}%` : b }), v(), y ? u(xp, { i18n: e, newFiles: p, startUpload: f }) : null] })] });
+  return u("div", { className: "uppy-StatusBar-content", title: b, children: [n ? null : u(Mo, {}), u("div", { className: "uppy-StatusBar-status", children: [u("div", { className: "uppy-StatusBar-statusPrimary", children: t && r !== 0 ? `${b}: ${r}%` : b }), v(), y ? u(vp, { i18n: e, newFiles: p, startUpload: f }) : null] })] });
 }
-function Dp(i) {
+function xp(i) {
   const { i18n: e } = i;
   return u("div", {
     className: "uppy-StatusBar-content",
@@ -2888,7 +2896,7 @@ function Dp(i) {
     children: u("div", { className: "uppy-StatusBar-status", children: u("div", { className: "uppy-StatusBar-statusPrimary", children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-StatusBar-statusIndicator uppy-c-icon", width: "15", height: "11", viewBox: "0 0 15 11", children: u("path", { d: "M.414 5.843L1.627 4.63l3.472 3.472L13.202 0l1.212 1.213L5.1 10.528z" }) }), e("complete")] }) })
   });
 }
-function kp(i) {
+function _p(i) {
   const { error: e, i18n: t, complete: r, numUploads: a } = i;
   function o() {
     const s = `${t("uploadFailed")} 
@@ -2912,8 +2920,8 @@ function di(i) {
     value: a
   };
 }
-const { STATE_ERROR: ca, STATE_WAITING: Sp, STATE_PREPROCESSING: ui, STATE_UPLOADING: yt, STATE_POSTPROCESSING: ci, STATE_COMPLETE: bt } = ne;
-function Pp({ newFiles: i, allowNewUpload: e, isUploadInProgress: t, isAllPaused: r, resumableUploads: a, error: o, hideUploadButton: s = void 0, hidePauseResumeButton: n = !1, hideCancelButton: p = !1, hideRetryButton: l = !1, recoveredState: c, uploadState: d, totalProgress: h, files: m, supportsUploadProgress: f, hideAfterFinish: y = !1, isSomeGhost: b, doneButtonHandler: v = void 0, isUploadStarted: x, i18n: _, startUpload: C, uppy: B, isAllComplete: g, showProgressDetails: D = void 0, numUploads: k, complete: S, totalSize: O, totalETA: T, totalUploadedSize: M }) {
+const { STATE_ERROR: ca, STATE_WAITING: Dp, STATE_PREPROCESSING: ui, STATE_UPLOADING: yt, STATE_POSTPROCESSING: ci, STATE_COMPLETE: bt } = ne;
+function kp({ newFiles: i, allowNewUpload: e, isUploadInProgress: t, isAllPaused: r, resumableUploads: a, error: o, hideUploadButton: s = void 0, hidePauseResumeButton: n = !1, hideCancelButton: p = !1, hideRetryButton: l = !1, recoveredState: c, uploadState: d, totalProgress: h, files: m, supportsUploadProgress: f, hideAfterFinish: y = !1, isSomeGhost: b, doneButtonHandler: v = void 0, isUploadStarted: x, i18n: _, startUpload: C, uppy: B, isAllComplete: g, showProgressDetails: D = void 0, numUploads: k, complete: S, totalSize: O, totalETA: T, totalUploadedSize: M }) {
   function F() {
     switch (d) {
       case ci:
@@ -2942,27 +2950,27 @@ function Pp({ newFiles: i, allowNewUpload: e, isUploadInProgress: t, isAllPaused
         return !1;
     }
   }
-  const A = F(), V = A ?? 100, oe = !o && i && (!t && !r || c) && e && !s, ue = !p && d !== Sp && d !== bt, he = a && !n && d === yt, xe = o && !g && !l, _e = v && d === bt, Fe = ae("uppy-StatusBar-progress", {
+  const A = F(), V = A ?? 100, oe = !o && i && (!t && !r || c) && e && !s, ue = !p && d !== Dp && d !== bt, he = a && !n && d === yt, xe = o && !g && !l, _e = v && d === bt, Fe = ae("uppy-StatusBar-progress", {
     "is-indeterminate": R()
   }), fe = ae("uppy-StatusBar", `is-${d}`, { "has-ghosts": b }), De = (() => {
     switch (d) {
       case ui:
       case ci:
-        return u(vp, { progress: di(m) });
+        return u(yp, { progress: di(m) });
       case bt:
-        return u(Dp, { i18n: _ });
+        return u(xp, { i18n: _ });
       case ca:
-        return u(kp, { error: o, i18n: _, numUploads: k, complete: S });
+        return u(_p, { error: o, i18n: _, numUploads: k, complete: S });
       case yt:
-        return u(_p, { i18n: _, supportsUploadProgress: f, totalProgress: h, showProgressDetails: D, isUploadStarted: x, isAllComplete: g, isAllPaused: r, newFiles: i, numUploads: k, complete: S, totalUploadedSize: M, totalSize: O, totalETA: T, startUpload: C });
+        return u(wp, { i18n: _, supportsUploadProgress: f, totalProgress: h, showProgressDetails: D, isUploadStarted: x, isAllComplete: g, isAllPaused: r, newFiles: i, numUploads: k, complete: S, totalUploadedSize: M, totalSize: O, totalETA: T, startUpload: C });
       default:
         return null;
     }
   })();
-  return !(oe || xe || he || ue || _e) && !De || d === bt && y ? null : u("div", { className: fe, children: [u("div", { className: Fe, style: { width: `${V}%` }, role: "progressbar", "aria-label": `${V}%`, "aria-valuetext": `${V}%`, "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": A }), De, u("div", { className: "uppy-StatusBar-actions", children: [oe ? u(fp, { newFiles: i, isUploadStarted: x, recoveredState: c, i18n: _, isSomeGhost: b, startUpload: C, uploadState: d }) : null, xe ? u(mp, { i18n: _, uppy: B }) : null, he ? u(yp, { isAllPaused: r, i18n: _, isAllComplete: g, resumableUploads: a, uppy: B }) : null, ue ? u(gp, { i18n: _, uppy: B }) : null, _e ? u(bp, { i18n: _, doneButtonHandler: v }) : null] })] });
+  return !(oe || xe || he || ue || _e) && !De || d === bt && y ? null : u("div", { className: fe, children: [u("div", { className: Fe, style: { width: `${V}%` }, role: "progressbar", "aria-label": `${V}%`, "aria-valuetext": `${V}%`, "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": A }), De, u("div", { className: "uppy-StatusBar-actions", children: [oe ? u(cp, { newFiles: i, isUploadStarted: x, recoveredState: c, i18n: _, isSomeGhost: b, startUpload: C, uploadState: d }) : null, xe ? u(hp, { i18n: _, uppy: B }) : null, he ? u(mp, { isAllPaused: r, i18n: _, isAllComplete: g, resumableUploads: a, uppy: B }) : null, ue ? u(fp, { i18n: _, uppy: B }) : null, _e ? u(gp, { i18n: _, doneButtonHandler: v }) : null] })] });
 }
-const Cp = 2e3, Bp = 2e3;
-function Ip(i, e, t, r) {
+const Sp = 2e3, Pp = 2e3;
+function Cp(i, e, t, r) {
   if (i)
     return ne.STATE_ERROR;
   if (e)
@@ -2979,7 +2987,7 @@ function Ip(i, e, t, r) {
   }
   return a;
 }
-const Fp = {
+const Bp = {
   hideUploadButton: !1,
   hideRetryButton: !1,
   hidePauseResumeButton: !1,
@@ -2988,14 +2996,14 @@ const Fp = {
   hideAfterFinish: !0,
   doneButtonHandler: null
 };
-class Tp extends ve {
-  static VERSION = pp.version;
+class Ip extends ve {
+  static VERSION = np.version;
   #e;
   #t;
   #r;
   #i;
   constructor(e, t) {
-    super(e, { ...Fp, ...t }), this.id = this.opts.id || "StatusBar", this.title = "StatusBar", this.type = "progressindicator", this.defaultLocale = dp, this.i18nInit(), this.render = this.render.bind(this), this.install = this.install.bind(this);
+    super(e, { ...Bp, ...t }), this.id = this.opts.id || "StatusBar", this.title = "StatusBar", this.type = "progressindicator", this.defaultLocale = lp, this.i18nInit(), this.render = this.render.bind(this), this.install = this.install.bind(this);
   }
   #a(e) {
     if (e.total == null || e.total === 0)
@@ -3010,9 +3018,9 @@ class Tp extends ve {
     const a = e.uploaded - this.#t;
     if (this.#t = e.uploaded, a <= 0)
       return Math.round((this.#i ?? 0) / 100) / 10;
-    const o = a / r, s = this.#r == null ? o : da(o, this.#r, Cp, r);
+    const o = a / r, s = this.#r == null ? o : da(o, this.#r, Sp, r);
     this.#r = s;
-    const n = t / s, p = Math.max(this.#i - r, 0), l = this.#i == null ? n : da(n, p, Bp, r);
+    const n = t / s, p = Math.max(this.#i - r, 0), l = this.#i == null ? n : da(n, p, Pp, r);
     return this.#i = l, this.#e = performance.now(), Math.round(l / 100) / 10;
   }
   startUpload = () => this.uppy.upload().catch(() => {
@@ -3029,9 +3037,9 @@ class Tp extends ve {
       uploaded: C,
       total: _
     });
-    return Pp({
+    return kp({
       error: s,
-      uploadState: Ip(s, h, n, e.files || {}),
+      uploadState: Cp(s, h, n, e.files || {}),
       allowNewUpload: a,
       totalProgress: o,
       totalSize: _,
@@ -3081,9 +3089,9 @@ class Tp extends ve {
     this.unmount(), this.uppy.off("upload", this.#s);
   }
 }
-const Ep = /^data:([^/]+\/[^,;]+(?:[^,]*?))(;base64)?,([\s\S]*)$/;
-function Ap(i, e, t) {
-  const r = Ep.exec(i), a = e.mimeType ?? r?.[1] ?? "plain/text";
+const Fp = /^data:([^/]+\/[^,;]+(?:[^,]*?))(;base64)?,([\s\S]*)$/;
+function Tp(i, e, t) {
+  const r = Fp.exec(i), a = e.mimeType ?? r?.[1] ?? "plain/text";
   let o;
   if (r?.[2] != null) {
     const s = atob(decodeURIComponent(r[3])), n = new Uint8Array(s.length);
@@ -3103,9 +3111,9 @@ function E(i, e, t) {
   return e in i ? Object.defineProperty(i, e, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : i[e] = t, i;
 }
 var Ro = typeof self < "u" ? self : global;
-const st = typeof navigator < "u", Op = st && typeof HTMLImageElement > "u", ma = !(typeof global > "u" || typeof process > "u" || !process.versions || !process.versions.node), No = Ro.Buffer, Uo = !!No, Mp = (i) => i !== void 0;
+const st = typeof navigator < "u", Ep = st && typeof HTMLImageElement > "u", ma = !(typeof global > "u" || typeof process > "u" || !process.versions || !process.versions.node), No = Ro.Buffer, Uo = !!No, Ap = (i) => i !== void 0;
 function $o(i) {
-  return i === void 0 || (i instanceof Map ? i.size === 0 : Object.values(i).filter(Mp).length === 0);
+  return i === void 0 || (i instanceof Map ? i.size === 0 : Object.values(i).filter(Ap).length === 0);
 }
 function W(i) {
   let e = new Error(i);
@@ -3252,7 +3260,7 @@ class Ji extends Map {
   }
 }
 var Lo = new Ji("file parser"), ee = new Ji("segment parser"), er = new Ji("file reader");
-let zp = Ro.fetch;
+let Op = Ro.fetch;
 function ba(i, e) {
   return (t = i).startsWith("data:") || t.length > 1e4 ? Fi(i, e, "base64") : ma && i.includes("://") ? Ii(i, e, "url", va) : ma ? Fi(i, e, "fs") : st ? Ii(i, e, "url", va) : void W("Invalid input argument");
   var t;
@@ -3267,10 +3275,10 @@ async function Fi(i, e, t) {
   let r = new (er.get(t))(i, e);
   return await r.read(), r;
 }
-const va = (i) => zp(i).then((e) => e.arrayBuffer()), Ti = (i) => new Promise((e, t) => {
+const va = (i) => Op(i).then((e) => e.arrayBuffer()), Ti = (i) => new Promise((e, t) => {
   let r = new FileReader();
   r.onloadend = () => e(r.result || new ArrayBuffer()), r.onerror = t, r.readAsArrayBuffer(i);
-}), tr = /* @__PURE__ */ new Map(), Rp = /* @__PURE__ */ new Map(), Np = /* @__PURE__ */ new Map(), vt = ["chunked", "firstChunkSize", "firstChunkSizeNode", "firstChunkSizeBrowser", "chunkSize", "chunkLimit"], Ho = ["jfif", "xmp", "icc", "iptc", "ihdr"], Ei = ["tiff", ...Ho], j = ["ifd0", "ifd1", "exif", "gps", "interop"], wt = [...Ei, ...j], xt = ["makerNote", "userComment"], jo = ["translateKeys", "translateValues", "reviveValues", "multiSegment"], _t = [...jo, "sanitize", "mergeOutput", "silentErrors"];
+}), tr = /* @__PURE__ */ new Map(), Mp = /* @__PURE__ */ new Map(), zp = /* @__PURE__ */ new Map(), vt = ["chunked", "firstChunkSize", "firstChunkSizeNode", "firstChunkSizeBrowser", "chunkSize", "chunkLimit"], Ho = ["jfif", "xmp", "icc", "iptc", "ihdr"], Ei = ["tiff", ...Ho], j = ["ifd0", "ifd1", "exif", "gps", "interop"], wt = [...Ei, ...j], xt = ["makerNote", "userComment"], jo = ["translateKeys", "translateValues", "reviveValues", "multiSegment"], _t = [...jo, "sanitize", "mergeOutput", "silentErrors"];
 class qo {
   get translate() {
     return this.translateKeys || this.translateValues || this.reviveValues;
@@ -3394,13 +3402,13 @@ function Mt(i, e) {
   for (let t of e) i.add(t);
 }
 E(ir, "default", G);
-class Up {
+class Rp {
   constructor(e) {
     E(this, "parsers", {}), E(this, "output", {}), E(this, "errors", []), E(this, "pushToErrors", (t) => this.errors.push(t)), this.options = ir.useCached(e);
   }
   async read(e) {
     this.file = await function(t, r) {
-      return typeof t == "string" ? ba(t, r) : st && !Op && t instanceof HTMLImageElement ? ba(t.src, r) : t instanceof Uint8Array || t instanceof ArrayBuffer || t instanceof DataView ? new ie(t) : st && t instanceof Blob ? Ii(t, r, "blob", Ti) : void W("Invalid input argument");
+      return typeof t == "string" ? ba(t, r) : st && !Ep && t instanceof HTMLImageElement ? ba(t.src, r) : t instanceof Uint8Array || t instanceof ArrayBuffer || t instanceof DataView ? new ie(t) : st && t instanceof Blob ? Ii(t, r, "blob", Ti) : void W("Invalid input argument");
     }(e, this.options);
   }
   setup() {
@@ -3456,7 +3464,7 @@ class Oe {
     return this.translated ? this.translated : this.raw ? Object.fromEntries(this.raw) : void 0;
   }
   translateBlock(e, t) {
-    let r = Np.get(t), a = Rp.get(t), o = tr.get(t), s = this.options[t], n = s.reviveValues && !!r, p = s.translateValues && !!a, l = s.translateKeys && !!o, c = {};
+    let r = zp.get(t), a = Mp.get(t), o = tr.get(t), s = this.options[t], n = s.reviveValues && !!r, p = s.translateValues && !!a, l = s.translateKeys && !!o, c = {};
     for (let [d, h] of e) n && r.has(d) ? h = r.get(d)(h) : p && a.has(d) && (h = this.translateValue(h, a.get(d))), l && o.has(d) && (d = o.get(d) || d), c[d] = h;
     return c;
   }
@@ -3472,13 +3480,13 @@ class Oe {
   }
 }
 E(Oe, "headerLength", 4), E(Oe, "type", void 0), E(Oe, "multiSegment", !1), E(Oe, "canHandle", () => !1);
-function $p(i) {
+function Np(i) {
   return i === 192 || i === 194 || i === 196 || i === 219 || i === 221 || i === 218 || i === 254;
 }
-function Lp(i) {
+function Up(i) {
   return i >= 224 && i <= 239;
 }
-function Hp(i, e, t) {
+function $p(i, e, t) {
   for (let [r, a] of ee) if (a.canHandle(i, e, t)) return r;
 }
 class _a extends class {
@@ -3546,10 +3554,10 @@ class _a extends class {
     t -= 2;
     let r, a, o, s, n, p, { file: l, findAll: c, wanted: d, remaining: h, options: m } = this;
     for (; e < t; e++) if (l.getUint8(e) === 255) {
-      if (r = l.getUint8(e + 1), Lp(r)) {
-        if (a = l.getUint16(e + 2), o = Hp(l, e, a), o && d.has(o) && (s = ee.get(o), n = s.findPosition(l, e), p = m[o], n.type = o, this.appSegments.push(n), !c && (s.multiSegment && p.multiSegment ? (this.unfinishedMultiSegment = n.chunkNumber < n.chunkCount, this.unfinishedMultiSegment || h.delete(o)) : h.delete(o), h.size === 0))) break;
+      if (r = l.getUint8(e + 1), Up(r)) {
+        if (a = l.getUint16(e + 2), o = $p(l, e, a), o && d.has(o) && (s = ee.get(o), n = s.findPosition(l, e), p = m[o], n.type = o, this.appSegments.push(n), !c && (s.multiSegment && p.multiSegment ? (this.unfinishedMultiSegment = n.chunkNumber < n.chunkCount, this.unfinishedMultiSegment || h.delete(o)) : h.delete(o), h.size === 0))) break;
         m.recordUnknownSegments && (n = Oe.findPosition(l, e), n.marker = r, this.unknownSegments.push(n)), e += a + 1;
-      } else if ($p(r)) {
+      } else if (Np(r)) {
         if (a = l.getUint16(e + 2), r === 218 && m.stopAfterSos !== !1) return;
         m.recordJpegSegments && this.jpegSegments.push({ offset: e, length: a, marker: r }), e += a + 1;
       }
@@ -3577,8 +3585,8 @@ class _a extends class {
   }
 }
 E(_a, "type", "jpeg"), Lo.set("jpeg", _a);
-const jp = [void 0, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8, 4];
-class qp extends Oe {
+const Lp = [void 0, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8, 4];
+class Hp extends Oe {
   parseHeader() {
     var e = this.chunk.getUint16();
     e === 18761 ? this.le = !0 : e === 19789 && (this.le = !1), this.chunk.le = this.le, this.headerParsed = !0;
@@ -3598,7 +3606,7 @@ class qp extends Oe {
     return r;
   }
   parseTag(e, t, r) {
-    let { chunk: a } = this, o = a.getUint16(e + 2), s = a.getUint32(e + 4), n = jp[o];
+    let { chunk: a } = this, o = a.getUint16(e + 2), s = a.getUint32(e + 4), n = Lp[o];
     if (n * s <= 4 ? e += 8 : e = a.getUint32(e + 8), (o < 1 || o > 13) && W(`Invalid TIFF value type. block: ${r.toUpperCase()}, tag: ${t.toString(16)}, type: ${o}, offset ${e}`), e > a.byteLength && W(`Invalid TIFF value offset. block: ${r.toUpperCase()}, tag: ${t.toString(16)}, type: ${o}, offset ${e} is outside of chunk size ${a.byteLength}`), o === 1) return a.getUint8Array(e, s);
     if (o === 2) return (p = function(l) {
       for (; l.endsWith("\0"); ) l = l.slice(0, -1);
@@ -3668,7 +3676,7 @@ class qp extends Oe {
     }
   }
 }
-class mi extends qp {
+class mi extends Hp {
   static canHandle(e, t) {
     return e.getUint8(t + 1) === 225 && e.getUint32(t + 4) === 1165519206 && e.getUint16(t + 8) === 0;
   }
@@ -3756,14 +3764,14 @@ E(mi, "type", "tiff"), E(mi, "headerLength", 10), ee.set("tiff", mi);
 const rr = { ifd0: !1, ifd1: !1, exif: !1, gps: !1, interop: !1, sanitize: !1, reviveValues: !0, translateKeys: !1, translateValues: !1, mergeOutput: !1 };
 Object.assign({}, rr, { firstChunkSize: 4e4, gps: [1, 2, 3, 4] });
 Object.assign({}, rr, { tiff: !1, ifd1: !0, mergeOutput: !1 });
-const Wp = Object.assign({}, rr, { firstChunkSize: 4e4, ifd0: [274] });
-async function Vp(i) {
-  let e = new Up(Wp);
+const jp = Object.assign({}, rr, { firstChunkSize: 4e4, ifd0: [274] });
+async function qp(i) {
+  let e = new Rp(jp);
   await e.read(i);
   let t = await e.parse();
   if (t && t.ifd0) return t.ifd0[274];
 }
-const Gp = Object.freeze({ 1: { dimensionSwapped: !1, scaleX: 1, scaleY: 1, deg: 0, rad: 0 }, 2: { dimensionSwapped: !1, scaleX: -1, scaleY: 1, deg: 0, rad: 0 }, 3: { dimensionSwapped: !1, scaleX: 1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 4: { dimensionSwapped: !1, scaleX: -1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 5: { dimensionSwapped: !0, scaleX: 1, scaleY: -1, deg: 90, rad: 90 * Math.PI / 180 }, 6: { dimensionSwapped: !0, scaleX: 1, scaleY: 1, deg: 90, rad: 90 * Math.PI / 180 }, 7: { dimensionSwapped: !0, scaleX: 1, scaleY: -1, deg: 270, rad: 270 * Math.PI / 180 }, 8: { dimensionSwapped: !0, scaleX: 1, scaleY: 1, deg: 270, rad: 270 * Math.PI / 180 } });
+const Wp = Object.freeze({ 1: { dimensionSwapped: !1, scaleX: 1, scaleY: 1, deg: 0, rad: 0 }, 2: { dimensionSwapped: !1, scaleX: -1, scaleY: 1, deg: 0, rad: 0 }, 3: { dimensionSwapped: !1, scaleX: 1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 4: { dimensionSwapped: !1, scaleX: -1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 5: { dimensionSwapped: !0, scaleX: 1, scaleY: -1, deg: 90, rad: 90 * Math.PI / 180 }, 6: { dimensionSwapped: !0, scaleX: 1, scaleY: 1, deg: 90, rad: 90 * Math.PI / 180 }, 7: { dimensionSwapped: !0, scaleX: 1, scaleY: -1, deg: 270, rad: 270 * Math.PI / 180 }, 8: { dimensionSwapped: !0, scaleX: 1, scaleY: 1, deg: 270, rad: 270 * Math.PI / 180 } });
 let Ze = !0, Qe = !0;
 if (typeof navigator == "object") {
   let i = navigator.userAgent;
@@ -3785,13 +3793,13 @@ if (typeof navigator == "object") {
     Ze = Qe = Number(e) < 77;
   }
 }
-async function Xp(i) {
-  let e = await Vp(i);
-  return Object.assign({ canvas: Ze, css: Qe }, Gp[e]);
+async function Vp(i) {
+  let e = await qp(i);
+  return Object.assign({ canvas: Ze, css: Qe }, Wp[e]);
 }
-class Yp extends ie {
+class Gp extends ie {
   constructor(...e) {
-    super(...e), E(this, "ranges", new Kp()), this.byteLength !== 0 && this.ranges.add(0, this.byteLength);
+    super(...e), E(this, "ranges", new Xp()), this.byteLength !== 0 && this.ranges.add(0, this.byteLength);
   }
   _tryExtend(e, t, r) {
     if (e === 0 && this.byteLength === 0 && r) {
@@ -3826,7 +3834,7 @@ class Yp extends ie {
     return this.ranges.available(e, t);
   }
 }
-class Kp {
+class Xp {
   constructor() {
     E(this, "list", []);
   }
@@ -3849,7 +3857,7 @@ class Kp {
 function ka(i, e, t) {
   return i <= e && e <= t;
 }
-class Zp extends Yp {
+class Yp extends Gp {
   constructor(e, t) {
     super(0), E(this, "chunksRead", 0), this.input = e, this.options = t;
   }
@@ -3885,7 +3893,7 @@ class Zp extends Yp {
   close() {
   }
 }
-er.set("blob", class extends Zp {
+er.set("blob", class extends Yp {
   async readWhole() {
     this.chunked = !1;
     let i = await Ti(this.input);
@@ -3899,28 +3907,28 @@ er.set("blob", class extends Zp {
     return this.set(a, i, !0);
   }
 });
-const Qp = "@uppy/thumbnail-generator", Jp = "Uppy plugin that generates small previews of images to show on your upload UI.", ed = "4.2.2", td = "MIT", id = "lib/index.js", rd = "module", ad = { build: "tsc --build tsconfig.build.json", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, od = ["file uploader", "uppy", "uppy-plugin", "thumbnail", "preview", "resize"], sd = "https://uppy.io", nd = { url: "https://github.com/transloadit/uppy/issues" }, ld = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, pd = ["src", "lib", "dist", "CHANGELOG.md"], dd = { "@uppy/utils": "^6.2.2", exifr: "^7.0.0" }, ud = { jsdom: "^26.1.0", "namespace-emitter": "2.0.1", typescript: "^5.8.3", vitest: "^3.2.4" }, cd = { "@uppy/core": "^4.5.2" }, hd = {
-  name: Qp,
-  description: Jp,
-  version: ed,
-  license: td,
-  main: id,
-  type: rd,
-  scripts: ad,
-  keywords: od,
-  homepage: sd,
-  bugs: nd,
-  repository: ld,
-  files: pd,
-  dependencies: dd,
-  devDependencies: ud,
-  peerDependencies: cd
-}, fd = {
+const Kp = "@uppy/thumbnail-generator", Zp = "Uppy plugin that generates small previews of images to show on your upload UI.", Qp = "4.2.2", Jp = "MIT", ed = "lib/index.js", td = "module", id = { build: "tsc --build tsconfig.build.json", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, rd = ["file uploader", "uppy", "uppy-plugin", "thumbnail", "preview", "resize"], ad = "https://uppy.io", od = { url: "https://github.com/transloadit/uppy/issues" }, sd = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, nd = ["src", "lib", "dist", "CHANGELOG.md"], ld = { "@uppy/utils": "^6.2.2", exifr: "^7.0.0" }, pd = { jsdom: "^26.1.0", "namespace-emitter": "2.0.1", typescript: "^5.8.3", vitest: "^3.2.4" }, dd = { "@uppy/core": "^4.5.2" }, ud = {
+  name: Kp,
+  description: Zp,
+  version: Qp,
+  license: Jp,
+  main: ed,
+  type: td,
+  scripts: id,
+  keywords: rd,
+  homepage: ad,
+  bugs: od,
+  repository: sd,
+  files: nd,
+  dependencies: ld,
+  devDependencies: pd,
+  peerDependencies: dd
+}, cd = {
   strings: {
     generatingThumbnails: "Generating thumbnails..."
   }
 };
-function md(i, e, t) {
+function hd(i, e, t) {
   try {
     i.getContext("2d").getImageData(0, 0, 1, 1);
   } catch (r) {
@@ -3933,13 +3941,13 @@ function md(i, e, t) {
     if (r === null)
       throw new Error("cannot read image, probably an svg with external resources");
     return r;
-  }) : Promise.resolve().then(() => Ap(i.toDataURL(e, t), {})).then((r) => {
+  }) : Promise.resolve().then(() => Tp(i.toDataURL(e, t), {})).then((r) => {
     if (r === null)
       throw new Error("could not extract blob, probably an old browser");
     return r;
   });
 }
-function gd(i, e) {
+function fd(i, e) {
   let t = i.width, r = i.height;
   (e.deg === 90 || e.deg === 270) && (t = i.height, r = i.width);
   const a = document.createElement("canvas");
@@ -3947,7 +3955,7 @@ function gd(i, e) {
   const o = a.getContext("2d");
   return o.translate(t / 2, r / 2), e.canvas && (o.rotate(e.rad), o.scale(e.scaleX, e.scaleY)), o.drawImage(i, -i.width / 2, -i.height / 2, i.width, i.height), a;
 }
-function yd(i) {
+function md(i) {
   const e = i.width / i.height, t = 5e6, r = 4096;
   let a = Math.floor(Math.sqrt(t * e)), o = Math.floor(t / Math.sqrt(t * e));
   if (a > r && (a = r, o = Math.round(a / e)), o > r && (o = r, a = Math.round(e * o)), i.width > a) {
@@ -3956,21 +3964,21 @@ function yd(i) {
   }
   return i;
 }
-const bd = {
+const gd = {
   thumbnailWidth: null,
   thumbnailHeight: null,
   thumbnailType: "image/jpeg",
   waitForThumbnailsBeforeUpload: !1,
   lazy: !1
 };
-class vd extends ve {
-  static VERSION = hd.version;
+class yd extends ve {
+  static VERSION = ud.version;
   queue;
   queueProcessing;
   defaultThumbnailDimension;
   thumbnailType;
   constructor(e, t) {
-    if (super(e, { ...bd, ...t }), this.type = "modifier", this.id = this.opts.id || "ThumbnailGenerator", this.title = "Thumbnail Generator", this.queue = [], this.queueProcessing = !1, this.defaultThumbnailDimension = 200, this.thumbnailType = this.opts.thumbnailType, this.defaultLocale = fd, this.i18nInit(), this.opts.lazy && this.opts.waitForThumbnailsBeforeUpload)
+    if (super(e, { ...gd, ...t }), this.type = "modifier", this.id = this.opts.id || "ThumbnailGenerator", this.title = "Thumbnail Generator", this.queue = [], this.queueProcessing = !1, this.defaultThumbnailDimension = 200, this.thumbnailType = this.opts.thumbnailType, this.defaultLocale = cd, this.i18nInit(), this.opts.lazy && this.opts.waitForThumbnailsBeforeUpload)
       throw new Error("ThumbnailGenerator: The `lazy` and `waitForThumbnailsBeforeUpload` options are mutually exclusive. Please ensure at most one of them is set to `true`.");
   }
   createThumbnail(e, t, r) {
@@ -3981,10 +3989,10 @@ class vd extends ve {
       }), l.addEventListener("error", (c) => {
         URL.revokeObjectURL(a), p(c.error || new Error("Could not create thumbnail"));
       });
-    }), s = Xp(e.data).catch(() => 1);
+    }), s = Vp(e.data).catch(() => 1);
     return Promise.all([o, s]).then(([n, p]) => {
-      const l = this.getProportionalDimensions(n, t, r, p.deg), c = gd(n, p), d = this.resizeImage(c, l.width, l.height);
-      return md(d, this.thumbnailType, 80);
+      const l = this.getProportionalDimensions(n, t, r, p.deg), c = fd(n, p), d = this.resizeImage(c, l.width, l.height);
+      return hd(d, this.thumbnailType, 80);
     }).then((n) => URL.createObjectURL(n));
   }
   /**
@@ -4012,7 +4020,7 @@ class vd extends ve {
    * Returns a Canvas with the resized image on it.
    */
   resizeImage(e, t, r) {
-    let a = yd(e), o = Math.ceil(Math.log2(a.width / t));
+    let a = md(e), o = Math.ceil(Math.log2(a.width / t));
     o < 1 && (o = 1);
     let s = t * 2 ** (o - 1), n = r * 2 ** (o - 1);
     const p = 2;
@@ -4106,7 +4114,7 @@ function Sa(i) {
   return typeof i == "object" && po(i) ? [i] : null;
 }
 const et = Array.from;
-function wd(i) {
+function bd(i) {
   const e = et(i.files);
   return Promise.resolve(e);
 }
@@ -4152,7 +4160,7 @@ async function* Go(i, e, t = void 0) {
       yield* Go(a, e ? r() : i.name);
   else t != null && (yield t);
 }
-async function* xd(i, e) {
+async function* vd(i, e) {
   const t = await Promise.all(Array.from(i.items, async (r) => {
     let a;
     return a ??= Vo(typeof r.getAsEntry == "function" ? r.getAsEntry() : r.webkitGetAsEntry(), e), {
@@ -4170,36 +4178,36 @@ async function* xd(i, e) {
       }
     else r != null && (yield r);
 }
-async function _d(i, e) {
+async function wd(i, e) {
   const t = e?.logDropError;
   try {
     const r = [];
-    for await (const a of xd(i, t))
+    for await (const a of vd(i, t))
       r.push(a);
     return r;
   } catch {
-    return wd(i);
+    return bd(i);
   }
 }
-const Dd = "@uppy/dashboard", kd = "Universal UI plugin for Uppy.", Sd = "4.4.3", Pd = "MIT", Cd = "lib/index.js", Bd = "dist/style.min.css", Id = "module", Fd = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build", test: "vitest run --silent='passed-only'", "test:e2e": "vitest watch --project browser --browser.headless false" }, Td = ["file uploader", "uppy", "uppy-plugin", "dashboard", "ui"], Ed = "https://uppy.io", Ad = { url: "https://github.com/transloadit/uppy/issues" }, Od = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, Md = ["src", "lib", "dist", "CHANGELOG.md"], zd = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/informer": "^4.3.2", "@uppy/provider-views": "^4.5.2", "@uppy/status-bar": "^4.2.3", "@uppy/thumbnail-generator": "^4.2.2", "@uppy/utils": "^6.2.2", classnames: "^2.2.6", lodash: "^4.17.21", nanoid: "^5.0.9", preact: "^10.5.13", "shallow-equal": "^3.0.0" }, Rd = { "@uppy/core": "^4.5.2", "@uppy/google-drive": "^4.4.2", "@uppy/status-bar": "^4.2.3", "@uppy/url": "^4.3.2", "@uppy/webcam": "^4.3.2", "@vitest/browser": "^3.2.4", cssnano: "^7.0.7", jsdom: "^26.1.0", postcss: "^8.5.6", "postcss-cli": "^11.0.1", "resize-observer-polyfill": "^1.5.0", sass: "^1.89.2", typescript: "^5.8.3", vitest: "^3.2.4" }, Nd = { "@uppy/core": "^4.5.2" }, Ud = {
-  name: Dd,
-  description: kd,
-  version: Sd,
-  license: Pd,
-  main: Cd,
-  style: Bd,
-  type: Id,
-  scripts: Fd,
-  keywords: Td,
-  homepage: Ed,
-  bugs: Ad,
-  repository: Od,
-  files: Md,
-  dependencies: zd,
-  devDependencies: Rd,
-  peerDependencies: Nd
+const xd = "@uppy/dashboard", _d = "Universal UI plugin for Uppy.", Dd = "4.4.3", kd = "MIT", Sd = "lib/index.js", Pd = "dist/style.min.css", Cd = "module", Bd = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build", test: "vitest run --silent='passed-only'", "test:e2e": "vitest watch --project browser --browser.headless false" }, Id = ["file uploader", "uppy", "uppy-plugin", "dashboard", "ui"], Fd = "https://uppy.io", Td = { url: "https://github.com/transloadit/uppy/issues" }, Ed = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, Ad = ["src", "lib", "dist", "CHANGELOG.md"], Od = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/informer": "^4.3.2", "@uppy/provider-views": "^4.5.2", "@uppy/status-bar": "^4.2.3", "@uppy/thumbnail-generator": "^4.2.2", "@uppy/utils": "^6.2.2", classnames: "^2.2.6", lodash: "^4.17.21", nanoid: "^5.0.9", preact: "^10.5.13", "shallow-equal": "^3.0.0" }, Md = { "@uppy/core": "^4.5.2", "@uppy/google-drive": "^4.4.2", "@uppy/status-bar": "^4.2.3", "@uppy/url": "^4.3.2", "@uppy/webcam": "^4.3.2", "@vitest/browser": "^3.2.4", cssnano: "^7.0.7", jsdom: "^26.1.0", postcss: "^8.5.6", "postcss-cli": "^11.0.1", "resize-observer-polyfill": "^1.5.0", sass: "^1.89.2", typescript: "^5.8.3", vitest: "^3.2.4" }, zd = { "@uppy/core": "^4.5.2" }, Rd = {
+  name: xd,
+  description: _d,
+  version: Dd,
+  license: kd,
+  main: Sd,
+  style: Pd,
+  type: Cd,
+  scripts: Bd,
+  keywords: Id,
+  homepage: Fd,
+  bugs: Td,
+  repository: Ed,
+  files: Ad,
+  dependencies: Od,
+  devDependencies: Md,
+  peerDependencies: zd
 };
-function $d() {
+function Nd() {
   const i = document.body;
   return !(!("draggable" in i) || !("ondragstart" in i && "ondrop" in i) || !("FormData" in window) || !("FileReader" in window));
 }
@@ -4305,14 +4313,14 @@ class Xo extends X {
     }), this.renderSourcesList(this.props.acquirers, this.props.disableLocalFiles), u("div", { className: "uppy-Dashboard-AddFiles-info", children: [this.props.note && u("div", { className: "uppy-Dashboard-note", children: this.props.note }), this.props.proudlyDisplayPoweredByUppy && this.renderPoweredByUppy()] })] });
   }
 }
-const Ld = (i) => u("div", { className: ae("uppy-Dashboard-AddFilesPanel", i.className), "data-uppy-panelType": "AddFiles", "aria-hidden": !i.showAddFilesPanel, children: [u("div", { className: "uppy-DashboardContent-bar", children: [u("div", {
+const Ud = (i) => u("div", { className: ae("uppy-Dashboard-AddFilesPanel", i.className), "data-uppy-panelType": "AddFiles", "aria-hidden": !i.showAddFilesPanel, children: [u("div", { className: "uppy-DashboardContent-bar", children: [u("div", {
   className: "uppy-DashboardContent-title",
   // biome-ignore lint/a11y/useSemanticElements: ...
   role: "heading",
   "aria-level": 1,
   children: i.i18n("addingMoreFiles")
 }), u("button", { className: "uppy-DashboardContent-back", type: "button", onClick: () => i.toggleAddFilesPanel(!1), children: i.i18n("back") })] }), u(Xo, { ...i })] });
-function Hd(i) {
+function $d(i) {
   const e = i.files[i.fileCardFor], t = () => {
     i.uppy.emit("file-editor:cancel", e), i.closeFileEditor();
   };
@@ -4326,50 +4334,50 @@ function Hd(i) {
     })
   }), u("button", { className: "uppy-DashboardContent-back", type: "button", onClick: t, children: i.i18n("cancel") }), u("button", { className: "uppy-DashboardContent-save", type: "button", onClick: i.saveFileEditor, children: i.i18n("save") })] }), u("div", { className: "uppy-DashboardContent-panelBody", children: i.editors.map((r) => i.uppy.getPlugin(r.id).render(i.state)) })] });
 }
-function jd() {
+function Ld() {
   return u("svg", { "aria-hidden": "true", focusable: "false", width: "25", height: "25", viewBox: "0 0 25 25", children: u("g", { fill: "#686DE0", fillRule: "evenodd", children: [u("path", { d: "M5 7v10h15V7H5zm0-1h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z", fillRule: "nonzero" }), u("path", { d: "M6.35 17.172l4.994-5.026a.5.5 0 0 1 .707 0l2.16 2.16 3.505-3.505a.5.5 0 0 1 .707 0l2.336 2.31-.707.72-1.983-1.97-3.505 3.505a.5.5 0 0 1-.707 0l-2.16-2.159-3.938 3.939-1.409.026z", fillRule: "nonzero" }), u("circle", { cx: "7.5", cy: "9.5", r: "1.5" })] }) });
 }
-function qd() {
+function Hd() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M9.5 18.64c0 1.14-1.145 2-2.5 2s-2.5-.86-2.5-2c0-1.14 1.145-2 2.5-2 .557 0 1.079.145 1.5.396V7.25a.5.5 0 0 1 .379-.485l9-2.25A.5.5 0 0 1 18.5 5v11.64c0 1.14-1.145 2-2.5 2s-2.5-.86-2.5-2c0-1.14 1.145-2 2.5-2 .557 0 1.079.145 1.5.396V8.67l-8 2v7.97zm8-11v-2l-8 2v2l8-2zM7 19.64c.855 0 1.5-.484 1.5-1s-.645-1-1.5-1-1.5.484-1.5 1 .645 1 1.5 1zm9-2c.855 0 1.5-.484 1.5-1s-.645-1-1.5-1-1.5.484-1.5 1 .645 1 1.5 1z", fill: "#049BCF", fillRule: "nonzero" }) });
 }
-function Wd() {
+function jd() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M16 11.834l4.486-2.691A1 1 0 0 1 22 10v6a1 1 0 0 1-1.514.857L16 14.167V17a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2.834zM15 9H5v8h10V9zm1 4l5 3v-6l-5 3z", fill: "#19AF67", fillRule: "nonzero" }) });
 }
-function Vd() {
+function qd() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M9.766 8.295c-.691-1.843-.539-3.401.747-3.726 1.643-.414 2.505.938 2.39 3.299-.039.79-.194 1.662-.537 3.148.324.49.66.967 1.055 1.51.17.231.382.488.629.757 1.866-.128 3.653.114 4.918.655 1.487.635 2.192 1.685 1.614 2.84-.566 1.133-1.839 1.084-3.416.249-1.141-.604-2.457-1.634-3.51-2.707a13.467 13.467 0 0 0-2.238.426c-1.392 4.051-4.534 6.453-5.707 4.572-.986-1.58 1.38-4.206 4.914-5.375.097-.322.185-.656.264-1.001.08-.353.306-1.31.407-1.737-.678-1.059-1.2-2.031-1.53-2.91zm2.098 4.87c-.033.144-.068.287-.104.427l.033-.01-.012.038a14.065 14.065 0 0 1 1.02-.197l-.032-.033.052-.004a7.902 7.902 0 0 1-.208-.271c-.197-.27-.38-.526-.555-.775l-.006.028-.002-.003c-.076.323-.148.632-.186.8zm5.77 2.978c1.143.605 1.832.632 2.054.187.26-.519-.087-1.034-1.113-1.473-.911-.39-2.175-.608-3.55-.608.845.766 1.787 1.459 2.609 1.894zM6.559 18.789c.14.223.693.16 1.425-.413.827-.648 1.61-1.747 2.208-3.206-2.563 1.064-4.102 2.867-3.633 3.62zm5.345-10.97c.088-1.793-.351-2.48-1.146-2.28-.473.119-.564 1.05-.056 2.405.213.566.52 1.188.908 1.859.18-.858.268-1.453.294-1.984z", fill: "#E2514A", fillRule: "nonzero" }) });
 }
-function Gd() {
+function Wd() {
   return u("svg", { "aria-hidden": "true", focusable: "false", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M10.45 2.05h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5V2.55a.5.5 0 0 1 .5-.5zm2.05 1.024h1.05a.5.5 0 0 1 .5.5V3.6a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5v-.001zM10.45 0h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5V.5a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-2.05 3.074h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-2.05 1.024h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm-2.05 1.025h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-1.656 3.074l-.82 5.946c.52.302 1.174.458 1.976.458.803 0 1.455-.156 1.975-.458l-.82-5.946h-2.311zm0-1.025h2.312c.512 0 .946.378 1.015.885l.82 5.946c.056.412-.142.817-.501 1.026-.686.398-1.515.597-2.49.597-.974 0-1.804-.199-2.49-.597a1.025 1.025 0 0 1-.5-1.026l.819-5.946c.07-.507.503-.885 1.015-.885zm.545 6.6a.5.5 0 0 1-.397-.561l.143-.999a.5.5 0 0 1 .495-.429h.74a.5.5 0 0 1 .495.43l.143.998a.5.5 0 0 1-.397.561c-.404.08-.819.08-1.222 0z", fill: "#00C469", fillRule: "nonzero" }) });
 }
-function Xd() {
+function Vd() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("g", { fill: "#A7AFB7", fillRule: "nonzero", children: [u("path", { d: "M5.5 22a.5.5 0 0 1-.5-.5v-18a.5.5 0 0 1 .5-.5h10.719a.5.5 0 0 1 .367.16l3.281 3.556a.5.5 0 0 1 .133.339V21.5a.5.5 0 0 1-.5.5h-14zm.5-1h13V7.25L16 4H6v17z" }), u("path", { d: "M15 4v3a1 1 0 0 0 1 1h3V7h-3V4h-1z" })] }) });
 }
-function Yd() {
+function Gd() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M4.5 7h13a.5.5 0 1 1 0 1h-13a.5.5 0 0 1 0-1zm0 3h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 3h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 3h10a.5.5 0 1 1 0 1h-10a.5.5 0 1 1 0-1z", fill: "#5A5E69", fillRule: "nonzero" }) });
 }
 function ar(i) {
   const e = {
     color: "#838999",
-    icon: Xd()
+    icon: Vd()
   };
   if (!i)
     return e;
   const t = i.split("/")[0], r = i.split("/")[1];
   return t === "text" ? {
     color: "#5a5e69",
-    icon: Yd()
+    icon: Gd()
   } : t === "image" ? {
     color: "#686de0",
-    icon: jd()
+    icon: Ld()
   } : t === "audio" ? {
     color: "#068dbb",
-    icon: qd()
+    icon: Hd()
   } : t === "video" ? {
     color: "#19af67",
-    icon: Wd()
+    icon: jd()
   } : t === "application" && r === "pdf" ? {
     color: "#e25149",
-    icon: Vd()
+    icon: qd()
   } : t === "application" && [
     "zip",
     "x-7z-compressed",
@@ -4380,7 +4388,7 @@ function ar(i) {
     "x-apple-diskimage"
   ].indexOf(r) !== -1 ? {
     color: "#00C469",
-    icon: Gd()
+    icon: Wd()
   } : e;
 }
 function ge(i) {
@@ -4398,7 +4406,7 @@ function Yo(i) {
   const { color: t, icon: r } = ar(e.type);
   return u("div", { className: "uppy-Dashboard-Item-previewIconWrap", children: [u("span", { className: "uppy-Dashboard-Item-previewIcon", style: { color: t }, children: r }), u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-Dashboard-Item-previewIconBg", width: "58", height: "76", viewBox: "0 0 58 76", children: u("rect", { fill: "#FFF", width: "58", height: "76", rx: "3", fillRule: "evenodd" }) })] });
 }
-function Kd(i) {
+function Xd(i) {
   const { computedMetaFields: e, requiredMetaFields: t, updateMeta: r, form: a, formState: o } = i, s = {
     text: "uppy-u-reset uppy-c-textInput uppy-Dashboard-FileCard-input"
   };
@@ -4413,12 +4421,12 @@ function Kd(i) {
     }, rt) : u("input", { className: s.text, id: p, form: a.id, type: n.type || "text", required: l, value: o[n.id], placeholder: n.placeholder, onInput: (c) => r(c.target.value, n.id), "data-uppy-super-focusable": !0 })] }, n.id);
   });
 }
-function Zd(i) {
+function Yd(i) {
   const { files: e, fileCardFor: t, toggleFileCard: r, saveFileCard: a, metaFields: o, requiredMetaFields: s, openFileEditor: n, i18n: p, i18nArray: l, className: c, canEditFile: d } = i, h = () => typeof o == "function" ? o(e[t]) : o, m = e[t], f = h() ?? [], y = d(m), b = {};
   f.forEach((D) => {
     b[D.id] = m.meta[D.id] ?? "";
   });
-  const [v, x] = At(b), _ = js((D) => {
+  const [v, x] = At(b), _ = Ls((D) => {
     D.preventDefault(), a(v, t);
   }, [a, v, t]), C = (D, k) => {
     x({
@@ -4444,7 +4452,7 @@ function Zd(i) {
     })
   }), u("button", { className: "uppy-DashboardContent-back", type: "button", form: g.id, title: p("finishEditingFile"), onClick: B, children: p("cancel") })] }), u("div", { className: "uppy-Dashboard-FileCard-inner", children: [u("div", { className: "uppy-Dashboard-FileCard-preview", style: { backgroundColor: ar(m.type).color }, children: [u(Yo, { file: m }), y && u("button", { type: "button", className: "uppy-u-reset uppy-c-btn uppy-Dashboard-FileCard-edit", onClick: (D) => {
     _(D), n(m);
-  }, children: p("editImage") })] }), u("div", { className: "uppy-Dashboard-FileCard-info", children: u(Kd, { computedMetaFields: f, requiredMetaFields: s, updateMeta: C, form: g, formState: v }) }), u("div", { className: "uppy-Dashboard-FileCard-actions", children: [u("button", {
+  }, children: p("editImage") })] }), u("div", { className: "uppy-Dashboard-FileCard-info", children: u(Xd, { computedMetaFields: f, requiredMetaFields: s, updateMeta: C, form: g, formState: v }) }), u("div", { className: "uppy-Dashboard-FileCard-actions", children: [u("button", {
     className: "uppy-u-reset uppy-c-btn uppy-c-btn-primary uppy-Dashboard-FileCard-actionsBtn",
     // If `form` attribute is supported, we want a submit button to trigger the form validation.
     // Otherwise, fallback to a classic button with a onClick event handler.
@@ -4453,7 +4461,7 @@ function Zd(i) {
     children: p("saveChanges")
   }), u("button", { className: "uppy-u-reset uppy-c-btn uppy-c-btn-link uppy-Dashboard-FileCard-actionsBtn", type: "button", onClick: B, form: g.id, children: p("cancel") })] })] })] });
 }
-function Qd(i, e) {
+function Kd(i, e) {
   if (i === e)
     return !0;
   if (!i || !e)
@@ -4468,7 +4476,7 @@ function Qd(i, e) {
   }
   return !0;
 }
-function Jd(i, e = "Copy the URL below") {
+function Zd(i, e = "Copy the URL below") {
   return new Promise((t) => {
     const r = document.createElement("textarea");
     r.setAttribute("style", {
@@ -4493,25 +4501,25 @@ function Jd(i, e = "Copy the URL below") {
     }
   });
 }
-function eu({ file: i, uploadInProgressOrComplete: e, metaFields: t, canEditFile: r, i18n: a, onClick: o }) {
+function Qd({ file: i, uploadInProgressOrComplete: e, metaFields: t, canEditFile: r, i18n: a, onClick: o }) {
   return !e && t && t.length > 0 || !e && r(i) ? u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-action uppy-Dashboard-Item-action--edit", type: "button", "aria-label": a("editFileWithFilename", { file: i.meta.name }), title: a("editFileWithFilename", { file: i.meta.name }), onClick: () => o(), children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "14", height: "14", viewBox: "0 0 14 14", children: u("g", { fillRule: "evenodd", children: [u("path", { d: "M1.5 10.793h2.793A1 1 0 0 0 5 10.5L11.5 4a1 1 0 0 0 0-1.414L9.707.793a1 1 0 0 0-1.414 0l-6.5 6.5A1 1 0 0 0 1.5 8v2.793zm1-1V8L9 1.5l1.793 1.793-6.5 6.5H2.5z", fillRule: "nonzero" }), u("rect", { x: "1", y: "12.293", width: "11", height: "1", rx: ".5" }), u("path", { fillRule: "nonzero", d: "M6.793 2.5L9.5 5.207l.707-.707L7.5 1.793z" })] }) }) }) : null;
 }
-function tu({ i18n: i, onClick: e, file: t }) {
+function Jd({ i18n: i, onClick: e, file: t }) {
   return u("button", { className: "uppy-u-reset uppy-Dashboard-Item-action uppy-Dashboard-Item-action--remove", type: "button", "aria-label": i("removeFile", { file: t.meta.name }), title: i("removeFile", { file: t.meta.name }), onClick: () => e(), children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "18", height: "18", viewBox: "0 0 18 18", children: [u("path", { d: "M9 0C4.034 0 0 4.034 0 9s4.034 9 9 9 9-4.034 9-9-4.034-9-9-9z" }), u("path", { fill: "#FFF", d: "M13 12.222l-.778.778L9 9.778 5.778 13 5 12.222 8.222 9 5 5.778 5.778 5 9 8.222 12.222 5l.778.778L9.778 9z" })] }) });
 }
-function iu({ file: i, uppy: e, i18n: t }) {
+function eu({ file: i, uppy: e, i18n: t }) {
   const r = (a) => {
-    Jd(i.uploadURL, t("copyLinkToClipboardFallback")).then(() => {
+    Zd(i.uploadURL, t("copyLinkToClipboardFallback")).then(() => {
       e.log("Link copied to clipboard."), e.info(t("copyLinkToClipboardSuccess"), "info", 3e3);
     }).catch(e.log).then(() => a.target.focus({ preventScroll: !0 }));
   };
   return u("button", { className: "uppy-u-reset uppy-Dashboard-Item-action uppy-Dashboard-Item-action--copyLink", type: "button", "aria-label": t("copyLink"), title: t("copyLink"), onClick: (a) => r(a), children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "14", height: "14", viewBox: "0 0 14 12", children: u("path", { d: "M7.94 7.703a2.613 2.613 0 0 1-.626 2.681l-.852.851a2.597 2.597 0 0 1-1.849.766A2.616 2.616 0 0 1 2.764 7.54l.852-.852a2.596 2.596 0 0 1 2.69-.625L5.267 7.099a1.44 1.44 0 0 0-.833.407l-.852.851a1.458 1.458 0 0 0 1.03 2.486c.39 0 .755-.152 1.03-.426l.852-.852c.231-.231.363-.522.406-.824l1.04-1.038zm4.295-5.937A2.596 2.596 0 0 0 10.387 1c-.698 0-1.355.272-1.849.766l-.852.851a2.614 2.614 0 0 0-.624 2.688l1.036-1.036c.041-.304.173-.6.407-.833l.852-.852c.275-.275.64-.426 1.03-.426a1.458 1.458 0 0 1 1.03 2.486l-.852.851a1.442 1.442 0 0 1-.824.406l-1.04 1.04a2.596 2.596 0 0 0 2.683-.628l.851-.85a2.616 2.616 0 0 0 0-3.697zm-6.88 6.883a.577.577 0 0 0 .82 0l3.474-3.474a.579.579 0 1 0-.819-.82L5.355 7.83a.579.579 0 0 0 0 .819z" }) }) });
 }
-function ru(i) {
+function tu(i) {
   const { uppy: e, file: t, uploadInProgressOrComplete: r, canEditFile: a, metaFields: o, showLinkToFileUploadResult: s, showRemoveButton: n, i18n: p, toggleFileCard: l, openFileEditor: c } = i;
-  return u("div", { className: "uppy-Dashboard-Item-actionWrapper", children: [u(eu, { i18n: p, file: t, uploadInProgressOrComplete: r, canEditFile: a, metaFields: o, onClick: () => {
+  return u("div", { className: "uppy-Dashboard-Item-actionWrapper", children: [u(Qd, { i18n: p, file: t, uploadInProgressOrComplete: r, canEditFile: a, metaFields: o, onClick: () => {
     o && o.length > 0 ? l(!0, t.id) : c(t);
-  } }), s && t.uploadURL ? u(iu, { file: t, uppy: e, i18n: p }) : null, n ? u(tu, { i18n: p, file: t, onClick: () => e.removeFile(t.id) }) : null] });
+  } }), s && t.uploadURL ? u(eu, { file: t, uppy: e, i18n: p }) : null, n ? u(Jd, { i18n: p, file: t, onClick: () => e.removeFile(t.id) }) : null] });
 }
 const gi = "...";
 function Ko(i, e) {
@@ -4524,41 +4532,41 @@ function Ko(i, e) {
   const t = e - gi.length, r = Math.ceil(t / 2), a = Math.floor(t / 2);
   return i.slice(0, r) + gi + i.slice(-a);
 }
-const au = (i, e) => (typeof e == "function" ? e() : e).filter((a) => a.id === i)[0].name;
+const iu = (i, e) => (typeof e == "function" ? e() : e).filter((a) => a.id === i)[0].name;
 function Zo(i) {
   const { file: e, toggleFileCard: t, i18n: r, metaFields: a } = i, { missingRequiredMetaFields: o } = e;
   if (!o?.length)
     return null;
-  const s = o.map((n) => au(n, a)).join(", ");
+  const s = o.map((n) => iu(n, a)).join(", ");
   return u("div", { className: "uppy-Dashboard-Item-errorMessage", children: [r("missingRequiredMetaFields", {
     smart_count: o.length,
     fields: s
   }), " ", u("button", { type: "button", class: "uppy-u-reset uppy-Dashboard-Item-errorMessageBtn", onClick: () => t(!0, e.id), children: r("editFile") })] });
 }
-const ou = (i) => {
+const ru = (i) => {
   const { author: e, name: t } = i.file.meta;
   function r() {
     return i.isSingleFile && i.containerHeight >= 350 ? 90 : i.containerWidth <= 352 ? 35 : i.containerWidth <= 576 ? 60 : e ? 20 : 30;
   }
   return u("div", { className: "uppy-Dashboard-Item-name", title: t, children: Ko(t, r()) });
-}, su = (i) => {
+}, au = (i) => {
   const { author: e } = i.file.meta, t = i.file.remote?.providerName, r = "·";
   return e ? u("div", { className: "uppy-Dashboard-Item-author", children: [u("a", { href: `${e.url}?utm_source=Companion&utm_medium=referral`, target: "_blank", rel: "noopener noreferrer", children: Ko(e.name, 13) }), t ? u(re, { children: [` ${r} `, t, ` ${r} `] }) : null] }) : null;
-}, nu = (i) => i.file.size && u("div", { className: "uppy-Dashboard-Item-statusSize", children: ce(i.file.size) }), lu = (i) => i.file.isGhost && u("span", { children: [" • ", u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-reSelect", type: "button", onClick: () => i.toggleAddFilesPanel(!0), children: i.i18n("reSelect") })] }), pu = ({ file: i, onClick: e }) => i.error ? u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-errorDetails", "aria-label": i.error, "data-microtip-position": "bottom", "data-microtip-size": "medium", onClick: e, type: "button", children: "?" }) : null;
-function du(i) {
+}, ou = (i) => i.file.size && u("div", { className: "uppy-Dashboard-Item-statusSize", children: ce(i.file.size) }), su = (i) => i.file.isGhost && u("span", { children: [" • ", u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-reSelect", type: "button", onClick: () => i.toggleAddFilesPanel(!0), children: i.i18n("reSelect") })] }), nu = ({ file: i, onClick: e }) => i.error ? u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-errorDetails", "aria-label": i.error, "data-microtip-position": "bottom", "data-microtip-size": "medium", onClick: e, type: "button", children: "?" }) : null;
+function lu(i) {
   const { file: e, i18n: t, toggleFileCard: r, metaFields: a, toggleAddFilesPanel: o, isSingleFile: s, containerHeight: n, containerWidth: p } = i;
-  return u("div", { className: "uppy-Dashboard-Item-fileInfo", "data-uppy-file-source": e.source, children: [u("div", { className: "uppy-Dashboard-Item-fileName", children: [ou({
+  return u("div", { className: "uppy-Dashboard-Item-fileInfo", "data-uppy-file-source": e.source, children: [u("div", { className: "uppy-Dashboard-Item-fileName", children: [ru({
     file: e,
     isSingleFile: s,
     containerHeight: n,
     containerWidth: p
-  }), u(pu, { file: e, onClick: () => alert(e.error) })] }), u("div", { className: "uppy-Dashboard-Item-status", children: [su({ file: e }), nu({ file: e }), lu({ file: e, toggleAddFilesPanel: o, i18n: t })] }), u(Zo, { file: e, i18n: t, toggleFileCard: r, metaFields: a })] });
+  }), u(nu, { file: e, onClick: () => alert(e.error) })] }), u("div", { className: "uppy-Dashboard-Item-status", children: [au({ file: e }), ou({ file: e }), su({ file: e, toggleAddFilesPanel: o, i18n: t })] }), u(Zo, { file: e, i18n: t, toggleFileCard: r, metaFields: a })] });
 }
-function uu(i) {
+function pu(i) {
   const { file: e, i18n: t, toggleFileCard: r, metaFields: a, showLinkToFileUploadResult: o } = i, n = e.preview ? "rgba(255, 255, 255, 0.5)" : ar(e.type).color;
   return u("div", { className: "uppy-Dashboard-Item-previewInnerWrap", style: { backgroundColor: n }, children: [o && e.uploadURL && u("a", { className: "uppy-Dashboard-Item-previewLink", href: e.uploadURL, rel: "noreferrer noopener", target: "_blank", "aria-label": e.meta.name, children: u("span", { hidden: !0, children: e.meta.name }) }), u(Yo, { file: e }), u(Zo, { file: e, i18n: t, toggleFileCard: r, metaFields: a })] });
 }
-function cu(i) {
+function du(i) {
   if (!i.isUploaded) {
     if (i.error && !i.hideRetryButton) {
       i.uppy.retryUpload(i.file.id);
@@ -4571,7 +4579,7 @@ function Pa(i) {
   return i.isUploaded ? i.i18n("uploadComplete") : i.error ? i.i18n("retryUpload") : i.resumableUploads ? i.file.isPaused ? i.i18n("resumeUpload") : i.i18n("pauseUpload") : i.individualCancellation ? i.i18n("cancelUpload") : "";
 }
 function yi(i) {
-  return u("div", { className: "uppy-Dashboard-Item-progress", children: u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-progressIndicator", type: "button", "aria-label": Pa(i), title: Pa(i), onClick: () => cu(i), children: i.children }) });
+  return u("div", { className: "uppy-Dashboard-Item-progress", children: u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-progressIndicator", type: "button", "aria-label": Pa(i), title: Pa(i), onClick: () => du(i), children: i.children }) });
 }
 function Dt({ children: i }) {
   return u("svg", { "aria-hidden": "true", focusable: "false", width: "70", height: "70", viewBox: "0 0 36 36", className: "uppy-c-icon uppy-Dashboard-Item-progressIcon--circle", children: i });
@@ -4580,16 +4588,16 @@ function bi({ progress: i }) {
   const e = 2 * Math.PI * 15;
   return u("g", { children: [u("circle", { className: "uppy-Dashboard-Item-progressIcon--bg", r: "15", cx: "18", cy: "18", "stroke-width": "2", fill: "none" }), u("circle", { className: "uppy-Dashboard-Item-progressIcon--progress", r: "15", cx: "18", cy: "18", transform: "rotate(-90, 18, 18)", fill: "none", "stroke-width": "2", "stroke-dasharray": e, "stroke-dashoffset": e - e / 100 * i })] });
 }
-function hu(i) {
+function uu(i) {
   return !i.file.progress.uploadStarted || i.file.progress.percentage === void 0 ? null : i.isUploaded ? u("div", { className: "uppy-Dashboard-Item-progress", children: u("div", { className: "uppy-Dashboard-Item-progressIndicator", children: u(Dt, { children: [u("circle", { r: "15", cx: "18", cy: "18", fill: "#1bb240" }), u("polygon", { className: "uppy-Dashboard-Item-progressIcon--check", transform: "translate(2, 3)", points: "14 22.5 7 15.2457065 8.99985857 13.1732815 14 18.3547104 22.9729883 9 25 11.1005634" })] }) }) }) : i.recoveredState ? null : i.error && !i.hideRetryButton ? u(yi, { ...i, children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon uppy-Dashboard-Item-progressIcon--retry", width: "28", height: "31", viewBox: "0 0 16 19", children: [u("path", { d: "M16 11a8 8 0 1 1-8-8v2a6 6 0 1 0 6 6h2z" }), u("path", { d: "M7.9 3H10v2H7.9z" }), u("path", { d: "M8.536.5l3.535 3.536-1.414 1.414L7.12 1.914z" }), u("path", { d: "M10.657 2.621l1.414 1.415L8.536 7.57 7.12 6.157z" })] }) }) : i.resumableUploads && !i.hidePauseResumeButton ? u(yi, { ...i, children: u(Dt, { children: [u(bi, { progress: i.file.progress.percentage }), i.file.isPaused ? u("polygon", { className: "uppy-Dashboard-Item-progressIcon--play", transform: "translate(3, 3)", points: "12 20 12 10 20 15" }) : u("g", { className: "uppy-Dashboard-Item-progressIcon--pause", transform: "translate(14.5, 13)", children: [u("rect", { x: "0", y: "0", width: "2", height: "10", rx: "0" }), u("rect", { x: "5", y: "0", width: "2", height: "10", rx: "0" })] })] }) }) : !i.resumableUploads && i.individualCancellation && !i.hideCancelButton ? u(yi, { ...i, children: u(Dt, { children: [u(bi, { progress: i.file.progress.percentage }), u("polygon", { className: "cancel", transform: "translate(2, 2)", points: "19.8856516 11.0625 16 14.9481516 12.1019737 11.0625 11.0625 12.1143484 14.9481516 16 11.0625 19.8980263 12.1019737 20.9375 16 17.0518484 19.8856516 20.9375 20.9375 19.8980263 17.0518484 16 20.9375 12" })] }) }) : u("div", { className: "uppy-Dashboard-Item-progress", children: u("div", { className: "uppy-Dashboard-Item-progressIndicator", children: u(Dt, { children: u(bi, { progress: i.file.progress.percentage }) }) }) });
 }
-class fu extends X {
+class cu extends X {
   componentDidMount() {
     const { file: e } = this.props;
     e.preview || this.props.handleRequestThumbnail(e);
   }
   shouldComponentUpdate(e) {
-    return !Qd(this.props, e);
+    return !Kd(this.props, e);
   }
   // VirtualList mounts FileItems again and they emit `thumbnail:request`
   // Otherwise thumbnails are broken or missing after Golden Retriever restores files
@@ -4615,17 +4623,17 @@ class fu extends X {
       "is-noIndividualCancellation": !this.props.individualCancellation,
       "is-ghost": n
     });
-    return u("div", { className: l, id: `uppy_${e.id}`, role: this.props.role, children: [u("div", { className: "uppy-Dashboard-Item-preview", children: [u(uu, { file: e, showLinkToFileUploadResult: this.props.showLinkToFileUploadResult, i18n: this.props.i18n, toggleFileCard: this.props.toggleFileCard, metaFields: this.props.metaFields }), u(hu, { uppy: this.props.uppy, file: e, error: s, isUploaded: r, hideRetryButton: this.props.hideRetryButton, hideCancelButton: this.props.hideCancelButton, hidePauseResumeButton: this.props.hidePauseResumeButton, recoveredState: this.props.recoveredState, resumableUploads: this.props.resumableUploads, individualCancellation: this.props.individualCancellation, i18n: this.props.i18n })] }), u("div", { className: "uppy-Dashboard-Item-fileInfoAndButtons", children: [u(du, { file: e, containerWidth: this.props.containerWidth, containerHeight: this.props.containerHeight, i18n: this.props.i18n, toggleAddFilesPanel: this.props.toggleAddFilesPanel, toggleFileCard: this.props.toggleFileCard, metaFields: this.props.metaFields, isSingleFile: this.props.isSingleFile }), u(ru, { file: e, metaFields: this.props.metaFields, showLinkToFileUploadResult: this.props.showLinkToFileUploadResult, showRemoveButton: p, canEditFile: this.props.canEditFile, uploadInProgressOrComplete: a, toggleFileCard: this.props.toggleFileCard, openFileEditor: this.props.openFileEditor, uppy: this.props.uppy, i18n: this.props.i18n })] })] });
+    return u("div", { className: l, id: `uppy_${e.id}`, role: this.props.role, children: [u("div", { className: "uppy-Dashboard-Item-preview", children: [u(pu, { file: e, showLinkToFileUploadResult: this.props.showLinkToFileUploadResult, i18n: this.props.i18n, toggleFileCard: this.props.toggleFileCard, metaFields: this.props.metaFields }), u(uu, { uppy: this.props.uppy, file: e, error: s, isUploaded: r, hideRetryButton: this.props.hideRetryButton, hideCancelButton: this.props.hideCancelButton, hidePauseResumeButton: this.props.hidePauseResumeButton, recoveredState: this.props.recoveredState, resumableUploads: this.props.resumableUploads, individualCancellation: this.props.individualCancellation, i18n: this.props.i18n })] }), u("div", { className: "uppy-Dashboard-Item-fileInfoAndButtons", children: [u(lu, { file: e, containerWidth: this.props.containerWidth, containerHeight: this.props.containerHeight, i18n: this.props.i18n, toggleAddFilesPanel: this.props.toggleAddFilesPanel, toggleFileCard: this.props.toggleFileCard, metaFields: this.props.metaFields, isSingleFile: this.props.isSingleFile }), u(tu, { file: e, metaFields: this.props.metaFields, showLinkToFileUploadResult: this.props.showLinkToFileUploadResult, showRemoveButton: p, canEditFile: this.props.canEditFile, uploadInProgressOrComplete: a, toggleFileCard: this.props.toggleFileCard, openFileEditor: this.props.openFileEditor, uppy: this.props.uppy, i18n: this.props.i18n })] })] });
   }
 }
-function mu(i, e) {
+function hu(i, e) {
   const t = [];
   let r = [];
   return i.forEach((a) => {
     r.length < e ? r.push(a) : (t.push(r), r = [a]);
   }), r.length && t.push(r), t;
 }
-function gu({ id: i, i18n: e, uppy: t, files: r, resumableUploads: a, hideRetryButton: o, hidePauseResumeButton: s, hideCancelButton: n, showLinkToFileUploadResult: p, showRemoveButtonAfterComplete: l, metaFields: c, isSingleFile: d, toggleFileCard: h, handleRequestThumbnail: m, handleCancelThumbnail: f, recoveredState: y, individualCancellation: b, itemsPerRow: v, openFileEditor: x, canEditFile: _, toggleAddFilesPanel: C, containerWidth: B, containerHeight: g }) {
+function fu({ id: i, i18n: e, uppy: t, files: r, resumableUploads: a, hideRetryButton: o, hidePauseResumeButton: s, hideCancelButton: n, showLinkToFileUploadResult: p, showRemoveButtonAfterComplete: l, metaFields: c, isSingleFile: d, toggleFileCard: h, handleRequestThumbnail: m, handleCancelThumbnail: f, recoveredState: y, individualCancellation: b, itemsPerRow: v, openFileEditor: x, canEditFile: _, toggleAddFilesPanel: C, containerWidth: B, containerHeight: g }) {
   const D = v === 1 ? (
     // Mobile
     71
@@ -4634,13 +4642,13 @@ function gu({ id: i, i18n: e, uppy: t, files: r, resumableUploads: a, hideRetryB
     200
   ), k = Yi(() => {
     const O = (M, F) => Number(r[F].isGhost) - Number(r[M].isGhost), T = Object.keys(r);
-    return y && T.sort(O), mu(T, v);
+    return y && T.sort(O), hu(T, v);
   }, [r, v, y]), S = (O) => u("div", {
     class: "uppy-Dashboard-filesInner",
     // The `role="presentation` attribute ensures that the list items are properly
     // associated with the `VirtualList` element.
     role: "presentation",
-    children: O.map((T) => u(fu, {
+    children: O.map((T) => u(cu, {
       uppy: t,
       // FIXME This is confusing, it's actually the Dashboard's plugin ID
       id: i,
@@ -4671,9 +4679,9 @@ function gu({ id: i, i18n: e, uppy: t, files: r, resumableUploads: a, hideRetryB
       file: r[T]
     }, T))
   }, O[0]);
-  return d ? u("div", { class: "uppy-Dashboard-files", children: S(k[0]) }) : u(Wl, { class: "uppy-Dashboard-files", role: "list", data: k, renderRow: S, rowHeight: D });
+  return d ? u("div", { class: "uppy-Dashboard-files", children: S(k[0]) }) : u(jl, { class: "uppy-Dashboard-files", role: "list", data: k, renderRow: S, rowHeight: D });
 }
-function yu({ activePickerPanel: i, className: e, hideAllPanels: t, i18n: r, state: a, uppy: o }) {
+function mu({ activePickerPanel: i, className: e, hideAllPanels: t, i18n: r, state: a, uppy: o }) {
   const s = Ft(null);
   return u("div", { className: ae("uppy-DashboardContent-panel", e), role: "tabpanel", "data-uppy-panelType": "PickerPanel", id: `uppy-DashboardContent-panel--${i.id}`, onDragOver: ge, onDragLeave: ge, onDrop: ge, onPaste: ge, children: [u("div", { className: "uppy-DashboardContent-bar", children: [u("div", {
     className: "uppy-DashboardContent-title",
@@ -4692,7 +4700,7 @@ const se = {
   STATE_COMPLETE: "complete",
   STATE_PAUSED: "paused"
 };
-function bu(i, e, t, r = {}) {
+function gu(i, e, t, r = {}) {
   if (i)
     return se.STATE_ERROR;
   if (e)
@@ -4709,8 +4717,8 @@ function bu(i, e, t, r = {}) {
   }
   return a;
 }
-function vu({ files: i, i18n: e, isAllComplete: t, isAllErrored: r, isAllPaused: a, inProgressNotPausedFiles: o, newFiles: s, processingFiles: n }) {
-  switch (bu(r, t, a, i)) {
+function yu({ files: i, i18n: e, isAllComplete: t, isAllErrored: r, isAllPaused: a, inProgressNotPausedFiles: o, newFiles: s, processingFiles: n }) {
+  switch (gu(r, t, a, i)) {
     case "uploading":
       return e("uploadingXFiles", {
         smart_count: o.length
@@ -4728,10 +4736,10 @@ function vu({ files: i, i18n: e, isAllComplete: t, isAllErrored: r, isAllPaused:
       return e("error");
   }
 }
-function wu(i) {
+function bu(i) {
   const { i18n: e, isAllComplete: t, hideCancelButton: r, maxNumberOfFiles: a, toggleAddFilesPanel: o, uppy: s } = i;
   let { allowNewUpload: n } = i;
-  return n && a && (n = i.totalFileCount < i.maxNumberOfFiles), u("div", { className: "uppy-DashboardContent-bar", children: [!t && !r ? u("button", { className: "uppy-DashboardContent-back", type: "button", onClick: () => s.cancelAll(), children: e("cancel") }) : u("div", {}), u("div", { className: "uppy-DashboardContent-title", children: u(vu, { ...i }) }), n ? u("button", { className: "uppy-DashboardContent-addMore", type: "button", "aria-label": e("addMoreFiles"), title: e("addMoreFiles"), onClick: () => o(!0), children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "15", height: "15", viewBox: "0 0 15 15", children: u("path", { d: "M8 6.5h6a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5H8v6a.5.5 0 0 1-.5.5H7a.5.5 0 0 1-.5-.5V8h-6a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h6v-6A.5.5 0 0 1 7 0h.5a.5.5 0 0 1 .5.5v6z" }) }), u("span", { className: "uppy-DashboardContent-addMoreCaption", children: e("addMore") })] }) : u("div", {})] });
+  return n && a && (n = i.totalFileCount < i.maxNumberOfFiles), u("div", { className: "uppy-DashboardContent-bar", children: [!t && !r ? u("button", { className: "uppy-DashboardContent-back", type: "button", onClick: () => s.cancelAll(), children: e("cancel") }) : u("div", {}), u("div", { className: "uppy-DashboardContent-title", children: u(yu, { ...i }) }), n ? u("button", { className: "uppy-DashboardContent-addMore", type: "button", "aria-label": e("addMoreFiles"), title: e("addMoreFiles"), onClick: () => o(!0), children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "15", height: "15", viewBox: "0 0 15 15", children: u("path", { d: "M8 6.5h6a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5H8v6a.5.5 0 0 1-.5.5H7a.5.5 0 0 1-.5-.5V8h-6a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h6v-6A.5.5 0 0 1 7 0h.5a.5.5 0 0 1 .5.5v6z" }) }), u("span", { className: "uppy-DashboardContent-addMoreCaption", children: e("addMore") })] }) : u("div", {})] });
 }
 const Ee = "uppy-transition-slideDownUp", Ca = 250;
 function kt({ children: i }) {
@@ -4758,7 +4766,7 @@ function kt({ children: i }) {
   }) : null;
 }
 const Ba = 900, Ia = 700, vi = 576, Fa = 330;
-function xu(i) {
+function vu(i) {
   const e = i.totalFileCount === 0, t = i.totalFileCount === 1, r = i.containerWidth > vi, a = i.containerHeight > Fa, o = ae({
     "uppy-Dashboard": !0,
     "uppy-Dashboard--isDisabled": i.disabled,
@@ -4785,13 +4793,13 @@ function xu(i) {
   }) : i.i18n("recoveredAllFiles");
   return (
     // biome-ignore lint/a11y/useAriaPropsSupportedByRole: ...
-    u("div", { className: o, "data-uppy-theme": i.theme, "data-uppy-num-acquirers": i.acquirers.length, "data-uppy-drag-drop-supported": !i.disableLocalFiles && $d(), "aria-hidden": i.inline ? "false" : i.isHidden, "aria-disabled": i.disabled, "aria-label": i.inline ? i.i18n("dashboardTitle") : i.i18n("dashboardWindowTitle"), onPaste: i.handlePaste, onDragOver: i.handleDragOver, onDragLeave: i.handleDragLeave, onDrop: i.handleDrop, children: [u("div", { "aria-hidden": "true", className: "uppy-Dashboard-overlay", tabIndex: -1, onClick: i.handleClickOutside }), u("div", { className: "uppy-Dashboard-inner", role: i.inline ? void 0 : "dialog", style: {
+    u("div", { className: o, "data-uppy-theme": i.theme, "data-uppy-num-acquirers": i.acquirers.length, "data-uppy-drag-drop-supported": !i.disableLocalFiles && Nd(), "aria-hidden": i.inline ? "false" : i.isHidden, "aria-disabled": i.disabled, "aria-label": i.inline ? i.i18n("dashboardTitle") : i.i18n("dashboardWindowTitle"), onPaste: i.handlePaste, onDragOver: i.handleDragOver, onDragLeave: i.handleDragLeave, onDrop: i.handleDrop, children: [u("div", { "aria-hidden": "true", className: "uppy-Dashboard-overlay", tabIndex: -1, onClick: i.handleClickOutside }), u("div", { className: "uppy-Dashboard-inner", role: i.inline ? void 0 : "dialog", style: {
       width: i.inline && i.width ? i.width : "",
       height: i.inline && i.height ? i.height : ""
-    }, children: [i.inline ? null : u("button", { className: "uppy-u-reset uppy-Dashboard-close", type: "button", "aria-label": i.i18n("closeModal"), title: i.i18n("closeModal"), onClick: i.closeModal, children: u("span", { "aria-hidden": "true", children: "×" }) }), u("div", { className: "uppy-Dashboard-innerWrap", children: [u("div", { className: "uppy-Dashboard-dropFilesHereHint", children: i.i18n("dropHint") }), n && u(wu, { ...i }), p && u("div", { className: "uppy-Dashboard-serviceMsg", children: [u("svg", { className: "uppy-Dashboard-serviceMsg-icon", "aria-hidden": "true", focusable: "false", width: "21", height: "16", viewBox: "0 0 24 19", children: u("g", { transform: "translate(0 -1)", fill: "none", fillRule: "evenodd", children: [u("path", { d: "M12.857 1.43l10.234 17.056A1 1 0 0122.234 20H1.766a1 1 0 01-.857-1.514L11.143 1.429a1 1 0 011.714 0z", fill: "#FFD300" }), u("path", { fill: "#000", d: "M11 6h2l-.3 8h-1.4z" }), u("circle", { fill: "#000", cx: "12", cy: "17", r: "1" })] }) }), u("strong", { className: "uppy-Dashboard-serviceMsg-title", children: i.i18n("sessionRestored") }), u("div", { className: "uppy-Dashboard-serviceMsg-text", children: c() })] }), n ? u(gu, { id: i.id, i18n: i.i18n, uppy: i.uppy, files: i.files, resumableUploads: i.resumableUploads, hideRetryButton: i.hideRetryButton, hidePauseResumeButton: i.hidePauseResumeButton, hideCancelButton: i.hideCancelButton, showLinkToFileUploadResult: i.showLinkToFileUploadResult, showRemoveButtonAfterComplete: i.showRemoveButtonAfterComplete, metaFields: i.metaFields, toggleFileCard: i.toggleFileCard, handleRequestThumbnail: i.handleRequestThumbnail, handleCancelThumbnail: i.handleCancelThumbnail, recoveredState: i.recoveredState, individualCancellation: i.individualCancellation, openFileEditor: i.openFileEditor, canEditFile: i.canEditFile, toggleAddFilesPanel: i.toggleAddFilesPanel, isSingleFile: t, itemsPerRow: s, containerWidth: i.containerWidth, containerHeight: i.containerHeight }) : u(Xo, { i18n: i.i18n, i18nArray: i.i18nArray, acquirers: i.acquirers, handleInputChange: i.handleInputChange, maxNumberOfFiles: i.maxNumberOfFiles, allowedFileTypes: i.allowedFileTypes, showNativePhotoCameraButton: i.showNativePhotoCameraButton, showNativeVideoCameraButton: i.showNativeVideoCameraButton, nativeCameraFacingMode: i.nativeCameraFacingMode, showPanel: i.showPanel, activePickerPanel: i.activePickerPanel, disableLocalFiles: i.disableLocalFiles, fileManagerSelectionType: i.fileManagerSelectionType, note: i.note, proudlyDisplayPoweredByUppy: i.proudlyDisplayPoweredByUppy }), u(kt, { children: i.showAddFilesPanel ? u(Ld, { ...i, isSizeMD: r }, "AddFiles") : null }), u(kt, { children: i.fileCardFor ? u(Zd, { ...i }, "FileCard") : null }), u(kt, { children: i.activePickerPanel ? u(yu, { ...i }, "Picker") : null }), u(kt, { children: i.showFileEditor ? u(Hd, { ...i }, "Editor") : null }), u("div", { className: "uppy-Dashboard-progressindicators", children: i.progressindicators.map((h) => i.uppy.getPlugin(h.id).render(i.state)) })] })] })] })
+    }, children: [i.inline ? null : u("button", { className: "uppy-u-reset uppy-Dashboard-close", type: "button", "aria-label": i.i18n("closeModal"), title: i.i18n("closeModal"), onClick: i.closeModal, children: u("span", { "aria-hidden": "true", children: "×" }) }), u("div", { className: "uppy-Dashboard-innerWrap", children: [u("div", { className: "uppy-Dashboard-dropFilesHereHint", children: i.i18n("dropHint") }), n && u(bu, { ...i }), p && u("div", { className: "uppy-Dashboard-serviceMsg", children: [u("svg", { className: "uppy-Dashboard-serviceMsg-icon", "aria-hidden": "true", focusable: "false", width: "21", height: "16", viewBox: "0 0 24 19", children: u("g", { transform: "translate(0 -1)", fill: "none", fillRule: "evenodd", children: [u("path", { d: "M12.857 1.43l10.234 17.056A1 1 0 0122.234 20H1.766a1 1 0 01-.857-1.514L11.143 1.429a1 1 0 011.714 0z", fill: "#FFD300" }), u("path", { fill: "#000", d: "M11 6h2l-.3 8h-1.4z" }), u("circle", { fill: "#000", cx: "12", cy: "17", r: "1" })] }) }), u("strong", { className: "uppy-Dashboard-serviceMsg-title", children: i.i18n("sessionRestored") }), u("div", { className: "uppy-Dashboard-serviceMsg-text", children: c() })] }), n ? u(fu, { id: i.id, i18n: i.i18n, uppy: i.uppy, files: i.files, resumableUploads: i.resumableUploads, hideRetryButton: i.hideRetryButton, hidePauseResumeButton: i.hidePauseResumeButton, hideCancelButton: i.hideCancelButton, showLinkToFileUploadResult: i.showLinkToFileUploadResult, showRemoveButtonAfterComplete: i.showRemoveButtonAfterComplete, metaFields: i.metaFields, toggleFileCard: i.toggleFileCard, handleRequestThumbnail: i.handleRequestThumbnail, handleCancelThumbnail: i.handleCancelThumbnail, recoveredState: i.recoveredState, individualCancellation: i.individualCancellation, openFileEditor: i.openFileEditor, canEditFile: i.canEditFile, toggleAddFilesPanel: i.toggleAddFilesPanel, isSingleFile: t, itemsPerRow: s, containerWidth: i.containerWidth, containerHeight: i.containerHeight }) : u(Xo, { i18n: i.i18n, i18nArray: i.i18nArray, acquirers: i.acquirers, handleInputChange: i.handleInputChange, maxNumberOfFiles: i.maxNumberOfFiles, allowedFileTypes: i.allowedFileTypes, showNativePhotoCameraButton: i.showNativePhotoCameraButton, showNativeVideoCameraButton: i.showNativeVideoCameraButton, nativeCameraFacingMode: i.nativeCameraFacingMode, showPanel: i.showPanel, activePickerPanel: i.activePickerPanel, disableLocalFiles: i.disableLocalFiles, fileManagerSelectionType: i.fileManagerSelectionType, note: i.note, proudlyDisplayPoweredByUppy: i.proudlyDisplayPoweredByUppy }), u(kt, { children: i.showAddFilesPanel ? u(Ud, { ...i, isSizeMD: r }, "AddFiles") : null }), u(kt, { children: i.fileCardFor ? u(Yd, { ...i }, "FileCard") : null }), u(kt, { children: i.activePickerPanel ? u(mu, { ...i }, "Picker") : null }), u(kt, { children: i.showFileEditor ? u($d, { ...i }, "Editor") : null }), u("div", { className: "uppy-Dashboard-progressindicators", children: i.progressindicators.map((h) => i.uppy.getPlugin(h.id).render(i.state)) })] })] })] })
   );
 }
-const _u = {
+const wu = {
   strings: {
     // When `inline: false`, used as the screen reader label for the button that closes the modal.
     closeModal: "Close Modal",
@@ -4896,8 +4904,8 @@ const _u = {
   '[contenteditable]:not([tabindex^="-"]):not([inert]):not([aria-hidden])',
   '[tabindex]:not([tabindex^="-"]):not([inert]):not([aria-hidden])'
 ];
-var Du = Ao();
-const ku = /* @__PURE__ */ $e(Du);
+var xu = Ao();
+const _u = /* @__PURE__ */ $e(xu);
 function Jo(i, e) {
   if (e) {
     const t = i.querySelector(`[data-uppy-paneltype="${e}"]`);
@@ -4906,9 +4914,9 @@ function Jo(i, e) {
   }
   return i;
 }
-function Su() {
+function Du() {
   let i = !1;
-  return ku((t, r) => {
+  return _u((t, r) => {
     const a = Jo(t, r), o = a.contains(document.activeElement);
     if (o && i)
       return;
@@ -4920,34 +4928,34 @@ function Ta(i, e) {
   const t = e[0];
   t && (t.focus(), i.preventDefault());
 }
-function Pu(i, e) {
+function ku(i, e) {
   const t = e[e.length - 1];
   t && (t.focus(), i.preventDefault());
 }
-function Cu(i) {
+function Su(i) {
   return i.contains(document.activeElement);
 }
 function es(i, e, t) {
   const r = Jo(t, e), a = et(r.querySelectorAll(Qo)), o = a.indexOf(document.activeElement);
-  Cu(r) ? i.shiftKey && o === 0 ? Pu(i, a) : !i.shiftKey && o === a.length - 1 && Ta(i, a) : Ta(i, a);
+  Su(r) ? i.shiftKey && o === 0 ? ku(i, a) : !i.shiftKey && o === a.length - 1 && Ta(i, a) : Ta(i, a);
 }
-function Bu(i, e, t) {
+function Pu(i, e, t) {
   e === null || es(i, e, t);
 }
-const Ea = 9, Iu = 27;
+const Ea = 9, Cu = 27;
 function Aa() {
   const i = {};
   return i.promise = new Promise((e, t) => {
     i.resolve = e, i.reject = t;
   }), i;
 }
-const Fu = {
+const Bu = {
   target: "body",
   metaFields: [],
   thumbnailWidth: 280,
   thumbnailType: "image/jpeg",
   waitForThumbnailsBeforeUpload: !1,
-  defaultPickerIcon: Vl,
+  defaultPickerIcon: ql,
   showLinkToFileUploadResult: !1,
   showProgressDetails: !1,
   hideUploadButton: !1,
@@ -4996,10 +5004,10 @@ const Fu = {
   height: 550
 };
 class Oa extends ve {
-  static VERSION = Ud.version;
+  static VERSION = Rd.version;
   #e;
   modalName = `uppy-Dashboard-${Zi()}`;
-  superFocus = Su();
+  superFocus = Du();
   ifFocusedOnUppyRecently = !1;
   dashboardIsDisabled;
   savedScrollPosition;
@@ -5010,7 +5018,7 @@ class Oa extends ve {
   makeDashboardInsidesVisibleAnywayTimeout;
   constructor(e, t) {
     const r = t?.autoOpen ?? null;
-    super(e, { ...Fu, ...t, autoOpen: r }), this.id = this.opts.id || "Dashboard", this.title = "Dashboard", this.type = "orchestrator", this.defaultLocale = _u, this.opts.doneButtonHandler === void 0 && (this.opts.doneButtonHandler = () => {
+    super(e, { ...Bu, ...t, autoOpen: r }), this.id = this.opts.id || "Dashboard", this.title = "Dashboard", this.type = "orchestrator", this.defaultLocale = wu, this.opts.doneButtonHandler === void 0 && (this.opts.doneButtonHandler = () => {
       this.uppy.clear(), this.requestCloseModal();
     }), this.opts.onRequestCloseModal ??= () => this.closeModal(), this.i18nInit();
   }
@@ -5219,7 +5227,7 @@ class Oa extends ve {
     this.isModalOpen() && (!e.state || !e.state[this.modalName]) && this.closeModal({ manualClose: !1 }), !this.isModalOpen() && e.state?.[this.modalName] && history.back();
   };
   handleKeyDownInModal = (e) => {
-    e.keyCode === Iu && this.requestCloseModal(), e.keyCode === Ea && es(e, this.getPluginState().activeOverlayType, this.el);
+    e.keyCode === Cu && this.requestCloseModal(), e.keyCode === Ea && es(e, this.getPluginState().activeOverlayType, this.el);
   };
   handleClickOutside = () => {
     this.opts.closeModalOnClickOutside && this.requestCloseModal();
@@ -5267,7 +5275,7 @@ class Oa extends ve {
       this.uppy.log(o, "error"), t || (this.uppy.info(o.message, "error"), t = !0);
     };
     this.uppy.log("[Dashboard] Processing dropped files");
-    const a = await _d(e.dataTransfer, { logDropError: r });
+    const a = await wd(e.dataTransfer, { logDropError: r });
     a.length > 0 && (this.uppy.log("[Dashboard] Files dropped"), this.addFiles(a)), this.opts.onDrop(e);
   };
   handleRequestThumbnail = (e) => {
@@ -5281,7 +5289,7 @@ class Oa extends ve {
     this.opts.waitForThumbnailsBeforeUpload || this.uppy.emit("thumbnail:cancel", e);
   };
   handleKeyDownInInline = (e) => {
-    e.keyCode === Ea && Bu(e, this.getPluginState().activeOverlayType, this.el);
+    e.keyCode === Ea && Pu(e, this.getPluginState().activeOverlayType, this.el);
   };
   // ___Why do we listen to the 'paste' event on a document instead of onPaste={props.handlePaste} prop,
   //    or this.el.addEventListener('paste')?
@@ -5376,7 +5384,7 @@ class Oa extends ve {
   render = (e) => {
     const t = this.getPluginState(), { files: r, capabilities: a, allowNewUpload: o } = e, { newFiles: s, uploadStartedFiles: n, completeFiles: p, erroredFiles: l, inProgressFiles: c, inProgressNotPausedFiles: d, processingFiles: h, isUploadStarted: m, isAllComplete: f, isAllPaused: y } = this.uppy.getObjectOfFilesPerState(), b = this.#s(t.targets), v = this.#n(t.targets), x = this.#o(t.targets);
     let _;
-    return this.opts.theme === "auto" ? _ = a.darkMode ? "dark" : "light" : _ = this.opts.theme, ["files", "folders", "both"].indexOf(this.opts.fileManagerSelectionType) < 0 && (this.opts.fileManagerSelectionType = "files", console.warn(`Unsupported option for "fileManagerSelectionType". Using default of "${this.opts.fileManagerSelectionType}".`)), xu({
+    return this.opts.theme === "auto" ? _ = a.darkMode ? "dark" : "light" : _ = this.opts.theme, ["files", "folders", "both"].indexOf(this.opts.fileManagerSelectionType) < 0 && (this.opts.fileManagerSelectionType = "files", console.warn(`Unsupported option for "fileManagerSelectionType". Using default of "${this.opts.fileManagerSelectionType}".`)), vu({
       state: e,
       isHidden: t.isHidden,
       files: r,
@@ -5538,15 +5546,15 @@ class Oa extends ve {
     const { allowMultipleUploads: r, allowMultipleUploadBatches: a } = this.uppy.opts;
     (r || a) && t && this.uppy.log("[Dashboard] When using `closeAfterFinish`, we recommended setting the `allowMultipleUploadBatches` option to `false` in the Uppy constructor. See https://uppy.io/docs/uppy/#allowMultipleUploads-true", "warning");
     const { target: o } = this.opts;
-    o && this.mount(o, this), this.opts.disableStatusBar || this.uppy.use(Tp, {
+    o && this.mount(o, this), this.opts.disableStatusBar || this.uppy.use(Ip, {
       id: this.#f(),
       target: this,
       ...this.#c()
-    }), this.opts.disableInformer || this.uppy.use($l, {
+    }), this.opts.disableInformer || this.uppy.use(Nl, {
       id: this.#w(),
       target: this,
       ...this.#d()
-    }), this.opts.disableThumbnailGenerator || this.uppy.use(vd, {
+    }), this.opts.disableThumbnailGenerator || this.uppy.use(yd, {
       id: this.#m(),
       ...this.#u()
     }), this.darkModeMediaQuery = typeof window < "u" && window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
@@ -5573,7 +5581,7 @@ class Oa extends ve {
     }), this.opts.theme === "auto" && this.darkModeMediaQuery?.removeListener(this.handleSystemDarkModeChange), this.opts.disablePageScrollWhenModalOpen && document.body.classList.remove("uppy-Dashboard-isFixed"), this.unmount(), this.removeEvents();
   };
 }
-function Tu(i) {
+function Iu(i) {
   return new Error("Cancelled", { cause: i });
 }
 function Ma(i) {
@@ -5587,7 +5595,7 @@ function Ma(i) {
   }
   return this;
 }
-class Eu {
+class Fu {
   #e = 0;
   #t = [];
   #r = !1;
@@ -5676,7 +5684,7 @@ class Eu {
           }, (c) => {
             p ? n(p) : (a.done(), n(c));
           }), (c) => {
-            p = Tu(c);
+            p = Iu(c);
           };
         }, t);
       });
@@ -5750,14 +5758,14 @@ function St(i) {
   for (var e = 1; e < arguments.length; e++) {
     var t = arguments[e] != null ? arguments[e] : {};
     e % 2 ? za(Object(t), !0).forEach(function(r) {
-      Mu(i, r, t[r]);
+      Au(i, r, t[r]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(i, Object.getOwnPropertyDescriptors(t)) : za(Object(t)).forEach(function(r) {
       Object.defineProperty(i, r, Object.getOwnPropertyDescriptor(t, r));
     });
   }
   return i;
 }
-function Au(i, e) {
+function Tu(i, e) {
   if (!(i instanceof e))
     throw new TypeError("Cannot call a class as a function");
 }
@@ -5767,12 +5775,12 @@ function Ra(i, e) {
     r.enumerable = r.enumerable || !1, r.configurable = !0, "value" in r && (r.writable = !0), Object.defineProperty(i, ts(r.key), r);
   }
 }
-function Ou(i, e, t) {
+function Eu(i, e, t) {
   return Ra(i.prototype, e), Ra(i, t), Object.defineProperty(i, "prototype", {
     writable: !1
   }), i;
 }
-function Mu(i, e, t) {
+function Au(i, e, t) {
   return e = ts(e), e in i ? Object.defineProperty(i, e, {
     value: t,
     enumerable: !0,
@@ -5790,7 +5798,7 @@ function zt() {
     return i;
   }, zt.apply(this, arguments);
 }
-function zu(i, e) {
+function Ou(i, e) {
   if (typeof i != "object" || i === null) return i;
   var t = i[Symbol.toPrimitive];
   if (t !== void 0) {
@@ -5801,7 +5809,7 @@ function zu(i, e) {
   return (e === "string" ? String : Number)(i);
 }
 function ts(i) {
-  var e = zu(i, "string");
+  var e = Ou(i, "string");
   return typeof e == "symbol" ? e : String(e);
 }
 var is = { exports: {} };
@@ -5847,7 +5855,7 @@ var is = { exports: {} };
     })), i.exports ? i.exports = n : e.dataURLtoBlob = n;
   }(window);
 })(is);
-var Na = is.exports, Ru = function(e) {
+var Na = is.exports, Mu = function(e) {
   return typeof Blob > "u" ? !1 : e instanceof Blob || Object.prototype.toString.call(e) === "[object Blob]";
 }, Ua = {
   /**
@@ -5973,34 +5981,34 @@ var Na = is.exports, Ru = function(e) {
    * }
    */
   error: null
-}, Nu = typeof window < "u" && typeof window.document < "u", we = Nu ? window : {}, Rt = function(e) {
+}, zu = typeof window < "u" && typeof window.document < "u", we = zu ? window : {}, Rt = function(e) {
   return e > 0 && e < 1 / 0;
-}, Uu = Array.prototype.slice;
+}, Ru = Array.prototype.slice;
 function or(i) {
-  return Array.from ? Array.from(i) : Uu.call(i);
+  return Array.from ? Array.from(i) : Ru.call(i);
 }
-var $u = /^image\/.+$/;
+var Nu = /^image\/.+$/;
 function Ai(i) {
-  return $u.test(i);
+  return Nu.test(i);
 }
-function Lu(i) {
+function Uu(i) {
   var e = Ai(i) ? i.substr(6) : "";
   return e === "jpeg" && (e = "jpg"), ".".concat(e);
 }
 var rs = String.fromCharCode;
-function Hu(i, e, t) {
+function $u(i, e, t) {
   var r = "", a;
   for (t += e, a = e; a < t; a += 1)
     r += rs(i.getUint8(a));
   return r;
 }
-var ju = we.btoa;
+var Lu = we.btoa;
 function $a(i, e) {
   for (var t = [], r = 8192, a = new Uint8Array(i); a.length > 0; )
     t.push(rs.apply(null, or(a.subarray(0, r)))), a = a.subarray(r);
-  return "data:".concat(e, ";base64,").concat(ju(t.join("")));
+  return "data:".concat(e, ";base64,").concat(Lu(t.join("")));
 }
-function qu(i) {
+function Hu(i) {
   var e = new DataView(i), t;
   try {
     var r, a, o;
@@ -6014,7 +6022,7 @@ function qu(i) {
       }
     if (a) {
       var p = a + 4, l = a + 10;
-      if (Hu(e, p, 4) === "Exif") {
+      if ($u(e, p, 4) === "Exif") {
         var c = e.getUint16(l);
         if (r = c === 18761, (r || c === 19789) && e.getUint16(l + 2, r) === 42) {
           var d = e.getUint32(l + 4, r);
@@ -6035,7 +6043,7 @@ function qu(i) {
   }
   return t;
 }
-function Wu(i) {
+function ju(i) {
   var e = 0, t = 1, r = 1;
   switch (i) {
     // Flip horizontal
@@ -6073,10 +6081,10 @@ function Wu(i) {
     scaleY: r
   };
 }
-var Vu = /\.\d*(?:0|9){12}\d*$/;
+var qu = /\.\d*(?:0|9){12}\d*$/;
 function La(i) {
   var e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1e11;
-  return Vu.test(i) ? Math.round(i * e) / e : i;
+  return qu.test(i) ? Math.round(i * e) / e : i;
 }
 function Ve(i) {
   var e = i.aspectRatio, t = i.height, r = i.width, a = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "none", o = Rt(r), s = Rt(t);
@@ -6089,7 +6097,7 @@ function Ve(i) {
     height: t
   };
 }
-function Gu(i) {
+function Wu(i) {
   for (var e = or(new Uint8Array(i)), t = e.length, r = [], a = 0; a + 3 < t; ) {
     var o = e[a], s = e[a + 1];
     if (o === 255 && s === 218)
@@ -6105,22 +6113,22 @@ function Gu(i) {
     return d[0] === 255 && d[1] === 225 ? c.concat(d) : c;
   }, []);
 }
-function Xu(i, e) {
+function Vu(i, e) {
   var t = or(new Uint8Array(i));
   if (t[2] !== 255 || t[3] !== 224)
     return i;
   var r = t[4] * 256 + t[5], a = [255, 216].concat(e, t.slice(4 + r));
   return new Uint8Array(a);
 }
-var Yu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Ku = /\.\w+$/, Zu = we.Compressor, Qu = /* @__PURE__ */ function() {
+var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /\.\w+$/, Yu = we.Compressor, Ku = /* @__PURE__ */ function() {
   function i(e, t) {
-    Au(this, i), this.file = e, this.exif = [], this.image = new Image(), this.options = St(St({}, Ua), t), this.aborted = !1, this.result = null, this.init();
+    Tu(this, i), this.file = e, this.exif = [], this.image = new Image(), this.options = St(St({}, Ua), t), this.aborted = !1, this.result = null, this.init();
   }
-  return Ou(i, [{
+  return Eu(i, [{
     key: "init",
     value: function() {
       var t = this, r = this.file, a = this.options;
-      if (!Ru(r)) {
+      if (!Mu(r)) {
         this.fail(new Error("The first argument must be a File or Blob object."));
         return;
       }
@@ -6133,7 +6141,7 @@ var Yu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Ku = /
         this.fail(new Error("The current browser does not support image compression."));
         return;
       }
-      Yu || (a.checkOrientation = !1, a.retainExif = !1);
+      Gu || (a.checkOrientation = !1, a.retainExif = !1);
       var s = o === "image/jpeg", n = s && a.checkOrientation, p = s && a.retainExif;
       if (Se && !n && !p)
         this.load({
@@ -6143,7 +6151,7 @@ var Yu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Ku = /
         var l = new wi();
         this.reader = l, l.onload = function(c) {
           var d = c.target, h = d.result, m = {}, f = 1;
-          n && (f = qu(h), f > 1 && zt(m, Wu(f))), p && (t.exif = Gu(h)), n || p ? !Se || f > 1 ? m.url = $a(h, o) : m.url = Se.createObjectURL(r) : m.url = h, t.load(m);
+          n && (f = Hu(h), f > 1 && zt(m, ju(f))), p && (t.exif = Wu(h)), n || p ? !Se || f > 1 ? m.url = $a(h, o) : m.url = Se.createObjectURL(r) : m.url = h, t.load(m);
         }, l.onabort = function() {
           t.fail(new Error("Aborted to read the image with FileReader."));
         }, l.onerror = function() {
@@ -6242,7 +6250,7 @@ var Yu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Ku = /
             };
             if (He && fr && f.retainExif && r.exif && r.exif.length > 0) {
               var yr = function(je) {
-                return gr(Na($a(Xu(je, r.exif), f.mimeType)));
+                return gr(Na($a(Vu(je, r.exif), f.mimeType)));
               };
               if (He.arrayBuffer)
                 He.arrayBuffer().then(yr).catch(function() {
@@ -6277,7 +6285,7 @@ var Yu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Ku = /
           o = s;
         else {
           var l = /* @__PURE__ */ new Date();
-          o.lastModified = l.getTime(), o.lastModifiedDate = l, o.name = s.name, o.name && o.type !== s.type && (o.name = o.name.replace(Ku, Lu(o.type)));
+          o.lastModified = l.getTime(), o.lastModifiedDate = l, o.name = s.name, o.name && o.type !== s.type && (o.name = o.name.replace(Xu, Uu(o.type)));
         }
       else
         o = s;
@@ -6304,7 +6312,7 @@ var Yu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Ku = /
   }], [{
     key: "noConflict",
     value: function() {
-      return window.Compressor = Zu, i;
+      return window.Compressor = Yu, i;
     }
     /**
      * Change the default options.
@@ -6317,24 +6325,24 @@ var Yu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Ku = /
     }
   }]), i;
 }();
-const Ju = {
+const Zu = {
   strings: {
     // Shown in the Status Bar
     compressingImages: "Compressing images...",
     compressedX: "Saved %{size} by compressing images"
   }
-}, ec = {
+}, Qu = {
   quality: 0.6,
   limit: 10
 };
-class tc extends lo {
+class Ju extends lo {
   #e;
   constructor(e, t) {
-    super(e, { ...ec, ...t }), this.id = this.opts.id || "Compressor", this.type = "modifier", this.defaultLocale = Ju, this.#e = new Eu(this.opts.limit), this.i18nInit(), this.prepareUpload = this.prepareUpload.bind(this), this.compress = this.compress.bind(this);
+    super(e, { ...Qu, ...t }), this.id = this.opts.id || "Compressor", this.type = "modifier", this.defaultLocale = Zu, this.#e = new Fu(this.opts.limit), this.i18nInit(), this.prepareUpload = this.prepareUpload.bind(this), this.compress = this.compress.bind(this);
   }
   compress(e) {
     return new Promise((t, r) => {
-      new Qu(e, {
+      new Ku(e, {
         ...this.opts,
         success: t,
         error: r
@@ -6387,24 +6395,24 @@ class tc extends lo {
     this.uppy.removePreProcessor(this.prepareUpload);
   }
 }
-const ic = "@uppy/image-editor", rc = "Image editor and cropping UI", ac = "3.4.2", oc = "MIT", sc = "lib/index.js", nc = "dist/style.min.css", lc = "module", pc = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, dc = ["file uploader", "upload", "uppy", "uppy-plugin", "image editor", "cropper", "crop", "rotate", "resize"], uc = "https://uppy.io", cc = { url: "https://github.com/transloadit/uppy/issues" }, hc = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, fc = ["src", "lib", "dist", "CHANGELOG.md"], mc = { "@uppy/utils": "^6.2.2", cropperjs: "^1.6.2", preact: "^10.5.13" }, gc = { "@uppy/core": "^4.5.2" }, yc = { access: "public" }, bc = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, vc = {
-  name: ic,
-  description: rc,
-  version: ac,
-  license: oc,
-  main: sc,
-  style: nc,
-  type: lc,
-  scripts: pc,
-  keywords: dc,
-  homepage: uc,
-  bugs: cc,
-  repository: hc,
-  files: fc,
-  dependencies: mc,
-  peerDependencies: gc,
-  publishConfig: yc,
-  devDependencies: bc
+const ec = "@uppy/image-editor", tc = "Image editor and cropping UI", ic = "3.4.2", rc = "MIT", ac = "lib/index.js", oc = "dist/style.min.css", sc = "module", nc = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, lc = ["file uploader", "upload", "uppy", "uppy-plugin", "image editor", "cropper", "crop", "rotate", "resize"], pc = "https://uppy.io", dc = { url: "https://github.com/transloadit/uppy/issues" }, uc = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, cc = ["src", "lib", "dist", "CHANGELOG.md"], hc = { "@uppy/utils": "^6.2.2", cropperjs: "^1.6.2", preact: "^10.5.13" }, fc = { "@uppy/core": "^4.5.2" }, mc = { access: "public" }, gc = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, yc = {
+  name: ec,
+  description: tc,
+  version: ic,
+  license: rc,
+  main: ac,
+  style: oc,
+  type: sc,
+  scripts: nc,
+  keywords: lc,
+  homepage: pc,
+  bugs: dc,
+  repository: uc,
+  files: cc,
+  dependencies: hc,
+  peerDependencies: fc,
+  publishConfig: mc,
+  devDependencies: gc
 };
 /*!
  * Cropper.js v1.6.2
@@ -6429,14 +6437,14 @@ function as(i) {
   for (var e = 1; e < arguments.length; e++) {
     var t = arguments[e] != null ? arguments[e] : {};
     e % 2 ? Ha(Object(t), !0).forEach(function(r) {
-      Dc(i, r, t[r]);
+      xc(i, r, t[r]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(i, Object.getOwnPropertyDescriptors(t)) : Ha(Object(t)).forEach(function(r) {
       Object.defineProperty(i, r, Object.getOwnPropertyDescriptor(t, r));
     });
   }
   return i;
 }
-function wc(i, e) {
+function bc(i, e) {
   if (typeof i != "object" || !i) return i;
   var t = i[Symbol.toPrimitive];
   if (t !== void 0) {
@@ -6447,7 +6455,7 @@ function wc(i, e) {
   return (e === "string" ? String : Number)(i);
 }
 function os(i) {
-  var e = wc(i, "string");
+  var e = bc(i, "string");
   return typeof e == "symbol" ? e : e + "";
 }
 function Oi(i) {
@@ -6458,7 +6466,7 @@ function Oi(i) {
     return e && typeof Symbol == "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
   }, Oi(i);
 }
-function xc(i, e) {
+function vc(i, e) {
   if (!(i instanceof e))
     throw new TypeError("Cannot call a class as a function");
 }
@@ -6468,12 +6476,12 @@ function ja(i, e) {
     r.enumerable = r.enumerable || !1, r.configurable = !0, "value" in r && (r.writable = !0), Object.defineProperty(i, os(r.key), r);
   }
 }
-function _c(i, e, t) {
+function wc(i, e, t) {
   return ja(i.prototype, e), ja(i, t), Object.defineProperty(i, "prototype", {
     writable: !1
   }), i;
 }
-function Dc(i, e, t) {
+function xc(i, e, t) {
   return e = os(e), e in i ? Object.defineProperty(i, e, {
     value: t,
     enumerable: !0,
@@ -6482,15 +6490,15 @@ function Dc(i, e, t) {
   }) : i[e] = t, i;
 }
 function ss(i) {
-  return kc(i) || Sc(i) || Pc(i) || Cc();
+  return _c(i) || Dc(i) || kc(i) || Sc();
 }
-function kc(i) {
+function _c(i) {
   if (Array.isArray(i)) return Mi(i);
 }
-function Sc(i) {
+function Dc(i) {
   if (typeof Symbol < "u" && i[Symbol.iterator] != null || i["@@iterator"] != null) return Array.from(i);
 }
-function Pc(i, e) {
+function kc(i, e) {
   if (i) {
     if (typeof i == "string") return Mi(i, e);
     var t = Object.prototype.toString.call(i).slice(8, -1);
@@ -6503,11 +6511,11 @@ function Mi(i, e) {
   for (var t = 0, r = new Array(e); t < e; t++) r[t] = i[t];
   return r;
 }
-function Cc() {
+function Sc() {
   throw new TypeError(`Invalid attempt to spread non-iterable instance.
 In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
 }
-var Ut = typeof window < "u" && typeof window.document < "u", de = Ut ? window : {}, sr = Ut && de.document.documentElement ? "ontouchstart" in de.document.documentElement : !1, nr = Ut ? "PointerEvent" in de : !1, N = "cropper", lr = "all", ns = "crop", ls = "move", ps = "zoom", Pe = "e", Ce = "w", Ae = "s", me = "n", Ge = "ne", Xe = "nw", Ye = "se", Ke = "sw", zi = "".concat(N, "-crop"), qa = "".concat(N, "-disabled"), K = "".concat(N, "-hidden"), Wa = "".concat(N, "-hide"), Bc = "".concat(N, "-invisible"), Nt = "".concat(N, "-modal"), Ri = "".concat(N, "-move"), nt = "".concat(N, "Action"), Pt = "".concat(N, "Preview"), pr = "crop", ds = "move", us = "none", Ni = "crop", Ui = "cropend", $i = "cropmove", Li = "cropstart", Va = "dblclick", Ic = sr ? "touchstart" : "mousedown", Fc = sr ? "touchmove" : "mousemove", Tc = sr ? "touchend touchcancel" : "mouseup", Ga = nr ? "pointerdown" : Ic, Xa = nr ? "pointermove" : Fc, Ya = nr ? "pointerup pointercancel" : Tc, Ka = "ready", Za = "resize", Qa = "wheel", Hi = "zoom", Ja = "image/jpeg", Ec = /^e|w|s|n|se|sw|ne|nw|all|crop|move|zoom$/, Ac = /^data:/, Oc = /^data:image\/jpeg;base64,/, Mc = /^img|canvas$/i, cs = 200, hs = 100, eo = {
+var Ut = typeof window < "u" && typeof window.document < "u", de = Ut ? window : {}, sr = Ut && de.document.documentElement ? "ontouchstart" in de.document.documentElement : !1, nr = Ut ? "PointerEvent" in de : !1, N = "cropper", lr = "all", ns = "crop", ls = "move", ps = "zoom", Pe = "e", Ce = "w", Ae = "s", me = "n", Ge = "ne", Xe = "nw", Ye = "se", Ke = "sw", zi = "".concat(N, "-crop"), qa = "".concat(N, "-disabled"), K = "".concat(N, "-hidden"), Wa = "".concat(N, "-hide"), Pc = "".concat(N, "-invisible"), Nt = "".concat(N, "-modal"), Ri = "".concat(N, "-move"), nt = "".concat(N, "Action"), Pt = "".concat(N, "Preview"), pr = "crop", ds = "move", us = "none", Ni = "crop", Ui = "cropend", $i = "cropmove", Li = "cropstart", Va = "dblclick", Cc = sr ? "touchstart" : "mousedown", Bc = sr ? "touchmove" : "mousemove", Ic = sr ? "touchend touchcancel" : "mouseup", Ga = nr ? "pointerdown" : Cc, Xa = nr ? "pointermove" : Bc, Ya = nr ? "pointerup pointercancel" : Ic, Ka = "ready", Za = "resize", Qa = "wheel", Hi = "zoom", Ja = "image/jpeg", Fc = /^e|w|s|n|se|sw|ne|nw|all|crop|move|zoom$/, Tc = /^data:/, Ec = /^data:image\/jpeg;base64,/, Ac = /^img|canvas$/i, cs = 200, hs = 100, eo = {
   // Define the view mode of the cropper
   viewMode: 0,
   // 0, 1, 2, 3
@@ -6578,9 +6586,9 @@ var Ut = typeof window < "u" && typeof window.document < "u", de = Ut ? window :
   cropend: null,
   crop: null,
   zoom: null
-}, zc = '<div class="cropper-container" touch-action="none"><div class="cropper-wrap-box"><div class="cropper-canvas"></div></div><div class="cropper-drag-box"></div><div class="cropper-crop-box"><span class="cropper-view-box"></span><span class="cropper-dashed dashed-h"></span><span class="cropper-dashed dashed-v"></span><span class="cropper-center"></span><span class="cropper-face"></span><span class="cropper-line line-e" data-cropper-action="e"></span><span class="cropper-line line-n" data-cropper-action="n"></span><span class="cropper-line line-w" data-cropper-action="w"></span><span class="cropper-line line-s" data-cropper-action="s"></span><span class="cropper-point point-e" data-cropper-action="e"></span><span class="cropper-point point-n" data-cropper-action="n"></span><span class="cropper-point point-w" data-cropper-action="w"></span><span class="cropper-point point-s" data-cropper-action="s"></span><span class="cropper-point point-ne" data-cropper-action="ne"></span><span class="cropper-point point-nw" data-cropper-action="nw"></span><span class="cropper-point point-sw" data-cropper-action="sw"></span><span class="cropper-point point-se" data-cropper-action="se"></span></div></div>', Rc = Number.isNaN || de.isNaN;
+}, Oc = '<div class="cropper-container" touch-action="none"><div class="cropper-wrap-box"><div class="cropper-canvas"></div></div><div class="cropper-drag-box"></div><div class="cropper-crop-box"><span class="cropper-view-box"></span><span class="cropper-dashed dashed-h"></span><span class="cropper-dashed dashed-v"></span><span class="cropper-center"></span><span class="cropper-face"></span><span class="cropper-line line-e" data-cropper-action="e"></span><span class="cropper-line line-n" data-cropper-action="n"></span><span class="cropper-line line-w" data-cropper-action="w"></span><span class="cropper-line line-s" data-cropper-action="s"></span><span class="cropper-point point-e" data-cropper-action="e"></span><span class="cropper-point point-n" data-cropper-action="n"></span><span class="cropper-point point-w" data-cropper-action="w"></span><span class="cropper-point point-s" data-cropper-action="s"></span><span class="cropper-point point-ne" data-cropper-action="ne"></span><span class="cropper-point point-nw" data-cropper-action="nw"></span><span class="cropper-point point-sw" data-cropper-action="sw"></span><span class="cropper-point point-se" data-cropper-action="se"></span></div></div>', Mc = Number.isNaN || de.isNaN;
 function I(i) {
-  return typeof i == "number" && !Rc(i);
+  return typeof i == "number" && !Mc(i);
 }
 var to = function(e) {
   return e > 0 && e < 1 / 0;
@@ -6591,13 +6599,13 @@ function xi(i) {
 function Ie(i) {
   return Oi(i) === "object" && i !== null;
 }
-var Nc = Object.prototype.hasOwnProperty;
+var zc = Object.prototype.hasOwnProperty;
 function Me(i) {
   if (!Ie(i))
     return !1;
   try {
     var e = i.constructor, t = e.prototype;
-    return e && t && Nc.call(t, "isPrototypeOf");
+    return e && t && zc.call(t, "isPrototypeOf");
   } catch {
     return !1;
   }
@@ -6605,9 +6613,9 @@ function Me(i) {
 function Y(i) {
   return typeof i == "function";
 }
-var Uc = Array.prototype.slice;
+var Rc = Array.prototype.slice;
 function fs(i) {
-  return Array.from ? Array.from(i) : Uc.call(i);
+  return Array.from ? Array.from(i) : Rc.call(i);
 }
 function H(i, e) {
   return i && Y(e) && (Array.isArray(i) || I(i.length) ? fs(i).forEach(function(t, r) {
@@ -6624,19 +6632,19 @@ var U = Object.assign || function(e) {
       e[s] = o[s];
     });
   }), e;
-}, $c = /\.\d*(?:0|9){12}\d*$/;
+}, Nc = /\.\d*(?:0|9){12}\d*$/;
 function Re(i) {
   var e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1e11;
-  return $c.test(i) ? Math.round(i * e) / e : i;
+  return Nc.test(i) ? Math.round(i * e) / e : i;
 }
-var Lc = /^width|height|left|top|marginLeft|marginTop$/;
+var Uc = /^width|height|left|top|marginLeft|marginTop$/;
 function ye(i, e) {
   var t = i.style;
   H(e, function(r, a) {
-    Lc.test(a) && I(r) && (r = "".concat(r, "px")), t[a] = r;
+    Uc.test(a) && I(r) && (r = "".concat(r, "px")), t[a] = r;
   });
 }
-function Hc(i, e) {
+function $c(i, e) {
   return i.classList ? i.classList.contains(e) : i.className.indexOf(e) > -1;
 }
 function q(i, e) {
@@ -6681,9 +6689,9 @@ function ze(i, e, t) {
     t ? q(i, e) : pe(i, e);
   }
 }
-var jc = /([a-z\d])([A-Z])/g;
+var Lc = /([a-z\d])([A-Z])/g;
 function dr(i) {
-  return i.replace(jc, "$1-$2").toLowerCase();
+  return i.replace(Lc, "$1-$2").toLowerCase();
 }
 function ji(i, e) {
   return Ie(i[e]) ? i[e] : i.dataset ? i.dataset[e] : i.getAttribute("data-".concat(dr(e)));
@@ -6691,7 +6699,7 @@ function ji(i, e) {
 function lt(i, e, t) {
   Ie(t) ? i[e] = t : i.dataset ? i.dataset[e] = t : i.setAttribute("data-".concat(dr(e)), t);
 }
-function qc(i, e) {
+function Hc(i, e) {
   if (Ie(i[e]))
     try {
       delete i[e];
@@ -6768,9 +6776,9 @@ function ys(i) {
     top: e.top + (window.pageYOffset - document.documentElement.clientTop)
   };
 }
-var _i = de.location, Wc = /^(\w+:)\/\/([^:/?#]*):?(\d*)/i;
+var _i = de.location, jc = /^(\w+:)\/\/([^:/?#]*):?(\d*)/i;
 function io(i) {
-  var e = i.match(Wc);
+  var e = i.match(jc);
   return e !== null && (e[1] !== _i.protocol || e[2] !== _i.hostname || e[3] !== _i.port);
 }
 function ro(i) {
@@ -6787,7 +6795,7 @@ function tt(i) {
     transform: n
   };
 }
-function Vc(i) {
+function qc(i) {
   var e = as({}, i), t = 0;
   return H(i, function(r, a) {
     delete e[a], H(e, function(o) {
@@ -6806,7 +6814,7 @@ function Ct(i, e) {
     startY: r
   }, a);
 }
-function Gc(i) {
+function Wc(i) {
   var e = 0, t = 0, r = 0;
   return H(i, function(a) {
     var o = a.startX, s = a.startY;
@@ -6827,7 +6835,7 @@ function be(i) {
     height: t
   };
 }
-function Xc(i) {
+function Vc(i) {
   var e = i.width, t = i.height, r = i.degree;
   if (r = Math.abs(r) % 180, r === 90)
     return {
@@ -6843,7 +6851,7 @@ function Xc(i) {
     height: p
   };
 }
-function Yc(i, e, t, r) {
+function Gc(i, e, t, r) {
   var a = e.aspectRatio, o = e.naturalWidth, s = e.naturalHeight, n = e.rotate, p = n === void 0 ? 0 : n, l = e.scaleX, c = l === void 0 ? 1 : l, d = e.scaleY, h = d === void 0 ? 1 : d, m = t.aspectRatio, f = t.naturalWidth, y = t.naturalHeight, b = r.fillColor, v = b === void 0 ? "transparent" : b, x = r.imageSmoothingEnabled, _ = x === void 0 ? !0 : x, C = r.imageSmoothingQuality, B = C === void 0 ? "low" : C, g = r.maxWidth, D = g === void 0 ? 1 / 0 : g, k = r.maxHeight, S = k === void 0 ? 1 / 0 : k, O = r.minWidth, T = O === void 0 ? 0 : O, M = r.minHeight, F = M === void 0 ? 0 : M, R = document.createElement("canvas"), A = R.getContext("2d"), V = be({
     aspectRatio: m,
     width: D,
@@ -6866,26 +6874,26 @@ function Yc(i, e, t, r) {
   })))), A.restore(), R;
 }
 var bs = String.fromCharCode;
-function Kc(i, e, t) {
+function Xc(i, e, t) {
   var r = "";
   t += e;
   for (var a = e; a < t; a += 1)
     r += bs(i.getUint8(a));
   return r;
 }
-var Zc = /^data:.*,/;
-function Qc(i) {
-  var e = i.replace(Zc, ""), t = atob(e), r = new ArrayBuffer(t.length), a = new Uint8Array(r);
+var Yc = /^data:.*,/;
+function Kc(i) {
+  var e = i.replace(Yc, ""), t = atob(e), r = new ArrayBuffer(t.length), a = new Uint8Array(r);
   return H(a, function(o, s) {
     a[s] = t.charCodeAt(s);
   }), r;
 }
-function Jc(i, e) {
+function Zc(i, e) {
   for (var t = [], r = 8192, a = new Uint8Array(i); a.length > 0; )
     t.push(bs.apply(null, fs(a.subarray(0, r)))), a = a.subarray(r);
   return "data:".concat(e, ";base64,").concat(btoa(t.join("")));
 }
-function eh(i) {
+function Qc(i) {
   var e = new DataView(i), t;
   try {
     var r, a, o;
@@ -6899,7 +6907,7 @@ function eh(i) {
       }
     if (a) {
       var p = a + 4, l = a + 10;
-      if (Kc(e, p, 4) === "Exif") {
+      if (Xc(e, p, 4) === "Exif") {
         var c = e.getUint16(l);
         if (r = c === 18761, (r || c === 19789) && e.getUint16(l + 2, r) === 42) {
           var d = e.getUint32(l + 4, r);
@@ -6920,7 +6928,7 @@ function eh(i) {
   }
   return t;
 }
-function th(i) {
+function Jc(i) {
   var e = 0, t = 1, r = 1;
   switch (i) {
     // Flip horizontal
@@ -6958,7 +6966,7 @@ function th(i) {
     scaleY: r
   };
 }
-var ih = {
+var eh = {
   render: function() {
     this.initContainer(), this.initCanvas(), this.initCropBox(), this.renderCanvas(), this.cropped && this.renderCropBox();
   },
@@ -7009,7 +7017,7 @@ var ih = {
   renderCanvas: function(e, t) {
     var r = this.canvasData, a = this.imageData;
     if (t) {
-      var o = Xc({
+      var o = Vc({
         width: a.naturalWidth * Math.abs(a.scaleX || 1),
         height: a.naturalHeight * Math.abs(a.scaleY || 1),
         degree: a.rotate || 0
@@ -7067,7 +7075,7 @@ var ih = {
   output: function() {
     this.preview(), Ne(this.element, Ni, this.getData());
   }
-}, rh = {
+}, th = {
   initPreview: function() {
     var e = this.element, t = this.crossOrigin, r = this.options.preview, a = t ? this.crossOriginUrl : this.url, o = e.alt || "The image to preview", s = document.createElement("img");
     if (t && (s.crossOrigin = t), s.src = a, s.alt = o, this.viewBox.appendChild(s), this.viewBoxImage = s, !!r) {
@@ -7088,7 +7096,7 @@ var ih = {
       ye(e, {
         width: t.width,
         height: t.height
-      }), e.innerHTML = t.html, qc(e, Pt);
+      }), e.innerHTML = t.html, Hc(e, Pt);
     });
   },
   preview: function() {
@@ -7113,7 +7121,7 @@ var ih = {
       }, e))));
     }));
   }
-}, ah = {
+}, ih = {
   bind: function() {
     var e = this.element, t = this.options, r = this.cropper;
     Y(t.cropstart) && Z(e, Li, t.cropstart), Y(t.cropmove) && Z(e, $i, t.cropmove), Y(t.cropend) && Z(e, Ui, t.cropend), Y(t.crop) && Z(e, Ni, t.crop), Y(t.zoom) && Z(e, Hi, t.zoom), Z(r, Ga, this.onCropStart = this.cropStart.bind(this)), t.zoomable && t.zoomOnWheel && Z(r, Qa, this.onWheel = this.wheel.bind(this), {
@@ -7128,7 +7136,7 @@ var ih = {
       capture: !0
     }), t.toggleDragModeOnDblclick && Q(r, Va, this.onDblclick), Q(e.ownerDocument, Xa, this.onCropMove), Q(e.ownerDocument, Ya, this.onCropEnd), t.responsive && Q(window, Za, this.onResize);
   }
-}, oh = {
+}, rh = {
   resize: function() {
     if (!this.disabled) {
       var e = this.options, t = this.container, r = this.containerData, a = t.offsetWidth / r.width, o = t.offsetHeight / r.height, s = Math.abs(a - 1) > Math.abs(o - 1) ? a : o;
@@ -7143,7 +7151,7 @@ var ih = {
     }
   },
   dblclick: function() {
-    this.disabled || this.options.dragMode === us || this.setDragMode(Hc(this.dragBox, zi) ? ds : pr);
+    this.disabled || this.options.dragMode === us || this.setDragMode($c(this.dragBox, zi) ? ds : pr);
   },
   wheel: function(e) {
     var t = this, r = Number(this.options.wheelZoomRatio) || 0.1, a = 1;
@@ -7158,7 +7166,7 @@ var ih = {
       var a = this.options, o = this.pointers, s;
       e.changedTouches ? H(e.changedTouches, function(n) {
         o[n.identifier] = Ct(n);
-      }) : o[e.pointerId || 0] = Ct(e), Object.keys(o).length > 1 && a.zoomable && a.zoomOnTouch ? s = ps : s = ji(e.target, nt), Ec.test(s) && Ne(this.element, Li, {
+      }) : o[e.pointerId || 0] = Ct(e), Object.keys(o).length > 1 && a.zoomable && a.zoomOnTouch ? s = ps : s = ji(e.target, nt), Fc.test(s) && Ne(this.element, Li, {
         originalEvent: e,
         action: s
       }) !== !1 && (e.preventDefault(), this.action = s, this.cropping = !1, s === ns && (this.cropping = !0, q(this.dragBox, Nt)));
@@ -7187,7 +7195,7 @@ var ih = {
       }));
     }
   }
-}, sh = {
+}, ah = {
   change: function(e) {
     var t = this.options, r = this.canvasData, a = this.containerData, o = this.cropBoxData, s = this.pointers, n = this.action, p = t.aspectRatio, l = o.left, c = o.top, d = o.width, h = o.height, m = l + d, f = c + h, y = 0, b = 0, v = a.width, x = a.height, _ = !0, C;
     !p && e.shiftKey && (p = d && h ? d / h : 1), this.limited && (y = o.minLeft, b = o.minTop, v = y + Math.min(a.width, r.width, r.left + r.width), x = b + Math.min(a.height, r.height, r.top + r.height));
@@ -7294,7 +7302,7 @@ var ih = {
         break;
       // Zoom canvas
       case ps:
-        this.zoom(Vc(s), e), _ = !1;
+        this.zoom(qc(s), e), _ = !1;
         break;
       // Create crop box
       case ns:
@@ -7309,7 +7317,7 @@ var ih = {
       k.startX = k.endX, k.startY = k.endY;
     });
   }
-}, nh = {
+}, oh = {
   // Show the crop box manually
   crop: function() {
     return this.ready && !this.cropped && !this.disabled && (this.cropped = !0, this.limitCropBox(!0, !0), this.options.modal && q(this.dragBox, Nt), pe(this.cropBox, K), this.setCropBoxData(this.initialCropBoxData)), this;
@@ -7403,7 +7411,7 @@ var ih = {
       }) === !1)
         return this;
       if (r) {
-        var h = this.pointers, m = ys(this.cropper), f = h && Object.keys(h).length ? Gc(h) : {
+        var h = this.pointers, m = ys(this.cropper), f = h && Object.keys(h).length ? Wc(h) : {
           pageX: r.pageX,
           pageY: r.pageY
         };
@@ -7566,7 +7574,7 @@ var ih = {
     var e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     if (!this.ready || !window.HTMLCanvasElement)
       return null;
-    var t = this.canvasData, r = Yc(this.image, this.imageData, t, e);
+    var t = this.canvasData, r = Gc(this.image, this.imageData, t, e);
     if (!this.cropped)
       return r;
     var a = this.getData(e.rounded), o = a.x, s = a.y, n = a.width, p = a.height, l = r.width / Math.floor(t.naturalWidth);
@@ -7622,14 +7630,14 @@ var ih = {
     }
     return this;
   }
-}, lh = de.Cropper, vs = /* @__PURE__ */ function() {
+}, sh = de.Cropper, vs = /* @__PURE__ */ function() {
   function i(e) {
     var t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-    if (xc(this, i), !e || !Mc.test(e.tagName))
+    if (vc(this, i), !e || !Ac.test(e.tagName))
       throw new Error("The first argument is required and must be an <img> or <canvas> element.");
     this.element = e, this.options = U({}, eo, Me(t) && t), this.cropped = !1, this.disabled = !1, this.pointers = {}, this.ready = !1, this.reloading = !1, this.replaced = !1, this.sized = !1, this.sizing = !1, this.init();
   }
-  return _c(i, [{
+  return wc(i, [{
     key: "init",
     value: function() {
       var t = this.element, r = t.tagName.toLowerCase(), a;
@@ -7653,8 +7661,8 @@ var ih = {
           this.clone();
           return;
         }
-        if (Ac.test(t)) {
-          Oc.test(t) ? this.read(Qc(t)) : this.clone();
+        if (Tc.test(t)) {
+          Ec.test(t) ? this.read(Kc(t)) : this.clone();
           return;
         }
         var s = new XMLHttpRequest(), n = this.clone.bind(this);
@@ -7670,10 +7678,10 @@ var ih = {
   }, {
     key: "read",
     value: function(t) {
-      var r = this.options, a = this.imageData, o = eh(t), s = 0, n = 1, p = 1;
+      var r = this.options, a = this.imageData, o = Qc(t), s = 0, n = 1, p = 1;
       if (o > 1) {
-        this.url = Jc(t, Ja);
-        var l = th(o);
+        this.url = Zc(t, Ja);
+        var l = Jc(o);
         s = l.rotate, n = l.scaleX, p = l.scaleY;
       }
       r.rotatable && (a.rotate = s), r.scalable && (a.scaleX = n, a.scaleY = p), this.clone();
@@ -7718,9 +7726,9 @@ var ih = {
     value: function() {
       if (!(!this.sized || this.ready)) {
         var t = this.element, r = this.options, a = this.image, o = t.parentNode, s = document.createElement("div");
-        s.innerHTML = zc;
+        s.innerHTML = Oc;
         var n = s.querySelector(".".concat(N, "-container")), p = n.querySelector(".".concat(N, "-canvas")), l = n.querySelector(".".concat(N, "-drag-box")), c = n.querySelector(".".concat(N, "-crop-box")), d = c.querySelector(".".concat(N, "-face"));
-        this.container = o, this.cropper = n, this.canvas = p, this.dragBox = l, this.cropBox = c, this.viewBox = n.querySelector(".".concat(N, "-view-box")), this.face = d, p.appendChild(a), q(t, K), o.insertBefore(n, t.nextSibling), pe(a, Wa), this.initPreview(), this.bind(), r.initialAspectRatio = Math.max(0, r.initialAspectRatio) || NaN, r.aspectRatio = Math.max(0, r.aspectRatio) || NaN, r.viewMode = Math.max(0, Math.min(3, Math.round(r.viewMode))) || 0, q(c, K), r.guides || q(c.getElementsByClassName("".concat(N, "-dashed")), K), r.center || q(c.getElementsByClassName("".concat(N, "-center")), K), r.background && q(n, "".concat(N, "-bg")), r.highlight || q(d, Bc), r.cropBoxMovable && (q(d, Ri), lt(d, nt, lr)), r.cropBoxResizable || (q(c.getElementsByClassName("".concat(N, "-line")), K), q(c.getElementsByClassName("".concat(N, "-point")), K)), this.render(), this.ready = !0, this.setDragMode(r.dragMode), r.autoCrop && this.crop(), this.setData(r.data), Y(r.ready) && Z(t, Ka, r.ready, {
+        this.container = o, this.cropper = n, this.canvas = p, this.dragBox = l, this.cropBox = c, this.viewBox = n.querySelector(".".concat(N, "-view-box")), this.face = d, p.appendChild(a), q(t, K), o.insertBefore(n, t.nextSibling), pe(a, Wa), this.initPreview(), this.bind(), r.initialAspectRatio = Math.max(0, r.initialAspectRatio) || NaN, r.aspectRatio = Math.max(0, r.aspectRatio) || NaN, r.viewMode = Math.max(0, Math.min(3, Math.round(r.viewMode))) || 0, q(c, K), r.guides || q(c.getElementsByClassName("".concat(N, "-dashed")), K), r.center || q(c.getElementsByClassName("".concat(N, "-center")), K), r.background && q(n, "".concat(N, "-bg")), r.highlight || q(d, Pc), r.cropBoxMovable && (q(d, Ri), lt(d, nt, lr)), r.cropBoxResizable || (q(c.getElementsByClassName("".concat(N, "-line")), K), q(c.getElementsByClassName("".concat(N, "-point")), K)), this.render(), this.ready = !0, this.setDragMode(r.dragMode), r.autoCrop && this.crop(), this.setData(r.data), Y(r.ready) && Z(t, Ka, r.ready, {
           once: !0
         }), Ne(t, Ka);
       }
@@ -7746,7 +7754,7 @@ var ih = {
   }], [{
     key: "noConflict",
     value: function() {
-      return window.Cropper = lh, i;
+      return window.Cropper = sh, i;
     }
     /**
      * Change the default options.
@@ -7759,8 +7767,8 @@ var ih = {
     }
   }]);
 }();
-U(vs.prototype, ih, rh, ah, oh, sh, nh);
-function ph(i, e) {
+U(vs.prototype, eh, th, ih, rh, ah, oh);
+function nh(i, e) {
   const t = i.width / e.width, r = i.height / e.height, a = Math.min(t, r), o = e.width * a, s = e.height * a, n = (i.width - o) / 2, p = (i.height - s) / 2;
   return {
     width: o,
@@ -7769,14 +7777,14 @@ function ph(i, e) {
     top: p
   };
 }
-function dh(i) {
+function lh(i) {
   return i * (Math.PI / 180);
 }
-function uh(i, e, t) {
-  const r = Math.abs(dh(t));
+function ph(i, e, t) {
+  const r = Math.abs(lh(t));
   return Math.max((Math.sin(r) * i + Math.cos(r) * e) / e, (Math.sin(r) * e + Math.cos(r) * i) / i);
 }
-function ch(i, e, t) {
+function dh(i, e, t) {
   return e.left < i.left ? {
     left: i.left,
     width: t.width
@@ -7791,7 +7799,7 @@ function ch(i, e, t) {
     height: t.height
   } : null;
 }
-function hh(i, e, t) {
+function uh(i, e, t) {
   return e.left < i.left ? {
     left: i.left,
     width: t.left + t.width - i.left
@@ -7806,7 +7814,7 @@ function hh(i, e, t) {
     height: i.top + i.height - t.top
   } : null;
 }
-class fh extends X {
+class ch extends X {
   imgElement;
   cropper;
   constructor(e) {
@@ -7829,10 +7837,10 @@ class fh extends X {
   limitCropboxMovement(e) {
     const t = this.cropper.getCanvasData(), r = this.cropper.getCropBoxData(), { prevCropboxData: a } = this.state;
     if (e.detail.action === "all") {
-      const o = ch(t, r, a);
+      const o = dh(t, r, a);
       o && this.cropper.setCropBoxData(o);
     } else {
-      const o = hh(t, r, a);
+      const o = uh(t, r, a);
       o && this.cropper.setCropBoxData(o);
     }
   }
@@ -7842,7 +7850,7 @@ class fh extends X {
       angle90Deg: t,
       angleGranular: 0
     }), this.cropper.scale(1), this.cropper.rotateTo(t);
-    const r = this.cropper.getCanvasData(), a = this.cropper.getContainerData(), o = ph(a, r);
+    const r = this.cropper.getCanvasData(), a = this.cropper.getContainerData(), o = nh(a, r);
     this.cropper.setCanvasData(o), this.cropper.setCropBoxData(o);
   };
   onRotateGranular = (e) => {
@@ -7850,7 +7858,7 @@ class fh extends X {
     this.setState({ angleGranular: t });
     const { angle90Deg: r } = this.state, a = r + t;
     this.cropper.rotateTo(a);
-    const o = this.cropper.getImageData(), s = uh(o.naturalWidth, o.naturalHeight, t), n = this.cropper.getImageData().scaleX < 0 ? -s : s;
+    const o = this.cropper.getImageData(), s = ph(o.naturalWidth, o.naturalHeight, t), n = this.cropper.getImageData().scaleX < 0 ? -s : s;
     this.cropper.scale(n, s);
   };
   renderGranularRotate() {
@@ -7898,7 +7906,7 @@ class fh extends X {
     } }) }), u("div", { className: "uppy-ImageCropper-controls", children: [r.revert && this.renderRevert(), r.rotate && this.renderRotate(), r.granularRotate && this.renderGranularRotate(), r.flip && this.renderFlip(), r.zoomIn && this.renderZoomIn(), r.zoomOut && this.renderZoomOut(), r.cropSquare && this.renderCropSquare(), r.cropWidescreen && this.renderCropWidescreen(), r.cropWidescreenVertical && this.renderCropWidescreenVertical()] })] });
   }
 }
-const mh = {
+const hh = {
   strings: {
     revert: "Reset",
     rotate: "Rotate 90°",
@@ -7928,19 +7936,19 @@ const mh = {
   cropSquare: !0,
   cropWidescreen: !0,
   cropWidescreenVertical: !0
-}, gh = {
+}, fh = {
   // `quality: 1` increases the image size by orders of magnitude - 0.8 seems to be the sweet spot.
   // see https://github.com/fengyuanchen/cropperjs/issues/538#issuecomment-1776279427
   quality: 0.8,
   actions: xs,
   cropperOptions: ws
 };
-class yh extends ve {
-  static VERSION = vc.version;
+class mh extends ve {
+  static VERSION = yc.version;
   cropper;
   constructor(e, t) {
     super(e, {
-      ...gh,
+      ...fh,
       ...t,
       actions: {
         ...xs,
@@ -7950,7 +7958,7 @@ class yh extends ve {
         ...ws,
         ...t?.cropperOptions
       }
-    }), this.id = this.opts.id || "ImageEditor", this.title = "Image Editor", this.type = "editor", this.defaultLocale = mh, this.i18nInit();
+    }), this.id = this.opts.id || "ImageEditor", this.title = "Image Editor", this.type = "editor", this.defaultLocale = hh, this.i18nInit();
   }
   canEditFile(e) {
     if (!e.type || e.isRemote)
@@ -8001,10 +8009,10 @@ class yh extends ve {
   }
   render() {
     const { currentImage: e } = this.getPluginState();
-    return e === null || e.isRemote ? null : u(fh, { currentImage: e, storeCropperInstance: this.storeCropperInstance, save: this.save, opts: this.opts, i18n: this.i18n });
+    return e === null || e.isRemote ? null : u(ch, { currentImage: e, storeCropperInstance: this.storeCropperInstance, save: this.save, opts: this.opts, i18n: this.i18n });
   }
 }
-const bh = ".uppy-Root{box-sizing:border-box;color:#333;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;line-height:1;position:relative;text-align:left;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.uppy-Root[dir=rtl],[dir=rtl] .uppy-Root{text-align:right}.uppy-Root *,.uppy-Root :after,.uppy-Root :before{box-sizing:inherit}.uppy-Root [hidden]{display:none}.uppy-u-reset{all:initial;appearance:none;box-sizing:border-box;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;line-height:1}[dir=rtl] .uppy-u-reset{text-align:right}.uppy-c-textInput{background-color:#fff;border:1px solid #ddd;border-radius:4px;font-family:inherit;font-size:14px;line-height:1.5;padding:6px 8px}.uppy-size--md .uppy-c-textInput{padding:8px 10px}.uppy-c-textInput:focus{border-color:#1269cf99;box-shadow:0 0 0 3px #1269cf26;outline:none}[data-uppy-theme=dark] .uppy-c-textInput{background-color:#333;border-color:#333;color:#eaeaea}[data-uppy-theme=dark] .uppy-c-textInput:focus{border-color:#525252;box-shadow:none}.uppy-c-icon{display:inline-block;max-height:100%;max-width:100%;overflow:hidden;fill:currentColor}.uppy-c-btn{align-items:center;color:inherit;display:inline-flex;font-family:inherit;font-size:inherit;font-weight:500;justify-content:center;line-height:1;transition-duration:.3s;transition-property:background-color,color;user-select:none;white-space:nowrap}.uppy-c-btn,[dir=rtl] .uppy-c-btn{text-align:center}.uppy-c-btn:not(:disabled):not(.disabled){cursor:pointer}.uppy-c-btn::-moz-focus-inner{border:0}.uppy-c-btn-primary{background-color:#1269cf;border-radius:4px;color:#fff;font-size:14px;padding:10px 18px}.uppy-c-btn-primary:not(:disabled):hover{background-color:#0e51a0}.uppy-c-btn-primary:focus{box-shadow:0 0 0 3px #1269cf66;outline:none}.uppy-size--md .uppy-c-btn-primary{padding:13px 22px}[data-uppy-theme=dark] .uppy-c-btn-primary{color:#eaeaea}[data-uppy-theme=dark] .uppy-c-btn-primary:focus{outline:none}[data-uppy-theme=dark] .uppy-c-btn-primary::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-c-btn-primary:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-c-btn-primary.uppy-c-btn--disabled{background-color:#8eb2db}.uppy-c-btn-link{background-color:initial;border-radius:4px;color:#525252;font-size:14px;line-height:1;padding:10px 15px}.uppy-c-btn-link:hover{color:#333}.uppy-c-btn-link:focus{box-shadow:0 0 0 3px #1269cf40;outline:none}.uppy-size--md .uppy-c-btn-link{padding:13px 18px}[data-uppy-theme=dark] .uppy-c-btn-link{color:#eaeaea}[data-uppy-theme=dark] .uppy-c-btn-link:focus{outline:none}[data-uppy-theme=dark] .uppy-c-btn-link::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-c-btn-link:focus{box-shadow:0 0 0 2px #aae1ffd9}[data-uppy-theme=dark] .uppy-c-btn-link:hover{color:#939393}", vh = `@charset "UTF-8";.uppy-Informer{bottom:60px;left:0;position:absolute;right:0;text-align:center;z-index:1005}.uppy-Informer span>div{margin-bottom:6px}.uppy-Informer-animated{opacity:0;transform:translateY(350%);transition:all .3s ease-in;z-index:-1000}.uppy-Informer p{background-color:#757575;border-radius:18px;color:#fff;display:inline-block;font-size:12px;font-weight:400;line-height:1.4;margin:0;max-width:90%;padding:6px 15px}.uppy-size--md .uppy-Informer p{font-size:14px;line-height:1.3;max-width:500px;padding:10px 20px}[data-uppy-theme=dark] .uppy-Informer p{background-color:#333}.uppy-Informer p span{background-color:#fff;border-radius:50%;color:#525252;display:inline-block;font-size:10px;height:13px;inset-inline-start:3px;line-height:12px;margin-inline-start:-1px;position:relative;top:-1px;vertical-align:middle;width:13px}.uppy-Informer p span:hover{cursor:help}.uppy-Informer p span:after{line-height:1.3;word-wrap:break-word}.uppy-Root [aria-label][role~=tooltip]{position:relative}.uppy-Root [aria-label][role~=tooltip]:after,.uppy-Root [aria-label][role~=tooltip]:before{-webkit-backface-visibility:hidden;backface-visibility:hidden;box-sizing:border-box;opacity:0;pointer-events:none;position:absolute;transform:translateZ(0);transform-origin:top;transition:all var(--microtip-transition-duration,.18s) var(--microtip-transition-easing,ease-in-out) var(--microtip-transition-delay,0s);will-change:transform;z-index:10}.uppy-Root [aria-label][role~=tooltip]:before{background-size:100% auto!important;content:""}.uppy-Root [aria-label][role~=tooltip]:after{background:#111111e6;border-radius:4px;box-sizing:initial;color:#fff;content:attr(aria-label);font-size:var(--microtip-font-size,13px);font-weight:var(--microtip-font-weight,normal);padding:.5em 1em;text-transform:var(--microtip-text-transform,none);white-space:nowrap}.uppy-Root [aria-label][role~=tooltip]:focus:after,.uppy-Root [aria-label][role~=tooltip]:focus:before,.uppy-Root [aria-label][role~=tooltip]:hover:after,.uppy-Root [aria-label][role~=tooltip]:hover:before{opacity:1;pointer-events:auto}.uppy-Root [role~=tooltip][data-microtip-position|=top]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M2.658 0h32.004c-6 0-11.627 12.002-16.002 12.002S8.594 0 2.658 0'/%3E%3C/svg%3E") no-repeat;bottom:100%;height:6px;left:50%;margin-bottom:5px;transform:translate3d(-50%,0,0);width:18px}.uppy-Root [role~=tooltip][data-microtip-position|=top]:after{bottom:100%;left:50%;margin-bottom:11px;transform:translate3d(-50%,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position|=top]:hover:before{transform:translate3d(-50%,-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-left]:after{bottom:100%;transform:translate3d(calc(-100% + 16px),0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-left]:hover:after{transform:translate3d(calc(-100% + 16px),-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-right]:after{bottom:100%;transform:translate3d(-16px,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-right]:hover:after{transform:translate3d(-16px,-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M33.342 12H1.338c6 0 11.627-12.002 16.002-12.002S27.406 12 33.342 12'/%3E%3C/svg%3E") no-repeat;bottom:auto;height:6px;left:50%;margin-bottom:0;margin-top:5px;top:100%;transform:translate3d(-50%,-10px,0);width:18px}.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:after{left:50%;margin-top:11px;top:100%;transform:translate3d(-50%,-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:hover:before{transform:translate3d(-50%,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-left]:after{top:100%;transform:translate3d(calc(-100% + 16px),-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-left]:hover:after{transform:translate3d(calc(-100% + 16px),0,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-right]:after{top:100%;transform:translate3d(-16px,-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-right]:hover:after{transform:translate3d(-16px,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=left]:after,.uppy-Root [role~=tooltip][data-microtip-position=left]:before{inset:50% 100% auto auto;transform:translate3d(10px,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=left]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='36'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M0 33.342V1.338c0 6 12.002 11.627 12.002 16.002S0 27.406 0 33.342'/%3E%3C/svg%3E") no-repeat;height:18px;margin-bottom:0;margin-right:5px;width:6px}.uppy-Root [role~=tooltip][data-microtip-position=left]:after{margin-right:11px}.uppy-Root [role~=tooltip][data-microtip-position=left]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position=left]:hover:before{transform:translate3d(0,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=right]:after,.uppy-Root [role~=tooltip][data-microtip-position=right]:before{bottom:auto;left:100%;top:50%;transform:translate3d(-10px,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=right]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='36'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M12 2.658v32.004c0-6-12.002-11.627-12.002-16.002S12 8.594 12 2.658'/%3E%3C/svg%3E") no-repeat;height:18px;margin-bottom:0;margin-left:5px;width:6px}.uppy-Root [role~=tooltip][data-microtip-position=right]:after{margin-left:11px}.uppy-Root [role~=tooltip][data-microtip-position=right]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position=right]:hover:before{transform:translate3d(0,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-size=small]:after{white-space:normal;width:80px}.uppy-Root [role~=tooltip][data-microtip-size=medium]:after{white-space:normal;width:150px}.uppy-Root [role~=tooltip][data-microtip-size=large]:after{white-space:normal;width:260px}.uppy-StatusBar{background-color:#fff;color:#fff;display:flex;font-size:12px;font-weight:400;height:46px;line-height:40px;position:relative;transition:height .2s;z-index:1001}[data-uppy-theme=dark] .uppy-StatusBar{background-color:#1f1f1f}.uppy-StatusBar:before{background-color:#eaeaea;content:"";height:2px;inset:0;position:absolute;width:100%}[data-uppy-theme=dark] .uppy-StatusBar:before{background-color:#757575}.uppy-StatusBar[aria-hidden=true]{height:0;overflow-y:hidden}.uppy-StatusBar.is-complete .uppy-StatusBar-progress{background-color:#1bb240}.uppy-StatusBar.is-error .uppy-StatusBar-progress{background-color:#e32437}.uppy-StatusBar.is-complete .uppy-StatusBar-statusIndicator{color:#1bb240}.uppy-StatusBar.is-error .uppy-StatusBar-statusIndicator{color:#e32437}.uppy-StatusBar:not([aria-hidden=true]).is-waiting{background-color:#fff;border-top:1px solid #eaeaea;height:65px}[data-uppy-theme=dark] .uppy-StatusBar:not([aria-hidden=true]).is-waiting{background-color:#1f1f1f;border-top:1px solid #333}.uppy-StatusBar-progress{background-color:#1269cf;height:2px;position:absolute;transition:background-color,width .3s ease-out;z-index:1001}.uppy-StatusBar-progress.is-indeterminate{animation:uppy-StatusBar-ProgressStripes 1s linear infinite;background-image:linear-gradient(45deg,#0000004d 25%,#0000 0 50%,#0000004d 0 75%,#0000 0,#0000);background-size:64px 64px}@keyframes uppy-StatusBar-ProgressStripes{0%{background-position:0 0}to{background-position:64px 0}}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-progress,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-progress{background-color:#f6a623}.uppy-StatusBar.is-waiting .uppy-StatusBar-progress{display:none}.uppy-StatusBar-content{align-items:center;color:#333;display:flex;height:100%;padding-inline-start:10px;position:relative;text-overflow:ellipsis;white-space:nowrap;z-index:1002}.uppy-size--md .uppy-StatusBar-content{padding-inline-start:15px}[data-uppy-theme=dark] .uppy-StatusBar-content{color:#eaeaea}.uppy-StatusBar-status{display:flex;flex-direction:column;font-weight:400;justify-content:center;line-height:1.4;padding-inline-end:.3em}.uppy-StatusBar-statusPrimary{display:flex;font-weight:500;line-height:1}.uppy-StatusBar-statusPrimary button.uppy-StatusBar-details{margin-left:5px}[data-uppy-theme=dark] .uppy-StatusBar-statusPrimary{color:#eaeaea}.uppy-StatusBar-statusSecondary{color:#757575;display:inline-block;font-size:11px;line-height:1.2;margin-top:1px;white-space:nowrap}[data-uppy-theme=dark] .uppy-StatusBar-statusSecondary{color:#bbb}.uppy-StatusBar-statusSecondaryHint{display:inline-block;line-height:1;margin-inline-end:5px;vertical-align:middle}.uppy-size--md .uppy-StatusBar-statusSecondaryHint{margin-inline-end:8px}.uppy-StatusBar-statusIndicator{color:#525252;margin-inline-end:7px;position:relative;top:1px}.uppy-StatusBar-statusIndicator svg{vertical-align:text-bottom}.uppy-StatusBar-actions{align-items:center;bottom:0;display:flex;inset-inline-end:10px;position:absolute;top:0;z-index:1004}.uppy-StatusBar.is-waiting .uppy-StatusBar-actions{background-color:#fafafa;height:100%;padding:0 15px;position:static;width:100%}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actions{background-color:#1f1f1f}.uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts{flex-direction:column;height:90px}.uppy-size--md .uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts{flex-direction:row;height:65px}.uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts .uppy-StatusBar-actions{flex-direction:column;justify-content:center}.uppy-size--md .uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts .uppy-StatusBar-actions{flex-direction:row;justify-content:normal}.uppy-StatusBar-actionCircleBtn{cursor:pointer;line-height:1;margin:3px;opacity:.9}.uppy-StatusBar-actionCircleBtn:focus{outline:none}.uppy-StatusBar-actionCircleBtn::-moz-focus-inner{border:0}.uppy-StatusBar-actionCircleBtn:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar-actionCircleBtn:hover{opacity:1}.uppy-StatusBar-actionCircleBtn:focus{border-radius:50%}.uppy-StatusBar-actionCircleBtn svg{vertical-align:bottom}.uppy-StatusBar-actionBtn{color:#1269cf;display:inline-block;font-size:10px;line-height:inherit;vertical-align:middle}.uppy-size--md .uppy-StatusBar-actionBtn{font-size:11px}.uppy-StatusBar-actionBtn--disabled{opacity:.4}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--disabled{opacity:.7}.uppy-StatusBar-actionBtn--retry{background-color:#ff4b23;border-radius:8px;color:#fff;height:16px;line-height:1;margin-inline-end:6px;padding:1px 6px 3px 18px;position:relative}.uppy-StatusBar-actionBtn--retry:focus{outline:none}.uppy-StatusBar-actionBtn--retry::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--retry:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar-actionBtn--retry:hover{background-color:#f92d00}.uppy-StatusBar-actionBtn--retry svg{inset-inline-start:6px;position:absolute;top:3px}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{background-color:#1bb240;color:#fff;font-size:14px;line-height:1;padding:15px 10px;width:100%}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover{background-color:#189c38}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{background-color:#1c8b37}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover{background-color:#18762f}.uppy-size--md .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{padding:13px 22px;width:auto}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload.uppy-StatusBar-actionBtn--disabled:hover{background-color:#1bb240;cursor:not-allowed}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload.uppy-StatusBar-actionBtn--disabled:hover{background-color:#1c8b37}.uppy-StatusBar:not(.is-waiting) .uppy-StatusBar-actionBtn--upload{background-color:initial;color:#1269cf}.uppy-StatusBar-actionBtn--uploadNewlyAdded{border-radius:3px;padding-inline-end:3px;padding-bottom:1px;padding-inline-start:3px}.uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{outline:none}.uppy-StatusBar-actionBtn--uploadNewlyAdded::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-actionBtn--uploadNewlyAdded,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-actionBtn--uploadNewlyAdded{display:none}.uppy-StatusBar-actionBtn--done{border-radius:3px;line-height:1;padding:7px 8px}.uppy-StatusBar-actionBtn--done:focus{outline:none}.uppy-StatusBar-actionBtn--done::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--done:hover{color:#0e51a0}.uppy-StatusBar-actionBtn--done:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--done:focus{background-color:#333}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--done{color:#02baf2}.uppy-size--md .uppy-StatusBar-actionBtn--done{font-size:14px}.uppy-StatusBar-serviceMsg{color:#000;font-size:11px;line-height:1.1;padding-left:10px}.uppy-size--md .uppy-StatusBar-serviceMsg{font-size:14px;padding-left:15px}[data-uppy-theme=dark] .uppy-StatusBar-serviceMsg{color:#eaeaea}.uppy-StatusBar-serviceMsg-ghostsIcon{left:6px;opacity:.5;position:relative;top:2px;vertical-align:text-bottom;width:10px}.uppy-size--md .uppy-StatusBar-serviceMsg-ghostsIcon{left:10px;top:1px;width:15px}.uppy-StatusBar-details{appearance:none;background-color:#939393;border-radius:50%;color:#fff;cursor:help;display:inline-block;font-size:10px;font-weight:600;height:13px;inset-inline-start:2px;line-height:12px;position:relative;text-align:center;top:0;vertical-align:middle;width:13px}.uppy-StatusBar-details:after{line-height:1.3;word-wrap:break-word}.uppy-StatusBar-spinner{animation-duration:1s;animation-iteration-count:infinite;animation-name:uppy-StatusBar-spinnerAnimation;animation-timing-function:linear;fill:#1269cf;margin-inline-end:10px}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-spinner,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-spinner{fill:#f6a623}@keyframes uppy-StatusBar-spinnerAnimation{0%{transform:rotate(0)}to{transform:rotate(1turn)}}.uppy-ProviderBrowser-viewType--grid ul.uppy-ProviderBrowser-list,.uppy-ProviderBrowser-viewType--unsplash ul.uppy-ProviderBrowser-list{align-items:flex-start;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;padding:6px}.uppy-ProviderBrowser-viewType--grid ul.uppy-ProviderBrowser-list:after,.uppy-ProviderBrowser-viewType--unsplash ul.uppy-ProviderBrowser-list:after{content:"";flex:auto}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{margin:0;position:relative;width:50%}.uppy-size--md .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-size--md .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{width:33.3333%}.uppy-size--lg .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-size--lg .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{width:25%}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem:before,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem:before{content:"";display:block;padding-top:100%}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--selected img,.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--selected svg,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--selected img,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--selected svg{opacity:.85}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--disabled,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--disabled{opacity:.5}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner{background-color:#93939333}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner{background-color:#eaeaea33}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview svg,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview svg{height:30%;width:30%;fill:#000000b3}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview svg,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview svg{fill:#fffc}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner{border-radius:4px;height:calc(100% - 14px);inset:7px;overflow:hidden;position:absolute;text-align:center;width:calc(100% - 14px)}@media (hover:none){.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner .uppy-ProviderBrowserItem-author{display:block}}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner{box-shadow:0 0 0 3px #aae1ffb3}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner img,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner img{border-radius:4px;height:100%;object-fit:cover;width:100%}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-author{background:#0000004d;bottom:0;color:#fff;display:none;font-size:12px;font-weight:500;left:0;margin:0;padding:5px;position:absolute;text-decoration:none;width:100%}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-author:hover,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-author:hover{background:#0006;text-decoration:underline}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox{background-color:#1269cf;border-radius:50%;height:26px;opacity:0;position:absolute;right:16px;top:16px;width:26px;z-index:1002}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox:after,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox:after{height:7px;inset-inline-start:7px;top:8px;width:12px}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox{opacity:1}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:hover+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:hover+label .uppy-ProviderBrowserItem-author{display:block}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label{box-shadow:0 0 0 3px #1269cf80}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label:focus,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label:focus{outline:none}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label::-moz-focus-inner,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label::-moz-focus-inner{border:0}.uppy-ProviderBrowser-viewType--list{background-color:#fff}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list{background-color:#1f1f1f}.uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem{align-items:center;display:flex;margin:0;padding:7px 15px}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem{color:#eaeaea}.uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem--disabled{opacity:.6}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox{background-color:#fff;border:1px solid #cfcfcf;border-radius:3px;height:17px;margin-inline-end:15px;width:17px}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:focus{border:1px solid #1269cf;box-shadow:0 0 0 3px #1269cf40;outline:none}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:after{height:5px;inset-inline-start:3px;opacity:0;top:4px;width:9px}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:focus{border-color:#02baf2b3;box-shadow:0 0 0 3px #02baf233}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox{background-color:#1269cf;border-color:#1269cf}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox:after,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox:after{opacity:1}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner{align-items:center;color:inherit;display:flex;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;overflow:hidden;padding:2px;text-overflow:ellipsis;white-space:nowrap}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner:focus{outline:none;text-decoration:underline}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner img,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner svg{margin-inline-end:8px}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner span{line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--disabled .uppy-ProviderBrowserItem-inner{cursor:default}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-iconWrap{margin-inline-end:7px;width:20px}.uppy-ProviderBrowserItem-checkbox{cursor:pointer;flex-shrink:0;position:relative}.uppy-ProviderBrowserItem-checkbox:disabled,.uppy-ProviderBrowserItem-checkbox:disabled:after{cursor:default}[data-uppy-theme=dark] .uppy-ProviderBrowserItem-checkbox{background-color:#1f1f1f;border-color:#939393}[data-uppy-theme=dark] .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox{background-color:#333}.uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox:after{border-bottom:2px solid #eaeaea;border-left:2px solid #eaeaea;content:"";cursor:pointer;position:absolute;transform:rotate(-45deg)}.uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox:after{background-color:#eaeaea!important;content:""!important;height:2px!important;left:20%!important;position:absolute!important;right:20%!important;top:50%!important;transform:translateY(-50%)!important}.uppy-SearchProvider{align-items:center;display:flex;flex:1;flex-direction:column;height:100%;justify-content:center;width:100%}[data-uppy-theme=dark] .uppy-SearchProvider{background-color:#1f1f1f}.uppy-SearchProvider-input{margin-bottom:15px;max-width:650px;width:90%}.uppy-size--md .uppy-SearchProvider-input{margin-bottom:20px}.uppy-SearchProvider-input::-webkit-search-cancel-button{display:none}.uppy-SearchProvider-searchButton{padding:13px 25px}.uppy-size--md .uppy-SearchProvider-searchButton{padding:13px 30px}.uppy-DashboardContent-panelBody{align-items:center;display:flex;flex:1;justify-content:center}[data-uppy-theme=dark] .uppy-DashboardContent-panelBody{background-color:#1f1f1f}.uppy-Provider-auth,.uppy-Provider-empty,.uppy-Provider-error,.uppy-Provider-loading{align-items:center;color:#939393;display:flex;flex:1;flex-flow:column wrap;justify-content:center}.uppy-Provider-empty{color:#939393}.uppy-Provider-authIcon svg{height:75px;width:100px}.uppy-Provider-authTitle{color:#757575;font-size:17px;font-weight:400;line-height:1.4;margin-bottom:30px;max-width:500px;padding:0 15px;text-align:center}.uppy-size--md .uppy-Provider-authTitle{font-size:20px}[data-uppy-theme=dark] .uppy-Provider-authTitle{color:#cfcfcf}.uppy-Provider-btn-google{align-items:center;background:#4285f4;display:flex;padding:8px 12px!important}.uppy-Provider-btn-google:hover{background-color:#1266f1}.uppy-Provider-btn-google:focus{box-shadow:0 0 0 3px #4285f466;outline:none}.uppy-Provider-btn-google svg{margin-right:8px}.uppy-Provider-breadcrumbs{color:#525252;flex:1;font-size:12px;margin-bottom:10px;text-align:start}.uppy-size--md .uppy-Provider-breadcrumbs{margin-bottom:0}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs{color:#eaeaea}.uppy-Provider-breadcrumbsIcon{color:#525252;display:inline-block;line-height:1;margin-inline-end:4px;vertical-align:middle}.uppy-Provider-breadcrumbsIcon svg{height:13px;width:13px;fill:#525252}.uppy-Provider-breadcrumbs button{border-radius:3px;display:inline-block;line-height:inherit;padding:4px}.uppy-Provider-breadcrumbs button:focus{outline:none}.uppy-Provider-breadcrumbs button::-moz-focus-inner{border:0}.uppy-Provider-breadcrumbs button:hover{color:#0e51a0}.uppy-Provider-breadcrumbs button:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs button:focus{background-color:#333}.uppy-Provider-breadcrumbs button:not(:last-of-type){text-decoration:underline}.uppy-Provider-breadcrumbs button:last-of-type{color:#333;cursor:normal;font-weight:500;pointer-events:none}.uppy-Provider-breadcrumbs button:hover{cursor:pointer}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs button{color:#eaeaea}.uppy-ProviderBrowser{display:flex;flex:1;flex-direction:column;font-size:14px;font-weight:400;height:100%}.uppy-ProviderBrowser-user{color:#333;font-weight:500;margin:0 8px 0 0}[data-uppy-theme=dark] .uppy-ProviderBrowser-user{color:#eaeaea}.uppy-ProviderBrowser-user:after{color:#939393;content:"·";font-weight:400;inset-inline-start:4px;position:relative}.uppy-ProviderBrowser-header{border-bottom:1px solid #eaeaea;position:relative;z-index:1001}[data-uppy-theme=dark] .uppy-ProviderBrowser-header{border-bottom:1px solid #333}.uppy-ProviderBrowser-headerBar{background-color:#fafafa;color:#757575;font-size:12px;line-height:1.4;padding:7px 15px;z-index:1001}.uppy-size--md .uppy-ProviderBrowser-headerBar{align-items:center;display:flex}[data-uppy-theme=dark] .uppy-ProviderBrowser-headerBar{background-color:#1f1f1f}.uppy-ProviderBrowser-headerBar--simple{display:block;justify-content:center;text-align:center}.uppy-ProviderBrowser-headerBar--simple .uppy-Provider-breadcrumbsWrap{display:inline-block;flex:none;vertical-align:middle}.uppy-ProviderBrowser-searchFilter{align-items:center;display:flex;height:30px;margin-bottom:15px;margin-top:15px;padding-left:8px;padding-right:8px;position:relative;width:100%}.uppy-ProviderBrowser-searchFilterInput{background-color:#eaeaea;border:0;border-radius:4px;color:#333;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;font-size:13px;height:30px;line-height:1.4;outline:0;padding-inline-end:30px;padding-inline-start:30px;width:100%;z-index:1001}.uppy-ProviderBrowser-searchFilterInput::-webkit-search-cancel-button{display:none}[data-uppy-theme=dark] .uppy-ProviderBrowser-searchFilterInput{background-color:#1f1f1f;color:#eaeaea}.uppy-ProviderBrowser-searchFilterInput:focus{background-color:#cfcfcf;border:0}[data-uppy-theme=dark] .uppy-ProviderBrowser-searchFilterInput:focus{background-color:#333}.uppy-ProviderBrowser-searchFilterIcon{color:#757575;height:12px;inset-inline-start:16px;position:absolute;width:12px;z-index:1002}.uppy-ProviderBrowser-searchFilterInput::placeholder{color:#939393;opacity:1}.uppy-ProviderBrowser-searchFilterReset{border-radius:3px;color:#939393;cursor:pointer;height:22px;inset-inline-end:16px;padding:6px;position:absolute;width:22px;z-index:1002}.uppy-ProviderBrowser-searchFilterReset:focus{outline:none}.uppy-ProviderBrowser-searchFilterReset::-moz-focus-inner{border:0}.uppy-ProviderBrowser-searchFilterReset:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-ProviderBrowser-searchFilterReset:hover{color:#757575}.uppy-ProviderBrowser-searchFilterReset svg{vertical-align:text-top}.uppy-ProviderBrowser-userLogout{border-radius:3px;color:#1269cf;cursor:pointer;line-height:inherit;padding:4px}.uppy-ProviderBrowser-userLogout:focus{outline:none}.uppy-ProviderBrowser-userLogout::-moz-focus-inner{border:0}.uppy-ProviderBrowser-userLogout:hover{color:#0e51a0}.uppy-ProviderBrowser-userLogout:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-ProviderBrowser-userLogout:focus{background-color:#333}.uppy-ProviderBrowser-userLogout:hover{text-decoration:underline}[data-uppy-theme=dark] .uppy-ProviderBrowser-userLogout{color:#eaeaea}.uppy-ProviderBrowser-body{flex:1;position:relative}.uppy-ProviderBrowser-list{background-color:#fff;border-spacing:0;display:block;flex:1;height:100%;inset:0;list-style:none;margin:0;overflow-x:hidden;overflow-y:auto;padding:0;position:absolute;width:100%;-webkit-overflow-scrolling:touch}[data-uppy-theme=dark] .uppy-ProviderBrowser-list{background-color:#1f1f1f}.uppy-ProviderBrowser-list:focus{outline:none}.uppy-ProviderBrowserItem-inner{cursor:pointer;font-size:13px;font-weight:500}.uppy-ProviderBrowser-footer{align-items:center;background-color:#fff;border-top:1px solid #eaeaea;display:flex;justify-content:space-between;padding:15px}.uppy-ProviderBrowser-footer button{margin-inline-end:8px}[data-uppy-theme=dark] .uppy-ProviderBrowser-footer{background-color:#1f1f1f;border-top:1px solid #333}.uppy-ProviderBrowser-footer-buttons{flex-shrink:0}.uppy-ProviderBrowser-footer-error{color:#e32437;line-height:18px}@media (max-width:426px){.uppy-ProviderBrowser-footer{align-items:stretch;flex-direction:column-reverse}.uppy-ProviderBrowser-footer-error{padding-bottom:10px}}.picker-dialog-bg{z-index:20000!important}.picker-dialog{z-index:20001!important}.uppy-Dashboard-Item-previewInnerWrap{align-items:center;border-radius:3px;box-shadow:0 0 2px #0006;display:flex;flex-direction:column;height:100%;justify-content:center;overflow:hidden;position:relative;width:100%}.uppy-size--md .uppy-Dashboard-Item-previewInnerWrap{box-shadow:0 1px 2px #00000026}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewInnerWrap{box-shadow:none}.uppy-Dashboard-Item-previewInnerWrap:after{background-color:#000000a6;content:"";display:none;inset:0;position:absolute;z-index:1001}.uppy-Dashboard-Item-previewLink{inset:0;position:absolute;z-index:1002}.uppy-Dashboard-Item-previewLink:focus{box-shadow:inset 0 0 0 3px #579df0}[data-uppy-theme=dark] .uppy-Dashboard-Item-previewLink:focus{box-shadow:inset 0 0 0 3px #016c8d}.uppy-Dashboard-Item-preview img.uppy-Dashboard-Item-previewImg{border-radius:3px;height:100%;object-fit:cover;transform:translateZ(0);width:100%}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-preview img.uppy-Dashboard-Item-previewImg{height:auto;max-height:100%;max-width:100%;object-fit:contain;padding:10px;width:auto}.uppy-Dashboard-Item-progress{color:#fff;left:50%;position:absolute;text-align:center;top:50%;transform:translate(-50%,-50%);transition:all .35 ease;width:120px;z-index:1002}.uppy-Dashboard-Item-progressIndicator{color:#fff;display:inline-block;height:38px;opacity:.9;width:38px}.uppy-size--md .uppy-Dashboard-Item-progressIndicator{height:55px;width:55px}button.uppy-Dashboard-Item-progressIndicator{cursor:pointer}button.uppy-Dashboard-Item-progressIndicator:focus{outline:none}button.uppy-Dashboard-Item-progressIndicator::-moz-focus-inner{border:0}button.uppy-Dashboard-Item-progressIndicator:focus .uppy-Dashboard-Item-progressIcon--bg,button.uppy-Dashboard-Item-progressIndicator:focus .uppy-Dashboard-Item-progressIcon--retry{fill:#579df0}.uppy-Dashboard-Item-progressIcon--circle{height:100%;width:100%}.uppy-Dashboard-Item-progressIcon--bg{stroke:#fff6}.uppy-Dashboard-Item-progressIcon--progress{transition:stroke-dashoffset .5s ease-out;stroke:#fff}.uppy-Dashboard-Item-progressIcon--play{transition:all .2s;fill:#fff;stroke:#fff}.uppy-Dashboard-Item-progressIcon--cancel{transition:all .2s;fill:#fff}.uppy-Dashboard-Item-progressIcon--pause{transition:all .2s;fill:#fff;stroke:#fff}.uppy-Dashboard-Item-progressIcon--check{transition:all .2s;fill:#fff}.uppy-Dashboard-Item-progressIcon--retry{fill:#fff}.uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progress{inset-inline-end:-8px;inset-inline-start:auto;top:-9px;transform:none;width:auto}.uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-progressIndicator{height:18px;width:18px}.uppy-size--md .uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-progressIndicator{height:28px;width:28px}.uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progressIndicator{height:18px;opacity:1;width:18px}.uppy-size--md .uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progressIndicator{height:22px;width:22px}.uppy-Dashboard-Item.is-processing .uppy-Dashboard-Item-progress{opacity:0}.uppy-Dashboard-Item-fileInfo{padding-inline-end:5px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfo{padding-inline-end:10px}.uppy-size--md.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfo{padding-inline-end:15px}.uppy-Dashboard-Item-name{font-size:12px;font-weight:500;line-height:1.3;margin-bottom:5px;word-wrap:anywhere;word-break:break-all}[data-uppy-theme=dark] .uppy-Dashboard-Item-name{color:#eaeaea}.uppy-size--md.uppy-Dashboard--singleFile .uppy-Dashboard-Item-name{font-size:14px;line-height:1.4}.uppy-Dashboard-Item-fileName{align-items:baseline;display:flex}.uppy-Dashboard-Item-fileName button{margin-left:5px}.uppy-Dashboard-Item-author{color:#757575;display:inline-block;font-size:11px;font-weight:400;line-height:1;margin-bottom:5px;vertical-align:bottom}.uppy-Dashboard-Item-author a{color:#757575}.uppy-Dashboard-Item-status{color:#757575;font-size:11px;font-weight:400;line-height:1}[data-uppy-theme=dark] .uppy-Dashboard-Item-status{color:#bbb}.uppy-Dashboard-Item-statusSize{display:inline-block;margin-bottom:5px;text-transform:uppercase;vertical-align:bottom}.uppy-Dashboard-Item-reSelect{color:#1269cf;font-family:inherit;font-size:inherit;font-weight:600}.uppy-Dashboard-Item-errorMessage{background-color:#fdeff1;color:#a51523;font-size:11px;font-weight:500;line-height:1.3;padding:5px 6px}.uppy-Dashboard-Item-errorMessageBtn{color:#a51523;cursor:pointer;font-size:11px;font-weight:500;text-decoration:underline}.uppy-Dashboard-Item-preview .uppy-Dashboard-Item-errorMessage{display:none}.uppy-size--md .uppy-Dashboard-Item-preview .uppy-Dashboard-Item-errorMessage{border-bottom-left-radius:3px;border-bottom-right-radius:3px;border-top:1px solid #f7c2c8;bottom:0;display:block;left:0;line-height:1.4;padding:6px 8px;position:absolute;right:0}.uppy-Dashboard-Item-fileInfo .uppy-Dashboard-Item-errorMessage{border:1px solid #f7c2c8;border-radius:3px;display:inline-block;position:static}.uppy-size--md .uppy-Dashboard-Item-fileInfo .uppy-Dashboard-Item-errorMessage{display:none}.uppy-Dashboard-Item-action{color:#939393;cursor:pointer}.uppy-Dashboard-Item-action:focus{outline:none}.uppy-Dashboard-Item-action::-moz-focus-inner{border:0}.uppy-Dashboard-Item-action:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-Dashboard-Item-action:hover{color:#1f1f1f;opacity:1}[data-uppy-theme=dark] .uppy-Dashboard-Item-action{color:#cfcfcf}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:focus{outline:none}[data-uppy-theme=dark] .uppy-Dashboard-Item-action::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:focus{box-shadow:0 0 0 2px #aae1ffd9}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:hover{color:#eaeaea}.uppy-Dashboard-Item-action--remove{color:#1f1f1f;opacity:.95}.uppy-Dashboard-Item-action--remove:hover{color:#000;opacity:1}.uppy-size--md .uppy-Dashboard-Item-action--remove{height:18px;inset-inline-end:-8px;padding:0;position:absolute;top:-8px;width:18px;z-index:1002}.uppy-size--md .uppy-Dashboard-Item-action--remove:focus{border-radius:50%}.uppy-Dashboard--singleFile.uppy-size--height-md .uppy-Dashboard-Item-action--remove{inset-inline-end:8px;position:absolute;top:8px}[data-uppy-theme=dark] .uppy-Dashboard-Item-action--remove{color:#525252}[data-uppy-theme=dark] .uppy-Dashboard-Item-action--remove:hover{color:#333}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-actionWrapper{align-items:center;display:flex}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-action{height:22px;margin-left:3px;padding:3px;width:22px}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-action:focus{border-radius:3px}.uppy-size--md .uppy-Dashboard-Item-action--copyLink,.uppy-size--md .uppy-Dashboard-Item-action--edit{height:16px;padding:0;width:16px}.uppy-size--md .uppy-Dashboard-Item-action--copyLink:focus,.uppy-size--md .uppy-Dashboard-Item-action--edit:focus{border-radius:3px}.uppy-Dashboard-Item{align-items:center;border-bottom:1px solid #eaeaea;display:flex;padding:10px}.uppy-Dashboard:not(.uppy-Dashboard--singleFile) .uppy-Dashboard-Item{padding-inline-end:0}[data-uppy-theme=dark] .uppy-Dashboard-Item{border-bottom:1px solid #333}.uppy-size--md .uppy-Dashboard-Item{border-bottom:0;display:block;float:inline-start;height:215px;margin:5px 15px;padding:0;position:relative;width:calc(33.333% - 30px)}.uppy-size--lg .uppy-Dashboard-Item{height:190px;margin:5px 15px;padding:0;width:calc(25% - 30px)}.uppy-size--xl .uppy-Dashboard-Item{height:210px;padding:0;width:calc(20% - 30px)}.uppy-Dashboard--singleFile .uppy-Dashboard-Item{border-bottom:0;display:flex;flex-direction:column;height:100%;max-width:400px;padding:15px;position:relative;width:100%}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-previewInnerWrap{opacity:.2}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-name{opacity:.7}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='39' viewBox='0 0 35 39'%3E%3Cpath fill='%2523000' d='M1.708 38.66c1.709 0 3.417-3.417 6.834-3.417s5.125 3.417 8.61 3.417c3.348 0 5.056-3.417 8.473-3.417 4.305 0 5.125 3.417 6.833 3.417.889 0 1.709-.889 1.709-1.709v-19.68C34.167-5.757 0-5.757 0 17.271v19.68c0 .82.888 1.709 1.708 1.709m8.542-17.084a3.383 3.383 0 0 1-3.417-3.416 3.383 3.383 0 0 1 3.417-3.417 3.383 3.383 0 0 1 3.417 3.417 3.383 3.383 0 0 1-3.417 3.416m13.667 0A3.383 3.383 0 0 1 20.5 18.16a3.383 3.383 0 0 1 3.417-3.417 3.383 3.383 0 0 1 3.416 3.417 3.383 3.383 0 0 1-3.416 3.416'/%3E%3C/svg%3E");background-position:50% 10px;background-repeat:no-repeat;background-size:25px;content:"";inset:0;opacity:.5;position:absolute;z-index:1005}.uppy-size--md .uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-position:50% 50%;background-size:40px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-position:50% 50%;background-size:30%}.uppy-Dashboard-Item-preview{flex-grow:0;flex-shrink:0;height:50px;position:relative;width:50px}.uppy-size--md .uppy-Dashboard-Item-preview{height:140px;width:100%}.uppy-size--lg .uppy-Dashboard-Item-preview{height:120px}.uppy-size--xl .uppy-Dashboard-Item-preview{height:140px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-preview{flex-grow:1;max-height:75%;width:100%}.uppy-Dashboard--singleFile.uppy-size--md .uppy-Dashboard-Item-preview{max-height:100%}.uppy-Dashboard-Item-fileInfoAndButtons{align-items:center;display:flex;flex-grow:1;justify-content:space-between;padding-inline-end:8px;padding-inline-start:12px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfoAndButtons,.uppy-size--md .uppy-Dashboard-Item-fileInfoAndButtons{align-items:flex-start;padding:9px 0 0}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfoAndButtons{flex-grow:0;width:100%}.uppy-Dashboard-Item-fileInfo{flex-grow:1;flex-shrink:1}.uppy-Dashboard-Item-actionWrapper{flex-grow:0;flex-shrink:0}.uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-previewInnerWrap:after,.uppy-Dashboard-Item.is-inprogress .uppy-Dashboard-Item-previewInnerWrap:after{display:block}.uppy-Dashboard-Item-errorDetails{appearance:none;background-color:#939393;border:none;border-radius:50%;color:#fff;cursor:help;flex-shrink:0;font-size:10px;font-weight:600;height:13px;inset-inline-start:2px;line-height:12px;position:relative;text-align:center;top:0;width:13px}.uppy-Dashboard-Item-errorDetails:after{line-height:1.3;word-wrap:break-word}.uppy-Dashboard-FileCard{background-color:#fff;border-radius:5px;box-shadow:0 0 10px 4px #0000001a;display:flex;flex-direction:column;height:100%;inset:0;position:absolute;width:100%;z-index:1005}.uppy-Dashboard-FileCard .uppy-DashboardContent-bar{border-top-left-radius:5px;border-top-right-radius:5px}.uppy-Dashboard-FileCard .uppy-Dashboard-FileCard-actions{border-bottom-left-radius:5px;border-bottom-right-radius:5px}.uppy-Dashboard-FileCard-inner{display:flex;flex-direction:column;flex-grow:1;flex-shrink:1;height:100%;min-height:0}.uppy-Dashboard-FileCard-preview{align-items:center;border-bottom:1px solid #eaeaea;display:flex;flex-grow:0;flex-shrink:1;height:60%;justify-content:center;min-height:0;position:relative}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-preview{background-color:#333;border-bottom:0}.uppy-Dashboard-FileCard-preview img.uppy-Dashboard-Item-previewImg{border-radius:3px;box-shadow:0 3px 20px #00000026;flex:0 0 auto;max-height:90%;max-width:90%;object-fit:cover}.uppy-Dashboard-FileCard-edit{background-color:#00000080;border-radius:50px;color:#fff;font-size:13px;inset-inline-end:10px;padding:7px 15px;position:absolute;top:10px}.uppy-Dashboard-FileCard-edit:focus{outline:none}.uppy-Dashboard-FileCard-edit::-moz-focus-inner{border:0}.uppy-Dashboard-FileCard-edit:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-Dashboard-FileCard-edit:hover{background-color:#000c}.uppy-Dashboard-FileCard-info{flex-grow:0;flex-shrink:0;height:40%;overflow-y:auto;padding:30px 20px 20px;-webkit-overflow-scrolling:touch}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-info{background-color:#1f1f1f}.uppy-Dashboard-FileCard-fieldset{border:0;font-size:0;margin:auto auto 12px;max-width:640px;padding:0}.uppy-Dashboard-FileCard-label{color:#525252;display:inline-block;font-size:12px;vertical-align:middle;width:22%}.uppy-size--md .uppy-Dashboard-FileCard-label{font-size:14px}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-label{color:#eaeaea}.uppy-Dashboard-FileCard-input{display:inline-block;vertical-align:middle;width:78%}.uppy-Dashboard-FileCard-actions{align-items:center;background-color:#fafafa;border-top:1px solid #eaeaea;display:flex;flex-grow:0;flex-shrink:0;height:55px;padding:0 15px}.uppy-size--md .uppy-Dashboard-FileCard-actions{height:65px}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-actions{background-color:#1f1f1f;border-top:1px solid #333}.uppy-Dashboard-FileCard-actionsBtn{margin-inline-end:10px}.uppy-transition-slideDownUp-enter{opacity:.01;transform:translate3d(0,-105%,0);transition:transform .25s ease-in-out,opacity .25s ease-in-out}.uppy-transition-slideDownUp-enter.uppy-transition-slideDownUp-enter-active{opacity:1;transform:translateZ(0)}.uppy-transition-slideDownUp-leave{opacity:1;transform:translateZ(0);transition:transform .25s ease-in-out,opacity .25s ease-in-out}.uppy-transition-slideDownUp-leave.uppy-transition-slideDownUp-leave-active{opacity:.01;transform:translate3d(0,-105%,0)}@keyframes uppy-Dashboard-fadeIn{0%{opacity:0}to{opacity:1}}@keyframes uppy-Dashboard-fadeOut{0%{opacity:1}to{opacity:0}}@keyframes uppy-Dashboard-slideDownAndFadeIn{0%{opacity:0;transform:translate3d(-50%,-70%,0)}to{opacity:1;transform:translate3d(-50%,-50%,0)}}@keyframes uppy-Dashboard-slideDownAndFadeIn--small{0%{opacity:0;transform:translate3d(0,-20%,0)}to{opacity:1;transform:translateZ(0)}}@keyframes uppy-Dashboard-slideUpFadeOut{0%{opacity:1;transform:translate3d(-50%,-50%,0)}to{opacity:0;transform:translate3d(-50%,-70%,0)}}@keyframes uppy-Dashboard-slideUpFadeOut--small{0%{opacity:1;transform:translateZ(0)}to{opacity:0;transform:translate3d(0,-20%,0)}}.uppy-Dashboard--modal{z-index:1001}.uppy-Dashboard--modal[aria-hidden=true]{display:none}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideDownAndFadeIn--small .3s cubic-bezier(0,0,.2,1)}@media only screen and (min-width:820px){.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideDownAndFadeIn .3s cubic-bezier(0,0,.2,1)}}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-overlay{animation:uppy-Dashboard-fadeIn .3s cubic-bezier(0,0,.2,1)}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideUpFadeOut--small .3s cubic-bezier(0,0,.2,1)}@media only screen and (min-width:820px){.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideUpFadeOut .3s cubic-bezier(0,0,.2,1)}}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-overlay{animation:uppy-Dashboard-fadeOut .3s cubic-bezier(0,0,.2,1)}.uppy-Dashboard-isFixed{height:100vh;overflow:hidden}.uppy-Dashboard--modal .uppy-Dashboard-overlay{background-color:#00000080;inset:0;position:fixed;z-index:1001}.uppy-Dashboard-inner{background-color:#f4f4f4;border:1px solid #eaeaea;border-radius:5px;max-height:100%;max-width:100%;outline:none;position:relative}.uppy-size--md .uppy-Dashboard-inner{min-height:auto}@media only screen and (min-width:820px){.uppy-Dashboard-inner{height:500px;width:650px}}.uppy-Dashboard--modal .uppy-Dashboard-inner{z-index:1002}[data-uppy-theme=dark] .uppy-Dashboard-inner{background-color:#1f1f1f}.uppy-Dashboard--isDisabled .uppy-Dashboard-inner{cursor:not-allowed}.uppy-Dashboard-innerWrap{border-radius:5px;display:flex;flex-direction:column;height:100%;opacity:0;overflow:hidden;position:relative}.uppy-Dashboard--isInnerWrapVisible .uppy-Dashboard-innerWrap{opacity:1}.uppy-Dashboard--isDisabled .uppy-Dashboard-innerWrap{cursor:not-allowed;filter:grayscale(100%);opacity:.6;user-select:none}.uppy-Dashboard--isDisabled .uppy-ProviderIconBg{fill:#9f9f9f}.uppy-Dashboard--isDisabled [aria-disabled],.uppy-Dashboard--isDisabled [disabled]{cursor:not-allowed;pointer-events:none}.uppy-Dashboard--modal .uppy-Dashboard-inner{border:none;inset:35px 15px 15px;position:fixed}@media only screen and (min-width:820px){.uppy-Dashboard--modal .uppy-Dashboard-inner{box-shadow:0 5px 15px 4px #00000026;left:50%;right:auto;top:50%;transform:translate(-50%,-50%)}}.uppy-Dashboard-close{color:#ffffffe6;cursor:pointer;display:block;font-size:27px;inset-inline-end:-2px;position:absolute;top:-33px;z-index:1005}.uppy-Dashboard-close:focus{outline:none}.uppy-Dashboard-close::-moz-focus-inner{border:0}.uppy-Dashboard-close:focus{color:#6eabf2}@media only screen and (min-width:820px){.uppy-Dashboard-close{font-size:35px;inset-inline-end:-35px;top:-10px}}.uppy-Dashboard-serviceMsg{background-color:#fffbf7;border-bottom:1px solid #edd4b9;border-top:1px solid #edd4b9;font-size:12px;font-weight:500;line-height:1.3;padding:12px 0;position:relative;top:-1px;z-index:1004}.uppy-size--md .uppy-Dashboard-serviceMsg{font-size:14px;line-height:1.4}[data-uppy-theme=dark] .uppy-Dashboard-serviceMsg{background-color:#1f1f1f;border-bottom:1px solid #333;border-top:1px solid #333;color:#eaeaea}.uppy-Dashboard-serviceMsg-title{display:block;line-height:1;margin-bottom:4px;padding-left:42px}.uppy-Dashboard-serviceMsg-text{padding:0 15px}.uppy-Dashboard-serviceMsg-actionBtn{color:#1269cf;font-size:inherit;font-weight:inherit;vertical-align:initial}[data-uppy-theme=dark] .uppy-Dashboard-serviceMsg-actionBtn{color:#02baf2e6}.uppy-Dashboard-serviceMsg-icon{left:15px;position:absolute;top:10px}.uppy-Dashboard-AddFiles{align-items:center;display:flex;flex-direction:column;height:100%;justify-content:center;position:relative;text-align:center}[data-uppy-drag-drop-supported=true] .uppy-Dashboard-AddFiles{border:1px dashed #dfdfdf;border-radius:3px;height:calc(100% - 14px);margin:7px}.uppy-Dashboard-AddFilesPanel .uppy-Dashboard-AddFiles{border:none;height:calc(100% - 54px)}.uppy-Dashboard--modal .uppy-Dashboard-AddFiles{border-color:#cfcfcf}[data-uppy-theme=dark] .uppy-Dashboard-AddFiles{border-color:#757575}.uppy-Dashboard-AddFiles-info{display:none;margin-top:auto;padding-bottom:15px;padding-top:15px}.uppy-size--height-md .uppy-Dashboard-AddFiles-info{display:block}.uppy-size--md .uppy-Dashboard-AddFiles-info{bottom:25px;left:0;padding-bottom:0;padding-top:30px;position:absolute;right:0}[data-uppy-num-acquirers="0"] .uppy-Dashboard-AddFiles-info{margin-top:0}.uppy-Dashboard-browse{color:#1269cf;cursor:pointer}.uppy-Dashboard-browse:focus{outline:none}.uppy-Dashboard-browse::-moz-focus-inner{border:0}.uppy-Dashboard-browse:focus,.uppy-Dashboard-browse:hover{border-bottom:1px solid #1269cf}[data-uppy-theme=dark] .uppy-Dashboard-browse{color:#02baf2e6}[data-uppy-theme=dark] .uppy-Dashboard-browse:focus,[data-uppy-theme=dark] .uppy-Dashboard-browse:hover{border-bottom:1px solid #02baf2}.uppy-Dashboard-browseBtn{display:block;font-size:14px;font-weight:500;margin-bottom:5px;margin-top:8px;width:100%}.uppy-size--md .uppy-Dashboard-browseBtn{font-size:15px;margin:15px auto;padding:13px 44px;width:auto}.uppy-Dashboard-AddFiles-list{display:flex;flex:1;flex-direction:column;margin-top:2px;overflow-y:auto;padding:2px 0;width:100%;-webkit-overflow-scrolling:touch}.uppy-size--md .uppy-Dashboard-AddFiles-list{flex:none;flex-direction:row;flex-wrap:wrap;justify-content:center;margin-top:15px;max-width:600px;overflow-y:visible;padding-top:0}.uppy-DashboardTab{border-bottom:1px solid #eaeaea;text-align:center;width:100%}[data-uppy-theme=dark] .uppy-DashboardTab{border-bottom:1px solid #333}.uppy-size--md .uppy-DashboardTab{border-bottom:none;display:inline-block;margin-bottom:10px;width:auto}.uppy-DashboardTab-btn{align-items:center;-webkit-appearance:none;appearance:none;background-color:initial;color:#525252;cursor:pointer;flex-direction:row;height:100%;justify-content:left;padding:12px 15px;width:100%}.uppy-DashboardTab-btn:focus{outline:none}.uppy-size--md .uppy-DashboardTab-btn{border-radius:5px;flex-direction:column;margin-inline-end:1px;padding:10px 3px;width:86px}[data-uppy-theme=dark] .uppy-DashboardTab-btn{color:#eaeaea}.uppy-DashboardTab-btn::-moz-focus-inner{border:0}.uppy-DashboardTab-btn:hover{background-color:#e9ecef}[data-uppy-theme=dark] .uppy-DashboardTab-btn:hover{background-color:#333}.uppy-DashboardTab-btn:active,.uppy-DashboardTab-btn:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardTab-btn:active,[data-uppy-theme=dark] .uppy-DashboardTab-btn:focus{background-color:#525252}.uppy-DashboardTab-btn svg{display:inline-block;max-height:100%;max-width:100%;overflow:hidden;transition:transform .15s ease-in-out;vertical-align:text-top}.uppy-DashboardTab-inner{align-items:center;background-color:#fff;border-radius:8px;box-shadow:0 1px 1px #0000001a,0 1px 2px #0000001a,0 2px 3px #00000005;display:flex;height:32px;justify-content:center;margin-inline-end:10px;width:32px}.uppy-size--md .uppy-DashboardTab-inner{margin-inline-end:0}[data-uppy-theme=dark] .uppy-DashboardTab-inner{background-color:#323232;box-shadow:0 1px 1px #0003,0 1px 2px #0003,0 2px 3px #00000014}.uppy-DashboardTab-name{font-size:14px;font-weight:400}.uppy-size--md .uppy-DashboardTab-name{font-size:12px;line-height:15px;margin-bottom:0;margin-top:8px}.uppy-DashboardTab-iconMyDevice{color:#1269cf}[data-uppy-theme=dark] .uppy-DashboardTab-iconMyDevice{color:#02baf2}.uppy-DashboardTab-iconBox{color:#0061d5}[data-uppy-theme=dark] .uppy-DashboardTab-iconBox{color:#eaeaea}.uppy-DashboardTab-iconDropbox{color:#0061fe}[data-uppy-theme=dark] .uppy-DashboardTab-iconDropbox{color:#eaeaea}.uppy-DashboardTab-iconUnsplash{color:#111}[data-uppy-theme=dark] .uppy-DashboardTab-iconUnsplash{color:#eaeaea}.uppy-DashboardTab-iconWebdav{color:#111}[data-uppy-theme=dark] .uppy-DashboardTab-iconWebdav{color:#eaeaea}.uppy-DashboardTab-iconScreenRec{color:#2c3e50}[data-uppy-theme=dark] .uppy-DashboardTab-iconScreenRec{color:#eaeaea}.uppy-DashboardTab-iconAudio{color:#8030a3}[data-uppy-theme=dark] .uppy-DashboardTab-iconAudio{color:#bf6ee3}.uppy-Dashboard-input{height:.1px;opacity:0;overflow:hidden;position:absolute;width:.1px;z-index:-1}.uppy-DashboardContent-bar{align-items:center;background-color:#fafafa;border-bottom:1px solid #eaeaea;display:flex;flex-shrink:0;height:40px;justify-content:space-between;padding:0 10px;position:relative;width:100%;z-index:1004}.uppy-size--md .uppy-DashboardContent-bar{height:50px;padding:0 15px}[data-uppy-theme=dark] .uppy-DashboardContent-bar{background-color:#1f1f1f;border-bottom:1px solid #333}.uppy-DashboardContent-title{font-size:12px;font-weight:500;left:0;line-height:40px;margin:auto;max-width:170px;overflow-x:hidden;position:absolute;right:0;text-align:center;text-overflow:ellipsis;top:0;white-space:nowrap;width:100%}.uppy-size--md .uppy-DashboardContent-title{font-size:14px;line-height:50px;max-width:300px}[data-uppy-theme=dark] .uppy-DashboardContent-title{color:#eaeaea}.uppy-DashboardContent-back,.uppy-DashboardContent-save{-webkit-appearance:none;background:none;border:0;border-radius:3px;color:inherit;color:#1269cf;cursor:pointer;font-family:inherit;font-size:inherit;font-size:12px;font-weight:400;line-height:1;margin:0;margin-inline-start:-6px;padding:7px 6px}.uppy-DashboardContent-back:focus,.uppy-DashboardContent-save:focus{outline:none}.uppy-DashboardContent-back::-moz-focus-inner,.uppy-DashboardContent-save::-moz-focus-inner{border:0}.uppy-DashboardContent-back:hover,.uppy-DashboardContent-save:hover{color:#0e51a0}.uppy-DashboardContent-back:focus,.uppy-DashboardContent-save:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardContent-back:focus,[data-uppy-theme=dark] .uppy-DashboardContent-save:focus{background-color:#333}.uppy-size--md .uppy-DashboardContent-back,.uppy-size--md .uppy-DashboardContent-save{font-size:14px}[data-uppy-theme=dark] .uppy-DashboardContent-back,[data-uppy-theme=dark] .uppy-DashboardContent-save{color:#02baf2}.uppy-DashboardContent-addMore{-webkit-appearance:none;background:none;border:0;border-radius:3px;color:inherit;color:#1269cf;cursor:pointer;font-family:inherit;font-size:inherit;font-weight:500;height:29px;line-height:1;margin:0;margin-inline-end:-5px;padding:7px 8px;width:29px}.uppy-DashboardContent-addMore:focus{outline:none}.uppy-DashboardContent-addMore::-moz-focus-inner{border:0}.uppy-DashboardContent-addMore:hover{color:#0e51a0}.uppy-DashboardContent-addMore:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardContent-addMore:focus{background-color:#333}.uppy-size--md .uppy-DashboardContent-addMore{font-size:14px;height:auto;margin-inline-end:-8px;width:auto}[data-uppy-theme=dark] .uppy-DashboardContent-addMore{color:#02baf2}.uppy-DashboardContent-addMore svg{margin-inline-end:4px;vertical-align:initial}.uppy-size--md .uppy-DashboardContent-addMore svg{height:11px;width:11px}.uppy-DashboardContent-addMoreCaption{display:none}.uppy-size--md .uppy-DashboardContent-addMoreCaption{display:inline}.uppy-DashboardContent-panel{background-color:#f5f5f5;flex:1}.uppy-Dashboard-AddFilesPanel,.uppy-DashboardContent-panel{border-radius:5px;display:flex;flex-direction:column;inset:0;overflow:hidden;position:absolute;z-index:1005}.uppy-Dashboard-AddFilesPanel{background:#fafafa;background:linear-gradient(0deg,#fafafa 35%,#fafafad9);box-shadow:0 0 10px 5px #00000026}[data-uppy-theme=dark] .uppy-Dashboard-AddFilesPanel{background-color:#333;background-image:linear-gradient(0deg,#1f1f1f 35%,#1f1f1fd9)}.uppy-Dashboard--isAddFilesPanelVisible .uppy-Dashboard-files{filter:blur(2px)}.uppy-Dashboard-progress{bottom:0;height:12%;left:0;position:absolute;width:100%}.uppy-Dashboard-progressBarContainer.is-active{height:100%;left:0;position:absolute;top:0;width:100%;z-index:1004}.uppy-Dashboard-filesContainer{flex:1;margin:0;overflow-y:hidden;position:relative}.uppy-Dashboard-filesContainer:after{clear:both;content:"";display:table}.uppy-Dashboard-files{flex:1;margin:0;overflow-y:auto;padding:0 0 10px;-webkit-overflow-scrolling:touch}.uppy-size--md .uppy-Dashboard-files{padding-top:10px}.uppy-Dashboard--singleFile .uppy-Dashboard-filesInner{align-items:center;display:flex;height:100%;justify-content:center}.uppy-Dashboard-dropFilesHereHint{align-items:center;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath fill='%231269CF' d='M24 1v1C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 0V0c13.254 0 24 10.746 24 24S37.254 48 24 48 0 37.254 0 24 10.746 0 24 0zm7.707 19.293a.999.999 0 1 1-1.414 1.414L25 16.414V34a1 1 0 1 1-2 0V16.414l-5.293 5.293a.999.999 0 1 1-1.414-1.414l7-7a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");background-position:50% 50%;background-repeat:no-repeat;border:1px dashed #1269cf;border-radius:3px;color:#757575;display:flex;font-size:16px;justify-content:center;inset:7px;padding-top:90px;position:absolute;text-align:center;visibility:hidden;z-index:2000}[data-uppy-theme=dark] .uppy-Dashboard-dropFilesHereHint{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath fill='%2302BAF2' d='M24 1v1C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 0V0c13.254 0 24 10.746 24 24S37.254 48 24 48 0 37.254 0 24 10.746 0 24 0zm7.707 19.293a.999.999 0 1 1-1.414 1.414L25 16.414V34a1 1 0 1 1-2 0V16.414l-5.293 5.293a.999.999 0 1 1-1.414-1.414l7-7a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");border-color:#02baf2;color:#bbb}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-dropFilesHereHint{pointer-events:none;visibility:visible}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-files,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-progressindicators,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-serviceMsg,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-DashboardContent-bar{opacity:.15}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-AddFiles{opacity:.03}.uppy-Dashboard-AddFiles-title{color:#000;font-size:17px;font-weight:500;line-height:1.35;margin-bottom:5px;margin-top:15px;padding:0 15px;text-align:inline-start;width:100%}.uppy-size--md .uppy-Dashboard-AddFiles-title{font-size:21px;font-weight:400;margin-top:5px;max-width:480px;padding:0 35px;text-align:center}[data-uppy-num-acquirers="0"] .uppy-Dashboard-AddFiles-title{text-align:center}[data-uppy-theme=dark] .uppy-Dashboard-AddFiles-title{color:#eaeaea}.uppy-Dashboard-AddFiles-title button{font-weight:500}.uppy-size--md .uppy-Dashboard-AddFiles-title button{font-weight:400}.uppy-Dashboard-note{color:#757575;font-size:14px;line-height:1.25;margin:auto;max-width:350px;padding:0 15px;text-align:center}.uppy-size--md .uppy-Dashboard-note{line-height:1.35;max-width:600px}[data-uppy-theme=dark] .uppy-Dashboard-note{color:#cfcfcf}a.uppy-Dashboard-poweredBy{color:#939393;display:inline-block;font-size:11px;margin-top:8px;text-align:center;text-decoration:none}.uppy-Dashboard-poweredByIcon{margin-left:1px;margin-right:1px;opacity:.9;position:relative;top:1px;vertical-align:text-top;fill:none;stroke:#939393}.uppy-Dashboard-Item-previewIcon{height:25px;left:50%;position:absolute;top:50%;transform:translate(-50%,-50%);width:25px;z-index:100}.uppy-size--md .uppy-Dashboard-Item-previewIcon{height:38px;width:38px}.uppy-Dashboard-Item-previewIcon svg{height:100%;width:100%}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewIcon{height:100%;max-height:60%;max-width:60%;width:100%}.uppy-Dashboard-Item-previewIconWrap{height:76px;max-height:75%;position:relative}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewIconWrap{height:100%;width:100%}.uppy-Dashboard-Item-previewIconBg{filter:drop-shadow(rgba(0,0,0,.1) 0 1px 1px);height:100%;width:100%}.uppy-Dashboard-upload{height:50px;position:relative;width:50px}.uppy-size--md .uppy-Dashboard-upload{height:60px;width:60px}.uppy-Dashboard-upload .uppy-c-icon{position:relative;top:1px;width:50%}.uppy-Dashboard-uploadCount{background-color:#1bb240;border-radius:50%;color:#fff;font-size:8px;height:16px;inset-inline-end:-12px;line-height:16px;position:absolute;top:-12px;width:16px}.uppy-size--md .uppy-Dashboard-uploadCount{font-size:9px;height:18px;line-height:18px;width:18px}`, wh = `.uppy-ImageCropper-range{-webkit-appearance:none;background:#0000;margin:8px 0;width:100%}.uppy-ImageCropper-range::-moz-focus-outer{border:0}.uppy-ImageCropper-range:focus{outline:0}.uppy-ImageCropper-range:focus::-webkit-slider-runnable-track{background:#fff3}.uppy-ImageCropper-range:focus::-ms-fill-lower,.uppy-ImageCropper-range:focus::-ms-fill-upper{background:#fff3}.uppy-ImageCropper-range::-webkit-slider-runnable-track{background:#fff3;border:0 solid #0000;border-radius:5px;box-shadow:0 0 #0000,0 0 #0d0d0d00;cursor:default;height:4px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-webkit-slider-thumb{-webkit-appearance:none;background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;margin-top:-6px;width:16px}.uppy-ImageCropper-range::-moz-range-track{background:#fff3;border:0 solid #0000;border-radius:5px;box-shadow:0 0 #0000,0 0 #0d0d0d00;cursor:default;height:2px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-moz-range-thumb{background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;width:16px}.uppy-ImageCropper-range::-ms-track{background:#0000;border-color:#0000;border-width:8px 0;color:#0000;cursor:default;height:4px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-ms-fill-lower{background:#f2f2f233;border:0 solid #0000;border-radius:10px;box-shadow:0 0 #0000,0 0 #0d0d0d00}.uppy-ImageCropper-range::-ms-fill-upper{background:#fff3;border:0 solid #0000;border-radius:10px;box-shadow:0 0 #0000,0 0 #0d0d0d00}.uppy-ImageCropper-range::-ms-thumb{background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;margin-top:1px;width:16px}.uppy-ImageCropper-range:disabled::-moz-range-thumb,.uppy-ImageCropper-range:disabled::-ms-fill-lower,.uppy-ImageCropper-range:disabled::-ms-fill-upper,.uppy-ImageCropper-range:disabled::-ms-thumb,.uppy-ImageCropper-range:disabled::-webkit-slider-runnable-track,.uppy-ImageCropper-range:disabled::-webkit-slider-thumb{cursor:not-allowed}/*!
+const gh = ".uppy-Root{box-sizing:border-box;color:#333;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;line-height:1;position:relative;text-align:left;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.uppy-Root[dir=rtl],[dir=rtl] .uppy-Root{text-align:right}.uppy-Root *,.uppy-Root :after,.uppy-Root :before{box-sizing:inherit}.uppy-Root [hidden]{display:none}.uppy-u-reset{all:initial;appearance:none;box-sizing:border-box;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;line-height:1}[dir=rtl] .uppy-u-reset{text-align:right}.uppy-c-textInput{background-color:#fff;border:1px solid #ddd;border-radius:4px;font-family:inherit;font-size:14px;line-height:1.5;padding:6px 8px}.uppy-size--md .uppy-c-textInput{padding:8px 10px}.uppy-c-textInput:focus{border-color:#1269cf99;box-shadow:0 0 0 3px #1269cf26;outline:none}[data-uppy-theme=dark] .uppy-c-textInput{background-color:#333;border-color:#333;color:#eaeaea}[data-uppy-theme=dark] .uppy-c-textInput:focus{border-color:#525252;box-shadow:none}.uppy-c-icon{display:inline-block;max-height:100%;max-width:100%;overflow:hidden;fill:currentColor}.uppy-c-btn{align-items:center;color:inherit;display:inline-flex;font-family:inherit;font-size:inherit;font-weight:500;justify-content:center;line-height:1;transition-duration:.3s;transition-property:background-color,color;user-select:none;white-space:nowrap}.uppy-c-btn,[dir=rtl] .uppy-c-btn{text-align:center}.uppy-c-btn:not(:disabled):not(.disabled){cursor:pointer}.uppy-c-btn::-moz-focus-inner{border:0}.uppy-c-btn-primary{background-color:#1269cf;border-radius:4px;color:#fff;font-size:14px;padding:10px 18px}.uppy-c-btn-primary:not(:disabled):hover{background-color:#0e51a0}.uppy-c-btn-primary:focus{box-shadow:0 0 0 3px #1269cf66;outline:none}.uppy-size--md .uppy-c-btn-primary{padding:13px 22px}[data-uppy-theme=dark] .uppy-c-btn-primary{color:#eaeaea}[data-uppy-theme=dark] .uppy-c-btn-primary:focus{outline:none}[data-uppy-theme=dark] .uppy-c-btn-primary::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-c-btn-primary:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-c-btn-primary.uppy-c-btn--disabled{background-color:#8eb2db}.uppy-c-btn-link{background-color:initial;border-radius:4px;color:#525252;font-size:14px;line-height:1;padding:10px 15px}.uppy-c-btn-link:hover{color:#333}.uppy-c-btn-link:focus{box-shadow:0 0 0 3px #1269cf40;outline:none}.uppy-size--md .uppy-c-btn-link{padding:13px 18px}[data-uppy-theme=dark] .uppy-c-btn-link{color:#eaeaea}[data-uppy-theme=dark] .uppy-c-btn-link:focus{outline:none}[data-uppy-theme=dark] .uppy-c-btn-link::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-c-btn-link:focus{box-shadow:0 0 0 2px #aae1ffd9}[data-uppy-theme=dark] .uppy-c-btn-link:hover{color:#939393}", yh = `@charset "UTF-8";.uppy-Informer{bottom:60px;left:0;position:absolute;right:0;text-align:center;z-index:1005}.uppy-Informer span>div{margin-bottom:6px}.uppy-Informer-animated{opacity:0;transform:translateY(350%);transition:all .3s ease-in;z-index:-1000}.uppy-Informer p{background-color:#757575;border-radius:18px;color:#fff;display:inline-block;font-size:12px;font-weight:400;line-height:1.4;margin:0;max-width:90%;padding:6px 15px}.uppy-size--md .uppy-Informer p{font-size:14px;line-height:1.3;max-width:500px;padding:10px 20px}[data-uppy-theme=dark] .uppy-Informer p{background-color:#333}.uppy-Informer p span{background-color:#fff;border-radius:50%;color:#525252;display:inline-block;font-size:10px;height:13px;inset-inline-start:3px;line-height:12px;margin-inline-start:-1px;position:relative;top:-1px;vertical-align:middle;width:13px}.uppy-Informer p span:hover{cursor:help}.uppy-Informer p span:after{line-height:1.3;word-wrap:break-word}.uppy-Root [aria-label][role~=tooltip]{position:relative}.uppy-Root [aria-label][role~=tooltip]:after,.uppy-Root [aria-label][role~=tooltip]:before{-webkit-backface-visibility:hidden;backface-visibility:hidden;box-sizing:border-box;opacity:0;pointer-events:none;position:absolute;transform:translateZ(0);transform-origin:top;transition:all var(--microtip-transition-duration,.18s) var(--microtip-transition-easing,ease-in-out) var(--microtip-transition-delay,0s);will-change:transform;z-index:10}.uppy-Root [aria-label][role~=tooltip]:before{background-size:100% auto!important;content:""}.uppy-Root [aria-label][role~=tooltip]:after{background:#111111e6;border-radius:4px;box-sizing:initial;color:#fff;content:attr(aria-label);font-size:var(--microtip-font-size,13px);font-weight:var(--microtip-font-weight,normal);padding:.5em 1em;text-transform:var(--microtip-text-transform,none);white-space:nowrap}.uppy-Root [aria-label][role~=tooltip]:focus:after,.uppy-Root [aria-label][role~=tooltip]:focus:before,.uppy-Root [aria-label][role~=tooltip]:hover:after,.uppy-Root [aria-label][role~=tooltip]:hover:before{opacity:1;pointer-events:auto}.uppy-Root [role~=tooltip][data-microtip-position|=top]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M2.658 0h32.004c-6 0-11.627 12.002-16.002 12.002S8.594 0 2.658 0'/%3E%3C/svg%3E") no-repeat;bottom:100%;height:6px;left:50%;margin-bottom:5px;transform:translate3d(-50%,0,0);width:18px}.uppy-Root [role~=tooltip][data-microtip-position|=top]:after{bottom:100%;left:50%;margin-bottom:11px;transform:translate3d(-50%,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position|=top]:hover:before{transform:translate3d(-50%,-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-left]:after{bottom:100%;transform:translate3d(calc(-100% + 16px),0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-left]:hover:after{transform:translate3d(calc(-100% + 16px),-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-right]:after{bottom:100%;transform:translate3d(-16px,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-right]:hover:after{transform:translate3d(-16px,-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M33.342 12H1.338c6 0 11.627-12.002 16.002-12.002S27.406 12 33.342 12'/%3E%3C/svg%3E") no-repeat;bottom:auto;height:6px;left:50%;margin-bottom:0;margin-top:5px;top:100%;transform:translate3d(-50%,-10px,0);width:18px}.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:after{left:50%;margin-top:11px;top:100%;transform:translate3d(-50%,-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:hover:before{transform:translate3d(-50%,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-left]:after{top:100%;transform:translate3d(calc(-100% + 16px),-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-left]:hover:after{transform:translate3d(calc(-100% + 16px),0,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-right]:after{top:100%;transform:translate3d(-16px,-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-right]:hover:after{transform:translate3d(-16px,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=left]:after,.uppy-Root [role~=tooltip][data-microtip-position=left]:before{inset:50% 100% auto auto;transform:translate3d(10px,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=left]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='36'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M0 33.342V1.338c0 6 12.002 11.627 12.002 16.002S0 27.406 0 33.342'/%3E%3C/svg%3E") no-repeat;height:18px;margin-bottom:0;margin-right:5px;width:6px}.uppy-Root [role~=tooltip][data-microtip-position=left]:after{margin-right:11px}.uppy-Root [role~=tooltip][data-microtip-position=left]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position=left]:hover:before{transform:translate3d(0,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=right]:after,.uppy-Root [role~=tooltip][data-microtip-position=right]:before{bottom:auto;left:100%;top:50%;transform:translate3d(-10px,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=right]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='36'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M12 2.658v32.004c0-6-12.002-11.627-12.002-16.002S12 8.594 12 2.658'/%3E%3C/svg%3E") no-repeat;height:18px;margin-bottom:0;margin-left:5px;width:6px}.uppy-Root [role~=tooltip][data-microtip-position=right]:after{margin-left:11px}.uppy-Root [role~=tooltip][data-microtip-position=right]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position=right]:hover:before{transform:translate3d(0,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-size=small]:after{white-space:normal;width:80px}.uppy-Root [role~=tooltip][data-microtip-size=medium]:after{white-space:normal;width:150px}.uppy-Root [role~=tooltip][data-microtip-size=large]:after{white-space:normal;width:260px}.uppy-StatusBar{background-color:#fff;color:#fff;display:flex;font-size:12px;font-weight:400;height:46px;line-height:40px;position:relative;transition:height .2s;z-index:1001}[data-uppy-theme=dark] .uppy-StatusBar{background-color:#1f1f1f}.uppy-StatusBar:before{background-color:#eaeaea;content:"";height:2px;inset:0;position:absolute;width:100%}[data-uppy-theme=dark] .uppy-StatusBar:before{background-color:#757575}.uppy-StatusBar[aria-hidden=true]{height:0;overflow-y:hidden}.uppy-StatusBar.is-complete .uppy-StatusBar-progress{background-color:#1bb240}.uppy-StatusBar.is-error .uppy-StatusBar-progress{background-color:#e32437}.uppy-StatusBar.is-complete .uppy-StatusBar-statusIndicator{color:#1bb240}.uppy-StatusBar.is-error .uppy-StatusBar-statusIndicator{color:#e32437}.uppy-StatusBar:not([aria-hidden=true]).is-waiting{background-color:#fff;border-top:1px solid #eaeaea;height:65px}[data-uppy-theme=dark] .uppy-StatusBar:not([aria-hidden=true]).is-waiting{background-color:#1f1f1f;border-top:1px solid #333}.uppy-StatusBar-progress{background-color:#1269cf;height:2px;position:absolute;transition:background-color,width .3s ease-out;z-index:1001}.uppy-StatusBar-progress.is-indeterminate{animation:uppy-StatusBar-ProgressStripes 1s linear infinite;background-image:linear-gradient(45deg,#0000004d 25%,#0000 0 50%,#0000004d 0 75%,#0000 0,#0000);background-size:64px 64px}@keyframes uppy-StatusBar-ProgressStripes{0%{background-position:0 0}to{background-position:64px 0}}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-progress,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-progress{background-color:#f6a623}.uppy-StatusBar.is-waiting .uppy-StatusBar-progress{display:none}.uppy-StatusBar-content{align-items:center;color:#333;display:flex;height:100%;padding-inline-start:10px;position:relative;text-overflow:ellipsis;white-space:nowrap;z-index:1002}.uppy-size--md .uppy-StatusBar-content{padding-inline-start:15px}[data-uppy-theme=dark] .uppy-StatusBar-content{color:#eaeaea}.uppy-StatusBar-status{display:flex;flex-direction:column;font-weight:400;justify-content:center;line-height:1.4;padding-inline-end:.3em}.uppy-StatusBar-statusPrimary{display:flex;font-weight:500;line-height:1}.uppy-StatusBar-statusPrimary button.uppy-StatusBar-details{margin-left:5px}[data-uppy-theme=dark] .uppy-StatusBar-statusPrimary{color:#eaeaea}.uppy-StatusBar-statusSecondary{color:#757575;display:inline-block;font-size:11px;line-height:1.2;margin-top:1px;white-space:nowrap}[data-uppy-theme=dark] .uppy-StatusBar-statusSecondary{color:#bbb}.uppy-StatusBar-statusSecondaryHint{display:inline-block;line-height:1;margin-inline-end:5px;vertical-align:middle}.uppy-size--md .uppy-StatusBar-statusSecondaryHint{margin-inline-end:8px}.uppy-StatusBar-statusIndicator{color:#525252;margin-inline-end:7px;position:relative;top:1px}.uppy-StatusBar-statusIndicator svg{vertical-align:text-bottom}.uppy-StatusBar-actions{align-items:center;bottom:0;display:flex;inset-inline-end:10px;position:absolute;top:0;z-index:1004}.uppy-StatusBar.is-waiting .uppy-StatusBar-actions{background-color:#fafafa;height:100%;padding:0 15px;position:static;width:100%}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actions{background-color:#1f1f1f}.uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts{flex-direction:column;height:90px}.uppy-size--md .uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts{flex-direction:row;height:65px}.uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts .uppy-StatusBar-actions{flex-direction:column;justify-content:center}.uppy-size--md .uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts .uppy-StatusBar-actions{flex-direction:row;justify-content:normal}.uppy-StatusBar-actionCircleBtn{cursor:pointer;line-height:1;margin:3px;opacity:.9}.uppy-StatusBar-actionCircleBtn:focus{outline:none}.uppy-StatusBar-actionCircleBtn::-moz-focus-inner{border:0}.uppy-StatusBar-actionCircleBtn:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar-actionCircleBtn:hover{opacity:1}.uppy-StatusBar-actionCircleBtn:focus{border-radius:50%}.uppy-StatusBar-actionCircleBtn svg{vertical-align:bottom}.uppy-StatusBar-actionBtn{color:#1269cf;display:inline-block;font-size:10px;line-height:inherit;vertical-align:middle}.uppy-size--md .uppy-StatusBar-actionBtn{font-size:11px}.uppy-StatusBar-actionBtn--disabled{opacity:.4}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--disabled{opacity:.7}.uppy-StatusBar-actionBtn--retry{background-color:#ff4b23;border-radius:8px;color:#fff;height:16px;line-height:1;margin-inline-end:6px;padding:1px 6px 3px 18px;position:relative}.uppy-StatusBar-actionBtn--retry:focus{outline:none}.uppy-StatusBar-actionBtn--retry::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--retry:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar-actionBtn--retry:hover{background-color:#f92d00}.uppy-StatusBar-actionBtn--retry svg{inset-inline-start:6px;position:absolute;top:3px}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{background-color:#1bb240;color:#fff;font-size:14px;line-height:1;padding:15px 10px;width:100%}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover{background-color:#189c38}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{background-color:#1c8b37}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover{background-color:#18762f}.uppy-size--md .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{padding:13px 22px;width:auto}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload.uppy-StatusBar-actionBtn--disabled:hover{background-color:#1bb240;cursor:not-allowed}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload.uppy-StatusBar-actionBtn--disabled:hover{background-color:#1c8b37}.uppy-StatusBar:not(.is-waiting) .uppy-StatusBar-actionBtn--upload{background-color:initial;color:#1269cf}.uppy-StatusBar-actionBtn--uploadNewlyAdded{border-radius:3px;padding-inline-end:3px;padding-bottom:1px;padding-inline-start:3px}.uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{outline:none}.uppy-StatusBar-actionBtn--uploadNewlyAdded::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-actionBtn--uploadNewlyAdded,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-actionBtn--uploadNewlyAdded{display:none}.uppy-StatusBar-actionBtn--done{border-radius:3px;line-height:1;padding:7px 8px}.uppy-StatusBar-actionBtn--done:focus{outline:none}.uppy-StatusBar-actionBtn--done::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--done:hover{color:#0e51a0}.uppy-StatusBar-actionBtn--done:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--done:focus{background-color:#333}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--done{color:#02baf2}.uppy-size--md .uppy-StatusBar-actionBtn--done{font-size:14px}.uppy-StatusBar-serviceMsg{color:#000;font-size:11px;line-height:1.1;padding-left:10px}.uppy-size--md .uppy-StatusBar-serviceMsg{font-size:14px;padding-left:15px}[data-uppy-theme=dark] .uppy-StatusBar-serviceMsg{color:#eaeaea}.uppy-StatusBar-serviceMsg-ghostsIcon{left:6px;opacity:.5;position:relative;top:2px;vertical-align:text-bottom;width:10px}.uppy-size--md .uppy-StatusBar-serviceMsg-ghostsIcon{left:10px;top:1px;width:15px}.uppy-StatusBar-details{appearance:none;background-color:#939393;border-radius:50%;color:#fff;cursor:help;display:inline-block;font-size:10px;font-weight:600;height:13px;inset-inline-start:2px;line-height:12px;position:relative;text-align:center;top:0;vertical-align:middle;width:13px}.uppy-StatusBar-details:after{line-height:1.3;word-wrap:break-word}.uppy-StatusBar-spinner{animation-duration:1s;animation-iteration-count:infinite;animation-name:uppy-StatusBar-spinnerAnimation;animation-timing-function:linear;fill:#1269cf;margin-inline-end:10px}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-spinner,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-spinner{fill:#f6a623}@keyframes uppy-StatusBar-spinnerAnimation{0%{transform:rotate(0)}to{transform:rotate(1turn)}}.uppy-ProviderBrowser-viewType--grid ul.uppy-ProviderBrowser-list,.uppy-ProviderBrowser-viewType--unsplash ul.uppy-ProviderBrowser-list{align-items:flex-start;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;padding:6px}.uppy-ProviderBrowser-viewType--grid ul.uppy-ProviderBrowser-list:after,.uppy-ProviderBrowser-viewType--unsplash ul.uppy-ProviderBrowser-list:after{content:"";flex:auto}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{margin:0;position:relative;width:50%}.uppy-size--md .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-size--md .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{width:33.3333%}.uppy-size--lg .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-size--lg .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{width:25%}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem:before,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem:before{content:"";display:block;padding-top:100%}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--selected img,.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--selected svg,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--selected img,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--selected svg{opacity:.85}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--disabled,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--disabled{opacity:.5}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner{background-color:#93939333}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner{background-color:#eaeaea33}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview svg,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview svg{height:30%;width:30%;fill:#000000b3}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview svg,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview svg{fill:#fffc}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner{border-radius:4px;height:calc(100% - 14px);inset:7px;overflow:hidden;position:absolute;text-align:center;width:calc(100% - 14px)}@media (hover:none){.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner .uppy-ProviderBrowserItem-author{display:block}}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner{box-shadow:0 0 0 3px #aae1ffb3}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner img,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner img{border-radius:4px;height:100%;object-fit:cover;width:100%}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-author{background:#0000004d;bottom:0;color:#fff;display:none;font-size:12px;font-weight:500;left:0;margin:0;padding:5px;position:absolute;text-decoration:none;width:100%}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-author:hover,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-author:hover{background:#0006;text-decoration:underline}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox{background-color:#1269cf;border-radius:50%;height:26px;opacity:0;position:absolute;right:16px;top:16px;width:26px;z-index:1002}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox:after,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox:after{height:7px;inset-inline-start:7px;top:8px;width:12px}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox{opacity:1}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:hover+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:hover+label .uppy-ProviderBrowserItem-author{display:block}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label{box-shadow:0 0 0 3px #1269cf80}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label:focus,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label:focus{outline:none}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label::-moz-focus-inner,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label::-moz-focus-inner{border:0}.uppy-ProviderBrowser-viewType--list{background-color:#fff}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list{background-color:#1f1f1f}.uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem{align-items:center;display:flex;margin:0;padding:7px 15px}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem{color:#eaeaea}.uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem--disabled{opacity:.6}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox{background-color:#fff;border:1px solid #cfcfcf;border-radius:3px;height:17px;margin-inline-end:15px;width:17px}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:focus{border:1px solid #1269cf;box-shadow:0 0 0 3px #1269cf40;outline:none}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:after{height:5px;inset-inline-start:3px;opacity:0;top:4px;width:9px}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:focus{border-color:#02baf2b3;box-shadow:0 0 0 3px #02baf233}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox{background-color:#1269cf;border-color:#1269cf}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox:after,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox:after{opacity:1}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner{align-items:center;color:inherit;display:flex;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;overflow:hidden;padding:2px;text-overflow:ellipsis;white-space:nowrap}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner:focus{outline:none;text-decoration:underline}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner img,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner svg{margin-inline-end:8px}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner span{line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--disabled .uppy-ProviderBrowserItem-inner{cursor:default}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-iconWrap{margin-inline-end:7px;width:20px}.uppy-ProviderBrowserItem-checkbox{cursor:pointer;flex-shrink:0;position:relative}.uppy-ProviderBrowserItem-checkbox:disabled,.uppy-ProviderBrowserItem-checkbox:disabled:after{cursor:default}[data-uppy-theme=dark] .uppy-ProviderBrowserItem-checkbox{background-color:#1f1f1f;border-color:#939393}[data-uppy-theme=dark] .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox{background-color:#333}.uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox:after{border-bottom:2px solid #eaeaea;border-left:2px solid #eaeaea;content:"";cursor:pointer;position:absolute;transform:rotate(-45deg)}.uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox:after{background-color:#eaeaea!important;content:""!important;height:2px!important;left:20%!important;position:absolute!important;right:20%!important;top:50%!important;transform:translateY(-50%)!important}.uppy-SearchProvider{align-items:center;display:flex;flex:1;flex-direction:column;height:100%;justify-content:center;width:100%}[data-uppy-theme=dark] .uppy-SearchProvider{background-color:#1f1f1f}.uppy-SearchProvider-input{margin-bottom:15px;max-width:650px;width:90%}.uppy-size--md .uppy-SearchProvider-input{margin-bottom:20px}.uppy-SearchProvider-input::-webkit-search-cancel-button{display:none}.uppy-SearchProvider-searchButton{padding:13px 25px}.uppy-size--md .uppy-SearchProvider-searchButton{padding:13px 30px}.uppy-DashboardContent-panelBody{align-items:center;display:flex;flex:1;justify-content:center}[data-uppy-theme=dark] .uppy-DashboardContent-panelBody{background-color:#1f1f1f}.uppy-Provider-auth,.uppy-Provider-empty,.uppy-Provider-error,.uppy-Provider-loading{align-items:center;color:#939393;display:flex;flex:1;flex-flow:column wrap;justify-content:center}.uppy-Provider-empty{color:#939393}.uppy-Provider-authIcon svg{height:75px;width:100px}.uppy-Provider-authTitle{color:#757575;font-size:17px;font-weight:400;line-height:1.4;margin-bottom:30px;max-width:500px;padding:0 15px;text-align:center}.uppy-size--md .uppy-Provider-authTitle{font-size:20px}[data-uppy-theme=dark] .uppy-Provider-authTitle{color:#cfcfcf}.uppy-Provider-btn-google{align-items:center;background:#4285f4;display:flex;padding:8px 12px!important}.uppy-Provider-btn-google:hover{background-color:#1266f1}.uppy-Provider-btn-google:focus{box-shadow:0 0 0 3px #4285f466;outline:none}.uppy-Provider-btn-google svg{margin-right:8px}.uppy-Provider-breadcrumbs{color:#525252;flex:1;font-size:12px;margin-bottom:10px;text-align:start}.uppy-size--md .uppy-Provider-breadcrumbs{margin-bottom:0}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs{color:#eaeaea}.uppy-Provider-breadcrumbsIcon{color:#525252;display:inline-block;line-height:1;margin-inline-end:4px;vertical-align:middle}.uppy-Provider-breadcrumbsIcon svg{height:13px;width:13px;fill:#525252}.uppy-Provider-breadcrumbs button{border-radius:3px;display:inline-block;line-height:inherit;padding:4px}.uppy-Provider-breadcrumbs button:focus{outline:none}.uppy-Provider-breadcrumbs button::-moz-focus-inner{border:0}.uppy-Provider-breadcrumbs button:hover{color:#0e51a0}.uppy-Provider-breadcrumbs button:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs button:focus{background-color:#333}.uppy-Provider-breadcrumbs button:not(:last-of-type){text-decoration:underline}.uppy-Provider-breadcrumbs button:last-of-type{color:#333;cursor:normal;font-weight:500;pointer-events:none}.uppy-Provider-breadcrumbs button:hover{cursor:pointer}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs button{color:#eaeaea}.uppy-ProviderBrowser{display:flex;flex:1;flex-direction:column;font-size:14px;font-weight:400;height:100%}.uppy-ProviderBrowser-user{color:#333;font-weight:500;margin:0 8px 0 0}[data-uppy-theme=dark] .uppy-ProviderBrowser-user{color:#eaeaea}.uppy-ProviderBrowser-user:after{color:#939393;content:"·";font-weight:400;inset-inline-start:4px;position:relative}.uppy-ProviderBrowser-header{border-bottom:1px solid #eaeaea;position:relative;z-index:1001}[data-uppy-theme=dark] .uppy-ProviderBrowser-header{border-bottom:1px solid #333}.uppy-ProviderBrowser-headerBar{background-color:#fafafa;color:#757575;font-size:12px;line-height:1.4;padding:7px 15px;z-index:1001}.uppy-size--md .uppy-ProviderBrowser-headerBar{align-items:center;display:flex}[data-uppy-theme=dark] .uppy-ProviderBrowser-headerBar{background-color:#1f1f1f}.uppy-ProviderBrowser-headerBar--simple{display:block;justify-content:center;text-align:center}.uppy-ProviderBrowser-headerBar--simple .uppy-Provider-breadcrumbsWrap{display:inline-block;flex:none;vertical-align:middle}.uppy-ProviderBrowser-searchFilter{align-items:center;display:flex;height:30px;margin-bottom:15px;margin-top:15px;padding-left:8px;padding-right:8px;position:relative;width:100%}.uppy-ProviderBrowser-searchFilterInput{background-color:#eaeaea;border:0;border-radius:4px;color:#333;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;font-size:13px;height:30px;line-height:1.4;outline:0;padding-inline-end:30px;padding-inline-start:30px;width:100%;z-index:1001}.uppy-ProviderBrowser-searchFilterInput::-webkit-search-cancel-button{display:none}[data-uppy-theme=dark] .uppy-ProviderBrowser-searchFilterInput{background-color:#1f1f1f;color:#eaeaea}.uppy-ProviderBrowser-searchFilterInput:focus{background-color:#cfcfcf;border:0}[data-uppy-theme=dark] .uppy-ProviderBrowser-searchFilterInput:focus{background-color:#333}.uppy-ProviderBrowser-searchFilterIcon{color:#757575;height:12px;inset-inline-start:16px;position:absolute;width:12px;z-index:1002}.uppy-ProviderBrowser-searchFilterInput::placeholder{color:#939393;opacity:1}.uppy-ProviderBrowser-searchFilterReset{border-radius:3px;color:#939393;cursor:pointer;height:22px;inset-inline-end:16px;padding:6px;position:absolute;width:22px;z-index:1002}.uppy-ProviderBrowser-searchFilterReset:focus{outline:none}.uppy-ProviderBrowser-searchFilterReset::-moz-focus-inner{border:0}.uppy-ProviderBrowser-searchFilterReset:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-ProviderBrowser-searchFilterReset:hover{color:#757575}.uppy-ProviderBrowser-searchFilterReset svg{vertical-align:text-top}.uppy-ProviderBrowser-userLogout{border-radius:3px;color:#1269cf;cursor:pointer;line-height:inherit;padding:4px}.uppy-ProviderBrowser-userLogout:focus{outline:none}.uppy-ProviderBrowser-userLogout::-moz-focus-inner{border:0}.uppy-ProviderBrowser-userLogout:hover{color:#0e51a0}.uppy-ProviderBrowser-userLogout:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-ProviderBrowser-userLogout:focus{background-color:#333}.uppy-ProviderBrowser-userLogout:hover{text-decoration:underline}[data-uppy-theme=dark] .uppy-ProviderBrowser-userLogout{color:#eaeaea}.uppy-ProviderBrowser-body{flex:1;position:relative}.uppy-ProviderBrowser-list{background-color:#fff;border-spacing:0;display:block;flex:1;height:100%;inset:0;list-style:none;margin:0;overflow-x:hidden;overflow-y:auto;padding:0;position:absolute;width:100%;-webkit-overflow-scrolling:touch}[data-uppy-theme=dark] .uppy-ProviderBrowser-list{background-color:#1f1f1f}.uppy-ProviderBrowser-list:focus{outline:none}.uppy-ProviderBrowserItem-inner{cursor:pointer;font-size:13px;font-weight:500}.uppy-ProviderBrowser-footer{align-items:center;background-color:#fff;border-top:1px solid #eaeaea;display:flex;justify-content:space-between;padding:15px}.uppy-ProviderBrowser-footer button{margin-inline-end:8px}[data-uppy-theme=dark] .uppy-ProviderBrowser-footer{background-color:#1f1f1f;border-top:1px solid #333}.uppy-ProviderBrowser-footer-buttons{flex-shrink:0}.uppy-ProviderBrowser-footer-error{color:#e32437;line-height:18px}@media (max-width:426px){.uppy-ProviderBrowser-footer{align-items:stretch;flex-direction:column-reverse}.uppy-ProviderBrowser-footer-error{padding-bottom:10px}}.picker-dialog-bg{z-index:20000!important}.picker-dialog{z-index:20001!important}.uppy-Dashboard-Item-previewInnerWrap{align-items:center;border-radius:3px;box-shadow:0 0 2px #0006;display:flex;flex-direction:column;height:100%;justify-content:center;overflow:hidden;position:relative;width:100%}.uppy-size--md .uppy-Dashboard-Item-previewInnerWrap{box-shadow:0 1px 2px #00000026}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewInnerWrap{box-shadow:none}.uppy-Dashboard-Item-previewInnerWrap:after{background-color:#000000a6;content:"";display:none;inset:0;position:absolute;z-index:1001}.uppy-Dashboard-Item-previewLink{inset:0;position:absolute;z-index:1002}.uppy-Dashboard-Item-previewLink:focus{box-shadow:inset 0 0 0 3px #579df0}[data-uppy-theme=dark] .uppy-Dashboard-Item-previewLink:focus{box-shadow:inset 0 0 0 3px #016c8d}.uppy-Dashboard-Item-preview img.uppy-Dashboard-Item-previewImg{border-radius:3px;height:100%;object-fit:cover;transform:translateZ(0);width:100%}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-preview img.uppy-Dashboard-Item-previewImg{height:auto;max-height:100%;max-width:100%;object-fit:contain;padding:10px;width:auto}.uppy-Dashboard-Item-progress{color:#fff;left:50%;position:absolute;text-align:center;top:50%;transform:translate(-50%,-50%);transition:all .35 ease;width:120px;z-index:1002}.uppy-Dashboard-Item-progressIndicator{color:#fff;display:inline-block;height:38px;opacity:.9;width:38px}.uppy-size--md .uppy-Dashboard-Item-progressIndicator{height:55px;width:55px}button.uppy-Dashboard-Item-progressIndicator{cursor:pointer}button.uppy-Dashboard-Item-progressIndicator:focus{outline:none}button.uppy-Dashboard-Item-progressIndicator::-moz-focus-inner{border:0}button.uppy-Dashboard-Item-progressIndicator:focus .uppy-Dashboard-Item-progressIcon--bg,button.uppy-Dashboard-Item-progressIndicator:focus .uppy-Dashboard-Item-progressIcon--retry{fill:#579df0}.uppy-Dashboard-Item-progressIcon--circle{height:100%;width:100%}.uppy-Dashboard-Item-progressIcon--bg{stroke:#fff6}.uppy-Dashboard-Item-progressIcon--progress{transition:stroke-dashoffset .5s ease-out;stroke:#fff}.uppy-Dashboard-Item-progressIcon--play{transition:all .2s;fill:#fff;stroke:#fff}.uppy-Dashboard-Item-progressIcon--cancel{transition:all .2s;fill:#fff}.uppy-Dashboard-Item-progressIcon--pause{transition:all .2s;fill:#fff;stroke:#fff}.uppy-Dashboard-Item-progressIcon--check{transition:all .2s;fill:#fff}.uppy-Dashboard-Item-progressIcon--retry{fill:#fff}.uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progress{inset-inline-end:-8px;inset-inline-start:auto;top:-9px;transform:none;width:auto}.uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-progressIndicator{height:18px;width:18px}.uppy-size--md .uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-progressIndicator{height:28px;width:28px}.uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progressIndicator{height:18px;opacity:1;width:18px}.uppy-size--md .uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progressIndicator{height:22px;width:22px}.uppy-Dashboard-Item.is-processing .uppy-Dashboard-Item-progress{opacity:0}.uppy-Dashboard-Item-fileInfo{padding-inline-end:5px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfo{padding-inline-end:10px}.uppy-size--md.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfo{padding-inline-end:15px}.uppy-Dashboard-Item-name{font-size:12px;font-weight:500;line-height:1.3;margin-bottom:5px;word-wrap:anywhere;word-break:break-all}[data-uppy-theme=dark] .uppy-Dashboard-Item-name{color:#eaeaea}.uppy-size--md.uppy-Dashboard--singleFile .uppy-Dashboard-Item-name{font-size:14px;line-height:1.4}.uppy-Dashboard-Item-fileName{align-items:baseline;display:flex}.uppy-Dashboard-Item-fileName button{margin-left:5px}.uppy-Dashboard-Item-author{color:#757575;display:inline-block;font-size:11px;font-weight:400;line-height:1;margin-bottom:5px;vertical-align:bottom}.uppy-Dashboard-Item-author a{color:#757575}.uppy-Dashboard-Item-status{color:#757575;font-size:11px;font-weight:400;line-height:1}[data-uppy-theme=dark] .uppy-Dashboard-Item-status{color:#bbb}.uppy-Dashboard-Item-statusSize{display:inline-block;margin-bottom:5px;text-transform:uppercase;vertical-align:bottom}.uppy-Dashboard-Item-reSelect{color:#1269cf;font-family:inherit;font-size:inherit;font-weight:600}.uppy-Dashboard-Item-errorMessage{background-color:#fdeff1;color:#a51523;font-size:11px;font-weight:500;line-height:1.3;padding:5px 6px}.uppy-Dashboard-Item-errorMessageBtn{color:#a51523;cursor:pointer;font-size:11px;font-weight:500;text-decoration:underline}.uppy-Dashboard-Item-preview .uppy-Dashboard-Item-errorMessage{display:none}.uppy-size--md .uppy-Dashboard-Item-preview .uppy-Dashboard-Item-errorMessage{border-bottom-left-radius:3px;border-bottom-right-radius:3px;border-top:1px solid #f7c2c8;bottom:0;display:block;left:0;line-height:1.4;padding:6px 8px;position:absolute;right:0}.uppy-Dashboard-Item-fileInfo .uppy-Dashboard-Item-errorMessage{border:1px solid #f7c2c8;border-radius:3px;display:inline-block;position:static}.uppy-size--md .uppy-Dashboard-Item-fileInfo .uppy-Dashboard-Item-errorMessage{display:none}.uppy-Dashboard-Item-action{color:#939393;cursor:pointer}.uppy-Dashboard-Item-action:focus{outline:none}.uppy-Dashboard-Item-action::-moz-focus-inner{border:0}.uppy-Dashboard-Item-action:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-Dashboard-Item-action:hover{color:#1f1f1f;opacity:1}[data-uppy-theme=dark] .uppy-Dashboard-Item-action{color:#cfcfcf}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:focus{outline:none}[data-uppy-theme=dark] .uppy-Dashboard-Item-action::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:focus{box-shadow:0 0 0 2px #aae1ffd9}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:hover{color:#eaeaea}.uppy-Dashboard-Item-action--remove{color:#1f1f1f;opacity:.95}.uppy-Dashboard-Item-action--remove:hover{color:#000;opacity:1}.uppy-size--md .uppy-Dashboard-Item-action--remove{height:18px;inset-inline-end:-8px;padding:0;position:absolute;top:-8px;width:18px;z-index:1002}.uppy-size--md .uppy-Dashboard-Item-action--remove:focus{border-radius:50%}.uppy-Dashboard--singleFile.uppy-size--height-md .uppy-Dashboard-Item-action--remove{inset-inline-end:8px;position:absolute;top:8px}[data-uppy-theme=dark] .uppy-Dashboard-Item-action--remove{color:#525252}[data-uppy-theme=dark] .uppy-Dashboard-Item-action--remove:hover{color:#333}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-actionWrapper{align-items:center;display:flex}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-action{height:22px;margin-left:3px;padding:3px;width:22px}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-action:focus{border-radius:3px}.uppy-size--md .uppy-Dashboard-Item-action--copyLink,.uppy-size--md .uppy-Dashboard-Item-action--edit{height:16px;padding:0;width:16px}.uppy-size--md .uppy-Dashboard-Item-action--copyLink:focus,.uppy-size--md .uppy-Dashboard-Item-action--edit:focus{border-radius:3px}.uppy-Dashboard-Item{align-items:center;border-bottom:1px solid #eaeaea;display:flex;padding:10px}.uppy-Dashboard:not(.uppy-Dashboard--singleFile) .uppy-Dashboard-Item{padding-inline-end:0}[data-uppy-theme=dark] .uppy-Dashboard-Item{border-bottom:1px solid #333}.uppy-size--md .uppy-Dashboard-Item{border-bottom:0;display:block;float:inline-start;height:215px;margin:5px 15px;padding:0;position:relative;width:calc(33.333% - 30px)}.uppy-size--lg .uppy-Dashboard-Item{height:190px;margin:5px 15px;padding:0;width:calc(25% - 30px)}.uppy-size--xl .uppy-Dashboard-Item{height:210px;padding:0;width:calc(20% - 30px)}.uppy-Dashboard--singleFile .uppy-Dashboard-Item{border-bottom:0;display:flex;flex-direction:column;height:100%;max-width:400px;padding:15px;position:relative;width:100%}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-previewInnerWrap{opacity:.2}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-name{opacity:.7}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='39' viewBox='0 0 35 39'%3E%3Cpath fill='%2523000' d='M1.708 38.66c1.709 0 3.417-3.417 6.834-3.417s5.125 3.417 8.61 3.417c3.348 0 5.056-3.417 8.473-3.417 4.305 0 5.125 3.417 6.833 3.417.889 0 1.709-.889 1.709-1.709v-19.68C34.167-5.757 0-5.757 0 17.271v19.68c0 .82.888 1.709 1.708 1.709m8.542-17.084a3.383 3.383 0 0 1-3.417-3.416 3.383 3.383 0 0 1 3.417-3.417 3.383 3.383 0 0 1 3.417 3.417 3.383 3.383 0 0 1-3.417 3.416m13.667 0A3.383 3.383 0 0 1 20.5 18.16a3.383 3.383 0 0 1 3.417-3.417 3.383 3.383 0 0 1 3.416 3.417 3.383 3.383 0 0 1-3.416 3.416'/%3E%3C/svg%3E");background-position:50% 10px;background-repeat:no-repeat;background-size:25px;content:"";inset:0;opacity:.5;position:absolute;z-index:1005}.uppy-size--md .uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-position:50% 50%;background-size:40px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-position:50% 50%;background-size:30%}.uppy-Dashboard-Item-preview{flex-grow:0;flex-shrink:0;height:50px;position:relative;width:50px}.uppy-size--md .uppy-Dashboard-Item-preview{height:140px;width:100%}.uppy-size--lg .uppy-Dashboard-Item-preview{height:120px}.uppy-size--xl .uppy-Dashboard-Item-preview{height:140px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-preview{flex-grow:1;max-height:75%;width:100%}.uppy-Dashboard--singleFile.uppy-size--md .uppy-Dashboard-Item-preview{max-height:100%}.uppy-Dashboard-Item-fileInfoAndButtons{align-items:center;display:flex;flex-grow:1;justify-content:space-between;padding-inline-end:8px;padding-inline-start:12px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfoAndButtons,.uppy-size--md .uppy-Dashboard-Item-fileInfoAndButtons{align-items:flex-start;padding:9px 0 0}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfoAndButtons{flex-grow:0;width:100%}.uppy-Dashboard-Item-fileInfo{flex-grow:1;flex-shrink:1}.uppy-Dashboard-Item-actionWrapper{flex-grow:0;flex-shrink:0}.uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-previewInnerWrap:after,.uppy-Dashboard-Item.is-inprogress .uppy-Dashboard-Item-previewInnerWrap:after{display:block}.uppy-Dashboard-Item-errorDetails{appearance:none;background-color:#939393;border:none;border-radius:50%;color:#fff;cursor:help;flex-shrink:0;font-size:10px;font-weight:600;height:13px;inset-inline-start:2px;line-height:12px;position:relative;text-align:center;top:0;width:13px}.uppy-Dashboard-Item-errorDetails:after{line-height:1.3;word-wrap:break-word}.uppy-Dashboard-FileCard{background-color:#fff;border-radius:5px;box-shadow:0 0 10px 4px #0000001a;display:flex;flex-direction:column;height:100%;inset:0;position:absolute;width:100%;z-index:1005}.uppy-Dashboard-FileCard .uppy-DashboardContent-bar{border-top-left-radius:5px;border-top-right-radius:5px}.uppy-Dashboard-FileCard .uppy-Dashboard-FileCard-actions{border-bottom-left-radius:5px;border-bottom-right-radius:5px}.uppy-Dashboard-FileCard-inner{display:flex;flex-direction:column;flex-grow:1;flex-shrink:1;height:100%;min-height:0}.uppy-Dashboard-FileCard-preview{align-items:center;border-bottom:1px solid #eaeaea;display:flex;flex-grow:0;flex-shrink:1;height:60%;justify-content:center;min-height:0;position:relative}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-preview{background-color:#333;border-bottom:0}.uppy-Dashboard-FileCard-preview img.uppy-Dashboard-Item-previewImg{border-radius:3px;box-shadow:0 3px 20px #00000026;flex:0 0 auto;max-height:90%;max-width:90%;object-fit:cover}.uppy-Dashboard-FileCard-edit{background-color:#00000080;border-radius:50px;color:#fff;font-size:13px;inset-inline-end:10px;padding:7px 15px;position:absolute;top:10px}.uppy-Dashboard-FileCard-edit:focus{outline:none}.uppy-Dashboard-FileCard-edit::-moz-focus-inner{border:0}.uppy-Dashboard-FileCard-edit:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-Dashboard-FileCard-edit:hover{background-color:#000c}.uppy-Dashboard-FileCard-info{flex-grow:0;flex-shrink:0;height:40%;overflow-y:auto;padding:30px 20px 20px;-webkit-overflow-scrolling:touch}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-info{background-color:#1f1f1f}.uppy-Dashboard-FileCard-fieldset{border:0;font-size:0;margin:auto auto 12px;max-width:640px;padding:0}.uppy-Dashboard-FileCard-label{color:#525252;display:inline-block;font-size:12px;vertical-align:middle;width:22%}.uppy-size--md .uppy-Dashboard-FileCard-label{font-size:14px}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-label{color:#eaeaea}.uppy-Dashboard-FileCard-input{display:inline-block;vertical-align:middle;width:78%}.uppy-Dashboard-FileCard-actions{align-items:center;background-color:#fafafa;border-top:1px solid #eaeaea;display:flex;flex-grow:0;flex-shrink:0;height:55px;padding:0 15px}.uppy-size--md .uppy-Dashboard-FileCard-actions{height:65px}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-actions{background-color:#1f1f1f;border-top:1px solid #333}.uppy-Dashboard-FileCard-actionsBtn{margin-inline-end:10px}.uppy-transition-slideDownUp-enter{opacity:.01;transform:translate3d(0,-105%,0);transition:transform .25s ease-in-out,opacity .25s ease-in-out}.uppy-transition-slideDownUp-enter.uppy-transition-slideDownUp-enter-active{opacity:1;transform:translateZ(0)}.uppy-transition-slideDownUp-leave{opacity:1;transform:translateZ(0);transition:transform .25s ease-in-out,opacity .25s ease-in-out}.uppy-transition-slideDownUp-leave.uppy-transition-slideDownUp-leave-active{opacity:.01;transform:translate3d(0,-105%,0)}@keyframes uppy-Dashboard-fadeIn{0%{opacity:0}to{opacity:1}}@keyframes uppy-Dashboard-fadeOut{0%{opacity:1}to{opacity:0}}@keyframes uppy-Dashboard-slideDownAndFadeIn{0%{opacity:0;transform:translate3d(-50%,-70%,0)}to{opacity:1;transform:translate3d(-50%,-50%,0)}}@keyframes uppy-Dashboard-slideDownAndFadeIn--small{0%{opacity:0;transform:translate3d(0,-20%,0)}to{opacity:1;transform:translateZ(0)}}@keyframes uppy-Dashboard-slideUpFadeOut{0%{opacity:1;transform:translate3d(-50%,-50%,0)}to{opacity:0;transform:translate3d(-50%,-70%,0)}}@keyframes uppy-Dashboard-slideUpFadeOut--small{0%{opacity:1;transform:translateZ(0)}to{opacity:0;transform:translate3d(0,-20%,0)}}.uppy-Dashboard--modal{z-index:1001}.uppy-Dashboard--modal[aria-hidden=true]{display:none}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideDownAndFadeIn--small .3s cubic-bezier(0,0,.2,1)}@media only screen and (min-width:820px){.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideDownAndFadeIn .3s cubic-bezier(0,0,.2,1)}}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-overlay{animation:uppy-Dashboard-fadeIn .3s cubic-bezier(0,0,.2,1)}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideUpFadeOut--small .3s cubic-bezier(0,0,.2,1)}@media only screen and (min-width:820px){.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideUpFadeOut .3s cubic-bezier(0,0,.2,1)}}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-overlay{animation:uppy-Dashboard-fadeOut .3s cubic-bezier(0,0,.2,1)}.uppy-Dashboard-isFixed{height:100vh;overflow:hidden}.uppy-Dashboard--modal .uppy-Dashboard-overlay{background-color:#00000080;inset:0;position:fixed;z-index:1001}.uppy-Dashboard-inner{background-color:#f4f4f4;border:1px solid #eaeaea;border-radius:5px;max-height:100%;max-width:100%;outline:none;position:relative}.uppy-size--md .uppy-Dashboard-inner{min-height:auto}@media only screen and (min-width:820px){.uppy-Dashboard-inner{height:500px;width:650px}}.uppy-Dashboard--modal .uppy-Dashboard-inner{z-index:1002}[data-uppy-theme=dark] .uppy-Dashboard-inner{background-color:#1f1f1f}.uppy-Dashboard--isDisabled .uppy-Dashboard-inner{cursor:not-allowed}.uppy-Dashboard-innerWrap{border-radius:5px;display:flex;flex-direction:column;height:100%;opacity:0;overflow:hidden;position:relative}.uppy-Dashboard--isInnerWrapVisible .uppy-Dashboard-innerWrap{opacity:1}.uppy-Dashboard--isDisabled .uppy-Dashboard-innerWrap{cursor:not-allowed;filter:grayscale(100%);opacity:.6;user-select:none}.uppy-Dashboard--isDisabled .uppy-ProviderIconBg{fill:#9f9f9f}.uppy-Dashboard--isDisabled [aria-disabled],.uppy-Dashboard--isDisabled [disabled]{cursor:not-allowed;pointer-events:none}.uppy-Dashboard--modal .uppy-Dashboard-inner{border:none;inset:35px 15px 15px;position:fixed}@media only screen and (min-width:820px){.uppy-Dashboard--modal .uppy-Dashboard-inner{box-shadow:0 5px 15px 4px #00000026;left:50%;right:auto;top:50%;transform:translate(-50%,-50%)}}.uppy-Dashboard-close{color:#ffffffe6;cursor:pointer;display:block;font-size:27px;inset-inline-end:-2px;position:absolute;top:-33px;z-index:1005}.uppy-Dashboard-close:focus{outline:none}.uppy-Dashboard-close::-moz-focus-inner{border:0}.uppy-Dashboard-close:focus{color:#6eabf2}@media only screen and (min-width:820px){.uppy-Dashboard-close{font-size:35px;inset-inline-end:-35px;top:-10px}}.uppy-Dashboard-serviceMsg{background-color:#fffbf7;border-bottom:1px solid #edd4b9;border-top:1px solid #edd4b9;font-size:12px;font-weight:500;line-height:1.3;padding:12px 0;position:relative;top:-1px;z-index:1004}.uppy-size--md .uppy-Dashboard-serviceMsg{font-size:14px;line-height:1.4}[data-uppy-theme=dark] .uppy-Dashboard-serviceMsg{background-color:#1f1f1f;border-bottom:1px solid #333;border-top:1px solid #333;color:#eaeaea}.uppy-Dashboard-serviceMsg-title{display:block;line-height:1;margin-bottom:4px;padding-left:42px}.uppy-Dashboard-serviceMsg-text{padding:0 15px}.uppy-Dashboard-serviceMsg-actionBtn{color:#1269cf;font-size:inherit;font-weight:inherit;vertical-align:initial}[data-uppy-theme=dark] .uppy-Dashboard-serviceMsg-actionBtn{color:#02baf2e6}.uppy-Dashboard-serviceMsg-icon{left:15px;position:absolute;top:10px}.uppy-Dashboard-AddFiles{align-items:center;display:flex;flex-direction:column;height:100%;justify-content:center;position:relative;text-align:center}[data-uppy-drag-drop-supported=true] .uppy-Dashboard-AddFiles{border:1px dashed #dfdfdf;border-radius:3px;height:calc(100% - 14px);margin:7px}.uppy-Dashboard-AddFilesPanel .uppy-Dashboard-AddFiles{border:none;height:calc(100% - 54px)}.uppy-Dashboard--modal .uppy-Dashboard-AddFiles{border-color:#cfcfcf}[data-uppy-theme=dark] .uppy-Dashboard-AddFiles{border-color:#757575}.uppy-Dashboard-AddFiles-info{display:none;margin-top:auto;padding-bottom:15px;padding-top:15px}.uppy-size--height-md .uppy-Dashboard-AddFiles-info{display:block}.uppy-size--md .uppy-Dashboard-AddFiles-info{bottom:25px;left:0;padding-bottom:0;padding-top:30px;position:absolute;right:0}[data-uppy-num-acquirers="0"] .uppy-Dashboard-AddFiles-info{margin-top:0}.uppy-Dashboard-browse{color:#1269cf;cursor:pointer}.uppy-Dashboard-browse:focus{outline:none}.uppy-Dashboard-browse::-moz-focus-inner{border:0}.uppy-Dashboard-browse:focus,.uppy-Dashboard-browse:hover{border-bottom:1px solid #1269cf}[data-uppy-theme=dark] .uppy-Dashboard-browse{color:#02baf2e6}[data-uppy-theme=dark] .uppy-Dashboard-browse:focus,[data-uppy-theme=dark] .uppy-Dashboard-browse:hover{border-bottom:1px solid #02baf2}.uppy-Dashboard-browseBtn{display:block;font-size:14px;font-weight:500;margin-bottom:5px;margin-top:8px;width:100%}.uppy-size--md .uppy-Dashboard-browseBtn{font-size:15px;margin:15px auto;padding:13px 44px;width:auto}.uppy-Dashboard-AddFiles-list{display:flex;flex:1;flex-direction:column;margin-top:2px;overflow-y:auto;padding:2px 0;width:100%;-webkit-overflow-scrolling:touch}.uppy-size--md .uppy-Dashboard-AddFiles-list{flex:none;flex-direction:row;flex-wrap:wrap;justify-content:center;margin-top:15px;max-width:600px;overflow-y:visible;padding-top:0}.uppy-DashboardTab{border-bottom:1px solid #eaeaea;text-align:center;width:100%}[data-uppy-theme=dark] .uppy-DashboardTab{border-bottom:1px solid #333}.uppy-size--md .uppy-DashboardTab{border-bottom:none;display:inline-block;margin-bottom:10px;width:auto}.uppy-DashboardTab-btn{align-items:center;-webkit-appearance:none;appearance:none;background-color:initial;color:#525252;cursor:pointer;flex-direction:row;height:100%;justify-content:left;padding:12px 15px;width:100%}.uppy-DashboardTab-btn:focus{outline:none}.uppy-size--md .uppy-DashboardTab-btn{border-radius:5px;flex-direction:column;margin-inline-end:1px;padding:10px 3px;width:86px}[data-uppy-theme=dark] .uppy-DashboardTab-btn{color:#eaeaea}.uppy-DashboardTab-btn::-moz-focus-inner{border:0}.uppy-DashboardTab-btn:hover{background-color:#e9ecef}[data-uppy-theme=dark] .uppy-DashboardTab-btn:hover{background-color:#333}.uppy-DashboardTab-btn:active,.uppy-DashboardTab-btn:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardTab-btn:active,[data-uppy-theme=dark] .uppy-DashboardTab-btn:focus{background-color:#525252}.uppy-DashboardTab-btn svg{display:inline-block;max-height:100%;max-width:100%;overflow:hidden;transition:transform .15s ease-in-out;vertical-align:text-top}.uppy-DashboardTab-inner{align-items:center;background-color:#fff;border-radius:8px;box-shadow:0 1px 1px #0000001a,0 1px 2px #0000001a,0 2px 3px #00000005;display:flex;height:32px;justify-content:center;margin-inline-end:10px;width:32px}.uppy-size--md .uppy-DashboardTab-inner{margin-inline-end:0}[data-uppy-theme=dark] .uppy-DashboardTab-inner{background-color:#323232;box-shadow:0 1px 1px #0003,0 1px 2px #0003,0 2px 3px #00000014}.uppy-DashboardTab-name{font-size:14px;font-weight:400}.uppy-size--md .uppy-DashboardTab-name{font-size:12px;line-height:15px;margin-bottom:0;margin-top:8px}.uppy-DashboardTab-iconMyDevice{color:#1269cf}[data-uppy-theme=dark] .uppy-DashboardTab-iconMyDevice{color:#02baf2}.uppy-DashboardTab-iconBox{color:#0061d5}[data-uppy-theme=dark] .uppy-DashboardTab-iconBox{color:#eaeaea}.uppy-DashboardTab-iconDropbox{color:#0061fe}[data-uppy-theme=dark] .uppy-DashboardTab-iconDropbox{color:#eaeaea}.uppy-DashboardTab-iconUnsplash{color:#111}[data-uppy-theme=dark] .uppy-DashboardTab-iconUnsplash{color:#eaeaea}.uppy-DashboardTab-iconWebdav{color:#111}[data-uppy-theme=dark] .uppy-DashboardTab-iconWebdav{color:#eaeaea}.uppy-DashboardTab-iconScreenRec{color:#2c3e50}[data-uppy-theme=dark] .uppy-DashboardTab-iconScreenRec{color:#eaeaea}.uppy-DashboardTab-iconAudio{color:#8030a3}[data-uppy-theme=dark] .uppy-DashboardTab-iconAudio{color:#bf6ee3}.uppy-Dashboard-input{height:.1px;opacity:0;overflow:hidden;position:absolute;width:.1px;z-index:-1}.uppy-DashboardContent-bar{align-items:center;background-color:#fafafa;border-bottom:1px solid #eaeaea;display:flex;flex-shrink:0;height:40px;justify-content:space-between;padding:0 10px;position:relative;width:100%;z-index:1004}.uppy-size--md .uppy-DashboardContent-bar{height:50px;padding:0 15px}[data-uppy-theme=dark] .uppy-DashboardContent-bar{background-color:#1f1f1f;border-bottom:1px solid #333}.uppy-DashboardContent-title{font-size:12px;font-weight:500;left:0;line-height:40px;margin:auto;max-width:170px;overflow-x:hidden;position:absolute;right:0;text-align:center;text-overflow:ellipsis;top:0;white-space:nowrap;width:100%}.uppy-size--md .uppy-DashboardContent-title{font-size:14px;line-height:50px;max-width:300px}[data-uppy-theme=dark] .uppy-DashboardContent-title{color:#eaeaea}.uppy-DashboardContent-back,.uppy-DashboardContent-save{-webkit-appearance:none;background:none;border:0;border-radius:3px;color:inherit;color:#1269cf;cursor:pointer;font-family:inherit;font-size:inherit;font-size:12px;font-weight:400;line-height:1;margin:0;margin-inline-start:-6px;padding:7px 6px}.uppy-DashboardContent-back:focus,.uppy-DashboardContent-save:focus{outline:none}.uppy-DashboardContent-back::-moz-focus-inner,.uppy-DashboardContent-save::-moz-focus-inner{border:0}.uppy-DashboardContent-back:hover,.uppy-DashboardContent-save:hover{color:#0e51a0}.uppy-DashboardContent-back:focus,.uppy-DashboardContent-save:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardContent-back:focus,[data-uppy-theme=dark] .uppy-DashboardContent-save:focus{background-color:#333}.uppy-size--md .uppy-DashboardContent-back,.uppy-size--md .uppy-DashboardContent-save{font-size:14px}[data-uppy-theme=dark] .uppy-DashboardContent-back,[data-uppy-theme=dark] .uppy-DashboardContent-save{color:#02baf2}.uppy-DashboardContent-addMore{-webkit-appearance:none;background:none;border:0;border-radius:3px;color:inherit;color:#1269cf;cursor:pointer;font-family:inherit;font-size:inherit;font-weight:500;height:29px;line-height:1;margin:0;margin-inline-end:-5px;padding:7px 8px;width:29px}.uppy-DashboardContent-addMore:focus{outline:none}.uppy-DashboardContent-addMore::-moz-focus-inner{border:0}.uppy-DashboardContent-addMore:hover{color:#0e51a0}.uppy-DashboardContent-addMore:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardContent-addMore:focus{background-color:#333}.uppy-size--md .uppy-DashboardContent-addMore{font-size:14px;height:auto;margin-inline-end:-8px;width:auto}[data-uppy-theme=dark] .uppy-DashboardContent-addMore{color:#02baf2}.uppy-DashboardContent-addMore svg{margin-inline-end:4px;vertical-align:initial}.uppy-size--md .uppy-DashboardContent-addMore svg{height:11px;width:11px}.uppy-DashboardContent-addMoreCaption{display:none}.uppy-size--md .uppy-DashboardContent-addMoreCaption{display:inline}.uppy-DashboardContent-panel{background-color:#f5f5f5;flex:1}.uppy-Dashboard-AddFilesPanel,.uppy-DashboardContent-panel{border-radius:5px;display:flex;flex-direction:column;inset:0;overflow:hidden;position:absolute;z-index:1005}.uppy-Dashboard-AddFilesPanel{background:#fafafa;background:linear-gradient(0deg,#fafafa 35%,#fafafad9);box-shadow:0 0 10px 5px #00000026}[data-uppy-theme=dark] .uppy-Dashboard-AddFilesPanel{background-color:#333;background-image:linear-gradient(0deg,#1f1f1f 35%,#1f1f1fd9)}.uppy-Dashboard--isAddFilesPanelVisible .uppy-Dashboard-files{filter:blur(2px)}.uppy-Dashboard-progress{bottom:0;height:12%;left:0;position:absolute;width:100%}.uppy-Dashboard-progressBarContainer.is-active{height:100%;left:0;position:absolute;top:0;width:100%;z-index:1004}.uppy-Dashboard-filesContainer{flex:1;margin:0;overflow-y:hidden;position:relative}.uppy-Dashboard-filesContainer:after{clear:both;content:"";display:table}.uppy-Dashboard-files{flex:1;margin:0;overflow-y:auto;padding:0 0 10px;-webkit-overflow-scrolling:touch}.uppy-size--md .uppy-Dashboard-files{padding-top:10px}.uppy-Dashboard--singleFile .uppy-Dashboard-filesInner{align-items:center;display:flex;height:100%;justify-content:center}.uppy-Dashboard-dropFilesHereHint{align-items:center;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath fill='%231269CF' d='M24 1v1C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 0V0c13.254 0 24 10.746 24 24S37.254 48 24 48 0 37.254 0 24 10.746 0 24 0zm7.707 19.293a.999.999 0 1 1-1.414 1.414L25 16.414V34a1 1 0 1 1-2 0V16.414l-5.293 5.293a.999.999 0 1 1-1.414-1.414l7-7a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");background-position:50% 50%;background-repeat:no-repeat;border:1px dashed #1269cf;border-radius:3px;color:#757575;display:flex;font-size:16px;justify-content:center;inset:7px;padding-top:90px;position:absolute;text-align:center;visibility:hidden;z-index:2000}[data-uppy-theme=dark] .uppy-Dashboard-dropFilesHereHint{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath fill='%2302BAF2' d='M24 1v1C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 0V0c13.254 0 24 10.746 24 24S37.254 48 24 48 0 37.254 0 24 10.746 0 24 0zm7.707 19.293a.999.999 0 1 1-1.414 1.414L25 16.414V34a1 1 0 1 1-2 0V16.414l-5.293 5.293a.999.999 0 1 1-1.414-1.414l7-7a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");border-color:#02baf2;color:#bbb}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-dropFilesHereHint{pointer-events:none;visibility:visible}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-files,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-progressindicators,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-serviceMsg,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-DashboardContent-bar{opacity:.15}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-AddFiles{opacity:.03}.uppy-Dashboard-AddFiles-title{color:#000;font-size:17px;font-weight:500;line-height:1.35;margin-bottom:5px;margin-top:15px;padding:0 15px;text-align:inline-start;width:100%}.uppy-size--md .uppy-Dashboard-AddFiles-title{font-size:21px;font-weight:400;margin-top:5px;max-width:480px;padding:0 35px;text-align:center}[data-uppy-num-acquirers="0"] .uppy-Dashboard-AddFiles-title{text-align:center}[data-uppy-theme=dark] .uppy-Dashboard-AddFiles-title{color:#eaeaea}.uppy-Dashboard-AddFiles-title button{font-weight:500}.uppy-size--md .uppy-Dashboard-AddFiles-title button{font-weight:400}.uppy-Dashboard-note{color:#757575;font-size:14px;line-height:1.25;margin:auto;max-width:350px;padding:0 15px;text-align:center}.uppy-size--md .uppy-Dashboard-note{line-height:1.35;max-width:600px}[data-uppy-theme=dark] .uppy-Dashboard-note{color:#cfcfcf}a.uppy-Dashboard-poweredBy{color:#939393;display:inline-block;font-size:11px;margin-top:8px;text-align:center;text-decoration:none}.uppy-Dashboard-poweredByIcon{margin-left:1px;margin-right:1px;opacity:.9;position:relative;top:1px;vertical-align:text-top;fill:none;stroke:#939393}.uppy-Dashboard-Item-previewIcon{height:25px;left:50%;position:absolute;top:50%;transform:translate(-50%,-50%);width:25px;z-index:100}.uppy-size--md .uppy-Dashboard-Item-previewIcon{height:38px;width:38px}.uppy-Dashboard-Item-previewIcon svg{height:100%;width:100%}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewIcon{height:100%;max-height:60%;max-width:60%;width:100%}.uppy-Dashboard-Item-previewIconWrap{height:76px;max-height:75%;position:relative}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewIconWrap{height:100%;width:100%}.uppy-Dashboard-Item-previewIconBg{filter:drop-shadow(rgba(0,0,0,.1) 0 1px 1px);height:100%;width:100%}.uppy-Dashboard-upload{height:50px;position:relative;width:50px}.uppy-size--md .uppy-Dashboard-upload{height:60px;width:60px}.uppy-Dashboard-upload .uppy-c-icon{position:relative;top:1px;width:50%}.uppy-Dashboard-uploadCount{background-color:#1bb240;border-radius:50%;color:#fff;font-size:8px;height:16px;inset-inline-end:-12px;line-height:16px;position:absolute;top:-12px;width:16px}.uppy-size--md .uppy-Dashboard-uploadCount{font-size:9px;height:18px;line-height:18px;width:18px}`, bh = `.uppy-ImageCropper-range{-webkit-appearance:none;background:#0000;margin:8px 0;width:100%}.uppy-ImageCropper-range::-moz-focus-outer{border:0}.uppy-ImageCropper-range:focus{outline:0}.uppy-ImageCropper-range:focus::-webkit-slider-runnable-track{background:#fff3}.uppy-ImageCropper-range:focus::-ms-fill-lower,.uppy-ImageCropper-range:focus::-ms-fill-upper{background:#fff3}.uppy-ImageCropper-range::-webkit-slider-runnable-track{background:#fff3;border:0 solid #0000;border-radius:5px;box-shadow:0 0 #0000,0 0 #0d0d0d00;cursor:default;height:4px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-webkit-slider-thumb{-webkit-appearance:none;background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;margin-top:-6px;width:16px}.uppy-ImageCropper-range::-moz-range-track{background:#fff3;border:0 solid #0000;border-radius:5px;box-shadow:0 0 #0000,0 0 #0d0d0d00;cursor:default;height:2px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-moz-range-thumb{background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;width:16px}.uppy-ImageCropper-range::-ms-track{background:#0000;border-color:#0000;border-width:8px 0;color:#0000;cursor:default;height:4px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-ms-fill-lower{background:#f2f2f233;border:0 solid #0000;border-radius:10px;box-shadow:0 0 #0000,0 0 #0d0d0d00}.uppy-ImageCropper-range::-ms-fill-upper{background:#fff3;border:0 solid #0000;border-radius:10px;box-shadow:0 0 #0000,0 0 #0d0d0d00}.uppy-ImageCropper-range::-ms-thumb{background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;margin-top:1px;width:16px}.uppy-ImageCropper-range:disabled::-moz-range-thumb,.uppy-ImageCropper-range:disabled::-ms-fill-lower,.uppy-ImageCropper-range:disabled::-ms-fill-upper,.uppy-ImageCropper-range:disabled::-ms-thumb,.uppy-ImageCropper-range:disabled::-webkit-slider-runnable-track,.uppy-ImageCropper-range:disabled::-webkit-slider-thumb{cursor:not-allowed}/*!
 * Cropper.js v1.5.6
 * https://fengyuanchen.github.io/cropperjs
 *
@@ -8025,17 +8033,17 @@ const bh = ".uppy-Root{box-sizing:border-box;color:#333;font-family:-apple-syste
   upload: {
     request: null,
     security: null,
-    uriUploadForm: Ph("https://authorapi.learnosity.com/latest-lts/assets/uploadform")
+    uriUploadForm: kh("https://authorapi.learnosity.com/latest-lts/assets/uploadform")
   },
   uppy: null
 };
-function xh(i = {}) {
-  const { options: e = {} } = i, t = Bs, r = Is;
-  if (!t || !r)
+function vh(i = {}) {
+  const { security: e = {}, request: t = {}, options: r = {} } = i;
+  if (!e || !t)
     throw new TypeError("imageUploader.run: Missing `security` or `request`");
-  w.upload.security = t, w.upload.request = r, Ch(e), Bh() && z.authorApp().on("widgetedit:widget:ready", _h);
+  w.upload.security = e, w.upload.request = t, Sh(r), Ph() && z.authorApp().on("widgetedit:widget:ready", wh);
 }
-function _h() {
+function wh() {
   z.utils.logger.debug(`${w.logPrefix}setupModalObserver()`), w.classNamePrefix = Ps(w.classNamePrefix), ao();
   const i = (e) => {
     for (const t of e)
@@ -8044,7 +8052,7 @@ function _h() {
           '[data-authorapi-selector="asset-uploader-iframe-outlet"]:not(.lrn-author-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"]):not(.lrn-qe-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"])'
         ), a = document.querySelector('[data-authorapi-selector="asset-display-name"]');
         if (r && !a) {
-          z.utils.logger.debug(`${w.logPrefix}Disconnecting observer`), ao(), Dh();
+          z.utils.logger.debug(`${w.logPrefix}Disconnecting observer`), ao(), xh();
           break;
         }
       }
@@ -8059,14 +8067,14 @@ function _s() {
 function ao() {
   w.observer?.disconnect(), w.observedElements.clear();
 }
-function Dh() {
+function xh() {
   const i = document.querySelector('[data-authorapi-selector="asset-uploader-alignment"]'), e = document.querySelector(`.lrn-${w.classNamePrefix}image-uploader-preview`);
   setTimeout(() => {
     const r = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]'), a = r.querySelector("iframe"), o = document.querySelector(`.lrn-${w.classNamePrefix}adv-options`), s = document.createElement("div");
-    s.setAttribute("id", "uppy-dashboard"), a.setAttribute("hidden", ""), r.insertAdjacentElement("afterbegin", s), Sh(), ur(), o.removeAttribute("hidden"), kh();
+    s.setAttribute("id", "uppy-dashboard"), a.setAttribute("hidden", ""), r.insertAdjacentElement("afterbegin", s), Dh(), ur(), o.removeAttribute("hidden"), _h();
   }, !i && !e ? 0 : 500);
 }
-function kh() {
+function _h() {
   w.uppy = new Qi({
     debug: !1,
     autoProceed: !1,
@@ -8080,13 +8088,13 @@ function kh() {
     target: "#uppy-dashboard",
     showProgressDetails: !1,
     proudlyDisplayPoweredByUppy: !1
-  }).use(tc, {
+  }).use(Ju, {
     quality: w.options.quality,
     convertSize: 5e5,
     convertTypes: ["image/png"],
     maxHeight: w.options.maxHeight,
     maxWidth: w.options.maxWidth
-  }).use(yh, { target: Oa }), w.uppy.on("file-added", (i) => {
+  }).use(mh, { target: Oa }), w.uppy.on("file-added", (i) => {
     z.utils.logger.debug(`${w.logPrefix}file-added: ${i.source}`), document.querySelector(`.lrn-${w.classNamePrefix}adv-options`).setAttribute("hidden", ""), i.source === "Dashboard" && oo(i);
   }), w.uppy.on("file-removed", () => {
     z.utils.logger.debug(`${w.logPrefix}file-removed`), Bt("lt__image-uploader-upload-btn", "remove");
@@ -8176,7 +8184,7 @@ function ks(i) {
     }).catch((d) => console.error("Error in uploading image:", d));
   }).catch((p) => console.error("Error in fetching tokens:", p));
 }
-function Sh() {
+function Dh() {
   z.utils.logger.debug(`${w.logPrefix}listenForSelfHostedImages()`), setTimeout(() => {
     const i = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
     i && i.addEventListener("input", Ss);
@@ -8231,24 +8239,24 @@ function ur() {
     o && o.removeEventListener("input", Ss);
   }
 }
-function Ph(i) {
+function kh(i) {
   const e = new URLSearchParams(window.location.search), t = window.location.hostname, r = e.get("env");
   return t.includes("learnosity.com") && r === "staging" ? i.replace("authorapi.", "authorapi.staging.") : i;
 }
-function Ch(i) {
+function Sh(i) {
   ["quality", "maxWidth", "maxHeight"].forEach((e) => {
     typeof i?.[e] == "number" && (w.options[e] = i[e]);
   });
 }
-function Bh() {
+function Ph() {
   return !w.upload.security || !w.upload.request || typeof w.upload.security != "object" || typeof w.upload.request != "object" ? (z.utils.logger.error(`${w.logPrefix}imageUploader extension failed to run - Missing/invalid security or request parameters`), !1) : !0;
 }
 function Bt(i, e) {
   const t = document.querySelector(`.${i}`);
   t && (e === "disable" ? t.setAttribute("disabled", "") : e === "enable" ? t.removeAttribute("disabled") : e === "remove" && t.remove());
 }
-function Ih() {
-  return `${[bh, vh, wh].join(`
+function Ch() {
+  return `${[gh, yh, bh].join(`
 `)}
 
 
@@ -8288,9 +8296,9 @@ function Ih() {
         }
     `;
 }
-const Oh = Cs("imageUploader", xh, {
-  getStyles: Ih
+const Eh = Cs("imageUploader", vh, {
+  getStyles: Ch
 });
 export {
-  Oh as imageUploader
+  Eh as imageUploader
 };

@@ -1,5 +1,5 @@
-import { c as U, L as k } from "../../extensionsFactory-CJF5B414.js";
-const N = {
+import { c as U, L as N } from "../../extensionsFactory-BHOEyOSK.js";
+const z = {
   zoom: 4,
   shape: "square",
   // 'square' | 'circle'
@@ -8,42 +8,48 @@ const N = {
 }, g = {
   initialised: !1,
   instance: null,
-  options: { ...N }
+  options: { ...z }
 };
 function _(u) {
   if (g.initialised) {
-    k.utils.logger.debug("Magnifier already initialised; ignoring run()");
+    N.utils.logger.debug("Magnifier already initialised; ignoring run()");
     return;
   }
-  g.initialised = !0, g.options = { ...N, ...u || {} };
+  g.initialised = !0, g.options = { ...z, ...u || {} };
 }
-function z() {
-  return g.instance || (g.instance = new O(g.options)), g.instance;
+function b() {
+  return g.instance || (g.instance = new Z(g.options)), g.instance;
 }
 function W(u = "lrn__magnifier") {
   document.querySelectorAll(`.${u}`).forEach((y) => {
     y.addEventListener("click", () => {
-      z().toggle();
+      b().toggle();
     });
-  }), k.itemsApp().on("item:load", P);
+  }), N.itemsApp().on("item:load", j);
 }
 function F() {
-  z().toggle();
+  b().hide();
 }
-function O(u) {
+function O() {
+  b().show();
+}
+function P() {
+  b().toggle();
+}
+function Z(u) {
   const o = this;
-  o.options = { ...N, ...u || {} };
+  o.options = { ...z, ...u || {} };
   const y = `
 <div id="lt__magnifier" class="magnifier" style="display:none;position:fixed;overflow:hidden;background-color:#fff;border:1px solid #555;border-radius:4px;z-index:10000;">
   <div class="magnifier-content" style="top:0;left:0;position:absolute;display:block;transform-origin:left top;user-select:none;padding-top:0"></div>
   <div class="magnifier-glass" style="position:absolute;inset:0;opacity:0;background-color:#fff;cursor:move;"></div>
 </div>`.trim();
-  let s, c, h = !1, T = 0, b = !0;
-  const E = {}, Y = () => document.scrollingElement || document.documentElement;
+  let s, c, h = !1, A = 0, E = !0;
+  const L = {}, Y = () => document.scrollingElement || document.documentElement;
   document.addEventListener("keydown", (t) => {
     t.key === "Escape" && o.isVisible() && o.hide();
   });
-  function A(t, e, n) {
+  function M(t, e, n) {
     t.style.left = `${e}px`, t.style.top = `${n}px`;
   }
   function B(t, e, n) {
@@ -55,9 +61,9 @@ function O(u) {
   }
   function f() {
     const t = s.getBoundingClientRect(), e = s.clientLeft, n = s.clientTop, i = Y(), a = i.scrollLeft + t.left + e, r = i.scrollTop + t.top + n, d = o.options.zoom;
-    A(c, -Math.round(a * d), -Math.round(r * d)), S("viewPortChanged", c);
+    M(c, -Math.round(a * d), -Math.round(r * d)), C("viewPortChanged", c);
   }
-  function L(t, e) {
+  function x(t, e) {
     t.querySelectorAll(e).forEach((n) => n.parentNode?.removeChild(n));
   }
   function H() {
@@ -71,9 +77,9 @@ function O(u) {
           a[p].getContext("2d").drawImage(i[p], 0, 0);
         } catch {
         }
-    L(e, "script"), L(e, "audio"), L(e, "video"), L(e, ".magnifier"), S("prepareContent", e), c.appendChild(e);
+    x(e, "script"), x(e, "audio"), x(e, "video"), x(e, ".magnifier"), C("prepareContent", e), c.appendChild(e);
     const r = document.documentElement, d = Math.max(r.scrollWidth, r.clientWidth), w = Math.max(r.scrollHeight, r.clientHeight);
-    B(c, d, w), S("contentUpdated", c), b = !1;
+    B(c, d, w), C("contentUpdated", c), E = !1;
   }
   function X(t) {
     const e = [];
@@ -90,7 +96,7 @@ function O(u) {
     } else t === document && f();
     return !1;
   }
-  function x(t) {
+  function S(t) {
     if (h) {
       if (t && t.target)
         X(t.target);
@@ -102,7 +108,7 @@ function O(u) {
         for (let n = 0; n < e.length; n++)
           V(s, e[n]) || X(e[n]);
       }
-      S("syncScrollBars", c);
+      C("syncScrollBars", c);
     }
   }
   function V(t, e) {
@@ -112,13 +118,13 @@ function O(u) {
     return !1;
   }
   function $() {
-    h && (b && H(), x());
+    h && (E && H(), S());
   }
-  function M() {
-    h && (T && cancelAnimationFrame(T), T = requestAnimationFrame($));
+  function q() {
+    h && (A && cancelAnimationFrame(A), A = requestAnimationFrame($));
   }
-  function S(t, e) {
-    const n = E[t];
+  function C(t, e) {
+    const n = L[t];
     if (n)
       for (let i = 0; i < n.length; i++)
         n[i].call(o, e);
@@ -131,32 +137,32 @@ function O(u) {
       const m = l.target;
       if (m && (n.has(m.tagName) || m.parentNode && n.has(m.parentNode.tagName)))
         return;
-      const C = t.getBoundingClientRect();
-      i = C.left, a = C.top, r = l.clientX ?? l.touches?.[0]?.clientX, d = l.clientY ?? l.touches?.[0]?.clientY, w = !0, l.preventDefault();
+      const T = t.getBoundingClientRect();
+      i = T.left, a = T.top, r = l.clientX ?? l.touches?.[0]?.clientX, d = l.clientY ?? l.touches?.[0]?.clientY, w = !0, l.preventDefault();
     }
-    function q(l) {
+    function k(l) {
       if (!w)
         return;
-      const m = l.clientX ?? l.touches?.[0]?.clientX, C = l.clientY ?? l.touches?.[0]?.clientY;
-      A(t, Math.round(i + (m - r)), Math.round(a + (C - d))), e.ondrag?.(l);
+      const m = l.clientX ?? l.touches?.[0]?.clientX, T = l.clientY ?? l.touches?.[0]?.clientY;
+      M(t, Math.round(i + (m - r)), Math.round(a + (T - d))), e.ondrag?.(l);
     }
     function I() {
       w = !1;
     }
-    t.addEventListener("mousedown", p), t.addEventListener("touchstart", p, { passive: !1 }), window.addEventListener("mousemove", q, { passive: !0 }), window.addEventListener("touchmove", q, { passive: !0 }), window.addEventListener("mouseup", I, { passive: !0 }), window.addEventListener("touchend", I, { passive: !0 });
+    t.addEventListener("mousedown", p), t.addEventListener("touchstart", p, { passive: !1 }), window.addEventListener("mousemove", k, { passive: !0 }), window.addEventListener("touchmove", k, { passive: !0 }), window.addEventListener("mouseup", I, { passive: !0 }), window.addEventListener("touchend", I, { passive: !0 });
   }
   function R() {
     const t = document.createElement("div");
     t.innerHTML = y, s = t.querySelector(".magnifier"), c = s.querySelector(".magnifier-content"), (document.querySelector(".lrn-assess") || document.body).appendChild(s), window.addEventListener(
       "resize",
       () => {
-        b = !0, M();
+        E = !0, q();
       },
       { passive: !0 }
     ), window.addEventListener(
       "scroll",
       (n) => {
-        x(n), M();
+        S(n), q();
       },
       { passive: !0, capture: !0 }
     ), D(s, { ondrag: () => f() });
@@ -170,30 +176,32 @@ function O(u) {
   }, o.setHeight = (t) => {
     o.options.height = t, v(), f();
   }, o.getZoom = () => o.options.zoom, o.getShape = () => o.options.shape, o.getWidth = () => o.options.width, o.getHeight = () => o.options.height, o.isVisible = () => h, o.on = (t, e) => {
-    E[t] = E[t] || [], E[t].push(e);
-  }, o.syncScrollBars = () => x(), o.syncContent = () => M(), o.hide = () => {
+    L[t] = L[t] || [], L[t].push(e);
+  }, o.syncScrollBars = () => S(), o.syncContent = () => q(), o.hide = () => {
     c.innerHTML = "", s.style.display = "none", h = !1;
   }, o.show = (t) => {
     const { width: e, height: n } = o.options, i = t?.clientX ?? 200, a = t?.clientY ?? 200, r = Math.max(0, Math.round(i - e / 2)), d = Math.max(0, Math.round(a - n / 2));
-    v(), b && H(), A(s, r, d), s.style.display = "", h = !0, f(), x();
+    v(), E && H(), M(s, r, d), s.style.display = "", h = !0, f(), S();
   }, o.toggle = () => o.isVisible() ? o.hide() : o.show(), R(), o;
 }
-function P() {
-  const u = k.itemElement();
+function j() {
+  const u = N.itemElement();
   if (!u)
     return;
   const o = u.querySelectorAll("img");
   !o || !o.length || o.forEach((y) => {
     y.addEventListener("click", (s) => {
-      const c = z();
+      const c = b();
       c.isVisible() || c.show(s);
     });
   });
 }
-const j = U("magnifier", _, {
+const G = U("magnifier", _, {
   setupButtons: W,
-  toggle: F
+  hide: F,
+  show: O,
+  toggle: P
 });
 export {
-  j as magnifier
+  G as magnifier
 };

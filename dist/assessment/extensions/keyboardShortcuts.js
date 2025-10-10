@@ -1,5 +1,5 @@
 import { a as ie } from "../../_commonjsHelpers-DQNKXVTB.js";
-import { c as se, L as T } from "../../extensionsFactory-CJF5B414.js";
+import { c as se, L as T } from "../../extensionsFactory-BHOEyOSK.js";
 function ae(n, p) {
   for (var s = 0; s < p.length; s++) {
     const o = p[s];
@@ -430,7 +430,7 @@ function Q(n) {
   return Number.isFinite(s) ? s : null;
 }
 function Y() {
-  const n = T.questions.questions();
+  const n = T.questions();
   let p = null;
   for (const s of n)
     if (s && s.type === "mcq") {

@@ -1,4 +1,4 @@
-import { c as o, L as a } from "../../extensionsFactory-CJF5B414.js";
+import { c as o, L as a } from "../../extensionsFactory-BHOEyOSK.js";
 const n = {
   renderedCss: !1,
   validTypes: ["longtextV2", "plaintext"]

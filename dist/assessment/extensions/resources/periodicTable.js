@@ -1,4 +1,4 @@
-import { c as a, L as l } from "../../../extensionsFactory-CJF5B414.js";
+import { c as a, L as l } from "../../../extensionsFactory-BHOEyOSK.js";
 const i = {
   message: {
     header: "Periodic Table of Elements",

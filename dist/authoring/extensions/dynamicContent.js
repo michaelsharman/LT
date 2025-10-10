@@ -1,4 +1,4 @@
-import { c as createExtension, L as LT } from "../../extensionsFactory-CJF5B414.js";
+import { c as createExtension, L as LT } from "../../extensionsFactory-BHOEyOSK.js";
 import { s as setObserver } from "../../dom-WlatGxUZ.js";
 import { a as getDefaultExportFromCjs } from "../../_commonjsHelpers-DQNKXVTB.js";
 import { d as debounce } from "../../debounce-CqEeJcMa.js";

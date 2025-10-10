@@ -1,4 +1,4 @@
-import { c as xr, L as q } from "../../extensionsFactory-CJF5B414.js";
+import { c as xr, L as q } from "../../extensionsFactory-BHOEyOSK.js";
 import { w as pr } from "../../dom-WlatGxUZ.js";
 import { g as vr, a as gr } from "../../_commonjsHelpers-DQNKXVTB.js";
 import { b as V, i as H, r as hr, f as dr } from "../../isObjectLike-B0-0sm4Y.js";
