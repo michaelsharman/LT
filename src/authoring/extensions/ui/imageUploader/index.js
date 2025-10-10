@@ -1,5 +1,5 @@
 import { checkAppVersion } from '../../../utils/styling.js';
-import { createExtension, LT, apiSecurity, apiRequest } from '../../../../utils/extensionsFactory.js';
+import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import Compressor from '@uppy/compressor';
@@ -154,10 +154,7 @@ const state = {
  * @ignore
  */
 function run(args = {}) {
-    // let { security = {}, request = {}, options = {} } = args;
-    const { options = {} } = args;
-    const security = apiSecurity;
-    const request = apiRequest;
+    const { security = {}, request = {}, options = {} } = args;
 
     if (!security || !request) {
         throw new TypeError('imageUploader.run: Missing `security` or `request`');
