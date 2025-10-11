@@ -22,7 +22,7 @@ function f() {
     },
     LT: {
       extensions: n.extensions,
-      version: "3.0.0-beta.10"
+      version: "3.0.0-beta.11"
     },
     versions: e
   };

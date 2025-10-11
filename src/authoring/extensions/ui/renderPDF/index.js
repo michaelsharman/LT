@@ -1,3 +1,4 @@
+import { renderPDF as renderPDFAssessment } from '../../../../assessment/extensions/ui/renderPDF/index.js';
 import { checkAppVersion } from '../../../utils/styling.js';
 import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
@@ -32,6 +33,57 @@ const state = {
 function run() {
     state.classNamePrefix = checkAppVersion(state.classNamePrefix);
 
+    LT.authorApp().on('render:item', () => {
+        doRenderPDF(document.querySelector('.lrn-author-item-content-wrapper'));
+    });
+
+    LT.authorApp().on('widgetedit:preview:changed', () => {
+        doRenderPDF(document.querySelector('.lrn-question-preview'));
+    });
+}
+
+/**
+ * Uses the native viewer to render any resource PDFs in iframes.
+ * @since 2.2.0
+ * @ignore
+ */
+function doRenderPDF(elParent) {
+    if (!elParent) {
+        return;
+    }
+
+    const resources = elParent.querySelectorAll('.lrn_widget .resource');
+    if (!resources.length) {
+        return;
+    }
+
+    resources.forEach(resource => {
+        const anchor = resource.querySelector('a');
+        if (!anchor) {
+            return;
+        }
+
+        const url = anchor.getAttribute('href') || '';
+        if (!url.toLowerCase().endsWith('.pdf')) {
+            return;
+        }
+
+        if (resource.dataset.ltRenderedPdf === '1') {
+            return;
+        }
+
+        resource.dataset.ltRenderedPdf = '1';
+        renderPDFAssessment.mountNativePdf(resource, url);
+    });
+}
+
+/**
+ * Adds a checkbox to the resource upload panel
+ * to allow authors to choose whether to render PDFs inline.
+ * @since 3.0.0
+ * @ignore
+ */
+function setupUploadOption() {
     LT.authorApp().on('widgetedit:widget:ready', () => {
         const elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');
 
@@ -84,6 +136,19 @@ function getStyles() {
         /* Used to style render PDF options added to the resource upload panel */
         .lrn .lrn-author-ui .lrn-form-control.lt__renderPDFOption {
             width: auto;
+        }
+
+        .lt__renderPDF_pdf {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+        .lt__renderPDF_pdf .pdf-viewer {
+            display: block;
+            width: 100%;
+            height: 650px;
+            border: 0;
+            background: #fff;
         }
     `;
 }

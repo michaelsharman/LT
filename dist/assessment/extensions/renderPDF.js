@@ -1,5 +1,5 @@
-import { c as u, L as a } from "../../extensionsFactory-BHOEyOSK.js";
-function m() {
+import { c as m, L as a } from "../../extensionsFactory-BHOEyOSK.js";
+function h() {
   a.itemsApp().on("item:load", l), queueMicrotask(l);
 }
 function l() {
@@ -12,10 +12,10 @@ function l() {
     if (!s)
       return;
     const o = s.getAttribute("href") || "";
-    o.toLowerCase().endsWith(".pdf") && e.dataset.ltRenderedPdf !== "1" && (e.dataset.ltRenderedPdf = "1", h(e, o));
+    o.toLowerCase().endsWith(".pdf") && e.dataset.ltRenderedPdf !== "1" && (e.dataset.ltRenderedPdf = "1", f(e, o));
   });
 }
-function h(c, i) {
+function f(c, i) {
   const t = document.createElement("div");
   t.className = "lt__renderPDF_pdf";
   const e = document.createElement("iframe");
@@ -36,7 +36,7 @@ function h(c, i) {
   else {
     const n = new IntersectionObserver(
       (r) => {
-        r.some((f) => f.isIntersecting) && (n.disconnect(), o());
+        r.some((u) => u.isIntersecting) && (n.disconnect(), o());
       },
       { root: null, threshold: 0.01 }
     );
@@ -60,8 +60,9 @@ function p() {
         }
     `;
 }
-const b = u("renderPDF", m, {
-  getStyles: p
+const b = m("renderPDF", h, {
+  getStyles: p,
+  mountNativePdf: f
 });
 export {
   b as renderPDF

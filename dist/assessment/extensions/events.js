@@ -1,4 +1,4 @@
-import { e as O, f as x } from "../../player-YcKAxXIZ.js";
+import { e as O, f as x } from "../../player-lNyoCXaZ.js";
 import { networkStatus as q } from "./networkStatus.js";
 import { c as C, L as t } from "../../extensionsFactory-BHOEyOSK.js";
 const r = {

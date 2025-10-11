@@ -106,8 +106,8 @@ import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
  *     }
  * }
  * ```
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contenttabs1.png" alt="" width="660"></p>
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contenttabs2.png" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contentTabs/contenttabs1.png" alt="" width="660"></p>
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contentTabs/contenttabs2.png" alt="" width="660"></p>
  *
  * @param {object=} options Object of configuration options.
  * @param {string=} options.theme The theme to apply to the content tabs. Options are `rounded` (default) and `api-column-tabs`.

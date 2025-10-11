@@ -5,6 +5,8 @@ import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
  *
  * Pass in a theme option to change the look of the tabs.
  *
+ * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/contentTabs/assessment.png" alt="" width="660"></p>
+ *
  * @param {object=} options Object of configuration options.
  * @param {string=} options.theme Defaults to `api-column-tabs`. Also accepts `rounded`.
  *

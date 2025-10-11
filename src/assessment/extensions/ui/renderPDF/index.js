@@ -156,4 +156,5 @@ function getStyles() {
 
 export const renderPDF = createExtension('renderPDF', run, {
     getStyles,
+    mountNativePdf,
 });

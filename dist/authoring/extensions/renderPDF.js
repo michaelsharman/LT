@@ -1,45 +1,53 @@
-import { c as l } from "../../styling-B1v3AcrI.js";
-import { c as a, L as t } from "../../extensionsFactory-BHOEyOSK.js";
-const n = {
+import { renderPDF as l } from "../../assessment/extensions/renderPDF.js";
+import { c as s } from "../../styling-C7aiqQc1.js";
+import { c, L as d } from "../../extensionsFactory-BHOEyOSK.js";
+const i = {
   classNamePrefix: null
 };
-function s() {
-  n.classNamePrefix = l(n.classNamePrefix), t.authorApp().on("widgetedit:widget:ready", () => {
-    document.querySelectorAll(".cke_button__lrnresource").forEach((e) => {
-      t.utils.logger.debug("Found resource button in editor"), e.addEventListener("click", () => {
-        d();
-      });
-    });
+function u() {
+  i.classNamePrefix = s(i.classNamePrefix), d.authorApp().on("render:item", () => {
+    a(document.querySelector(".lrn-author-item-content-wrapper"));
+  }), d.authorApp().on("widgetedit:preview:changed", () => {
+    a(document.querySelector(".lrn-question-preview"));
   });
 }
-function d() {
-  const r = document.querySelector(`.lrn-${n.classNamePrefix}adv-options-group`), e = c(), o = `<div class="lrn-row">
-        <div class="lrn-col-xs-12 lrn-author-padding-top-sm">
-            <label for="lt__renderPDF-Id_${e}" class="lrn-author-asset-upload lrn-form-label-name">
-                <span class="lrn-author-asset-upload lrn-form-label-name">Render PDF inline?</span>
-            </label>
-            <div class="lrn-form-control-wrapper">
-                <input id="lt__renderPDF-Id_${e}" name="renderPDF" value="true" type="checkbox" class="lrn-form-control lt__renderPDFOption">
-            </div>
-        </div>
-    </div>`;
-  r && r.insertAdjacentHTML("beforeend", o);
+function a(r) {
+  if (!r)
+    return;
+  const t = r.querySelectorAll(".lrn_widget .resource");
+  t.length && t.forEach((e) => {
+    const n = e.querySelector("a");
+    if (!n)
+      return;
+    const o = n.getAttribute("href") || "";
+    o.toLowerCase().endsWith(".pdf") && e.dataset.ltRenderedPdf !== "1" && (e.dataset.ltRenderedPdf = "1", l.mountNativePdf(e, o));
+  });
 }
-function c() {
-  return Math.floor(Math.random() * Date.now()).toString(36);
-}
-function i() {
+function f() {
   return `
         /* Learnosity language text direction styles */
         /* Used to style render PDF options added to the resource upload panel */
         .lrn .lrn-author-ui .lrn-form-control.lt__renderPDFOption {
             width: auto;
         }
+
+        .lt__renderPDF_pdf {
+            display: block;
+            width: 100%;
+            max-width: 100%;
+        }
+        .lt__renderPDF_pdf .pdf-viewer {
+            display: block;
+            width: 100%;
+            height: 650px;
+            border: 0;
+            background: #fff;
+        }
     `;
 }
-const m = a("renderPDF", s, {
-  getStyles: i
+const P = c("renderPDF", u, {
+  getStyles: f
 });
 export {
-  m as renderPDF
+  P as renderPDF
 };
