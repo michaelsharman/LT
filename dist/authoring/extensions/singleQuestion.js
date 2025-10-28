@@ -1,4 +1,4 @@
-import { c as o } from "../../styling-C7aiqQc1.js";
+import { c as o } from "../../styling-BAmPgGwX.js";
 import { c, L as s } from "../../extensionsFactory-BHOEyOSK.js";
 const e = {
   classNamePrefix: null,

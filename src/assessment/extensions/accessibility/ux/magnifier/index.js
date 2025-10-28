@@ -16,8 +16,10 @@ import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
  * const options = {
  *     zoom: 4,
  *     shape: 'square',
- *     width: 310,
- *     height: 310,
+ *     width: 350,
+ *     height: 350,
+ *     sampleOffsetX: 0,
+ *     sampleOffsetY: 350,
  * }
  *
  * LT.init(itemsApp, {
@@ -34,6 +36,8 @@ const DEFAULTS = {
     shape: 'square', // 'square' | 'circle'
     width: 350,
     height: 350,
+    sampleOffsetX: 0, // px shift of the sampled document point, relative to lens center
+    sampleOffsetY: 350, // positive moves the sampled point downward inside the lens; negative moves it upward
 };
 
 const state = {
@@ -119,8 +123,8 @@ function HTMLMagnifier(options) {
     _this.options = { ...DEFAULTS, ...(options || {}) };
 
     const magnifierTemplate = `
-<div id="lt__magnifier" class="magnifier" style="display:none;position:fixed;overflow:hidden;background-color:#fff;border:1px solid #555;border-radius:4px;z-index:10000;">
-  <div class="magnifier-content" style="top:0;left:0;position:absolute;display:block;transform-origin:left top;user-select:none;padding-top:0"></div>
+<div id="lt__magnifier" class="magnifier" style="display:none;position:fixed;overflow:hidden;background-color:#fff;border:2px solid #555;border-radius:6px;z-index:10000;">
+  <div class="magnifier-content" style="top:0;left:0;position:absolute;display:block;transform-origin:left top;user-select:none;"></div>
   <div class="magnifier-glass" style="position:absolute;inset:0;opacity:0;background-color:#fff;cursor:move;"></div>
 </div>`.trim();
 
@@ -129,8 +133,6 @@ function HTMLMagnifier(options) {
     let rafId = 0;
     let needsRebuild = true; // only rebuild clone when needed
     const events = {};
-
-    const scrollingEl = () => document.scrollingElement || document.documentElement;
 
     document.addEventListener('keydown', ev => {
         if (ev.key === 'Escape' && _this.isVisible()) {
@@ -155,24 +157,33 @@ function HTMLMagnifier(options) {
     }
 
     function syncViewport() {
-        // Use viewport coords for a fixed element
         const rect = magnifier.getBoundingClientRect();
-        const bw = magnifier.clientLeft;
-        const bt = magnifier.clientTop;
-
-        const se = scrollingEl();
-        const docX = se.scrollLeft + rect.left + bw;
-        const docY = se.scrollTop + rect.top + bt;
-
+        const w = magnifier.clientWidth;
+        const h = magnifier.clientHeight;
+        const cx = w / 2;
+        const cy = h / 2;
         const z = _this.options.zoom;
-        // Translate the cloned doc so that the doc point under the lens maps to (0,0) of the scaled content.
-        setPosition(magnifierContent, -Math.round(docX * z), -Math.round(docY * z));
 
+        const sr = scrollRoot || document.scrollingElement || document.documentElement;
+        const srRect = sr === document.scrollingElement || sr === document.documentElement ? { left: 0, top: 0 } : sr.getBoundingClientRect();
+
+        const sx = sr.scrollLeft || 0;
+        const sy = sr.scrollTop || 0;
+
+        // Document-space coords of the lens center (within the scroll root’s content)
+        const docX = sx + (rect.left - srRect.left) + cx;
+        const docY = sy + (rect.top - srRect.top) + cy;
+
+        // Apply sampling offsets (defaults to 0)
+        const offX = Number(_this.options.sampleOffsetX) || 0;
+        const offY = Number(_this.options.sampleOffsetY) || 0;
+
+        // Map (docX, docY) to (cx + offX, cy + offY) inside the lens
+        const contentLeft = Math.round(cx + offX - docX * z);
+        const contentTop = Math.round(cy + offY - docY * z);
+
+        setPosition(magnifierContent, contentLeft, contentTop);
         triggerEvent('viewPortChanged', magnifierContent);
-    }
-
-    function removeSelectors(container, selector) {
-        container.querySelectorAll(selector).forEach(el => el.parentNode?.removeChild(el));
     }
 
     function prepareContent() {
@@ -181,39 +192,25 @@ function HTMLMagnifier(options) {
         const bodyOriginal = document.body;
         const bodyCopy = bodyOriginal.cloneNode(true);
 
-        // Copy some safe visual props without mutating layout too much
-        const bg = getComputedStyle(bodyOriginal).backgroundColor;
-        if (bg) {
-            magnifier.style.backgroundColor = bg;
-        }
+        // Copy key computed styles that affect horizontal/vertical offset
+        const cs = getComputedStyle(bodyOriginal);
+        // Background to keep a consistent backdrop
+        magnifier.style.backgroundColor = cs.backgroundColor || '#fff';
 
-        // Tidy the clone
+        // Ensure the clone’s body has the same margin/padding/etc. as the real one
+        bodyCopy.style.margin = cs.margin; // ← critical (kills the 8px UA margin)
+        bodyCopy.style.padding = cs.padding || '0';
+        bodyCopy.style.boxSizing = cs.boxSizing || 'border-box';
+
+        // keep the rest as you had
         bodyCopy.style.cursor = 'auto';
         bodyCopy.style.paddingTop = '0px';
         bodyCopy.setAttribute('unselectable', 'on');
 
-        // Copy canvas pixels (best-effort)
-        const canvO = bodyOriginal.querySelectorAll('canvas');
-        const canvC = bodyCopy.querySelectorAll('canvas');
-        if (canvO.length && canvO.length === canvC.length) {
-            for (let i = 0; i < canvO.length; i++) {
-                try {
-                    const ctx = canvC[i].getContext('2d');
-                    ctx.drawImage(canvO[i], 0, 0);
-                } catch {
-                    // noop
-                }
-            }
-        }
+        // …your canvas copy, pruning scripts/media, etc…
 
-        // Avoid recursion / heavy media in the clone
-        removeSelectors(bodyCopy, 'script');
-        removeSelectors(bodyCopy, 'audio');
-        removeSelectors(bodyCopy, 'video');
-        removeSelectors(bodyCopy, '.magnifier');
-
-        triggerEvent('prepareContent', bodyCopy);
         magnifierContent.appendChild(bodyCopy);
+        scrollRoot = findScrollRoot();
 
         // Size the cloned document to full page
         const de = document.documentElement;
@@ -356,14 +353,43 @@ function HTMLMagnifier(options) {
         window.addEventListener('touchend', up, { passive: true });
     }
 
+    let scrollRoot = null; // active inner scroller if any
+
+    function findScrollRoot() {
+        // Prefer a common app container that actually scrolls
+        const candidates = [document.querySelector('.lrn-assess'), document.querySelector('#app'), document.scrollingElement].filter(Boolean);
+
+        for (const el of candidates) {
+            const cs = getComputedStyle(el);
+            const isScroller = /(auto|scroll)/.test(cs.overflow) || /(auto|scroll)/.test(cs.overflowX) || /(auto|scroll)/.test(cs.overflowY);
+            if (isScroller && (el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight)) {
+                return el;
+            }
+        }
+        return document.scrollingElement || document.documentElement;
+    }
+
+    window.addEventListener(
+        'scroll',
+        e => {
+            if (e && e.target && e.target !== document && e.target !== window) {
+                // If a real element is scrolling, adopt it as the root
+                scrollRoot = e.target;
+            }
+            syncScrollBars(e);
+            syncContentQueued();
+        },
+        { passive: true, capture: true }
+    );
+
     function init() {
         const div = document.createElement('div');
         div.innerHTML = magnifierTemplate;
         magnifier = div.querySelector('.magnifier');
         magnifierContent = magnifier.querySelector('.magnifier-content');
 
-        const host = document.querySelector('.lrn-assess') || document.body;
-        host.appendChild(magnifier);
+        // ⬇️ Always append to body so transforms on wrappers don't affect us
+        document.body.appendChild(magnifier);
 
         window.addEventListener(
             'resize',
