@@ -226,7 +226,7 @@ function getStyles() {
         .lrn-timer-wrapper.lt__timer-wrapper.lt__tooltip::after {
             content: '';
             position: absolute;
-            bottom: 105%;
+            bottom: 103%;
             left: 50%;
             transform: translateX(-50%);
             border: 6px solid transparent;
