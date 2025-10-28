@@ -33,27 +33,30 @@ export function isLastItemInSection() {
  * @returns {object}
  */
 export function section() {
-    if (hasSections()) {
-        const currentRef = itemReference();
-        const allSections = sections();
-        let section = -1;
-        let found = false;
-        for (let s = 0; s < allSections.length; s++) {
-            if (found) {
+    if (!hasSections()) {
+        return 0;
+    }
+
+    const currentRef = itemReference();
+    const allSections = sections();
+
+    let section = -1;
+    let found = false;
+
+    for (let s = 0; s < allSections.length; s++) {
+        if (found) {
+            break;
+        }
+        ++section;
+        for (let i = 0; i < allSections[s].items.length; i++) {
+            if (currentRef === allSections[s].items[i]) {
+                found = true;
                 break;
             }
-            ++section;
-            for (let i = 0; i < allSections[s].items.length; i++) {
-                if (currentRef === allSections[s].items[i].reference) {
-                    found = true;
-                    break;
-                }
-            }
         }
-        return sections()[section];
-    } else {
-        return {};
     }
+
+    return sections()[section];
 }
 
 /**
@@ -73,27 +76,30 @@ export function sectionHasShuffledItems() {
  * @returns {number}
  */
 export function sectionIndex() {
-    if (hasSections()) {
-        const currentRef = itemReference();
-        const sections = sections();
-        let section = 0;
-        let found = false;
-        for (let s = 0; s < sections.length; s++) {
-            if (found) {
-                break;
-            }
-            ++section;
-            for (let i = 0; i < sections[s].items.length; i++) {
-                if (currentRef === sections[s].items[i].reference) {
-                    found = true;
-                    break;
-                }
-            }
-        }
-        return section;
-    } else {
+    if (!hasSections()) {
         return 0;
     }
+
+    const currentRef = itemReference();
+    const allSections = sections();
+
+    let section = 0;
+    let found = false;
+
+    for (let s = 0; s < allSections.length; s++) {
+        if (found) {
+            break;
+        }
+        ++section;
+        for (let i = 0; i < allSections[s].items.length; i++) {
+            if (currentRef === allSections[s].items[i]) {
+                found = true;
+                break;
+            }
+        }
+    }
+
+    return (found && section) || 0;
 }
 
 /**
@@ -106,6 +112,7 @@ export function sectionIndex() {
 export function sectionItemPosition() {
     const currentRef = itemReference();
     const currentSection = section();
+
     let itemPos = 0;
 
     if (!Object.keys(currentSection).length) {
@@ -114,10 +121,11 @@ export function sectionItemPosition() {
 
     for (let i = 0; i < currentSection.items.length; i++) {
         ++itemPos;
-        if (currentRef === currentSection.items[i].reference) {
+        if (currentRef === currentSection.items[i]) {
             break;
         }
     }
+
     return itemPos;
 }
 
