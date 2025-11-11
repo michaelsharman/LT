@@ -1,5 +1,5 @@
 import { renderPDF as l } from "../../assessment/extensions/renderPDF.js";
-import { c as s } from "../../styling-BAmPgGwX.js";
+import { c as s } from "../../styling-DH1YOSUw.js";
 import { c, L as d } from "../../extensionsFactory-BHOEyOSK.js";
 const i = {
   classNamePrefix: null

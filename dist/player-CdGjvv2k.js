@@ -142,7 +142,7 @@ function de() {
 }
 function v() {
   if (!h())
-    return 0;
+    return {};
   const e = f(), t = d();
   let i = -1, o = !1;
   for (let a = 0; a < t.length && !o; a++) {
@@ -415,7 +415,7 @@ function Me() {
     },
     LT: {
       extensions: l.extensions,
-      version: "3.0.0-beta.12"
+      version: "3.0.0-beta.13"
     },
     versions: e
   };
