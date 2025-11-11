@@ -34,7 +34,7 @@ export function isLastItemInSection() {
  */
 export function section() {
     if (!hasSections()) {
-        return 0;
+        return {};
     }
 
     const currentRef = itemReference();
