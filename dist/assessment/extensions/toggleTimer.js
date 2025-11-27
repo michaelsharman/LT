@@ -3,11 +3,10 @@ const e = {
   initialised: !1,
   elTimerWrapper: null,
   elTimer: null,
-  elClock: null,
-  enableForceTimerShow: !1,
-  forceRenderTimer: !1
+  elClock: null
 };
 function d(r) {
+  const { showTimerLimit: w = 60 } = r || {};
   if (e.initialised) {
     i.utils.logger.debug("Toggle timer already initialised, ignoring run();");
     return;
@@ -148,10 +147,10 @@ function _() {
         }
     `;
 }
-const w = m("toggleTimer", d, {
+const g = m("toggleTimer", d, {
   getStyles: _,
   toggle: l
 });
 export {
-  w as toggleTimer
+  g as toggleTimer
 };

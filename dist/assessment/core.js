@@ -1,43 +1,57 @@
-import { d as c, a as f, i as m, b as p, p as u, q as M, s as g, c as d } from "../player-CdGjvv2k.js";
-import b from "../logger.js";
-import { M as s, r as v } from "../memoryMonitor-DBuv6WYK.js";
-let t = null;
-const j = Object.fromEntries(Object.entries(c).filter(([i]) => !["extensionsListener", "handleEvent"].includes(i))), x = Object.fromEntries(Object.entries(f).filter(([i]) => !["setup"].includes(i))), y = {
+import { d as u, a as m, s as p, q as g, p as M, b as d, i as b, c as y } from "../player-BmddCyd3.js";
+import j from "../logger.js";
+import { r as v } from "../initExtensions-DVo3AlMk.js";
+let i = null, o = null;
+const O = Object.fromEntries(Object.entries(u).filter(([t]) => !["extensionsListener", "handleEvent"].includes(t))), w = Object.fromEntries(Object.entries(m).filter(([t]) => !["setup"].includes(t))), a = {
   utils: {
-    logger: b,
+    logger: j,
     get monitor() {
-      return t;
-    },
-    // optional convenience APIs
-    enableMonitoring(i = {}) {
-      return t || (t = new s()), t.isMonitoring || t.startMonitoring(i.intervalMs ?? 5e3), t;
-    },
-    disableMonitoring() {
-      t?.stopMonitoring();
+      return i;
     }
   }
 };
-async function O(i, o = {}) {
-  d(i);
-  const { extensions: e = [], monitor: n, perf: r = !1, perfLimit: a = 50 } = o;
-  if (n) {
-    const l = typeof n == "object" && Number.isFinite(n.intervalMs) ? n.intervalMs : void 0;
-    t || (t = new s()), t.isMonitoring || t.startMonitoring(l);
+async function x() {
+  if (!o) {
+    const t = await import(
+      /* webpackChunkName: "lt-memory-monitor" */
+      "../memoryMonitor-Db1sqzAh.js"
+    );
+    o = t.default || t.MemoryMonitor || t;
   }
-  e.length && await v(E, e, "assessment", { perf: r, perfLimit: a });
+  return o;
 }
-const E = {
-  init: O,
+async function r(t = {}) {
+  const e = await x();
+  return i || (i = new e()), i.isMonitoring || i.startMonitoring(t.intervalMs ?? 5e3), i;
+}
+function E() {
+  i?.stopMonitoring();
+}
+async function C(t, e = {}) {
+  y(t);
+  const { extensions: s = [], monitor: n, perf: l = !1, perfLimit: c = 50 } = e;
+  if (n) {
+    Object.assign(a.utils, {
+      enableMonitoring: r,
+      disableMonitoring: E
+    });
+    const f = typeof n == "object" && Number.isFinite(n.intervalMs) ? n.intervalMs : void 0;
+    await r({ intervalMs: f });
+  }
+  s.length && await v(F, s, "assessment", { perf: l, perfLimit: c });
+}
+const F = {
+  init: C,
   extensions: {},
-  ...x,
-  ...m,
-  ...p,
-  ...u,
+  ...w,
+  ...b,
+  ...d,
   ...M,
   ...g,
-  ...j,
-  ...y
+  ...p,
+  ...O,
+  ...a
 };
 export {
-  E as LT
+  F as LT
 };

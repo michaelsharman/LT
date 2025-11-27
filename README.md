@@ -1,4 +1,4 @@
-# LT - Learnosity Toolkit
+# Learnosity Toolkit (LT)
 
 This is a utility library of helper modules and extensions that may be useful if you're developing with Learnosity APIs.
 
@@ -10,28 +10,32 @@ See [documentation here](https://michaelsharman.github.io/LT/).
 
 This package is unofficial and wasn't created by Learnosity.
 
-No modules contained within:
+No code contained within:
 
 -   ever have access to the consumer private key (i.e. `consumer_secret`)
--   track any usage or personal information
+-   tracks any usage or personal information
 
 Everything is open source under the MIT license. Feel free to use as you see fit.
 
 ## Installation
 
+The easiest way to get running is to install via npm:
+
 ```
 npm install @caspingus/lt
 ```
 
+You could alternatively checkout directly from Github on the `main` branch, which may be slightly ahead of npm.
+
 ## Usage
 
-Depending on where you are, import either the assessment or authoring into your project. You can import `core` or `bundle` from both areas.
+Depending on which API you are working with, you will be importing either the assessment or authoring modules into your project. You can import `core` or `bundle` from both areas.
 
 ## core vs bundle
 
 **Recommendation** - use `core` in all production settings for greater control on file size.
 
-The `core` module contains the LT toolkit only, no extensions. This is the smallest file size (around 16kB for assessment and 3kB for authoring) and may be all you need.
+The `core` module contains the LT toolkit only, no extensions. This is the smallest file size (around 23kB for assessment and 11kB for authoring) and may be all you need.
 
 If you want 1 or 2 extensions, you should import them individually to keep the overall file size down.
 
@@ -47,7 +51,7 @@ LT.init(itemsApp, {
 });
 ```
 
-The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 240kB for assessment and 1400kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
+The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 280kB for assessment and 1330kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
 
 ```
 import { LT } from '@caspingus/lt/assessment/bundle';

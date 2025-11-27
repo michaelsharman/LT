@@ -1,7 +1,7 @@
 import { LT as s } from "./core.js";
-import { E as r } from "../memoryMonitor-DBuv6WYK.js";
+import { E as r } from "../initExtensions-DVo3AlMk.js";
 const i = Object.freeze(
-  Object.keys(r.assessment).sort()
+  Object.keys(r.assessment || {}).sort()
   // sort for deterministic order
 ), E = {
   ...s,

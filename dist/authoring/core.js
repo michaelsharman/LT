@@ -1,55 +1,69 @@
-import { a as i, d as f, b as p, s as d } from "../app-DjTONOng.js";
-import m from "../logger.js";
-import { M as r, r as M } from "../memoryMonitor-DBuv6WYK.js";
-function b() {
-  i().on("navigate", (e) => {
-    window.location.hash = "#" + e.data.locationEncoded;
+import { a as i, d as p, b as m, s as b } from "../app-C4hoGTng.js";
+import M from "../logger.js";
+import { r as h } from "../initExtensions-DVo3AlMk.js";
+function w() {
+  i().on("navigate", (t) => {
+    window.location.hash = "#" + t.data.locationEncoded;
   }), i().navigate(window.location.hash.replace(/^#/, "")), window.onhashchange = () => {
     i().navigate(window.location.hash.replace(/^#/, ""));
   };
 }
-const h = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const y = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  routingHash: b
+  routingHash: w
 }, Symbol.toStringTag, { value: "Module" }));
-function w() {
+function v() {
   return i().getWidget()?.type;
 }
-const v = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const j = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  type: w
+  type: v
 }, Symbol.toStringTag, { value: "Module" }));
-let t = null;
-const y = Object.fromEntries(Object.entries(f).filter(([e]) => !["extensionsListener", "handleEvent"].includes(e))), j = Object.fromEntries(Object.entries(p).filter(([e]) => !["setup"].includes(e))), O = {
+let n = null, r = null;
+const O = Object.fromEntries(Object.entries(p).filter(([t]) => !["extensionsListener", "handleEvent"].includes(t))), _ = Object.fromEntries(Object.entries(m).filter(([t]) => !["setup"].includes(t))), l = {
   utils: {
-    logger: m,
+    logger: M,
     get monitor() {
-      return t;
-    },
-    // optional convenience APIs
-    enableMonitoring(e = {}) {
-      return t || (t = new r()), t.isMonitoring || t.startMonitoring(e.intervalMs ?? 5e3), t;
-    },
-    disableMonitoring() {
-      t?.stopMonitoring();
+      return n;
     }
   }
 };
-async function _(e, s = {}) {
-  d(e);
-  const { extensions: o = [], security: a, request: l, monitor: n, perf: c = !1, perfLimit: g = 50 } = s;
-  if (n) {
-    const u = typeof n == "object" && Number.isFinite(n.intervalMs) ? n.intervalMs : void 0;
-    t || (t = new r()), t.isMonitoring || t.startMonitoring(u);
+async function x() {
+  if (!r) {
+    const t = await import(
+      /* webpackChunkName: "lt-memory-monitor" */
+      "../memoryMonitor-Db1sqzAh.js"
+    );
+    r = t.default || t.MemoryMonitor || t;
   }
-  o.length && await M(x, o, "authoring", {
-    security: a,
-    request: l,
-    perf: c,
-    perfLimit: g
+  return r;
+}
+async function a(t = {}) {
+  const o = await x();
+  return n || (n = new o()), n.isMonitoring || n.startMonitoring(t.intervalMs ?? 5e3), n;
+}
+function E() {
+  n?.stopMonitoring();
+}
+async function S(t, o = {}) {
+  b(t);
+  const { extensions: s = [], security: c, request: u, monitor: e, perf: g = !1, perfLimit: f = 50 } = o;
+  if (e) {
+    Object.assign(l.utils, {
+      enableMonitoring: a,
+      disableMonitoring: E
+    });
+    const d = typeof e == "object" && Number.isFinite(e.intervalMs) ? e.intervalMs : void 0;
+    await a({ intervalMs: d });
+  }
+  s.length && await h(C, s, "authoring", {
+    security: c,
+    request: u,
+    perf: g,
+    perfLimit: f
   });
 }
-const x = { init: _, extensions: {}, ...j, ...y, ...h, ...v, ...O };
+const C = { init: S, extensions: {}, ..._, ...O, ...y, ...j, ...l };
 export {
-  x as LT
+  C as LT
 };

@@ -1,7 +1,7 @@
 import { defineConfig } from 'vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import path from 'path';
-import pkg from './package.json' assert { type: 'json' };
+import pkg from './package.json' with { type: 'json' };
 import { log } from 'console';
 
 const manualEntries = {
@@ -67,6 +67,9 @@ export default defineConfig(({ command }) => {
             outDir: 'dist',
             emptyOutDir: true,
             cssCodeSplit: false,
+            modulePreload: {
+                polyfill: false,
+            },
 
             lib: {
                 entry,

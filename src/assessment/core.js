@@ -7,36 +7,51 @@ import * as questions from './core/questions.js';
 import * as sections from './core/sections.js';
 import logger from '../utils/logger.js';
 import { runExtensions } from '../utils/initExtensions.js';
-import MemoryMonitor from '../utils/memoryMonitor.js';
 
 let monitor = null;
+let MonitorCtor = null;
 
 // Filter out methods that are not needed in the final export
 const diagnosticsFiltered = Object.fromEntries(Object.entries(diagnostics).filter(([key]) => !['extensionsListener', 'handleEvent'].includes(key)));
 const appFiltered = Object.fromEntries(Object.entries(app).filter(([key]) => !['setup'].includes(key)));
+
+// Base utils (no monitoring by default)
 const utils = {
     utils: {
         logger,
         get monitor() {
             return monitor;
         },
-
-        // optional convenience APIs
-        enableMonitoring(opts = {}) {
-            if (!monitor) {
-                monitor = new MemoryMonitor();
-            }
-            if (!monitor.isMonitoring) {
-                monitor.startMonitoring(opts.intervalMs ?? 5000);
-            }
-            return monitor;
-        },
-
-        disableMonitoring() {
-            monitor?.stopMonitoring();
-        },
     },
 };
+
+// Private helpers for monitoring
+async function getMonitorCtor() {
+    if (!MonitorCtor) {
+        const mod = await import(/* webpackChunkName: "lt-memory-monitor" */ '../utils/memoryMonitor.js');
+
+        MonitorCtor = mod.default || mod.MemoryMonitor || mod; // be tolerant to export style
+    }
+
+    return MonitorCtor;
+}
+
+async function _enableMonitoring(opts = {}) {
+    const Ctor = await getMonitorCtor();
+
+    if (!monitor) {
+        monitor = new Ctor();
+    }
+    if (!monitor.isMonitoring) {
+        monitor.startMonitoring(opts.intervalMs ?? 5000);
+    }
+
+    return monitor;
+}
+
+function _disableMonitoring() {
+    monitor?.stopMonitoring();
+}
 
 /**
  * Constructor method for Learnosity Toolkit.
@@ -61,13 +76,16 @@ async function init(itemsApp, options = {}) {
 
     // Opt-in monitoring
     if (monitorOpt) {
+        // expose only when requested
+        Object.assign(utils.utils, {
+            enableMonitoring: _enableMonitoring,
+            disableMonitoring: _disableMonitoring,
+        });
+
+        // start immediately if truthy
         const intervalMs = typeof monitorOpt === 'object' && Number.isFinite(monitorOpt.intervalMs) ? monitorOpt.intervalMs : undefined;
-        if (!monitor) {
-            monitor = new MemoryMonitor();
-        }
-        if (!monitor.isMonitoring) {
-            monitor.startMonitoring(intervalMs);
-        }
+
+        await _enableMonitoring({ intervalMs });
     }
 
     if (extensions.length) {

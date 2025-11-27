@@ -1,22 +1,12 @@
-import { c as Ps } from "../../styling-DH1YOSUw.js";
+import { c as Ps } from "../../styling-GKhoo4nb.js";
 import { c as Cs, L as z } from "../../extensionsFactory-BHOEyOSK.js";
-import { c as ht, a as $e } from "../../_commonjsHelpers-DQNKXVTB.js";
+import { c as ct, a as Le } from "../../_commonjsHelpers-DQNKXVTB.js";
 function Bs(i, e, t) {
   const r = [];
   return i.forEach((a) => typeof a != "string" ? r.push(a) : e[Symbol.split](a).forEach((o, s, n) => {
     o !== "" && r.push(o), s < n.length - 1 && r.push(t);
   })), r;
 }
-/**
- * Takes a string with placeholder variables like `%{smart_count} file selected`
- * and replaces it with values from options `{smart_count: 5}`
- *
- * @license https://github.com/airbnb/polyglot.js/blob/master/LICENSE
- * taken from https://github.com/airbnb/polyglot.js/blob/master/lib/polyglot.js#L299
- *
- * @param phrase that needs interpolation, with placeholders
- * @param options with values that will be used to replace placeholders
- */
 function br(i, e) {
   const t = /\$/g, r = "$$$$";
   let a = [i];
@@ -29,12 +19,12 @@ function br(i, e) {
     }
   return a;
 }
-const Is = (i) => {
+const Fs = (i) => {
   throw new Error(`missing string: ${i}`);
 };
 class no {
   locale;
-  constructor(e, { onMissingKey: t = Is } = {}) {
+  constructor(e, { onMissingKey: t = Fs } = {}) {
     this.locale = {
       strings: {},
       pluralize(r) {
@@ -139,23 +129,23 @@ class lo {
   afterUpdate() {
   }
 }
-function Lt(i) {
+function $t(i) {
   return i < 10 ? `0${i}` : i.toString();
 }
-function It() {
-  const i = /* @__PURE__ */ new Date(), e = Lt(i.getHours()), t = Lt(i.getMinutes()), r = Lt(i.getSeconds());
+function Ft() {
+  const i = /* @__PURE__ */ new Date(), e = $t(i.getHours()), t = $t(i.getMinutes()), r = $t(i.getSeconds());
   return `${e}:${t}:${r}`;
 }
-const Fs = {
+const Is = {
   debug: () => {
   },
   warn: () => {
   },
-  error: (...i) => console.error(`[Uppy] [${It()}]`, ...i)
+  error: (...i) => console.error(`[Uppy] [${Ft()}]`, ...i)
 }, Ts = {
-  debug: (...i) => console.debug(`[Uppy] [${It()}]`, ...i),
-  warn: (...i) => console.warn(`[Uppy] [${It()}]`, ...i),
-  error: (...i) => console.error(`[Uppy] [${It()}]`, ...i)
+  debug: (...i) => console.debug(`[Uppy] [${Ft()}]`, ...i),
+  warn: (...i) => console.warn(`[Uppy] [${Ft()}]`, ...i),
+  error: (...i) => console.error(`[Uppy] [${Ft()}]`, ...i)
 };
 function po(i) {
   return typeof i != "object" || i === null || !("nodeType" in i) ? !1 : i.nodeType === Node.ELEMENT_NODE;
@@ -168,7 +158,7 @@ function uo(i) {
     i = i.parentNode;
   return i?.dir;
 }
-var pt, P, co, Be, vr, ho, fo, mo, qi, Di, ki, it = {}, go = [], As = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i, dt = Array.isArray;
+var pt, P, ho, Be, vr, co, fo, mo, qi, Si, Di, it = {}, go = [], As = /acit|ex(?:s|g|n|p|$)|rph|grid|ows|mnc|ntw|ine[ch]|zoo|^ord|itera/i, dt = Array.isArray;
 function le(i, e) {
   for (var t in e) i[t] = e[t];
   return i;
@@ -183,7 +173,7 @@ function rt(i, e, t) {
   return Je(i, s, r, a, null);
 }
 function Je(i, e, t, r, a) {
-  var o = { type: i, props: e, key: t, ref: r, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: a ?? ++co, __i: -1, __u: 0 };
+  var o = { type: i, props: e, key: t, ref: r, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: a ?? ++ho, __i: -1, __u: 0 };
   return a == null && P.vnode != null && P.vnode(o), o;
 }
 function Os() {
@@ -211,21 +201,21 @@ function yo(i) {
   }
 }
 function wr(i) {
-  (!i.__d && (i.__d = !0) && Be.push(i) && !Et.__r++ || vr != P.debounceRendering) && ((vr = P.debounceRendering) || ho)(Et);
+  (!i.__d && (i.__d = !0) && Be.push(i) && !Et.__r++ || vr != P.debounceRendering) && ((vr = P.debounceRendering) || co)(Et);
 }
 function Et() {
   for (var i, e, t, r, a, o, s, n = 1; Be.length; ) Be.length > n && Be.sort(fo), i = Be.shift(), n = Be.length, i.__d && (t = void 0, a = (r = (e = i).__v).__e, o = [], s = [], e.__P && ((t = le({}, r)).__v = r.__v + 1, P.vnode && P.vnode(t), Vi(e.__P, t, r, e.__n, e.__P.namespaceURI, 32 & r.__u ? [a] : null, o, a ?? Ue(r), !!(32 & r.__u), s), t.__v = r.__v, t.__.__k[t.__i] = t, wo(o, t, s), t.__e != a && yo(t)));
   Et.__r = 0;
 }
-function bo(i, e, t, r, a, o, s, n, p, l, c) {
-  var d, h, m, f, y, b, v = r && r.__k || go, x = e.length;
-  for (p = Ms(t, e, v, p, x), d = 0; d < x; d++) (m = t.__k[d]) != null && (h = m.__i == -1 ? it : v[m.__i] || it, m.__i = d, b = Vi(i, m, h, a, o, s, n, p, l, c), f = m.__e, m.ref && h.ref != m.ref && (h.ref && Gi(h.ref, null, m), c.push(m.ref, m.__c || f, m)), y == null && f != null && (y = f), 4 & m.__u || h.__k === m.__k ? p = vo(m, p, i) : typeof m.type == "function" && b !== void 0 ? p = b : f && (p = f.nextSibling), m.__u &= -7);
+function bo(i, e, t, r, a, o, s, n, p, l, h) {
+  var d, c, m, f, y, b, v = r && r.__k || go, x = e.length;
+  for (p = Ms(t, e, v, p, x), d = 0; d < x; d++) (m = t.__k[d]) != null && (c = m.__i == -1 ? it : v[m.__i] || it, m.__i = d, b = Vi(i, m, c, a, o, s, n, p, l, h), f = m.__e, m.ref && c.ref != m.ref && (c.ref && Gi(c.ref, null, m), h.push(m.ref, m.__c || f, m)), y == null && f != null && (y = f), 4 & m.__u || c.__k === m.__k ? p = vo(m, p, i) : typeof m.type == "function" && b !== void 0 ? p = b : f && (p = f.nextSibling), m.__u &= -7);
   return t.__e = y, p;
 }
 function Ms(i, e, t, r, a) {
-  var o, s, n, p, l, c = t.length, d = c, h = 0;
-  for (i.__k = new Array(a), o = 0; o < a; o++) (s = e[o]) != null && typeof s != "boolean" && typeof s != "function" ? (p = o + h, (s = i.__k[o] = typeof s == "string" || typeof s == "number" || typeof s == "bigint" || s.constructor == String ? Je(null, s, null, null, null) : dt(s) ? Je(re, { children: s }, null, null, null) : s.constructor == null && s.__b > 0 ? Je(s.type, s.props, s.key, s.ref ? s.ref : null, s.__v) : s).__ = i, s.__b = i.__b + 1, n = null, (l = s.__i = zs(s, t, p, d)) != -1 && (d--, (n = t[l]) && (n.__u |= 2)), n == null || n.__v == null ? (l == -1 && (a > c ? h-- : a < c && h++), typeof s.type != "function" && (s.__u |= 4)) : l != p && (l == p - 1 ? h-- : l == p + 1 ? h++ : (l > p ? h-- : h++, s.__u |= 4))) : i.__k[o] = null;
-  if (d) for (o = 0; o < c; o++) (n = t[o]) != null && (2 & n.__u) == 0 && (n.__e == r && (r = Ue(n)), _o(n, n));
+  var o, s, n, p, l, h = t.length, d = h, c = 0;
+  for (i.__k = new Array(a), o = 0; o < a; o++) (s = e[o]) != null && typeof s != "boolean" && typeof s != "function" ? (p = o + c, (s = i.__k[o] = typeof s == "string" || typeof s == "number" || typeof s == "bigint" || s.constructor == String ? Je(null, s, null, null, null) : dt(s) ? Je(re, { children: s }, null, null, null) : s.constructor == null && s.__b > 0 ? Je(s.type, s.props, s.key, s.ref ? s.ref : null, s.__v) : s).__ = i, s.__b = i.__b + 1, n = null, (l = s.__i = zs(s, t, p, d)) != -1 && (d--, (n = t[l]) && (n.__u |= 2)), n == null || n.__v == null ? (l == -1 && (a > h ? c-- : a < h && c++), typeof s.type != "function" && (s.__u |= 4)) : l != p && (l == p - 1 ? c-- : l == p + 1 ? c++ : (l > p ? c-- : c++, s.__u |= 4))) : i.__k[o] = null;
+  if (d) for (o = 0; o < h; o++) (n = t[o]) != null && (2 & n.__u) == 0 && (n.__e == r && (r = Ue(n)), _o(n, n));
   return r;
 }
 function vo(i, e, t) {
@@ -246,9 +236,9 @@ function te(i, e) {
   }) : e.push(i)), e;
 }
 function zs(i, e, t, r) {
-  var a, o, s, n = i.key, p = i.type, l = e[t], c = l != null && (2 & l.__u) == 0;
-  if (l === null && i.key == null || c && n == l.key && p == l.type) return t;
-  if (r > (c ? 1 : 0)) {
+  var a, o, s, n = i.key, p = i.type, l = e[t], h = l != null && (2 & l.__u) == 0;
+  if (l === null && i.key == null || h && n == l.key && p == l.type) return t;
+  if (r > (h ? 1 : 0)) {
     for (a = t - 1, o = t + 1; a >= 0 || o < e.length; ) if ((l = e[s = a >= 0 ? a-- : o++]) != null && (2 & l.__u) == 0 && n == l.key && p == l.type) return s;
   }
   return -1;
@@ -263,7 +253,7 @@ function ft(i, e, t, r, a) {
     if (typeof r == "string" && (i.style.cssText = r = ""), r) for (e in r) t && e in t || xr(i.style, e, "");
     if (t) for (e in t) r && t[e] == r[e] || xr(i.style, e, t[e]);
   }
-  else if (e[0] == "o" && e[1] == "n") o = e != (e = e.replace(mo, "$1")), s = e.toLowerCase(), e = s in i || e == "onFocusOut" || e == "onFocusIn" ? s.slice(2) : e.slice(2), i.l || (i.l = {}), i.l[e + o] = t, t ? r ? t.u = r.u : (t.u = qi, i.addEventListener(e, o ? ki : Di, o)) : i.removeEventListener(e, o ? ki : Di, o);
+  else if (e[0] == "o" && e[1] == "n") o = e != (e = e.replace(mo, "$1")), s = e.toLowerCase(), e = s in i || e == "onFocusOut" || e == "onFocusIn" ? s.slice(2) : e.slice(2), i.l || (i.l = {}), i.l[e + o] = t, t ? r ? t.u = r.u : (t.u = qi, i.addEventListener(e, o ? Di : Si, o)) : i.removeEventListener(e, o ? Di : Si, o);
   else {
     if (a == "http://www.w3.org/2000/svg") e = e.replace(/xlink(H|:h)/, "h").replace(/sName$/, "s");
     else if (e != "width" && e != "height" && e != "href" && e != "list" && e != "form" && e != "tabIndex" && e != "download" && e != "rowSpan" && e != "colSpan" && e != "role" && e != "popover" && e in i) try {
@@ -285,11 +275,11 @@ function _r(i) {
   };
 }
 function Vi(i, e, t, r, a, o, s, n, p, l) {
-  var c, d, h, m, f, y, b, v, x, _, C, B, g, D, k, S, O, T = e.type;
+  var h, d, c, m, f, y, b, v, x, _, C, B, g, S, D, k, O, T = e.type;
   if (e.constructor != null) return null;
-  128 & t.__u && (p = !!(32 & t.__u), o = [n = e.__e = t.__e]), (c = P.__b) && c(e);
+  128 & t.__u && (p = !!(32 & t.__u), o = [n = e.__e = t.__e]), (h = P.__b) && h(e);
   e: if (typeof T == "function") try {
-    if (v = e.props, x = "prototype" in T && T.prototype.render, _ = (c = T.contextType) && r[c.__c], C = c ? _ ? _.props.value : c.__ : r, t.__c ? b = (d = e.__c = t.__c).__ = d.__E : (x ? e.__c = d = new T(v, C) : (e.__c = d = new X(v, C), d.constructor = T, d.render = Ns), _ && _.sub(d), d.props = v, d.state || (d.state = {}), d.context = C, d.__n = r, h = d.__d = !0, d.__h = [], d._sb = []), x && d.__s == null && (d.__s = d.state), x && T.getDerivedStateFromProps != null && (d.__s == d.state && (d.__s = le({}, d.__s)), le(d.__s, T.getDerivedStateFromProps(v, d.__s))), m = d.props, f = d.state, d.__v = e, h) x && T.getDerivedStateFromProps == null && d.componentWillMount != null && d.componentWillMount(), x && d.componentDidMount != null && d.__h.push(d.componentDidMount);
+    if (v = e.props, x = "prototype" in T && T.prototype.render, _ = (h = T.contextType) && r[h.__c], C = h ? _ ? _.props.value : h.__ : r, t.__c ? b = (d = e.__c = t.__c).__ = d.__E : (x ? e.__c = d = new T(v, C) : (e.__c = d = new X(v, C), d.constructor = T, d.render = Ns), _ && _.sub(d), d.props = v, d.state || (d.state = {}), d.context = C, d.__n = r, c = d.__d = !0, d.__h = [], d._sb = []), x && d.__s == null && (d.__s = d.state), x && T.getDerivedStateFromProps != null && (d.__s == d.state && (d.__s = le({}, d.__s)), le(d.__s, T.getDerivedStateFromProps(v, d.__s))), m = d.props, f = d.state, d.__v = e, c) x && T.getDerivedStateFromProps == null && d.componentWillMount != null && d.componentWillMount(), x && d.componentDidMount != null && d.__h.push(d.componentDidMount);
     else {
       if (x && T.getDerivedStateFromProps == null && v !== m && d.componentWillReceiveProps != null && d.componentWillReceiveProps(v, C), !d.__e && d.shouldComponentUpdate != null && d.shouldComponentUpdate(v, d.__s, C) === !1 || e.__v == t.__v) {
         for (e.__v != t.__v && (d.props = v, d.state = d.__s, d.__d = !1), e.__e = t.__e, e.__k = t.__k, e.__k.some(function(M) {
@@ -302,29 +292,29 @@ function Vi(i, e, t, r, a, o, s, n, p, l) {
         d.componentDidUpdate(m, f, y);
       });
     }
-    if (d.context = C, d.props = v, d.__P = i, d.__e = !1, g = P.__r, D = 0, x) {
-      for (d.state = d.__s, d.__d = !1, g && g(e), c = d.render(d.props, d.state, d.context), k = 0; k < d._sb.length; k++) d.__h.push(d._sb[k]);
+    if (d.context = C, d.props = v, d.__P = i, d.__e = !1, g = P.__r, S = 0, x) {
+      for (d.state = d.__s, d.__d = !1, g && g(e), h = d.render(d.props, d.state, d.context), D = 0; D < d._sb.length; D++) d.__h.push(d._sb[D]);
       d._sb = [];
     } else do
-      d.__d = !1, g && g(e), c = d.render(d.props, d.state, d.context), d.state = d.__s;
-    while (d.__d && ++D < 25);
-    d.state = d.__s, d.getChildContext != null && (r = le(le({}, r), d.getChildContext())), x && !h && d.getSnapshotBeforeUpdate != null && (y = d.getSnapshotBeforeUpdate(m, f)), S = c, c != null && c.type === re && c.key == null && (S = xo(c.props.children)), n = bo(i, dt(S) ? S : [S], e, t, r, a, o, s, n, p, l), d.base = e.__e, e.__u &= -161, d.__h.length && s.push(d), b && (d.__E = d.__ = null);
+      d.__d = !1, g && g(e), h = d.render(d.props, d.state, d.context), d.state = d.__s;
+    while (d.__d && ++S < 25);
+    d.state = d.__s, d.getChildContext != null && (r = le(le({}, r), d.getChildContext())), x && !c && d.getSnapshotBeforeUpdate != null && (y = d.getSnapshotBeforeUpdate(m, f)), k = h, h != null && h.type === re && h.key == null && (k = xo(h.props.children)), n = bo(i, dt(k) ? k : [k], e, t, r, a, o, s, n, p, l), d.base = e.__e, e.__u &= -161, d.__h.length && s.push(d), b && (d.__E = d.__ = null);
   } catch (M) {
     if (e.__v = null, p || o != null) if (M.then) {
       for (e.__u |= p ? 160 : 128; n && n.nodeType == 8 && n.nextSibling; ) n = n.nextSibling;
       o[o.indexOf(n)] = null, e.__e = n;
     } else {
       for (O = o.length; O--; ) Wi(o[O]);
-      Si(e);
+      ki(e);
     }
-    else e.__e = t.__e, e.__k = t.__k, M.then || Si(e);
+    else e.__e = t.__e, e.__k = t.__k, M.then || ki(e);
     P.__e(M, e, t);
   }
   else o == null && e.__v == t.__v ? (e.__k = t.__k, e.__e = t.__e) : n = e.__e = Rs(t.__e, e, t, r, a, o, s, p, l);
-  return (c = P.diffed) && c(e), 128 & e.__u ? void 0 : n;
+  return (h = P.diffed) && h(e), 128 & e.__u ? void 0 : n;
 }
-function Si(i) {
-  i && i.__c && (i.__c.__e = !0), i && i.__k && i.__k.forEach(Si);
+function ki(i) {
+  i && i.__c && (i.__c.__e = !0), i && i.__k && i.__k.forEach(ki);
 }
 function wo(i, e, t) {
   for (var r = 0; r < t.length; r++) Gi(t[r], t[++r], t[++r]);
@@ -342,7 +332,7 @@ function xo(i) {
   return typeof i != "object" || i == null || i.__b && i.__b > 0 ? i : dt(i) ? i.map(xo) : le({}, i);
 }
 function Rs(i, e, t, r, a, o, s, n, p) {
-  var l, c, d, h, m, f, y, b = t.props, v = e.props, x = e.type;
+  var l, h, d, c, m, f, y, b = t.props, v = e.props, x = e.type;
   if (x == "svg" ? a = "http://www.w3.org/2000/svg" : x == "math" ? a = "http://www.w3.org/1998/Math/MathML" : a || (a = "http://www.w3.org/1999/xhtml"), o != null) {
     for (l = 0; l < o.length; l++) if ((m = o[l]) && "setAttribute" in m == !!x && (x ? m.localName == x : m.nodeType == 3)) {
       i = m, o[l] = null;
@@ -363,9 +353,9 @@ function Rs(i, e, t, r, a, o, s, n, p) {
         ft(i, l, null, m, a);
       }
     }
-    for (l in v) m = v[l], l == "children" ? h = m : l == "dangerouslySetInnerHTML" ? c = m : l == "value" ? f = m : l == "checked" ? y = m : n && typeof m != "function" || b[l] === m || ft(i, l, m, b[l], a);
-    if (c) n || d && (c.__html == d.__html || c.__html == i.innerHTML) || (i.innerHTML = c.__html), e.__k = [];
-    else if (d && (i.innerHTML = ""), bo(e.type == "template" ? i.content : i, dt(h) ? h : [h], e, t, r, x == "foreignObject" ? "http://www.w3.org/1999/xhtml" : a, o, s, o ? o[0] : t.__k && Ue(t, 0), n, p), o != null) for (l = o.length; l--; ) Wi(o[l]);
+    for (l in v) m = v[l], l == "children" ? c = m : l == "dangerouslySetInnerHTML" ? h = m : l == "value" ? f = m : l == "checked" ? y = m : n && typeof m != "function" || b[l] === m || ft(i, l, m, b[l], a);
+    if (h) n || d && (h.__html == d.__html || h.__html == i.innerHTML) || (i.innerHTML = h.__html), e.__k = [];
+    else if (d && (i.innerHTML = ""), bo(e.type == "template" ? i.content : i, dt(c) ? c : [c], e, t, r, x == "foreignObject" ? "http://www.w3.org/1999/xhtml" : a, o, s, o ? o[0] : t.__k && Ue(t, 0), n, p), o != null) for (l = o.length; l--; ) Wi(o[l]);
     n || (l = "value", x == "progress" && f == null ? i.removeAttribute("value") : f != null && (f !== i[l] || x == "progress" && !f || x == "option" && f != b[l]) && ft(i, l, f, b[l], a), l = "checked", y != null && y != i[l] && ft(i, l, y, b[l], a));
   }
   return i;
@@ -398,9 +388,9 @@ function Ns(i, e, t) {
 }
 function Us(i, e, t) {
   var r, a, o, s;
-  e == document && (e = document.documentElement), P.__ && P.__(i, e), a = (r = typeof t == "function") ? null : e.__k, o = [], s = [], Vi(e, i = e.__k = rt(re, null, [i]), a || it, it, e.namespaceURI, a ? null : e.firstChild ? pt.call(e.childNodes) : null, o, a ? a.__e : e.firstChild, r, s), wo(o, i, s);
+  e == document && (e = document.documentElement), P.__ && P.__(i, e), a = (r = !1) ? null : e.__k, o = [], s = [], Vi(e, i = e.__k = rt(re, null, [i]), a || it, it, e.namespaceURI, a ? null : e.firstChild ? pt.call(e.childNodes) : null, o, a ? a.__e : e.firstChild, r, s), wo(o, i, s);
 }
-function Do(i, e, t) {
+function So(i, e, t) {
   var r, a, o, s, n = le({}, i.props);
   for (o in i.type && i.type.defaultProps && (s = i.type.defaultProps), e) o == "key" ? r = e[o] : o == "ref" ? a = e[o] : n[o] = e[o] === void 0 && s != null ? s[o] : e[o];
   return arguments.length > 2 && (n.children = arguments.length > 3 ? pt.call(arguments, 2) : t), Je(i.type, n, r || i.key, a || i.ref, null);
@@ -412,99 +402,99 @@ pt = go.slice, P = { __e: function(i, e, t, r) {
     i = n;
   }
   throw i;
-} }, co = 0, X.prototype.setState = function(i, e) {
+} }, ho = 0, X.prototype.setState = function(i, e) {
   var t;
   t = this.__s != null && this.__s != this.state ? this.__s : this.__s = le({}, this.state), typeof i == "function" && (i = i(le({}, t), this.props)), i && le(t, i), i != null && this.__v && (e && this._sb.push(e), wr(this));
 }, X.prototype.forceUpdate = function(i) {
   this.__v && (this.__e = !0, i && this.__h.push(i), wr(this));
-}, X.prototype.render = re, Be = [], ho = typeof Promise == "function" ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, fo = function(i, e) {
+}, X.prototype.render = re, Be = [], co = typeof Promise == "function" ? Promise.prototype.then.bind(Promise.resolve()) : setTimeout, fo = function(i, e) {
   return i.__v.__b - e.__v.__b;
-}, Et.__r = 0, mo = /(PointerCapture)$|Capture$/i, qi = 0, Di = _r(!1), ki = _r(!0);
-var at, $, Ht, Dr, ot = 0, ko = [], L = P, kr = L.__b, Sr = L.__r, Pr = L.diffed, Cr = L.__c, Br = L.unmount, Ir = L.__;
+}, Et.__r = 0, mo = /(PointerCapture)$|Capture$/i, qi = 0, Si = _r(!1), Di = _r(!0);
+var at, L, Ht, Sr, ot = 0, Do = [], $ = P, Dr = $.__b, kr = $.__r, Pr = $.diffed, Cr = $.__c, Br = $.unmount, Fr = $.__;
 function Xi(i, e) {
-  L.__h && L.__h($, i, ot || e), ot = 0;
-  var t = $.__H || ($.__H = { __: [], __h: [] });
+  $.__h && $.__h(L, i, ot || e), ot = 0;
+  var t = L.__H || (L.__H = { __: [], __h: [] });
   return i >= t.__.length && t.__.push({}), t.__[i];
 }
 function At(i) {
-  return ot = 1, $s(Po, i);
+  return ot = 1, Ls(Po, i);
 }
-function $s(i, e, t) {
+function Ls(i, e, t) {
   var r = Xi(at++, 2);
   if (r.t = i, !r.__c && (r.__ = [t ? t(e) : Po(void 0, e), function(n) {
     var p = r.__N ? r.__N[0] : r.__[0], l = r.t(p, n);
     p !== l && (r.__N = [l, r.__[1]], r.__c.setState({}));
-  }], r.__c = $, !$.__f)) {
+  }], r.__c = L, !L.__f)) {
     var a = function(n, p, l) {
       if (!r.__c.__H) return !0;
-      var c = r.__c.__H.__.filter(function(h) {
-        return !!h.__c;
+      var h = r.__c.__H.__.filter(function(c) {
+        return !!c.__c;
       });
-      if (c.every(function(h) {
-        return !h.__N;
+      if (h.every(function(c) {
+        return !c.__N;
       })) return !o || o.call(this, n, p, l);
       var d = r.__c.props !== n;
-      return c.forEach(function(h) {
-        if (h.__N) {
-          var m = h.__[0];
-          h.__ = h.__N, h.__N = void 0, m !== h.__[0] && (d = !0);
+      return h.forEach(function(c) {
+        if (c.__N) {
+          var m = c.__[0];
+          c.__ = c.__N, c.__N = void 0, m !== c.__[0] && (d = !0);
         }
       }), o && o.call(this, n, p, l) || d;
     };
-    $.__f = !0;
-    var o = $.shouldComponentUpdate, s = $.componentWillUpdate;
-    $.componentWillUpdate = function(n, p, l) {
+    L.__f = !0;
+    var o = L.shouldComponentUpdate, s = L.componentWillUpdate;
+    L.componentWillUpdate = function(n, p, l) {
       if (this.__e) {
-        var c = o;
-        o = void 0, a(n, p, l), o = c;
+        var h = o;
+        o = void 0, a(n, p, l), o = h;
       }
       s && s.call(this, n, p, l);
-    }, $.shouldComponentUpdate = a;
+    }, L.shouldComponentUpdate = a;
   }
   return r.__N || r.__;
 }
 function Pi(i, e) {
   var t = Xi(at++, 3);
-  !L.__s && So(t.__H, e) && (t.__ = i, t.u = e, $.__H.__h.push(t));
+  !$.__s && ko(t.__H, e) && (t.__ = i, t.u = e, L.__H.__h.push(t));
 }
-function Ft(i) {
+function It(i) {
   return ot = 5, Yi(function() {
     return { current: i };
   }, []);
 }
 function Yi(i, e) {
   var t = Xi(at++, 7);
-  return So(t.__H, e) && (t.__ = i(), t.__H = e, t.__h = i), t.__;
+  return ko(t.__H, e) && (t.__ = i(), t.__H = e, t.__h = i), t.__;
 }
-function Ls(i, e) {
+function $s(i, e) {
   return ot = 8, Yi(function() {
     return i;
   }, e);
 }
 function Hs() {
-  for (var i; i = ko.shift(); ) if (i.__P && i.__H) try {
+  for (var i; i = Do.shift(); ) if (i.__P && i.__H) try {
     i.__H.__h.forEach(Tt), i.__H.__h.forEach(Ci), i.__H.__h = [];
   } catch (e) {
-    i.__H.__h = [], L.__e(e, i.__v);
+    i.__H.__h = [], $.__e(e, i.__v);
   }
 }
-L.__b = function(i) {
-  $ = null, kr && kr(i);
-}, L.__ = function(i, e) {
-  i && e.__k && e.__k.__m && (i.__m = e.__k.__m), Ir && Ir(i, e);
-}, L.__r = function(i) {
-  Sr && Sr(i), at = 0;
-  var e = ($ = i.__c).__H;
-  e && (Ht === $ ? (e.__h = [], $.__h = [], e.__.forEach(function(t) {
+$.__b = function(i) {
+  L = null, Dr && Dr(i);
+}, $.__ = function(i, e) {
+  i && e.__k && e.__k.__m && (i.__m = e.__k.__m), Fr && Fr(i, e);
+}, $.__r = function(i) {
+  kr && kr(i), at = 0;
+  var e = (L = i.__c).__H;
+  e && (Ht === L ? (e.__h = [], L.__h = [], e.__.forEach(function(t) {
     t.__N && (t.__ = t.__N), t.u = t.__N = void 0;
-  })) : (e.__h.forEach(Tt), e.__h.forEach(Ci), e.__h = [], at = 0)), Ht = $;
-}, L.diffed = function(i) {
+  })) : (e.__h.forEach(Tt), e.__h.forEach(Ci), e.__h = [], at = 0)), Ht = L;
+}, $.diffed = function(i) {
   Pr && Pr(i);
   var e = i.__c;
-  e && e.__H && (e.__H.__h.length && (ko.push(e) !== 1 && Dr === L.requestAnimationFrame || ((Dr = L.requestAnimationFrame) || js)(Hs)), e.__H.__.forEach(function(t) {
+  e && e.__H && (e.__H.__h.length && (Do.push(e) !== 1 && Sr === $.requestAnimationFrame || ((Sr = $.requestAnimationFrame) || js)(Hs)), e.__H.__.forEach(function(t) {
     t.u && (t.__H = t.u), t.u = void 0;
-  })), Ht = $ = null;
-}, L.__c = function(i, e) {
+  })), Ht = L = null;
+}, $.__c = function(i, e) {
   e.some(function(t) {
     try {
       t.__h.forEach(Tt), t.__h = t.__h.filter(function(r) {
@@ -513,10 +503,10 @@ L.__b = function(i) {
     } catch (r) {
       e.some(function(a) {
         a.__h && (a.__h = []);
-      }), e = [], L.__e(r, t.__v);
+      }), e = [], $.__e(r, t.__v);
     }
   }), Cr && Cr(i, e);
-}, L.unmount = function(i) {
+}, $.unmount = function(i) {
   Br && Br(i);
   var e, t = i.__c;
   t && t.__H && (t.__H.__.forEach(function(r) {
@@ -525,24 +515,24 @@ L.__b = function(i) {
     } catch (a) {
       e = a;
     }
-  }), t.__H = void 0, e && L.__e(e, t.__v));
+  }), t.__H = void 0, e && $.__e(e, t.__v));
 };
-var Fr = typeof requestAnimationFrame == "function";
+var Ir = typeof requestAnimationFrame == "function";
 function js(i) {
   var e, t = function() {
-    clearTimeout(r), Fr && cancelAnimationFrame(e), setTimeout(i);
+    clearTimeout(r), Ir && cancelAnimationFrame(e), setTimeout(i);
   }, r = setTimeout(t, 35);
-  Fr && (e = requestAnimationFrame(t));
+  Ir && (e = requestAnimationFrame(t));
 }
 function Tt(i) {
-  var e = $, t = i.__c;
-  typeof t == "function" && (i.__c = void 0, t()), $ = e;
+  var e = L, t = i.__c;
+  typeof t == "function" && (i.__c = void 0, t()), L = e;
 }
 function Ci(i) {
-  var e = $;
-  i.__c = i.__(), $ = e;
+  var e = L;
+  i.__c = i.__(), L = e;
 }
-function So(i, e) {
+function ko(i, e) {
   return !i || i.length !== e.length || e.some(function(t, r) {
     return t !== i[r];
   });
@@ -592,7 +582,7 @@ function Bo(i, e, t) {
 function jt() {
   this.__u = 0, this.o = null, this.__b = null;
 }
-function Io(i) {
+function Fo(i) {
   var e = i.__.__c;
   return e && e.__a && e.__a(i);
 }
@@ -605,7 +595,7 @@ P.unmount = function(i) {
 }, (jt.prototype = new X()).__c = function(i, e) {
   var t = e.__c, r = this;
   r.o == null && (r.o = []), r.o.push(t);
-  var a = Io(r.__v), o = !1, s = function() {
+  var a = Fo(r.__v), o = !1, s = function() {
     o || (o = !0, t.__R = null, a ? a(n) : n());
   };
   t.__R = s;
@@ -641,7 +631,7 @@ var Mr = function(i, e, t) {
   }
 };
 (mt.prototype = new X()).__a = function(i) {
-  var e = this, t = Io(e.__v), r = e.l.get(i);
+  var e = this, t = Fo(e.__v), r = e.l.get(i);
   return r[0]++, function(a) {
     var o = function() {
       e.props.revealOrder ? (r.push(a), Mr(e, i, r)) : a();
@@ -660,7 +650,7 @@ var Mr = function(i, e, t) {
     Mr(i, t, e);
   });
 };
-var Vs = typeof Symbol < "u" && Symbol.for && Symbol.for("react.element") || 60103, Gs = /^(?:accent|alignment|arabic|baseline|cap|clip(?!PathU)|color|dominant|fill|flood|font|glyph(?!R)|horiz|image(!S)|letter|lighting|marker(?!H|W|U)|overline|paint|pointer|shape|stop|strikethrough|stroke|text(?!L)|transform|underline|unicode|units|v|vector|vert|word|writing|x(?!C))[A-Z]/, Xs = /^on(Ani|Tra|Tou|BeforeInp|Compo)/, Ys = /[A-Z0-9]/g, Ks = typeof document < "u", Zs = function(i) {
+var Vs = typeof Symbol < "u" && Symbol.for && Symbol.for("react.element") || 60103, Gs = /^(?:accent|alignment|arabic|baseline|cap|clip(?!PathU)|color|dominant|fill|flood|font|glyph(?!R)|horiz|image(!S)|letter|lighting|marker(?!H|W|U)|overline|paint|pointer|shape|stop|strikethrough|stroke|text(?!L)|transform|underline|unicode|units|v|vector|vert|word|writing|x(?!C))[A-Z]/, Xs = /^on(Ani|Tra|Tou|BeforeInp|Compo)/, Ys = /[A-Z0-9]/g, Ks = typeof document < "u", Qs = function(i) {
   return (typeof Symbol < "u" && typeof Symbol() == "symbol" ? /fil|che|rad/ : /fil|che|ra/).test(i);
 };
 function zr(i, e, t) {
@@ -674,7 +664,7 @@ X.prototype.isReactComponent = {}, ["componentWillMount", "componentWillReceiveP
   } });
 });
 var Rr = P.event;
-function Qs() {
+function Zs() {
 }
 function Js() {
   return this.cancelBubble;
@@ -683,7 +673,7 @@ function en() {
   return this.defaultPrevented;
 }
 P.event = function(i) {
-  return Rr && (i = Rr(i)), i.persist = Qs, i.isPropagationStopped = Js, i.isDefaultPrevented = en, i.nativeEvent = i;
+  return Rr && (i = Rr(i)), i.persist = Zs, i.isPropagationStopped = Js, i.isDefaultPrevented = en, i.nativeEvent = i;
 };
 var tn = { enumerable: !1, configurable: !0, get: function() {
   return this.class;
@@ -695,7 +685,7 @@ P.vnode = function(i) {
       var n = t[s];
       if (!(s === "value" && "defaultValue" in t && n == null || Ks && s === "children" && r === "noscript" || s === "class" || s === "className")) {
         var p = s.toLowerCase();
-        s === "defaultValue" && "value" in t && t.value == null ? s = "value" : s === "download" && n === !0 ? n = "" : p === "translate" && n === "no" ? n = !1 : p[0] === "o" && p[1] === "n" ? p === "ondoubleclick" ? s = "ondblclick" : p !== "onchange" || r !== "input" && r !== "textarea" || Zs(t.type) ? p === "onfocus" ? s = "onfocusin" : p === "onblur" ? s = "onfocusout" : Xs.test(s) && (s = p) : p = s = "oninput" : o && Gs.test(s) ? s = s.replace(Ys, "-$&").toLowerCase() : n === null && (n = void 0), p === "oninput" && a[s = p] && (s = "oninputCapture"), a[s] = n;
+        s === "defaultValue" && "value" in t && t.value == null ? s = "value" : s === "download" && n === !0 ? n = "" : p === "translate" && n === "no" ? n = !1 : p[0] === "o" && p[1] === "n" ? p === "ondoubleclick" ? s = "ondblclick" : p !== "onchange" || r !== "input" && r !== "textarea" || Qs(t.type) ? p === "onfocus" ? s = "onfocusin" : p === "onblur" ? s = "onfocusout" : Xs.test(s) && (s = p) : p = s = "oninput" : o && Gs.test(s) ? s = s.replace(Ys, "-$&").toLowerCase() : n === null && (n = void 0), p === "oninput" && a[s = p] && (s = "oninputCapture"), a[s] = n;
       }
     }
     r == "select" && a.multiple && Array.isArray(a.value) && (a.value = te(t.children).forEach(function(l) {
@@ -709,9 +699,9 @@ var Ur = P.__r;
 P.__r = function(i) {
   Ur && Ur(i), i.__c;
 };
-var $r = P.diffed;
+var Lr = P.diffed;
 P.diffed = function(i) {
-  $r && $r(i);
+  Lr && Lr(i);
   var e = i.props, t = i.__e;
   t != null && i.type === "textarea" && "value" in e && e.value !== t.value && (t.value = e.value == null ? "" : e.value);
 };
@@ -778,23 +768,11 @@ class ve extends lo {
   onUnmount() {
   }
 }
-const an = "@uppy/store-default", on = "The default simple object-based store for Uppy.", sn = "4.3.2", nn = "MIT", ln = "lib/index.js", pn = "module", dn = { build: "tsc --build tsconfig.build.json", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, un = ["file uploader", "uppy", "uppy-store"], cn = "https://uppy.io", hn = { url: "https://github.com/transloadit/uppy/issues" }, fn = { jsdom: "^26.1.0", typescript: "^5.8.3", vitest: "^3.2.4" }, mn = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, gn = ["src", "lib", "dist", "CHANGELOG.md"], yn = {
-  name: an,
-  description: on,
-  version: sn,
-  license: nn,
-  main: ln,
-  type: pn,
-  scripts: dn,
-  keywords: un,
-  homepage: cn,
-  bugs: hn,
-  devDependencies: fn,
-  repository: mn,
-  files: gn
+const an = "4.3.2", on = {
+  version: an
 };
-class bn {
-  static VERSION = yn.version;
+class sn {
+  static VERSION = on.version;
   state = {};
   #e = /* @__PURE__ */ new Set();
   getState() {
@@ -825,7 +803,7 @@ function Ot(i) {
     extension: i.slice(e + 1)
   };
 }
-const Lr = {
+const $r = {
   __proto__: null,
   md: "text/markdown",
   markdown: "text/markdown",
@@ -880,24 +858,24 @@ const Lr = {
   gz: "application/gzip",
   dmg: "application/x-apple-diskimage"
 };
-function Fo(i) {
+function Io(i) {
   if (i.type)
     return i.type;
   const e = i.name ? Ot(i.name).extension?.toLowerCase() : null;
-  return e && e in Lr ? Lr[e] : "application/octet-stream";
+  return e && e in $r ? $r[e] : "application/octet-stream";
 }
-function vn(i) {
+function nn(i) {
   return i.charCodeAt(0).toString(32);
 }
 function Hr(i) {
   let e = "";
-  return i.replace(/[^A-Z0-9]/gi, (t) => (e += `-${vn(t)}`, "/")) + e;
+  return i.replace(/[^A-Z0-9]/gi, (t) => (e += `-${nn(t)}`, "/")) + e;
 }
-function wn(i, e) {
+function ln(i, e) {
   let t = e || "uppy";
   return typeof i.name == "string" && (t += `-${Hr(i.name.toLowerCase())}`), i.type !== void 0 && (t += `-${i.type}`), i.meta && typeof i.meta.relativePath == "string" && (t += `-${Hr(i.meta.relativePath.toLowerCase())}`), i.data.size !== void 0 && (t += `-${i.data.size}`), i.data.lastModified !== void 0 && (t += `-${i.data.lastModified}`), t;
 }
-function xn(i) {
+function pn(i) {
   return !i.isRemote || !i.remote ? !1 : (/* @__PURE__ */ new Set([
     "box",
     "dropbox",
@@ -906,11 +884,11 @@ function xn(i) {
     "unsplash"
   ])).has(i.remote.provider);
 }
-function _n(i, e) {
-  if (xn(i))
+function dn(i, e) {
+  if (pn(i))
     return i.id;
-  const t = Fo(i);
-  return wn({
+  const t = Io(i);
+  return ln({
     ...i,
     type: t
   }, e);
@@ -926,21 +904,21 @@ function Ki() {
   return qt = i, qt;
 }
 var Wt, qr;
-function Dn() {
+function un() {
   if (qr) return Wt;
   qr = 1;
-  var i = typeof ht == "object" && ht && ht.Object === Object && ht;
+  var i = typeof ct == "object" && ct && ct.Object === Object && ct;
   return Wt = i, Wt;
 }
 var Vt, Wr;
 function To() {
   if (Wr) return Vt;
   Wr = 1;
-  var i = Dn(), e = typeof self == "object" && self && self.Object === Object && self, t = i || e || Function("return this")();
+  var i = un(), e = typeof self == "object" && self && self.Object === Object && self, t = i || e || Function("return this")();
   return Vt = t, Vt;
 }
 var Gt, Vr;
-function kn() {
+function hn() {
   if (Vr) return Gt;
   Vr = 1;
   var i = To(), e = function() {
@@ -949,7 +927,7 @@ function kn() {
   return Gt = e, Gt;
 }
 var Xt, Gr;
-function Sn() {
+function cn() {
   if (Gr) return Xt;
   Gr = 1;
   var i = /\s/;
@@ -961,10 +939,10 @@ function Sn() {
   return Xt = e, Xt;
 }
 var Yt, Xr;
-function Pn() {
+function fn() {
   if (Xr) return Yt;
   Xr = 1;
-  var i = Sn(), e = /^\s+/;
+  var i = cn(), e = /^\s+/;
   function t(r) {
     return r && r.slice(0, i(r) + 1).replace(e, "");
   }
@@ -977,9 +955,9 @@ function Eo() {
   var i = To(), e = i.Symbol;
   return Kt = e, Kt;
 }
-var Zt, Kr;
-function Cn() {
-  if (Kr) return Zt;
+var Qt, Kr;
+function mn() {
+  if (Kr) return Qt;
   Kr = 1;
   var i = Eo(), e = Object.prototype, t = e.hasOwnProperty, r = e.toString, a = i ? i.toStringTag : void 0;
   function o(s) {
@@ -989,33 +967,33 @@ function Cn() {
       var l = !0;
     } catch {
     }
-    var c = r.call(s);
-    return l && (n ? s[a] = p : delete s[a]), c;
+    var h = r.call(s);
+    return l && (n ? s[a] = p : delete s[a]), h;
   }
-  return Zt = o, Zt;
+  return Qt = o, Qt;
 }
-var Qt, Zr;
-function Bn() {
-  if (Zr) return Qt;
-  Zr = 1;
+var Zt, Qr;
+function gn() {
+  if (Qr) return Zt;
+  Qr = 1;
   var i = Object.prototype, e = i.toString;
   function t(r) {
     return e.call(r);
   }
-  return Qt = t, Qt;
+  return Zt = t, Zt;
 }
-var Jt, Qr;
-function In() {
-  if (Qr) return Jt;
-  Qr = 1;
-  var i = Eo(), e = Cn(), t = Bn(), r = "[object Null]", a = "[object Undefined]", o = i ? i.toStringTag : void 0;
+var Jt, Zr;
+function yn() {
+  if (Zr) return Jt;
+  Zr = 1;
+  var i = Eo(), e = mn(), t = gn(), r = "[object Null]", a = "[object Undefined]", o = i ? i.toStringTag : void 0;
   function s(n) {
     return n == null ? n === void 0 ? a : r : o && o in Object(n) ? e(n) : t(n);
   }
   return Jt = s, Jt;
 }
 var ei, Jr;
-function Fn() {
+function bn() {
   if (Jr) return ei;
   Jr = 1;
   function i(e) {
@@ -1024,28 +1002,28 @@ function Fn() {
   return ei = i, ei;
 }
 var ti, ea;
-function Tn() {
+function vn() {
   if (ea) return ti;
   ea = 1;
-  var i = In(), e = Fn(), t = "[object Symbol]";
+  var i = yn(), e = bn(), t = "[object Symbol]";
   function r(a) {
     return typeof a == "symbol" || e(a) && i(a) == t;
   }
   return ti = r, ti;
 }
 var ii, ta;
-function En() {
+function wn() {
   if (ta) return ii;
   ta = 1;
-  var i = Pn(), e = Ki(), t = Tn(), r = NaN, a = /^[-+]0x[0-9a-f]+$/i, o = /^0b[01]+$/i, s = /^0o[0-7]+$/i, n = parseInt;
+  var i = fn(), e = Ki(), t = vn(), r = NaN, a = /^[-+]0x[0-9a-f]+$/i, o = /^0b[01]+$/i, s = /^0o[0-7]+$/i, n = parseInt;
   function p(l) {
     if (typeof l == "number")
       return l;
     if (t(l))
       return r;
     if (e(l)) {
-      var c = typeof l.valueOf == "function" ? l.valueOf() : l;
-      l = e(c) ? c + "" : c;
+      var h = typeof l.valueOf == "function" ? l.valueOf() : l;
+      l = e(h) ? h + "" : h;
     }
     if (typeof l != "string")
       return l === 0 ? l : +l;
@@ -1059,58 +1037,58 @@ var ri, ia;
 function Ao() {
   if (ia) return ri;
   ia = 1;
-  var i = Ki(), e = kn(), t = En(), r = "Expected a function", a = Math.max, o = Math.min;
+  var i = Ki(), e = hn(), t = wn(), r = "Expected a function", a = Math.max, o = Math.min;
   function s(n, p, l) {
-    var c, d, h, m, f, y, b = 0, v = !1, x = !1, _ = !0;
+    var h, d, c, m, f, y, b = 0, v = !1, x = !1, _ = !0;
     if (typeof n != "function")
       throw new TypeError(r);
-    p = t(p) || 0, i(l) && (v = !!l.leading, x = "maxWait" in l, h = x ? a(t(l.maxWait) || 0, p) : h, _ = "trailing" in l ? !!l.trailing : _);
-    function C(F) {
-      var R = c, A = d;
-      return c = d = void 0, b = F, m = n.apply(A, R), m;
+    p = t(p) || 0, i(l) && (v = !!l.leading, x = "maxWait" in l, c = x ? a(t(l.maxWait) || 0, p) : c, _ = "trailing" in l ? !!l.trailing : _);
+    function C(I) {
+      var R = h, A = d;
+      return h = d = void 0, b = I, m = n.apply(A, R), m;
     }
-    function B(F) {
-      return b = F, f = setTimeout(k, p), v ? C(F) : m;
+    function B(I) {
+      return b = I, f = setTimeout(D, p), v ? C(I) : m;
     }
-    function g(F) {
-      var R = F - y, A = F - b, V = p - R;
-      return x ? o(V, h - A) : V;
+    function g(I) {
+      var R = I - y, A = I - b, V = p - R;
+      return x ? o(V, c - A) : V;
     }
-    function D(F) {
-      var R = F - y, A = F - b;
-      return y === void 0 || R >= p || R < 0 || x && A >= h;
+    function S(I) {
+      var R = I - y, A = I - b;
+      return y === void 0 || R >= p || R < 0 || x && A >= c;
     }
-    function k() {
-      var F = e();
-      if (D(F))
-        return S(F);
-      f = setTimeout(k, g(F));
+    function D() {
+      var I = e();
+      if (S(I))
+        return k(I);
+      f = setTimeout(D, g(I));
     }
-    function S(F) {
-      return f = void 0, _ && c ? C(F) : (c = d = void 0, m);
+    function k(I) {
+      return f = void 0, _ && h ? C(I) : (h = d = void 0, m);
     }
     function O() {
-      f !== void 0 && clearTimeout(f), b = 0, c = y = d = f = void 0;
+      f !== void 0 && clearTimeout(f), b = 0, h = y = d = f = void 0;
     }
     function T() {
-      return f === void 0 ? m : S(e());
+      return f === void 0 ? m : k(e());
     }
     function M() {
-      var F = e(), R = D(F);
-      if (c = arguments, d = this, y = F, R) {
+      var I = e(), R = S(I);
+      if (h = arguments, d = this, y = I, R) {
         if (f === void 0)
           return B(y);
         if (x)
-          return clearTimeout(f), f = setTimeout(k, p), C(y);
+          return clearTimeout(f), f = setTimeout(D, p), C(y);
       }
-      return f === void 0 && (f = setTimeout(k, p)), m;
+      return f === void 0 && (f = setTimeout(D, p)), m;
     }
     return M.cancel = O, M.flush = T, M;
   }
   return ri = s, ri;
 }
 var ai, ra;
-function An() {
+function xn() {
   if (ra) return ai;
   ra = 1;
   var i = Ao(), e = Ki(), t = "Expected a function";
@@ -1126,15 +1104,15 @@ function An() {
   }
   return ai = r, ai;
 }
-var On = An();
-const Mn = /* @__PURE__ */ $e(On);
+var _n = xn();
+const Sn = /* @__PURE__ */ Le(_n);
 var oi, aa;
-function zn() {
+function Dn() {
   return aa || (aa = 1, oi = function() {
     var e = {}, t = e._fns = {};
-    e.emit = function(s, n, p, l, c, d, h) {
+    e.emit = function(s, n, p, l, h, d, c) {
       var m = r(s);
-      m.length && a(s, m, [n, p, l, c, d, h]);
+      m.length && a(s, m, [n, p, l, h, d, c]);
     }, e.on = function(s, n) {
       t[s] || (t[s] = []), t[s].push(n);
     }, e.once = function(s, n) {
@@ -1145,18 +1123,18 @@ function zn() {
     }, e.off = function(s, n) {
       var p = [];
       if (s && n) {
-        var l = this._fns[s], c = 0, d = l ? l.length : 0;
-        for (c; c < d; c++)
-          l[c] !== n && p.push(l[c]);
+        var l = this._fns[s], h = 0, d = l ? l.length : 0;
+        for (h; h < d; h++)
+          l[h] !== n && p.push(l[h]);
       }
       p.length ? this._fns[s] = p : delete this._fns[s];
     };
     function r(o) {
-      var s = t[o] ? t[o] : [], n = o.indexOf(":"), p = n === -1 ? [o] : [o.substring(0, n), o.substring(n + 1)], l = Object.keys(t), c = 0, d = l.length;
-      for (c; c < d; c++) {
-        var h = l[c];
-        if (h === "*" && (s = s.concat(t[h])), p.length === 2 && p[0] === h) {
-          s = s.concat(t[h]);
+      var s = t[o] ? t[o] : [], n = o.indexOf(":"), p = n === -1 ? [o] : [o.substring(0, n), o.substring(n + 1)], l = Object.keys(t), h = 0, d = l.length;
+      for (h; h < d; h++) {
+        var c = l[h];
+        if (c === "*" && (s = s.concat(t[c])), p.length === 2 && p[0] === c) {
+          s = s.concat(t[c]);
           break;
         }
       }
@@ -1170,36 +1148,21 @@ function zn() {
     return e;
   }), oi;
 }
-var Rn = zn();
-const Nn = /* @__PURE__ */ $e(Rn);
-let Un = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict", Zi = (i = 21) => {
+var kn = Dn();
+const Pn = /* @__PURE__ */ Le(kn);
+let Cn = "useandom-26T198340PX75pxJACKVERYMINDBUSHWOLF_GQZbfghjklqvwyzrict", Qi = (i = 21) => {
   let e = "", t = i | 0;
   for (; t--; )
-    e += Un[Math.random() * 64 | 0];
+    e += Cn[Math.random() * 64 | 0];
   return e;
 };
-const $n = "@uppy/core", Ln = "Core module for the extensible JavaScript file upload widget with support for drag&drop, resumable uploads, previews, restrictions, file processing/encoding, remote providers like Instagram, Dropbox, Google Drive, S3 and more :dog:", Hn = "4.5.3", jn = "MIT", qn = "lib/index.js", Wn = "dist/style.min.css", Vn = "module", Gn = ["*.css"], Xn = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, Yn = ["file uploader", "uppy", "uppy-plugin"], Kn = "https://uppy.io", Zn = { url: "https://github.com/transloadit/uppy/issues" }, Qn = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, Jn = ["src", "lib", "dist", "CHANGELOG.md"], el = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/store-default": "^4.3.2", "@uppy/utils": "^6.2.2", lodash: "^4.17.21", "mime-match": "^1.0.2", "namespace-emitter": "^2.0.1", nanoid: "^5.0.9", preact: "^10.5.13" }, tl = { "@types/deep-freeze": "^0", cssnano: "^7.0.7", "deep-freeze": "^0.0.1", jsdom: "^26.1.0", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3", vitest: "^3.2.4" }, il = {
-  name: $n,
-  description: Ln,
-  version: Hn,
-  license: jn,
-  main: qn,
-  style: Wn,
-  type: Vn,
-  sideEffects: Gn,
-  scripts: Xn,
-  keywords: Yn,
-  homepage: Kn,
-  bugs: Zn,
-  repository: Qn,
-  files: Jn,
-  dependencies: el,
-  devDependencies: tl
+const Bn = "4.5.3", Fn = {
+  version: Bn
 };
-function rl(i, e) {
+function In(i, e) {
   return e.name ? e.name : i.split("/")[0] === "image" ? `${i.split("/")[0]}.${i.split("/")[1]}` : "noname";
 }
-const al = {
+const Tn = {
   strings: {
     addBulkFilesFailed: {
       0: "Failed to add %{smart_count} file due to an internal error",
@@ -1265,7 +1228,7 @@ const al = {
   }
 };
 var si, oa;
-function ol() {
+function En() {
   return oa || (oa = 1, si = function(e) {
     if (typeof e != "number" || Number.isNaN(e))
       throw new TypeError(`Expected a number, got ${typeof e}`);
@@ -1277,10 +1240,10 @@ function ol() {
     return `${s >= 10 || s % 1 === 0 ? Math.round(s) : s.toFixed(1)} ${n}`;
   }), si;
 }
-var sl = ol();
-const ce = /* @__PURE__ */ $e(sl);
+var An = En();
+const he = /* @__PURE__ */ Le(An);
 var ni, sa;
-function nl() {
+function On() {
   if (sa) return ni;
   sa = 1;
   function i(e, t) {
@@ -1311,10 +1274,10 @@ function nl() {
   }, ni;
 }
 var li, na;
-function ll() {
+function Mn() {
   if (na) return li;
   na = 1;
-  var i = nl(), e = /[\/\+\.]/;
+  var i = On(), e = /[\/\+\.]/;
   return li = function(t, r) {
     function a(o) {
       var s = i(o, t, e);
@@ -1323,8 +1286,8 @@ function ll() {
     return r ? a(r.split(";")[0]) : a;
   }, li;
 }
-var pl = ll();
-const dl = /* @__PURE__ */ $e(pl), ul = {
+var zn = Mn();
+const Rn = /* @__PURE__ */ Le(zn), Nn = {
   maxFileSize: null,
   minFileSize: null,
   maxTotalFileSize: null,
@@ -1341,7 +1304,7 @@ class J extends Error {
   }
   isRestriction = !0;
 }
-class cl {
+class Un {
   getI18n;
   getOpts;
   constructor(e, t) {
@@ -1363,14 +1326,14 @@ class cl {
       const o = [...e, ...t].reduce((s, n) => s + (n.size ?? 0), 0);
       if (o > r)
         throw new J(this.getI18n()("aggregateExceedsSize", {
-          sizeAllowed: ce(r),
-          size: ce(o)
+          sizeAllowed: he(r),
+          size: he(o)
         }));
     }
   }
   validateSingleFile(e) {
     const { maxFileSize: t, minFileSize: r, allowedFileTypes: a } = this.getOpts().restrictions;
-    if (a && !a.some((s) => s.includes("/") ? e.type ? dl(e.type.replace(/;.*?$/, ""), s) : !1 : s[0] === "." && e.extension ? e.extension.toLowerCase() === s.slice(1).toLowerCase() : !1)) {
+    if (a && !a.some((s) => s.includes("/") ? e.type ? Rn(e.type.replace(/;.*?$/, ""), s) : !1 : s[0] === "." && e.extension ? e.extension.toLowerCase() === s.slice(1).toLowerCase() : !1)) {
       const s = a.join(", ");
       throw new J(this.getI18n()("youCanOnlyUploadFileTypes", {
         types: s
@@ -1378,12 +1341,12 @@ class cl {
     }
     if (t && e.size != null && e.size > t)
       throw new J(this.getI18n()("exceedsSize", {
-        size: ce(t),
+        size: he(t),
         file: e.name ?? this.getI18n()("unnamed")
       }), { file: e });
     if (r && e.size != null && e.size < r)
       throw new J(this.getI18n()("inferiorSize", {
-        size: ce(r)
+        size: he(r)
       }), { file: e });
   }
   validate(e, t) {
@@ -1407,7 +1370,7 @@ class cl {
     return { missingFields: a, error: t };
   }
 }
-function hl(i) {
+function Ln(i) {
   if (i == null && typeof navigator < "u" && (i = navigator.userAgent), !i)
     return !0;
   const e = /Edge\/(\d+\.\d+)/.exec(i);
@@ -1422,12 +1385,12 @@ const gt = {
   error: null,
   recoveredState: null
 };
-class Qi {
-  static VERSION = il.version;
+class Zi {
+  static VERSION = Fn.version;
   #e = /* @__PURE__ */ Object.create(null);
   #t;
   #r;
-  #i = Nn();
+  #i = Pn();
   #a = /* @__PURE__ */ new Set();
   #s = /* @__PURE__ */ new Set();
   #n = /* @__PURE__ */ new Set();
@@ -1446,18 +1409,18 @@ class Qi {
    * Instantiate Uppy
    */
   constructor(e) {
-    this.defaultLocale = al;
+    this.defaultLocale = Tn;
     const t = {
       id: "uppy",
       autoProceed: !1,
       allowMultipleUploadBatches: !0,
       debug: !1,
-      restrictions: ul,
+      restrictions: Nn,
       meta: {},
       onBeforeFileAdded: (a, o) => !Object.hasOwn(o, a.id),
       onBeforeUpload: (a) => a,
-      store: new bn(),
-      logger: Fs,
+      store: new sn(),
+      logger: Is,
       infoTimeout: 5e3
     }, r = { ...t, ...e };
     this.opts = {
@@ -1466,21 +1429,21 @@ class Qi {
         ...t.restrictions,
         ...e?.restrictions
       }
-    }, e?.logger && e.debug ? this.log("You are using a custom `logger`, but also set `debug: true`, which uses built-in logger to output logs to console. Ignoring `debug: true` and using your custom `logger`.", "warning") : e?.debug && (this.opts.logger = Ts), this.log(`Using Core v${Qi.VERSION}`), this.i18nInit(), this.store = this.opts.store, this.setState({
+    }, e?.logger && e.debug ? this.log("You are using a custom `logger`, but also set `debug: true`, which uses built-in logger to output logs to console. Ignoring `debug: true` and using your custom `logger`.", "warning") : e?.debug && (this.opts.logger = Ts), this.log(`Using Core v${Zi.VERSION}`), this.i18nInit(), this.store = this.opts.store, this.setState({
       ...gt,
       plugins: {},
       files: {},
       currentUploads: {},
       capabilities: {
-        uploadProgress: hl(),
+        uploadProgress: Ln(),
         individualCancellation: !0,
         resumableUploads: !1
       },
       meta: { ...this.opts.meta },
       info: []
-    }), this.#t = new cl(() => this.opts, () => this.i18n), this.#r = this.store.subscribe((a, o, s) => {
+    }), this.#t = new Un(() => this.opts, () => this.i18n), this.#r = this.store.subscribe((a, o, s) => {
       this.emit("state-update", a, o, s), this.updateAll(o);
-    }), this.opts.debug && typeof window < "u" && (window[this.opts.id] = this), this.#S();
+    }), this.opts.debug && typeof window < "u" && (window[this.opts.id] = this), this.#k();
   }
   emit(e, ...t) {
     this.#i.emit(e, ...t);
@@ -1641,23 +1604,23 @@ class Qi {
     return e.map((t) => this.getFile(t));
   }
   getObjectOfFilesPerState() {
-    const { files: e, totalProgress: t, error: r } = this.getState(), a = Object.values(e), o = [], s = [], n = [], p = [], l = [], c = [], d = [], h = [], m = [];
+    const { files: e, totalProgress: t, error: r } = this.getState(), a = Object.values(e), o = [], s = [], n = [], p = [], l = [], h = [], d = [], c = [], m = [];
     for (const f of a) {
       const { progress: y } = f;
-      !y.uploadComplete && y.uploadStarted && (o.push(f), f.isPaused || h.push(f)), y.uploadStarted || s.push(f), (y.uploadStarted || y.preprocess || y.postprocess) && n.push(f), y.uploadStarted && p.push(f), f.isPaused && l.push(f), y.uploadComplete && c.push(f), f.error && d.push(f), (y.preprocess || y.postprocess) && m.push(f);
+      !y.uploadComplete && y.uploadStarted && (o.push(f), f.isPaused || c.push(f)), y.uploadStarted || s.push(f), (y.uploadStarted || y.preprocess || y.postprocess) && n.push(f), y.uploadStarted && p.push(f), f.isPaused && l.push(f), y.uploadComplete && h.push(f), f.error && d.push(f), (y.preprocess || y.postprocess) && m.push(f);
     }
     return {
       newFiles: s,
       startedFiles: n,
       uploadStartedFiles: p,
       pausedFiles: l,
-      completeFiles: c,
+      completeFiles: h,
       erroredFiles: d,
       inProgressFiles: o,
-      inProgressNotPausedFiles: h,
+      inProgressNotPausedFiles: c,
       processingFiles: m,
       isUploadStarted: p.length > 0,
-      isAllComplete: t === 100 && c.length === a.length && m.length === 0,
+      isAllComplete: t === 100 && h.length === a.length && m.length === 0,
       isAllErrored: !!r && d.length === a.length,
       isAllPaused: o.length !== 0 && l.length === o.length,
       isUploadInProgress: o.length > 0,
@@ -1710,7 +1673,7 @@ class Qi {
       missingRequiredMetaFields: []
     }), !0);
   }
-  #h(e) {
+  #c(e) {
     let t = !0;
     for (const r of Object.values(e))
       this.#l(r) || (t = !1);
@@ -1732,13 +1695,13 @@ class Qi {
   /**
    * Create a file state object based on user-provided `addFile()` options.
    */
-  #c(e) {
+  #h(e) {
     const t = e instanceof File ? {
       name: e.name,
       type: e.type,
       size: e.size,
       data: e
-    } : e, r = Fo(t), a = rl(r, t), o = Ot(a).extension, s = _n(t, this.getID()), n = t.meta || {};
+    } : e, r = Io(t), a = In(r, t), o = Ot(a).extension, s = dn(t, this.getID()), n = t.meta || {};
     n.name = a, n.type = r;
     const p = Number.isFinite(t.data.size) ? t.data.size : null;
     return {
@@ -1779,7 +1742,7 @@ class Qi {
     const a = [], o = [];
     for (const s of e)
       try {
-        let n = this.#c(s);
+        let n = this.#h(s);
         const p = t[n.id]?.isGhost;
         p && (n = {
           ...t[n.id],
@@ -1866,23 +1829,23 @@ class Qi {
   }
   removeFiles(e) {
     const { files: t, currentUploads: r } = this.getState(), a = { ...t }, o = { ...r }, s = /* @__PURE__ */ Object.create(null);
-    e.forEach((c) => {
-      t[c] && (s[c] = t[c], delete a[c]);
+    e.forEach((h) => {
+      t[h] && (s[h] = t[h], delete a[h]);
     });
-    function n(c) {
-      return s[c] === void 0;
+    function n(h) {
+      return s[h] === void 0;
     }
-    Object.keys(o).forEach((c) => {
-      const d = r[c].fileIDs.filter(n);
+    Object.keys(o).forEach((h) => {
+      const d = r[h].fileIDs.filter(n);
       if (d.length === 0) {
-        delete o[c];
+        delete o[h];
         return;
       }
-      const { capabilities: h } = this.getState();
-      if (d.length !== r[c].fileIDs.length && !h.individualCancellation)
+      const { capabilities: c } = this.getState();
+      if (d.length !== r[h].fileIDs.length && !c.individualCancellation)
         throw new Error("The installed uploader plugin does not allow removing files during an upload.");
-      o[c] = {
-        ...r[c],
+      o[h] = {
+        ...r[h],
         fileIDs: d
       };
     });
@@ -1892,8 +1855,8 @@ class Qi {
     };
     Object.keys(a).length === 0 && (p.allowNewUpload = !0, p.error = null, p.recoveredState = null), this.setState(p), this.#y();
     const l = Object.keys(s);
-    l.forEach((c) => {
-      this.emit("file-removed", s[c]);
+    l.forEach((h) => {
+      this.emit("file-removed", s[h]);
     }), l.length > 5 ? this.log(`Removed ${l.length} files`) : this.log(`Removed files: ${l.join(", ")}`);
   }
   removeFile(e) {
@@ -2008,7 +1971,7 @@ class Qi {
     }), this.#y();
   };
   #_() {
-    const e = this.#k();
+    const e = this.#D();
     let t = null;
     e != null && (t = Math.round(e * 100), t > 100 ? t = 100 : t < 0 && (t = 0)), this.emit("progress", t ?? 0), this.setState({
       totalProgress: t ?? 0
@@ -2021,11 +1984,11 @@ class Qi {
   //    and click 'ADD MORE FILES', - focus won't activate in Firefox.
   //    - We must throttle at around >500ms to avoid performance lags.
   //    [Practical Check] Firefox, try to upload a big file for a prolonged period of time. Laptop will start to heat up.
-  #y = Mn(() => this.#_(), 500, { leading: !0, trailing: !0 });
+  #y = Sn(() => this.#_(), 500, { leading: !0, trailing: !0 });
   [Symbol.for("uppy test: updateTotalProgress")]() {
     return this.#_();
   }
-  #k() {
+  #D() {
     const t = this.getFiles().filter((p) => p.progress.uploadStarted || p.progress.preprocess || p.progress.postprocess);
     if (t.length === 0)
       return 0;
@@ -2041,7 +2004,7 @@ class Qi {
    * Registers listeners for all global actions, like:
    * `error`, `file-removed`, `upload-progress`
    */
-  #S() {
+  #k() {
     const e = (a, o, s) => {
       let n = a.message || "Unknown error";
       a.details && (n += ` ${a.details}`), this.setState({ error: n }), o != null && o.id in this.getState().files && this.setFileState(o.id, {
@@ -2276,15 +2239,15 @@ Uppy plugins must have unique \`id\` options.`;
   // back when we had a requestclient per file, once an access token expired,
   // all 6 files would go ahead and refresh the token at the same time
   // (calling /refresh-token up to 6 times), which will probably fail for some providers
-  #D = /* @__PURE__ */ new Map();
+  #S = /* @__PURE__ */ new Map();
   registerRequestClient(e, t) {
-    this.#D.set(e, t);
+    this.#S.set(e, t);
   }
   /** @protected */
   getRequestClientForFile(e) {
     if (!e.remote)
       throw new Error(`Tried to get RequestClient for a non-remote file ${e.id}`);
-    const t = this.#D.get(e.remote.requestClientId);
+    const t = this.#S.get(e.remote.requestClientId);
     if (t == null)
       throw new Error(`requestClientId "${e.remote.requestClientId}" not registered for file "${e.id}"`);
     return t;
@@ -2303,7 +2266,7 @@ Uppy plugins must have unique \`id\` options.`;
     const { forceAllowNewUpload: r = !1 } = t, { allowNewUpload: a, currentUploads: o } = this.getState();
     if (!a && !r)
       throw new Error("Cannot create a new upload: already uploading.");
-    const s = Zi();
+    const s = Qi();
     return this.emit("upload", s, this.getFilesByIds(e)), this.setState({
       allowNewUpload: this.opts.allowMultipleUploadBatches !== !1 && this.opts.allowMultipleUploads !== !1,
       currentUploads: {
@@ -2383,8 +2346,8 @@ Uppy plugins must have unique \`id\` options.`;
     }
     if (r) {
       r.fileIDs.forEach((l) => {
-        const c = this.getFile(l);
-        c?.progress.postprocess && this.emit("postprocess-complete", c);
+        const h = this.getFile(l);
+        h?.progress.postprocess && this.emit("postprocess-complete", h);
       });
       const s = r.fileIDs.map((l) => this.getFile(l)), n = s.filter((l) => !l.error), p = s.filter((l) => l.error);
       this.addResultData(e, { successful: n, failed: p, uploadID: e }), r = t();
@@ -2414,15 +2377,15 @@ Uppy plugins must have unique \`id\` options.`;
     })), Promise.resolve().then(() => this.#t.validateMinNumberOfFiles(e)).catch((a) => {
       throw this.#o([a]), a;
     }).then(() => {
-      if (!this.#h(e))
+      if (!this.#c(e))
         throw new J(this.i18n("missingRequiredMetaField"));
     }).catch((a) => {
       throw a;
     }).then(async () => {
       const { currentUploads: a } = this.getState(), o = Object.values(a).flatMap((l) => l.fileIDs), s = [];
       Object.keys(e).forEach((l) => {
-        const c = this.getFile(l);
-        !c.progress.uploadStarted && o.indexOf(l) === -1 && s.push(c.id);
+        const h = this.getFile(l);
+        !h.progress.uploadStarted && o.indexOf(l) === -1 && s.push(h.id);
       });
       const n = this.#b(s), p = await this.#v(n);
       return this.emit("complete", p), p;
@@ -2431,34 +2394,19 @@ Uppy plugins must have unique \`id\` options.`;
     }));
   }
 }
-var fl = 0;
+var $n = 0;
 function u(i, e, t, r, a, o) {
   e || (e = {});
   var s, n, p = e;
   if ("ref" in p) for (n in p = {}, e) n == "ref" ? s = e[n] : p[n] = e[n];
-  var l = { type: i, props: p, key: t, ref: s, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: --fl, __i: -1, __u: 0, __source: a, __self: o };
+  var l = { type: i, props: p, key: t, ref: s, __k: null, __: null, __b: 0, __e: null, __c: null, constructor: void 0, __v: --$n, __i: -1, __u: 0, __source: a, __self: o };
   if (typeof i == "function" && (s = i.defaultProps)) for (n in s) p[n] === void 0 && (p[n] = s[n]);
   return P.vnode && P.vnode(l), l;
 }
-const ml = "@uppy/informer", gl = "A notification and error pop-up bar for Uppy.", yl = "4.3.2", bl = "MIT", vl = "lib/index.js", wl = "dist/style.min.css", xl = "module", _l = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, Dl = ["file uploader", "uppy", "uppy-plugin", "notification", "bar", "ui"], kl = "https://uppy.io", Sl = { url: "https://github.com/transloadit/uppy/issues" }, Pl = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, Cl = ["src", "lib", "dist", "CHANGELOG.md"], Bl = { "@uppy/utils": "^6.2.2", preact: "^10.5.13" }, Il = { "@uppy/core": "^4.5.2" }, Fl = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, Tl = {
-  name: ml,
-  description: gl,
-  version: yl,
-  license: bl,
-  main: vl,
-  style: wl,
-  type: xl,
-  scripts: _l,
-  keywords: Dl,
-  homepage: kl,
-  bugs: Sl,
-  repository: Pl,
-  files: Cl,
-  dependencies: Bl,
-  peerDependencies: Il,
-  devDependencies: Fl
+const Hn = "4.3.2", jn = {
+  version: Hn
 }, la = 300;
-class El extends X {
+class qn extends X {
   ref = Os();
   componentWillEnter(e) {
     this.ref.current.style.opacity = "1", this.ref.current.style.transform = "none", setTimeout(e, la);
@@ -2471,13 +2419,13 @@ class El extends X {
     return u("div", { className: "uppy-Informer-animated", ref: this.ref, children: e });
   }
 }
-function Al(i, e) {
+function Wn(i, e) {
   return Object.assign(i, e);
 }
-function Ol(i, e) {
+function Vn(i, e) {
   return i?.key ?? e;
 }
-function Ml(i, e) {
+function Gn(i, e) {
   const t = i._ptgLinkedRefs || (i._ptgLinkedRefs = {});
   return t[e] || // biome-ignore lint/suspicious/noAssignInExpressions: ...
   (t[e] = (r) => {
@@ -2488,12 +2436,12 @@ function qe(i) {
   const e = {};
   for (let t = 0; t < i.length; t++)
     if (i[t] != null) {
-      const r = Ol(i[t], t.toString(36));
+      const r = Vn(i[t], t.toString(36));
       e[r] = i[t];
     }
   return e;
 }
-function zl(i, e) {
+function Xn(i, e) {
   i = i || {}, e = e || {};
   const t = (s) => Object.hasOwn(e, s) ? e[s] : i[s], r = {};
   let a = [];
@@ -2512,7 +2460,7 @@ function zl(i, e) {
     o[a[s]] = t(a[s]);
   return o;
 }
-const Rl = (i) => i;
+const Yn = (i) => i;
 class Oo extends X {
   constructor(e, t) {
     super(e, t), this.refs = {}, this.state = {
@@ -2530,7 +2478,7 @@ class Oo extends X {
   componentWillReceiveProps(e) {
     const t = qe(te(e.children) || []), r = this.state.children;
     this.setState((o) => ({
-      children: zl(o.children, t)
+      children: Xn(o.children, t)
     }));
     let a;
     for (a in t)
@@ -2592,30 +2540,30 @@ class Oo extends X {
     if (a && Object.hasOwn(a, e))
       this.performEnter(e);
     else {
-      const o = Al({}, this.state.children);
+      const o = Wn({}, this.state.children);
       delete o[e], this.setState({ children: o });
     }
   }
-  render({ childFactory: e, transitionLeave: t, transitionName: r, transitionAppear: a, transitionEnter: o, transitionLeaveTimeout: s, transitionEnterTimeout: n, transitionAppearTimeout: p, component: l, ...c }, { children: d }) {
-    const h = Object.entries(d).map(([m, f]) => {
+  render({ childFactory: e, transitionLeave: t, transitionName: r, transitionAppear: a, transitionEnter: o, transitionLeaveTimeout: s, transitionEnterTimeout: n, transitionAppearTimeout: p, component: l, ...h }, { children: d }) {
+    const c = Object.entries(d).map(([m, f]) => {
       if (!f)
         return;
-      const y = Ml(this, m);
-      return Do(e(f), { ref: y, key: m });
+      const y = Gn(this, m);
+      return So(e(f), { ref: y, key: m });
     }).filter(Boolean);
-    return rt(l, c, h);
+    return rt(l, h, c);
   }
 }
 Oo.defaultProps = {
   component: "span",
-  childFactory: Rl
+  childFactory: Yn
 };
-class Nl extends ve {
-  static VERSION = Tl.version;
+class Kn extends ve {
+  static VERSION = jn.version;
   constructor(e, t) {
     super(e, t), this.type = "progressindicator", this.id = this.opts.id || "Informer", this.title = "Informer";
   }
-  render = (e) => u("div", { className: "uppy uppy-Informer", children: u(Oo, { children: e.info.map((t) => u(El, { children: u("p", { role: "alert", children: [t.message, " ", t.details && // biome-ignore lint/a11y/useKeyWithClickEvents: ...
+  render = (e) => u("div", { className: "uppy uppy-Informer", children: u(Oo, { children: e.info.map((t) => u(qn, { children: u("p", { role: "alert", children: [t.message, " ", t.details && // biome-ignore lint/a11y/useKeyWithClickEvents: ...
   u("span", { "aria-label": t.details, "data-microtip-position": "top-left", "data-microtip-size": "medium", role: "tooltip", onClick: () => alert(`${t.message} 
 
  ${t.details}`), children: "?" })] }) }, t.message)) }) });
@@ -2625,13 +2573,8 @@ class Nl extends ve {
   }
 }
 var pi = { exports: {} };
-/*!
-	Copyright (c) 2018 Jed Watson.
-	Licensed under the MIT License (MIT), see
-	http://jedwatson.github.io/classnames
-*/
 var pa;
-function Ul() {
+function Qn() {
   return pa || (pa = 1, function(i) {
     (function() {
       var e = {}.hasOwnProperty;
@@ -2663,8 +2606,8 @@ function Ul() {
     })();
   }(pi)), pi.exports;
 }
-var $l = Ul();
-const ae = /* @__PURE__ */ $e($l), Ll = {
+var Zn = Qn();
+const ae = /* @__PURE__ */ Le(Zn), Jn = {
   position: "relative",
   // Disabled for our use case: the wrapper elements around FileList already deal with overflow,
   // and this additional property would hide things that we want to show.
@@ -2672,7 +2615,7 @@ const ae = /* @__PURE__ */ $e($l), Ll = {
   // overflow: 'hidden',
   width: "100%",
   minHeight: "100%"
-}, Hl = {
+}, el = {
   position: "absolute",
   top: 0,
   left: 0,
@@ -2684,7 +2627,7 @@ const ae = /* @__PURE__ */ $e($l), Ll = {
   width: "100%",
   overflow: "visible"
 };
-class jl extends X {
+class tl extends X {
   constructor(e) {
     super(e), this.focusElement = null, this.state = {
       offset: 0,
@@ -2720,34 +2663,19 @@ class jl extends X {
     const { offset: s, height: n } = this.state;
     let p = Math.floor(s / t), l = Math.floor(n / t);
     a && (p = Math.max(0, p - p % a), l += a);
-    const c = p + l + 4, d = e.slice(p, c), h = { ...Ll, height: e.length * t }, m = { ...Hl, top: p * t };
-    return u("div", { onScroll: this.handleScroll, ...o, children: u("div", { role: "presentation", style: h, children: u("div", { role: "presentation", style: m, children: d.map(r) }) }) });
+    const h = p + l + 4, d = e.slice(p, h), c = { ...Jn, height: e.length * t }, m = { ...el, top: p * t };
+    return u("div", { onScroll: this.handleScroll, ...o, children: u("div", { role: "presentation", style: c, children: u("div", { role: "presentation", style: m, children: d.map(r) }) }) });
   }
 }
-function ql() {
+function il() {
   return u("svg", { "aria-hidden": "true", focusable: "false", width: "30", height: "30", viewBox: "0 0 30 30", children: u("path", { d: "M15 30c8.284 0 15-6.716 15-15 0-8.284-6.716-15-15-15C6.716 0 0 6.716 0 15c0 8.284 6.716 15 15 15zm4.258-12.676v6.846h-8.426v-6.846H5.204l9.82-12.364 9.82 12.364H19.26z" }) });
 }
 function da(i, e, t, r) {
   return i === e ? i : r === 0 ? e : i + (e - i) * 2 ** (-r / t);
 }
-const Wl = "@uppy/status-bar", Vl = "A progress bar for Uppy, with many bells and whistles.", Gl = "4.2.3", Xl = "MIT", Yl = "lib/index.js", Kl = "dist/style.min.css", Zl = "module", Ql = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, Jl = ["file uploader", "uppy", "uppy-plugin", "progress bar", "status bar", "progress", "upload", "eta", "speed"], ep = "https://uppy.io", tp = { url: "https://github.com/transloadit/uppy/issues" }, ip = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, rp = ["src", "lib", "dist", "CHANGELOG.md"], ap = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/utils": "^6.2.2", classnames: "^2.2.6", preact: "^10.5.13" }, op = { "@uppy/core": "^4.5.2" }, sp = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, np = {
-  name: Wl,
-  description: Vl,
-  version: Gl,
-  license: Xl,
-  main: Yl,
-  style: Kl,
-  type: Zl,
-  scripts: Ql,
-  keywords: Jl,
-  homepage: ep,
-  bugs: tp,
-  repository: ip,
-  files: rp,
-  dependencies: ap,
-  peerDependencies: op,
-  devDependencies: sp
-}, lp = {
+const rl = "4.2.3", al = {
+  version: rl
+}, ol = {
   strings: {
     // Shown in the status bar while files are being uploaded.
     uploading: "Uploading",
@@ -2804,31 +2732,31 @@ const Wl = "@uppy/status-bar", Vl = "A progress bar for Uppy, with many bells an
   STATE_POSTPROCESSING: "postprocessing",
   STATE_COMPLETE: "complete"
 };
-function pp(i) {
+function sl(i) {
   const e = Math.floor(i / 3600) % 24, t = Math.floor(i / 60) % 60, r = Math.floor(i % 60);
   return { hours: e, minutes: t, seconds: r };
 }
-function dp(i) {
-  const e = pp(i), t = e.hours === 0 ? "" : `${e.hours}h`, r = e.minutes === 0 ? "" : `${e.hours === 0 ? e.minutes : ` ${e.minutes.toString(10).padStart(2, "0")}`}m`, a = e.hours !== 0 ? "" : `${e.minutes === 0 ? e.seconds : ` ${e.seconds.toString(10).padStart(2, "0")}`}s`;
+function nl(i) {
+  const e = sl(i), t = e.hours === 0 ? "" : `${e.hours}h`, r = e.minutes === 0 ? "" : `${e.hours === 0 ? e.minutes : ` ${e.minutes.toString(10).padStart(2, "0")}`}m`, a = e.hours !== 0 ? "" : `${e.minutes === 0 ? e.seconds : ` ${e.seconds.toString(10).padStart(2, "0")}`}s`;
   return `${t}${r}${a}`;
 }
-const up = "·", ua = () => ` ${up} `;
-function cp(i) {
+const ll = "·", ua = () => ` ${ll} `;
+function pl(i) {
   const { newFiles: e, isUploadStarted: t, recoveredState: r, i18n: a, uploadState: o, isSomeGhost: s, startUpload: n } = i, p = ae("uppy-u-reset", "uppy-c-btn", "uppy-StatusBar-actionBtn", "uppy-StatusBar-actionBtn--upload", {
     "uppy-c-btn-primary": o === ne.STATE_WAITING
   }, { "uppy-StatusBar-actionBtn--disabled": s }), l = e && t && !r ? a("uploadXNewFiles", { smart_count: e }) : a("uploadXFiles", { smart_count: e });
   return u("button", { type: "button", className: p, "aria-label": a("uploadXFiles", { smart_count: e }), onClick: n, disabled: s, "data-uppy-super-focusable": !0, children: l });
 }
-function hp(i) {
+function dl(i) {
   const { i18n: e, uppy: t } = i;
   return u("button", { type: "button", className: "uppy-u-reset uppy-c-btn uppy-StatusBar-actionBtn uppy-StatusBar-actionBtn--retry", "aria-label": e("retryUpload"), onClick: () => t.retryAll().catch(() => {
   }), "data-uppy-super-focusable": !0, "data-cy": "retry", children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "8", height: "10", viewBox: "0 0 8 10", children: u("path", { d: "M4 2.408a2.75 2.75 0 1 0 2.75 2.75.626.626 0 0 1 1.25.018v.023a4 4 0 1 1-4-4.041V.25a.25.25 0 0 1 .389-.208l2.299 1.533a.25.25 0 0 1 0 .416l-2.3 1.533A.25.25 0 0 1 4 3.316v-.908z" }) }), e("retry")] });
 }
-function fp(i) {
+function ul(i) {
   const { i18n: e, uppy: t } = i;
   return u("button", { type: "button", className: "uppy-u-reset uppy-StatusBar-actionCircleBtn", title: e("cancel"), "aria-label": e("cancel"), onClick: () => t.cancelAll(), "data-cy": "cancel", "data-uppy-super-focusable": !0, children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "16", height: "16", viewBox: "0 0 16 16", children: u("g", { fill: "none", fillRule: "evenodd", children: [u("circle", { fill: "#888", cx: "8", cy: "8", r: "8" }), u("path", { fill: "#FFF", d: "M9.283 8l2.567 2.567-1.283 1.283L8 9.283 5.433 11.85 4.15 10.567 6.717 8 4.15 5.433 5.433 4.15 8 6.717l2.567-2.567 1.283 1.283z" })] }) }) });
 }
-function mp(i) {
+function hl(i) {
   const { isAllPaused: e, i18n: t, isAllComplete: r, resumableUploads: a, uppy: o } = i, s = t(e ? "resume" : "pause");
   function n() {
     if (!r) {
@@ -2845,48 +2773,48 @@ function mp(i) {
   }
   return u("button", { title: s, "aria-label": s, className: "uppy-u-reset uppy-StatusBar-actionCircleBtn", type: "button", onClick: n, "data-cy": "togglePauseResume", "data-uppy-super-focusable": !0, children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "16", height: "16", viewBox: "0 0 16 16", children: u("g", { fill: "none", fillRule: "evenodd", children: [u("circle", { fill: "#888", cx: "8", cy: "8", r: "8" }), u("path", { fill: "#FFF", d: e ? "M6 4.25L11.5 8 6 11.75z" : "M5 4.5h2v7H5v-7zm4 0h2v7H9v-7z" })] }) }) });
 }
-function gp(i) {
+function cl(i) {
   const { i18n: e, doneButtonHandler: t } = i;
   return u("button", { type: "button", className: "uppy-u-reset uppy-c-btn uppy-StatusBar-actionBtn uppy-StatusBar-actionBtn--done", onClick: t, "data-uppy-super-focusable": !0, children: e("done") });
 }
 function Mo() {
   return u("svg", { className: "uppy-StatusBar-spinner", "aria-hidden": "true", focusable: "false", width: "14", height: "14", children: u("path", { d: "M13.983 6.547c-.12-2.509-1.64-4.893-3.939-5.936-2.48-1.127-5.488-.656-7.556 1.094C.524 3.367-.398 6.048.162 8.562c.556 2.495 2.46 4.52 4.94 5.183 2.932.784 5.61-.602 7.256-3.015-1.493 1.993-3.745 3.309-6.298 2.868-2.514-.434-4.578-2.349-5.153-4.84a6.226 6.226 0 0 1 2.98-6.778C6.34.586 9.74 1.1 11.373 3.493c.407.596.693 1.282.842 1.988.127.598.073 1.197.161 1.794.078.525.543 1.257 1.15.864.525-.341.49-1.05.456-1.592-.007-.15.02.3 0 0", fillRule: "evenodd" }) });
 }
-function yp(i) {
+function fl(i) {
   const { progress: e } = i, { value: t, mode: r, message: a } = e;
   return u("div", { className: "uppy-StatusBar-content", children: [u(Mo, {}), r === "determinate" ? `${Math.round(t * 100)}% · ` : "", a] });
 }
-function bp(i) {
-  const { numUploads: e, complete: t, totalUploadedSize: r, totalSize: a, totalETA: o, i18n: s } = i, n = e > 1, p = ce(r);
+function ml(i) {
+  const { numUploads: e, complete: t, totalUploadedSize: r, totalSize: a, totalETA: o, i18n: s } = i, n = e > 1, p = he(r);
   return u("div", { className: "uppy-StatusBar-statusSecondary", children: [n && s("filesUploadedOfTotal", {
     complete: t,
     smart_count: e
   }), u("span", { className: "uppy-StatusBar-additionalInfo", children: [n && ua(), a != null ? s("dataUploadedOfTotal", {
     complete: p,
-    total: ce(a)
+    total: he(a)
   }) : s("dataUploadedOfUnknown", { complete: p }), ua(), o != null && s("xTimeLeft", {
-    time: dp(o)
+    time: nl(o)
   })] })] });
 }
 function zo(i) {
   const { i18n: e, complete: t, numUploads: r } = i;
   return u("div", { className: "uppy-StatusBar-statusSecondary", children: e("filesUploadedOfTotal", { complete: t, smart_count: r }) });
 }
-function vp(i) {
+function gl(i) {
   const { i18n: e, newFiles: t, startUpload: r } = i, a = ae("uppy-u-reset", "uppy-c-btn", "uppy-StatusBar-actionBtn", "uppy-StatusBar-actionBtn--uploadNewlyAdded");
   return u("div", { className: "uppy-StatusBar-statusSecondary", children: [u("div", { className: "uppy-StatusBar-statusSecondaryHint", children: e("xMoreFilesAdded", { smart_count: t }) }), u("button", { type: "button", className: a, "aria-label": e("uploadXFiles", { smart_count: t }), onClick: r, children: e("upload") })] });
 }
-function wp(i) {
-  const { i18n: e, supportsUploadProgress: t, totalProgress: r, showProgressDetails: a, isUploadStarted: o, isAllComplete: s, isAllPaused: n, newFiles: p, numUploads: l, complete: c, totalUploadedSize: d, totalSize: h, totalETA: m, startUpload: f } = i, y = p && o;
+function yl(i) {
+  const { i18n: e, supportsUploadProgress: t, totalProgress: r, showProgressDetails: a, isUploadStarted: o, isAllComplete: s, isAllPaused: n, newFiles: p, numUploads: l, complete: h, totalUploadedSize: d, totalSize: c, totalETA: m, startUpload: f } = i, y = p && o;
   if (!o || s)
     return null;
   const b = e(n ? "paused" : "uploading");
   function v() {
-    return !n && !y && a ? t ? u(bp, { numUploads: l, complete: c, totalUploadedSize: d, totalSize: h, totalETA: m, i18n: e }) : u(zo, { i18n: e, complete: c, numUploads: l }) : null;
+    return !n && !y && a ? t ? u(ml, { numUploads: l, complete: h, totalUploadedSize: d, totalSize: c, totalETA: m, i18n: e }) : u(zo, { i18n: e, complete: h, numUploads: l }) : null;
   }
-  return u("div", { className: "uppy-StatusBar-content", title: b, children: [n ? null : u(Mo, {}), u("div", { className: "uppy-StatusBar-status", children: [u("div", { className: "uppy-StatusBar-statusPrimary", children: t && r !== 0 ? `${b}: ${r}%` : b }), v(), y ? u(vp, { i18n: e, newFiles: p, startUpload: f }) : null] })] });
+  return u("div", { className: "uppy-StatusBar-content", title: b, children: [n ? null : u(Mo, {}), u("div", { className: "uppy-StatusBar-status", children: [u("div", { className: "uppy-StatusBar-statusPrimary", children: t && r !== 0 ? `${b}: ${r}%` : b }), v(), y ? u(gl, { i18n: e, newFiles: p, startUpload: f }) : null] })] });
 }
-function xp(i) {
+function bl(i) {
   const { i18n: e } = i;
   return u("div", {
     className: "uppy-StatusBar-content",
@@ -2896,7 +2824,7 @@ function xp(i) {
     children: u("div", { className: "uppy-StatusBar-status", children: u("div", { className: "uppy-StatusBar-statusPrimary", children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-StatusBar-statusIndicator uppy-c-icon", width: "15", height: "11", viewBox: "0 0 15 11", children: u("path", { d: "M.414 5.843L1.627 4.63l3.472 3.472L13.202 0l1.212 1.213L5.1 10.528z" }) }), e("complete")] }) })
   });
 }
-function _p(i) {
+function vl(i) {
   const { error: e, i18n: t, complete: r, numUploads: a } = i;
   function o() {
     const s = `${t("uploadFailed")} 
@@ -2920,29 +2848,29 @@ function di(i) {
     value: a
   };
 }
-const { STATE_ERROR: ca, STATE_WAITING: Dp, STATE_PREPROCESSING: ui, STATE_UPLOADING: yt, STATE_POSTPROCESSING: ci, STATE_COMPLETE: bt } = ne;
-function kp({ newFiles: i, allowNewUpload: e, isUploadInProgress: t, isAllPaused: r, resumableUploads: a, error: o, hideUploadButton: s = void 0, hidePauseResumeButton: n = !1, hideCancelButton: p = !1, hideRetryButton: l = !1, recoveredState: c, uploadState: d, totalProgress: h, files: m, supportsUploadProgress: f, hideAfterFinish: y = !1, isSomeGhost: b, doneButtonHandler: v = void 0, isUploadStarted: x, i18n: _, startUpload: C, uppy: B, isAllComplete: g, showProgressDetails: D = void 0, numUploads: k, complete: S, totalSize: O, totalETA: T, totalUploadedSize: M }) {
-  function F() {
+const { STATE_ERROR: ha, STATE_WAITING: wl, STATE_PREPROCESSING: ui, STATE_UPLOADING: yt, STATE_POSTPROCESSING: hi, STATE_COMPLETE: bt } = ne;
+function xl({ newFiles: i, allowNewUpload: e, isUploadInProgress: t, isAllPaused: r, resumableUploads: a, error: o, hideUploadButton: s = void 0, hidePauseResumeButton: n = !1, hideCancelButton: p = !1, hideRetryButton: l = !1, recoveredState: h, uploadState: d, totalProgress: c, files: m, supportsUploadProgress: f, hideAfterFinish: y = !1, isSomeGhost: b, doneButtonHandler: v = void 0, isUploadStarted: x, i18n: _, startUpload: C, uppy: B, isAllComplete: g, showProgressDetails: S = void 0, numUploads: D, complete: k, totalSize: O, totalETA: T, totalUploadedSize: M }) {
+  function I() {
     switch (d) {
-      case ci:
+      case hi:
       case ui: {
-        const ke = di(m);
-        return ke.mode === "determinate" ? ke.value * 100 : h;
+        const De = di(m);
+        return De.mode === "determinate" ? De.value * 100 : c;
       }
-      case ca:
+      case ha:
         return null;
       case yt:
-        return f ? h : null;
+        return f ? c : null;
       default:
-        return h;
+        return c;
     }
   }
   function R() {
     switch (d) {
-      case ci:
+      case hi:
       case ui: {
-        const { mode: ke } = di(m);
-        return ke === "indeterminate";
+        const { mode: De } = di(m);
+        return De === "indeterminate";
       }
       case yt:
         return !f;
@@ -2950,27 +2878,27 @@ function kp({ newFiles: i, allowNewUpload: e, isUploadInProgress: t, isAllPaused
         return !1;
     }
   }
-  const A = F(), V = A ?? 100, oe = !o && i && (!t && !r || c) && e && !s, ue = !p && d !== Dp && d !== bt, he = a && !n && d === yt, xe = o && !g && !l, _e = v && d === bt, Fe = ae("uppy-StatusBar-progress", {
+  const A = I(), V = A ?? 100, oe = !o && i && (!t && !r || h) && e && !s, ue = !p && d !== wl && d !== bt, ce = a && !n && d === yt, xe = o && !g && !l, _e = v && d === bt, Ie = ae("uppy-StatusBar-progress", {
     "is-indeterminate": R()
-  }), fe = ae("uppy-StatusBar", `is-${d}`, { "has-ghosts": b }), De = (() => {
+  }), fe = ae("uppy-StatusBar", `is-${d}`, { "has-ghosts": b }), Se = (() => {
     switch (d) {
       case ui:
-      case ci:
-        return u(yp, { progress: di(m) });
+      case hi:
+        return u(fl, { progress: di(m) });
       case bt:
-        return u(xp, { i18n: _ });
-      case ca:
-        return u(_p, { error: o, i18n: _, numUploads: k, complete: S });
+        return u(bl, { i18n: _ });
+      case ha:
+        return u(vl, { error: o, i18n: _, numUploads: D, complete: k });
       case yt:
-        return u(wp, { i18n: _, supportsUploadProgress: f, totalProgress: h, showProgressDetails: D, isUploadStarted: x, isAllComplete: g, isAllPaused: r, newFiles: i, numUploads: k, complete: S, totalUploadedSize: M, totalSize: O, totalETA: T, startUpload: C });
+        return u(yl, { i18n: _, supportsUploadProgress: f, totalProgress: c, showProgressDetails: S, isUploadStarted: x, isAllComplete: g, isAllPaused: r, newFiles: i, numUploads: D, complete: k, totalUploadedSize: M, totalSize: O, totalETA: T, startUpload: C });
       default:
         return null;
     }
   })();
-  return !(oe || xe || he || ue || _e) && !De || d === bt && y ? null : u("div", { className: fe, children: [u("div", { className: Fe, style: { width: `${V}%` }, role: "progressbar", "aria-label": `${V}%`, "aria-valuetext": `${V}%`, "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": A }), De, u("div", { className: "uppy-StatusBar-actions", children: [oe ? u(cp, { newFiles: i, isUploadStarted: x, recoveredState: c, i18n: _, isSomeGhost: b, startUpload: C, uploadState: d }) : null, xe ? u(hp, { i18n: _, uppy: B }) : null, he ? u(mp, { isAllPaused: r, i18n: _, isAllComplete: g, resumableUploads: a, uppy: B }) : null, ue ? u(fp, { i18n: _, uppy: B }) : null, _e ? u(gp, { i18n: _, doneButtonHandler: v }) : null] })] });
+  return !(oe || xe || ce || ue || _e) && !Se || d === bt && y ? null : u("div", { className: fe, children: [u("div", { className: Ie, style: { width: `${V}%` }, role: "progressbar", "aria-label": `${V}%`, "aria-valuetext": `${V}%`, "aria-valuemin": 0, "aria-valuemax": 100, "aria-valuenow": A }), Se, u("div", { className: "uppy-StatusBar-actions", children: [oe ? u(pl, { newFiles: i, isUploadStarted: x, recoveredState: h, i18n: _, isSomeGhost: b, startUpload: C, uploadState: d }) : null, xe ? u(dl, { i18n: _, uppy: B }) : null, ce ? u(hl, { isAllPaused: r, i18n: _, isAllComplete: g, resumableUploads: a, uppy: B }) : null, ue ? u(ul, { i18n: _, uppy: B }) : null, _e ? u(cl, { i18n: _, doneButtonHandler: v }) : null] })] });
 }
-const Sp = 2e3, Pp = 2e3;
-function Cp(i, e, t, r) {
+const _l = 2e3, Sl = 2e3;
+function Dl(i, e, t, r) {
   if (i)
     return ne.STATE_ERROR;
   if (e)
@@ -2987,7 +2915,7 @@ function Cp(i, e, t, r) {
   }
   return a;
 }
-const Bp = {
+const kl = {
   hideUploadButton: !1,
   hideRetryButton: !1,
   hidePauseResumeButton: !1,
@@ -2996,14 +2924,14 @@ const Bp = {
   hideAfterFinish: !0,
   doneButtonHandler: null
 };
-class Ip extends ve {
-  static VERSION = np.version;
+class Pl extends ve {
+  static VERSION = al.version;
   #e;
   #t;
   #r;
   #i;
   constructor(e, t) {
-    super(e, { ...Bp, ...t }), this.id = this.opts.id || "StatusBar", this.title = "StatusBar", this.type = "progressindicator", this.defaultLocale = lp, this.i18nInit(), this.render = this.render.bind(this), this.install = this.install.bind(this);
+    super(e, { ...kl, ...t }), this.id = this.opts.id || "StatusBar", this.title = "StatusBar", this.type = "progressindicator", this.defaultLocale = ol, this.i18nInit(), this.render = this.render.bind(this), this.install = this.install.bind(this);
   }
   #a(e) {
     if (e.total == null || e.total === 0)
@@ -3018,15 +2946,15 @@ class Ip extends ve {
     const a = e.uploaded - this.#t;
     if (this.#t = e.uploaded, a <= 0)
       return Math.round((this.#i ?? 0) / 100) / 10;
-    const o = a / r, s = this.#r == null ? o : da(o, this.#r, Sp, r);
+    const o = a / r, s = this.#r == null ? o : da(o, this.#r, _l, r);
     this.#r = s;
-    const n = t / s, p = Math.max(this.#i - r, 0), l = this.#i == null ? n : da(n, p, Pp, r);
+    const n = t / s, p = Math.max(this.#i - r, 0), l = this.#i == null ? n : da(n, p, Sl, r);
     return this.#i = l, this.#e = performance.now(), Math.round(l / 100) / 10;
   }
   startUpload = () => this.uppy.upload().catch(() => {
   });
   render(e) {
-    const { capabilities: t, files: r, allowNewUpload: a, totalProgress: o, error: s, recoveredState: n } = e, { newFiles: p, startedFiles: l, completeFiles: c, isUploadStarted: d, isAllComplete: h, isAllPaused: m, isUploadInProgress: f, isSomeGhost: y } = this.uppy.getObjectOfFilesPerState(), b = n ? Object.values(r) : p, v = !!t.resumableUploads, x = t.uploadProgress !== !1;
+    const { capabilities: t, files: r, allowNewUpload: a, totalProgress: o, error: s, recoveredState: n } = e, { newFiles: p, startedFiles: l, completeFiles: h, isUploadStarted: d, isAllComplete: c, isAllPaused: m, isUploadInProgress: f, isSomeGhost: y } = this.uppy.getObjectOfFilesPerState(), b = n ? Object.values(r) : p, v = !!t.resumableUploads, x = t.uploadProgress !== !1;
     let _ = null, C = 0;
     l.every((g) => g.progress.bytesTotal != null && g.progress.bytesTotal !== 0) ? (_ = 0, l.forEach((g) => {
       _ += g.progress.bytesTotal || 0, C += g.progress.bytesUploaded || 0;
@@ -3037,9 +2965,9 @@ class Ip extends ve {
       uploaded: C,
       total: _
     });
-    return kp({
+    return xl({
       error: s,
-      uploadState: Cp(s, h, n, e.files || {}),
+      uploadState: Dl(s, c, n, e.files || {}),
       allowNewUpload: a,
       totalProgress: o,
       totalSize: _,
@@ -3050,7 +2978,7 @@ class Ip extends ve {
       isUploadInProgress: f,
       isSomeGhost: y,
       recoveredState: n,
-      complete: c.length,
+      complete: h.length,
       newFiles: b.length,
       numUploads: l.length,
       totalETA: B,
@@ -3089,9 +3017,9 @@ class Ip extends ve {
     this.unmount(), this.uppy.off("upload", this.#s);
   }
 }
-const Fp = /^data:([^/]+\/[^,;]+(?:[^,]*?))(;base64)?,([\s\S]*)$/;
-function Tp(i, e, t) {
-  const r = Fp.exec(i), a = e.mimeType ?? r?.[1] ?? "plain/text";
+const Cl = /^data:([^/]+\/[^,;]+(?:[^,]*?))(;base64)?,([\s\S]*)$/;
+function Bl(i, e, t) {
+  const r = Cl.exec(i), a = e.mimeType ?? r?.[1] ?? "plain/text";
   let o;
   if (r?.[2] != null) {
     const s = atob(decodeURIComponent(r[3])), n = new Uint8Array(s.length);
@@ -3101,7 +3029,7 @@ function Tp(i, e, t) {
   } else r?.[3] != null && (o = [decodeURIComponent(r[3])]);
   return new Blob(o, { type: a });
 }
-function ha(i) {
+function ca(i) {
   return i.startsWith("blob:");
 }
 function fa(i) {
@@ -3111,9 +3039,9 @@ function E(i, e, t) {
   return e in i ? Object.defineProperty(i, e, { value: t, enumerable: !0, configurable: !0, writable: !0 }) : i[e] = t, i;
 }
 var Ro = typeof self < "u" ? self : global;
-const st = typeof navigator < "u", Ep = st && typeof HTMLImageElement > "u", ma = !(typeof global > "u" || typeof process > "u" || !process.versions || !process.versions.node), No = Ro.Buffer, Uo = !!No, Ap = (i) => i !== void 0;
-function $o(i) {
-  return i === void 0 || (i instanceof Map ? i.size === 0 : Object.values(i).filter(Ap).length === 0);
+const st = typeof navigator < "u", Fl = st && typeof HTMLImageElement > "u", ma = !(typeof global > "u" || typeof process > "u" || !process.versions || !process.versions.node), No = Ro.Buffer, Uo = !!No, Il = (i) => i !== void 0;
+function Lo(i) {
+  return i === void 0 || (i instanceof Map ? i.size === 0 : Object.values(i).filter(Il).length === 0);
 }
 function W(i) {
   let e = new Error(i);
@@ -3126,7 +3054,7 @@ function ga(i) {
   }(i);
   return i.jfif.enabled && (e += 50), i.xmp.enabled && (e += 2e4), i.iptc.enabled && (e += 14e3), i.icc.enabled && (e += 6e3), e;
 }
-const hi = (i) => String.fromCharCode.apply(null, i), ya = typeof TextDecoder < "u" ? new TextDecoder("utf-8") : void 0;
+const ci = (i) => String.fromCharCode.apply(null, i), ya = typeof TextDecoder < "u" ? new TextDecoder("utf-8") : void 0;
 class ie {
   static from(e, t) {
     return e instanceof this && e.le === t ? e : new ie(e, void 0, void 0, t);
@@ -3171,17 +3099,17 @@ class ie {
     return new Uint8Array(this.buffer, this.byteOffset + e, t);
   }
   getString(e = 0, t = this.byteLength) {
-    return a = this.getUint8Array(e, t), ya ? ya.decode(a) : Uo ? Buffer.from(a).toString("utf8") : decodeURIComponent(escape(hi(a)));
+    return a = this.getUint8Array(e, t), ya ? ya.decode(a) : Uo ? Buffer.from(a).toString("utf8") : decodeURIComponent(escape(ci(a)));
     var a;
   }
   getLatin1String(e = 0, t = this.byteLength) {
     let r = this.getUint8Array(e, t);
-    return hi(r);
+    return ci(r);
   }
   getUnicodeString(e = 0, t = this.byteLength) {
     const r = [];
     for (let a = 0; a < t && e + a < this.byteLength; a += 2) r.push(this.getUint16(e + a));
-    return hi(r);
+    return ci(r);
   }
   getInt8(e) {
     return this.dataView.getInt8(e);
@@ -3259,26 +3187,26 @@ class Ji extends Map {
     return Array.from(this.keys());
   }
 }
-var Lo = new Ji("file parser"), ee = new Ji("segment parser"), er = new Ji("file reader");
-let Op = Ro.fetch;
+var $o = new Ji("file parser"), ee = new Ji("segment parser"), er = new Ji("file reader");
+let Tl = Ro.fetch;
 function ba(i, e) {
-  return (t = i).startsWith("data:") || t.length > 1e4 ? Fi(i, e, "base64") : ma && i.includes("://") ? Ii(i, e, "url", va) : ma ? Fi(i, e, "fs") : st ? Ii(i, e, "url", va) : void W("Invalid input argument");
+  return (t = i).startsWith("data:") || t.length > 1e4 ? Ii(i, e, "base64") : ma && i.includes("://") ? Fi(i, e, "url", va) : ma ? Ii(i, e, "fs") : st ? Fi(i, e, "url", va) : void W("Invalid input argument");
   var t;
 }
-async function Ii(i, e, t, r) {
-  return er.has(t) ? Fi(i, e, t) : r ? async function(a, o) {
+async function Fi(i, e, t, r) {
+  return er.has(t) ? Ii(i, e, t) : r ? async function(a, o) {
     let s = await o(a);
     return new ie(s);
   }(i, r) : void W(`Parser ${t} is not loaded`);
 }
-async function Fi(i, e, t) {
+async function Ii(i, e, t) {
   let r = new (er.get(t))(i, e);
   return await r.read(), r;
 }
-const va = (i) => Op(i).then((e) => e.arrayBuffer()), Ti = (i) => new Promise((e, t) => {
+const va = (i) => Tl(i).then((e) => e.arrayBuffer()), Ti = (i) => new Promise((e, t) => {
   let r = new FileReader();
   r.onloadend = () => e(r.result || new ArrayBuffer()), r.onerror = t, r.readAsArrayBuffer(i);
-}), tr = /* @__PURE__ */ new Map(), Mp = /* @__PURE__ */ new Map(), zp = /* @__PURE__ */ new Map(), vt = ["chunked", "firstChunkSize", "firstChunkSizeNode", "firstChunkSizeBrowser", "chunkSize", "chunkLimit"], Ho = ["jfif", "xmp", "icc", "iptc", "ihdr"], Ei = ["tiff", ...Ho], j = ["ifd0", "ifd1", "exif", "gps", "interop"], wt = [...Ei, ...j], xt = ["makerNote", "userComment"], jo = ["translateKeys", "translateValues", "reviveValues", "multiSegment"], _t = [...jo, "sanitize", "mergeOutput", "silentErrors"];
+}), tr = /* @__PURE__ */ new Map(), El = /* @__PURE__ */ new Map(), Al = /* @__PURE__ */ new Map(), vt = ["chunked", "firstChunkSize", "firstChunkSizeNode", "firstChunkSizeBrowser", "chunkSize", "chunkLimit"], Ho = ["jfif", "xmp", "icc", "iptc", "ihdr"], Ei = ["tiff", ...Ho], j = ["ifd0", "ifd1", "exif", "gps", "interop"], wt = [...Ei, ...j], xt = ["makerNote", "userComment"], jo = ["translateKeys", "translateValues", "reviveValues", "multiSegment"], _t = [...jo, "sanitize", "mergeOutput", "silentErrors"];
 class qo {
   get translate() {
     return this.translateKeys || this.translateValues || this.reviveValues;
@@ -3402,24 +3330,24 @@ function Mt(i, e) {
   for (let t of e) i.add(t);
 }
 E(ir, "default", G);
-class Rp {
+class Ol {
   constructor(e) {
     E(this, "parsers", {}), E(this, "output", {}), E(this, "errors", []), E(this, "pushToErrors", (t) => this.errors.push(t)), this.options = ir.useCached(e);
   }
   async read(e) {
     this.file = await function(t, r) {
-      return typeof t == "string" ? ba(t, r) : st && !Ep && t instanceof HTMLImageElement ? ba(t.src, r) : t instanceof Uint8Array || t instanceof ArrayBuffer || t instanceof DataView ? new ie(t) : st && t instanceof Blob ? Ii(t, r, "blob", Ti) : void W("Invalid input argument");
+      return typeof t == "string" ? ba(t, r) : st && !Fl && t instanceof HTMLImageElement ? ba(t.src, r) : t instanceof Uint8Array || t instanceof ArrayBuffer || t instanceof DataView ? new ie(t) : st && t instanceof Blob ? Fi(t, r, "blob", Ti) : void W("Invalid input argument");
     }(e, this.options);
   }
   setup() {
     if (this.fileParser) return;
     let { file: e } = this, t = e.getUint16(0);
-    for (let [r, a] of Lo) if (a.canHandle(e, t)) return this.fileParser = new a(this.options, this.file, this.parsers), e[r] = !0;
+    for (let [r, a] of $o) if (a.canHandle(e, t)) return this.fileParser = new a(this.options, this.file, this.parsers), e[r] = !0;
     this.file.close && this.file.close(), W("Unknown file format");
   }
   async parse() {
     let { output: e, errors: t } = this;
-    return this.setup(), this.options.silentErrors ? (await this.executeParsers().catch(this.pushToErrors), t.push(...this.fileParser.errors)) : await this.executeParsers(), this.file.close && this.file.close(), this.options.silentErrors && t.length > 0 && (e.errors = t), $o(r = e) ? void 0 : r;
+    return this.setup(), this.options.silentErrors ? (await this.executeParsers().catch(this.pushToErrors), t.push(...this.fileParser.errors)) : await this.executeParsers(), this.file.close && this.file.close(), this.options.silentErrors && t.length > 0 && (e.errors = t), Lo(r = e) ? void 0 : r;
     var r;
   }
   async executeParsers() {
@@ -3464,9 +3392,9 @@ class Oe {
     return this.translated ? this.translated : this.raw ? Object.fromEntries(this.raw) : void 0;
   }
   translateBlock(e, t) {
-    let r = zp.get(t), a = Mp.get(t), o = tr.get(t), s = this.options[t], n = s.reviveValues && !!r, p = s.translateValues && !!a, l = s.translateKeys && !!o, c = {};
-    for (let [d, h] of e) n && r.has(d) ? h = r.get(d)(h) : p && a.has(d) && (h = this.translateValue(h, a.get(d))), l && o.has(d) && (d = o.get(d) || d), c[d] = h;
-    return c;
+    let r = Al.get(t), a = El.get(t), o = tr.get(t), s = this.options[t], n = s.reviveValues && !!r, p = s.translateValues && !!a, l = s.translateKeys && !!o, h = {};
+    for (let [d, c] of e) n && r.has(d) ? c = r.get(d)(c) : p && a.has(d) && (c = this.translateValue(c, a.get(d))), l && o.has(d) && (d = o.get(d) || d), h[d] = c;
+    return h;
   }
   translateValue(e, t) {
     return t[e] || t.DEFAULT || e;
@@ -3480,13 +3408,13 @@ class Oe {
   }
 }
 E(Oe, "headerLength", 4), E(Oe, "type", void 0), E(Oe, "multiSegment", !1), E(Oe, "canHandle", () => !1);
-function Np(i) {
+function Ml(i) {
   return i === 192 || i === 194 || i === 196 || i === 219 || i === 221 || i === 218 || i === 254;
 }
-function Up(i) {
+function zl(i) {
   return i >= 224 && i <= 239;
 }
-function $p(i, e, t) {
+function Rl(i, e, t) {
   for (let [r, a] of ee) if (a.canHandle(i, e, t)) return r;
 }
 class _a extends class {
@@ -3545,19 +3473,19 @@ class _a extends class {
     }), a && await this.file.readWhole()), e = this.findAppSegmentsInRange(e, r.byteLength), !this.options.onlyTiff && r.chunked) {
       let n = !1;
       for (; s.size > 0 && !n && (r.canReadNextChunk || this.unfinishedMultiSegment); ) {
-        let { nextChunkOffset: p } = r, l = this.appSegments.some((c) => !this.file.available(c.offset || c.start, c.length || c.size));
+        let { nextChunkOffset: p } = r, l = this.appSegments.some((h) => !this.file.available(h.offset || h.start, h.length || h.size));
         if (n = e > p && !l ? !await r.readNextChunk(e) : !await r.readNextChunk(p), (e = this.findAppSegmentsInRange(e, r.byteLength)) === void 0) return;
       }
     }
   }
   findAppSegmentsInRange(e, t) {
     t -= 2;
-    let r, a, o, s, n, p, { file: l, findAll: c, wanted: d, remaining: h, options: m } = this;
+    let r, a, o, s, n, p, { file: l, findAll: h, wanted: d, remaining: c, options: m } = this;
     for (; e < t; e++) if (l.getUint8(e) === 255) {
-      if (r = l.getUint8(e + 1), Up(r)) {
-        if (a = l.getUint16(e + 2), o = $p(l, e, a), o && d.has(o) && (s = ee.get(o), n = s.findPosition(l, e), p = m[o], n.type = o, this.appSegments.push(n), !c && (s.multiSegment && p.multiSegment ? (this.unfinishedMultiSegment = n.chunkNumber < n.chunkCount, this.unfinishedMultiSegment || h.delete(o)) : h.delete(o), h.size === 0))) break;
+      if (r = l.getUint8(e + 1), zl(r)) {
+        if (a = l.getUint16(e + 2), o = Rl(l, e, a), o && d.has(o) && (s = ee.get(o), n = s.findPosition(l, e), p = m[o], n.type = o, this.appSegments.push(n), !h && (s.multiSegment && p.multiSegment ? (this.unfinishedMultiSegment = n.chunkNumber < n.chunkCount, this.unfinishedMultiSegment || c.delete(o)) : c.delete(o), c.size === 0))) break;
         m.recordUnknownSegments && (n = Oe.findPosition(l, e), n.marker = r, this.unknownSegments.push(n)), e += a + 1;
-      } else if (Np(r)) {
+      } else if (Ml(r)) {
         if (a = l.getUint16(e + 2), r === 218 && m.stopAfterSos !== !1) return;
         m.recordJpegSegments && this.jpegSegments.push({ offset: e, length: a, marker: r }), e += a + 1;
       }
@@ -3584,9 +3512,9 @@ class _a extends class {
     return t === void 0 && (await this.findAppSegments(0, [e]), t = this.getSegment(e)), t;
   }
 }
-E(_a, "type", "jpeg"), Lo.set("jpeg", _a);
-const Lp = [void 0, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8, 4];
-class Hp extends Oe {
+E(_a, "type", "jpeg"), $o.set("jpeg", _a);
+const Nl = [void 0, 1, 1, 2, 4, 8, 1, 1, 2, 4, 8, 4, 8, 4];
+class Ul extends Oe {
   parseHeader() {
     var e = this.chunk.getUint16();
     e === 18761 ? this.le = !0 : e === 19789 && (this.le = !1), this.chunk.le = this.le, this.headerParsed = !0;
@@ -3597,16 +3525,16 @@ class Hp extends Oe {
     let s = a.size > 0, n = o.size === 0, p = this.chunk.getUint16(e);
     e += 2;
     for (let l = 0; l < p; l++) {
-      let c = this.chunk.getUint16(e);
+      let h = this.chunk.getUint16(e);
       if (s) {
-        if (a.has(c) && (r.set(c, this.parseTag(e, c, t)), a.delete(c), a.size === 0)) break;
-      } else !n && o.has(c) || r.set(c, this.parseTag(e, c, t));
+        if (a.has(h) && (r.set(h, this.parseTag(e, h, t)), a.delete(h), a.size === 0)) break;
+      } else !n && o.has(h) || r.set(h, this.parseTag(e, h, t));
       e += 12;
     }
     return r;
   }
   parseTag(e, t, r) {
-    let { chunk: a } = this, o = a.getUint16(e + 2), s = a.getUint32(e + 4), n = Lp[o];
+    let { chunk: a } = this, o = a.getUint16(e + 2), s = a.getUint32(e + 4), n = Nl[o];
     if (n * s <= 4 ? e += 8 : e = a.getUint32(e + 8), (o < 1 || o > 13) && W(`Invalid TIFF value type. block: ${r.toUpperCase()}, tag: ${t.toString(16)}, type: ${o}, offset ${e}`), e > a.byteLength && W(`Invalid TIFF value offset. block: ${r.toUpperCase()}, tag: ${t.toString(16)}, type: ${o}, offset ${e} is outside of chunk size ${a.byteLength}`), o === 1) return a.getUint8Array(e, s);
     if (o === 2) return (p = function(l) {
       for (; l.endsWith("\0"); ) l = l.slice(0, -1);
@@ -3641,8 +3569,8 @@ class Hp extends Oe {
           default:
             return Array;
         }
-      }(o))(s), c = n;
-      for (let d = 0; d < s; d++) l[d] = this.parseTagValue(o, e), e += c;
+      }(o))(s), h = n;
+      for (let d = 0; d < s; d++) l[d] = this.parseTagValue(o, e), e += h;
       return l;
     }
   }
@@ -3676,7 +3604,7 @@ class Hp extends Oe {
     }
   }
 }
-class mi extends Hp {
+class mi extends Ul {
   static canHandle(e, t) {
     return e.getUint8(t + 1) === 225 && e.getUint32(t + 4) === 1165519206 && e.getUint16(t + 8) === 0;
   }
@@ -3724,7 +3652,7 @@ this.ifd0Offset: ${this.ifd0Offset}, file.byteLength: ${e.byteLength}`), e.tiff 
   async parseGpsBlock() {
     if (this.gps || (this.ifd0 || await this.parseIfd0Block(), this.gpsOffset === void 0)) return;
     let e = this.parseBlock(this.gpsOffset, "gps");
-    return e && e.has(2) && e.has(4) && (e.set("latitude", Da(...e.get(2), e.get(1))), e.set("longitude", Da(...e.get(4), e.get(3)))), e;
+    return e && e.has(2) && e.has(4) && (e.set("latitude", Sa(...e.get(2), e.get(1))), e.set("longitude", Sa(...e.get(4), e.get(3)))), e;
   }
   async parseInteropBlock() {
     if (!this.interop && (this.ifd0 || await this.parseIfd0Block(), this.interopOffset !== void 0 || this.exif || await this.parseExifBlock(), this.interopOffset !== void 0)) return this.parseBlock(this.interopOffset, "interop");
@@ -3745,7 +3673,7 @@ this.ifd0Offset: ${this.ifd0Offset}, file.byteLength: ${e.byteLength}`), e.tiff 
   }
   createOutput() {
     let e, t, r, a = {};
-    for (t of j) if (e = this[t], !$o(e)) if (r = this.canTranslate ? this.translateBlock(e, t) : Object.fromEntries(e), this.options.mergeOutput) {
+    for (t of j) if (e = this[t], !Lo(e)) if (r = this.canTranslate ? this.translateBlock(e, t) : Object.fromEntries(e), this.options.mergeOutput) {
       if (t === "ifd1") continue;
       Object.assign(a, r);
     } else a[t] = r;
@@ -3756,7 +3684,7 @@ this.ifd0Offset: ${this.ifd0Offset}, file.byteLength: ${e.byteLength}`), e.tiff 
     else for (let [r, a] of Object.entries(t)) this.assignObjectToOutput(e, r, a);
   }
 }
-function Da(i, e, t, r) {
+function Sa(i, e, t, r) {
   var a = i + e / 60 + t / 3600;
   return r !== "S" && r !== "W" || (a *= -1), a;
 }
@@ -3764,42 +3692,42 @@ E(mi, "type", "tiff"), E(mi, "headerLength", 10), ee.set("tiff", mi);
 const rr = { ifd0: !1, ifd1: !1, exif: !1, gps: !1, interop: !1, sanitize: !1, reviveValues: !0, translateKeys: !1, translateValues: !1, mergeOutput: !1 };
 Object.assign({}, rr, { firstChunkSize: 4e4, gps: [1, 2, 3, 4] });
 Object.assign({}, rr, { tiff: !1, ifd1: !0, mergeOutput: !1 });
-const jp = Object.assign({}, rr, { firstChunkSize: 4e4, ifd0: [274] });
-async function qp(i) {
-  let e = new Rp(jp);
+const Ll = Object.assign({}, rr, { firstChunkSize: 4e4, ifd0: [274] });
+async function $l(i) {
+  let e = new Ol(Ll);
   await e.read(i);
   let t = await e.parse();
   if (t && t.ifd0) return t.ifd0[274];
 }
-const Wp = Object.freeze({ 1: { dimensionSwapped: !1, scaleX: 1, scaleY: 1, deg: 0, rad: 0 }, 2: { dimensionSwapped: !1, scaleX: -1, scaleY: 1, deg: 0, rad: 0 }, 3: { dimensionSwapped: !1, scaleX: 1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 4: { dimensionSwapped: !1, scaleX: -1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 5: { dimensionSwapped: !0, scaleX: 1, scaleY: -1, deg: 90, rad: 90 * Math.PI / 180 }, 6: { dimensionSwapped: !0, scaleX: 1, scaleY: 1, deg: 90, rad: 90 * Math.PI / 180 }, 7: { dimensionSwapped: !0, scaleX: 1, scaleY: -1, deg: 270, rad: 270 * Math.PI / 180 }, 8: { dimensionSwapped: !0, scaleX: 1, scaleY: 1, deg: 270, rad: 270 * Math.PI / 180 } });
-let Ze = !0, Qe = !0;
+const Hl = Object.freeze({ 1: { dimensionSwapped: !1, scaleX: 1, scaleY: 1, deg: 0, rad: 0 }, 2: { dimensionSwapped: !1, scaleX: -1, scaleY: 1, deg: 0, rad: 0 }, 3: { dimensionSwapped: !1, scaleX: 1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 4: { dimensionSwapped: !1, scaleX: -1, scaleY: 1, deg: 180, rad: 180 * Math.PI / 180 }, 5: { dimensionSwapped: !0, scaleX: 1, scaleY: -1, deg: 90, rad: 90 * Math.PI / 180 }, 6: { dimensionSwapped: !0, scaleX: 1, scaleY: 1, deg: 90, rad: 90 * Math.PI / 180 }, 7: { dimensionSwapped: !0, scaleX: 1, scaleY: -1, deg: 270, rad: 270 * Math.PI / 180 }, 8: { dimensionSwapped: !0, scaleX: 1, scaleY: 1, deg: 270, rad: 270 * Math.PI / 180 } });
+let Qe = !0, Ze = !0;
 if (typeof navigator == "object") {
   let i = navigator.userAgent;
   if (i.includes("iPad") || i.includes("iPhone")) {
     let e = i.match(/OS (\d+)_(\d+)/);
     if (e) {
       let [, t, r] = e;
-      Ze = Number(t) + 0.1 * Number(r) < 13.4, Qe = !1;
+      Qe = Number(t) + 0.1 * Number(r) < 13.4, Ze = !1;
     }
   } else if (i.includes("OS X 10")) {
     let [, e] = i.match(/OS X 10[_.](\d+)/);
-    Ze = Qe = Number(e) < 15;
+    Qe = Ze = Number(e) < 15;
   }
   if (i.includes("Chrome/")) {
     let [, e] = i.match(/Chrome\/(\d+)/);
-    Ze = Qe = Number(e) < 81;
+    Qe = Ze = Number(e) < 81;
   } else if (i.includes("Firefox/")) {
     let [, e] = i.match(/Firefox\/(\d+)/);
-    Ze = Qe = Number(e) < 77;
+    Qe = Ze = Number(e) < 77;
   }
 }
-async function Vp(i) {
-  let e = await qp(i);
-  return Object.assign({ canvas: Ze, css: Qe }, Wp[e]);
+async function jl(i) {
+  let e = await $l(i);
+  return Object.assign({ canvas: Qe, css: Ze }, Hl[e]);
 }
-class Gp extends ie {
+class ql extends ie {
   constructor(...e) {
-    super(...e), E(this, "ranges", new Xp()), this.byteLength !== 0 && this.ranges.add(0, this.byteLength);
+    super(...e), E(this, "ranges", new Wl()), this.byteLength !== 0 && this.ranges.add(0, this.byteLength);
   }
   _tryExtend(e, t, r) {
     if (e === 0 && this.byteLength === 0 && r) {
@@ -3834,7 +3762,7 @@ class Gp extends ie {
     return this.ranges.available(e, t);
   }
 }
-class Xp {
+class Wl {
   constructor() {
     E(this, "list", []);
   }
@@ -3842,7 +3770,7 @@ class Xp {
     return this.list.length;
   }
   add(e, t, r = 0) {
-    let a = e + t, o = this.list.filter((s) => ka(e, s.offset, a) || ka(e, s.end, a));
+    let a = e + t, o = this.list.filter((s) => Da(e, s.offset, a) || Da(e, s.end, a));
     if (o.length > 0) {
       e = Math.min(e, ...o.map((n) => n.offset)), a = Math.max(a, ...o.map((n) => n.end)), t = a - e;
       let s = o.shift();
@@ -3854,10 +3782,10 @@ class Xp {
     return this.list.some((a) => a.offset <= e && r <= a.end);
   }
 }
-function ka(i, e, t) {
+function Da(i, e, t) {
   return i <= e && e <= t;
 }
-class Yp extends Gp {
+class Vl extends ql {
   constructor(e, t) {
     super(0), E(this, "chunksRead", 0), this.input = e, this.options = t;
   }
@@ -3893,7 +3821,7 @@ class Yp extends Gp {
   close() {
   }
 }
-er.set("blob", class extends Yp {
+er.set("blob", class extends Vl {
   async readWhole() {
     this.chunked = !1;
     let i = await Ti(this.input);
@@ -3907,28 +3835,14 @@ er.set("blob", class extends Yp {
     return this.set(a, i, !0);
   }
 });
-const Kp = "@uppy/thumbnail-generator", Zp = "Uppy plugin that generates small previews of images to show on your upload UI.", Qp = "4.2.2", Jp = "MIT", ed = "lib/index.js", td = "module", id = { build: "tsc --build tsconfig.build.json", typecheck: "tsc --build", test: "vitest run --environment=jsdom --silent='passed-only'" }, rd = ["file uploader", "uppy", "uppy-plugin", "thumbnail", "preview", "resize"], ad = "https://uppy.io", od = { url: "https://github.com/transloadit/uppy/issues" }, sd = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, nd = ["src", "lib", "dist", "CHANGELOG.md"], ld = { "@uppy/utils": "^6.2.2", exifr: "^7.0.0" }, pd = { jsdom: "^26.1.0", "namespace-emitter": "2.0.1", typescript: "^5.8.3", vitest: "^3.2.4" }, dd = { "@uppy/core": "^4.5.2" }, ud = {
-  name: Kp,
-  description: Zp,
-  version: Qp,
-  license: Jp,
-  main: ed,
-  type: td,
-  scripts: id,
-  keywords: rd,
-  homepage: ad,
-  bugs: od,
-  repository: sd,
-  files: nd,
-  dependencies: ld,
-  devDependencies: pd,
-  peerDependencies: dd
-}, cd = {
+const Gl = "4.2.2", Xl = {
+  version: Gl
+}, Yl = {
   strings: {
     generatingThumbnails: "Generating thumbnails..."
   }
 };
-function hd(i, e, t) {
+function Kl(i, e, t) {
   try {
     i.getContext("2d").getImageData(0, 0, 1, 1);
   } catch (r) {
@@ -3941,13 +3855,13 @@ function hd(i, e, t) {
     if (r === null)
       throw new Error("cannot read image, probably an svg with external resources");
     return r;
-  }) : Promise.resolve().then(() => Tp(i.toDataURL(e, t), {})).then((r) => {
+  }) : Promise.resolve().then(() => Bl(i.toDataURL(e, t), {})).then((r) => {
     if (r === null)
       throw new Error("could not extract blob, probably an old browser");
     return r;
   });
 }
-function fd(i, e) {
+function Ql(i, e) {
   let t = i.width, r = i.height;
   (e.deg === 90 || e.deg === 270) && (t = i.height, r = i.width);
   const a = document.createElement("canvas");
@@ -3955,7 +3869,7 @@ function fd(i, e) {
   const o = a.getContext("2d");
   return o.translate(t / 2, r / 2), e.canvas && (o.rotate(e.rad), o.scale(e.scaleX, e.scaleY)), o.drawImage(i, -i.width / 2, -i.height / 2, i.width, i.height), a;
 }
-function md(i) {
+function Zl(i) {
   const e = i.width / i.height, t = 5e6, r = 4096;
   let a = Math.floor(Math.sqrt(t * e)), o = Math.floor(t / Math.sqrt(t * e));
   if (a > r && (a = r, o = Math.round(a / e)), o > r && (o = r, a = Math.round(e * o)), i.width > a) {
@@ -3964,21 +3878,21 @@ function md(i) {
   }
   return i;
 }
-const gd = {
+const Jl = {
   thumbnailWidth: null,
   thumbnailHeight: null,
   thumbnailType: "image/jpeg",
   waitForThumbnailsBeforeUpload: !1,
   lazy: !1
 };
-class yd extends ve {
-  static VERSION = ud.version;
+class ep extends ve {
+  static VERSION = Xl.version;
   queue;
   queueProcessing;
   defaultThumbnailDimension;
   thumbnailType;
   constructor(e, t) {
-    if (super(e, { ...gd, ...t }), this.type = "modifier", this.id = this.opts.id || "ThumbnailGenerator", this.title = "Thumbnail Generator", this.queue = [], this.queueProcessing = !1, this.defaultThumbnailDimension = 200, this.thumbnailType = this.opts.thumbnailType, this.defaultLocale = cd, this.i18nInit(), this.opts.lazy && this.opts.waitForThumbnailsBeforeUpload)
+    if (super(e, { ...Jl, ...t }), this.type = "modifier", this.id = this.opts.id || "ThumbnailGenerator", this.title = "Thumbnail Generator", this.queue = [], this.queueProcessing = !1, this.defaultThumbnailDimension = 200, this.thumbnailType = this.opts.thumbnailType, this.defaultLocale = Yl, this.i18nInit(), this.opts.lazy && this.opts.waitForThumbnailsBeforeUpload)
       throw new Error("ThumbnailGenerator: The `lazy` and `waitForThumbnailsBeforeUpload` options are mutually exclusive. Please ensure at most one of them is set to `true`.");
   }
   createThumbnail(e, t, r) {
@@ -3986,13 +3900,13 @@ class yd extends ve {
       const l = new Image();
       l.src = a, l.addEventListener("load", () => {
         URL.revokeObjectURL(a), n(l);
-      }), l.addEventListener("error", (c) => {
-        URL.revokeObjectURL(a), p(c.error || new Error("Could not create thumbnail"));
+      }), l.addEventListener("error", (h) => {
+        URL.revokeObjectURL(a), p(h.error || new Error("Could not create thumbnail"));
       });
-    }), s = Vp(e.data).catch(() => 1);
+    }), s = jl(e.data).catch(() => 1);
     return Promise.all([o, s]).then(([n, p]) => {
-      const l = this.getProportionalDimensions(n, t, r, p.deg), c = fd(n, p), d = this.resizeImage(c, l.width, l.height);
-      return hd(d, this.thumbnailType, 80);
+      const l = this.getProportionalDimensions(n, t, r, p.deg), h = Ql(n, p), d = this.resizeImage(h, l.width, l.height);
+      return Kl(d, this.thumbnailType, 80);
     }).then((n) => URL.createObjectURL(n));
   }
   /**
@@ -4020,7 +3934,7 @@ class yd extends ve {
    * Returns a Canvas with the resized image on it.
    */
   resizeImage(e, t, r) {
-    let a = md(e), o = Math.ceil(Math.log2(a.width / t));
+    let a = Zl(e), o = Math.ceil(Math.log2(a.width / t));
     o < 1 && (o = 1);
     let s = t * 2 ** (o - 1), n = r * 2 ** (o - 1);
     const p = 2;
@@ -4069,11 +3983,11 @@ class yd extends ve {
    */
   onFileRemoved = (e) => {
     const t = this.queue.indexOf(e.id);
-    t !== -1 && this.queue.splice(t, 1), e.preview && ha(e.preview) && URL.revokeObjectURL(e.preview);
+    t !== -1 && this.queue.splice(t, 1), e.preview && ca(e.preview) && URL.revokeObjectURL(e.preview);
   };
   onRestored = () => {
     this.uppy.getFiles().filter((t) => t.isRestored).forEach((t) => {
-      (!t.preview || ha(t.preview)) && this.addToQueue(t.id);
+      (!t.preview || ca(t.preview)) && this.addToQueue(t.id);
     });
   };
   onAllFilesRemoved = () => {
@@ -4106,7 +4020,7 @@ class yd extends ve {
     this.uppy.off("file-removed", this.onFileRemoved), this.uppy.off("cancel-all", this.onAllFilesRemoved), this.opts.lazy ? (this.uppy.off("thumbnail:request", this.onFileAdded), this.uppy.off("thumbnail:cancel", this.onCancelRequest)) : (this.uppy.off("thumbnail:request", this.onFileAdded), this.uppy.off("file-added", this.onFileAdded), this.uppy.off("restored", this.onRestored)), this.opts.waitForThumbnailsBeforeUpload && this.uppy.removePreProcessor(this.waitUntilAllProcessed);
   }
 }
-function Sa(i) {
+function ka(i) {
   if (typeof i == "string") {
     const e = document.querySelectorAll(i);
     return e.length === 0 ? null : Array.from(e);
@@ -4114,7 +4028,7 @@ function Sa(i) {
   return typeof i == "object" && po(i) ? [i] : null;
 }
 const et = Array.from;
-function bd(i) {
+function tp(i) {
   const e = et(i.files);
   return Promise.resolve(e);
 }
@@ -4160,7 +4074,7 @@ async function* Go(i, e, t = void 0) {
       yield* Go(a, e ? r() : i.name);
   else t != null && (yield t);
 }
-async function* vd(i, e) {
+async function* ip(i, e) {
   const t = await Promise.all(Array.from(i.items, async (r) => {
     let a;
     return a ??= Vo(typeof r.getAsEntry == "function" ? r.getAsEntry() : r.webkitGetAsEntry(), e), {
@@ -4178,36 +4092,21 @@ async function* vd(i, e) {
       }
     else r != null && (yield r);
 }
-async function wd(i, e) {
-  const t = e?.logDropError;
+async function rp(i, e) {
+  const t = e?.logDropError ?? Function.prototype;
   try {
     const r = [];
-    for await (const a of vd(i, t))
+    for await (const a of ip(i, t))
       r.push(a);
     return r;
   } catch {
-    return bd(i);
+    return tp(i);
   }
 }
-const xd = "@uppy/dashboard", _d = "Universal UI plugin for Uppy.", Dd = "4.4.3", kd = "MIT", Sd = "lib/index.js", Pd = "dist/style.min.css", Cd = "module", Bd = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build", test: "vitest run --silent='passed-only'", "test:e2e": "vitest watch --project browser --browser.headless false" }, Id = ["file uploader", "uppy", "uppy-plugin", "dashboard", "ui"], Fd = "https://uppy.io", Td = { url: "https://github.com/transloadit/uppy/issues" }, Ed = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, Ad = ["src", "lib", "dist", "CHANGELOG.md"], Od = { "@transloadit/prettier-bytes": "^0.3.4", "@uppy/informer": "^4.3.2", "@uppy/provider-views": "^4.5.2", "@uppy/status-bar": "^4.2.3", "@uppy/thumbnail-generator": "^4.2.2", "@uppy/utils": "^6.2.2", classnames: "^2.2.6", lodash: "^4.17.21", nanoid: "^5.0.9", preact: "^10.5.13", "shallow-equal": "^3.0.0" }, Md = { "@uppy/core": "^4.5.2", "@uppy/google-drive": "^4.4.2", "@uppy/status-bar": "^4.2.3", "@uppy/url": "^4.3.2", "@uppy/webcam": "^4.3.2", "@vitest/browser": "^3.2.4", cssnano: "^7.0.7", jsdom: "^26.1.0", postcss: "^8.5.6", "postcss-cli": "^11.0.1", "resize-observer-polyfill": "^1.5.0", sass: "^1.89.2", typescript: "^5.8.3", vitest: "^3.2.4" }, zd = { "@uppy/core": "^4.5.2" }, Rd = {
-  name: xd,
-  description: _d,
-  version: Dd,
-  license: kd,
-  main: Sd,
-  style: Pd,
-  type: Cd,
-  scripts: Bd,
-  keywords: Id,
-  homepage: Fd,
-  bugs: Td,
-  repository: Ed,
-  files: Ad,
-  dependencies: Od,
-  devDependencies: Md,
-  peerDependencies: zd
+const ap = "4.4.3", op = {
+  version: ap
 };
-function Nd() {
+function sp() {
   const i = document.body;
   return !(!("draggable" in i) || !("ondragstart" in i && "ondrop" in i) || !("FormData" in window) || !("FileReader" in window));
 }
@@ -4289,12 +4188,12 @@ class Xo extends X {
     }), a && o.push({
       key: "nativePhotoCameraButton",
       elements: this.renderVideoCamera()
-    }), o.push(...e.map((c) => ({
-      key: c.id,
-      elements: this.renderAcquirer(c)
+    }), o.push(...e.map((h) => ({
+      key: h.id,
+      elements: this.renderAcquirer(h)
     }))), o.length === 1 && o[0].key === s && (o = []);
     const p = [...o], l = p.splice(o.length - 2, o.length);
-    return u(re, { children: [this.renderDropPasteBrowseTagline(o.length), u("div", { className: "uppy-Dashboard-AddFiles-list", role: "tablist", children: [p.map(({ key: c, elements: d }) => u(re, { children: d }, c)), u("span", { role: "presentation", style: { "white-space": "nowrap" }, children: l.map(({ key: c, elements: d }) => u(re, { children: d }, c)) })] })] });
+    return u(re, { children: [this.renderDropPasteBrowseTagline(o.length), u("div", { className: "uppy-Dashboard-AddFiles-list", role: "tablist", children: [p.map(({ key: h, elements: d }) => u(re, { children: d }, h)), u("span", { role: "presentation", style: { "white-space": "nowrap" }, children: l.map(({ key: h, elements: d }) => u(re, { children: d }, h)) })] })] });
   };
   renderPoweredByUppy() {
     const { i18nArray: e } = this.props, t = u("span", { children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon uppy-Dashboard-poweredByIcon", width: "11", height: "11", viewBox: "0 0 11 11", children: u("path", { d: "M7.365 10.5l-.01-4.045h2.612L5.5.806l-4.467 5.65h2.604l.01 4.044h3.718z", fillRule: "evenodd" }) }), u("span", { className: "uppy-Dashboard-poweredByUppy", children: "Uppy" })] }), r = e("poweredBy", { uppy: t });
@@ -4313,14 +4212,14 @@ class Xo extends X {
     }), this.renderSourcesList(this.props.acquirers, this.props.disableLocalFiles), u("div", { className: "uppy-Dashboard-AddFiles-info", children: [this.props.note && u("div", { className: "uppy-Dashboard-note", children: this.props.note }), this.props.proudlyDisplayPoweredByUppy && this.renderPoweredByUppy()] })] });
   }
 }
-const Ud = (i) => u("div", { className: ae("uppy-Dashboard-AddFilesPanel", i.className), "data-uppy-panelType": "AddFiles", "aria-hidden": !i.showAddFilesPanel, children: [u("div", { className: "uppy-DashboardContent-bar", children: [u("div", {
+const np = (i) => u("div", { className: ae("uppy-Dashboard-AddFilesPanel", i.className), "data-uppy-panelType": "AddFiles", "aria-hidden": !i.showAddFilesPanel, children: [u("div", { className: "uppy-DashboardContent-bar", children: [u("div", {
   className: "uppy-DashboardContent-title",
   // biome-ignore lint/a11y/useSemanticElements: ...
   role: "heading",
   "aria-level": 1,
   children: i.i18n("addingMoreFiles")
 }), u("button", { className: "uppy-DashboardContent-back", type: "button", onClick: () => i.toggleAddFilesPanel(!1), children: i.i18n("back") })] }), u(Xo, { ...i })] });
-function $d(i) {
+function lp(i) {
   const e = i.files[i.fileCardFor], t = () => {
     i.uppy.emit("file-editor:cancel", e), i.closeFileEditor();
   };
@@ -4334,50 +4233,50 @@ function $d(i) {
     })
   }), u("button", { className: "uppy-DashboardContent-back", type: "button", onClick: t, children: i.i18n("cancel") }), u("button", { className: "uppy-DashboardContent-save", type: "button", onClick: i.saveFileEditor, children: i.i18n("save") })] }), u("div", { className: "uppy-DashboardContent-panelBody", children: i.editors.map((r) => i.uppy.getPlugin(r.id).render(i.state)) })] });
 }
-function Ld() {
+function pp() {
   return u("svg", { "aria-hidden": "true", focusable: "false", width: "25", height: "25", viewBox: "0 0 25 25", children: u("g", { fill: "#686DE0", fillRule: "evenodd", children: [u("path", { d: "M5 7v10h15V7H5zm0-1h15a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1z", fillRule: "nonzero" }), u("path", { d: "M6.35 17.172l4.994-5.026a.5.5 0 0 1 .707 0l2.16 2.16 3.505-3.505a.5.5 0 0 1 .707 0l2.336 2.31-.707.72-1.983-1.97-3.505 3.505a.5.5 0 0 1-.707 0l-2.16-2.159-3.938 3.939-1.409.026z", fillRule: "nonzero" }), u("circle", { cx: "7.5", cy: "9.5", r: "1.5" })] }) });
 }
-function Hd() {
+function dp() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M9.5 18.64c0 1.14-1.145 2-2.5 2s-2.5-.86-2.5-2c0-1.14 1.145-2 2.5-2 .557 0 1.079.145 1.5.396V7.25a.5.5 0 0 1 .379-.485l9-2.25A.5.5 0 0 1 18.5 5v11.64c0 1.14-1.145 2-2.5 2s-2.5-.86-2.5-2c0-1.14 1.145-2 2.5-2 .557 0 1.079.145 1.5.396V8.67l-8 2v7.97zm8-11v-2l-8 2v2l8-2zM7 19.64c.855 0 1.5-.484 1.5-1s-.645-1-1.5-1-1.5.484-1.5 1 .645 1 1.5 1zm9-2c.855 0 1.5-.484 1.5-1s-.645-1-1.5-1-1.5.484-1.5 1 .645 1 1.5 1z", fill: "#049BCF", fillRule: "nonzero" }) });
 }
-function jd() {
+function up() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M16 11.834l4.486-2.691A1 1 0 0 1 22 10v6a1 1 0 0 1-1.514.857L16 14.167V17a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v2.834zM15 9H5v8h10V9zm1 4l5 3v-6l-5 3z", fill: "#19AF67", fillRule: "nonzero" }) });
 }
-function qd() {
+function hp() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M9.766 8.295c-.691-1.843-.539-3.401.747-3.726 1.643-.414 2.505.938 2.39 3.299-.039.79-.194 1.662-.537 3.148.324.49.66.967 1.055 1.51.17.231.382.488.629.757 1.866-.128 3.653.114 4.918.655 1.487.635 2.192 1.685 1.614 2.84-.566 1.133-1.839 1.084-3.416.249-1.141-.604-2.457-1.634-3.51-2.707a13.467 13.467 0 0 0-2.238.426c-1.392 4.051-4.534 6.453-5.707 4.572-.986-1.58 1.38-4.206 4.914-5.375.097-.322.185-.656.264-1.001.08-.353.306-1.31.407-1.737-.678-1.059-1.2-2.031-1.53-2.91zm2.098 4.87c-.033.144-.068.287-.104.427l.033-.01-.012.038a14.065 14.065 0 0 1 1.02-.197l-.032-.033.052-.004a7.902 7.902 0 0 1-.208-.271c-.197-.27-.38-.526-.555-.775l-.006.028-.002-.003c-.076.323-.148.632-.186.8zm5.77 2.978c1.143.605 1.832.632 2.054.187.26-.519-.087-1.034-1.113-1.473-.911-.39-2.175-.608-3.55-.608.845.766 1.787 1.459 2.609 1.894zM6.559 18.789c.14.223.693.16 1.425-.413.827-.648 1.61-1.747 2.208-3.206-2.563 1.064-4.102 2.867-3.633 3.62zm5.345-10.97c.088-1.793-.351-2.48-1.146-2.28-.473.119-.564 1.05-.056 2.405.213.566.52 1.188.908 1.859.18-.858.268-1.453.294-1.984z", fill: "#E2514A", fillRule: "nonzero" }) });
 }
-function Wd() {
+function cp() {
   return u("svg", { "aria-hidden": "true", focusable: "false", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M10.45 2.05h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5V2.55a.5.5 0 0 1 .5-.5zm2.05 1.024h1.05a.5.5 0 0 1 .5.5V3.6a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5v-.001zM10.45 0h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5V.5a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-2.05 3.074h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-2.05 1.024h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm-2.05 1.025h1.05a.5.5 0 0 1 .5.5v.025a.5.5 0 0 1-.5.5h-1.05a.5.5 0 0 1-.5-.5v-.025a.5.5 0 0 1 .5-.5zm2.05 1.025h1.05a.5.5 0 0 1 .5.5v.024a.5.5 0 0 1-.5.5H12.5a.5.5 0 0 1-.5-.5v-.024a.5.5 0 0 1 .5-.5zm-1.656 3.074l-.82 5.946c.52.302 1.174.458 1.976.458.803 0 1.455-.156 1.975-.458l-.82-5.946h-2.311zm0-1.025h2.312c.512 0 .946.378 1.015.885l.82 5.946c.056.412-.142.817-.501 1.026-.686.398-1.515.597-2.49.597-.974 0-1.804-.199-2.49-.597a1.025 1.025 0 0 1-.5-1.026l.819-5.946c.07-.507.503-.885 1.015-.885zm.545 6.6a.5.5 0 0 1-.397-.561l.143-.999a.5.5 0 0 1 .495-.429h.74a.5.5 0 0 1 .495.43l.143.998a.5.5 0 0 1-.397.561c-.404.08-.819.08-1.222 0z", fill: "#00C469", fillRule: "nonzero" }) });
 }
-function Vd() {
+function fp() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("g", { fill: "#A7AFB7", fillRule: "nonzero", children: [u("path", { d: "M5.5 22a.5.5 0 0 1-.5-.5v-18a.5.5 0 0 1 .5-.5h10.719a.5.5 0 0 1 .367.16l3.281 3.556a.5.5 0 0 1 .133.339V21.5a.5.5 0 0 1-.5.5h-14zm.5-1h13V7.25L16 4H6v17z" }), u("path", { d: "M15 4v3a1 1 0 0 0 1 1h3V7h-3V4h-1z" })] }) });
 }
-function Gd() {
+function mp() {
   return u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "25", height: "25", viewBox: "0 0 25 25", children: u("path", { d: "M4.5 7h13a.5.5 0 1 1 0 1h-13a.5.5 0 0 1 0-1zm0 3h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 3h15a.5.5 0 1 1 0 1h-15a.5.5 0 1 1 0-1zm0 3h10a.5.5 0 1 1 0 1h-10a.5.5 0 1 1 0-1z", fill: "#5A5E69", fillRule: "nonzero" }) });
 }
 function ar(i) {
   const e = {
     color: "#838999",
-    icon: Vd()
+    icon: fp()
   };
   if (!i)
     return e;
   const t = i.split("/")[0], r = i.split("/")[1];
   return t === "text" ? {
     color: "#5a5e69",
-    icon: Gd()
+    icon: mp()
   } : t === "image" ? {
     color: "#686de0",
-    icon: Ld()
+    icon: pp()
   } : t === "audio" ? {
     color: "#068dbb",
-    icon: Hd()
+    icon: dp()
   } : t === "video" ? {
     color: "#19af67",
-    icon: jd()
+    icon: up()
   } : t === "application" && r === "pdf" ? {
     color: "#e25149",
-    icon: qd()
+    icon: hp()
   } : t === "application" && [
     "zip",
     "x-7z-compressed",
@@ -4388,7 +4287,7 @@ function ar(i) {
     "x-apple-diskimage"
   ].indexOf(r) !== -1 ? {
     color: "#00C469",
-    icon: Wd()
+    icon: cp()
   } : e;
 }
 function ge(i) {
@@ -4406,7 +4305,7 @@ function Yo(i) {
   const { color: t, icon: r } = ar(e.type);
   return u("div", { className: "uppy-Dashboard-Item-previewIconWrap", children: [u("span", { className: "uppy-Dashboard-Item-previewIcon", style: { color: t }, children: r }), u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-Dashboard-Item-previewIconBg", width: "58", height: "76", viewBox: "0 0 58 76", children: u("rect", { fill: "#FFF", width: "58", height: "76", rx: "3", fillRule: "evenodd" }) })] });
 }
-function Xd(i) {
+function gp(i) {
   const { computedMetaFields: e, requiredMetaFields: t, updateMeta: r, form: a, formState: o } = i, s = {
     text: "uppy-u-reset uppy-c-textInput uppy-Dashboard-FileCard-input"
   };
@@ -4414,35 +4313,35 @@ function Xd(i) {
     const p = `uppy-Dashboard-FileCard-input-${n.id}`, l = t.includes(n.id);
     return u("fieldset", { className: "uppy-Dashboard-FileCard-fieldset", children: [u("label", { className: "uppy-Dashboard-FileCard-label", htmlFor: p, children: n.name }), n.render !== void 0 ? n.render({
       value: o[n.id],
-      onChange: (c) => r(c, n.id),
+      onChange: (h) => r(h, n.id),
       fieldCSSClasses: s,
       required: l,
       form: a.id
-    }, rt) : u("input", { className: s.text, id: p, form: a.id, type: n.type || "text", required: l, value: o[n.id], placeholder: n.placeholder, onInput: (c) => r(c.target.value, n.id), "data-uppy-super-focusable": !0 })] }, n.id);
+    }, rt) : u("input", { className: s.text, id: p, form: a.id, type: n.type || "text", required: l, value: o[n.id], placeholder: n.placeholder, onInput: (h) => r(h.target.value, n.id), "data-uppy-super-focusable": !0 })] }, n.id);
   });
 }
-function Yd(i) {
-  const { files: e, fileCardFor: t, toggleFileCard: r, saveFileCard: a, metaFields: o, requiredMetaFields: s, openFileEditor: n, i18n: p, i18nArray: l, className: c, canEditFile: d } = i, h = () => typeof o == "function" ? o(e[t]) : o, m = e[t], f = h() ?? [], y = d(m), b = {};
-  f.forEach((D) => {
-    b[D.id] = m.meta[D.id] ?? "";
+function yp(i) {
+  const { files: e, fileCardFor: t, toggleFileCard: r, saveFileCard: a, metaFields: o, requiredMetaFields: s, openFileEditor: n, i18n: p, i18nArray: l, className: h, canEditFile: d } = i, c = () => typeof o == "function" ? o(e[t]) : o, m = e[t], f = c() ?? [], y = d(m), b = {};
+  f.forEach((S) => {
+    b[S.id] = m.meta[S.id] ?? "";
   });
-  const [v, x] = At(b), _ = Ls((D) => {
-    D.preventDefault(), a(v, t);
-  }, [a, v, t]), C = (D, k) => {
+  const [v, x] = At(b), _ = $s((S) => {
+    S.preventDefault(), a(v, t);
+  }, [a, v, t]), C = (S, D) => {
     x({
       ...v,
-      [k]: D
+      [D]: S
     });
   }, B = () => {
     r(!1);
   }, [g] = At(() => {
-    const D = document.createElement("form");
-    return D.setAttribute("tabindex", "-1"), D.id = Zi(), D;
+    const S = document.createElement("form");
+    return S.setAttribute("tabindex", "-1"), S.id = Qi(), S;
   });
   return Pi(() => (document.body.appendChild(g), g.addEventListener("submit", _), () => {
     g.removeEventListener("submit", _), document.body.removeChild(g);
   }), [g, _]), // biome-ignore lint/a11y/noStaticElementInteractions: ...
-  u("div", { className: ae("uppy-Dashboard-FileCard", c), "data-uppy-panelType": "FileCard", onDragOver: ge, onDragLeave: ge, onDrop: ge, onPaste: ge, children: [u("div", { className: "uppy-DashboardContent-bar", children: [u("div", {
+  u("div", { className: ae("uppy-Dashboard-FileCard", h), "data-uppy-panelType": "FileCard", onDragOver: ge, onDragLeave: ge, onDrop: ge, onPaste: ge, children: [u("div", { className: "uppy-DashboardContent-bar", children: [u("div", {
     className: "uppy-DashboardContent-title",
     // biome-ignore lint/a11y/useSemanticElements: ...
     role: "heading",
@@ -4450,9 +4349,9 @@ function Yd(i) {
     children: l("editing", {
       file: u("span", { className: "uppy-DashboardContent-titleFile", children: m.meta ? m.meta.name : m.name })
     })
-  }), u("button", { className: "uppy-DashboardContent-back", type: "button", form: g.id, title: p("finishEditingFile"), onClick: B, children: p("cancel") })] }), u("div", { className: "uppy-Dashboard-FileCard-inner", children: [u("div", { className: "uppy-Dashboard-FileCard-preview", style: { backgroundColor: ar(m.type).color }, children: [u(Yo, { file: m }), y && u("button", { type: "button", className: "uppy-u-reset uppy-c-btn uppy-Dashboard-FileCard-edit", onClick: (D) => {
-    _(D), n(m);
-  }, children: p("editImage") })] }), u("div", { className: "uppy-Dashboard-FileCard-info", children: u(Xd, { computedMetaFields: f, requiredMetaFields: s, updateMeta: C, form: g, formState: v }) }), u("div", { className: "uppy-Dashboard-FileCard-actions", children: [u("button", {
+  }), u("button", { className: "uppy-DashboardContent-back", type: "button", form: g.id, title: p("finishEditingFile"), onClick: B, children: p("cancel") })] }), u("div", { className: "uppy-Dashboard-FileCard-inner", children: [u("div", { className: "uppy-Dashboard-FileCard-preview", style: { backgroundColor: ar(m.type).color }, children: [u(Yo, { file: m }), y && u("button", { type: "button", className: "uppy-u-reset uppy-c-btn uppy-Dashboard-FileCard-edit", onClick: (S) => {
+    _(S), n(m);
+  }, children: p("editImage") })] }), u("div", { className: "uppy-Dashboard-FileCard-info", children: u(gp, { computedMetaFields: f, requiredMetaFields: s, updateMeta: C, form: g, formState: v }) }), u("div", { className: "uppy-Dashboard-FileCard-actions", children: [u("button", {
     className: "uppy-u-reset uppy-c-btn uppy-c-btn-primary uppy-Dashboard-FileCard-actionsBtn",
     // If `form` attribute is supported, we want a submit button to trigger the form validation.
     // Otherwise, fallback to a classic button with a onClick event handler.
@@ -4461,7 +4360,7 @@ function Yd(i) {
     children: p("saveChanges")
   }), u("button", { className: "uppy-u-reset uppy-c-btn uppy-c-btn-link uppy-Dashboard-FileCard-actionsBtn", type: "button", onClick: B, form: g.id, children: p("cancel") })] })] })] });
 }
-function Kd(i, e) {
+function bp(i, e) {
   if (i === e)
     return !0;
   if (!i || !e)
@@ -4476,7 +4375,7 @@ function Kd(i, e) {
   }
   return !0;
 }
-function Zd(i, e = "Copy the URL below") {
+function vp(i, e = "Copy the URL below") {
   return new Promise((t) => {
     const r = document.createElement("textarea");
     r.setAttribute("style", {
@@ -4501,25 +4400,25 @@ function Zd(i, e = "Copy the URL below") {
     }
   });
 }
-function Qd({ file: i, uploadInProgressOrComplete: e, metaFields: t, canEditFile: r, i18n: a, onClick: o }) {
+function wp({ file: i, uploadInProgressOrComplete: e, metaFields: t, canEditFile: r, i18n: a, onClick: o }) {
   return !e && t && t.length > 0 || !e && r(i) ? u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-action uppy-Dashboard-Item-action--edit", type: "button", "aria-label": a("editFileWithFilename", { file: i.meta.name }), title: a("editFileWithFilename", { file: i.meta.name }), onClick: () => o(), children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "14", height: "14", viewBox: "0 0 14 14", children: u("g", { fillRule: "evenodd", children: [u("path", { d: "M1.5 10.793h2.793A1 1 0 0 0 5 10.5L11.5 4a1 1 0 0 0 0-1.414L9.707.793a1 1 0 0 0-1.414 0l-6.5 6.5A1 1 0 0 0 1.5 8v2.793zm1-1V8L9 1.5l1.793 1.793-6.5 6.5H2.5z", fillRule: "nonzero" }), u("rect", { x: "1", y: "12.293", width: "11", height: "1", rx: ".5" }), u("path", { fillRule: "nonzero", d: "M6.793 2.5L9.5 5.207l.707-.707L7.5 1.793z" })] }) }) }) : null;
 }
-function Jd({ i18n: i, onClick: e, file: t }) {
+function xp({ i18n: i, onClick: e, file: t }) {
   return u("button", { className: "uppy-u-reset uppy-Dashboard-Item-action uppy-Dashboard-Item-action--remove", type: "button", "aria-label": i("removeFile", { file: t.meta.name }), title: i("removeFile", { file: t.meta.name }), onClick: () => e(), children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "18", height: "18", viewBox: "0 0 18 18", children: [u("path", { d: "M9 0C4.034 0 0 4.034 0 9s4.034 9 9 9 9-4.034 9-9-4.034-9-9-9z" }), u("path", { fill: "#FFF", d: "M13 12.222l-.778.778L9 9.778 5.778 13 5 12.222 8.222 9 5 5.778 5.778 5 9 8.222 12.222 5l.778.778L9.778 9z" })] }) });
 }
-function eu({ file: i, uppy: e, i18n: t }) {
+function _p({ file: i, uppy: e, i18n: t }) {
   const r = (a) => {
-    Zd(i.uploadURL, t("copyLinkToClipboardFallback")).then(() => {
+    vp(i.uploadURL, t("copyLinkToClipboardFallback")).then(() => {
       e.log("Link copied to clipboard."), e.info(t("copyLinkToClipboardSuccess"), "info", 3e3);
     }).catch(e.log).then(() => a.target.focus({ preventScroll: !0 }));
   };
   return u("button", { className: "uppy-u-reset uppy-Dashboard-Item-action uppy-Dashboard-Item-action--copyLink", type: "button", "aria-label": t("copyLink"), title: t("copyLink"), onClick: (a) => r(a), children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "14", height: "14", viewBox: "0 0 14 12", children: u("path", { d: "M7.94 7.703a2.613 2.613 0 0 1-.626 2.681l-.852.851a2.597 2.597 0 0 1-1.849.766A2.616 2.616 0 0 1 2.764 7.54l.852-.852a2.596 2.596 0 0 1 2.69-.625L5.267 7.099a1.44 1.44 0 0 0-.833.407l-.852.851a1.458 1.458 0 0 0 1.03 2.486c.39 0 .755-.152 1.03-.426l.852-.852c.231-.231.363-.522.406-.824l1.04-1.038zm4.295-5.937A2.596 2.596 0 0 0 10.387 1c-.698 0-1.355.272-1.849.766l-.852.851a2.614 2.614 0 0 0-.624 2.688l1.036-1.036c.041-.304.173-.6.407-.833l.852-.852c.275-.275.64-.426 1.03-.426a1.458 1.458 0 0 1 1.03 2.486l-.852.851a1.442 1.442 0 0 1-.824.406l-1.04 1.04a2.596 2.596 0 0 0 2.683-.628l.851-.85a2.616 2.616 0 0 0 0-3.697zm-6.88 6.883a.577.577 0 0 0 .82 0l3.474-3.474a.579.579 0 1 0-.819-.82L5.355 7.83a.579.579 0 0 0 0 .819z" }) }) });
 }
-function tu(i) {
-  const { uppy: e, file: t, uploadInProgressOrComplete: r, canEditFile: a, metaFields: o, showLinkToFileUploadResult: s, showRemoveButton: n, i18n: p, toggleFileCard: l, openFileEditor: c } = i;
-  return u("div", { className: "uppy-Dashboard-Item-actionWrapper", children: [u(Qd, { i18n: p, file: t, uploadInProgressOrComplete: r, canEditFile: a, metaFields: o, onClick: () => {
-    o && o.length > 0 ? l(!0, t.id) : c(t);
-  } }), s && t.uploadURL ? u(eu, { file: t, uppy: e, i18n: p }) : null, n ? u(Jd, { i18n: p, file: t, onClick: () => e.removeFile(t.id) }) : null] });
+function Sp(i) {
+  const { uppy: e, file: t, uploadInProgressOrComplete: r, canEditFile: a, metaFields: o, showLinkToFileUploadResult: s, showRemoveButton: n, i18n: p, toggleFileCard: l, openFileEditor: h } = i;
+  return u("div", { className: "uppy-Dashboard-Item-actionWrapper", children: [u(wp, { i18n: p, file: t, uploadInProgressOrComplete: r, canEditFile: a, metaFields: o, onClick: () => {
+    o && o.length > 0 ? l(!0, t.id) : h(t);
+  } }), s && t.uploadURL ? u(_p, { file: t, uppy: e, i18n: p }) : null, n ? u(xp, { i18n: p, file: t, onClick: () => e.removeFile(t.id) }) : null] });
 }
 const gi = "...";
 function Ko(i, e) {
@@ -4532,41 +4431,41 @@ function Ko(i, e) {
   const t = e - gi.length, r = Math.ceil(t / 2), a = Math.floor(t / 2);
   return i.slice(0, r) + gi + i.slice(-a);
 }
-const iu = (i, e) => (typeof e == "function" ? e() : e).filter((a) => a.id === i)[0].name;
-function Zo(i) {
+const Dp = (i, e) => (typeof e == "function" ? e() : e).filter((a) => a.id === i)[0].name;
+function Qo(i) {
   const { file: e, toggleFileCard: t, i18n: r, metaFields: a } = i, { missingRequiredMetaFields: o } = e;
   if (!o?.length)
     return null;
-  const s = o.map((n) => iu(n, a)).join(", ");
+  const s = o.map((n) => Dp(n, a)).join(", ");
   return u("div", { className: "uppy-Dashboard-Item-errorMessage", children: [r("missingRequiredMetaFields", {
     smart_count: o.length,
     fields: s
   }), " ", u("button", { type: "button", class: "uppy-u-reset uppy-Dashboard-Item-errorMessageBtn", onClick: () => t(!0, e.id), children: r("editFile") })] });
 }
-const ru = (i) => {
+const kp = (i) => {
   const { author: e, name: t } = i.file.meta;
   function r() {
     return i.isSingleFile && i.containerHeight >= 350 ? 90 : i.containerWidth <= 352 ? 35 : i.containerWidth <= 576 ? 60 : e ? 20 : 30;
   }
   return u("div", { className: "uppy-Dashboard-Item-name", title: t, children: Ko(t, r()) });
-}, au = (i) => {
+}, Pp = (i) => {
   const { author: e } = i.file.meta, t = i.file.remote?.providerName, r = "·";
   return e ? u("div", { className: "uppy-Dashboard-Item-author", children: [u("a", { href: `${e.url}?utm_source=Companion&utm_medium=referral`, target: "_blank", rel: "noopener noreferrer", children: Ko(e.name, 13) }), t ? u(re, { children: [` ${r} `, t, ` ${r} `] }) : null] }) : null;
-}, ou = (i) => i.file.size && u("div", { className: "uppy-Dashboard-Item-statusSize", children: ce(i.file.size) }), su = (i) => i.file.isGhost && u("span", { children: [" • ", u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-reSelect", type: "button", onClick: () => i.toggleAddFilesPanel(!0), children: i.i18n("reSelect") })] }), nu = ({ file: i, onClick: e }) => i.error ? u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-errorDetails", "aria-label": i.error, "data-microtip-position": "bottom", "data-microtip-size": "medium", onClick: e, type: "button", children: "?" }) : null;
-function lu(i) {
+}, Cp = (i) => i.file.size && u("div", { className: "uppy-Dashboard-Item-statusSize", children: he(i.file.size) }), Bp = (i) => i.file.isGhost && u("span", { children: [" • ", u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-reSelect", type: "button", onClick: () => i.toggleAddFilesPanel(!0), children: i.i18n("reSelect") })] }), Fp = ({ file: i, onClick: e }) => i.error ? u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-errorDetails", "aria-label": i.error, "data-microtip-position": "bottom", "data-microtip-size": "medium", onClick: e, type: "button", children: "?" }) : null;
+function Ip(i) {
   const { file: e, i18n: t, toggleFileCard: r, metaFields: a, toggleAddFilesPanel: o, isSingleFile: s, containerHeight: n, containerWidth: p } = i;
-  return u("div", { className: "uppy-Dashboard-Item-fileInfo", "data-uppy-file-source": e.source, children: [u("div", { className: "uppy-Dashboard-Item-fileName", children: [ru({
+  return u("div", { className: "uppy-Dashboard-Item-fileInfo", "data-uppy-file-source": e.source, children: [u("div", { className: "uppy-Dashboard-Item-fileName", children: [kp({
     file: e,
     isSingleFile: s,
     containerHeight: n,
     containerWidth: p
-  }), u(nu, { file: e, onClick: () => alert(e.error) })] }), u("div", { className: "uppy-Dashboard-Item-status", children: [au({ file: e }), ou({ file: e }), su({ file: e, toggleAddFilesPanel: o, i18n: t })] }), u(Zo, { file: e, i18n: t, toggleFileCard: r, metaFields: a })] });
+  }), u(Fp, { file: e, onClick: () => alert(e.error) })] }), u("div", { className: "uppy-Dashboard-Item-status", children: [Pp({ file: e }), Cp({ file: e }), Bp({ file: e, toggleAddFilesPanel: o, i18n: t })] }), u(Qo, { file: e, i18n: t, toggleFileCard: r, metaFields: a })] });
 }
-function pu(i) {
+function Tp(i) {
   const { file: e, i18n: t, toggleFileCard: r, metaFields: a, showLinkToFileUploadResult: o } = i, n = e.preview ? "rgba(255, 255, 255, 0.5)" : ar(e.type).color;
-  return u("div", { className: "uppy-Dashboard-Item-previewInnerWrap", style: { backgroundColor: n }, children: [o && e.uploadURL && u("a", { className: "uppy-Dashboard-Item-previewLink", href: e.uploadURL, rel: "noreferrer noopener", target: "_blank", "aria-label": e.meta.name, children: u("span", { hidden: !0, children: e.meta.name }) }), u(Yo, { file: e }), u(Zo, { file: e, i18n: t, toggleFileCard: r, metaFields: a })] });
+  return u("div", { className: "uppy-Dashboard-Item-previewInnerWrap", style: { backgroundColor: n }, children: [o && e.uploadURL && u("a", { className: "uppy-Dashboard-Item-previewLink", href: e.uploadURL, rel: "noreferrer noopener", target: "_blank", "aria-label": e.meta.name, children: u("span", { hidden: !0, children: e.meta.name }) }), u(Yo, { file: e }), u(Qo, { file: e, i18n: t, toggleFileCard: r, metaFields: a })] });
 }
-function du(i) {
+function Ep(i) {
   if (!i.isUploaded) {
     if (i.error && !i.hideRetryButton) {
       i.uppy.retryUpload(i.file.id);
@@ -4579,25 +4478,25 @@ function Pa(i) {
   return i.isUploaded ? i.i18n("uploadComplete") : i.error ? i.i18n("retryUpload") : i.resumableUploads ? i.file.isPaused ? i.i18n("resumeUpload") : i.i18n("pauseUpload") : i.individualCancellation ? i.i18n("cancelUpload") : "";
 }
 function yi(i) {
-  return u("div", { className: "uppy-Dashboard-Item-progress", children: u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-progressIndicator", type: "button", "aria-label": Pa(i), title: Pa(i), onClick: () => du(i), children: i.children }) });
+  return u("div", { className: "uppy-Dashboard-Item-progress", children: u("button", { className: "uppy-u-reset uppy-c-btn uppy-Dashboard-Item-progressIndicator", type: "button", "aria-label": Pa(i), title: Pa(i), onClick: () => Ep(i), children: i.children }) });
 }
-function Dt({ children: i }) {
+function St({ children: i }) {
   return u("svg", { "aria-hidden": "true", focusable: "false", width: "70", height: "70", viewBox: "0 0 36 36", className: "uppy-c-icon uppy-Dashboard-Item-progressIcon--circle", children: i });
 }
 function bi({ progress: i }) {
   const e = 2 * Math.PI * 15;
   return u("g", { children: [u("circle", { className: "uppy-Dashboard-Item-progressIcon--bg", r: "15", cx: "18", cy: "18", "stroke-width": "2", fill: "none" }), u("circle", { className: "uppy-Dashboard-Item-progressIcon--progress", r: "15", cx: "18", cy: "18", transform: "rotate(-90, 18, 18)", fill: "none", "stroke-width": "2", "stroke-dasharray": e, "stroke-dashoffset": e - e / 100 * i })] });
 }
-function uu(i) {
-  return !i.file.progress.uploadStarted || i.file.progress.percentage === void 0 ? null : i.isUploaded ? u("div", { className: "uppy-Dashboard-Item-progress", children: u("div", { className: "uppy-Dashboard-Item-progressIndicator", children: u(Dt, { children: [u("circle", { r: "15", cx: "18", cy: "18", fill: "#1bb240" }), u("polygon", { className: "uppy-Dashboard-Item-progressIcon--check", transform: "translate(2, 3)", points: "14 22.5 7 15.2457065 8.99985857 13.1732815 14 18.3547104 22.9729883 9 25 11.1005634" })] }) }) }) : i.recoveredState ? null : i.error && !i.hideRetryButton ? u(yi, { ...i, children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon uppy-Dashboard-Item-progressIcon--retry", width: "28", height: "31", viewBox: "0 0 16 19", children: [u("path", { d: "M16 11a8 8 0 1 1-8-8v2a6 6 0 1 0 6 6h2z" }), u("path", { d: "M7.9 3H10v2H7.9z" }), u("path", { d: "M8.536.5l3.535 3.536-1.414 1.414L7.12 1.914z" }), u("path", { d: "M10.657 2.621l1.414 1.415L8.536 7.57 7.12 6.157z" })] }) }) : i.resumableUploads && !i.hidePauseResumeButton ? u(yi, { ...i, children: u(Dt, { children: [u(bi, { progress: i.file.progress.percentage }), i.file.isPaused ? u("polygon", { className: "uppy-Dashboard-Item-progressIcon--play", transform: "translate(3, 3)", points: "12 20 12 10 20 15" }) : u("g", { className: "uppy-Dashboard-Item-progressIcon--pause", transform: "translate(14.5, 13)", children: [u("rect", { x: "0", y: "0", width: "2", height: "10", rx: "0" }), u("rect", { x: "5", y: "0", width: "2", height: "10", rx: "0" })] })] }) }) : !i.resumableUploads && i.individualCancellation && !i.hideCancelButton ? u(yi, { ...i, children: u(Dt, { children: [u(bi, { progress: i.file.progress.percentage }), u("polygon", { className: "cancel", transform: "translate(2, 2)", points: "19.8856516 11.0625 16 14.9481516 12.1019737 11.0625 11.0625 12.1143484 14.9481516 16 11.0625 19.8980263 12.1019737 20.9375 16 17.0518484 19.8856516 20.9375 20.9375 19.8980263 17.0518484 16 20.9375 12" })] }) }) : u("div", { className: "uppy-Dashboard-Item-progress", children: u("div", { className: "uppy-Dashboard-Item-progressIndicator", children: u(Dt, { children: u(bi, { progress: i.file.progress.percentage }) }) }) });
+function Ap(i) {
+  return !i.file.progress.uploadStarted || i.file.progress.percentage === void 0 ? null : i.isUploaded ? u("div", { className: "uppy-Dashboard-Item-progress", children: u("div", { className: "uppy-Dashboard-Item-progressIndicator", children: u(St, { children: [u("circle", { r: "15", cx: "18", cy: "18", fill: "#1bb240" }), u("polygon", { className: "uppy-Dashboard-Item-progressIcon--check", transform: "translate(2, 3)", points: "14 22.5 7 15.2457065 8.99985857 13.1732815 14 18.3547104 22.9729883 9 25 11.1005634" })] }) }) }) : i.recoveredState ? null : i.error && !i.hideRetryButton ? u(yi, { ...i, children: u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon uppy-Dashboard-Item-progressIcon--retry", width: "28", height: "31", viewBox: "0 0 16 19", children: [u("path", { d: "M16 11a8 8 0 1 1-8-8v2a6 6 0 1 0 6 6h2z" }), u("path", { d: "M7.9 3H10v2H7.9z" }), u("path", { d: "M8.536.5l3.535 3.536-1.414 1.414L7.12 1.914z" }), u("path", { d: "M10.657 2.621l1.414 1.415L8.536 7.57 7.12 6.157z" })] }) }) : i.resumableUploads && !i.hidePauseResumeButton ? u(yi, { ...i, children: u(St, { children: [u(bi, { progress: i.file.progress.percentage }), i.file.isPaused ? u("polygon", { className: "uppy-Dashboard-Item-progressIcon--play", transform: "translate(3, 3)", points: "12 20 12 10 20 15" }) : u("g", { className: "uppy-Dashboard-Item-progressIcon--pause", transform: "translate(14.5, 13)", children: [u("rect", { x: "0", y: "0", width: "2", height: "10", rx: "0" }), u("rect", { x: "5", y: "0", width: "2", height: "10", rx: "0" })] })] }) }) : !i.resumableUploads && i.individualCancellation && !i.hideCancelButton ? u(yi, { ...i, children: u(St, { children: [u(bi, { progress: i.file.progress.percentage }), u("polygon", { className: "cancel", transform: "translate(2, 2)", points: "19.8856516 11.0625 16 14.9481516 12.1019737 11.0625 11.0625 12.1143484 14.9481516 16 11.0625 19.8980263 12.1019737 20.9375 16 17.0518484 19.8856516 20.9375 20.9375 19.8980263 17.0518484 16 20.9375 12" })] }) }) : u("div", { className: "uppy-Dashboard-Item-progress", children: u("div", { className: "uppy-Dashboard-Item-progressIndicator", children: u(St, { children: u(bi, { progress: i.file.progress.percentage }) }) }) });
 }
-class cu extends X {
+class Op extends X {
   componentDidMount() {
     const { file: e } = this.props;
     e.preview || this.props.handleRequestThumbnail(e);
   }
   shouldComponentUpdate(e) {
-    return !Kd(this.props, e);
+    return !bp(this.props, e);
   }
   // VirtualList mounts FileItems again and they emit `thumbnail:request`
   // Otherwise thumbnails are broken or missing after Golden Retriever restores files
@@ -4623,32 +4522,32 @@ class cu extends X {
       "is-noIndividualCancellation": !this.props.individualCancellation,
       "is-ghost": n
     });
-    return u("div", { className: l, id: `uppy_${e.id}`, role: this.props.role, children: [u("div", { className: "uppy-Dashboard-Item-preview", children: [u(pu, { file: e, showLinkToFileUploadResult: this.props.showLinkToFileUploadResult, i18n: this.props.i18n, toggleFileCard: this.props.toggleFileCard, metaFields: this.props.metaFields }), u(uu, { uppy: this.props.uppy, file: e, error: s, isUploaded: r, hideRetryButton: this.props.hideRetryButton, hideCancelButton: this.props.hideCancelButton, hidePauseResumeButton: this.props.hidePauseResumeButton, recoveredState: this.props.recoveredState, resumableUploads: this.props.resumableUploads, individualCancellation: this.props.individualCancellation, i18n: this.props.i18n })] }), u("div", { className: "uppy-Dashboard-Item-fileInfoAndButtons", children: [u(lu, { file: e, containerWidth: this.props.containerWidth, containerHeight: this.props.containerHeight, i18n: this.props.i18n, toggleAddFilesPanel: this.props.toggleAddFilesPanel, toggleFileCard: this.props.toggleFileCard, metaFields: this.props.metaFields, isSingleFile: this.props.isSingleFile }), u(tu, { file: e, metaFields: this.props.metaFields, showLinkToFileUploadResult: this.props.showLinkToFileUploadResult, showRemoveButton: p, canEditFile: this.props.canEditFile, uploadInProgressOrComplete: a, toggleFileCard: this.props.toggleFileCard, openFileEditor: this.props.openFileEditor, uppy: this.props.uppy, i18n: this.props.i18n })] })] });
+    return u("div", { className: l, id: `uppy_${e.id}`, role: this.props.role, children: [u("div", { className: "uppy-Dashboard-Item-preview", children: [u(Tp, { file: e, showLinkToFileUploadResult: this.props.showLinkToFileUploadResult, i18n: this.props.i18n, toggleFileCard: this.props.toggleFileCard, metaFields: this.props.metaFields }), u(Ap, { uppy: this.props.uppy, file: e, error: s, isUploaded: r, hideRetryButton: this.props.hideRetryButton, hideCancelButton: this.props.hideCancelButton, hidePauseResumeButton: this.props.hidePauseResumeButton, recoveredState: this.props.recoveredState, resumableUploads: this.props.resumableUploads, individualCancellation: this.props.individualCancellation, i18n: this.props.i18n })] }), u("div", { className: "uppy-Dashboard-Item-fileInfoAndButtons", children: [u(Ip, { file: e, containerWidth: this.props.containerWidth, containerHeight: this.props.containerHeight, i18n: this.props.i18n, toggleAddFilesPanel: this.props.toggleAddFilesPanel, toggleFileCard: this.props.toggleFileCard, metaFields: this.props.metaFields, isSingleFile: this.props.isSingleFile }), u(Sp, { file: e, metaFields: this.props.metaFields, showLinkToFileUploadResult: this.props.showLinkToFileUploadResult, showRemoveButton: p, canEditFile: this.props.canEditFile, uploadInProgressOrComplete: a, toggleFileCard: this.props.toggleFileCard, openFileEditor: this.props.openFileEditor, uppy: this.props.uppy, i18n: this.props.i18n })] })] });
   }
 }
-function hu(i, e) {
+function Mp(i, e) {
   const t = [];
   let r = [];
   return i.forEach((a) => {
     r.length < e ? r.push(a) : (t.push(r), r = [a]);
   }), r.length && t.push(r), t;
 }
-function fu({ id: i, i18n: e, uppy: t, files: r, resumableUploads: a, hideRetryButton: o, hidePauseResumeButton: s, hideCancelButton: n, showLinkToFileUploadResult: p, showRemoveButtonAfterComplete: l, metaFields: c, isSingleFile: d, toggleFileCard: h, handleRequestThumbnail: m, handleCancelThumbnail: f, recoveredState: y, individualCancellation: b, itemsPerRow: v, openFileEditor: x, canEditFile: _, toggleAddFilesPanel: C, containerWidth: B, containerHeight: g }) {
-  const D = v === 1 ? (
+function zp({ id: i, i18n: e, uppy: t, files: r, resumableUploads: a, hideRetryButton: o, hidePauseResumeButton: s, hideCancelButton: n, showLinkToFileUploadResult: p, showRemoveButtonAfterComplete: l, metaFields: h, isSingleFile: d, toggleFileCard: c, handleRequestThumbnail: m, handleCancelThumbnail: f, recoveredState: y, individualCancellation: b, itemsPerRow: v, openFileEditor: x, canEditFile: _, toggleAddFilesPanel: C, containerWidth: B, containerHeight: g }) {
+  const S = v === 1 ? (
     // Mobile
     71
   ) : (
     // 190px height + 2 * 5px margin
     200
-  ), k = Yi(() => {
-    const O = (M, F) => Number(r[F].isGhost) - Number(r[M].isGhost), T = Object.keys(r);
-    return y && T.sort(O), hu(T, v);
-  }, [r, v, y]), S = (O) => u("div", {
+  ), D = Yi(() => {
+    const O = (M, I) => Number(r[I].isGhost) - Number(r[M].isGhost), T = Object.keys(r);
+    return y && T.sort(O), Mp(T, v);
+  }, [r, v, y]), k = (O) => u("div", {
     class: "uppy-Dashboard-filesInner",
     // The `role="presentation` attribute ensures that the list items are properly
     // associated with the `VirtualList` element.
     role: "presentation",
-    children: O.map((T) => u(cu, {
+    children: O.map((T) => u(Op, {
       uppy: t,
       // FIXME This is confusing, it's actually the Dashboard's plugin ID
       id: i,
@@ -4663,13 +4562,13 @@ function fu({ id: i, i18n: e, uppy: t, files: r, resumableUploads: a, hideRetryB
       hideCancelButton: n,
       showLinkToFileUploadResult: p,
       showRemoveButtonAfterComplete: l,
-      metaFields: c,
+      metaFields: h,
       recoveredState: y,
       isSingleFile: d,
       containerWidth: B,
       containerHeight: g,
       // callbacks
-      toggleFileCard: h,
+      toggleFileCard: c,
       handleRequestThumbnail: m,
       handleCancelThumbnail: f,
       role: "listitem",
@@ -4679,10 +4578,10 @@ function fu({ id: i, i18n: e, uppy: t, files: r, resumableUploads: a, hideRetryB
       file: r[T]
     }, T))
   }, O[0]);
-  return d ? u("div", { class: "uppy-Dashboard-files", children: S(k[0]) }) : u(jl, { class: "uppy-Dashboard-files", role: "list", data: k, renderRow: S, rowHeight: D });
+  return d ? u("div", { class: "uppy-Dashboard-files", children: k(D[0]) }) : u(tl, { class: "uppy-Dashboard-files", role: "list", data: D, renderRow: k, rowHeight: S });
 }
-function mu({ activePickerPanel: i, className: e, hideAllPanels: t, i18n: r, state: a, uppy: o }) {
-  const s = Ft(null);
+function Rp({ activePickerPanel: i, className: e, hideAllPanels: t, i18n: r, state: a, uppy: o }) {
+  const s = It(null);
   return u("div", { className: ae("uppy-DashboardContent-panel", e), role: "tabpanel", "data-uppy-panelType": "PickerPanel", id: `uppy-DashboardContent-panel--${i.id}`, onDragOver: ge, onDragLeave: ge, onDrop: ge, onPaste: ge, children: [u("div", { className: "uppy-DashboardContent-bar", children: [u("div", {
     className: "uppy-DashboardContent-title",
     // biome-ignore lint/a11y/useSemanticElements: ...
@@ -4700,7 +4599,7 @@ const se = {
   STATE_COMPLETE: "complete",
   STATE_PAUSED: "paused"
 };
-function gu(i, e, t, r = {}) {
+function Np(i, e, t, r = {}) {
   if (i)
     return se.STATE_ERROR;
   if (e)
@@ -4717,8 +4616,8 @@ function gu(i, e, t, r = {}) {
   }
   return a;
 }
-function yu({ files: i, i18n: e, isAllComplete: t, isAllErrored: r, isAllPaused: a, inProgressNotPausedFiles: o, newFiles: s, processingFiles: n }) {
-  switch (gu(r, t, a, i)) {
+function Up({ files: i, i18n: e, isAllComplete: t, isAllErrored: r, isAllPaused: a, inProgressNotPausedFiles: o, newFiles: s, processingFiles: n }) {
+  switch (Np(r, t, a, i)) {
     case "uploading":
       return e("uploadingXFiles", {
         smart_count: o.length
@@ -4736,14 +4635,14 @@ function yu({ files: i, i18n: e, isAllComplete: t, isAllErrored: r, isAllPaused:
       return e("error");
   }
 }
-function bu(i) {
+function Lp(i) {
   const { i18n: e, isAllComplete: t, hideCancelButton: r, maxNumberOfFiles: a, toggleAddFilesPanel: o, uppy: s } = i;
   let { allowNewUpload: n } = i;
-  return n && a && (n = i.totalFileCount < i.maxNumberOfFiles), u("div", { className: "uppy-DashboardContent-bar", children: [!t && !r ? u("button", { className: "uppy-DashboardContent-back", type: "button", onClick: () => s.cancelAll(), children: e("cancel") }) : u("div", {}), u("div", { className: "uppy-DashboardContent-title", children: u(yu, { ...i }) }), n ? u("button", { className: "uppy-DashboardContent-addMore", type: "button", "aria-label": e("addMoreFiles"), title: e("addMoreFiles"), onClick: () => o(!0), children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "15", height: "15", viewBox: "0 0 15 15", children: u("path", { d: "M8 6.5h6a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5H8v6a.5.5 0 0 1-.5.5H7a.5.5 0 0 1-.5-.5V8h-6a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h6v-6A.5.5 0 0 1 7 0h.5a.5.5 0 0 1 .5.5v6z" }) }), u("span", { className: "uppy-DashboardContent-addMoreCaption", children: e("addMore") })] }) : u("div", {})] });
+  return n && a && (n = i.totalFileCount < i.maxNumberOfFiles), u("div", { className: "uppy-DashboardContent-bar", children: [!t && !r ? u("button", { className: "uppy-DashboardContent-back", type: "button", onClick: () => s.cancelAll(), children: e("cancel") }) : u("div", {}), u("div", { className: "uppy-DashboardContent-title", children: u(Up, { ...i }) }), n ? u("button", { className: "uppy-DashboardContent-addMore", type: "button", "aria-label": e("addMoreFiles"), title: e("addMoreFiles"), onClick: () => o(!0), children: [u("svg", { "aria-hidden": "true", focusable: "false", className: "uppy-c-icon", width: "15", height: "15", viewBox: "0 0 15 15", children: u("path", { d: "M8 6.5h6a.5.5 0 0 1 .5.5v.5a.5.5 0 0 1-.5.5H8v6a.5.5 0 0 1-.5.5H7a.5.5 0 0 1-.5-.5V8h-6a.5.5 0 0 1-.5-.5V7a.5.5 0 0 1 .5-.5h6v-6A.5.5 0 0 1 7 0h.5a.5.5 0 0 1 .5.5v6z" }) }), u("span", { className: "uppy-DashboardContent-addMoreCaption", children: e("addMore") })] }) : u("div", {})] });
 }
 const Ee = "uppy-transition-slideDownUp", Ca = 250;
-function kt({ children: i }) {
-  const [e, t] = At(null), [r, a] = At(""), o = Ft(), s = Ft(), n = Ft(), p = () => {
+function Dt({ children: i }) {
+  const [e, t] = At(null), [r, a] = At(""), o = It(), s = It(), n = It(), p = () => {
     a(`${Ee}-enter`), cancelAnimationFrame(n.current), clearTimeout(s.current), s.current = void 0, n.current = requestAnimationFrame(() => {
       a(`${Ee}-enter ${Ee}-enter-active`), o.current = setTimeout(() => {
         a("");
@@ -4757,17 +4656,17 @@ function kt({ children: i }) {
     });
   };
   return Pi(() => {
-    const c = te(i)[0];
-    e !== c && (c && !e ? p() : e && !c && !s.current && l(), t(c));
+    const h = te(i)[0];
+    e !== h && (h && !e ? p() : e && !h && !s.current && l(), t(h));
   }, [i, e]), Pi(() => () => {
     clearTimeout(o.current), clearTimeout(s.current), cancelAnimationFrame(n.current);
-  }, []), e ? Do(e, {
+  }, []), e ? So(e, {
     className: ae(r, e.props.className)
   }) : null;
 }
-const Ba = 900, Ia = 700, vi = 576, Fa = 330;
-function vu(i) {
-  const e = i.totalFileCount === 0, t = i.totalFileCount === 1, r = i.containerWidth > vi, a = i.containerHeight > Fa, o = ae({
+const Ba = 900, Fa = 700, vi = 576, Ia = 330;
+function $p(i) {
+  const e = i.totalFileCount === 0, t = i.totalFileCount === 1, r = i.containerWidth > vi, a = i.containerHeight > Ia, o = ae({
     "uppy-Dashboard": !0,
     "uppy-Dashboard--isDisabled": i.disabled,
     "uppy-Dashboard--animateOpenClose": i.animateOpenClose,
@@ -4775,9 +4674,9 @@ function vu(i) {
     "uppy-Dashboard--isDraggingOver": i.isDraggingOver,
     "uppy-Dashboard--modal": !i.inline,
     "uppy-size--md": i.containerWidth > vi,
-    "uppy-size--lg": i.containerWidth > Ia,
+    "uppy-size--lg": i.containerWidth > Fa,
     "uppy-size--xl": i.containerWidth > Ba,
-    "uppy-size--height-md": i.containerHeight > Fa,
+    "uppy-size--height-md": i.containerHeight > Ia,
     // We might want to enable this in the future
     // 'uppy-size--height-lg': props.containerHeight > HEIGHT_LG,
     // 'uppy-size--height-xl': props.containerHeight > HEIGHT_XL,
@@ -4787,19 +4686,19 @@ function vu(i) {
     "uppy-Dashboard--singleFile": i.singleFileFullScreen && t && a
   });
   let s = 1;
-  i.containerWidth > Ba ? s = 5 : i.containerWidth > Ia ? s = 4 : i.containerWidth > vi && (s = 3);
-  const n = i.showSelectedFiles && !e, p = i.recoveredState ? Object.keys(i.recoveredState.files).length : null, l = i.files ? Object.keys(i.files).filter((h) => i.files[h].isGhost).length : 0, c = () => l > 0 ? i.i18n("recoveredXFiles", {
+  i.containerWidth > Ba ? s = 5 : i.containerWidth > Fa ? s = 4 : i.containerWidth > vi && (s = 3);
+  const n = i.showSelectedFiles && !e, p = i.recoveredState ? Object.keys(i.recoveredState.files).length : null, l = i.files ? Object.keys(i.files).filter((c) => i.files[c].isGhost).length : 0, h = () => l > 0 ? i.i18n("recoveredXFiles", {
     smart_count: l
   }) : i.i18n("recoveredAllFiles");
   return (
     // biome-ignore lint/a11y/useAriaPropsSupportedByRole: ...
-    u("div", { className: o, "data-uppy-theme": i.theme, "data-uppy-num-acquirers": i.acquirers.length, "data-uppy-drag-drop-supported": !i.disableLocalFiles && Nd(), "aria-hidden": i.inline ? "false" : i.isHidden, "aria-disabled": i.disabled, "aria-label": i.inline ? i.i18n("dashboardTitle") : i.i18n("dashboardWindowTitle"), onPaste: i.handlePaste, onDragOver: i.handleDragOver, onDragLeave: i.handleDragLeave, onDrop: i.handleDrop, children: [u("div", { "aria-hidden": "true", className: "uppy-Dashboard-overlay", tabIndex: -1, onClick: i.handleClickOutside }), u("div", { className: "uppy-Dashboard-inner", role: i.inline ? void 0 : "dialog", style: {
+    u("div", { className: o, "data-uppy-theme": i.theme, "data-uppy-num-acquirers": i.acquirers.length, "data-uppy-drag-drop-supported": !i.disableLocalFiles && sp(), "aria-hidden": i.inline ? "false" : i.isHidden, "aria-disabled": i.disabled, "aria-label": i.inline ? i.i18n("dashboardTitle") : i.i18n("dashboardWindowTitle"), onPaste: i.handlePaste, onDragOver: i.handleDragOver, onDragLeave: i.handleDragLeave, onDrop: i.handleDrop, children: [u("div", { "aria-hidden": "true", className: "uppy-Dashboard-overlay", tabIndex: -1, onClick: i.handleClickOutside }), u("div", { className: "uppy-Dashboard-inner", role: i.inline ? void 0 : "dialog", style: {
       width: i.inline && i.width ? i.width : "",
       height: i.inline && i.height ? i.height : ""
-    }, children: [i.inline ? null : u("button", { className: "uppy-u-reset uppy-Dashboard-close", type: "button", "aria-label": i.i18n("closeModal"), title: i.i18n("closeModal"), onClick: i.closeModal, children: u("span", { "aria-hidden": "true", children: "×" }) }), u("div", { className: "uppy-Dashboard-innerWrap", children: [u("div", { className: "uppy-Dashboard-dropFilesHereHint", children: i.i18n("dropHint") }), n && u(bu, { ...i }), p && u("div", { className: "uppy-Dashboard-serviceMsg", children: [u("svg", { className: "uppy-Dashboard-serviceMsg-icon", "aria-hidden": "true", focusable: "false", width: "21", height: "16", viewBox: "0 0 24 19", children: u("g", { transform: "translate(0 -1)", fill: "none", fillRule: "evenodd", children: [u("path", { d: "M12.857 1.43l10.234 17.056A1 1 0 0122.234 20H1.766a1 1 0 01-.857-1.514L11.143 1.429a1 1 0 011.714 0z", fill: "#FFD300" }), u("path", { fill: "#000", d: "M11 6h2l-.3 8h-1.4z" }), u("circle", { fill: "#000", cx: "12", cy: "17", r: "1" })] }) }), u("strong", { className: "uppy-Dashboard-serviceMsg-title", children: i.i18n("sessionRestored") }), u("div", { className: "uppy-Dashboard-serviceMsg-text", children: c() })] }), n ? u(fu, { id: i.id, i18n: i.i18n, uppy: i.uppy, files: i.files, resumableUploads: i.resumableUploads, hideRetryButton: i.hideRetryButton, hidePauseResumeButton: i.hidePauseResumeButton, hideCancelButton: i.hideCancelButton, showLinkToFileUploadResult: i.showLinkToFileUploadResult, showRemoveButtonAfterComplete: i.showRemoveButtonAfterComplete, metaFields: i.metaFields, toggleFileCard: i.toggleFileCard, handleRequestThumbnail: i.handleRequestThumbnail, handleCancelThumbnail: i.handleCancelThumbnail, recoveredState: i.recoveredState, individualCancellation: i.individualCancellation, openFileEditor: i.openFileEditor, canEditFile: i.canEditFile, toggleAddFilesPanel: i.toggleAddFilesPanel, isSingleFile: t, itemsPerRow: s, containerWidth: i.containerWidth, containerHeight: i.containerHeight }) : u(Xo, { i18n: i.i18n, i18nArray: i.i18nArray, acquirers: i.acquirers, handleInputChange: i.handleInputChange, maxNumberOfFiles: i.maxNumberOfFiles, allowedFileTypes: i.allowedFileTypes, showNativePhotoCameraButton: i.showNativePhotoCameraButton, showNativeVideoCameraButton: i.showNativeVideoCameraButton, nativeCameraFacingMode: i.nativeCameraFacingMode, showPanel: i.showPanel, activePickerPanel: i.activePickerPanel, disableLocalFiles: i.disableLocalFiles, fileManagerSelectionType: i.fileManagerSelectionType, note: i.note, proudlyDisplayPoweredByUppy: i.proudlyDisplayPoweredByUppy }), u(kt, { children: i.showAddFilesPanel ? u(Ud, { ...i, isSizeMD: r }, "AddFiles") : null }), u(kt, { children: i.fileCardFor ? u(Yd, { ...i }, "FileCard") : null }), u(kt, { children: i.activePickerPanel ? u(mu, { ...i }, "Picker") : null }), u(kt, { children: i.showFileEditor ? u($d, { ...i }, "Editor") : null }), u("div", { className: "uppy-Dashboard-progressindicators", children: i.progressindicators.map((h) => i.uppy.getPlugin(h.id).render(i.state)) })] })] })] })
+    }, children: [i.inline ? null : u("button", { className: "uppy-u-reset uppy-Dashboard-close", type: "button", "aria-label": i.i18n("closeModal"), title: i.i18n("closeModal"), onClick: i.closeModal, children: u("span", { "aria-hidden": "true", children: "×" }) }), u("div", { className: "uppy-Dashboard-innerWrap", children: [u("div", { className: "uppy-Dashboard-dropFilesHereHint", children: i.i18n("dropHint") }), n && u(Lp, { ...i }), p && u("div", { className: "uppy-Dashboard-serviceMsg", children: [u("svg", { className: "uppy-Dashboard-serviceMsg-icon", "aria-hidden": "true", focusable: "false", width: "21", height: "16", viewBox: "0 0 24 19", children: u("g", { transform: "translate(0 -1)", fill: "none", fillRule: "evenodd", children: [u("path", { d: "M12.857 1.43l10.234 17.056A1 1 0 0122.234 20H1.766a1 1 0 01-.857-1.514L11.143 1.429a1 1 0 011.714 0z", fill: "#FFD300" }), u("path", { fill: "#000", d: "M11 6h2l-.3 8h-1.4z" }), u("circle", { fill: "#000", cx: "12", cy: "17", r: "1" })] }) }), u("strong", { className: "uppy-Dashboard-serviceMsg-title", children: i.i18n("sessionRestored") }), u("div", { className: "uppy-Dashboard-serviceMsg-text", children: h() })] }), n ? u(zp, { id: i.id, i18n: i.i18n, uppy: i.uppy, files: i.files, resumableUploads: i.resumableUploads, hideRetryButton: i.hideRetryButton, hidePauseResumeButton: i.hidePauseResumeButton, hideCancelButton: i.hideCancelButton, showLinkToFileUploadResult: i.showLinkToFileUploadResult, showRemoveButtonAfterComplete: i.showRemoveButtonAfterComplete, metaFields: i.metaFields, toggleFileCard: i.toggleFileCard, handleRequestThumbnail: i.handleRequestThumbnail, handleCancelThumbnail: i.handleCancelThumbnail, recoveredState: i.recoveredState, individualCancellation: i.individualCancellation, openFileEditor: i.openFileEditor, canEditFile: i.canEditFile, toggleAddFilesPanel: i.toggleAddFilesPanel, isSingleFile: t, itemsPerRow: s, containerWidth: i.containerWidth, containerHeight: i.containerHeight }) : u(Xo, { i18n: i.i18n, i18nArray: i.i18nArray, acquirers: i.acquirers, handleInputChange: i.handleInputChange, maxNumberOfFiles: i.maxNumberOfFiles, allowedFileTypes: i.allowedFileTypes, showNativePhotoCameraButton: i.showNativePhotoCameraButton, showNativeVideoCameraButton: i.showNativeVideoCameraButton, nativeCameraFacingMode: i.nativeCameraFacingMode, showPanel: i.showPanel, activePickerPanel: i.activePickerPanel, disableLocalFiles: i.disableLocalFiles, fileManagerSelectionType: i.fileManagerSelectionType, note: i.note, proudlyDisplayPoweredByUppy: i.proudlyDisplayPoweredByUppy }), u(Dt, { children: i.showAddFilesPanel ? u(np, { ...i, isSizeMD: r }, "AddFiles") : null }), u(Dt, { children: i.fileCardFor ? u(yp, { ...i }, "FileCard") : null }), u(Dt, { children: i.activePickerPanel ? u(Rp, { ...i }, "Picker") : null }), u(Dt, { children: i.showFileEditor ? u(lp, { ...i }, "Editor") : null }), u("div", { className: "uppy-Dashboard-progressindicators", children: i.progressindicators.map((c) => i.uppy.getPlugin(c.id).render(i.state)) })] })] })] })
   );
 }
-const wu = {
+const Hp = {
   strings: {
     // When `inline: false`, used as the screen reader label for the button that closes the modal.
     closeModal: "Close Modal",
@@ -4891,7 +4790,7 @@ const wu = {
     takePictureBtn: "Take Picture",
     recordVideoBtn: "Record Video"
   }
-}, Qo = [
+}, Zo = [
   'a[href]:not([tabindex^="-"]):not([inert]):not([aria-hidden])',
   'area[href]:not([tabindex^="-"]):not([inert]):not([aria-hidden])',
   "input:not([disabled]):not([inert]):not([aria-hidden])",
@@ -4904,8 +4803,8 @@ const wu = {
   '[contenteditable]:not([tabindex^="-"]):not([inert]):not([aria-hidden])',
   '[tabindex]:not([tabindex^="-"]):not([inert]):not([aria-hidden])'
 ];
-var xu = Ao();
-const _u = /* @__PURE__ */ $e(xu);
+var jp = Ao();
+const qp = /* @__PURE__ */ Le(jp);
 function Jo(i, e) {
   if (e) {
     const t = i.querySelector(`[data-uppy-paneltype="${e}"]`);
@@ -4914,48 +4813,48 @@ function Jo(i, e) {
   }
   return i;
 }
-function Du() {
+function Wp() {
   let i = !1;
-  return _u((t, r) => {
+  return qp((t, r) => {
     const a = Jo(t, r), o = a.contains(document.activeElement);
     if (o && i)
       return;
     const s = a.querySelector("[data-uppy-super-focusable]");
-    o && !s || (s ? (s.focus({ preventScroll: !0 }), i = !0) : (a.querySelector(Qo)?.focus({ preventScroll: !0 }), i = !1));
+    o && !s || (s ? (s.focus({ preventScroll: !0 }), i = !0) : (a.querySelector(Zo)?.focus({ preventScroll: !0 }), i = !1));
   }, 260);
 }
 function Ta(i, e) {
   const t = e[0];
   t && (t.focus(), i.preventDefault());
 }
-function ku(i, e) {
+function Vp(i, e) {
   const t = e[e.length - 1];
   t && (t.focus(), i.preventDefault());
 }
-function Su(i) {
+function Gp(i) {
   return i.contains(document.activeElement);
 }
 function es(i, e, t) {
-  const r = Jo(t, e), a = et(r.querySelectorAll(Qo)), o = a.indexOf(document.activeElement);
-  Su(r) ? i.shiftKey && o === 0 ? ku(i, a) : !i.shiftKey && o === a.length - 1 && Ta(i, a) : Ta(i, a);
+  const r = Jo(t, e), a = et(r.querySelectorAll(Zo)), o = a.indexOf(document.activeElement);
+  Gp(r) ? i.shiftKey && o === 0 ? Vp(i, a) : !i.shiftKey && o === a.length - 1 && Ta(i, a) : Ta(i, a);
 }
-function Pu(i, e, t) {
+function Xp(i, e, t) {
   e === null || es(i, e, t);
 }
-const Ea = 9, Cu = 27;
+const Ea = 9, Yp = 27;
 function Aa() {
   const i = {};
   return i.promise = new Promise((e, t) => {
     i.resolve = e, i.reject = t;
   }), i;
 }
-const Bu = {
+const Kp = {
   target: "body",
   metaFields: [],
   thumbnailWidth: 280,
   thumbnailType: "image/jpeg",
   waitForThumbnailsBeforeUpload: !1,
-  defaultPickerIcon: ql,
+  defaultPickerIcon: il,
   showLinkToFileUploadResult: !1,
   showProgressDetails: !1,
   hideUploadButton: !1,
@@ -5004,10 +4903,10 @@ const Bu = {
   height: 550
 };
 class Oa extends ve {
-  static VERSION = Rd.version;
+  static VERSION = op.version;
   #e;
-  modalName = `uppy-Dashboard-${Zi()}`;
-  superFocus = Du();
+  modalName = `uppy-Dashboard-${Qi()}`;
+  superFocus = Wp();
   ifFocusedOnUppyRecently = !1;
   dashboardIsDisabled;
   savedScrollPosition;
@@ -5018,7 +4917,7 @@ class Oa extends ve {
   makeDashboardInsidesVisibleAnywayTimeout;
   constructor(e, t) {
     const r = t?.autoOpen ?? null;
-    super(e, { ...Bu, ...t, autoOpen: r }), this.id = this.opts.id || "Dashboard", this.title = "Dashboard", this.type = "orchestrator", this.defaultLocale = wu, this.opts.doneButtonHandler === void 0 && (this.opts.doneButtonHandler = () => {
+    super(e, { ...Kp, ...t, autoOpen: r }), this.id = this.opts.id || "Dashboard", this.title = "Dashboard", this.type = "orchestrator", this.defaultLocale = Hp, this.opts.doneButtonHandler === void 0 && (this.opts.doneButtonHandler = () => {
       this.uppy.clear(), this.requestCloseModal();
     }), this.opts.onRequestCloseModal ??= () => this.closeModal(), this.i18nInit();
   }
@@ -5227,7 +5126,7 @@ class Oa extends ve {
     this.isModalOpen() && (!e.state || !e.state[this.modalName]) && this.closeModal({ manualClose: !1 }), !this.isModalOpen() && e.state?.[this.modalName] && history.back();
   };
   handleKeyDownInModal = (e) => {
-    e.keyCode === Cu && this.requestCloseModal(), e.keyCode === Ea && es(e, this.getPluginState().activeOverlayType, this.el);
+    e.keyCode === Yp && this.requestCloseModal(), e.keyCode === Ea && es(e, this.getPluginState().activeOverlayType, this.el);
   };
   handleClickOutside = () => {
     this.opts.closeModalOnClickOutside && this.requestCloseModal();
@@ -5275,7 +5174,7 @@ class Oa extends ve {
       this.uppy.log(o, "error"), t || (this.uppy.info(o.message, "error"), t = !0);
     };
     this.uppy.log("[Dashboard] Processing dropped files");
-    const a = await wd(e.dataTransfer, { logDropError: r });
+    const a = await rp(e.dataTransfer, { logDropError: r });
     a.length > 0 && (this.uppy.log("[Dashboard] Files dropped"), this.addFiles(a)), this.opts.onDrop(e);
   };
   handleRequestThumbnail = (e) => {
@@ -5289,7 +5188,7 @@ class Oa extends ve {
     this.opts.waitForThumbnailsBeforeUpload || this.uppy.emit("thumbnail:cancel", e);
   };
   handleKeyDownInInline = (e) => {
-    e.keyCode === Ea && Pu(e, this.getPluginState().activeOverlayType, this.el);
+    e.keyCode === Ea && Xp(e, this.getPluginState().activeOverlayType, this.el);
   };
   // ___Why do we listen to the 'paste' event on a document instead of onPaste={props.handlePaste} prop,
   //    or this.el.addEventListener('paste')?
@@ -5330,13 +5229,13 @@ class Oa extends ve {
   };
   initEvents = () => {
     if (this.opts.trigger && !this.opts.inline) {
-      const e = Sa(this.opts.trigger);
+      const e = ka(this.opts.trigger);
       e ? e.forEach((t) => t.addEventListener("click", this.openModal)) : this.uppy.log("Dashboard modal trigger not found. Make sure `trigger` is set in Dashboard options, unless you are planning to call `dashboard.openModal()` method yourself", "warning");
     }
     this.startListeningToResize(), document.addEventListener("paste", this.handlePasteOnBody), this.uppy.on("plugin-added", this.#p), this.uppy.on("plugin-remove", this.removeTarget), this.uppy.on("file-added", this.hideAllPanels), this.uppy.on("dashboard:modal-closed", this.hideAllPanels), this.uppy.on("complete", this.handleComplete), this.uppy.on("files-added", this.#t), this.uppy.on("file-removed", this.#t), document.addEventListener("focus", this.recordIfFocusedOnUppyRecently, !0), document.addEventListener("click", this.recordIfFocusedOnUppyRecently, !0), this.opts.inline && this.el.addEventListener("keydown", this.handleKeyDownInInline), this.opts.autoOpen && this.uppy.on("files-added", this.#r);
   };
   removeEvents = () => {
-    const e = Sa(this.opts.trigger);
+    const e = ka(this.opts.trigger);
     !this.opts.inline && e && e.forEach((t) => t.removeEventListener("click", this.openModal)), this.stopListeningToResize(), document.removeEventListener("paste", this.handlePasteOnBody), window.removeEventListener("popstate", this.handlePopState, !1), this.uppy.off("plugin-added", this.#p), this.uppy.off("plugin-remove", this.removeTarget), this.uppy.off("file-added", this.hideAllPanels), this.uppy.off("dashboard:modal-closed", this.hideAllPanels), this.uppy.off("complete", this.handleComplete), this.uppy.off("files-added", this.#t), this.uppy.off("file-removed", this.#t), document.removeEventListener("focus", this.recordIfFocusedOnUppyRecently), document.removeEventListener("click", this.recordIfFocusedOnUppyRecently), this.opts.inline && this.el.removeEventListener("keydown", this.handleKeyDownInInline), this.opts.autoOpen && this.uppy.off("files-added", this.#r);
   };
   superFocusOnEachUpdate = () => {
@@ -5382,9 +5281,9 @@ class Oa extends ve {
   #n = (e) => e.filter((t) => t.type === "progressindicator").map(this.#i);
   #o = (e) => e.filter((t) => t.type === "editor").map(this.#i);
   render = (e) => {
-    const t = this.getPluginState(), { files: r, capabilities: a, allowNewUpload: o } = e, { newFiles: s, uploadStartedFiles: n, completeFiles: p, erroredFiles: l, inProgressFiles: c, inProgressNotPausedFiles: d, processingFiles: h, isUploadStarted: m, isAllComplete: f, isAllPaused: y } = this.uppy.getObjectOfFilesPerState(), b = this.#s(t.targets), v = this.#n(t.targets), x = this.#o(t.targets);
+    const t = this.getPluginState(), { files: r, capabilities: a, allowNewUpload: o } = e, { newFiles: s, uploadStartedFiles: n, completeFiles: p, erroredFiles: l, inProgressFiles: h, inProgressNotPausedFiles: d, processingFiles: c, isUploadStarted: m, isAllComplete: f, isAllPaused: y } = this.uppy.getObjectOfFilesPerState(), b = this.#s(t.targets), v = this.#n(t.targets), x = this.#o(t.targets);
     let _;
-    return this.opts.theme === "auto" ? _ = a.darkMode ? "dark" : "light" : _ = this.opts.theme, ["files", "folders", "both"].indexOf(this.opts.fileManagerSelectionType) < 0 && (this.opts.fileManagerSelectionType = "files", console.warn(`Unsupported option for "fileManagerSelectionType". Using default of "${this.opts.fileManagerSelectionType}".`)), vu({
+    return this.opts.theme === "auto" ? _ = a.darkMode ? "dark" : "light" : _ = this.opts.theme, ["files", "folders", "both"].indexOf(this.opts.fileManagerSelectionType) < 0 && (this.opts.fileManagerSelectionType = "files", console.warn(`Unsupported option for "fileManagerSelectionType". Using default of "${this.opts.fileManagerSelectionType}".`)), $p({
       state: e,
       isHidden: t.isHidden,
       files: r,
@@ -5392,9 +5291,9 @@ class Oa extends ve {
       uploadStartedFiles: n,
       completeFiles: p,
       erroredFiles: l,
-      inProgressFiles: c,
+      inProgressFiles: h,
       inProgressNotPausedFiles: d,
-      processingFiles: h,
+      processingFiles: c,
       isUploadStarted: m,
       isAllComplete: f,
       isAllPaused: y,
@@ -5478,14 +5377,14 @@ class Oa extends ve {
       r ? r.mount(this, r) : this.uppy.log(`[Uppy] Dashboard could not find plugin '${t}', make sure to uppy.use() the plugins you are specifying`, "warning");
     });
   };
-  #h = () => {
+  #c = () => {
     this.uppy.iteratePlugins(this.#p);
   };
   #p = (e) => {
     const t = ["acquirer", "editor"];
     e && !e.opts?.target && t.includes(e.type) && (this.getPluginState().targets.some((a) => e.id === a.id) || e.mount(this, e));
   };
-  #c() {
+  #h() {
     const { hideUploadButton: e, hideRetryButton: t, hidePauseResumeButton: r, hideCancelButton: a, showProgressDetails: o, hideProgressAfterFinish: s, locale: n, doneButtonHandler: p } = this.opts;
     return {
       hideUploadButton: e,
@@ -5515,7 +5414,7 @@ class Oa extends ve {
     };
   }
   setOptions(e) {
-    super.setOptions(e), this.uppy.getPlugin(this.#f())?.setOptions(this.#c()), this.uppy.getPlugin(this.#m())?.setOptions(this.#u());
+    super.setOptions(e), this.uppy.getPlugin(this.#f())?.setOptions(this.#h()), this.uppy.getPlugin(this.#m())?.setOptions(this.#u());
   }
   #f() {
     return `${this.id}:StatusBar`;
@@ -5546,20 +5445,20 @@ class Oa extends ve {
     const { allowMultipleUploads: r, allowMultipleUploadBatches: a } = this.uppy.opts;
     (r || a) && t && this.uppy.log("[Dashboard] When using `closeAfterFinish`, we recommended setting the `allowMultipleUploadBatches` option to `false` in the Uppy constructor. See https://uppy.io/docs/uppy/#allowMultipleUploads-true", "warning");
     const { target: o } = this.opts;
-    o && this.mount(o, this), this.opts.disableStatusBar || this.uppy.use(Ip, {
+    o && this.mount(o, this), this.opts.disableStatusBar || this.uppy.use(Pl, {
       id: this.#f(),
       target: this,
-      ...this.#c()
-    }), this.opts.disableInformer || this.uppy.use(Nl, {
+      ...this.#h()
+    }), this.opts.disableInformer || this.uppy.use(Kn, {
       id: this.#w(),
       target: this,
       ...this.#d()
-    }), this.opts.disableThumbnailGenerator || this.uppy.use(yd, {
+    }), this.opts.disableThumbnailGenerator || this.uppy.use(ep, {
       id: this.#m(),
       ...this.#u()
     }), this.darkModeMediaQuery = typeof window < "u" && window.matchMedia ? window.matchMedia("(prefers-color-scheme: dark)") : null;
     const s = this.darkModeMediaQuery ? this.darkModeMediaQuery.matches : !1;
-    this.uppy.log(`[Dashboard] Dark mode is ${s ? "on" : "off"}`), this.setDarkModeCapability(s), this.opts.theme === "auto" && this.darkModeMediaQuery?.addListener(this.handleSystemDarkModeChange), this.#l(), this.#h(), this.initEvents();
+    this.uppy.log(`[Dashboard] Dark mode is ${s ? "on" : "off"}`), this.setDarkModeCapability(s), this.opts.theme === "auto" && this.darkModeMediaQuery?.addListener(this.handleSystemDarkModeChange), this.#l(), this.#c(), this.initEvents();
   };
   uninstall = () => {
     if (!this.opts.disableInformer) {
@@ -5581,7 +5480,7 @@ class Oa extends ve {
     }), this.opts.theme === "auto" && this.darkModeMediaQuery?.removeListener(this.handleSystemDarkModeChange), this.opts.disablePageScrollWhenModalOpen && document.body.classList.remove("uppy-Dashboard-isFixed"), this.unmount(), this.removeEvents();
   };
 }
-function Iu(i) {
+function Qp(i) {
   return new Error("Cancelled", { cause: i });
 }
 function Ma(i) {
@@ -5595,7 +5494,7 @@ function Ma(i) {
   }
   return this;
 }
-class Fu {
+class Zp {
   #e = 0;
   #t = [];
   #r = !1;
@@ -5625,9 +5524,9 @@ class Fu {
     };
   }
   #l() {
-    queueMicrotask(() => this.#h());
+    queueMicrotask(() => this.#c());
   }
-  #h() {
+  #c() {
     if (this.#r || this.#e >= this.limit || this.#t.length === 0)
       return;
     const e = this.#t.shift();
@@ -5641,7 +5540,7 @@ class Fu {
       fn: e,
       priority: t?.priority || 0,
       abort: () => {
-        this.#c(r);
+        this.#h(r);
       },
       done: () => {
         throw new Error("Cannot mark a queued request as done: this indicates a bug");
@@ -5649,7 +5548,7 @@ class Fu {
     }, a = this.#t.findIndex((o) => r.priority > o.priority);
     return a === -1 ? this.#t.push(r) : this.#t.splice(a, 0, r), r;
   }
-  #c(e) {
+  #h(e) {
     const t = this.#t.indexOf(e);
     t !== -1 && this.#t.splice(t, 1);
   }
@@ -5676,15 +5575,15 @@ class Fu {
           let p, l;
           try {
             l = Promise.resolve(e(...r));
-          } catch (c) {
-            l = Promise.reject(c);
+          } catch (h) {
+            l = Promise.reject(h);
           }
-          return l.then((c) => {
-            p ? n(p) : (a.done(), s(c));
-          }, (c) => {
-            p ? n(p) : (a.done(), n(c));
-          }), (c) => {
-            p = Iu(c);
+          return l.then((h) => {
+            p ? n(p) : (a.done(), s(h));
+          }, (h) => {
+            p ? n(p) : (a.done(), n(h));
+          }), (h) => {
+            p = Qp(h);
           };
         }, t);
       });
@@ -5735,15 +5634,6 @@ class Fu {
     return this.#r;
   }
 }
-/*!
- * Compressor.js v1.2.1
- * https://fengyuanchen.github.io/compressorjs
- *
- * Copyright 2018-present Chen Fengyuan
- * Released under the MIT license
- *
- * Date: 2023-02-28T14:09:41.732Z
- */
 function za(i, e) {
   var t = Object.keys(i);
   if (Object.getOwnPropertySymbols) {
@@ -5754,18 +5644,18 @@ function za(i, e) {
   }
   return t;
 }
-function St(i) {
+function kt(i) {
   for (var e = 1; e < arguments.length; e++) {
     var t = arguments[e] != null ? arguments[e] : {};
     e % 2 ? za(Object(t), !0).forEach(function(r) {
-      Au(i, r, t[r]);
+      td(i, r, t[r]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(i, Object.getOwnPropertyDescriptors(t)) : za(Object(t)).forEach(function(r) {
       Object.defineProperty(i, r, Object.getOwnPropertyDescriptor(t, r));
     });
   }
   return i;
 }
-function Tu(i, e) {
+function Jp(i, e) {
   if (!(i instanceof e))
     throw new TypeError("Cannot call a class as a function");
 }
@@ -5775,12 +5665,12 @@ function Ra(i, e) {
     r.enumerable = r.enumerable || !1, r.configurable = !0, "value" in r && (r.writable = !0), Object.defineProperty(i, ts(r.key), r);
   }
 }
-function Eu(i, e, t) {
-  return Ra(i.prototype, e), Ra(i, t), Object.defineProperty(i, "prototype", {
+function ed(i, e, t) {
+  return e && Ra(i.prototype, e), t && Ra(i, t), Object.defineProperty(i, "prototype", {
     writable: !1
   }), i;
 }
-function Au(i, e, t) {
+function td(i, e, t) {
   return e = ts(e), e in i ? Object.defineProperty(i, e, {
     value: t,
     enumerable: !0,
@@ -5798,18 +5688,18 @@ function zt() {
     return i;
   }, zt.apply(this, arguments);
 }
-function Ou(i, e) {
+function id(i, e) {
   if (typeof i != "object" || i === null) return i;
   var t = i[Symbol.toPrimitive];
   if (t !== void 0) {
-    var r = t.call(i, e || "default");
+    var r = t.call(i, e);
     if (typeof r != "object") return r;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (e === "string" ? String : Number)(i);
+  return String(i);
 }
 function ts(i) {
-  var e = Ou(i, "string");
+  var e = id(i, "string");
   return typeof e == "symbol" ? e : String(e);
 }
 var is = { exports: {} };
@@ -5828,34 +5718,34 @@ var is = { exports: {} };
         return !1;
       }
     }(), o = e.BlobBuilder || e.WebKitBlobBuilder || e.MozBlobBuilder || e.MSBlobBuilder, s = /^data:((.*?)(;charset=.*?)?)(;base64)?,/, n = (r || o) && e.atob && e.ArrayBuffer && e.Uint8Array && function(p) {
-      var l, c, d, h, m, f, y, b, v;
+      var l, h, d, c, m, f, y, b, v;
       if (l = p.match(s), !l)
         throw new Error("invalid data URI");
-      for (c = l[2] ? l[1] : "text/plain" + (l[3] || ";charset=US-ASCII"), d = !!l[4], h = p.slice(l[0].length), d ? m = atob(h) : m = decodeURIComponent(h), f = new ArrayBuffer(m.length), y = new Uint8Array(f), b = 0; b < m.length; b += 1)
+      for (h = l[2] ? l[1] : "text/plain" + (l[3] || ";charset=US-ASCII"), d = !!l[4], c = p.slice(l[0].length), d ? m = atob(c) : m = decodeURIComponent(c), f = new ArrayBuffer(m.length), y = new Uint8Array(f), b = 0; b < m.length; b += 1)
         y[b] = m.charCodeAt(b);
       return r ? new Blob([a ? y : f], {
-        type: c
-      }) : (v = new o(), v.append(f), v.getBlob(c));
+        type: h
+      }) : (v = new o(), v.append(f), v.getBlob(h));
     };
-    e.HTMLCanvasElement && !t.toBlob && (t.mozGetAsFile ? t.toBlob = function(p, l, c) {
+    e.HTMLCanvasElement && !t.toBlob && (t.mozGetAsFile ? t.toBlob = function(p, l, h) {
       var d = this;
       setTimeout(function() {
-        c && t.toDataURL && n ? p(n(d.toDataURL(l, c))) : p(d.mozGetAsFile("blob", l));
+        h && t.toDataURL && n ? p(n(d.toDataURL(l, h))) : p(d.mozGetAsFile("blob", l));
       });
-    } : t.toDataURL && n && (t.msToBlob ? t.toBlob = function(p, l, c) {
+    } : t.toDataURL && n && (t.msToBlob ? t.toBlob = function(p, l, h) {
       var d = this;
       setTimeout(function() {
-        (l && l !== "image/png" || c) && t.toDataURL && n ? p(n(d.toDataURL(l, c))) : p(d.msToBlob(l));
+        (l && l !== "image/png" || h) && t.toDataURL && n ? p(n(d.toDataURL(l, h))) : p(d.msToBlob(l));
       });
-    } : t.toBlob = function(p, l, c) {
+    } : t.toBlob = function(p, l, h) {
       var d = this;
       setTimeout(function() {
-        p(n(d.toDataURL(l, c)));
+        p(n(d.toDataURL(l, h)));
       });
     })), i.exports ? i.exports = n : e.dataURLtoBlob = n;
   }(window);
 })(is);
-var Na = is.exports, Mu = function(e) {
+var Na = is.exports, rd = function(e) {
   return typeof Blob > "u" ? !1 : e instanceof Blob || Object.prototype.toString.call(e) === "[object Blob]";
 }, Ua = {
   /**
@@ -5981,34 +5871,34 @@ var Na = is.exports, Mu = function(e) {
    * }
    */
   error: null
-}, zu = typeof window < "u" && typeof window.document < "u", we = zu ? window : {}, Rt = function(e) {
+}, ad = typeof window < "u" && typeof window.document < "u", we = ad ? window : {}, Rt = function(e) {
   return e > 0 && e < 1 / 0;
-}, Ru = Array.prototype.slice;
+}, od = Array.prototype.slice;
 function or(i) {
-  return Array.from ? Array.from(i) : Ru.call(i);
+  return Array.from ? Array.from(i) : od.call(i);
 }
-var Nu = /^image\/.+$/;
+var sd = /^image\/.+$/;
 function Ai(i) {
-  return Nu.test(i);
+  return sd.test(i);
 }
-function Uu(i) {
+function nd(i) {
   var e = Ai(i) ? i.substr(6) : "";
   return e === "jpeg" && (e = "jpg"), ".".concat(e);
 }
 var rs = String.fromCharCode;
-function $u(i, e, t) {
+function ld(i, e, t) {
   var r = "", a;
   for (t += e, a = e; a < t; a += 1)
     r += rs(i.getUint8(a));
   return r;
 }
-var Lu = we.btoa;
-function $a(i, e) {
+var pd = we.btoa;
+function La(i, e) {
   for (var t = [], r = 8192, a = new Uint8Array(i); a.length > 0; )
     t.push(rs.apply(null, or(a.subarray(0, r)))), a = a.subarray(r);
-  return "data:".concat(e, ";base64,").concat(Lu(t.join("")));
+  return "data:".concat(e, ";base64,").concat(pd(t.join("")));
 }
-function Hu(i) {
+function dd(i) {
   var e = new DataView(i), t;
   try {
     var r, a, o;
@@ -6022,17 +5912,17 @@ function Hu(i) {
       }
     if (a) {
       var p = a + 4, l = a + 10;
-      if ($u(e, p, 4) === "Exif") {
-        var c = e.getUint16(l);
-        if (r = c === 18761, (r || c === 19789) && e.getUint16(l + 2, r) === 42) {
+      if (ld(e, p, 4) === "Exif") {
+        var h = e.getUint16(l);
+        if (r = h === 18761, (r || h === 19789) && e.getUint16(l + 2, r) === 42) {
           var d = e.getUint32(l + 4, r);
           d >= 8 && (o = l + d);
         }
       }
     }
     if (o) {
-      var h = e.getUint16(o, r), m, f;
-      for (f = 0; f < h; f += 1)
+      var c = e.getUint16(o, r), m, f;
+      for (f = 0; f < c; f += 1)
         if (m = o + f * 12 + 2, e.getUint16(m, r) === 274) {
           m += 8, t = e.getUint16(m, r), e.setUint16(m, 1, r);
           break;
@@ -6043,7 +5933,7 @@ function Hu(i) {
   }
   return t;
 }
-function ju(i) {
+function ud(i) {
   var e = 0, t = 1, r = 1;
   switch (i) {
     // Flip horizontal
@@ -6081,10 +5971,10 @@ function ju(i) {
     scaleY: r
   };
 }
-var qu = /\.\d*(?:0|9){12}\d*$/;
-function La(i) {
+var hd = /\.\d*(?:0|9){12}\d*$/;
+function $a(i) {
   var e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1e11;
-  return qu.test(i) ? Math.round(i * e) / e : i;
+  return hd.test(i) ? Math.round(i * e) / e : i;
 }
 function Ve(i) {
   var e = i.aspectRatio, t = i.height, r = i.width, a = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : "none", o = Rt(r), s = Rt(t);
@@ -6097,7 +5987,7 @@ function Ve(i) {
     height: t
   };
 }
-function Wu(i) {
+function cd(i) {
   for (var e = or(new Uint8Array(i)), t = e.length, r = [], a = 0; a + 3 < t; ) {
     var o = e[a], s = e[a + 1];
     if (o === 255 && s === 218)
@@ -6109,26 +5999,26 @@ function Wu(i) {
       r.push(l), a = p;
     }
   }
-  return r.reduce(function(c, d) {
-    return d[0] === 255 && d[1] === 225 ? c.concat(d) : c;
+  return r.reduce(function(h, d) {
+    return d[0] === 255 && d[1] === 225 ? h.concat(d) : h;
   }, []);
 }
-function Vu(i, e) {
+function fd(i, e) {
   var t = or(new Uint8Array(i));
   if (t[2] !== 255 || t[3] !== 224)
     return i;
   var r = t[4] * 256 + t[5], a = [255, 216].concat(e, t.slice(4 + r));
   return new Uint8Array(a);
 }
-var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /\.\w+$/, Yu = we.Compressor, Ku = /* @__PURE__ */ function() {
+var md = we.ArrayBuffer, wi = we.FileReader, ke = we.URL || we.webkitURL, gd = /\.\w+$/, yd = we.Compressor, bd = /* @__PURE__ */ function() {
   function i(e, t) {
-    Tu(this, i), this.file = e, this.exif = [], this.image = new Image(), this.options = St(St({}, Ua), t), this.aborted = !1, this.result = null, this.init();
+    Jp(this, i), this.file = e, this.exif = [], this.image = new Image(), this.options = kt(kt({}, Ua), t), this.aborted = !1, this.result = null, this.init();
   }
-  return Eu(i, [{
+  return ed(i, [{
     key: "init",
     value: function() {
       var t = this, r = this.file, a = this.options;
-      if (!Mu(r)) {
+      if (!rd(r)) {
         this.fail(new Error("The first argument must be a File or Blob object."));
         return;
       }
@@ -6137,21 +6027,21 @@ var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /
         this.fail(new Error("The first argument must be an image File or Blob object."));
         return;
       }
-      if (!Se || !wi) {
+      if (!ke || !wi) {
         this.fail(new Error("The current browser does not support image compression."));
         return;
       }
-      Gu || (a.checkOrientation = !1, a.retainExif = !1);
+      md || (a.checkOrientation = !1, a.retainExif = !1);
       var s = o === "image/jpeg", n = s && a.checkOrientation, p = s && a.retainExif;
-      if (Se && !n && !p)
+      if (ke && !n && !p)
         this.load({
-          url: Se.createObjectURL(r)
+          url: ke.createObjectURL(r)
         });
       else {
         var l = new wi();
-        this.reader = l, l.onload = function(c) {
-          var d = c.target, h = d.result, m = {}, f = 1;
-          n && (f = Hu(h), f > 1 && zt(m, ju(f))), p && (t.exif = Wu(h)), n || p ? !Se || f > 1 ? m.url = $a(h, o) : m.url = Se.createObjectURL(r) : m.url = h, t.load(m);
+        this.reader = l, l.onload = function(h) {
+          var d = h.target, c = d.result, m = {}, f = 1;
+          n && (f = dd(c), f > 1 && zt(m, ud(f))), p && (t.exif = cd(c)), n || p ? !ke || f > 1 ? m.url = La(c, o) : m.url = ke.createObjectURL(r) : m.url = c, t.load(m);
         }, l.onabort = function() {
           t.fail(new Error("Aborted to read the image with FileReader."));
         }, l.onerror = function() {
@@ -6166,7 +6056,7 @@ var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /
     value: function(t) {
       var r = this, a = this.file, o = this.image;
       o.onload = function() {
-        r.draw(St(St({}, t), {}, {
+        r.draw(kt(kt({}, t), {}, {
           naturalWidth: o.naturalWidth,
           naturalHeight: o.naturalHeight
         }));
@@ -6179,66 +6069,66 @@ var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /
   }, {
     key: "draw",
     value: function(t) {
-      var r = this, a = t.naturalWidth, o = t.naturalHeight, s = t.rotate, n = s === void 0 ? 0 : s, p = t.scaleX, l = p === void 0 ? 1 : p, c = t.scaleY, d = c === void 0 ? 1 : c, h = this.file, m = this.image, f = this.options, y = document.createElement("canvas"), b = y.getContext("2d"), v = Math.abs(n) % 180 === 90, x = (f.resize === "contain" || f.resize === "cover") && Rt(f.width) && Rt(f.height), _ = Math.max(f.maxWidth, 0) || 1 / 0, C = Math.max(f.maxHeight, 0) || 1 / 0, B = Math.max(f.minWidth, 0) || 0, g = Math.max(f.minHeight, 0) || 0, D = a / o, k = f.width, S = f.height;
+      var r = this, a = t.naturalWidth, o = t.naturalHeight, s = t.rotate, n = s === void 0 ? 0 : s, p = t.scaleX, l = p === void 0 ? 1 : p, h = t.scaleY, d = h === void 0 ? 1 : h, c = this.file, m = this.image, f = this.options, y = document.createElement("canvas"), b = y.getContext("2d"), v = Math.abs(n) % 180 === 90, x = (f.resize === "contain" || f.resize === "cover") && Rt(f.width) && Rt(f.height), _ = Math.max(f.maxWidth, 0) || 1 / 0, C = Math.max(f.maxHeight, 0) || 1 / 0, B = Math.max(f.minWidth, 0) || 0, g = Math.max(f.minHeight, 0) || 0, S = a / o, D = f.width, k = f.height;
       if (v) {
         var O = [C, _];
         _ = O[0], C = O[1];
         var T = [g, B];
         B = T[0], g = T[1];
-        var M = [S, k];
-        k = M[0], S = M[1];
+        var M = [k, D];
+        D = M[0], k = M[1];
       }
-      x && (D = k / S);
-      var F = Ve({
-        aspectRatio: D,
+      x && (S = D / k);
+      var I = Ve({
+        aspectRatio: S,
         width: _,
         height: C
       }, "contain");
-      _ = F.width, C = F.height;
+      _ = I.width, C = I.height;
       var R = Ve({
-        aspectRatio: D,
+        aspectRatio: S,
         width: B,
         height: g
       }, "cover");
       if (B = R.width, g = R.height, x) {
         var A = Ve({
-          aspectRatio: D,
-          width: k,
-          height: S
+          aspectRatio: S,
+          width: D,
+          height: k
         }, f.resize);
-        k = A.width, S = A.height;
+        D = A.width, k = A.height;
       } else {
         var V = Ve({
-          aspectRatio: D,
-          width: k,
-          height: S
+          aspectRatio: S,
+          width: D,
+          height: k
         }), oe = V.width;
-        k = oe === void 0 ? a : oe;
+        D = oe === void 0 ? a : oe;
         var ue = V.height;
-        S = ue === void 0 ? o : ue;
+        k = ue === void 0 ? o : ue;
       }
-      k = Math.floor(La(Math.min(Math.max(k, B), _))), S = Math.floor(La(Math.min(Math.max(S, g), C)));
-      var he = -k / 2, xe = -S / 2, _e = k, Fe = S, fe = [];
+      D = Math.floor($a(Math.min(Math.max(D, B), _))), k = Math.floor($a(Math.min(Math.max(k, g), C)));
+      var ce = -D / 2, xe = -k / 2, _e = D, Ie = k, fe = [];
       if (x) {
-        var De = 0, Le = 0, ut = a, ct = o, ke = Ve({
-          aspectRatio: D,
+        var Se = 0, $e = 0, ut = a, ht = o, De = Ve({
+          aspectRatio: S,
           width: a,
           height: o
         }, {
           contain: "cover",
           cover: "contain"
         }[f.resize]);
-        ut = ke.width, ct = ke.height, De = (a - ut) / 2, Le = (o - ct) / 2, fe.push(De, Le, ut, ct);
+        ut = De.width, ht = De.height, Se = (a - ut) / 2, $e = (o - ht) / 2, fe.push(Se, $e, ut, ht);
       }
-      if (fe.push(he, xe, _e, Fe), v) {
-        var cr = [S, k];
-        k = cr[0], S = cr[1];
+      if (fe.push(ce, xe, _e, Ie), v) {
+        var hr = [k, D];
+        D = hr[0], k = hr[1];
       }
-      y.width = k, y.height = S, Ai(f.mimeType) || (f.mimeType = h.type);
-      var hr = "transparent";
-      h.size > f.convertSize && f.convertTypes.indexOf(f.mimeType) >= 0 && (f.mimeType = "image/jpeg");
+      y.width = D, y.height = k, Ai(f.mimeType) || (f.mimeType = c.type);
+      var cr = "transparent";
+      c.size > f.convertSize && f.convertTypes.indexOf(f.mimeType) >= 0 && (f.mimeType = "image/jpeg");
       var fr = f.mimeType === "image/jpeg";
-      if (fr && (hr = "#fff"), b.fillStyle = hr, b.fillRect(0, 0, k, S), f.beforeDraw && f.beforeDraw.call(this, b, y), !this.aborted && (b.save(), b.translate(k / 2, S / 2), b.rotate(n * Math.PI / 180), b.scale(l, d), b.drawImage.apply(b, [m].concat(fe)), b.restore(), f.drew && f.drew.call(this, b, y), !this.aborted)) {
+      if (fr && (cr = "#fff"), b.fillStyle = cr, b.fillRect(0, 0, D, k), f.beforeDraw && f.beforeDraw.call(this, b, y), !this.aborted && (b.save(), b.translate(D / 2, k / 2), b.rotate(n * Math.PI / 180), b.scale(l, d), b.drawImage.apply(b, [m].concat(fe)), b.restore(), f.drew && f.drew.call(this, b, y), !this.aborted)) {
         var mr = function(He) {
           if (!r.aborted) {
             var gr = function(je) {
@@ -6250,7 +6140,7 @@ var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /
             };
             if (He && fr && f.retainExif && r.exif && r.exif.length > 0) {
               var yr = function(je) {
-                return gr(Na($a(Vu(je, r.exif), f.mimeType)));
+                return gr(Na(La(fd(je, r.exif), f.mimeType)));
               };
               if (He.arrayBuffer)
                 He.arrayBuffer().then(yr).catch(function() {
@@ -6258,8 +6148,8 @@ var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /
                 });
               else {
                 var Te = new wi();
-                r.reader = Te, Te.onload = function($t) {
-                  var je = $t.target;
+                r.reader = Te, Te.onload = function(Lt) {
+                  var je = Lt.target;
                   yr(je.result);
                 }, Te.onabort = function() {
                   r.fail(new Error("Aborted to read the compressed image with FileReader."));
@@ -6280,12 +6170,12 @@ var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /
     key: "done",
     value: function(t) {
       var r = t.naturalWidth, a = t.naturalHeight, o = t.result, s = this.file, n = this.image, p = this.options;
-      if (Se && n.src.indexOf("blob:") === 0 && Se.revokeObjectURL(n.src), o)
+      if (ke && n.src.indexOf("blob:") === 0 && ke.revokeObjectURL(n.src), o)
         if (p.strict && !p.retainExif && o.size > s.size && p.mimeType === s.type && !(p.width > r || p.height > a || p.minWidth > r || p.minHeight > a || p.maxWidth < r || p.maxHeight < a))
           o = s;
         else {
           var l = /* @__PURE__ */ new Date();
-          o.lastModified = l.getTime(), o.lastModifiedDate = l, o.name = s.name, o.name && o.type !== s.type && (o.name = o.name.replace(Xu, Uu(o.type)));
+          o.lastModified = l.getTime(), o.lastModifiedDate = l, o.name = s.name, o.name && o.type !== s.type && (o.name = o.name.replace(gd, nd(o.type)));
         }
       else
         o = s;
@@ -6312,7 +6202,7 @@ var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /
   }], [{
     key: "noConflict",
     value: function() {
-      return window.Compressor = Yu, i;
+      return window.Compressor = yd, i;
     }
     /**
      * Change the default options.
@@ -6325,24 +6215,24 @@ var Gu = we.ArrayBuffer, wi = we.FileReader, Se = we.URL || we.webkitURL, Xu = /
     }
   }]), i;
 }();
-const Zu = {
+const vd = {
   strings: {
     // Shown in the Status Bar
     compressingImages: "Compressing images...",
     compressedX: "Saved %{size} by compressing images"
   }
-}, Qu = {
+}, wd = {
   quality: 0.6,
   limit: 10
 };
-class Ju extends lo {
+class xd extends lo {
   #e;
   constructor(e, t) {
-    super(e, { ...Qu, ...t }), this.id = this.opts.id || "Compressor", this.type = "modifier", this.defaultLocale = Zu, this.#e = new Fu(this.opts.limit), this.i18nInit(), this.prepareUpload = this.prepareUpload.bind(this), this.compress = this.compress.bind(this);
+    super(e, { ...wd, ...t }), this.id = this.opts.id || "Compressor", this.type = "modifier", this.defaultLocale = vd, this.#e = new Zp(this.opts.limit), this.i18nInit(), this.prepareUpload = this.prepareUpload.bind(this), this.compress = this.compress.bind(this);
   }
   compress(e) {
     return new Promise((t, r) => {
-      new Ku(e, {
+      new bd(e, {
         ...this.opts,
         success: t,
         error: r
@@ -6354,19 +6244,19 @@ class Ju extends lo {
     const r = [], a = this.#e.wrapPromiseFunction(async (s) => {
       try {
         const n = await this.compress(s.data), p = s.data.size - n.size;
-        this.uppy.log(`[Image Compressor] Image ${s.id} compressed by ${ce(p)}`), t += p;
-        const { name: l, type: c, size: d } = n, h = Ot(l), f = `${Ot(s.meta.name).name}.${h.extension}`;
+        this.uppy.log(`[Image Compressor] Image ${s.id} compressed by ${he(p)}`), t += p;
+        const { name: l, type: h, size: d } = n, c = Ot(l), f = `${Ot(s.meta.name).name}.${c.extension}`;
         this.uppy.setFileState(s.id, {
           ...l && { name: l },
-          ...h.extension && {
-            extension: h.extension
+          ...c.extension && {
+            extension: c.extension
           },
-          ...c && { type: c },
+          ...h && { type: h },
           ...d && { size: d },
           data: n,
           meta: {
             ...s.meta,
-            type: c,
+            type: h,
             name: f
           }
         }), r.push(s);
@@ -6381,7 +6271,7 @@ class Ju extends lo {
       }), n.isRemote || (n.data.type || (n.data = n.data.slice(0, n.data.size, n.type)), !n.type?.startsWith("image/")) ? Promise.resolve() : a(n);
     });
     await Promise.all(o), this.uppy.emit("compressor:complete", r), t > 1024 && this.uppy.info(this.i18n("compressedX", {
-      size: ce(t)
+      size: he(t)
     }), "info");
     for (const s of e) {
       const n = this.uppy.getFile(s);
@@ -6395,34 +6285,9 @@ class Ju extends lo {
     this.uppy.removePreProcessor(this.prepareUpload);
   }
 }
-const ec = "@uppy/image-editor", tc = "Image editor and cropping UI", ic = "3.4.2", rc = "MIT", ac = "lib/index.js", oc = "dist/style.min.css", sc = "module", nc = { build: "tsc --build tsconfig.build.json", "build:css": "sass --load-path=../../ src/style.scss dist/style.css && postcss dist/style.css -u cssnano -o dist/style.min.css", typecheck: "tsc --build" }, lc = ["file uploader", "upload", "uppy", "uppy-plugin", "image editor", "cropper", "crop", "rotate", "resize"], pc = "https://uppy.io", dc = { url: "https://github.com/transloadit/uppy/issues" }, uc = { type: "git", url: "git+https://github.com/transloadit/uppy.git" }, cc = ["src", "lib", "dist", "CHANGELOG.md"], hc = { "@uppy/utils": "^6.2.2", cropperjs: "^1.6.2", preact: "^10.5.13" }, fc = { "@uppy/core": "^4.5.2" }, mc = { access: "public" }, gc = { cssnano: "^7.0.7", postcss: "^8.5.6", "postcss-cli": "^11.0.1", sass: "^1.89.2", typescript: "^5.8.3" }, yc = {
-  name: ec,
-  description: tc,
-  version: ic,
-  license: rc,
-  main: ac,
-  style: oc,
-  type: sc,
-  scripts: nc,
-  keywords: lc,
-  homepage: pc,
-  bugs: dc,
-  repository: uc,
-  files: cc,
-  dependencies: hc,
-  peerDependencies: fc,
-  publishConfig: mc,
-  devDependencies: gc
+const _d = "3.4.2", Sd = {
+  version: _d
 };
-/*!
- * Cropper.js v1.6.2
- * https://fengyuanchen.github.io/cropperjs
- *
- * Copyright 2015-present Chen Fengyuan
- * Released under the MIT license
- *
- * Date: 2024-04-21T07:43:05.335Z
- */
 function Ha(i, e) {
   var t = Object.keys(i);
   if (Object.getOwnPropertySymbols) {
@@ -6437,25 +6302,25 @@ function as(i) {
   for (var e = 1; e < arguments.length; e++) {
     var t = arguments[e] != null ? arguments[e] : {};
     e % 2 ? Ha(Object(t), !0).forEach(function(r) {
-      xc(i, r, t[r]);
+      Cd(i, r, t[r]);
     }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(i, Object.getOwnPropertyDescriptors(t)) : Ha(Object(t)).forEach(function(r) {
       Object.defineProperty(i, r, Object.getOwnPropertyDescriptor(t, r));
     });
   }
   return i;
 }
-function bc(i, e) {
+function Dd(i, e) {
   if (typeof i != "object" || !i) return i;
   var t = i[Symbol.toPrimitive];
   if (t !== void 0) {
-    var r = t.call(i, e || "default");
+    var r = t.call(i, e);
     if (typeof r != "object") return r;
     throw new TypeError("@@toPrimitive must return a primitive value.");
   }
-  return (e === "string" ? String : Number)(i);
+  return String(i);
 }
 function os(i) {
-  var e = bc(i, "string");
+  var e = Dd(i, "string");
   return typeof e == "symbol" ? e : e + "";
 }
 function Oi(i) {
@@ -6466,7 +6331,7 @@ function Oi(i) {
     return e && typeof Symbol == "function" && e.constructor === Symbol && e !== Symbol.prototype ? "symbol" : typeof e;
   }, Oi(i);
 }
-function vc(i, e) {
+function kd(i, e) {
   if (!(i instanceof e))
     throw new TypeError("Cannot call a class as a function");
 }
@@ -6476,12 +6341,12 @@ function ja(i, e) {
     r.enumerable = r.enumerable || !1, r.configurable = !0, "value" in r && (r.writable = !0), Object.defineProperty(i, os(r.key), r);
   }
 }
-function wc(i, e, t) {
-  return ja(i.prototype, e), ja(i, t), Object.defineProperty(i, "prototype", {
+function Pd(i, e, t) {
+  return e && ja(i.prototype, e), t && ja(i, t), Object.defineProperty(i, "prototype", {
     writable: !1
   }), i;
 }
-function xc(i, e, t) {
+function Cd(i, e, t) {
   return e = os(e), e in i ? Object.defineProperty(i, e, {
     value: t,
     enumerable: !0,
@@ -6490,15 +6355,15 @@ function xc(i, e, t) {
   }) : i[e] = t, i;
 }
 function ss(i) {
-  return _c(i) || Dc(i) || kc(i) || Sc();
+  return Bd(i) || Fd(i) || Id(i) || Td();
 }
-function _c(i) {
+function Bd(i) {
   if (Array.isArray(i)) return Mi(i);
 }
-function Dc(i) {
+function Fd(i) {
   if (typeof Symbol < "u" && i[Symbol.iterator] != null || i["@@iterator"] != null) return Array.from(i);
 }
-function kc(i, e) {
+function Id(i, e) {
   if (i) {
     if (typeof i == "string") return Mi(i, e);
     var t = Object.prototype.toString.call(i).slice(8, -1);
@@ -6511,11 +6376,11 @@ function Mi(i, e) {
   for (var t = 0, r = new Array(e); t < e; t++) r[t] = i[t];
   return r;
 }
-function Sc() {
+function Td() {
   throw new TypeError(`Invalid attempt to spread non-iterable instance.
 In order to be iterable, non-array objects must have a [Symbol.iterator]() method.`);
 }
-var Ut = typeof window < "u" && typeof window.document < "u", de = Ut ? window : {}, sr = Ut && de.document.documentElement ? "ontouchstart" in de.document.documentElement : !1, nr = Ut ? "PointerEvent" in de : !1, N = "cropper", lr = "all", ns = "crop", ls = "move", ps = "zoom", Pe = "e", Ce = "w", Ae = "s", me = "n", Ge = "ne", Xe = "nw", Ye = "se", Ke = "sw", zi = "".concat(N, "-crop"), qa = "".concat(N, "-disabled"), K = "".concat(N, "-hidden"), Wa = "".concat(N, "-hide"), Pc = "".concat(N, "-invisible"), Nt = "".concat(N, "-modal"), Ri = "".concat(N, "-move"), nt = "".concat(N, "Action"), Pt = "".concat(N, "Preview"), pr = "crop", ds = "move", us = "none", Ni = "crop", Ui = "cropend", $i = "cropmove", Li = "cropstart", Va = "dblclick", Cc = sr ? "touchstart" : "mousedown", Bc = sr ? "touchmove" : "mousemove", Ic = sr ? "touchend touchcancel" : "mouseup", Ga = nr ? "pointerdown" : Cc, Xa = nr ? "pointermove" : Bc, Ya = nr ? "pointerup pointercancel" : Ic, Ka = "ready", Za = "resize", Qa = "wheel", Hi = "zoom", Ja = "image/jpeg", Fc = /^e|w|s|n|se|sw|ne|nw|all|crop|move|zoom$/, Tc = /^data:/, Ec = /^data:image\/jpeg;base64,/, Ac = /^img|canvas$/i, cs = 200, hs = 100, eo = {
+var Ut = typeof window < "u" && typeof window.document < "u", de = Ut ? window : {}, sr = Ut && de.document.documentElement ? "ontouchstart" in de.document.documentElement : !1, nr = Ut ? "PointerEvent" in de : !1, N = "cropper", lr = "all", ns = "crop", ls = "move", ps = "zoom", Pe = "e", Ce = "w", Ae = "s", me = "n", Ge = "ne", Xe = "nw", Ye = "se", Ke = "sw", zi = "".concat(N, "-crop"), qa = "".concat(N, "-disabled"), K = "".concat(N, "-hidden"), Wa = "".concat(N, "-hide"), Ed = "".concat(N, "-invisible"), Nt = "".concat(N, "-modal"), Ri = "".concat(N, "-move"), nt = "".concat(N, "Action"), Pt = "".concat(N, "Preview"), pr = "crop", ds = "move", us = "none", Ni = "crop", Ui = "cropend", Li = "cropmove", $i = "cropstart", Va = "dblclick", Ad = sr ? "touchstart" : "mousedown", Od = sr ? "touchmove" : "mousemove", Md = sr ? "touchend touchcancel" : "mouseup", Ga = nr ? "pointerdown" : Ad, Xa = nr ? "pointermove" : Od, Ya = nr ? "pointerup pointercancel" : Md, Ka = "ready", Qa = "resize", Za = "wheel", Hi = "zoom", Ja = "image/jpeg", zd = /^e|w|s|n|se|sw|ne|nw|all|crop|move|zoom$/, Rd = /^data:/, Nd = /^data:image\/jpeg;base64,/, Ud = /^img|canvas$/i, hs = 200, cs = 100, eo = {
   // Define the view mode of the cropper
   viewMode: 0,
   // 0, 1, 2, 3
@@ -6577,8 +6442,8 @@ var Ut = typeof window < "u" && typeof window.document < "u", de = Ut ? window :
   minCanvasHeight: 0,
   minCropBoxWidth: 0,
   minCropBoxHeight: 0,
-  minContainerWidth: cs,
-  minContainerHeight: hs,
+  minContainerWidth: hs,
+  minContainerHeight: cs,
   // Shortcuts of events
   ready: null,
   cropstart: null,
@@ -6586,9 +6451,9 @@ var Ut = typeof window < "u" && typeof window.document < "u", de = Ut ? window :
   cropend: null,
   crop: null,
   zoom: null
-}, Oc = '<div class="cropper-container" touch-action="none"><div class="cropper-wrap-box"><div class="cropper-canvas"></div></div><div class="cropper-drag-box"></div><div class="cropper-crop-box"><span class="cropper-view-box"></span><span class="cropper-dashed dashed-h"></span><span class="cropper-dashed dashed-v"></span><span class="cropper-center"></span><span class="cropper-face"></span><span class="cropper-line line-e" data-cropper-action="e"></span><span class="cropper-line line-n" data-cropper-action="n"></span><span class="cropper-line line-w" data-cropper-action="w"></span><span class="cropper-line line-s" data-cropper-action="s"></span><span class="cropper-point point-e" data-cropper-action="e"></span><span class="cropper-point point-n" data-cropper-action="n"></span><span class="cropper-point point-w" data-cropper-action="w"></span><span class="cropper-point point-s" data-cropper-action="s"></span><span class="cropper-point point-ne" data-cropper-action="ne"></span><span class="cropper-point point-nw" data-cropper-action="nw"></span><span class="cropper-point point-sw" data-cropper-action="sw"></span><span class="cropper-point point-se" data-cropper-action="se"></span></div></div>', Mc = Number.isNaN || de.isNaN;
-function I(i) {
-  return typeof i == "number" && !Mc(i);
+}, Ld = '<div class="cropper-container" touch-action="none"><div class="cropper-wrap-box"><div class="cropper-canvas"></div></div><div class="cropper-drag-box"></div><div class="cropper-crop-box"><span class="cropper-view-box"></span><span class="cropper-dashed dashed-h"></span><span class="cropper-dashed dashed-v"></span><span class="cropper-center"></span><span class="cropper-face"></span><span class="cropper-line line-e" data-cropper-action="e"></span><span class="cropper-line line-n" data-cropper-action="n"></span><span class="cropper-line line-w" data-cropper-action="w"></span><span class="cropper-line line-s" data-cropper-action="s"></span><span class="cropper-point point-e" data-cropper-action="e"></span><span class="cropper-point point-n" data-cropper-action="n"></span><span class="cropper-point point-w" data-cropper-action="w"></span><span class="cropper-point point-s" data-cropper-action="s"></span><span class="cropper-point point-ne" data-cropper-action="ne"></span><span class="cropper-point point-nw" data-cropper-action="nw"></span><span class="cropper-point point-sw" data-cropper-action="sw"></span><span class="cropper-point point-se" data-cropper-action="se"></span></div></div>', $d = Number.isNaN || de.isNaN;
+function F(i) {
+  return typeof i == "number" && !$d(i);
 }
 var to = function(e) {
   return e > 0 && e < 1 / 0;
@@ -6596,16 +6461,16 @@ var to = function(e) {
 function xi(i) {
   return typeof i > "u";
 }
-function Ie(i) {
+function Fe(i) {
   return Oi(i) === "object" && i !== null;
 }
-var zc = Object.prototype.hasOwnProperty;
+var Hd = Object.prototype.hasOwnProperty;
 function Me(i) {
-  if (!Ie(i))
+  if (!Fe(i))
     return !1;
   try {
     var e = i.constructor, t = e.prototype;
-    return e && t && zc.call(t, "isPrototypeOf");
+    return e && t && Hd.call(t, "isPrototypeOf");
   } catch {
     return !1;
   }
@@ -6613,43 +6478,43 @@ function Me(i) {
 function Y(i) {
   return typeof i == "function";
 }
-var Rc = Array.prototype.slice;
+var jd = Array.prototype.slice;
 function fs(i) {
-  return Array.from ? Array.from(i) : Rc.call(i);
+  return Array.from ? Array.from(i) : jd.call(i);
 }
 function H(i, e) {
-  return i && Y(e) && (Array.isArray(i) || I(i.length) ? fs(i).forEach(function(t, r) {
+  return i && Y(e) && (Array.isArray(i) || F(i.length) ? fs(i).forEach(function(t, r) {
     e.call(i, t, r, i);
-  }) : Ie(i) && Object.keys(i).forEach(function(t) {
+  }) : Fe(i) && Object.keys(i).forEach(function(t) {
     e.call(i, i[t], t, i);
   })), i;
 }
 var U = Object.assign || function(e) {
   for (var t = arguments.length, r = new Array(t > 1 ? t - 1 : 0), a = 1; a < t; a++)
     r[a - 1] = arguments[a];
-  return Ie(e) && r.length > 0 && r.forEach(function(o) {
-    Ie(o) && Object.keys(o).forEach(function(s) {
+  return Fe(e) && r.length > 0 && r.forEach(function(o) {
+    Fe(o) && Object.keys(o).forEach(function(s) {
       e[s] = o[s];
     });
   }), e;
-}, Nc = /\.\d*(?:0|9){12}\d*$/;
+}, qd = /\.\d*(?:0|9){12}\d*$/;
 function Re(i) {
   var e = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : 1e11;
-  return Nc.test(i) ? Math.round(i * e) / e : i;
+  return qd.test(i) ? Math.round(i * e) / e : i;
 }
-var Uc = /^width|height|left|top|marginLeft|marginTop$/;
+var Wd = /^width|height|left|top|marginLeft|marginTop$/;
 function ye(i, e) {
   var t = i.style;
   H(e, function(r, a) {
-    Uc.test(a) && I(r) && (r = "".concat(r, "px")), t[a] = r;
+    Wd.test(a) && F(r) && (r = "".concat(r, "px")), t[a] = r;
   });
 }
-function $c(i, e) {
+function Vd(i, e) {
   return i.classList ? i.classList.contains(e) : i.className.indexOf(e) > -1;
 }
 function q(i, e) {
   if (e) {
-    if (I(i.length)) {
+    if (F(i.length)) {
       H(i, function(r) {
         q(r, e);
       });
@@ -6665,7 +6530,7 @@ function q(i, e) {
 }
 function pe(i, e) {
   if (e) {
-    if (I(i.length)) {
+    if (F(i.length)) {
       H(i, function(t) {
         pe(t, e);
       });
@@ -6680,7 +6545,7 @@ function pe(i, e) {
 }
 function ze(i, e, t) {
   if (e) {
-    if (I(i.length)) {
+    if (F(i.length)) {
       H(i, function(r) {
         ze(r, e, t);
       });
@@ -6689,18 +6554,18 @@ function ze(i, e, t) {
     t ? q(i, e) : pe(i, e);
   }
 }
-var Lc = /([a-z\d])([A-Z])/g;
+var Gd = /([a-z\d])([A-Z])/g;
 function dr(i) {
-  return i.replace(Lc, "$1-$2").toLowerCase();
+  return i.replace(Gd, "$1-$2").toLowerCase();
 }
 function ji(i, e) {
-  return Ie(i[e]) ? i[e] : i.dataset ? i.dataset[e] : i.getAttribute("data-".concat(dr(e)));
+  return Fe(i[e]) ? i[e] : i.dataset ? i.dataset[e] : i.getAttribute("data-".concat(dr(e)));
 }
 function lt(i, e, t) {
-  Ie(t) ? i[e] = t : i.dataset ? i.dataset[e] = t : i.setAttribute("data-".concat(dr(e)), t);
+  Fe(t) ? i[e] = t : i.dataset ? i.dataset[e] = t : i.setAttribute("data-".concat(dr(e)), t);
 }
-function Hc(i, e) {
-  if (Ie(i[e]))
+function Xd(i, e) {
+  if (Fe(i[e]))
     try {
       delete i[e];
     } catch {
@@ -6736,7 +6601,7 @@ var ms = /\s\s*/, gs = function() {
   }
   return i;
 }();
-function Q(i, e, t) {
+function Z(i, e, t) {
   var r = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, a = t;
   e.trim().split(ms).forEach(function(o) {
     if (!gs) {
@@ -6746,16 +6611,16 @@ function Q(i, e, t) {
     i.removeEventListener(o, a, r);
   });
 }
-function Z(i, e, t) {
+function Q(i, e, t) {
   var r = arguments.length > 3 && arguments[3] !== void 0 ? arguments[3] : {}, a = t;
   e.trim().split(ms).forEach(function(o) {
     if (r.once && !gs) {
       var s = i.listeners, n = s === void 0 ? {} : s;
       a = function() {
         delete n[o][t], i.removeEventListener(o, a, r);
-        for (var l = arguments.length, c = new Array(l), d = 0; d < l; d++)
-          c[d] = arguments[d];
-        t.apply(i, c);
+        for (var l = arguments.length, h = new Array(l), d = 0; d < l; d++)
+          h[d] = arguments[d];
+        t.apply(i, h);
       }, n[o] || (n[o] = {}), n[o][t] && i.removeEventListener(o, n[o][t], r), n[o][t] = a, i.listeners = n;
     }
     i.addEventListener(o, a, r);
@@ -6776,9 +6641,9 @@ function ys(i) {
     top: e.top + (window.pageYOffset - document.documentElement.clientTop)
   };
 }
-var _i = de.location, jc = /^(\w+:)\/\/([^:/?#]*):?(\d*)/i;
+var _i = de.location, Yd = /^(\w+:)\/\/([^:/?#]*):?(\d*)/i;
 function io(i) {
-  var e = i.match(jc);
+  var e = i.match(Yd);
   return e !== null && (e[1] !== _i.protocol || e[2] !== _i.hostname || e[3] !== _i.port);
 }
 function ro(i) {
@@ -6787,7 +6652,7 @@ function ro(i) {
 }
 function tt(i) {
   var e = i.rotate, t = i.scaleX, r = i.scaleY, a = i.translateX, o = i.translateY, s = [];
-  I(a) && a !== 0 && s.push("translateX(".concat(a, "px)")), I(o) && o !== 0 && s.push("translateY(".concat(o, "px)")), I(e) && e !== 0 && s.push("rotate(".concat(e, "deg)")), I(t) && t !== 1 && s.push("scaleX(".concat(t, ")")), I(r) && r !== 1 && s.push("scaleY(".concat(r, ")"));
+  F(a) && a !== 0 && s.push("translateX(".concat(a, "px)")), F(o) && o !== 0 && s.push("translateY(".concat(o, "px)")), F(e) && e !== 0 && s.push("rotate(".concat(e, "deg)")), F(t) && t !== 1 && s.push("scaleX(".concat(t, ")")), F(r) && r !== 1 && s.push("scaleY(".concat(r, ")"));
   var n = s.length ? s.join(" ") : "none";
   return {
     WebkitTransform: n,
@@ -6795,12 +6660,12 @@ function tt(i) {
     transform: n
   };
 }
-function qc(i) {
+function Kd(i) {
   var e = as({}, i), t = 0;
   return H(i, function(r, a) {
     delete e[a], H(e, function(o) {
-      var s = Math.abs(r.startX - o.startX), n = Math.abs(r.startY - o.startY), p = Math.abs(r.endX - o.endX), l = Math.abs(r.endY - o.endY), c = Math.sqrt(s * s + n * n), d = Math.sqrt(p * p + l * l), h = (d - c) / c;
-      Math.abs(h) > Math.abs(t) && (t = h);
+      var s = Math.abs(r.startX - o.startX), n = Math.abs(r.startY - o.startY), p = Math.abs(r.endX - o.endX), l = Math.abs(r.endY - o.endY), h = Math.sqrt(s * s + n * n), d = Math.sqrt(p * p + l * l), c = (d - h) / h;
+      Math.abs(c) > Math.abs(t) && (t = c);
     });
   }), t;
 }
@@ -6814,7 +6679,7 @@ function Ct(i, e) {
     startY: r
   }, a);
 }
-function Wc(i) {
+function Qd(i) {
   var e = 0, t = 0, r = 0;
   return H(i, function(a) {
     var o = a.startX, s = a.startY;
@@ -6835,7 +6700,7 @@ function be(i) {
     height: t
   };
 }
-function Vc(i) {
+function Zd(i) {
   var e = i.width, t = i.height, r = i.degree;
   if (r = Math.abs(r) % 180, r === 90)
     return {
@@ -6851,49 +6716,49 @@ function Vc(i) {
     height: p
   };
 }
-function Gc(i, e, t, r) {
-  var a = e.aspectRatio, o = e.naturalWidth, s = e.naturalHeight, n = e.rotate, p = n === void 0 ? 0 : n, l = e.scaleX, c = l === void 0 ? 1 : l, d = e.scaleY, h = d === void 0 ? 1 : d, m = t.aspectRatio, f = t.naturalWidth, y = t.naturalHeight, b = r.fillColor, v = b === void 0 ? "transparent" : b, x = r.imageSmoothingEnabled, _ = x === void 0 ? !0 : x, C = r.imageSmoothingQuality, B = C === void 0 ? "low" : C, g = r.maxWidth, D = g === void 0 ? 1 / 0 : g, k = r.maxHeight, S = k === void 0 ? 1 / 0 : k, O = r.minWidth, T = O === void 0 ? 0 : O, M = r.minHeight, F = M === void 0 ? 0 : M, R = document.createElement("canvas"), A = R.getContext("2d"), V = be({
+function Jd(i, e, t, r) {
+  var a = e.aspectRatio, o = e.naturalWidth, s = e.naturalHeight, n = e.rotate, p = n === void 0 ? 0 : n, l = e.scaleX, h = l === void 0 ? 1 : l, d = e.scaleY, c = d === void 0 ? 1 : d, m = t.aspectRatio, f = t.naturalWidth, y = t.naturalHeight, b = r.fillColor, v = b === void 0 ? "transparent" : b, x = r.imageSmoothingEnabled, _ = x === void 0 ? !0 : x, C = r.imageSmoothingQuality, B = C === void 0 ? "low" : C, g = r.maxWidth, S = g === void 0 ? 1 / 0 : g, D = r.maxHeight, k = D === void 0 ? 1 / 0 : D, O = r.minWidth, T = O === void 0 ? 0 : O, M = r.minHeight, I = M === void 0 ? 0 : M, R = document.createElement("canvas"), A = R.getContext("2d"), V = be({
     aspectRatio: m,
-    width: D,
-    height: S
+    width: S,
+    height: k
   }), oe = be({
     aspectRatio: m,
     width: T,
-    height: F
-  }, "cover"), ue = Math.min(V.width, Math.max(oe.width, f)), he = Math.min(V.height, Math.max(oe.height, y)), xe = be({
+    height: I
+  }, "cover"), ue = Math.min(V.width, Math.max(oe.width, f)), ce = Math.min(V.height, Math.max(oe.height, y)), xe = be({
     aspectRatio: a,
-    width: D,
-    height: S
+    width: S,
+    height: k
   }), _e = be({
     aspectRatio: a,
     width: T,
-    height: F
-  }, "cover"), Fe = Math.min(xe.width, Math.max(_e.width, o)), fe = Math.min(xe.height, Math.max(_e.height, s)), De = [-Fe / 2, -fe / 2, Fe, fe];
-  return R.width = Re(ue), R.height = Re(he), A.fillStyle = v, A.fillRect(0, 0, ue, he), A.save(), A.translate(ue / 2, he / 2), A.rotate(p * Math.PI / 180), A.scale(c, h), A.imageSmoothingEnabled = _, A.imageSmoothingQuality = B, A.drawImage.apply(A, [i].concat(ss(De.map(function(Le) {
-    return Math.floor(Re(Le));
+    height: I
+  }, "cover"), Ie = Math.min(xe.width, Math.max(_e.width, o)), fe = Math.min(xe.height, Math.max(_e.height, s)), Se = [-Ie / 2, -fe / 2, Ie, fe];
+  return R.width = Re(ue), R.height = Re(ce), A.fillStyle = v, A.fillRect(0, 0, ue, ce), A.save(), A.translate(ue / 2, ce / 2), A.rotate(p * Math.PI / 180), A.scale(h, c), A.imageSmoothingEnabled = _, A.imageSmoothingQuality = B, A.drawImage.apply(A, [i].concat(ss(Se.map(function($e) {
+    return Math.floor(Re($e));
   })))), A.restore(), R;
 }
 var bs = String.fromCharCode;
-function Xc(i, e, t) {
+function eu(i, e, t) {
   var r = "";
   t += e;
   for (var a = e; a < t; a += 1)
     r += bs(i.getUint8(a));
   return r;
 }
-var Yc = /^data:.*,/;
-function Kc(i) {
-  var e = i.replace(Yc, ""), t = atob(e), r = new ArrayBuffer(t.length), a = new Uint8Array(r);
+var tu = /^data:.*,/;
+function iu(i) {
+  var e = i.replace(tu, ""), t = atob(e), r = new ArrayBuffer(t.length), a = new Uint8Array(r);
   return H(a, function(o, s) {
     a[s] = t.charCodeAt(s);
   }), r;
 }
-function Zc(i, e) {
+function ru(i, e) {
   for (var t = [], r = 8192, a = new Uint8Array(i); a.length > 0; )
     t.push(bs.apply(null, fs(a.subarray(0, r)))), a = a.subarray(r);
   return "data:".concat(e, ";base64,").concat(btoa(t.join("")));
 }
-function Qc(i) {
+function au(i) {
   var e = new DataView(i), t;
   try {
     var r, a, o;
@@ -6907,17 +6772,17 @@ function Qc(i) {
       }
     if (a) {
       var p = a + 4, l = a + 10;
-      if (Xc(e, p, 4) === "Exif") {
-        var c = e.getUint16(l);
-        if (r = c === 18761, (r || c === 19789) && e.getUint16(l + 2, r) === 42) {
+      if (eu(e, p, 4) === "Exif") {
+        var h = e.getUint16(l);
+        if (r = h === 18761, (r || h === 19789) && e.getUint16(l + 2, r) === 42) {
           var d = e.getUint32(l + 4, r);
           d >= 8 && (o = l + d);
         }
       }
     }
     if (o) {
-      var h = e.getUint16(o, r), m, f;
-      for (f = 0; f < h; f += 1)
+      var c = e.getUint16(o, r), m, f;
+      for (f = 0; f < c; f += 1)
         if (m = o + f * 12 + 2, e.getUint16(m, r) === 274) {
           m += 8, t = e.getUint16(m, r), e.setUint16(m, 1, r);
           break;
@@ -6928,7 +6793,7 @@ function Qc(i) {
   }
   return t;
 }
-function Jc(i) {
+function ou(i) {
   var e = 0, t = 1, r = 1;
   switch (i) {
     // Flip horizontal
@@ -6966,7 +6831,7 @@ function Jc(i) {
     scaleY: r
   };
 }
-var eh = {
+var su = {
   render: function() {
     this.initContainer(), this.initCanvas(), this.initCropBox(), this.renderCanvas(), this.cropped && this.renderCropBox();
   },
@@ -6974,8 +6839,8 @@ var eh = {
     var e = this.element, t = this.options, r = this.container, a = this.cropper, o = Number(t.minContainerWidth), s = Number(t.minContainerHeight);
     q(a, K), pe(e, K);
     var n = {
-      width: Math.max(r.offsetWidth, o >= 0 ? o : cs),
-      height: Math.max(r.offsetHeight, s >= 0 ? s : hs)
+      width: Math.max(r.offsetWidth, o >= 0 ? o : hs),
+      height: Math.max(r.offsetHeight, s >= 0 ? s : cs)
     };
     this.containerData = n, ye(a, {
       width: n.width,
@@ -6986,26 +6851,26 @@ var eh = {
   initCanvas: function() {
     var e = this.containerData, t = this.imageData, r = this.options.viewMode, a = Math.abs(t.rotate) % 180 === 90, o = a ? t.naturalHeight : t.naturalWidth, s = a ? t.naturalWidth : t.naturalHeight, n = o / s, p = e.width, l = e.height;
     e.height * n > e.width ? r === 3 ? p = e.height * n : l = e.width / n : r === 3 ? l = e.width / n : p = e.height * n;
-    var c = {
+    var h = {
       aspectRatio: n,
       naturalWidth: o,
       naturalHeight: s,
       width: p,
       height: l
     };
-    this.canvasData = c, this.limited = r === 1 || r === 2, this.limitCanvas(!0, !0), c.width = Math.min(Math.max(c.width, c.minWidth), c.maxWidth), c.height = Math.min(Math.max(c.height, c.minHeight), c.maxHeight), c.left = (e.width - c.width) / 2, c.top = (e.height - c.height) / 2, c.oldLeft = c.left, c.oldTop = c.top, this.initialCanvasData = U({}, c);
+    this.canvasData = h, this.limited = r === 1 || r === 2, this.limitCanvas(!0, !0), h.width = Math.min(Math.max(h.width, h.minWidth), h.maxWidth), h.height = Math.min(Math.max(h.height, h.minHeight), h.maxHeight), h.left = (e.width - h.width) / 2, h.top = (e.height - h.height) / 2, h.oldLeft = h.left, h.oldTop = h.top, this.initialCanvasData = U({}, h);
   },
   limitCanvas: function(e, t) {
     var r = this.options, a = this.containerData, o = this.canvasData, s = this.cropBoxData, n = r.viewMode, p = o.aspectRatio, l = this.cropped && s;
     if (e) {
-      var c = Number(r.minCanvasWidth) || 0, d = Number(r.minCanvasHeight) || 0;
-      n > 1 ? (c = Math.max(c, a.width), d = Math.max(d, a.height), n === 3 && (d * p > c ? c = d * p : d = c / p)) : n > 0 && (c ? c = Math.max(c, l ? s.width : 0) : d ? d = Math.max(d, l ? s.height : 0) : l && (c = s.width, d = s.height, d * p > c ? c = d * p : d = c / p));
-      var h = be({
+      var h = Number(r.minCanvasWidth) || 0, d = Number(r.minCanvasHeight) || 0;
+      n > 1 ? (h = Math.max(h, a.width), d = Math.max(d, a.height), n === 3 && (d * p > h ? h = d * p : d = h / p)) : n > 0 && (h ? h = Math.max(h, l ? s.width : 0) : d ? d = Math.max(d, l ? s.height : 0) : l && (h = s.width, d = s.height, d * p > h ? h = d * p : d = h / p));
+      var c = be({
         aspectRatio: p,
-        width: c,
+        width: h,
         height: d
       });
-      c = h.width, d = h.height, o.minWidth = c, o.minHeight = d, o.maxWidth = 1 / 0, o.maxHeight = 1 / 0;
+      h = c.width, d = c.height, o.minWidth = h, o.minHeight = d, o.maxWidth = 1 / 0, o.maxHeight = 1 / 0;
     }
     if (t)
       if (n > (l ? 0 : 1)) {
@@ -7017,7 +6882,7 @@ var eh = {
   renderCanvas: function(e, t) {
     var r = this.canvasData, a = this.imageData;
     if (t) {
-      var o = Vc({
+      var o = Zd({
         width: a.naturalWidth * Math.abs(a.scaleX || 1),
         height: a.naturalHeight * Math.abs(a.scaleY || 1),
         degree: a.rotate || 0
@@ -7057,8 +6922,8 @@ var eh = {
   limitCropBox: function(e, t) {
     var r = this.options, a = this.containerData, o = this.canvasData, s = this.cropBoxData, n = this.limited, p = r.aspectRatio;
     if (e) {
-      var l = Number(r.minCropBoxWidth) || 0, c = Number(r.minCropBoxHeight) || 0, d = n ? Math.min(a.width, o.width, o.width + o.left, a.width - o.left) : a.width, h = n ? Math.min(a.height, o.height, o.height + o.top, a.height - o.top) : a.height;
-      l = Math.min(l, a.width), c = Math.min(c, a.height), p && (l && c ? c * p > l ? c = l / p : l = c * p : l ? c = l / p : c && (l = c * p), h * p > d ? h = d / p : d = h * p), s.minWidth = Math.min(l, d), s.minHeight = Math.min(c, h), s.maxWidth = d, s.maxHeight = h;
+      var l = Number(r.minCropBoxWidth) || 0, h = Number(r.minCropBoxHeight) || 0, d = n ? Math.min(a.width, o.width, o.width + o.left, a.width - o.left) : a.width, c = n ? Math.min(a.height, o.height, o.height + o.top, a.height - o.top) : a.height;
+      l = Math.min(l, a.width), h = Math.min(h, a.height), p && (l && h ? h * p > l ? h = l / p : l = h * p : l ? h = l / p : h && (l = h * p), c * p > d ? c = d / p : d = c * p), s.minWidth = Math.min(l, d), s.minHeight = Math.min(h, c), s.maxWidth = d, s.maxHeight = c;
     }
     t && (n ? (s.minLeft = Math.max(0, o.left), s.minTop = Math.max(0, o.top), s.maxLeft = Math.min(a.width, o.left + o.width) - s.width, s.maxTop = Math.min(a.height, o.top + o.height) - s.height) : (s.minLeft = 0, s.minTop = 0, s.maxLeft = a.width - s.width, s.maxTop = a.height - s.height));
   },
@@ -7075,7 +6940,7 @@ var eh = {
   output: function() {
     this.preview(), Ne(this.element, Ni, this.getData());
   }
-}, th = {
+}, nu = {
   initPreview: function() {
     var e = this.element, t = this.crossOrigin, r = this.options.preview, a = t ? this.crossOriginUrl : this.url, o = e.alt || "The image to preview", s = document.createElement("img");
     if (t && (s.crossOrigin = t), s.src = a, s.alt = o, this.viewBox.appendChild(s), this.viewBoxImage = s, !!r) {
@@ -7096,7 +6961,7 @@ var eh = {
       ye(e, {
         width: t.width,
         height: t.height
-      }), e.innerHTML = t.html, Hc(e, Pt);
+      }), e.innerHTML = t.html, Xd(e, Pt);
     });
   },
   preview: function() {
@@ -7107,12 +6972,12 @@ var eh = {
     }, tt(U({
       translateX: -p,
       translateY: -l
-    }, e)))), H(this.previews, function(c) {
-      var d = ji(c, Pt), h = d.width, m = d.height, f = h, y = m, b = 1;
-      a && (b = h / a, y = o * b), o && y > m && (b = m / o, f = a * b, y = m), ye(c, {
+    }, e)))), H(this.previews, function(h) {
+      var d = ji(h, Pt), c = d.width, m = d.height, f = c, y = m, b = 1;
+      a && (b = c / a, y = o * b), o && y > m && (b = m / o, f = a * b, y = m), ye(h, {
         width: f,
         height: y
-      }), ye(c.getElementsByTagName("img")[0], U({
+      }), ye(h.getElementsByTagName("img")[0], U({
         width: s * b,
         height: n * b
       }, tt(U({
@@ -7121,37 +6986,37 @@ var eh = {
       }, e))));
     }));
   }
-}, ih = {
+}, lu = {
   bind: function() {
     var e = this.element, t = this.options, r = this.cropper;
-    Y(t.cropstart) && Z(e, Li, t.cropstart), Y(t.cropmove) && Z(e, $i, t.cropmove), Y(t.cropend) && Z(e, Ui, t.cropend), Y(t.crop) && Z(e, Ni, t.crop), Y(t.zoom) && Z(e, Hi, t.zoom), Z(r, Ga, this.onCropStart = this.cropStart.bind(this)), t.zoomable && t.zoomOnWheel && Z(r, Qa, this.onWheel = this.wheel.bind(this), {
+    Y(t.cropstart) && Q(e, $i, t.cropstart), Y(t.cropmove) && Q(e, Li, t.cropmove), Y(t.cropend) && Q(e, Ui, t.cropend), Y(t.crop) && Q(e, Ni, t.crop), Y(t.zoom) && Q(e, Hi, t.zoom), Q(r, Ga, this.onCropStart = this.cropStart.bind(this)), t.zoomable && t.zoomOnWheel && Q(r, Za, this.onWheel = this.wheel.bind(this), {
       passive: !1,
       capture: !0
-    }), t.toggleDragModeOnDblclick && Z(r, Va, this.onDblclick = this.dblclick.bind(this)), Z(e.ownerDocument, Xa, this.onCropMove = this.cropMove.bind(this)), Z(e.ownerDocument, Ya, this.onCropEnd = this.cropEnd.bind(this)), t.responsive && Z(window, Za, this.onResize = this.resize.bind(this));
+    }), t.toggleDragModeOnDblclick && Q(r, Va, this.onDblclick = this.dblclick.bind(this)), Q(e.ownerDocument, Xa, this.onCropMove = this.cropMove.bind(this)), Q(e.ownerDocument, Ya, this.onCropEnd = this.cropEnd.bind(this)), t.responsive && Q(window, Qa, this.onResize = this.resize.bind(this));
   },
   unbind: function() {
     var e = this.element, t = this.options, r = this.cropper;
-    Y(t.cropstart) && Q(e, Li, t.cropstart), Y(t.cropmove) && Q(e, $i, t.cropmove), Y(t.cropend) && Q(e, Ui, t.cropend), Y(t.crop) && Q(e, Ni, t.crop), Y(t.zoom) && Q(e, Hi, t.zoom), Q(r, Ga, this.onCropStart), t.zoomable && t.zoomOnWheel && Q(r, Qa, this.onWheel, {
+    Y(t.cropstart) && Z(e, $i, t.cropstart), Y(t.cropmove) && Z(e, Li, t.cropmove), Y(t.cropend) && Z(e, Ui, t.cropend), Y(t.crop) && Z(e, Ni, t.crop), Y(t.zoom) && Z(e, Hi, t.zoom), Z(r, Ga, this.onCropStart), t.zoomable && t.zoomOnWheel && Z(r, Za, this.onWheel, {
       passive: !1,
       capture: !0
-    }), t.toggleDragModeOnDblclick && Q(r, Va, this.onDblclick), Q(e.ownerDocument, Xa, this.onCropMove), Q(e.ownerDocument, Ya, this.onCropEnd), t.responsive && Q(window, Za, this.onResize);
+    }), t.toggleDragModeOnDblclick && Z(r, Va, this.onDblclick), Z(e.ownerDocument, Xa, this.onCropMove), Z(e.ownerDocument, Ya, this.onCropEnd), t.responsive && Z(window, Qa, this.onResize);
   }
-}, rh = {
+}, pu = {
   resize: function() {
     if (!this.disabled) {
       var e = this.options, t = this.container, r = this.containerData, a = t.offsetWidth / r.width, o = t.offsetHeight / r.height, s = Math.abs(a - 1) > Math.abs(o - 1) ? a : o;
       if (s !== 1) {
         var n, p;
-        e.restore && (n = this.getCanvasData(), p = this.getCropBoxData()), this.render(), e.restore && (this.setCanvasData(H(n, function(l, c) {
-          n[c] = l * s;
-        })), this.setCropBoxData(H(p, function(l, c) {
-          p[c] = l * s;
+        e.restore && (n = this.getCanvasData(), p = this.getCropBoxData()), this.render(), e.restore && (this.setCanvasData(H(n, function(l, h) {
+          n[h] = l * s;
+        })), this.setCropBoxData(H(p, function(l, h) {
+          p[h] = l * s;
         })));
       }
     }
   },
   dblclick: function() {
-    this.disabled || this.options.dragMode === us || this.setDragMode($c(this.dragBox, zi) ? ds : pr);
+    this.disabled || this.options.dragMode === us || this.setDragMode(Vd(this.dragBox, zi) ? ds : pr);
   },
   wheel: function(e) {
     var t = this, r = Number(this.options.wheelZoomRatio) || 0.1, a = 1;
@@ -7162,11 +7027,11 @@ var eh = {
   cropStart: function(e) {
     var t = e.buttons, r = e.button;
     if (!(this.disabled || (e.type === "mousedown" || e.type === "pointerdown" && e.pointerType === "mouse") && // No primary button (Usually the left button)
-    (I(t) && t !== 1 || I(r) && r !== 0 || e.ctrlKey))) {
+    (F(t) && t !== 1 || F(r) && r !== 0 || e.ctrlKey))) {
       var a = this.options, o = this.pointers, s;
       e.changedTouches ? H(e.changedTouches, function(n) {
         o[n.identifier] = Ct(n);
-      }) : o[e.pointerId || 0] = Ct(e), Object.keys(o).length > 1 && a.zoomable && a.zoomOnTouch ? s = ps : s = ji(e.target, nt), Fc.test(s) && Ne(this.element, Li, {
+      }) : o[e.pointerId || 0] = Ct(e), Object.keys(o).length > 1 && a.zoomable && a.zoomOnTouch ? s = ps : s = ji(e.target, nt), zd.test(s) && Ne(this.element, $i, {
         originalEvent: e,
         action: s
       }) !== !1 && (e.preventDefault(), this.action = s, this.cropping = !1, s === ns && (this.cropping = !0, q(this.dragBox, Nt)));
@@ -7176,7 +7041,7 @@ var eh = {
     var t = this.action;
     if (!(this.disabled || !t)) {
       var r = this.pointers;
-      e.preventDefault(), Ne(this.element, $i, {
+      e.preventDefault(), Ne(this.element, Li, {
         originalEvent: e,
         action: t
       }) !== !1 && (e.changedTouches ? H(e.changedTouches, function(a) {
@@ -7195,15 +7060,15 @@ var eh = {
       }));
     }
   }
-}, ah = {
+}, du = {
   change: function(e) {
-    var t = this.options, r = this.canvasData, a = this.containerData, o = this.cropBoxData, s = this.pointers, n = this.action, p = t.aspectRatio, l = o.left, c = o.top, d = o.width, h = o.height, m = l + d, f = c + h, y = 0, b = 0, v = a.width, x = a.height, _ = !0, C;
-    !p && e.shiftKey && (p = d && h ? d / h : 1), this.limited && (y = o.minLeft, b = o.minTop, v = y + Math.min(a.width, r.width, r.left + r.width), x = b + Math.min(a.height, r.height, r.top + r.height));
+    var t = this.options, r = this.canvasData, a = this.containerData, o = this.cropBoxData, s = this.pointers, n = this.action, p = t.aspectRatio, l = o.left, h = o.top, d = o.width, c = o.height, m = l + d, f = h + c, y = 0, b = 0, v = a.width, x = a.height, _ = !0, C;
+    !p && e.shiftKey && (p = d && c ? d / c : 1), this.limited && (y = o.minLeft, b = o.minTop, v = y + Math.min(a.width, r.width, r.left + r.width), x = b + Math.min(a.height, r.height, r.top + r.height));
     var B = s[Object.keys(s)[0]], g = {
       x: B.endX - B.startX,
       y: B.endY - B.startY
-    }, D = function(S) {
-      switch (S) {
+    }, S = function(k) {
+      switch (k) {
         case Pe:
           m + g.x > v && (g.x = v - m);
           break;
@@ -7211,7 +7076,7 @@ var eh = {
           l + g.x < y && (g.x = y - l);
           break;
         case me:
-          c + g.y < b && (g.y = b - c);
+          h + g.y < b && (g.y = b - h);
           break;
         case Ae:
           f + g.y > x && (g.y = x - f);
@@ -7221,58 +7086,58 @@ var eh = {
     switch (n) {
       // Move crop box
       case lr:
-        l += g.x, c += g.y;
+        l += g.x, h += g.y;
         break;
       // Resize crop box
       case Pe:
-        if (g.x >= 0 && (m >= v || p && (c <= b || f >= x))) {
+        if (g.x >= 0 && (m >= v || p && (h <= b || f >= x))) {
           _ = !1;
           break;
         }
-        D(Pe), d += g.x, d < 0 && (n = Ce, d = -d, l -= d), p && (h = d / p, c += (o.height - h) / 2);
+        S(Pe), d += g.x, d < 0 && (n = Ce, d = -d, l -= d), p && (c = d / p, h += (o.height - c) / 2);
         break;
       case me:
-        if (g.y <= 0 && (c <= b || p && (l <= y || m >= v))) {
+        if (g.y <= 0 && (h <= b || p && (l <= y || m >= v))) {
           _ = !1;
           break;
         }
-        D(me), h -= g.y, c += g.y, h < 0 && (n = Ae, h = -h, c -= h), p && (d = h * p, l += (o.width - d) / 2);
+        S(me), c -= g.y, h += g.y, c < 0 && (n = Ae, c = -c, h -= c), p && (d = c * p, l += (o.width - d) / 2);
         break;
       case Ce:
-        if (g.x <= 0 && (l <= y || p && (c <= b || f >= x))) {
+        if (g.x <= 0 && (l <= y || p && (h <= b || f >= x))) {
           _ = !1;
           break;
         }
-        D(Ce), d -= g.x, l += g.x, d < 0 && (n = Pe, d = -d, l -= d), p && (h = d / p, c += (o.height - h) / 2);
+        S(Ce), d -= g.x, l += g.x, d < 0 && (n = Pe, d = -d, l -= d), p && (c = d / p, h += (o.height - c) / 2);
         break;
       case Ae:
         if (g.y >= 0 && (f >= x || p && (l <= y || m >= v))) {
           _ = !1;
           break;
         }
-        D(Ae), h += g.y, h < 0 && (n = me, h = -h, c -= h), p && (d = h * p, l += (o.width - d) / 2);
+        S(Ae), c += g.y, c < 0 && (n = me, c = -c, h -= c), p && (d = c * p, l += (o.width - d) / 2);
         break;
       case Ge:
         if (p) {
-          if (g.y <= 0 && (c <= b || m >= v)) {
+          if (g.y <= 0 && (h <= b || m >= v)) {
             _ = !1;
             break;
           }
-          D(me), h -= g.y, c += g.y, d = h * p;
+          S(me), c -= g.y, h += g.y, d = c * p;
         } else
-          D(me), D(Pe), g.x >= 0 ? m < v ? d += g.x : g.y <= 0 && c <= b && (_ = !1) : d += g.x, g.y <= 0 ? c > b && (h -= g.y, c += g.y) : (h -= g.y, c += g.y);
-        d < 0 && h < 0 ? (n = Ke, h = -h, d = -d, c -= h, l -= d) : d < 0 ? (n = Xe, d = -d, l -= d) : h < 0 && (n = Ye, h = -h, c -= h);
+          S(me), S(Pe), g.x >= 0 ? m < v ? d += g.x : g.y <= 0 && h <= b && (_ = !1) : d += g.x, g.y <= 0 ? h > b && (c -= g.y, h += g.y) : (c -= g.y, h += g.y);
+        d < 0 && c < 0 ? (n = Ke, c = -c, d = -d, h -= c, l -= d) : d < 0 ? (n = Xe, d = -d, l -= d) : c < 0 && (n = Ye, c = -c, h -= c);
         break;
       case Xe:
         if (p) {
-          if (g.y <= 0 && (c <= b || l <= y)) {
+          if (g.y <= 0 && (h <= b || l <= y)) {
             _ = !1;
             break;
           }
-          D(me), h -= g.y, c += g.y, d = h * p, l += o.width - d;
+          S(me), c -= g.y, h += g.y, d = c * p, l += o.width - d;
         } else
-          D(me), D(Ce), g.x <= 0 ? l > y ? (d -= g.x, l += g.x) : g.y <= 0 && c <= b && (_ = !1) : (d -= g.x, l += g.x), g.y <= 0 ? c > b && (h -= g.y, c += g.y) : (h -= g.y, c += g.y);
-        d < 0 && h < 0 ? (n = Ye, h = -h, d = -d, c -= h, l -= d) : d < 0 ? (n = Ge, d = -d, l -= d) : h < 0 && (n = Ke, h = -h, c -= h);
+          S(me), S(Ce), g.x <= 0 ? l > y ? (d -= g.x, l += g.x) : g.y <= 0 && h <= b && (_ = !1) : (d -= g.x, l += g.x), g.y <= 0 ? h > b && (c -= g.y, h += g.y) : (c -= g.y, h += g.y);
+        d < 0 && c < 0 ? (n = Ye, c = -c, d = -d, h -= c, l -= d) : d < 0 ? (n = Ge, d = -d, l -= d) : c < 0 && (n = Ke, c = -c, h -= c);
         break;
       case Ke:
         if (p) {
@@ -7280,10 +7145,10 @@ var eh = {
             _ = !1;
             break;
           }
-          D(Ce), d -= g.x, l += g.x, h = d / p;
+          S(Ce), d -= g.x, l += g.x, c = d / p;
         } else
-          D(Ae), D(Ce), g.x <= 0 ? l > y ? (d -= g.x, l += g.x) : g.y >= 0 && f >= x && (_ = !1) : (d -= g.x, l += g.x), g.y >= 0 ? f < x && (h += g.y) : h += g.y;
-        d < 0 && h < 0 ? (n = Ge, h = -h, d = -d, c -= h, l -= d) : d < 0 ? (n = Ye, d = -d, l -= d) : h < 0 && (n = Xe, h = -h, c -= h);
+          S(Ae), S(Ce), g.x <= 0 ? l > y ? (d -= g.x, l += g.x) : g.y >= 0 && f >= x && (_ = !1) : (d -= g.x, l += g.x), g.y >= 0 ? f < x && (c += g.y) : c += g.y;
+        d < 0 && c < 0 ? (n = Ge, c = -c, d = -d, h -= c, l -= d) : d < 0 ? (n = Ye, d = -d, l -= d) : c < 0 && (n = Xe, c = -c, h -= c);
         break;
       case Ye:
         if (p) {
@@ -7291,10 +7156,10 @@ var eh = {
             _ = !1;
             break;
           }
-          D(Pe), d += g.x, h = d / p;
+          S(Pe), d += g.x, c = d / p;
         } else
-          D(Ae), D(Pe), g.x >= 0 ? m < v ? d += g.x : g.y >= 0 && f >= x && (_ = !1) : d += g.x, g.y >= 0 ? f < x && (h += g.y) : h += g.y;
-        d < 0 && h < 0 ? (n = Xe, h = -h, d = -d, c -= h, l -= d) : d < 0 ? (n = Ke, d = -d, l -= d) : h < 0 && (n = Ge, h = -h, c -= h);
+          S(Ae), S(Pe), g.x >= 0 ? m < v ? d += g.x : g.y >= 0 && f >= x && (_ = !1) : d += g.x, g.y >= 0 ? f < x && (c += g.y) : c += g.y;
+        d < 0 && c < 0 ? (n = Xe, c = -c, d = -d, h -= c, l -= d) : d < 0 ? (n = Ke, d = -d, l -= d) : c < 0 && (n = Ge, c = -c, h -= c);
         break;
       // Move canvas
       case ls:
@@ -7302,7 +7167,7 @@ var eh = {
         break;
       // Zoom canvas
       case ps:
-        this.zoom(qc(s), e), _ = !1;
+        this.zoom(Kd(s), e), _ = !1;
         break;
       // Create crop box
       case ns:
@@ -7310,14 +7175,14 @@ var eh = {
           _ = !1;
           break;
         }
-        C = ys(this.cropper), l = B.startX - C.left, c = B.startY - C.top, d = o.minWidth, h = o.minHeight, g.x > 0 ? n = g.y > 0 ? Ye : Ge : g.x < 0 && (l -= d, n = g.y > 0 ? Ke : Xe), g.y < 0 && (c -= h), this.cropped || (pe(this.cropBox, K), this.cropped = !0, this.limited && this.limitCropBox(!0, !0));
+        C = ys(this.cropper), l = B.startX - C.left, h = B.startY - C.top, d = o.minWidth, c = o.minHeight, g.x > 0 ? n = g.y > 0 ? Ye : Ge : g.x < 0 && (l -= d, n = g.y > 0 ? Ke : Xe), g.y < 0 && (h -= c), this.cropped || (pe(this.cropBox, K), this.cropped = !0, this.limited && this.limitCropBox(!0, !0));
         break;
     }
-    _ && (o.width = d, o.height = h, o.left = l, o.top = c, this.action = n, this.renderCropBox()), H(s, function(k) {
-      k.startX = k.endX, k.startY = k.endY;
+    _ && (o.width = d, o.height = c, o.left = l, o.top = h, this.action = n, this.renderCropBox()), H(s, function(D) {
+      D.startX = D.endX, D.startY = D.endY;
     });
   }
-}, oh = {
+}, uu = {
   // Show the crop box manually
   crop: function() {
     return this.ready && !this.cropped && !this.disabled && (this.cropped = !0, this.limitCropBox(!0, !0), this.options.modal && q(this.dragBox, Nt), pe(this.cropBox, K), this.setCropBoxData(this.initialCropBoxData)), this;
@@ -7381,7 +7246,7 @@ var eh = {
    */
   moveTo: function(e) {
     var t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : e, r = this.canvasData, a = !1;
-    return e = Number(e), t = Number(t), this.ready && !this.disabled && this.options.movable && (I(e) && (r.left = e, a = !0), I(t) && (r.top = t, a = !0), a && this.renderCanvas(!0)), this;
+    return e = Number(e), t = Number(t), this.ready && !this.disabled && this.options.movable && (F(e) && (r.left = e, a = !0), F(t) && (r.top = t, a = !0), a && this.renderCanvas(!0)), this;
   },
   /**
    * Zoom the canvas with a relative ratio
@@ -7403,7 +7268,7 @@ var eh = {
   zoomTo: function(e, t, r) {
     var a = this.options, o = this.canvasData, s = o.width, n = o.height, p = o.naturalWidth, l = o.naturalHeight;
     if (e = Number(e), e >= 0 && this.ready && !this.disabled && a.zoomable) {
-      var c = p * e, d = l * e;
+      var h = p * e, d = l * e;
       if (Ne(this.element, Hi, {
         ratio: e,
         oldRatio: s / p,
@@ -7411,13 +7276,13 @@ var eh = {
       }) === !1)
         return this;
       if (r) {
-        var h = this.pointers, m = ys(this.cropper), f = h && Object.keys(h).length ? Wc(h) : {
+        var c = this.pointers, m = ys(this.cropper), f = c && Object.keys(c).length ? Qd(c) : {
           pageX: r.pageX,
           pageY: r.pageY
         };
-        o.left -= (c - s) * ((f.pageX - m.left - o.left) / s), o.top -= (d - n) * ((f.pageY - m.top - o.top) / n);
-      } else Me(t) && I(t.x) && I(t.y) ? (o.left -= (c - s) * ((t.x - o.left) / s), o.top -= (d - n) * ((t.y - o.top) / n)) : (o.left -= (c - s) / 2, o.top -= (d - n) / 2);
-      o.width = c, o.height = d, this.renderCanvas(!0);
+        o.left -= (h - s) * ((f.pageX - m.left - o.left) / s), o.top -= (d - n) * ((f.pageY - m.top - o.top) / n);
+      } else Me(t) && F(t.x) && F(t.y) ? (o.left -= (h - s) * ((t.x - o.left) / s), o.top -= (d - n) * ((t.y - o.top) / n)) : (o.left -= (h - s) / 2, o.top -= (d - n) / 2);
+      o.width = h, o.height = d, this.renderCanvas(!0);
     }
     return this;
   },
@@ -7435,7 +7300,7 @@ var eh = {
    * @returns {Cropper} this
    */
   rotateTo: function(e) {
-    return e = Number(e), I(e) && this.ready && !this.disabled && this.options.rotatable && (this.imageData.rotate = e % 360, this.renderCanvas(!0, !0)), this;
+    return e = Number(e), F(e) && this.ready && !this.disabled && this.options.rotatable && (this.imageData.rotate = e % 360, this.renderCanvas(!0, !0)), this;
   },
   /**
    * Scale the image on the x-axis.
@@ -7444,7 +7309,7 @@ var eh = {
    */
   scaleX: function(e) {
     var t = this.imageData.scaleY;
-    return this.scale(e, I(t) ? t : 1);
+    return this.scale(e, F(t) ? t : 1);
   },
   /**
    * Scale the image on the y-axis.
@@ -7453,7 +7318,7 @@ var eh = {
    */
   scaleY: function(e) {
     var t = this.imageData.scaleX;
-    return this.scale(I(t) ? t : 1, e);
+    return this.scale(F(t) ? t : 1, e);
   },
   /**
    * Scale the image
@@ -7463,7 +7328,7 @@ var eh = {
    */
   scale: function(e) {
     var t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : e, r = this.imageData, a = !1;
-    return e = Number(e), t = Number(t), this.ready && !this.disabled && this.options.scalable && (I(e) && (r.scaleX = e, a = !0), I(t) && (r.scaleY = t, a = !0), a && this.renderCanvas(!0, !0)), this;
+    return e = Number(e), t = Number(t), this.ready && !this.disabled && this.options.scalable && (F(e) && (r.scaleX = e, a = !0), F(t) && (r.scaleY = t, a = !0), a && this.renderCanvas(!0, !0)), this;
   },
   /**
    * Get the cropped area position and size data (base on the original image)
@@ -7480,8 +7345,8 @@ var eh = {
         height: o.height
       };
       var n = r.width / r.naturalWidth;
-      if (H(s, function(c, d) {
-        s[d] = c / n;
+      if (H(s, function(h, d) {
+        s[d] = h / n;
       }), e) {
         var p = Math.round(s.y + s.height), l = Math.round(s.x + s.width);
         s.x = Math.round(s.x), s.y = Math.round(s.y), s.width = l - s.x, s.height = p - s.y;
@@ -7504,9 +7369,9 @@ var eh = {
     var t = this.options, r = this.imageData, a = this.canvasData, o = {};
     if (this.ready && !this.disabled && Me(e)) {
       var s = !1;
-      t.rotatable && I(e.rotate) && e.rotate !== r.rotate && (r.rotate = e.rotate, s = !0), t.scalable && (I(e.scaleX) && e.scaleX !== r.scaleX && (r.scaleX = e.scaleX, s = !0), I(e.scaleY) && e.scaleY !== r.scaleY && (r.scaleY = e.scaleY, s = !0)), s && this.renderCanvas(!0, !0);
+      t.rotatable && F(e.rotate) && e.rotate !== r.rotate && (r.rotate = e.rotate, s = !0), t.scalable && (F(e.scaleX) && e.scaleX !== r.scaleX && (r.scaleX = e.scaleX, s = !0), F(e.scaleY) && e.scaleY !== r.scaleY && (r.scaleY = e.scaleY, s = !0)), s && this.renderCanvas(!0, !0);
       var n = r.width / r.naturalWidth;
-      I(e.x) && (o.left = e.x * n + a.left), I(e.y) && (o.top = e.y * n + a.top), I(e.width) && (o.width = e.width * n), I(e.height) && (o.height = e.height * n), this.setCropBoxData(o);
+      F(e.x) && (o.left = e.x * n + a.left), F(e.y) && (o.top = e.y * n + a.top), F(e.width) && (o.width = e.width * n), F(e.height) && (o.height = e.height * n), this.setCropBoxData(o);
     }
     return this;
   },
@@ -7541,7 +7406,7 @@ var eh = {
    */
   setCanvasData: function(e) {
     var t = this.canvasData, r = t.aspectRatio;
-    return this.ready && !this.disabled && Me(e) && (I(e.left) && (t.left = e.left), I(e.top) && (t.top = e.top), I(e.width) ? (t.width = e.width, t.height = e.width / r) : I(e.height) && (t.height = e.height, t.width = e.height * r), this.renderCanvas(!0)), this;
+    return this.ready && !this.disabled && Me(e) && (F(e.left) && (t.left = e.left), F(e.top) && (t.top = e.top), F(e.width) ? (t.width = e.width, t.height = e.width / r) : F(e.height) && (t.height = e.height, t.width = e.height * r), this.renderCanvas(!0)), this;
   },
   /**
    * Get the crop box position and size data.
@@ -7563,7 +7428,7 @@ var eh = {
    */
   setCropBoxData: function(e) {
     var t = this.cropBoxData, r = this.options.aspectRatio, a, o;
-    return this.ready && this.cropped && !this.disabled && Me(e) && (I(e.left) && (t.left = e.left), I(e.top) && (t.top = e.top), I(e.width) && e.width !== t.width && (a = !0, t.width = e.width), I(e.height) && e.height !== t.height && (o = !0, t.height = e.height), r && (a ? t.height = t.width / r : o && (t.width = t.height * r)), this.renderCropBox()), this;
+    return this.ready && this.cropped && !this.disabled && Me(e) && (F(e.left) && (t.left = e.left), F(e.top) && (t.top = e.top), F(e.width) && e.width !== t.width && (a = !0, t.width = e.width), F(e.height) && e.height !== t.height && (o = !0, t.height = e.height), r && (a ? t.height = t.width / r : o && (t.width = t.height * r)), this.renderCropBox()), this;
   },
   /**
    * Get a canvas drawn the cropped image.
@@ -7574,35 +7439,35 @@ var eh = {
     var e = arguments.length > 0 && arguments[0] !== void 0 ? arguments[0] : {};
     if (!this.ready || !window.HTMLCanvasElement)
       return null;
-    var t = this.canvasData, r = Gc(this.image, this.imageData, t, e);
+    var t = this.canvasData, r = Jd(this.image, this.imageData, t, e);
     if (!this.cropped)
       return r;
     var a = this.getData(e.rounded), o = a.x, s = a.y, n = a.width, p = a.height, l = r.width / Math.floor(t.naturalWidth);
     l !== 1 && (o *= l, s *= l, n *= l, p *= l);
-    var c = n / p, d = be({
-      aspectRatio: c,
+    var h = n / p, d = be({
+      aspectRatio: h,
       width: e.maxWidth || 1 / 0,
       height: e.maxHeight || 1 / 0
-    }), h = be({
-      aspectRatio: c,
+    }), c = be({
+      aspectRatio: h,
       width: e.minWidth || 0,
       height: e.minHeight || 0
     }, "cover"), m = be({
-      aspectRatio: c,
+      aspectRatio: h,
       width: e.width || (l !== 1 ? r.width : n),
       height: e.height || (l !== 1 ? r.height : p)
     }), f = m.width, y = m.height;
-    f = Math.min(d.width, Math.max(h.width, f)), y = Math.min(d.height, Math.max(h.height, y));
+    f = Math.min(d.width, Math.max(c.width, f)), y = Math.min(d.height, Math.max(c.height, y));
     var b = document.createElement("canvas"), v = b.getContext("2d");
     b.width = Re(f), b.height = Re(y), v.fillStyle = e.fillColor || "transparent", v.fillRect(0, 0, f, y);
     var x = e.imageSmoothingEnabled, _ = x === void 0 ? !0 : x, C = e.imageSmoothingQuality;
     v.imageSmoothingEnabled = _, C && (v.imageSmoothingQuality = C);
-    var B = r.width, g = r.height, D = o, k = s, S, O, T, M, F, R;
-    D <= -n || D > B ? (D = 0, S = 0, T = 0, F = 0) : D <= 0 ? (T = -D, D = 0, S = Math.min(B, n + D), F = S) : D <= B && (T = 0, S = Math.min(n, B - D), F = S), S <= 0 || k <= -p || k > g ? (k = 0, O = 0, M = 0, R = 0) : k <= 0 ? (M = -k, k = 0, O = Math.min(g, p + k), R = O) : k <= g && (M = 0, O = Math.min(p, g - k), R = O);
-    var A = [D, k, S, O];
-    if (F > 0 && R > 0) {
+    var B = r.width, g = r.height, S = o, D = s, k, O, T, M, I, R;
+    S <= -n || S > B ? (S = 0, k = 0, T = 0, I = 0) : S <= 0 ? (T = -S, S = 0, k = Math.min(B, n + S), I = k) : S <= B && (T = 0, k = Math.min(n, B - S), I = k), k <= 0 || D <= -p || D > g ? (D = 0, O = 0, M = 0, R = 0) : D <= 0 ? (M = -D, D = 0, O = Math.min(g, p + D), R = O) : D <= g && (M = 0, O = Math.min(p, g - D), R = O);
+    var A = [S, D, k, O];
+    if (I > 0 && R > 0) {
       var V = f / n;
-      A.push(T * V, M * V, F * V, R * V);
+      A.push(T * V, M * V, I * V, R * V);
     }
     return v.drawImage.apply(v, [r].concat(ss(A.map(function(oe) {
       return Math.floor(Re(oe));
@@ -7630,14 +7495,14 @@ var eh = {
     }
     return this;
   }
-}, sh = de.Cropper, vs = /* @__PURE__ */ function() {
+}, hu = de.Cropper, vs = /* @__PURE__ */ function() {
   function i(e) {
     var t = arguments.length > 1 && arguments[1] !== void 0 ? arguments[1] : {};
-    if (vc(this, i), !e || !Ac.test(e.tagName))
+    if (kd(this, i), !e || !Ud.test(e.tagName))
       throw new Error("The first argument is required and must be an <img> or <canvas> element.");
     this.element = e, this.options = U({}, eo, Me(t) && t), this.cropped = !1, this.disabled = !1, this.pointers = {}, this.ready = !1, this.reloading = !1, this.replaced = !1, this.sized = !1, this.sizing = !1, this.init();
   }
-  return wc(i, [{
+  return Pd(i, [{
     key: "init",
     value: function() {
       var t = this.element, r = t.tagName.toLowerCase(), a;
@@ -7661,8 +7526,8 @@ var eh = {
           this.clone();
           return;
         }
-        if (Tc.test(t)) {
-          Ec.test(t) ? this.read(Kc(t)) : this.clone();
+        if (Rd.test(t)) {
+          Nd.test(t) ? this.read(iu(t)) : this.clone();
           return;
         }
         var s = new XMLHttpRequest(), n = this.clone.bind(this);
@@ -7678,10 +7543,10 @@ var eh = {
   }, {
     key: "read",
     value: function(t) {
-      var r = this.options, a = this.imageData, o = Qc(t), s = 0, n = 1, p = 1;
+      var r = this.options, a = this.imageData, o = au(t), s = 0, n = 1, p = 1;
       if (o > 1) {
-        this.url = Zc(t, Ja);
-        var l = Jc(o);
+        this.url = ru(t, Ja);
+        var l = ou(o);
         s = l.rotate, n = l.scaleX, p = l.scaleY;
       }
       r.rotatable && (a.rotate = s), r.scalable && (a.scaleX = n, a.scaleY = p), this.clone();
@@ -7699,11 +7564,11 @@ var eh = {
     value: function() {
       var t = this, r = this.image;
       r.onload = null, r.onerror = null, this.sizing = !0;
-      var a = de.navigator && /(?:iPad|iPhone|iPod).*?AppleWebKit/i.test(de.navigator.userAgent), o = function(l, c) {
+      var a = de.navigator && /(?:iPad|iPhone|iPod).*?AppleWebKit/i.test(de.navigator.userAgent), o = function(l, h) {
         U(t.imageData, {
           naturalWidth: l,
-          naturalHeight: c,
-          aspectRatio: l / c
+          naturalHeight: h,
+          aspectRatio: l / h
         }), t.initialImageData = U({}, t.imageData), t.sizing = !1, t.sized = !0, t.build();
       };
       if (r.naturalWidth && !a) {
@@ -7726,9 +7591,9 @@ var eh = {
     value: function() {
       if (!(!this.sized || this.ready)) {
         var t = this.element, r = this.options, a = this.image, o = t.parentNode, s = document.createElement("div");
-        s.innerHTML = Oc;
-        var n = s.querySelector(".".concat(N, "-container")), p = n.querySelector(".".concat(N, "-canvas")), l = n.querySelector(".".concat(N, "-drag-box")), c = n.querySelector(".".concat(N, "-crop-box")), d = c.querySelector(".".concat(N, "-face"));
-        this.container = o, this.cropper = n, this.canvas = p, this.dragBox = l, this.cropBox = c, this.viewBox = n.querySelector(".".concat(N, "-view-box")), this.face = d, p.appendChild(a), q(t, K), o.insertBefore(n, t.nextSibling), pe(a, Wa), this.initPreview(), this.bind(), r.initialAspectRatio = Math.max(0, r.initialAspectRatio) || NaN, r.aspectRatio = Math.max(0, r.aspectRatio) || NaN, r.viewMode = Math.max(0, Math.min(3, Math.round(r.viewMode))) || 0, q(c, K), r.guides || q(c.getElementsByClassName("".concat(N, "-dashed")), K), r.center || q(c.getElementsByClassName("".concat(N, "-center")), K), r.background && q(n, "".concat(N, "-bg")), r.highlight || q(d, Pc), r.cropBoxMovable && (q(d, Ri), lt(d, nt, lr)), r.cropBoxResizable || (q(c.getElementsByClassName("".concat(N, "-line")), K), q(c.getElementsByClassName("".concat(N, "-point")), K)), this.render(), this.ready = !0, this.setDragMode(r.dragMode), r.autoCrop && this.crop(), this.setData(r.data), Y(r.ready) && Z(t, Ka, r.ready, {
+        s.innerHTML = Ld;
+        var n = s.querySelector(".".concat(N, "-container")), p = n.querySelector(".".concat(N, "-canvas")), l = n.querySelector(".".concat(N, "-drag-box")), h = n.querySelector(".".concat(N, "-crop-box")), d = h.querySelector(".".concat(N, "-face"));
+        this.container = o, this.cropper = n, this.canvas = p, this.dragBox = l, this.cropBox = h, this.viewBox = n.querySelector(".".concat(N, "-view-box")), this.face = d, p.appendChild(a), q(t, K), o.insertBefore(n, t.nextSibling), pe(a, Wa), this.initPreview(), this.bind(), r.initialAspectRatio = Math.max(0, r.initialAspectRatio) || NaN, r.aspectRatio = Math.max(0, r.aspectRatio) || NaN, r.viewMode = Math.max(0, Math.min(3, Math.round(r.viewMode))) || 0, q(h, K), r.guides || q(h.getElementsByClassName("".concat(N, "-dashed")), K), r.center || q(h.getElementsByClassName("".concat(N, "-center")), K), r.background && q(n, "".concat(N, "-bg")), r.highlight || q(d, Ed), r.cropBoxMovable && (q(d, Ri), lt(d, nt, lr)), r.cropBoxResizable || (q(h.getElementsByClassName("".concat(N, "-line")), K), q(h.getElementsByClassName("".concat(N, "-point")), K)), this.render(), this.ready = !0, this.setDragMode(r.dragMode), r.autoCrop && this.crop(), this.setData(r.data), Y(r.ready) && Q(t, Ka, r.ready, {
           once: !0
         }), Ne(t, Ka);
       }
@@ -7754,7 +7619,7 @@ var eh = {
   }], [{
     key: "noConflict",
     value: function() {
-      return window.Cropper = sh, i;
+      return window.Cropper = hu, i;
     }
     /**
      * Change the default options.
@@ -7767,8 +7632,8 @@ var eh = {
     }
   }]);
 }();
-U(vs.prototype, eh, th, ih, rh, ah, oh);
-function nh(i, e) {
+U(vs.prototype, su, nu, lu, pu, du, uu);
+function cu(i, e) {
   const t = i.width / e.width, r = i.height / e.height, a = Math.min(t, r), o = e.width * a, s = e.height * a, n = (i.width - o) / 2, p = (i.height - s) / 2;
   return {
     width: o,
@@ -7777,14 +7642,14 @@ function nh(i, e) {
     top: p
   };
 }
-function lh(i) {
+function fu(i) {
   return i * (Math.PI / 180);
 }
-function ph(i, e, t) {
-  const r = Math.abs(lh(t));
+function mu(i, e, t) {
+  const r = Math.abs(fu(t));
   return Math.max((Math.sin(r) * i + Math.cos(r) * e) / e, (Math.sin(r) * e + Math.cos(r) * i) / i);
 }
-function dh(i, e, t) {
+function gu(i, e, t) {
   return e.left < i.left ? {
     left: i.left,
     width: t.width
@@ -7799,7 +7664,7 @@ function dh(i, e, t) {
     height: t.height
   } : null;
 }
-function uh(i, e, t) {
+function yu(i, e, t) {
   return e.left < i.left ? {
     left: i.left,
     width: t.left + t.width - i.left
@@ -7814,7 +7679,7 @@ function uh(i, e, t) {
     height: i.top + i.height - t.top
   } : null;
 }
-class ch extends X {
+class bu extends X {
   imgElement;
   cropper;
   constructor(e) {
@@ -7837,10 +7702,10 @@ class ch extends X {
   limitCropboxMovement(e) {
     const t = this.cropper.getCanvasData(), r = this.cropper.getCropBoxData(), { prevCropboxData: a } = this.state;
     if (e.detail.action === "all") {
-      const o = dh(t, r, a);
+      const o = gu(t, r, a);
       o && this.cropper.setCropBoxData(o);
     } else {
-      const o = uh(t, r, a);
+      const o = yu(t, r, a);
       o && this.cropper.setCropBoxData(o);
     }
   }
@@ -7850,7 +7715,7 @@ class ch extends X {
       angle90Deg: t,
       angleGranular: 0
     }), this.cropper.scale(1), this.cropper.rotateTo(t);
-    const r = this.cropper.getCanvasData(), a = this.cropper.getContainerData(), o = nh(a, r);
+    const r = this.cropper.getCanvasData(), a = this.cropper.getContainerData(), o = cu(a, r);
     this.cropper.setCanvasData(o), this.cropper.setCropBoxData(o);
   };
   onRotateGranular = (e) => {
@@ -7858,7 +7723,7 @@ class ch extends X {
     this.setState({ angleGranular: t });
     const { angle90Deg: r } = this.state, a = r + t;
     this.cropper.rotateTo(a);
-    const o = this.cropper.getImageData(), s = ph(o.naturalWidth, o.naturalHeight, t), n = this.cropper.getImageData().scaleX < 0 ? -s : s;
+    const o = this.cropper.getImageData(), s = mu(o.naturalWidth, o.naturalHeight, t), n = this.cropper.getImageData().scaleX < 0 ? -s : s;
     this.cropper.scale(n, s);
   };
   renderGranularRotate() {
@@ -7906,7 +7771,7 @@ class ch extends X {
     } }) }), u("div", { className: "uppy-ImageCropper-controls", children: [r.revert && this.renderRevert(), r.rotate && this.renderRotate(), r.granularRotate && this.renderGranularRotate(), r.flip && this.renderFlip(), r.zoomIn && this.renderZoomIn(), r.zoomOut && this.renderZoomOut(), r.cropSquare && this.renderCropSquare(), r.cropWidescreen && this.renderCropWidescreen(), r.cropWidescreenVertical && this.renderCropWidescreenVertical()] })] });
   }
 }
-const hh = {
+const vu = {
   strings: {
     revert: "Reset",
     rotate: "Rotate 90°",
@@ -7936,19 +7801,19 @@ const hh = {
   cropSquare: !0,
   cropWidescreen: !0,
   cropWidescreenVertical: !0
-}, fh = {
+}, wu = {
   // `quality: 1` increases the image size by orders of magnitude - 0.8 seems to be the sweet spot.
   // see https://github.com/fengyuanchen/cropperjs/issues/538#issuecomment-1776279427
   quality: 0.8,
   actions: xs,
   cropperOptions: ws
 };
-class mh extends ve {
-  static VERSION = yc.version;
+class xu extends ve {
+  static VERSION = Sd.version;
   cropper;
   constructor(e, t) {
     super(e, {
-      ...fh,
+      ...wu,
       ...t,
       actions: {
         ...xs,
@@ -7958,7 +7823,7 @@ class mh extends ve {
         ...ws,
         ...t?.cropperOptions
       }
-    }), this.id = this.opts.id || "ImageEditor", this.title = "Image Editor", this.type = "editor", this.defaultLocale = hh, this.i18nInit();
+    }), this.id = this.opts.id || "ImageEditor", this.title = "Image Editor", this.type = "editor", this.defaultLocale = vu, this.i18nInit();
   }
   canEditFile(e) {
     if (!e.type || e.isRemote)
@@ -8009,18 +7874,10 @@ class mh extends ve {
   }
   render() {
     const { currentImage: e } = this.getPluginState();
-    return e === null || e.isRemote ? null : u(ch, { currentImage: e, storeCropperInstance: this.storeCropperInstance, save: this.save, opts: this.opts, i18n: this.i18n });
+    return e === null || e.isRemote ? null : u(bu, { currentImage: e, storeCropperInstance: this.storeCropperInstance, save: this.save, opts: this.opts, i18n: this.i18n });
   }
 }
-const gh = ".uppy-Root{box-sizing:border-box;color:#333;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;line-height:1;position:relative;text-align:left;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.uppy-Root[dir=rtl],[dir=rtl] .uppy-Root{text-align:right}.uppy-Root *,.uppy-Root :after,.uppy-Root :before{box-sizing:inherit}.uppy-Root [hidden]{display:none}.uppy-u-reset{all:initial;appearance:none;box-sizing:border-box;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;line-height:1}[dir=rtl] .uppy-u-reset{text-align:right}.uppy-c-textInput{background-color:#fff;border:1px solid #ddd;border-radius:4px;font-family:inherit;font-size:14px;line-height:1.5;padding:6px 8px}.uppy-size--md .uppy-c-textInput{padding:8px 10px}.uppy-c-textInput:focus{border-color:#1269cf99;box-shadow:0 0 0 3px #1269cf26;outline:none}[data-uppy-theme=dark] .uppy-c-textInput{background-color:#333;border-color:#333;color:#eaeaea}[data-uppy-theme=dark] .uppy-c-textInput:focus{border-color:#525252;box-shadow:none}.uppy-c-icon{display:inline-block;max-height:100%;max-width:100%;overflow:hidden;fill:currentColor}.uppy-c-btn{align-items:center;color:inherit;display:inline-flex;font-family:inherit;font-size:inherit;font-weight:500;justify-content:center;line-height:1;transition-duration:.3s;transition-property:background-color,color;user-select:none;white-space:nowrap}.uppy-c-btn,[dir=rtl] .uppy-c-btn{text-align:center}.uppy-c-btn:not(:disabled):not(.disabled){cursor:pointer}.uppy-c-btn::-moz-focus-inner{border:0}.uppy-c-btn-primary{background-color:#1269cf;border-radius:4px;color:#fff;font-size:14px;padding:10px 18px}.uppy-c-btn-primary:not(:disabled):hover{background-color:#0e51a0}.uppy-c-btn-primary:focus{box-shadow:0 0 0 3px #1269cf66;outline:none}.uppy-size--md .uppy-c-btn-primary{padding:13px 22px}[data-uppy-theme=dark] .uppy-c-btn-primary{color:#eaeaea}[data-uppy-theme=dark] .uppy-c-btn-primary:focus{outline:none}[data-uppy-theme=dark] .uppy-c-btn-primary::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-c-btn-primary:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-c-btn-primary.uppy-c-btn--disabled{background-color:#8eb2db}.uppy-c-btn-link{background-color:initial;border-radius:4px;color:#525252;font-size:14px;line-height:1;padding:10px 15px}.uppy-c-btn-link:hover{color:#333}.uppy-c-btn-link:focus{box-shadow:0 0 0 3px #1269cf40;outline:none}.uppy-size--md .uppy-c-btn-link{padding:13px 18px}[data-uppy-theme=dark] .uppy-c-btn-link{color:#eaeaea}[data-uppy-theme=dark] .uppy-c-btn-link:focus{outline:none}[data-uppy-theme=dark] .uppy-c-btn-link::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-c-btn-link:focus{box-shadow:0 0 0 2px #aae1ffd9}[data-uppy-theme=dark] .uppy-c-btn-link:hover{color:#939393}", yh = `@charset "UTF-8";.uppy-Informer{bottom:60px;left:0;position:absolute;right:0;text-align:center;z-index:1005}.uppy-Informer span>div{margin-bottom:6px}.uppy-Informer-animated{opacity:0;transform:translateY(350%);transition:all .3s ease-in;z-index:-1000}.uppy-Informer p{background-color:#757575;border-radius:18px;color:#fff;display:inline-block;font-size:12px;font-weight:400;line-height:1.4;margin:0;max-width:90%;padding:6px 15px}.uppy-size--md .uppy-Informer p{font-size:14px;line-height:1.3;max-width:500px;padding:10px 20px}[data-uppy-theme=dark] .uppy-Informer p{background-color:#333}.uppy-Informer p span{background-color:#fff;border-radius:50%;color:#525252;display:inline-block;font-size:10px;height:13px;inset-inline-start:3px;line-height:12px;margin-inline-start:-1px;position:relative;top:-1px;vertical-align:middle;width:13px}.uppy-Informer p span:hover{cursor:help}.uppy-Informer p span:after{line-height:1.3;word-wrap:break-word}.uppy-Root [aria-label][role~=tooltip]{position:relative}.uppy-Root [aria-label][role~=tooltip]:after,.uppy-Root [aria-label][role~=tooltip]:before{-webkit-backface-visibility:hidden;backface-visibility:hidden;box-sizing:border-box;opacity:0;pointer-events:none;position:absolute;transform:translateZ(0);transform-origin:top;transition:all var(--microtip-transition-duration,.18s) var(--microtip-transition-easing,ease-in-out) var(--microtip-transition-delay,0s);will-change:transform;z-index:10}.uppy-Root [aria-label][role~=tooltip]:before{background-size:100% auto!important;content:""}.uppy-Root [aria-label][role~=tooltip]:after{background:#111111e6;border-radius:4px;box-sizing:initial;color:#fff;content:attr(aria-label);font-size:var(--microtip-font-size,13px);font-weight:var(--microtip-font-weight,normal);padding:.5em 1em;text-transform:var(--microtip-text-transform,none);white-space:nowrap}.uppy-Root [aria-label][role~=tooltip]:focus:after,.uppy-Root [aria-label][role~=tooltip]:focus:before,.uppy-Root [aria-label][role~=tooltip]:hover:after,.uppy-Root [aria-label][role~=tooltip]:hover:before{opacity:1;pointer-events:auto}.uppy-Root [role~=tooltip][data-microtip-position|=top]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M2.658 0h32.004c-6 0-11.627 12.002-16.002 12.002S8.594 0 2.658 0'/%3E%3C/svg%3E") no-repeat;bottom:100%;height:6px;left:50%;margin-bottom:5px;transform:translate3d(-50%,0,0);width:18px}.uppy-Root [role~=tooltip][data-microtip-position|=top]:after{bottom:100%;left:50%;margin-bottom:11px;transform:translate3d(-50%,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position|=top]:hover:before{transform:translate3d(-50%,-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-left]:after{bottom:100%;transform:translate3d(calc(-100% + 16px),0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-left]:hover:after{transform:translate3d(calc(-100% + 16px),-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-right]:after{bottom:100%;transform:translate3d(-16px,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-right]:hover:after{transform:translate3d(-16px,-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M33.342 12H1.338c6 0 11.627-12.002 16.002-12.002S27.406 12 33.342 12'/%3E%3C/svg%3E") no-repeat;bottom:auto;height:6px;left:50%;margin-bottom:0;margin-top:5px;top:100%;transform:translate3d(-50%,-10px,0);width:18px}.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:after{left:50%;margin-top:11px;top:100%;transform:translate3d(-50%,-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:hover:before{transform:translate3d(-50%,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-left]:after{top:100%;transform:translate3d(calc(-100% + 16px),-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-left]:hover:after{transform:translate3d(calc(-100% + 16px),0,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-right]:after{top:100%;transform:translate3d(-16px,-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-right]:hover:after{transform:translate3d(-16px,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=left]:after,.uppy-Root [role~=tooltip][data-microtip-position=left]:before{inset:50% 100% auto auto;transform:translate3d(10px,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=left]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='36'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M0 33.342V1.338c0 6 12.002 11.627 12.002 16.002S0 27.406 0 33.342'/%3E%3C/svg%3E") no-repeat;height:18px;margin-bottom:0;margin-right:5px;width:6px}.uppy-Root [role~=tooltip][data-microtip-position=left]:after{margin-right:11px}.uppy-Root [role~=tooltip][data-microtip-position=left]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position=left]:hover:before{transform:translate3d(0,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=right]:after,.uppy-Root [role~=tooltip][data-microtip-position=right]:before{bottom:auto;left:100%;top:50%;transform:translate3d(-10px,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=right]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='36'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M12 2.658v32.004c0-6-12.002-11.627-12.002-16.002S12 8.594 12 2.658'/%3E%3C/svg%3E") no-repeat;height:18px;margin-bottom:0;margin-left:5px;width:6px}.uppy-Root [role~=tooltip][data-microtip-position=right]:after{margin-left:11px}.uppy-Root [role~=tooltip][data-microtip-position=right]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position=right]:hover:before{transform:translate3d(0,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-size=small]:after{white-space:normal;width:80px}.uppy-Root [role~=tooltip][data-microtip-size=medium]:after{white-space:normal;width:150px}.uppy-Root [role~=tooltip][data-microtip-size=large]:after{white-space:normal;width:260px}.uppy-StatusBar{background-color:#fff;color:#fff;display:flex;font-size:12px;font-weight:400;height:46px;line-height:40px;position:relative;transition:height .2s;z-index:1001}[data-uppy-theme=dark] .uppy-StatusBar{background-color:#1f1f1f}.uppy-StatusBar:before{background-color:#eaeaea;content:"";height:2px;inset:0;position:absolute;width:100%}[data-uppy-theme=dark] .uppy-StatusBar:before{background-color:#757575}.uppy-StatusBar[aria-hidden=true]{height:0;overflow-y:hidden}.uppy-StatusBar.is-complete .uppy-StatusBar-progress{background-color:#1bb240}.uppy-StatusBar.is-error .uppy-StatusBar-progress{background-color:#e32437}.uppy-StatusBar.is-complete .uppy-StatusBar-statusIndicator{color:#1bb240}.uppy-StatusBar.is-error .uppy-StatusBar-statusIndicator{color:#e32437}.uppy-StatusBar:not([aria-hidden=true]).is-waiting{background-color:#fff;border-top:1px solid #eaeaea;height:65px}[data-uppy-theme=dark] .uppy-StatusBar:not([aria-hidden=true]).is-waiting{background-color:#1f1f1f;border-top:1px solid #333}.uppy-StatusBar-progress{background-color:#1269cf;height:2px;position:absolute;transition:background-color,width .3s ease-out;z-index:1001}.uppy-StatusBar-progress.is-indeterminate{animation:uppy-StatusBar-ProgressStripes 1s linear infinite;background-image:linear-gradient(45deg,#0000004d 25%,#0000 0 50%,#0000004d 0 75%,#0000 0,#0000);background-size:64px 64px}@keyframes uppy-StatusBar-ProgressStripes{0%{background-position:0 0}to{background-position:64px 0}}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-progress,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-progress{background-color:#f6a623}.uppy-StatusBar.is-waiting .uppy-StatusBar-progress{display:none}.uppy-StatusBar-content{align-items:center;color:#333;display:flex;height:100%;padding-inline-start:10px;position:relative;text-overflow:ellipsis;white-space:nowrap;z-index:1002}.uppy-size--md .uppy-StatusBar-content{padding-inline-start:15px}[data-uppy-theme=dark] .uppy-StatusBar-content{color:#eaeaea}.uppy-StatusBar-status{display:flex;flex-direction:column;font-weight:400;justify-content:center;line-height:1.4;padding-inline-end:.3em}.uppy-StatusBar-statusPrimary{display:flex;font-weight:500;line-height:1}.uppy-StatusBar-statusPrimary button.uppy-StatusBar-details{margin-left:5px}[data-uppy-theme=dark] .uppy-StatusBar-statusPrimary{color:#eaeaea}.uppy-StatusBar-statusSecondary{color:#757575;display:inline-block;font-size:11px;line-height:1.2;margin-top:1px;white-space:nowrap}[data-uppy-theme=dark] .uppy-StatusBar-statusSecondary{color:#bbb}.uppy-StatusBar-statusSecondaryHint{display:inline-block;line-height:1;margin-inline-end:5px;vertical-align:middle}.uppy-size--md .uppy-StatusBar-statusSecondaryHint{margin-inline-end:8px}.uppy-StatusBar-statusIndicator{color:#525252;margin-inline-end:7px;position:relative;top:1px}.uppy-StatusBar-statusIndicator svg{vertical-align:text-bottom}.uppy-StatusBar-actions{align-items:center;bottom:0;display:flex;inset-inline-end:10px;position:absolute;top:0;z-index:1004}.uppy-StatusBar.is-waiting .uppy-StatusBar-actions{background-color:#fafafa;height:100%;padding:0 15px;position:static;width:100%}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actions{background-color:#1f1f1f}.uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts{flex-direction:column;height:90px}.uppy-size--md .uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts{flex-direction:row;height:65px}.uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts .uppy-StatusBar-actions{flex-direction:column;justify-content:center}.uppy-size--md .uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts .uppy-StatusBar-actions{flex-direction:row;justify-content:normal}.uppy-StatusBar-actionCircleBtn{cursor:pointer;line-height:1;margin:3px;opacity:.9}.uppy-StatusBar-actionCircleBtn:focus{outline:none}.uppy-StatusBar-actionCircleBtn::-moz-focus-inner{border:0}.uppy-StatusBar-actionCircleBtn:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar-actionCircleBtn:hover{opacity:1}.uppy-StatusBar-actionCircleBtn:focus{border-radius:50%}.uppy-StatusBar-actionCircleBtn svg{vertical-align:bottom}.uppy-StatusBar-actionBtn{color:#1269cf;display:inline-block;font-size:10px;line-height:inherit;vertical-align:middle}.uppy-size--md .uppy-StatusBar-actionBtn{font-size:11px}.uppy-StatusBar-actionBtn--disabled{opacity:.4}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--disabled{opacity:.7}.uppy-StatusBar-actionBtn--retry{background-color:#ff4b23;border-radius:8px;color:#fff;height:16px;line-height:1;margin-inline-end:6px;padding:1px 6px 3px 18px;position:relative}.uppy-StatusBar-actionBtn--retry:focus{outline:none}.uppy-StatusBar-actionBtn--retry::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--retry:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar-actionBtn--retry:hover{background-color:#f92d00}.uppy-StatusBar-actionBtn--retry svg{inset-inline-start:6px;position:absolute;top:3px}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{background-color:#1bb240;color:#fff;font-size:14px;line-height:1;padding:15px 10px;width:100%}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover{background-color:#189c38}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{background-color:#1c8b37}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover{background-color:#18762f}.uppy-size--md .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{padding:13px 22px;width:auto}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload.uppy-StatusBar-actionBtn--disabled:hover{background-color:#1bb240;cursor:not-allowed}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload.uppy-StatusBar-actionBtn--disabled:hover{background-color:#1c8b37}.uppy-StatusBar:not(.is-waiting) .uppy-StatusBar-actionBtn--upload{background-color:initial;color:#1269cf}.uppy-StatusBar-actionBtn--uploadNewlyAdded{border-radius:3px;padding-inline-end:3px;padding-bottom:1px;padding-inline-start:3px}.uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{outline:none}.uppy-StatusBar-actionBtn--uploadNewlyAdded::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-actionBtn--uploadNewlyAdded,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-actionBtn--uploadNewlyAdded{display:none}.uppy-StatusBar-actionBtn--done{border-radius:3px;line-height:1;padding:7px 8px}.uppy-StatusBar-actionBtn--done:focus{outline:none}.uppy-StatusBar-actionBtn--done::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--done:hover{color:#0e51a0}.uppy-StatusBar-actionBtn--done:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--done:focus{background-color:#333}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--done{color:#02baf2}.uppy-size--md .uppy-StatusBar-actionBtn--done{font-size:14px}.uppy-StatusBar-serviceMsg{color:#000;font-size:11px;line-height:1.1;padding-left:10px}.uppy-size--md .uppy-StatusBar-serviceMsg{font-size:14px;padding-left:15px}[data-uppy-theme=dark] .uppy-StatusBar-serviceMsg{color:#eaeaea}.uppy-StatusBar-serviceMsg-ghostsIcon{left:6px;opacity:.5;position:relative;top:2px;vertical-align:text-bottom;width:10px}.uppy-size--md .uppy-StatusBar-serviceMsg-ghostsIcon{left:10px;top:1px;width:15px}.uppy-StatusBar-details{appearance:none;background-color:#939393;border-radius:50%;color:#fff;cursor:help;display:inline-block;font-size:10px;font-weight:600;height:13px;inset-inline-start:2px;line-height:12px;position:relative;text-align:center;top:0;vertical-align:middle;width:13px}.uppy-StatusBar-details:after{line-height:1.3;word-wrap:break-word}.uppy-StatusBar-spinner{animation-duration:1s;animation-iteration-count:infinite;animation-name:uppy-StatusBar-spinnerAnimation;animation-timing-function:linear;fill:#1269cf;margin-inline-end:10px}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-spinner,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-spinner{fill:#f6a623}@keyframes uppy-StatusBar-spinnerAnimation{0%{transform:rotate(0)}to{transform:rotate(1turn)}}.uppy-ProviderBrowser-viewType--grid ul.uppy-ProviderBrowser-list,.uppy-ProviderBrowser-viewType--unsplash ul.uppy-ProviderBrowser-list{align-items:flex-start;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;padding:6px}.uppy-ProviderBrowser-viewType--grid ul.uppy-ProviderBrowser-list:after,.uppy-ProviderBrowser-viewType--unsplash ul.uppy-ProviderBrowser-list:after{content:"";flex:auto}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{margin:0;position:relative;width:50%}.uppy-size--md .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-size--md .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{width:33.3333%}.uppy-size--lg .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-size--lg .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{width:25%}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem:before,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem:before{content:"";display:block;padding-top:100%}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--selected img,.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--selected svg,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--selected img,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--selected svg{opacity:.85}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--disabled,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--disabled{opacity:.5}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner{background-color:#93939333}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner{background-color:#eaeaea33}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview svg,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview svg{height:30%;width:30%;fill:#000000b3}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview svg,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview svg{fill:#fffc}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner{border-radius:4px;height:calc(100% - 14px);inset:7px;overflow:hidden;position:absolute;text-align:center;width:calc(100% - 14px)}@media (hover:none){.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner .uppy-ProviderBrowserItem-author{display:block}}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner{box-shadow:0 0 0 3px #aae1ffb3}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner img,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner img{border-radius:4px;height:100%;object-fit:cover;width:100%}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-author{background:#0000004d;bottom:0;color:#fff;display:none;font-size:12px;font-weight:500;left:0;margin:0;padding:5px;position:absolute;text-decoration:none;width:100%}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-author:hover,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-author:hover{background:#0006;text-decoration:underline}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox{background-color:#1269cf;border-radius:50%;height:26px;opacity:0;position:absolute;right:16px;top:16px;width:26px;z-index:1002}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox:after,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox:after{height:7px;inset-inline-start:7px;top:8px;width:12px}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox{opacity:1}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:hover+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:hover+label .uppy-ProviderBrowserItem-author{display:block}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label{box-shadow:0 0 0 3px #1269cf80}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label:focus,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label:focus{outline:none}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label::-moz-focus-inner,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label::-moz-focus-inner{border:0}.uppy-ProviderBrowser-viewType--list{background-color:#fff}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list{background-color:#1f1f1f}.uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem{align-items:center;display:flex;margin:0;padding:7px 15px}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem{color:#eaeaea}.uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem--disabled{opacity:.6}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox{background-color:#fff;border:1px solid #cfcfcf;border-radius:3px;height:17px;margin-inline-end:15px;width:17px}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:focus{border:1px solid #1269cf;box-shadow:0 0 0 3px #1269cf40;outline:none}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:after{height:5px;inset-inline-start:3px;opacity:0;top:4px;width:9px}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:focus{border-color:#02baf2b3;box-shadow:0 0 0 3px #02baf233}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox{background-color:#1269cf;border-color:#1269cf}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox:after,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox:after{opacity:1}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner{align-items:center;color:inherit;display:flex;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;overflow:hidden;padding:2px;text-overflow:ellipsis;white-space:nowrap}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner:focus{outline:none;text-decoration:underline}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner img,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner svg{margin-inline-end:8px}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner span{line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--disabled .uppy-ProviderBrowserItem-inner{cursor:default}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-iconWrap{margin-inline-end:7px;width:20px}.uppy-ProviderBrowserItem-checkbox{cursor:pointer;flex-shrink:0;position:relative}.uppy-ProviderBrowserItem-checkbox:disabled,.uppy-ProviderBrowserItem-checkbox:disabled:after{cursor:default}[data-uppy-theme=dark] .uppy-ProviderBrowserItem-checkbox{background-color:#1f1f1f;border-color:#939393}[data-uppy-theme=dark] .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox{background-color:#333}.uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox:after{border-bottom:2px solid #eaeaea;border-left:2px solid #eaeaea;content:"";cursor:pointer;position:absolute;transform:rotate(-45deg)}.uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox:after{background-color:#eaeaea!important;content:""!important;height:2px!important;left:20%!important;position:absolute!important;right:20%!important;top:50%!important;transform:translateY(-50%)!important}.uppy-SearchProvider{align-items:center;display:flex;flex:1;flex-direction:column;height:100%;justify-content:center;width:100%}[data-uppy-theme=dark] .uppy-SearchProvider{background-color:#1f1f1f}.uppy-SearchProvider-input{margin-bottom:15px;max-width:650px;width:90%}.uppy-size--md .uppy-SearchProvider-input{margin-bottom:20px}.uppy-SearchProvider-input::-webkit-search-cancel-button{display:none}.uppy-SearchProvider-searchButton{padding:13px 25px}.uppy-size--md .uppy-SearchProvider-searchButton{padding:13px 30px}.uppy-DashboardContent-panelBody{align-items:center;display:flex;flex:1;justify-content:center}[data-uppy-theme=dark] .uppy-DashboardContent-panelBody{background-color:#1f1f1f}.uppy-Provider-auth,.uppy-Provider-empty,.uppy-Provider-error,.uppy-Provider-loading{align-items:center;color:#939393;display:flex;flex:1;flex-flow:column wrap;justify-content:center}.uppy-Provider-empty{color:#939393}.uppy-Provider-authIcon svg{height:75px;width:100px}.uppy-Provider-authTitle{color:#757575;font-size:17px;font-weight:400;line-height:1.4;margin-bottom:30px;max-width:500px;padding:0 15px;text-align:center}.uppy-size--md .uppy-Provider-authTitle{font-size:20px}[data-uppy-theme=dark] .uppy-Provider-authTitle{color:#cfcfcf}.uppy-Provider-btn-google{align-items:center;background:#4285f4;display:flex;padding:8px 12px!important}.uppy-Provider-btn-google:hover{background-color:#1266f1}.uppy-Provider-btn-google:focus{box-shadow:0 0 0 3px #4285f466;outline:none}.uppy-Provider-btn-google svg{margin-right:8px}.uppy-Provider-breadcrumbs{color:#525252;flex:1;font-size:12px;margin-bottom:10px;text-align:start}.uppy-size--md .uppy-Provider-breadcrumbs{margin-bottom:0}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs{color:#eaeaea}.uppy-Provider-breadcrumbsIcon{color:#525252;display:inline-block;line-height:1;margin-inline-end:4px;vertical-align:middle}.uppy-Provider-breadcrumbsIcon svg{height:13px;width:13px;fill:#525252}.uppy-Provider-breadcrumbs button{border-radius:3px;display:inline-block;line-height:inherit;padding:4px}.uppy-Provider-breadcrumbs button:focus{outline:none}.uppy-Provider-breadcrumbs button::-moz-focus-inner{border:0}.uppy-Provider-breadcrumbs button:hover{color:#0e51a0}.uppy-Provider-breadcrumbs button:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs button:focus{background-color:#333}.uppy-Provider-breadcrumbs button:not(:last-of-type){text-decoration:underline}.uppy-Provider-breadcrumbs button:last-of-type{color:#333;cursor:normal;font-weight:500;pointer-events:none}.uppy-Provider-breadcrumbs button:hover{cursor:pointer}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs button{color:#eaeaea}.uppy-ProviderBrowser{display:flex;flex:1;flex-direction:column;font-size:14px;font-weight:400;height:100%}.uppy-ProviderBrowser-user{color:#333;font-weight:500;margin:0 8px 0 0}[data-uppy-theme=dark] .uppy-ProviderBrowser-user{color:#eaeaea}.uppy-ProviderBrowser-user:after{color:#939393;content:"·";font-weight:400;inset-inline-start:4px;position:relative}.uppy-ProviderBrowser-header{border-bottom:1px solid #eaeaea;position:relative;z-index:1001}[data-uppy-theme=dark] .uppy-ProviderBrowser-header{border-bottom:1px solid #333}.uppy-ProviderBrowser-headerBar{background-color:#fafafa;color:#757575;font-size:12px;line-height:1.4;padding:7px 15px;z-index:1001}.uppy-size--md .uppy-ProviderBrowser-headerBar{align-items:center;display:flex}[data-uppy-theme=dark] .uppy-ProviderBrowser-headerBar{background-color:#1f1f1f}.uppy-ProviderBrowser-headerBar--simple{display:block;justify-content:center;text-align:center}.uppy-ProviderBrowser-headerBar--simple .uppy-Provider-breadcrumbsWrap{display:inline-block;flex:none;vertical-align:middle}.uppy-ProviderBrowser-searchFilter{align-items:center;display:flex;height:30px;margin-bottom:15px;margin-top:15px;padding-left:8px;padding-right:8px;position:relative;width:100%}.uppy-ProviderBrowser-searchFilterInput{background-color:#eaeaea;border:0;border-radius:4px;color:#333;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;font-size:13px;height:30px;line-height:1.4;outline:0;padding-inline-end:30px;padding-inline-start:30px;width:100%;z-index:1001}.uppy-ProviderBrowser-searchFilterInput::-webkit-search-cancel-button{display:none}[data-uppy-theme=dark] .uppy-ProviderBrowser-searchFilterInput{background-color:#1f1f1f;color:#eaeaea}.uppy-ProviderBrowser-searchFilterInput:focus{background-color:#cfcfcf;border:0}[data-uppy-theme=dark] .uppy-ProviderBrowser-searchFilterInput:focus{background-color:#333}.uppy-ProviderBrowser-searchFilterIcon{color:#757575;height:12px;inset-inline-start:16px;position:absolute;width:12px;z-index:1002}.uppy-ProviderBrowser-searchFilterInput::placeholder{color:#939393;opacity:1}.uppy-ProviderBrowser-searchFilterReset{border-radius:3px;color:#939393;cursor:pointer;height:22px;inset-inline-end:16px;padding:6px;position:absolute;width:22px;z-index:1002}.uppy-ProviderBrowser-searchFilterReset:focus{outline:none}.uppy-ProviderBrowser-searchFilterReset::-moz-focus-inner{border:0}.uppy-ProviderBrowser-searchFilterReset:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-ProviderBrowser-searchFilterReset:hover{color:#757575}.uppy-ProviderBrowser-searchFilterReset svg{vertical-align:text-top}.uppy-ProviderBrowser-userLogout{border-radius:3px;color:#1269cf;cursor:pointer;line-height:inherit;padding:4px}.uppy-ProviderBrowser-userLogout:focus{outline:none}.uppy-ProviderBrowser-userLogout::-moz-focus-inner{border:0}.uppy-ProviderBrowser-userLogout:hover{color:#0e51a0}.uppy-ProviderBrowser-userLogout:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-ProviderBrowser-userLogout:focus{background-color:#333}.uppy-ProviderBrowser-userLogout:hover{text-decoration:underline}[data-uppy-theme=dark] .uppy-ProviderBrowser-userLogout{color:#eaeaea}.uppy-ProviderBrowser-body{flex:1;position:relative}.uppy-ProviderBrowser-list{background-color:#fff;border-spacing:0;display:block;flex:1;height:100%;inset:0;list-style:none;margin:0;overflow-x:hidden;overflow-y:auto;padding:0;position:absolute;width:100%;-webkit-overflow-scrolling:touch}[data-uppy-theme=dark] .uppy-ProviderBrowser-list{background-color:#1f1f1f}.uppy-ProviderBrowser-list:focus{outline:none}.uppy-ProviderBrowserItem-inner{cursor:pointer;font-size:13px;font-weight:500}.uppy-ProviderBrowser-footer{align-items:center;background-color:#fff;border-top:1px solid #eaeaea;display:flex;justify-content:space-between;padding:15px}.uppy-ProviderBrowser-footer button{margin-inline-end:8px}[data-uppy-theme=dark] .uppy-ProviderBrowser-footer{background-color:#1f1f1f;border-top:1px solid #333}.uppy-ProviderBrowser-footer-buttons{flex-shrink:0}.uppy-ProviderBrowser-footer-error{color:#e32437;line-height:18px}@media (max-width:426px){.uppy-ProviderBrowser-footer{align-items:stretch;flex-direction:column-reverse}.uppy-ProviderBrowser-footer-error{padding-bottom:10px}}.picker-dialog-bg{z-index:20000!important}.picker-dialog{z-index:20001!important}.uppy-Dashboard-Item-previewInnerWrap{align-items:center;border-radius:3px;box-shadow:0 0 2px #0006;display:flex;flex-direction:column;height:100%;justify-content:center;overflow:hidden;position:relative;width:100%}.uppy-size--md .uppy-Dashboard-Item-previewInnerWrap{box-shadow:0 1px 2px #00000026}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewInnerWrap{box-shadow:none}.uppy-Dashboard-Item-previewInnerWrap:after{background-color:#000000a6;content:"";display:none;inset:0;position:absolute;z-index:1001}.uppy-Dashboard-Item-previewLink{inset:0;position:absolute;z-index:1002}.uppy-Dashboard-Item-previewLink:focus{box-shadow:inset 0 0 0 3px #579df0}[data-uppy-theme=dark] .uppy-Dashboard-Item-previewLink:focus{box-shadow:inset 0 0 0 3px #016c8d}.uppy-Dashboard-Item-preview img.uppy-Dashboard-Item-previewImg{border-radius:3px;height:100%;object-fit:cover;transform:translateZ(0);width:100%}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-preview img.uppy-Dashboard-Item-previewImg{height:auto;max-height:100%;max-width:100%;object-fit:contain;padding:10px;width:auto}.uppy-Dashboard-Item-progress{color:#fff;left:50%;position:absolute;text-align:center;top:50%;transform:translate(-50%,-50%);transition:all .35 ease;width:120px;z-index:1002}.uppy-Dashboard-Item-progressIndicator{color:#fff;display:inline-block;height:38px;opacity:.9;width:38px}.uppy-size--md .uppy-Dashboard-Item-progressIndicator{height:55px;width:55px}button.uppy-Dashboard-Item-progressIndicator{cursor:pointer}button.uppy-Dashboard-Item-progressIndicator:focus{outline:none}button.uppy-Dashboard-Item-progressIndicator::-moz-focus-inner{border:0}button.uppy-Dashboard-Item-progressIndicator:focus .uppy-Dashboard-Item-progressIcon--bg,button.uppy-Dashboard-Item-progressIndicator:focus .uppy-Dashboard-Item-progressIcon--retry{fill:#579df0}.uppy-Dashboard-Item-progressIcon--circle{height:100%;width:100%}.uppy-Dashboard-Item-progressIcon--bg{stroke:#fff6}.uppy-Dashboard-Item-progressIcon--progress{transition:stroke-dashoffset .5s ease-out;stroke:#fff}.uppy-Dashboard-Item-progressIcon--play{transition:all .2s;fill:#fff;stroke:#fff}.uppy-Dashboard-Item-progressIcon--cancel{transition:all .2s;fill:#fff}.uppy-Dashboard-Item-progressIcon--pause{transition:all .2s;fill:#fff;stroke:#fff}.uppy-Dashboard-Item-progressIcon--check{transition:all .2s;fill:#fff}.uppy-Dashboard-Item-progressIcon--retry{fill:#fff}.uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progress{inset-inline-end:-8px;inset-inline-start:auto;top:-9px;transform:none;width:auto}.uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-progressIndicator{height:18px;width:18px}.uppy-size--md .uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-progressIndicator{height:28px;width:28px}.uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progressIndicator{height:18px;opacity:1;width:18px}.uppy-size--md .uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progressIndicator{height:22px;width:22px}.uppy-Dashboard-Item.is-processing .uppy-Dashboard-Item-progress{opacity:0}.uppy-Dashboard-Item-fileInfo{padding-inline-end:5px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfo{padding-inline-end:10px}.uppy-size--md.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfo{padding-inline-end:15px}.uppy-Dashboard-Item-name{font-size:12px;font-weight:500;line-height:1.3;margin-bottom:5px;word-wrap:anywhere;word-break:break-all}[data-uppy-theme=dark] .uppy-Dashboard-Item-name{color:#eaeaea}.uppy-size--md.uppy-Dashboard--singleFile .uppy-Dashboard-Item-name{font-size:14px;line-height:1.4}.uppy-Dashboard-Item-fileName{align-items:baseline;display:flex}.uppy-Dashboard-Item-fileName button{margin-left:5px}.uppy-Dashboard-Item-author{color:#757575;display:inline-block;font-size:11px;font-weight:400;line-height:1;margin-bottom:5px;vertical-align:bottom}.uppy-Dashboard-Item-author a{color:#757575}.uppy-Dashboard-Item-status{color:#757575;font-size:11px;font-weight:400;line-height:1}[data-uppy-theme=dark] .uppy-Dashboard-Item-status{color:#bbb}.uppy-Dashboard-Item-statusSize{display:inline-block;margin-bottom:5px;text-transform:uppercase;vertical-align:bottom}.uppy-Dashboard-Item-reSelect{color:#1269cf;font-family:inherit;font-size:inherit;font-weight:600}.uppy-Dashboard-Item-errorMessage{background-color:#fdeff1;color:#a51523;font-size:11px;font-weight:500;line-height:1.3;padding:5px 6px}.uppy-Dashboard-Item-errorMessageBtn{color:#a51523;cursor:pointer;font-size:11px;font-weight:500;text-decoration:underline}.uppy-Dashboard-Item-preview .uppy-Dashboard-Item-errorMessage{display:none}.uppy-size--md .uppy-Dashboard-Item-preview .uppy-Dashboard-Item-errorMessage{border-bottom-left-radius:3px;border-bottom-right-radius:3px;border-top:1px solid #f7c2c8;bottom:0;display:block;left:0;line-height:1.4;padding:6px 8px;position:absolute;right:0}.uppy-Dashboard-Item-fileInfo .uppy-Dashboard-Item-errorMessage{border:1px solid #f7c2c8;border-radius:3px;display:inline-block;position:static}.uppy-size--md .uppy-Dashboard-Item-fileInfo .uppy-Dashboard-Item-errorMessage{display:none}.uppy-Dashboard-Item-action{color:#939393;cursor:pointer}.uppy-Dashboard-Item-action:focus{outline:none}.uppy-Dashboard-Item-action::-moz-focus-inner{border:0}.uppy-Dashboard-Item-action:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-Dashboard-Item-action:hover{color:#1f1f1f;opacity:1}[data-uppy-theme=dark] .uppy-Dashboard-Item-action{color:#cfcfcf}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:focus{outline:none}[data-uppy-theme=dark] .uppy-Dashboard-Item-action::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:focus{box-shadow:0 0 0 2px #aae1ffd9}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:hover{color:#eaeaea}.uppy-Dashboard-Item-action--remove{color:#1f1f1f;opacity:.95}.uppy-Dashboard-Item-action--remove:hover{color:#000;opacity:1}.uppy-size--md .uppy-Dashboard-Item-action--remove{height:18px;inset-inline-end:-8px;padding:0;position:absolute;top:-8px;width:18px;z-index:1002}.uppy-size--md .uppy-Dashboard-Item-action--remove:focus{border-radius:50%}.uppy-Dashboard--singleFile.uppy-size--height-md .uppy-Dashboard-Item-action--remove{inset-inline-end:8px;position:absolute;top:8px}[data-uppy-theme=dark] .uppy-Dashboard-Item-action--remove{color:#525252}[data-uppy-theme=dark] .uppy-Dashboard-Item-action--remove:hover{color:#333}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-actionWrapper{align-items:center;display:flex}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-action{height:22px;margin-left:3px;padding:3px;width:22px}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-action:focus{border-radius:3px}.uppy-size--md .uppy-Dashboard-Item-action--copyLink,.uppy-size--md .uppy-Dashboard-Item-action--edit{height:16px;padding:0;width:16px}.uppy-size--md .uppy-Dashboard-Item-action--copyLink:focus,.uppy-size--md .uppy-Dashboard-Item-action--edit:focus{border-radius:3px}.uppy-Dashboard-Item{align-items:center;border-bottom:1px solid #eaeaea;display:flex;padding:10px}.uppy-Dashboard:not(.uppy-Dashboard--singleFile) .uppy-Dashboard-Item{padding-inline-end:0}[data-uppy-theme=dark] .uppy-Dashboard-Item{border-bottom:1px solid #333}.uppy-size--md .uppy-Dashboard-Item{border-bottom:0;display:block;float:inline-start;height:215px;margin:5px 15px;padding:0;position:relative;width:calc(33.333% - 30px)}.uppy-size--lg .uppy-Dashboard-Item{height:190px;margin:5px 15px;padding:0;width:calc(25% - 30px)}.uppy-size--xl .uppy-Dashboard-Item{height:210px;padding:0;width:calc(20% - 30px)}.uppy-Dashboard--singleFile .uppy-Dashboard-Item{border-bottom:0;display:flex;flex-direction:column;height:100%;max-width:400px;padding:15px;position:relative;width:100%}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-previewInnerWrap{opacity:.2}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-name{opacity:.7}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='39' viewBox='0 0 35 39'%3E%3Cpath fill='%2523000' d='M1.708 38.66c1.709 0 3.417-3.417 6.834-3.417s5.125 3.417 8.61 3.417c3.348 0 5.056-3.417 8.473-3.417 4.305 0 5.125 3.417 6.833 3.417.889 0 1.709-.889 1.709-1.709v-19.68C34.167-5.757 0-5.757 0 17.271v19.68c0 .82.888 1.709 1.708 1.709m8.542-17.084a3.383 3.383 0 0 1-3.417-3.416 3.383 3.383 0 0 1 3.417-3.417 3.383 3.383 0 0 1 3.417 3.417 3.383 3.383 0 0 1-3.417 3.416m13.667 0A3.383 3.383 0 0 1 20.5 18.16a3.383 3.383 0 0 1 3.417-3.417 3.383 3.383 0 0 1 3.416 3.417 3.383 3.383 0 0 1-3.416 3.416'/%3E%3C/svg%3E");background-position:50% 10px;background-repeat:no-repeat;background-size:25px;content:"";inset:0;opacity:.5;position:absolute;z-index:1005}.uppy-size--md .uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-position:50% 50%;background-size:40px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-position:50% 50%;background-size:30%}.uppy-Dashboard-Item-preview{flex-grow:0;flex-shrink:0;height:50px;position:relative;width:50px}.uppy-size--md .uppy-Dashboard-Item-preview{height:140px;width:100%}.uppy-size--lg .uppy-Dashboard-Item-preview{height:120px}.uppy-size--xl .uppy-Dashboard-Item-preview{height:140px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-preview{flex-grow:1;max-height:75%;width:100%}.uppy-Dashboard--singleFile.uppy-size--md .uppy-Dashboard-Item-preview{max-height:100%}.uppy-Dashboard-Item-fileInfoAndButtons{align-items:center;display:flex;flex-grow:1;justify-content:space-between;padding-inline-end:8px;padding-inline-start:12px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfoAndButtons,.uppy-size--md .uppy-Dashboard-Item-fileInfoAndButtons{align-items:flex-start;padding:9px 0 0}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfoAndButtons{flex-grow:0;width:100%}.uppy-Dashboard-Item-fileInfo{flex-grow:1;flex-shrink:1}.uppy-Dashboard-Item-actionWrapper{flex-grow:0;flex-shrink:0}.uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-previewInnerWrap:after,.uppy-Dashboard-Item.is-inprogress .uppy-Dashboard-Item-previewInnerWrap:after{display:block}.uppy-Dashboard-Item-errorDetails{appearance:none;background-color:#939393;border:none;border-radius:50%;color:#fff;cursor:help;flex-shrink:0;font-size:10px;font-weight:600;height:13px;inset-inline-start:2px;line-height:12px;position:relative;text-align:center;top:0;width:13px}.uppy-Dashboard-Item-errorDetails:after{line-height:1.3;word-wrap:break-word}.uppy-Dashboard-FileCard{background-color:#fff;border-radius:5px;box-shadow:0 0 10px 4px #0000001a;display:flex;flex-direction:column;height:100%;inset:0;position:absolute;width:100%;z-index:1005}.uppy-Dashboard-FileCard .uppy-DashboardContent-bar{border-top-left-radius:5px;border-top-right-radius:5px}.uppy-Dashboard-FileCard .uppy-Dashboard-FileCard-actions{border-bottom-left-radius:5px;border-bottom-right-radius:5px}.uppy-Dashboard-FileCard-inner{display:flex;flex-direction:column;flex-grow:1;flex-shrink:1;height:100%;min-height:0}.uppy-Dashboard-FileCard-preview{align-items:center;border-bottom:1px solid #eaeaea;display:flex;flex-grow:0;flex-shrink:1;height:60%;justify-content:center;min-height:0;position:relative}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-preview{background-color:#333;border-bottom:0}.uppy-Dashboard-FileCard-preview img.uppy-Dashboard-Item-previewImg{border-radius:3px;box-shadow:0 3px 20px #00000026;flex:0 0 auto;max-height:90%;max-width:90%;object-fit:cover}.uppy-Dashboard-FileCard-edit{background-color:#00000080;border-radius:50px;color:#fff;font-size:13px;inset-inline-end:10px;padding:7px 15px;position:absolute;top:10px}.uppy-Dashboard-FileCard-edit:focus{outline:none}.uppy-Dashboard-FileCard-edit::-moz-focus-inner{border:0}.uppy-Dashboard-FileCard-edit:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-Dashboard-FileCard-edit:hover{background-color:#000c}.uppy-Dashboard-FileCard-info{flex-grow:0;flex-shrink:0;height:40%;overflow-y:auto;padding:30px 20px 20px;-webkit-overflow-scrolling:touch}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-info{background-color:#1f1f1f}.uppy-Dashboard-FileCard-fieldset{border:0;font-size:0;margin:auto auto 12px;max-width:640px;padding:0}.uppy-Dashboard-FileCard-label{color:#525252;display:inline-block;font-size:12px;vertical-align:middle;width:22%}.uppy-size--md .uppy-Dashboard-FileCard-label{font-size:14px}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-label{color:#eaeaea}.uppy-Dashboard-FileCard-input{display:inline-block;vertical-align:middle;width:78%}.uppy-Dashboard-FileCard-actions{align-items:center;background-color:#fafafa;border-top:1px solid #eaeaea;display:flex;flex-grow:0;flex-shrink:0;height:55px;padding:0 15px}.uppy-size--md .uppy-Dashboard-FileCard-actions{height:65px}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-actions{background-color:#1f1f1f;border-top:1px solid #333}.uppy-Dashboard-FileCard-actionsBtn{margin-inline-end:10px}.uppy-transition-slideDownUp-enter{opacity:.01;transform:translate3d(0,-105%,0);transition:transform .25s ease-in-out,opacity .25s ease-in-out}.uppy-transition-slideDownUp-enter.uppy-transition-slideDownUp-enter-active{opacity:1;transform:translateZ(0)}.uppy-transition-slideDownUp-leave{opacity:1;transform:translateZ(0);transition:transform .25s ease-in-out,opacity .25s ease-in-out}.uppy-transition-slideDownUp-leave.uppy-transition-slideDownUp-leave-active{opacity:.01;transform:translate3d(0,-105%,0)}@keyframes uppy-Dashboard-fadeIn{0%{opacity:0}to{opacity:1}}@keyframes uppy-Dashboard-fadeOut{0%{opacity:1}to{opacity:0}}@keyframes uppy-Dashboard-slideDownAndFadeIn{0%{opacity:0;transform:translate3d(-50%,-70%,0)}to{opacity:1;transform:translate3d(-50%,-50%,0)}}@keyframes uppy-Dashboard-slideDownAndFadeIn--small{0%{opacity:0;transform:translate3d(0,-20%,0)}to{opacity:1;transform:translateZ(0)}}@keyframes uppy-Dashboard-slideUpFadeOut{0%{opacity:1;transform:translate3d(-50%,-50%,0)}to{opacity:0;transform:translate3d(-50%,-70%,0)}}@keyframes uppy-Dashboard-slideUpFadeOut--small{0%{opacity:1;transform:translateZ(0)}to{opacity:0;transform:translate3d(0,-20%,0)}}.uppy-Dashboard--modal{z-index:1001}.uppy-Dashboard--modal[aria-hidden=true]{display:none}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideDownAndFadeIn--small .3s cubic-bezier(0,0,.2,1)}@media only screen and (min-width:820px){.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideDownAndFadeIn .3s cubic-bezier(0,0,.2,1)}}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-overlay{animation:uppy-Dashboard-fadeIn .3s cubic-bezier(0,0,.2,1)}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideUpFadeOut--small .3s cubic-bezier(0,0,.2,1)}@media only screen and (min-width:820px){.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideUpFadeOut .3s cubic-bezier(0,0,.2,1)}}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-overlay{animation:uppy-Dashboard-fadeOut .3s cubic-bezier(0,0,.2,1)}.uppy-Dashboard-isFixed{height:100vh;overflow:hidden}.uppy-Dashboard--modal .uppy-Dashboard-overlay{background-color:#00000080;inset:0;position:fixed;z-index:1001}.uppy-Dashboard-inner{background-color:#f4f4f4;border:1px solid #eaeaea;border-radius:5px;max-height:100%;max-width:100%;outline:none;position:relative}.uppy-size--md .uppy-Dashboard-inner{min-height:auto}@media only screen and (min-width:820px){.uppy-Dashboard-inner{height:500px;width:650px}}.uppy-Dashboard--modal .uppy-Dashboard-inner{z-index:1002}[data-uppy-theme=dark] .uppy-Dashboard-inner{background-color:#1f1f1f}.uppy-Dashboard--isDisabled .uppy-Dashboard-inner{cursor:not-allowed}.uppy-Dashboard-innerWrap{border-radius:5px;display:flex;flex-direction:column;height:100%;opacity:0;overflow:hidden;position:relative}.uppy-Dashboard--isInnerWrapVisible .uppy-Dashboard-innerWrap{opacity:1}.uppy-Dashboard--isDisabled .uppy-Dashboard-innerWrap{cursor:not-allowed;filter:grayscale(100%);opacity:.6;user-select:none}.uppy-Dashboard--isDisabled .uppy-ProviderIconBg{fill:#9f9f9f}.uppy-Dashboard--isDisabled [aria-disabled],.uppy-Dashboard--isDisabled [disabled]{cursor:not-allowed;pointer-events:none}.uppy-Dashboard--modal .uppy-Dashboard-inner{border:none;inset:35px 15px 15px;position:fixed}@media only screen and (min-width:820px){.uppy-Dashboard--modal .uppy-Dashboard-inner{box-shadow:0 5px 15px 4px #00000026;left:50%;right:auto;top:50%;transform:translate(-50%,-50%)}}.uppy-Dashboard-close{color:#ffffffe6;cursor:pointer;display:block;font-size:27px;inset-inline-end:-2px;position:absolute;top:-33px;z-index:1005}.uppy-Dashboard-close:focus{outline:none}.uppy-Dashboard-close::-moz-focus-inner{border:0}.uppy-Dashboard-close:focus{color:#6eabf2}@media only screen and (min-width:820px){.uppy-Dashboard-close{font-size:35px;inset-inline-end:-35px;top:-10px}}.uppy-Dashboard-serviceMsg{background-color:#fffbf7;border-bottom:1px solid #edd4b9;border-top:1px solid #edd4b9;font-size:12px;font-weight:500;line-height:1.3;padding:12px 0;position:relative;top:-1px;z-index:1004}.uppy-size--md .uppy-Dashboard-serviceMsg{font-size:14px;line-height:1.4}[data-uppy-theme=dark] .uppy-Dashboard-serviceMsg{background-color:#1f1f1f;border-bottom:1px solid #333;border-top:1px solid #333;color:#eaeaea}.uppy-Dashboard-serviceMsg-title{display:block;line-height:1;margin-bottom:4px;padding-left:42px}.uppy-Dashboard-serviceMsg-text{padding:0 15px}.uppy-Dashboard-serviceMsg-actionBtn{color:#1269cf;font-size:inherit;font-weight:inherit;vertical-align:initial}[data-uppy-theme=dark] .uppy-Dashboard-serviceMsg-actionBtn{color:#02baf2e6}.uppy-Dashboard-serviceMsg-icon{left:15px;position:absolute;top:10px}.uppy-Dashboard-AddFiles{align-items:center;display:flex;flex-direction:column;height:100%;justify-content:center;position:relative;text-align:center}[data-uppy-drag-drop-supported=true] .uppy-Dashboard-AddFiles{border:1px dashed #dfdfdf;border-radius:3px;height:calc(100% - 14px);margin:7px}.uppy-Dashboard-AddFilesPanel .uppy-Dashboard-AddFiles{border:none;height:calc(100% - 54px)}.uppy-Dashboard--modal .uppy-Dashboard-AddFiles{border-color:#cfcfcf}[data-uppy-theme=dark] .uppy-Dashboard-AddFiles{border-color:#757575}.uppy-Dashboard-AddFiles-info{display:none;margin-top:auto;padding-bottom:15px;padding-top:15px}.uppy-size--height-md .uppy-Dashboard-AddFiles-info{display:block}.uppy-size--md .uppy-Dashboard-AddFiles-info{bottom:25px;left:0;padding-bottom:0;padding-top:30px;position:absolute;right:0}[data-uppy-num-acquirers="0"] .uppy-Dashboard-AddFiles-info{margin-top:0}.uppy-Dashboard-browse{color:#1269cf;cursor:pointer}.uppy-Dashboard-browse:focus{outline:none}.uppy-Dashboard-browse::-moz-focus-inner{border:0}.uppy-Dashboard-browse:focus,.uppy-Dashboard-browse:hover{border-bottom:1px solid #1269cf}[data-uppy-theme=dark] .uppy-Dashboard-browse{color:#02baf2e6}[data-uppy-theme=dark] .uppy-Dashboard-browse:focus,[data-uppy-theme=dark] .uppy-Dashboard-browse:hover{border-bottom:1px solid #02baf2}.uppy-Dashboard-browseBtn{display:block;font-size:14px;font-weight:500;margin-bottom:5px;margin-top:8px;width:100%}.uppy-size--md .uppy-Dashboard-browseBtn{font-size:15px;margin:15px auto;padding:13px 44px;width:auto}.uppy-Dashboard-AddFiles-list{display:flex;flex:1;flex-direction:column;margin-top:2px;overflow-y:auto;padding:2px 0;width:100%;-webkit-overflow-scrolling:touch}.uppy-size--md .uppy-Dashboard-AddFiles-list{flex:none;flex-direction:row;flex-wrap:wrap;justify-content:center;margin-top:15px;max-width:600px;overflow-y:visible;padding-top:0}.uppy-DashboardTab{border-bottom:1px solid #eaeaea;text-align:center;width:100%}[data-uppy-theme=dark] .uppy-DashboardTab{border-bottom:1px solid #333}.uppy-size--md .uppy-DashboardTab{border-bottom:none;display:inline-block;margin-bottom:10px;width:auto}.uppy-DashboardTab-btn{align-items:center;-webkit-appearance:none;appearance:none;background-color:initial;color:#525252;cursor:pointer;flex-direction:row;height:100%;justify-content:left;padding:12px 15px;width:100%}.uppy-DashboardTab-btn:focus{outline:none}.uppy-size--md .uppy-DashboardTab-btn{border-radius:5px;flex-direction:column;margin-inline-end:1px;padding:10px 3px;width:86px}[data-uppy-theme=dark] .uppy-DashboardTab-btn{color:#eaeaea}.uppy-DashboardTab-btn::-moz-focus-inner{border:0}.uppy-DashboardTab-btn:hover{background-color:#e9ecef}[data-uppy-theme=dark] .uppy-DashboardTab-btn:hover{background-color:#333}.uppy-DashboardTab-btn:active,.uppy-DashboardTab-btn:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardTab-btn:active,[data-uppy-theme=dark] .uppy-DashboardTab-btn:focus{background-color:#525252}.uppy-DashboardTab-btn svg{display:inline-block;max-height:100%;max-width:100%;overflow:hidden;transition:transform .15s ease-in-out;vertical-align:text-top}.uppy-DashboardTab-inner{align-items:center;background-color:#fff;border-radius:8px;box-shadow:0 1px 1px #0000001a,0 1px 2px #0000001a,0 2px 3px #00000005;display:flex;height:32px;justify-content:center;margin-inline-end:10px;width:32px}.uppy-size--md .uppy-DashboardTab-inner{margin-inline-end:0}[data-uppy-theme=dark] .uppy-DashboardTab-inner{background-color:#323232;box-shadow:0 1px 1px #0003,0 1px 2px #0003,0 2px 3px #00000014}.uppy-DashboardTab-name{font-size:14px;font-weight:400}.uppy-size--md .uppy-DashboardTab-name{font-size:12px;line-height:15px;margin-bottom:0;margin-top:8px}.uppy-DashboardTab-iconMyDevice{color:#1269cf}[data-uppy-theme=dark] .uppy-DashboardTab-iconMyDevice{color:#02baf2}.uppy-DashboardTab-iconBox{color:#0061d5}[data-uppy-theme=dark] .uppy-DashboardTab-iconBox{color:#eaeaea}.uppy-DashboardTab-iconDropbox{color:#0061fe}[data-uppy-theme=dark] .uppy-DashboardTab-iconDropbox{color:#eaeaea}.uppy-DashboardTab-iconUnsplash{color:#111}[data-uppy-theme=dark] .uppy-DashboardTab-iconUnsplash{color:#eaeaea}.uppy-DashboardTab-iconWebdav{color:#111}[data-uppy-theme=dark] .uppy-DashboardTab-iconWebdav{color:#eaeaea}.uppy-DashboardTab-iconScreenRec{color:#2c3e50}[data-uppy-theme=dark] .uppy-DashboardTab-iconScreenRec{color:#eaeaea}.uppy-DashboardTab-iconAudio{color:#8030a3}[data-uppy-theme=dark] .uppy-DashboardTab-iconAudio{color:#bf6ee3}.uppy-Dashboard-input{height:.1px;opacity:0;overflow:hidden;position:absolute;width:.1px;z-index:-1}.uppy-DashboardContent-bar{align-items:center;background-color:#fafafa;border-bottom:1px solid #eaeaea;display:flex;flex-shrink:0;height:40px;justify-content:space-between;padding:0 10px;position:relative;width:100%;z-index:1004}.uppy-size--md .uppy-DashboardContent-bar{height:50px;padding:0 15px}[data-uppy-theme=dark] .uppy-DashboardContent-bar{background-color:#1f1f1f;border-bottom:1px solid #333}.uppy-DashboardContent-title{font-size:12px;font-weight:500;left:0;line-height:40px;margin:auto;max-width:170px;overflow-x:hidden;position:absolute;right:0;text-align:center;text-overflow:ellipsis;top:0;white-space:nowrap;width:100%}.uppy-size--md .uppy-DashboardContent-title{font-size:14px;line-height:50px;max-width:300px}[data-uppy-theme=dark] .uppy-DashboardContent-title{color:#eaeaea}.uppy-DashboardContent-back,.uppy-DashboardContent-save{-webkit-appearance:none;background:none;border:0;border-radius:3px;color:inherit;color:#1269cf;cursor:pointer;font-family:inherit;font-size:inherit;font-size:12px;font-weight:400;line-height:1;margin:0;margin-inline-start:-6px;padding:7px 6px}.uppy-DashboardContent-back:focus,.uppy-DashboardContent-save:focus{outline:none}.uppy-DashboardContent-back::-moz-focus-inner,.uppy-DashboardContent-save::-moz-focus-inner{border:0}.uppy-DashboardContent-back:hover,.uppy-DashboardContent-save:hover{color:#0e51a0}.uppy-DashboardContent-back:focus,.uppy-DashboardContent-save:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardContent-back:focus,[data-uppy-theme=dark] .uppy-DashboardContent-save:focus{background-color:#333}.uppy-size--md .uppy-DashboardContent-back,.uppy-size--md .uppy-DashboardContent-save{font-size:14px}[data-uppy-theme=dark] .uppy-DashboardContent-back,[data-uppy-theme=dark] .uppy-DashboardContent-save{color:#02baf2}.uppy-DashboardContent-addMore{-webkit-appearance:none;background:none;border:0;border-radius:3px;color:inherit;color:#1269cf;cursor:pointer;font-family:inherit;font-size:inherit;font-weight:500;height:29px;line-height:1;margin:0;margin-inline-end:-5px;padding:7px 8px;width:29px}.uppy-DashboardContent-addMore:focus{outline:none}.uppy-DashboardContent-addMore::-moz-focus-inner{border:0}.uppy-DashboardContent-addMore:hover{color:#0e51a0}.uppy-DashboardContent-addMore:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardContent-addMore:focus{background-color:#333}.uppy-size--md .uppy-DashboardContent-addMore{font-size:14px;height:auto;margin-inline-end:-8px;width:auto}[data-uppy-theme=dark] .uppy-DashboardContent-addMore{color:#02baf2}.uppy-DashboardContent-addMore svg{margin-inline-end:4px;vertical-align:initial}.uppy-size--md .uppy-DashboardContent-addMore svg{height:11px;width:11px}.uppy-DashboardContent-addMoreCaption{display:none}.uppy-size--md .uppy-DashboardContent-addMoreCaption{display:inline}.uppy-DashboardContent-panel{background-color:#f5f5f5;flex:1}.uppy-Dashboard-AddFilesPanel,.uppy-DashboardContent-panel{border-radius:5px;display:flex;flex-direction:column;inset:0;overflow:hidden;position:absolute;z-index:1005}.uppy-Dashboard-AddFilesPanel{background:#fafafa;background:linear-gradient(0deg,#fafafa 35%,#fafafad9);box-shadow:0 0 10px 5px #00000026}[data-uppy-theme=dark] .uppy-Dashboard-AddFilesPanel{background-color:#333;background-image:linear-gradient(0deg,#1f1f1f 35%,#1f1f1fd9)}.uppy-Dashboard--isAddFilesPanelVisible .uppy-Dashboard-files{filter:blur(2px)}.uppy-Dashboard-progress{bottom:0;height:12%;left:0;position:absolute;width:100%}.uppy-Dashboard-progressBarContainer.is-active{height:100%;left:0;position:absolute;top:0;width:100%;z-index:1004}.uppy-Dashboard-filesContainer{flex:1;margin:0;overflow-y:hidden;position:relative}.uppy-Dashboard-filesContainer:after{clear:both;content:"";display:table}.uppy-Dashboard-files{flex:1;margin:0;overflow-y:auto;padding:0 0 10px;-webkit-overflow-scrolling:touch}.uppy-size--md .uppy-Dashboard-files{padding-top:10px}.uppy-Dashboard--singleFile .uppy-Dashboard-filesInner{align-items:center;display:flex;height:100%;justify-content:center}.uppy-Dashboard-dropFilesHereHint{align-items:center;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath fill='%231269CF' d='M24 1v1C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 0V0c13.254 0 24 10.746 24 24S37.254 48 24 48 0 37.254 0 24 10.746 0 24 0zm7.707 19.293a.999.999 0 1 1-1.414 1.414L25 16.414V34a1 1 0 1 1-2 0V16.414l-5.293 5.293a.999.999 0 1 1-1.414-1.414l7-7a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");background-position:50% 50%;background-repeat:no-repeat;border:1px dashed #1269cf;border-radius:3px;color:#757575;display:flex;font-size:16px;justify-content:center;inset:7px;padding-top:90px;position:absolute;text-align:center;visibility:hidden;z-index:2000}[data-uppy-theme=dark] .uppy-Dashboard-dropFilesHereHint{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath fill='%2302BAF2' d='M24 1v1C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 0V0c13.254 0 24 10.746 24 24S37.254 48 24 48 0 37.254 0 24 10.746 0 24 0zm7.707 19.293a.999.999 0 1 1-1.414 1.414L25 16.414V34a1 1 0 1 1-2 0V16.414l-5.293 5.293a.999.999 0 1 1-1.414-1.414l7-7a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");border-color:#02baf2;color:#bbb}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-dropFilesHereHint{pointer-events:none;visibility:visible}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-files,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-progressindicators,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-serviceMsg,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-DashboardContent-bar{opacity:.15}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-AddFiles{opacity:.03}.uppy-Dashboard-AddFiles-title{color:#000;font-size:17px;font-weight:500;line-height:1.35;margin-bottom:5px;margin-top:15px;padding:0 15px;text-align:inline-start;width:100%}.uppy-size--md .uppy-Dashboard-AddFiles-title{font-size:21px;font-weight:400;margin-top:5px;max-width:480px;padding:0 35px;text-align:center}[data-uppy-num-acquirers="0"] .uppy-Dashboard-AddFiles-title{text-align:center}[data-uppy-theme=dark] .uppy-Dashboard-AddFiles-title{color:#eaeaea}.uppy-Dashboard-AddFiles-title button{font-weight:500}.uppy-size--md .uppy-Dashboard-AddFiles-title button{font-weight:400}.uppy-Dashboard-note{color:#757575;font-size:14px;line-height:1.25;margin:auto;max-width:350px;padding:0 15px;text-align:center}.uppy-size--md .uppy-Dashboard-note{line-height:1.35;max-width:600px}[data-uppy-theme=dark] .uppy-Dashboard-note{color:#cfcfcf}a.uppy-Dashboard-poweredBy{color:#939393;display:inline-block;font-size:11px;margin-top:8px;text-align:center;text-decoration:none}.uppy-Dashboard-poweredByIcon{margin-left:1px;margin-right:1px;opacity:.9;position:relative;top:1px;vertical-align:text-top;fill:none;stroke:#939393}.uppy-Dashboard-Item-previewIcon{height:25px;left:50%;position:absolute;top:50%;transform:translate(-50%,-50%);width:25px;z-index:100}.uppy-size--md .uppy-Dashboard-Item-previewIcon{height:38px;width:38px}.uppy-Dashboard-Item-previewIcon svg{height:100%;width:100%}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewIcon{height:100%;max-height:60%;max-width:60%;width:100%}.uppy-Dashboard-Item-previewIconWrap{height:76px;max-height:75%;position:relative}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewIconWrap{height:100%;width:100%}.uppy-Dashboard-Item-previewIconBg{filter:drop-shadow(rgba(0,0,0,.1) 0 1px 1px);height:100%;width:100%}.uppy-Dashboard-upload{height:50px;position:relative;width:50px}.uppy-size--md .uppy-Dashboard-upload{height:60px;width:60px}.uppy-Dashboard-upload .uppy-c-icon{position:relative;top:1px;width:50%}.uppy-Dashboard-uploadCount{background-color:#1bb240;border-radius:50%;color:#fff;font-size:8px;height:16px;inset-inline-end:-12px;line-height:16px;position:absolute;top:-12px;width:16px}.uppy-size--md .uppy-Dashboard-uploadCount{font-size:9px;height:18px;line-height:18px;width:18px}`, bh = `.uppy-ImageCropper-range{-webkit-appearance:none;background:#0000;margin:8px 0;width:100%}.uppy-ImageCropper-range::-moz-focus-outer{border:0}.uppy-ImageCropper-range:focus{outline:0}.uppy-ImageCropper-range:focus::-webkit-slider-runnable-track{background:#fff3}.uppy-ImageCropper-range:focus::-ms-fill-lower,.uppy-ImageCropper-range:focus::-ms-fill-upper{background:#fff3}.uppy-ImageCropper-range::-webkit-slider-runnable-track{background:#fff3;border:0 solid #0000;border-radius:5px;box-shadow:0 0 #0000,0 0 #0d0d0d00;cursor:default;height:4px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-webkit-slider-thumb{-webkit-appearance:none;background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;margin-top:-6px;width:16px}.uppy-ImageCropper-range::-moz-range-track{background:#fff3;border:0 solid #0000;border-radius:5px;box-shadow:0 0 #0000,0 0 #0d0d0d00;cursor:default;height:2px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-moz-range-thumb{background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;width:16px}.uppy-ImageCropper-range::-ms-track{background:#0000;border-color:#0000;border-width:8px 0;color:#0000;cursor:default;height:4px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-ms-fill-lower{background:#f2f2f233;border:0 solid #0000;border-radius:10px;box-shadow:0 0 #0000,0 0 #0d0d0d00}.uppy-ImageCropper-range::-ms-fill-upper{background:#fff3;border:0 solid #0000;border-radius:10px;box-shadow:0 0 #0000,0 0 #0d0d0d00}.uppy-ImageCropper-range::-ms-thumb{background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;margin-top:1px;width:16px}.uppy-ImageCropper-range:disabled::-moz-range-thumb,.uppy-ImageCropper-range:disabled::-ms-fill-lower,.uppy-ImageCropper-range:disabled::-ms-fill-upper,.uppy-ImageCropper-range:disabled::-ms-thumb,.uppy-ImageCropper-range:disabled::-webkit-slider-runnable-track,.uppy-ImageCropper-range:disabled::-webkit-slider-thumb{cursor:not-allowed}/*!
-* Cropper.js v1.5.6
-* https://fengyuanchen.github.io/cropperjs
-*
-* Copyright 2015-present Chen Fengyuan
-* Released under the MIT license
-*
-* Date: 2019-10-04T04:33:44.164Z
-*/.cropper-container{direction:ltr;font-size:0;line-height:0;position:relative;-ms-touch-action:none;touch-action:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.cropper-container img{display:block;height:100%;image-orientation:0deg;max-height:none!important;max-width:none!important;min-height:0!important;min-width:0!important;width:100%}.cropper-canvas,.cropper-crop-box,.cropper-drag-box,.cropper-modal,.cropper-wrap-box{inset:0;position:absolute}.cropper-canvas,.cropper-wrap-box{overflow:hidden}.cropper-drag-box{background-color:#fff;opacity:0}.cropper-modal{background-color:#000;opacity:.5}.cropper-view-box{display:block;height:100%;outline:1px solid #39f;outline-color:#3399ffbf;overflow:hidden;width:100%}.cropper-dashed{border:0 dashed #eee;display:block;opacity:.5;position:absolute}.cropper-dashed.dashed-h{border-bottom-width:1px;border-top-width:1px;height:33.3333333333%;left:0;top:33.3333333333%;width:100%}.cropper-dashed.dashed-v{border-left-width:1px;border-right-width:1px;height:100%;left:33.3333333333%;top:0;width:33.3333333333%}.cropper-center{display:block;height:0;left:50%;opacity:.75;position:absolute;top:50%;width:0}.cropper-center:after,.cropper-center:before{background-color:#eee;content:" ";display:block;position:absolute}.cropper-center:before{height:1px;left:-3px;top:0;width:7px}.cropper-center:after{height:7px;left:0;top:-3px;width:1px}.cropper-face,.cropper-line,.cropper-point{display:block;height:100%;opacity:.1;position:absolute;width:100%}.cropper-face{background-color:#fff;left:0;top:0}.cropper-line{background-color:#39f}.cropper-line.line-e{cursor:ew-resize;right:-3px;top:0;width:5px}.cropper-line.line-n{cursor:ns-resize;height:5px;left:0;top:-3px}.cropper-line.line-w{cursor:ew-resize;left:-3px;top:0;width:5px}.cropper-line.line-s{bottom:-3px;cursor:ns-resize;height:5px;left:0}.cropper-point{background-color:#39f;height:5px;opacity:.75;width:5px}.cropper-point.point-e{cursor:ew-resize;margin-top:-3px;right:-3px;top:50%}.cropper-point.point-n{cursor:ns-resize;left:50%;margin-left:-3px;top:-3px}.cropper-point.point-w{cursor:ew-resize;left:-3px;margin-top:-3px;top:50%}.cropper-point.point-s{bottom:-3px;cursor:s-resize;left:50%;margin-left:-3px}.cropper-point.point-ne{cursor:nesw-resize;right:-3px;top:-3px}.cropper-point.point-nw{cursor:nwse-resize;left:-3px;top:-3px}.cropper-point.point-sw{bottom:-3px;cursor:nesw-resize;left:-3px}.cropper-point.point-se{bottom:-3px;cursor:nwse-resize;height:20px;opacity:1;right:-3px;width:20px}@media (min-width:768px){.cropper-point.point-se{height:15px;width:15px}}@media (min-width:992px){.cropper-point.point-se{height:10px;width:10px}}@media (min-width:1200px){.cropper-point.point-se{height:5px;opacity:.75;width:5px}}.cropper-point.point-se:before{background-color:#39f;bottom:-50%;content:" ";display:block;height:200%;opacity:0;position:absolute;right:-50%;width:200%}.cropper-invisible{opacity:0}.cropper-bg{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC)}.cropper-hide{display:block;height:0;position:absolute;width:0}.cropper-hidden{display:none!important}.cropper-move{cursor:move}.cropper-crop{cursor:crosshair}.cropper-disabled .cropper-drag-box,.cropper-disabled .cropper-face,.cropper-disabled .cropper-line,.cropper-disabled .cropper-point{cursor:not-allowed}.uppy-ImageCropper{display:flex;flex-direction:column;height:100%;width:100%}.uppy-ImageCropper-container{flex-grow:1}.uppy-ImageCropper-image{display:block;max-height:400px;max-width:100%}.uppy-ImageCropper-controls{align-items:center;background-color:#0009;border-radius:5px;bottom:15px;color:#fff;display:flex;justify-content:center;left:50%;padding-top:38px;position:absolute;transform:translate(-50%)}.uppy-size--md .uppy-ImageCropper-controls{padding-top:0}.uppy-ImageCropper-controls button{border-radius:5px;height:35px;width:35px}.uppy-ImageCropper-controls button svg{padding:3px}.uppy-size--md .uppy-ImageCropper-controls button{height:40px;width:40px}.uppy-size--md .uppy-ImageCropper-controls button svg{padding:1px}.uppy-ImageCropper-controls button:hover{background-color:#ffffff80}.uppy-ImageCropper-controls button:focus{background-color:#ffffff80;outline:none}.uppy-Dashboard:not(.uppy-size--md) .uppy-ImageCropper-rangeWrapper{height:38px;left:10px;position:absolute!important;right:10px;top:0}.uppy-size--md .uppy-ImageCropper-range{margin-left:5px;margin-right:5px;width:180px}.uppy-ImageCropper .cropper-point{height:8px;width:8px}.uppy-ImageCropper .cropper-view-box{background:repeating-conic-gradient(#bdbdbd33 0 25%,#fff 0 50%) 50%/16px 16px;outline:2px solid #39f}[data-uppy-theme=dark] .uppy-ImageCropper .cropper-view-box{background:repeating-conic-gradient(#2b2a2a 0 25%,#000 0 50%) 50%/16px 16px}.uppy-ImageCropper .cropper-modal{background-color:#fff;opacity:.9}[data-uppy-theme=dark] .uppy-ImageCropper .cropper-modal{background-color:#000;opacity:.7}.uppy-ImageCropper .cropper-face{opacity:0}.uppy-ImageCropper-range::-moz-range-track{height:4px}.uppy-ImageCropper-range:focus::-webkit-slider-runnable-track,.uppy-ImageCropper-range:hover::-webkit-slider-runnable-track{background:#ffffff80}.uppy-ImageCropper-range:focus::-ms-fill-lower,.uppy-ImageCropper-range:focus::-ms-fill-upper,.uppy-ImageCropper-range:hover::-ms-fill-lower,.uppy-ImageCropper-range:hover::-ms-fill-upper{background:#ffffff80}.uppy-ImageCropper-range:focus::-moz-range-track,.uppy-ImageCropper-range:hover::-moz-range-track{background:#ffffff80}`, w = {
+const _u = ".uppy-Root{box-sizing:border-box;color:#333;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;line-height:1;position:relative;text-align:left;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale}.uppy-Root[dir=rtl],[dir=rtl] .uppy-Root{text-align:right}.uppy-Root *,.uppy-Root :after,.uppy-Root :before{box-sizing:inherit}.uppy-Root [hidden]{display:none}.uppy-u-reset{all:initial;appearance:none;box-sizing:border-box;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;line-height:1}[dir=rtl] .uppy-u-reset{text-align:right}.uppy-c-textInput{background-color:#fff;border:1px solid #ddd;border-radius:4px;font-family:inherit;font-size:14px;line-height:1.5;padding:6px 8px}.uppy-size--md .uppy-c-textInput{padding:8px 10px}.uppy-c-textInput:focus{border-color:#1269cf99;box-shadow:0 0 0 3px #1269cf26;outline:none}[data-uppy-theme=dark] .uppy-c-textInput{background-color:#333;border-color:#333;color:#eaeaea}[data-uppy-theme=dark] .uppy-c-textInput:focus{border-color:#525252;box-shadow:none}.uppy-c-icon{display:inline-block;max-height:100%;max-width:100%;overflow:hidden;fill:currentColor}.uppy-c-btn{align-items:center;color:inherit;display:inline-flex;font-family:inherit;font-size:inherit;font-weight:500;justify-content:center;line-height:1;transition-duration:.3s;transition-property:background-color,color;user-select:none;white-space:nowrap}.uppy-c-btn,[dir=rtl] .uppy-c-btn{text-align:center}.uppy-c-btn:not(:disabled):not(.disabled){cursor:pointer}.uppy-c-btn::-moz-focus-inner{border:0}.uppy-c-btn-primary{background-color:#1269cf;border-radius:4px;color:#fff;font-size:14px;padding:10px 18px}.uppy-c-btn-primary:not(:disabled):hover{background-color:#0e51a0}.uppy-c-btn-primary:focus{box-shadow:0 0 0 3px #1269cf66;outline:none}.uppy-size--md .uppy-c-btn-primary{padding:13px 22px}[data-uppy-theme=dark] .uppy-c-btn-primary{color:#eaeaea}[data-uppy-theme=dark] .uppy-c-btn-primary:focus{outline:none}[data-uppy-theme=dark] .uppy-c-btn-primary::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-c-btn-primary:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-c-btn-primary.uppy-c-btn--disabled{background-color:#8eb2db}.uppy-c-btn-link{background-color:initial;border-radius:4px;color:#525252;font-size:14px;line-height:1;padding:10px 15px}.uppy-c-btn-link:hover{color:#333}.uppy-c-btn-link:focus{box-shadow:0 0 0 3px #1269cf40;outline:none}.uppy-size--md .uppy-c-btn-link{padding:13px 18px}[data-uppy-theme=dark] .uppy-c-btn-link{color:#eaeaea}[data-uppy-theme=dark] .uppy-c-btn-link:focus{outline:none}[data-uppy-theme=dark] .uppy-c-btn-link::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-c-btn-link:focus{box-shadow:0 0 0 2px #aae1ffd9}[data-uppy-theme=dark] .uppy-c-btn-link:hover{color:#939393}", Su = `@charset "UTF-8";.uppy-Informer{bottom:60px;left:0;position:absolute;right:0;text-align:center;z-index:1005}.uppy-Informer span>div{margin-bottom:6px}.uppy-Informer-animated{opacity:0;transform:translateY(350%);transition:all .3s ease-in;z-index:-1000}.uppy-Informer p{background-color:#757575;border-radius:18px;color:#fff;display:inline-block;font-size:12px;font-weight:400;line-height:1.4;margin:0;max-width:90%;padding:6px 15px}.uppy-size--md .uppy-Informer p{font-size:14px;line-height:1.3;max-width:500px;padding:10px 20px}[data-uppy-theme=dark] .uppy-Informer p{background-color:#333}.uppy-Informer p span{background-color:#fff;border-radius:50%;color:#525252;display:inline-block;font-size:10px;height:13px;inset-inline-start:3px;line-height:12px;margin-inline-start:-1px;position:relative;top:-1px;vertical-align:middle;width:13px}.uppy-Informer p span:hover{cursor:help}.uppy-Informer p span:after{line-height:1.3;word-wrap:break-word}.uppy-Root [aria-label][role~=tooltip]{position:relative}.uppy-Root [aria-label][role~=tooltip]:after,.uppy-Root [aria-label][role~=tooltip]:before{-webkit-backface-visibility:hidden;backface-visibility:hidden;box-sizing:border-box;opacity:0;pointer-events:none;position:absolute;transform:translateZ(0);transform-origin:top;transition:all var(--microtip-transition-duration,.18s) var(--microtip-transition-easing,ease-in-out) var(--microtip-transition-delay,0s);will-change:transform;z-index:10}.uppy-Root [aria-label][role~=tooltip]:before{background-size:100% auto!important;content:""}.uppy-Root [aria-label][role~=tooltip]:after{background:#111111e6;border-radius:4px;box-sizing:initial;color:#fff;content:attr(aria-label);font-size:var(--microtip-font-size,13px);font-weight:var(--microtip-font-weight,normal);padding:.5em 1em;text-transform:var(--microtip-text-transform,none);white-space:nowrap}.uppy-Root [aria-label][role~=tooltip]:focus:after,.uppy-Root [aria-label][role~=tooltip]:focus:before,.uppy-Root [aria-label][role~=tooltip]:hover:after,.uppy-Root [aria-label][role~=tooltip]:hover:before{opacity:1;pointer-events:auto}.uppy-Root [role~=tooltip][data-microtip-position|=top]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M2.658 0h32.004c-6 0-11.627 12.002-16.002 12.002S8.594 0 2.658 0'/%3E%3C/svg%3E") no-repeat;bottom:100%;height:6px;left:50%;margin-bottom:5px;transform:translate3d(-50%,0,0);width:18px}.uppy-Root [role~=tooltip][data-microtip-position|=top]:after{bottom:100%;left:50%;margin-bottom:11px;transform:translate3d(-50%,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position|=top]:hover:before{transform:translate3d(-50%,-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-left]:after{bottom:100%;transform:translate3d(calc(-100% + 16px),0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-left]:hover:after{transform:translate3d(calc(-100% + 16px),-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-right]:after{bottom:100%;transform:translate3d(-16px,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=top-right]:hover:after{transform:translate3d(-16px,-5px,0)}.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='36' height='12'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M33.342 12H1.338c6 0 11.627-12.002 16.002-12.002S27.406 12 33.342 12'/%3E%3C/svg%3E") no-repeat;bottom:auto;height:6px;left:50%;margin-bottom:0;margin-top:5px;top:100%;transform:translate3d(-50%,-10px,0);width:18px}.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:after{left:50%;margin-top:11px;top:100%;transform:translate3d(-50%,-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position|=bottom]:hover:before{transform:translate3d(-50%,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-left]:after{top:100%;transform:translate3d(calc(-100% + 16px),-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-left]:hover:after{transform:translate3d(calc(-100% + 16px),0,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-right]:after{top:100%;transform:translate3d(-16px,-10px,0)}.uppy-Root [role~=tooltip][data-microtip-position=bottom-right]:hover:after{transform:translate3d(-16px,0,0)}.uppy-Root [role~=tooltip][data-microtip-position=left]:after,.uppy-Root [role~=tooltip][data-microtip-position=left]:before{inset:50% 100% auto auto;transform:translate3d(10px,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=left]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='36'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M0 33.342V1.338c0 6 12.002 11.627 12.002 16.002S0 27.406 0 33.342'/%3E%3C/svg%3E") no-repeat;height:18px;margin-bottom:0;margin-right:5px;width:6px}.uppy-Root [role~=tooltip][data-microtip-position=left]:after{margin-right:11px}.uppy-Root [role~=tooltip][data-microtip-position=left]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position=left]:hover:before{transform:translate3d(0,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=right]:after,.uppy-Root [role~=tooltip][data-microtip-position=right]:before{bottom:auto;left:100%;top:50%;transform:translate3d(-10px,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-position=right]:before{background:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='36'%3E%3Cpath fill='rgba(17, 17, 17, 0.9)' d='M12 2.658v32.004c0-6-12.002-11.627-12.002-16.002S12 8.594 12 2.658'/%3E%3C/svg%3E") no-repeat;height:18px;margin-bottom:0;margin-left:5px;width:6px}.uppy-Root [role~=tooltip][data-microtip-position=right]:after{margin-left:11px}.uppy-Root [role~=tooltip][data-microtip-position=right]:hover:after,.uppy-Root [role~=tooltip][data-microtip-position=right]:hover:before{transform:translate3d(0,-50%,0)}.uppy-Root [role~=tooltip][data-microtip-size=small]:after{white-space:normal;width:80px}.uppy-Root [role~=tooltip][data-microtip-size=medium]:after{white-space:normal;width:150px}.uppy-Root [role~=tooltip][data-microtip-size=large]:after{white-space:normal;width:260px}.uppy-StatusBar{background-color:#fff;color:#fff;display:flex;font-size:12px;font-weight:400;height:46px;line-height:40px;position:relative;transition:height .2s;z-index:1001}[data-uppy-theme=dark] .uppy-StatusBar{background-color:#1f1f1f}.uppy-StatusBar:before{background-color:#eaeaea;content:"";height:2px;inset:0;position:absolute;width:100%}[data-uppy-theme=dark] .uppy-StatusBar:before{background-color:#757575}.uppy-StatusBar[aria-hidden=true]{height:0;overflow-y:hidden}.uppy-StatusBar.is-complete .uppy-StatusBar-progress{background-color:#1bb240}.uppy-StatusBar.is-error .uppy-StatusBar-progress{background-color:#e32437}.uppy-StatusBar.is-complete .uppy-StatusBar-statusIndicator{color:#1bb240}.uppy-StatusBar.is-error .uppy-StatusBar-statusIndicator{color:#e32437}.uppy-StatusBar:not([aria-hidden=true]).is-waiting{background-color:#fff;border-top:1px solid #eaeaea;height:65px}[data-uppy-theme=dark] .uppy-StatusBar:not([aria-hidden=true]).is-waiting{background-color:#1f1f1f;border-top:1px solid #333}.uppy-StatusBar-progress{background-color:#1269cf;height:2px;position:absolute;transition:background-color,width .3s ease-out;z-index:1001}.uppy-StatusBar-progress.is-indeterminate{animation:uppy-StatusBar-ProgressStripes 1s linear infinite;background-image:linear-gradient(45deg,#0000004d 25%,#0000 0 50%,#0000004d 0 75%,#0000 0,#0000);background-size:64px 64px}@keyframes uppy-StatusBar-ProgressStripes{0%{background-position:0 0}to{background-position:64px 0}}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-progress,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-progress{background-color:#f6a623}.uppy-StatusBar.is-waiting .uppy-StatusBar-progress{display:none}.uppy-StatusBar-content{align-items:center;color:#333;display:flex;height:100%;padding-inline-start:10px;position:relative;text-overflow:ellipsis;white-space:nowrap;z-index:1002}.uppy-size--md .uppy-StatusBar-content{padding-inline-start:15px}[data-uppy-theme=dark] .uppy-StatusBar-content{color:#eaeaea}.uppy-StatusBar-status{display:flex;flex-direction:column;font-weight:400;justify-content:center;line-height:1.4;padding-inline-end:.3em}.uppy-StatusBar-statusPrimary{display:flex;font-weight:500;line-height:1}.uppy-StatusBar-statusPrimary button.uppy-StatusBar-details{margin-left:5px}[data-uppy-theme=dark] .uppy-StatusBar-statusPrimary{color:#eaeaea}.uppy-StatusBar-statusSecondary{color:#757575;display:inline-block;font-size:11px;line-height:1.2;margin-top:1px;white-space:nowrap}[data-uppy-theme=dark] .uppy-StatusBar-statusSecondary{color:#bbb}.uppy-StatusBar-statusSecondaryHint{display:inline-block;line-height:1;margin-inline-end:5px;vertical-align:middle}.uppy-size--md .uppy-StatusBar-statusSecondaryHint{margin-inline-end:8px}.uppy-StatusBar-statusIndicator{color:#525252;margin-inline-end:7px;position:relative;top:1px}.uppy-StatusBar-statusIndicator svg{vertical-align:text-bottom}.uppy-StatusBar-actions{align-items:center;bottom:0;display:flex;inset-inline-end:10px;position:absolute;top:0;z-index:1004}.uppy-StatusBar.is-waiting .uppy-StatusBar-actions{background-color:#fafafa;height:100%;padding:0 15px;position:static;width:100%}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actions{background-color:#1f1f1f}.uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts{flex-direction:column;height:90px}.uppy-size--md .uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts{flex-direction:row;height:65px}.uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts .uppy-StatusBar-actions{flex-direction:column;justify-content:center}.uppy-size--md .uppy-StatusBar:not([aria-hidden=true]).is-waiting.has-ghosts .uppy-StatusBar-actions{flex-direction:row;justify-content:normal}.uppy-StatusBar-actionCircleBtn{cursor:pointer;line-height:1;margin:3px;opacity:.9}.uppy-StatusBar-actionCircleBtn:focus{outline:none}.uppy-StatusBar-actionCircleBtn::-moz-focus-inner{border:0}.uppy-StatusBar-actionCircleBtn:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionCircleBtn:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar-actionCircleBtn:hover{opacity:1}.uppy-StatusBar-actionCircleBtn:focus{border-radius:50%}.uppy-StatusBar-actionCircleBtn svg{vertical-align:bottom}.uppy-StatusBar-actionBtn{color:#1269cf;display:inline-block;font-size:10px;line-height:inherit;vertical-align:middle}.uppy-size--md .uppy-StatusBar-actionBtn{font-size:11px}.uppy-StatusBar-actionBtn--disabled{opacity:.4}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--disabled{opacity:.7}.uppy-StatusBar-actionBtn--retry{background-color:#ff4b23;border-radius:8px;color:#fff;height:16px;line-height:1;margin-inline-end:6px;padding:1px 6px 3px 18px;position:relative}.uppy-StatusBar-actionBtn--retry:focus{outline:none}.uppy-StatusBar-actionBtn--retry::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--retry:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--retry:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar-actionBtn--retry:hover{background-color:#f92d00}.uppy-StatusBar-actionBtn--retry svg{inset-inline-start:6px;position:absolute;top:3px}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{background-color:#1bb240;color:#fff;font-size:14px;line-height:1;padding:15px 10px;width:100%}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover{background-color:#189c38}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{background-color:#1c8b37}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload:hover{background-color:#18762f}.uppy-size--md .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload{padding:13px 22px;width:auto}.uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload.uppy-StatusBar-actionBtn--disabled:hover{background-color:#1bb240;cursor:not-allowed}[data-uppy-theme=dark] .uppy-StatusBar.is-waiting .uppy-StatusBar-actionBtn--upload.uppy-StatusBar-actionBtn--disabled:hover{background-color:#1c8b37}.uppy-StatusBar:not(.is-waiting) .uppy-StatusBar-actionBtn--upload{background-color:initial;color:#1269cf}.uppy-StatusBar-actionBtn--uploadNewlyAdded{border-radius:3px;padding-inline-end:3px;padding-bottom:1px;padding-inline-start:3px}.uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{outline:none}.uppy-StatusBar-actionBtn--uploadNewlyAdded::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{box-shadow:0 0 0 3px #1269cf80}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{outline:none}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--uploadNewlyAdded:focus{box-shadow:0 0 0 2px #aae1ffd9}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-actionBtn--uploadNewlyAdded,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-actionBtn--uploadNewlyAdded{display:none}.uppy-StatusBar-actionBtn--done{border-radius:3px;line-height:1;padding:7px 8px}.uppy-StatusBar-actionBtn--done:focus{outline:none}.uppy-StatusBar-actionBtn--done::-moz-focus-inner{border:0}.uppy-StatusBar-actionBtn--done:hover{color:#0e51a0}.uppy-StatusBar-actionBtn--done:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--done:focus{background-color:#333}[data-uppy-theme=dark] .uppy-StatusBar-actionBtn--done{color:#02baf2}.uppy-size--md .uppy-StatusBar-actionBtn--done{font-size:14px}.uppy-StatusBar-serviceMsg{color:#000;font-size:11px;line-height:1.1;padding-left:10px}.uppy-size--md .uppy-StatusBar-serviceMsg{font-size:14px;padding-left:15px}[data-uppy-theme=dark] .uppy-StatusBar-serviceMsg{color:#eaeaea}.uppy-StatusBar-serviceMsg-ghostsIcon{left:6px;opacity:.5;position:relative;top:2px;vertical-align:text-bottom;width:10px}.uppy-size--md .uppy-StatusBar-serviceMsg-ghostsIcon{left:10px;top:1px;width:15px}.uppy-StatusBar-details{appearance:none;background-color:#939393;border-radius:50%;color:#fff;cursor:help;display:inline-block;font-size:10px;font-weight:600;height:13px;inset-inline-start:2px;line-height:12px;position:relative;text-align:center;top:0;vertical-align:middle;width:13px}.uppy-StatusBar-details:after{line-height:1.3;word-wrap:break-word}.uppy-StatusBar-spinner{animation-duration:1s;animation-iteration-count:infinite;animation-name:uppy-StatusBar-spinnerAnimation;animation-timing-function:linear;fill:#1269cf;margin-inline-end:10px}.uppy-StatusBar.is-postprocessing .uppy-StatusBar-spinner,.uppy-StatusBar.is-preprocessing .uppy-StatusBar-spinner{fill:#f6a623}@keyframes uppy-StatusBar-spinnerAnimation{0%{transform:rotate(0)}to{transform:rotate(1turn)}}.uppy-ProviderBrowser-viewType--grid ul.uppy-ProviderBrowser-list,.uppy-ProviderBrowser-viewType--unsplash ul.uppy-ProviderBrowser-list{align-items:flex-start;display:flex;flex-direction:row;flex-wrap:wrap;justify-content:space-between;padding:6px}.uppy-ProviderBrowser-viewType--grid ul.uppy-ProviderBrowser-list:after,.uppy-ProviderBrowser-viewType--unsplash ul.uppy-ProviderBrowser-list:after{content:"";flex:auto}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{margin:0;position:relative;width:50%}.uppy-size--md .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-size--md .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{width:33.3333%}.uppy-size--lg .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem,.uppy-size--lg .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem{width:25%}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem:before,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem:before{content:"";display:block;padding-top:100%}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--selected img,.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--selected svg,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--selected img,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--selected svg{opacity:.85}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--disabled,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--disabled{opacity:.5}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner{background-color:#93939333}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview .uppy-ProviderBrowserItem-inner{background-color:#eaeaea33}.uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview svg,.uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview svg{height:30%;width:30%;fill:#000000b3}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid li.uppy-ProviderBrowserItem--noPreview svg,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash li.uppy-ProviderBrowserItem--noPreview svg{fill:#fffc}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner{border-radius:4px;height:calc(100% - 14px);inset:7px;overflow:hidden;position:absolute;text-align:center;width:calc(100% - 14px)}@media (hover:none){.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner .uppy-ProviderBrowserItem-author{display:block}}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner,[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner{box-shadow:0 0 0 3px #aae1ffb3}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-inner img,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-inner img{border-radius:4px;height:100%;object-fit:cover;width:100%}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-author{background:#0000004d;bottom:0;color:#fff;display:none;font-size:12px;font-weight:500;left:0;margin:0;padding:5px;position:absolute;text-decoration:none;width:100%}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-author:hover,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-author:hover{background:#0006;text-decoration:underline}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox{background-color:#1269cf;border-radius:50%;height:26px;opacity:0;position:absolute;right:16px;top:16px;width:26px;z-index:1002}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox:after,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox:after{height:7px;inset-inline-start:7px;top:8px;width:12px}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox{opacity:1}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:hover+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label .uppy-ProviderBrowserItem-author,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:hover+label .uppy-ProviderBrowserItem-author{display:block}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label{box-shadow:0 0 0 3px #1269cf80}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label:focus,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label:focus{outline:none}.uppy-ProviderBrowser-viewType--grid .uppy-ProviderBrowserItem-checkbox--grid:focus+label::-moz-focus-inner,.uppy-ProviderBrowser-viewType--unsplash .uppy-ProviderBrowserItem-checkbox--grid:focus+label::-moz-focus-inner{border:0}.uppy-ProviderBrowser-viewType--list{background-color:#fff}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list{background-color:#1f1f1f}.uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem{align-items:center;display:flex;margin:0;padding:7px 15px}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem{color:#eaeaea}.uppy-ProviderBrowser-viewType--list li.uppy-ProviderBrowserItem--disabled{opacity:.6}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox{background-color:#fff;border:1px solid #cfcfcf;border-radius:3px;height:17px;margin-inline-end:15px;width:17px}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:focus{border:1px solid #1269cf;box-shadow:0 0 0 3px #1269cf40;outline:none}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:after{height:5px;inset-inline-start:3px;opacity:0;top:4px;width:9px}[data-uppy-theme=dark] .uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-checkbox:focus{border-color:#02baf2b3;box-shadow:0 0 0 3px #02baf233}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox{background-color:#1269cf;border-color:#1269cf}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox:after,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox:after{opacity:1}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner{align-items:center;color:inherit;display:flex;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;overflow:hidden;padding:2px;text-overflow:ellipsis;white-space:nowrap}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner:focus{outline:none;text-decoration:underline}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner img,.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner svg{margin-inline-end:8px}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-inner span{line-height:1.2;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem--disabled .uppy-ProviderBrowserItem-inner{cursor:default}.uppy-ProviderBrowser-viewType--list .uppy-ProviderBrowserItem-iconWrap{margin-inline-end:7px;width:20px}.uppy-ProviderBrowserItem-checkbox{cursor:pointer;flex-shrink:0;position:relative}.uppy-ProviderBrowserItem-checkbox:disabled,.uppy-ProviderBrowserItem-checkbox:disabled:after{cursor:default}[data-uppy-theme=dark] .uppy-ProviderBrowserItem-checkbox{background-color:#1f1f1f;border-color:#939393}[data-uppy-theme=dark] .uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox{background-color:#333}.uppy-ProviderBrowserItem--is-checked .uppy-ProviderBrowserItem-checkbox:after{border-bottom:2px solid #eaeaea;border-left:2px solid #eaeaea;content:"";cursor:pointer;position:absolute;transform:rotate(-45deg)}.uppy-ProviderBrowserItem--is-partial .uppy-ProviderBrowserItem-checkbox:after{background-color:#eaeaea!important;content:""!important;height:2px!important;left:20%!important;position:absolute!important;right:20%!important;top:50%!important;transform:translateY(-50%)!important}.uppy-SearchProvider{align-items:center;display:flex;flex:1;flex-direction:column;height:100%;justify-content:center;width:100%}[data-uppy-theme=dark] .uppy-SearchProvider{background-color:#1f1f1f}.uppy-SearchProvider-input{margin-bottom:15px;max-width:650px;width:90%}.uppy-size--md .uppy-SearchProvider-input{margin-bottom:20px}.uppy-SearchProvider-input::-webkit-search-cancel-button{display:none}.uppy-SearchProvider-searchButton{padding:13px 25px}.uppy-size--md .uppy-SearchProvider-searchButton{padding:13px 30px}.uppy-DashboardContent-panelBody{align-items:center;display:flex;flex:1;justify-content:center}[data-uppy-theme=dark] .uppy-DashboardContent-panelBody{background-color:#1f1f1f}.uppy-Provider-auth,.uppy-Provider-empty,.uppy-Provider-error,.uppy-Provider-loading{align-items:center;color:#939393;display:flex;flex:1;flex-flow:column wrap;justify-content:center}.uppy-Provider-empty{color:#939393}.uppy-Provider-authIcon svg{height:75px;width:100px}.uppy-Provider-authTitle{color:#757575;font-size:17px;font-weight:400;line-height:1.4;margin-bottom:30px;max-width:500px;padding:0 15px;text-align:center}.uppy-size--md .uppy-Provider-authTitle{font-size:20px}[data-uppy-theme=dark] .uppy-Provider-authTitle{color:#cfcfcf}.uppy-Provider-btn-google{align-items:center;background:#4285f4;display:flex;padding:8px 12px!important}.uppy-Provider-btn-google:hover{background-color:#1266f1}.uppy-Provider-btn-google:focus{box-shadow:0 0 0 3px #4285f466;outline:none}.uppy-Provider-btn-google svg{margin-right:8px}.uppy-Provider-breadcrumbs{color:#525252;flex:1;font-size:12px;margin-bottom:10px;text-align:start}.uppy-size--md .uppy-Provider-breadcrumbs{margin-bottom:0}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs{color:#eaeaea}.uppy-Provider-breadcrumbsIcon{color:#525252;display:inline-block;line-height:1;margin-inline-end:4px;vertical-align:middle}.uppy-Provider-breadcrumbsIcon svg{height:13px;width:13px;fill:#525252}.uppy-Provider-breadcrumbs button{border-radius:3px;display:inline-block;line-height:inherit;padding:4px}.uppy-Provider-breadcrumbs button:focus{outline:none}.uppy-Provider-breadcrumbs button::-moz-focus-inner{border:0}.uppy-Provider-breadcrumbs button:hover{color:#0e51a0}.uppy-Provider-breadcrumbs button:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs button:focus{background-color:#333}.uppy-Provider-breadcrumbs button:not(:last-of-type){text-decoration:underline}.uppy-Provider-breadcrumbs button:last-of-type{color:#333;cursor:normal;font-weight:500;pointer-events:none}.uppy-Provider-breadcrumbs button:hover{cursor:pointer}[data-uppy-theme=dark] .uppy-Provider-breadcrumbs button{color:#eaeaea}.uppy-ProviderBrowser{display:flex;flex:1;flex-direction:column;font-size:14px;font-weight:400;height:100%}.uppy-ProviderBrowser-user{color:#333;font-weight:500;margin:0 8px 0 0}[data-uppy-theme=dark] .uppy-ProviderBrowser-user{color:#eaeaea}.uppy-ProviderBrowser-user:after{color:#939393;content:"·";font-weight:400;inset-inline-start:4px;position:relative}.uppy-ProviderBrowser-header{border-bottom:1px solid #eaeaea;position:relative;z-index:1001}[data-uppy-theme=dark] .uppy-ProviderBrowser-header{border-bottom:1px solid #333}.uppy-ProviderBrowser-headerBar{background-color:#fafafa;color:#757575;font-size:12px;line-height:1.4;padding:7px 15px;z-index:1001}.uppy-size--md .uppy-ProviderBrowser-headerBar{align-items:center;display:flex}[data-uppy-theme=dark] .uppy-ProviderBrowser-headerBar{background-color:#1f1f1f}.uppy-ProviderBrowser-headerBar--simple{display:block;justify-content:center;text-align:center}.uppy-ProviderBrowser-headerBar--simple .uppy-Provider-breadcrumbsWrap{display:inline-block;flex:none;vertical-align:middle}.uppy-ProviderBrowser-searchFilter{align-items:center;display:flex;height:30px;margin-bottom:15px;margin-top:15px;padding-left:8px;padding-right:8px;position:relative;width:100%}.uppy-ProviderBrowser-searchFilterInput{background-color:#eaeaea;border:0;border-radius:4px;color:#333;font-family:-apple-system,system-ui,BlinkMacSystemFont,Segoe UI,Segoe UI Symbol,Segoe UI Emoji,Apple Color Emoji,Roboto,Helvetica,Arial,sans-serif;font-size:13px;height:30px;line-height:1.4;outline:0;padding-inline-end:30px;padding-inline-start:30px;width:100%;z-index:1001}.uppy-ProviderBrowser-searchFilterInput::-webkit-search-cancel-button{display:none}[data-uppy-theme=dark] .uppy-ProviderBrowser-searchFilterInput{background-color:#1f1f1f;color:#eaeaea}.uppy-ProviderBrowser-searchFilterInput:focus{background-color:#cfcfcf;border:0}[data-uppy-theme=dark] .uppy-ProviderBrowser-searchFilterInput:focus{background-color:#333}.uppy-ProviderBrowser-searchFilterIcon{color:#757575;height:12px;inset-inline-start:16px;position:absolute;width:12px;z-index:1002}.uppy-ProviderBrowser-searchFilterInput::placeholder{color:#939393;opacity:1}.uppy-ProviderBrowser-searchFilterReset{border-radius:3px;color:#939393;cursor:pointer;height:22px;inset-inline-end:16px;padding:6px;position:absolute;width:22px;z-index:1002}.uppy-ProviderBrowser-searchFilterReset:focus{outline:none}.uppy-ProviderBrowser-searchFilterReset::-moz-focus-inner{border:0}.uppy-ProviderBrowser-searchFilterReset:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-ProviderBrowser-searchFilterReset:hover{color:#757575}.uppy-ProviderBrowser-searchFilterReset svg{vertical-align:text-top}.uppy-ProviderBrowser-userLogout{border-radius:3px;color:#1269cf;cursor:pointer;line-height:inherit;padding:4px}.uppy-ProviderBrowser-userLogout:focus{outline:none}.uppy-ProviderBrowser-userLogout::-moz-focus-inner{border:0}.uppy-ProviderBrowser-userLogout:hover{color:#0e51a0}.uppy-ProviderBrowser-userLogout:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-ProviderBrowser-userLogout:focus{background-color:#333}.uppy-ProviderBrowser-userLogout:hover{text-decoration:underline}[data-uppy-theme=dark] .uppy-ProviderBrowser-userLogout{color:#eaeaea}.uppy-ProviderBrowser-body{flex:1;position:relative}.uppy-ProviderBrowser-list{background-color:#fff;border-spacing:0;display:block;flex:1;height:100%;inset:0;list-style:none;margin:0;overflow-x:hidden;overflow-y:auto;padding:0;position:absolute;width:100%;-webkit-overflow-scrolling:touch}[data-uppy-theme=dark] .uppy-ProviderBrowser-list{background-color:#1f1f1f}.uppy-ProviderBrowser-list:focus{outline:none}.uppy-ProviderBrowserItem-inner{cursor:pointer;font-size:13px;font-weight:500}.uppy-ProviderBrowser-footer{align-items:center;background-color:#fff;border-top:1px solid #eaeaea;display:flex;justify-content:space-between;padding:15px}.uppy-ProviderBrowser-footer button{margin-inline-end:8px}[data-uppy-theme=dark] .uppy-ProviderBrowser-footer{background-color:#1f1f1f;border-top:1px solid #333}.uppy-ProviderBrowser-footer-buttons{flex-shrink:0}.uppy-ProviderBrowser-footer-error{color:#e32437;line-height:18px}@media (max-width:426px){.uppy-ProviderBrowser-footer{align-items:stretch;flex-direction:column-reverse}.uppy-ProviderBrowser-footer-error{padding-bottom:10px}}.picker-dialog-bg{z-index:20000!important}.picker-dialog{z-index:20001!important}.uppy-Dashboard-Item-previewInnerWrap{align-items:center;border-radius:3px;box-shadow:0 0 2px #0006;display:flex;flex-direction:column;height:100%;justify-content:center;overflow:hidden;position:relative;width:100%}.uppy-size--md .uppy-Dashboard-Item-previewInnerWrap{box-shadow:0 1px 2px #00000026}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewInnerWrap{box-shadow:none}.uppy-Dashboard-Item-previewInnerWrap:after{background-color:#000000a6;content:"";display:none;inset:0;position:absolute;z-index:1001}.uppy-Dashboard-Item-previewLink{inset:0;position:absolute;z-index:1002}.uppy-Dashboard-Item-previewLink:focus{box-shadow:inset 0 0 0 3px #579df0}[data-uppy-theme=dark] .uppy-Dashboard-Item-previewLink:focus{box-shadow:inset 0 0 0 3px #016c8d}.uppy-Dashboard-Item-preview img.uppy-Dashboard-Item-previewImg{border-radius:3px;height:100%;object-fit:cover;transform:translateZ(0);width:100%}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-preview img.uppy-Dashboard-Item-previewImg{height:auto;max-height:100%;max-width:100%;object-fit:contain;padding:10px;width:auto}.uppy-Dashboard-Item-progress{color:#fff;left:50%;position:absolute;text-align:center;top:50%;transform:translate(-50%,-50%);transition:all .35 ease;width:120px;z-index:1002}.uppy-Dashboard-Item-progressIndicator{color:#fff;display:inline-block;height:38px;opacity:.9;width:38px}.uppy-size--md .uppy-Dashboard-Item-progressIndicator{height:55px;width:55px}button.uppy-Dashboard-Item-progressIndicator{cursor:pointer}button.uppy-Dashboard-Item-progressIndicator:focus{outline:none}button.uppy-Dashboard-Item-progressIndicator::-moz-focus-inner{border:0}button.uppy-Dashboard-Item-progressIndicator:focus .uppy-Dashboard-Item-progressIcon--bg,button.uppy-Dashboard-Item-progressIndicator:focus .uppy-Dashboard-Item-progressIcon--retry{fill:#579df0}.uppy-Dashboard-Item-progressIcon--circle{height:100%;width:100%}.uppy-Dashboard-Item-progressIcon--bg{stroke:#fff6}.uppy-Dashboard-Item-progressIcon--progress{transition:stroke-dashoffset .5s ease-out;stroke:#fff}.uppy-Dashboard-Item-progressIcon--play{transition:all .2s;fill:#fff;stroke:#fff}.uppy-Dashboard-Item-progressIcon--cancel{transition:all .2s;fill:#fff}.uppy-Dashboard-Item-progressIcon--pause{transition:all .2s;fill:#fff;stroke:#fff}.uppy-Dashboard-Item-progressIcon--check{transition:all .2s;fill:#fff}.uppy-Dashboard-Item-progressIcon--retry{fill:#fff}.uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progress{inset-inline-end:-8px;inset-inline-start:auto;top:-9px;transform:none;width:auto}.uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-progressIndicator{height:18px;width:18px}.uppy-size--md .uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-progressIndicator{height:28px;width:28px}.uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progressIndicator{height:18px;opacity:1;width:18px}.uppy-size--md .uppy-Dashboard-Item.is-complete .uppy-Dashboard-Item-progressIndicator{height:22px;width:22px}.uppy-Dashboard-Item.is-processing .uppy-Dashboard-Item-progress{opacity:0}.uppy-Dashboard-Item-fileInfo{padding-inline-end:5px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfo{padding-inline-end:10px}.uppy-size--md.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfo{padding-inline-end:15px}.uppy-Dashboard-Item-name{font-size:12px;font-weight:500;line-height:1.3;margin-bottom:5px;word-wrap:anywhere;word-break:break-all}[data-uppy-theme=dark] .uppy-Dashboard-Item-name{color:#eaeaea}.uppy-size--md.uppy-Dashboard--singleFile .uppy-Dashboard-Item-name{font-size:14px;line-height:1.4}.uppy-Dashboard-Item-fileName{align-items:baseline;display:flex}.uppy-Dashboard-Item-fileName button{margin-left:5px}.uppy-Dashboard-Item-author{color:#757575;display:inline-block;font-size:11px;font-weight:400;line-height:1;margin-bottom:5px;vertical-align:bottom}.uppy-Dashboard-Item-author a{color:#757575}.uppy-Dashboard-Item-status{color:#757575;font-size:11px;font-weight:400;line-height:1}[data-uppy-theme=dark] .uppy-Dashboard-Item-status{color:#bbb}.uppy-Dashboard-Item-statusSize{display:inline-block;margin-bottom:5px;text-transform:uppercase;vertical-align:bottom}.uppy-Dashboard-Item-reSelect{color:#1269cf;font-family:inherit;font-size:inherit;font-weight:600}.uppy-Dashboard-Item-errorMessage{background-color:#fdeff1;color:#a51523;font-size:11px;font-weight:500;line-height:1.3;padding:5px 6px}.uppy-Dashboard-Item-errorMessageBtn{color:#a51523;cursor:pointer;font-size:11px;font-weight:500;text-decoration:underline}.uppy-Dashboard-Item-preview .uppy-Dashboard-Item-errorMessage{display:none}.uppy-size--md .uppy-Dashboard-Item-preview .uppy-Dashboard-Item-errorMessage{border-bottom-left-radius:3px;border-bottom-right-radius:3px;border-top:1px solid #f7c2c8;bottom:0;display:block;left:0;line-height:1.4;padding:6px 8px;position:absolute;right:0}.uppy-Dashboard-Item-fileInfo .uppy-Dashboard-Item-errorMessage{border:1px solid #f7c2c8;border-radius:3px;display:inline-block;position:static}.uppy-size--md .uppy-Dashboard-Item-fileInfo .uppy-Dashboard-Item-errorMessage{display:none}.uppy-Dashboard-Item-action{color:#939393;cursor:pointer}.uppy-Dashboard-Item-action:focus{outline:none}.uppy-Dashboard-Item-action::-moz-focus-inner{border:0}.uppy-Dashboard-Item-action:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-Dashboard-Item-action:hover{color:#1f1f1f;opacity:1}[data-uppy-theme=dark] .uppy-Dashboard-Item-action{color:#cfcfcf}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:focus{outline:none}[data-uppy-theme=dark] .uppy-Dashboard-Item-action::-moz-focus-inner{border:0}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:focus{box-shadow:0 0 0 2px #aae1ffd9}[data-uppy-theme=dark] .uppy-Dashboard-Item-action:hover{color:#eaeaea}.uppy-Dashboard-Item-action--remove{color:#1f1f1f;opacity:.95}.uppy-Dashboard-Item-action--remove:hover{color:#000;opacity:1}.uppy-size--md .uppy-Dashboard-Item-action--remove{height:18px;inset-inline-end:-8px;padding:0;position:absolute;top:-8px;width:18px;z-index:1002}.uppy-size--md .uppy-Dashboard-Item-action--remove:focus{border-radius:50%}.uppy-Dashboard--singleFile.uppy-size--height-md .uppy-Dashboard-Item-action--remove{inset-inline-end:8px;position:absolute;top:8px}[data-uppy-theme=dark] .uppy-Dashboard-Item-action--remove{color:#525252}[data-uppy-theme=dark] .uppy-Dashboard-Item-action--remove:hover{color:#333}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-actionWrapper{align-items:center;display:flex}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-action{height:22px;margin-left:3px;padding:3px;width:22px}.uppy-Dashboard:not(.uppy-size--md):not(.uppy-Dashboard--singleFile.uppy-size--height-md) .uppy-Dashboard-Item-action:focus{border-radius:3px}.uppy-size--md .uppy-Dashboard-Item-action--copyLink,.uppy-size--md .uppy-Dashboard-Item-action--edit{height:16px;padding:0;width:16px}.uppy-size--md .uppy-Dashboard-Item-action--copyLink:focus,.uppy-size--md .uppy-Dashboard-Item-action--edit:focus{border-radius:3px}.uppy-Dashboard-Item{align-items:center;border-bottom:1px solid #eaeaea;display:flex;padding:10px}.uppy-Dashboard:not(.uppy-Dashboard--singleFile) .uppy-Dashboard-Item{padding-inline-end:0}[data-uppy-theme=dark] .uppy-Dashboard-Item{border-bottom:1px solid #333}.uppy-size--md .uppy-Dashboard-Item{border-bottom:0;display:block;float:inline-start;height:215px;margin:5px 15px;padding:0;position:relative;width:calc(33.333% - 30px)}.uppy-size--lg .uppy-Dashboard-Item{height:190px;margin:5px 15px;padding:0;width:calc(25% - 30px)}.uppy-size--xl .uppy-Dashboard-Item{height:210px;padding:0;width:calc(20% - 30px)}.uppy-Dashboard--singleFile .uppy-Dashboard-Item{border-bottom:0;display:flex;flex-direction:column;height:100%;max-width:400px;padding:15px;position:relative;width:100%}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-previewInnerWrap{opacity:.2}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-name{opacity:.7}.uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='35' height='39' viewBox='0 0 35 39'%3E%3Cpath fill='%2523000' d='M1.708 38.66c1.709 0 3.417-3.417 6.834-3.417s5.125 3.417 8.61 3.417c3.348 0 5.056-3.417 8.473-3.417 4.305 0 5.125 3.417 6.833 3.417.889 0 1.709-.889 1.709-1.709v-19.68C34.167-5.757 0-5.757 0 17.271v19.68c0 .82.888 1.709 1.708 1.709m8.542-17.084a3.383 3.383 0 0 1-3.417-3.416 3.383 3.383 0 0 1 3.417-3.417 3.383 3.383 0 0 1 3.417 3.417 3.383 3.383 0 0 1-3.417 3.416m13.667 0A3.383 3.383 0 0 1 20.5 18.16a3.383 3.383 0 0 1 3.417-3.417 3.383 3.383 0 0 1 3.416 3.417 3.383 3.383 0 0 1-3.416 3.416'/%3E%3C/svg%3E");background-position:50% 10px;background-repeat:no-repeat;background-size:25px;content:"";inset:0;opacity:.5;position:absolute;z-index:1005}.uppy-size--md .uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-position:50% 50%;background-size:40px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item.is-ghost .uppy-Dashboard-Item-preview:before{background-position:50% 50%;background-size:30%}.uppy-Dashboard-Item-preview{flex-grow:0;flex-shrink:0;height:50px;position:relative;width:50px}.uppy-size--md .uppy-Dashboard-Item-preview{height:140px;width:100%}.uppy-size--lg .uppy-Dashboard-Item-preview{height:120px}.uppy-size--xl .uppy-Dashboard-Item-preview{height:140px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-preview{flex-grow:1;max-height:75%;width:100%}.uppy-Dashboard--singleFile.uppy-size--md .uppy-Dashboard-Item-preview{max-height:100%}.uppy-Dashboard-Item-fileInfoAndButtons{align-items:center;display:flex;flex-grow:1;justify-content:space-between;padding-inline-end:8px;padding-inline-start:12px}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfoAndButtons,.uppy-size--md .uppy-Dashboard-Item-fileInfoAndButtons{align-items:flex-start;padding:9px 0 0}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-fileInfoAndButtons{flex-grow:0;width:100%}.uppy-Dashboard-Item-fileInfo{flex-grow:1;flex-shrink:1}.uppy-Dashboard-Item-actionWrapper{flex-grow:0;flex-shrink:0}.uppy-Dashboard-Item.is-error .uppy-Dashboard-Item-previewInnerWrap:after,.uppy-Dashboard-Item.is-inprogress .uppy-Dashboard-Item-previewInnerWrap:after{display:block}.uppy-Dashboard-Item-errorDetails{appearance:none;background-color:#939393;border:none;border-radius:50%;color:#fff;cursor:help;flex-shrink:0;font-size:10px;font-weight:600;height:13px;inset-inline-start:2px;line-height:12px;position:relative;text-align:center;top:0;width:13px}.uppy-Dashboard-Item-errorDetails:after{line-height:1.3;word-wrap:break-word}.uppy-Dashboard-FileCard{background-color:#fff;border-radius:5px;box-shadow:0 0 10px 4px #0000001a;display:flex;flex-direction:column;height:100%;inset:0;position:absolute;width:100%;z-index:1005}.uppy-Dashboard-FileCard .uppy-DashboardContent-bar{border-top-left-radius:5px;border-top-right-radius:5px}.uppy-Dashboard-FileCard .uppy-Dashboard-FileCard-actions{border-bottom-left-radius:5px;border-bottom-right-radius:5px}.uppy-Dashboard-FileCard-inner{display:flex;flex-direction:column;flex-grow:1;flex-shrink:1;height:100%;min-height:0}.uppy-Dashboard-FileCard-preview{align-items:center;border-bottom:1px solid #eaeaea;display:flex;flex-grow:0;flex-shrink:1;height:60%;justify-content:center;min-height:0;position:relative}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-preview{background-color:#333;border-bottom:0}.uppy-Dashboard-FileCard-preview img.uppy-Dashboard-Item-previewImg{border-radius:3px;box-shadow:0 3px 20px #00000026;flex:0 0 auto;max-height:90%;max-width:90%;object-fit:cover}.uppy-Dashboard-FileCard-edit{background-color:#00000080;border-radius:50px;color:#fff;font-size:13px;inset-inline-end:10px;padding:7px 15px;position:absolute;top:10px}.uppy-Dashboard-FileCard-edit:focus{outline:none}.uppy-Dashboard-FileCard-edit::-moz-focus-inner{border:0}.uppy-Dashboard-FileCard-edit:focus{box-shadow:0 0 0 3px #1269cf80}.uppy-Dashboard-FileCard-edit:hover{background-color:#000c}.uppy-Dashboard-FileCard-info{flex-grow:0;flex-shrink:0;height:40%;overflow-y:auto;padding:30px 20px 20px;-webkit-overflow-scrolling:touch}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-info{background-color:#1f1f1f}.uppy-Dashboard-FileCard-fieldset{border:0;font-size:0;margin:auto auto 12px;max-width:640px;padding:0}.uppy-Dashboard-FileCard-label{color:#525252;display:inline-block;font-size:12px;vertical-align:middle;width:22%}.uppy-size--md .uppy-Dashboard-FileCard-label{font-size:14px}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-label{color:#eaeaea}.uppy-Dashboard-FileCard-input{display:inline-block;vertical-align:middle;width:78%}.uppy-Dashboard-FileCard-actions{align-items:center;background-color:#fafafa;border-top:1px solid #eaeaea;display:flex;flex-grow:0;flex-shrink:0;height:55px;padding:0 15px}.uppy-size--md .uppy-Dashboard-FileCard-actions{height:65px}[data-uppy-theme=dark] .uppy-Dashboard-FileCard-actions{background-color:#1f1f1f;border-top:1px solid #333}.uppy-Dashboard-FileCard-actionsBtn{margin-inline-end:10px}.uppy-transition-slideDownUp-enter{opacity:.01;transform:translate3d(0,-105%,0);transition:transform .25s ease-in-out,opacity .25s ease-in-out}.uppy-transition-slideDownUp-enter.uppy-transition-slideDownUp-enter-active{opacity:1;transform:translateZ(0)}.uppy-transition-slideDownUp-leave{opacity:1;transform:translateZ(0);transition:transform .25s ease-in-out,opacity .25s ease-in-out}.uppy-transition-slideDownUp-leave.uppy-transition-slideDownUp-leave-active{opacity:.01;transform:translate3d(0,-105%,0)}@keyframes uppy-Dashboard-fadeIn{0%{opacity:0}to{opacity:1}}@keyframes uppy-Dashboard-fadeOut{0%{opacity:1}to{opacity:0}}@keyframes uppy-Dashboard-slideDownAndFadeIn{0%{opacity:0;transform:translate3d(-50%,-70%,0)}to{opacity:1;transform:translate3d(-50%,-50%,0)}}@keyframes uppy-Dashboard-slideDownAndFadeIn--small{0%{opacity:0;transform:translate3d(0,-20%,0)}to{opacity:1;transform:translateZ(0)}}@keyframes uppy-Dashboard-slideUpFadeOut{0%{opacity:1;transform:translate3d(-50%,-50%,0)}to{opacity:0;transform:translate3d(-50%,-70%,0)}}@keyframes uppy-Dashboard-slideUpFadeOut--small{0%{opacity:1;transform:translateZ(0)}to{opacity:0;transform:translate3d(0,-20%,0)}}.uppy-Dashboard--modal{z-index:1001}.uppy-Dashboard--modal[aria-hidden=true]{display:none}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideDownAndFadeIn--small .3s cubic-bezier(0,0,.2,1)}@media only screen and (min-width:820px){.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideDownAndFadeIn .3s cubic-bezier(0,0,.2,1)}}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose>.uppy-Dashboard-overlay{animation:uppy-Dashboard-fadeIn .3s cubic-bezier(0,0,.2,1)}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideUpFadeOut--small .3s cubic-bezier(0,0,.2,1)}@media only screen and (min-width:820px){.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-inner{animation:uppy-Dashboard-slideUpFadeOut .3s cubic-bezier(0,0,.2,1)}}.uppy-Dashboard--modal.uppy-Dashboard--animateOpenClose.uppy-Dashboard--isClosing>.uppy-Dashboard-overlay{animation:uppy-Dashboard-fadeOut .3s cubic-bezier(0,0,.2,1)}.uppy-Dashboard-isFixed{height:100vh;overflow:hidden}.uppy-Dashboard--modal .uppy-Dashboard-overlay{background-color:#00000080;inset:0;position:fixed;z-index:1001}.uppy-Dashboard-inner{background-color:#f4f4f4;border:1px solid #eaeaea;border-radius:5px;max-height:100%;max-width:100%;outline:none;position:relative}.uppy-size--md .uppy-Dashboard-inner{min-height:auto}@media only screen and (min-width:820px){.uppy-Dashboard-inner{height:500px;width:650px}}.uppy-Dashboard--modal .uppy-Dashboard-inner{z-index:1002}[data-uppy-theme=dark] .uppy-Dashboard-inner{background-color:#1f1f1f}.uppy-Dashboard--isDisabled .uppy-Dashboard-inner{cursor:not-allowed}.uppy-Dashboard-innerWrap{border-radius:5px;display:flex;flex-direction:column;height:100%;opacity:0;overflow:hidden;position:relative}.uppy-Dashboard--isInnerWrapVisible .uppy-Dashboard-innerWrap{opacity:1}.uppy-Dashboard--isDisabled .uppy-Dashboard-innerWrap{cursor:not-allowed;filter:grayscale(100%);opacity:.6;user-select:none}.uppy-Dashboard--isDisabled .uppy-ProviderIconBg{fill:#9f9f9f}.uppy-Dashboard--isDisabled [aria-disabled],.uppy-Dashboard--isDisabled [disabled]{cursor:not-allowed;pointer-events:none}.uppy-Dashboard--modal .uppy-Dashboard-inner{border:none;inset:35px 15px 15px;position:fixed}@media only screen and (min-width:820px){.uppy-Dashboard--modal .uppy-Dashboard-inner{box-shadow:0 5px 15px 4px #00000026;left:50%;right:auto;top:50%;transform:translate(-50%,-50%)}}.uppy-Dashboard-close{color:#ffffffe6;cursor:pointer;display:block;font-size:27px;inset-inline-end:-2px;position:absolute;top:-33px;z-index:1005}.uppy-Dashboard-close:focus{outline:none}.uppy-Dashboard-close::-moz-focus-inner{border:0}.uppy-Dashboard-close:focus{color:#6eabf2}@media only screen and (min-width:820px){.uppy-Dashboard-close{font-size:35px;inset-inline-end:-35px;top:-10px}}.uppy-Dashboard-serviceMsg{background-color:#fffbf7;border-bottom:1px solid #edd4b9;border-top:1px solid #edd4b9;font-size:12px;font-weight:500;line-height:1.3;padding:12px 0;position:relative;top:-1px;z-index:1004}.uppy-size--md .uppy-Dashboard-serviceMsg{font-size:14px;line-height:1.4}[data-uppy-theme=dark] .uppy-Dashboard-serviceMsg{background-color:#1f1f1f;border-bottom:1px solid #333;border-top:1px solid #333;color:#eaeaea}.uppy-Dashboard-serviceMsg-title{display:block;line-height:1;margin-bottom:4px;padding-left:42px}.uppy-Dashboard-serviceMsg-text{padding:0 15px}.uppy-Dashboard-serviceMsg-actionBtn{color:#1269cf;font-size:inherit;font-weight:inherit;vertical-align:initial}[data-uppy-theme=dark] .uppy-Dashboard-serviceMsg-actionBtn{color:#02baf2e6}.uppy-Dashboard-serviceMsg-icon{left:15px;position:absolute;top:10px}.uppy-Dashboard-AddFiles{align-items:center;display:flex;flex-direction:column;height:100%;justify-content:center;position:relative;text-align:center}[data-uppy-drag-drop-supported=true] .uppy-Dashboard-AddFiles{border:1px dashed #dfdfdf;border-radius:3px;height:calc(100% - 14px);margin:7px}.uppy-Dashboard-AddFilesPanel .uppy-Dashboard-AddFiles{border:none;height:calc(100% - 54px)}.uppy-Dashboard--modal .uppy-Dashboard-AddFiles{border-color:#cfcfcf}[data-uppy-theme=dark] .uppy-Dashboard-AddFiles{border-color:#757575}.uppy-Dashboard-AddFiles-info{display:none;margin-top:auto;padding-bottom:15px;padding-top:15px}.uppy-size--height-md .uppy-Dashboard-AddFiles-info{display:block}.uppy-size--md .uppy-Dashboard-AddFiles-info{bottom:25px;left:0;padding-bottom:0;padding-top:30px;position:absolute;right:0}[data-uppy-num-acquirers="0"] .uppy-Dashboard-AddFiles-info{margin-top:0}.uppy-Dashboard-browse{color:#1269cf;cursor:pointer}.uppy-Dashboard-browse:focus{outline:none}.uppy-Dashboard-browse::-moz-focus-inner{border:0}.uppy-Dashboard-browse:focus,.uppy-Dashboard-browse:hover{border-bottom:1px solid #1269cf}[data-uppy-theme=dark] .uppy-Dashboard-browse{color:#02baf2e6}[data-uppy-theme=dark] .uppy-Dashboard-browse:focus,[data-uppy-theme=dark] .uppy-Dashboard-browse:hover{border-bottom:1px solid #02baf2}.uppy-Dashboard-browseBtn{display:block;font-size:14px;font-weight:500;margin-bottom:5px;margin-top:8px;width:100%}.uppy-size--md .uppy-Dashboard-browseBtn{font-size:15px;margin:15px auto;padding:13px 44px;width:auto}.uppy-Dashboard-AddFiles-list{display:flex;flex:1;flex-direction:column;margin-top:2px;overflow-y:auto;padding:2px 0;width:100%;-webkit-overflow-scrolling:touch}.uppy-size--md .uppy-Dashboard-AddFiles-list{flex:none;flex-direction:row;flex-wrap:wrap;justify-content:center;margin-top:15px;max-width:600px;overflow-y:visible;padding-top:0}.uppy-DashboardTab{border-bottom:1px solid #eaeaea;text-align:center;width:100%}[data-uppy-theme=dark] .uppy-DashboardTab{border-bottom:1px solid #333}.uppy-size--md .uppy-DashboardTab{border-bottom:none;display:inline-block;margin-bottom:10px;width:auto}.uppy-DashboardTab-btn{align-items:center;-webkit-appearance:none;appearance:none;background-color:initial;color:#525252;cursor:pointer;flex-direction:row;height:100%;justify-content:left;padding:12px 15px;width:100%}.uppy-DashboardTab-btn:focus{outline:none}.uppy-size--md .uppy-DashboardTab-btn{border-radius:5px;flex-direction:column;margin-inline-end:1px;padding:10px 3px;width:86px}[data-uppy-theme=dark] .uppy-DashboardTab-btn{color:#eaeaea}.uppy-DashboardTab-btn::-moz-focus-inner{border:0}.uppy-DashboardTab-btn:hover{background-color:#e9ecef}[data-uppy-theme=dark] .uppy-DashboardTab-btn:hover{background-color:#333}.uppy-DashboardTab-btn:active,.uppy-DashboardTab-btn:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardTab-btn:active,[data-uppy-theme=dark] .uppy-DashboardTab-btn:focus{background-color:#525252}.uppy-DashboardTab-btn svg{display:inline-block;max-height:100%;max-width:100%;overflow:hidden;transition:transform .15s ease-in-out;vertical-align:text-top}.uppy-DashboardTab-inner{align-items:center;background-color:#fff;border-radius:8px;box-shadow:0 1px 1px #0000001a,0 1px 2px #0000001a,0 2px 3px #00000005;display:flex;height:32px;justify-content:center;margin-inline-end:10px;width:32px}.uppy-size--md .uppy-DashboardTab-inner{margin-inline-end:0}[data-uppy-theme=dark] .uppy-DashboardTab-inner{background-color:#323232;box-shadow:0 1px 1px #0003,0 1px 2px #0003,0 2px 3px #00000014}.uppy-DashboardTab-name{font-size:14px;font-weight:400}.uppy-size--md .uppy-DashboardTab-name{font-size:12px;line-height:15px;margin-bottom:0;margin-top:8px}.uppy-DashboardTab-iconMyDevice{color:#1269cf}[data-uppy-theme=dark] .uppy-DashboardTab-iconMyDevice{color:#02baf2}.uppy-DashboardTab-iconBox{color:#0061d5}[data-uppy-theme=dark] .uppy-DashboardTab-iconBox{color:#eaeaea}.uppy-DashboardTab-iconDropbox{color:#0061fe}[data-uppy-theme=dark] .uppy-DashboardTab-iconDropbox{color:#eaeaea}.uppy-DashboardTab-iconUnsplash{color:#111}[data-uppy-theme=dark] .uppy-DashboardTab-iconUnsplash{color:#eaeaea}.uppy-DashboardTab-iconWebdav{color:#111}[data-uppy-theme=dark] .uppy-DashboardTab-iconWebdav{color:#eaeaea}.uppy-DashboardTab-iconScreenRec{color:#2c3e50}[data-uppy-theme=dark] .uppy-DashboardTab-iconScreenRec{color:#eaeaea}.uppy-DashboardTab-iconAudio{color:#8030a3}[data-uppy-theme=dark] .uppy-DashboardTab-iconAudio{color:#bf6ee3}.uppy-Dashboard-input{height:.1px;opacity:0;overflow:hidden;position:absolute;width:.1px;z-index:-1}.uppy-DashboardContent-bar{align-items:center;background-color:#fafafa;border-bottom:1px solid #eaeaea;display:flex;flex-shrink:0;height:40px;justify-content:space-between;padding:0 10px;position:relative;width:100%;z-index:1004}.uppy-size--md .uppy-DashboardContent-bar{height:50px;padding:0 15px}[data-uppy-theme=dark] .uppy-DashboardContent-bar{background-color:#1f1f1f;border-bottom:1px solid #333}.uppy-DashboardContent-title{font-size:12px;font-weight:500;left:0;line-height:40px;margin:auto;max-width:170px;overflow-x:hidden;position:absolute;right:0;text-align:center;text-overflow:ellipsis;top:0;white-space:nowrap;width:100%}.uppy-size--md .uppy-DashboardContent-title{font-size:14px;line-height:50px;max-width:300px}[data-uppy-theme=dark] .uppy-DashboardContent-title{color:#eaeaea}.uppy-DashboardContent-back,.uppy-DashboardContent-save{-webkit-appearance:none;background:none;border:0;border-radius:3px;color:inherit;color:#1269cf;cursor:pointer;font-family:inherit;font-size:inherit;font-size:12px;font-weight:400;line-height:1;margin:0;margin-inline-start:-6px;padding:7px 6px}.uppy-DashboardContent-back:focus,.uppy-DashboardContent-save:focus{outline:none}.uppy-DashboardContent-back::-moz-focus-inner,.uppy-DashboardContent-save::-moz-focus-inner{border:0}.uppy-DashboardContent-back:hover,.uppy-DashboardContent-save:hover{color:#0e51a0}.uppy-DashboardContent-back:focus,.uppy-DashboardContent-save:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardContent-back:focus,[data-uppy-theme=dark] .uppy-DashboardContent-save:focus{background-color:#333}.uppy-size--md .uppy-DashboardContent-back,.uppy-size--md .uppy-DashboardContent-save{font-size:14px}[data-uppy-theme=dark] .uppy-DashboardContent-back,[data-uppy-theme=dark] .uppy-DashboardContent-save{color:#02baf2}.uppy-DashboardContent-addMore{-webkit-appearance:none;background:none;border:0;border-radius:3px;color:inherit;color:#1269cf;cursor:pointer;font-family:inherit;font-size:inherit;font-weight:500;height:29px;line-height:1;margin:0;margin-inline-end:-5px;padding:7px 8px;width:29px}.uppy-DashboardContent-addMore:focus{outline:none}.uppy-DashboardContent-addMore::-moz-focus-inner{border:0}.uppy-DashboardContent-addMore:hover{color:#0e51a0}.uppy-DashboardContent-addMore:focus{background-color:#dfe6f1}[data-uppy-theme=dark] .uppy-DashboardContent-addMore:focus{background-color:#333}.uppy-size--md .uppy-DashboardContent-addMore{font-size:14px;height:auto;margin-inline-end:-8px;width:auto}[data-uppy-theme=dark] .uppy-DashboardContent-addMore{color:#02baf2}.uppy-DashboardContent-addMore svg{margin-inline-end:4px;vertical-align:initial}.uppy-size--md .uppy-DashboardContent-addMore svg{height:11px;width:11px}.uppy-DashboardContent-addMoreCaption{display:none}.uppy-size--md .uppy-DashboardContent-addMoreCaption{display:inline}.uppy-DashboardContent-panel{background-color:#f5f5f5;flex:1}.uppy-Dashboard-AddFilesPanel,.uppy-DashboardContent-panel{border-radius:5px;display:flex;flex-direction:column;inset:0;overflow:hidden;position:absolute;z-index:1005}.uppy-Dashboard-AddFilesPanel{background:#fafafa;background:linear-gradient(0deg,#fafafa 35%,#fafafad9);box-shadow:0 0 10px 5px #00000026}[data-uppy-theme=dark] .uppy-Dashboard-AddFilesPanel{background-color:#333;background-image:linear-gradient(0deg,#1f1f1f 35%,#1f1f1fd9)}.uppy-Dashboard--isAddFilesPanelVisible .uppy-Dashboard-files{filter:blur(2px)}.uppy-Dashboard-progress{bottom:0;height:12%;left:0;position:absolute;width:100%}.uppy-Dashboard-progressBarContainer.is-active{height:100%;left:0;position:absolute;top:0;width:100%;z-index:1004}.uppy-Dashboard-filesContainer{flex:1;margin:0;overflow-y:hidden;position:relative}.uppy-Dashboard-filesContainer:after{clear:both;content:"";display:table}.uppy-Dashboard-files{flex:1;margin:0;overflow-y:auto;padding:0 0 10px;-webkit-overflow-scrolling:touch}.uppy-size--md .uppy-Dashboard-files{padding-top:10px}.uppy-Dashboard--singleFile .uppy-Dashboard-filesInner{align-items:center;display:flex;height:100%;justify-content:center}.uppy-Dashboard-dropFilesHereHint{align-items:center;background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath fill='%231269CF' d='M24 1v1C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 0V0c13.254 0 24 10.746 24 24S37.254 48 24 48 0 37.254 0 24 10.746 0 24 0zm7.707 19.293a.999.999 0 1 1-1.414 1.414L25 16.414V34a1 1 0 1 1-2 0V16.414l-5.293 5.293a.999.999 0 1 1-1.414-1.414l7-7a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");background-position:50% 50%;background-repeat:no-repeat;border:1px dashed #1269cf;border-radius:3px;color:#757575;display:flex;font-size:16px;justify-content:center;inset:7px;padding-top:90px;position:absolute;text-align:center;visibility:hidden;z-index:2000}[data-uppy-theme=dark] .uppy-Dashboard-dropFilesHereHint{background-image:url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath fill='%2302BAF2' d='M24 1v1C11.85 2 2 11.85 2 24s9.85 22 22 22 22-9.85 22-22S36.15 2 24 2zm0 0V0c13.254 0 24 10.746 24 24S37.254 48 24 48 0 37.254 0 24 10.746 0 24 0zm7.707 19.293a.999.999 0 1 1-1.414 1.414L25 16.414V34a1 1 0 1 1-2 0V16.414l-5.293 5.293a.999.999 0 1 1-1.414-1.414l7-7a1 1 0 0 1 1.414 0z'/%3E%3C/svg%3E");border-color:#02baf2;color:#bbb}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-dropFilesHereHint{pointer-events:none;visibility:visible}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-files,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-progressindicators,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-serviceMsg,.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-DashboardContent-bar{opacity:.15}.uppy-Dashboard.uppy-Dashboard--isDraggingOver .uppy-Dashboard-AddFiles{opacity:.03}.uppy-Dashboard-AddFiles-title{color:#000;font-size:17px;font-weight:500;line-height:1.35;margin-bottom:5px;margin-top:15px;padding:0 15px;text-align:inline-start;width:100%}.uppy-size--md .uppy-Dashboard-AddFiles-title{font-size:21px;font-weight:400;margin-top:5px;max-width:480px;padding:0 35px;text-align:center}[data-uppy-num-acquirers="0"] .uppy-Dashboard-AddFiles-title{text-align:center}[data-uppy-theme=dark] .uppy-Dashboard-AddFiles-title{color:#eaeaea}.uppy-Dashboard-AddFiles-title button{font-weight:500}.uppy-size--md .uppy-Dashboard-AddFiles-title button{font-weight:400}.uppy-Dashboard-note{color:#757575;font-size:14px;line-height:1.25;margin:auto;max-width:350px;padding:0 15px;text-align:center}.uppy-size--md .uppy-Dashboard-note{line-height:1.35;max-width:600px}[data-uppy-theme=dark] .uppy-Dashboard-note{color:#cfcfcf}a.uppy-Dashboard-poweredBy{color:#939393;display:inline-block;font-size:11px;margin-top:8px;text-align:center;text-decoration:none}.uppy-Dashboard-poweredByIcon{margin-left:1px;margin-right:1px;opacity:.9;position:relative;top:1px;vertical-align:text-top;fill:none;stroke:#939393}.uppy-Dashboard-Item-previewIcon{height:25px;left:50%;position:absolute;top:50%;transform:translate(-50%,-50%);width:25px;z-index:100}.uppy-size--md .uppy-Dashboard-Item-previewIcon{height:38px;width:38px}.uppy-Dashboard-Item-previewIcon svg{height:100%;width:100%}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewIcon{height:100%;max-height:60%;max-width:60%;width:100%}.uppy-Dashboard-Item-previewIconWrap{height:76px;max-height:75%;position:relative}.uppy-Dashboard--singleFile .uppy-Dashboard-Item-previewIconWrap{height:100%;width:100%}.uppy-Dashboard-Item-previewIconBg{filter:drop-shadow(rgba(0,0,0,.1) 0 1px 1px);height:100%;width:100%}.uppy-Dashboard-upload{height:50px;position:relative;width:50px}.uppy-size--md .uppy-Dashboard-upload{height:60px;width:60px}.uppy-Dashboard-upload .uppy-c-icon{position:relative;top:1px;width:50%}.uppy-Dashboard-uploadCount{background-color:#1bb240;border-radius:50%;color:#fff;font-size:8px;height:16px;inset-inline-end:-12px;line-height:16px;position:absolute;top:-12px;width:16px}.uppy-size--md .uppy-Dashboard-uploadCount{font-size:9px;height:18px;line-height:18px;width:18px}`, Du = '.uppy-ImageCropper-range{-webkit-appearance:none;background:#0000;margin:8px 0;width:100%}.uppy-ImageCropper-range::-moz-focus-outer{border:0}.uppy-ImageCropper-range:focus{outline:0}.uppy-ImageCropper-range:focus::-webkit-slider-runnable-track{background:#fff3}.uppy-ImageCropper-range:focus::-ms-fill-lower,.uppy-ImageCropper-range:focus::-ms-fill-upper{background:#fff3}.uppy-ImageCropper-range::-webkit-slider-runnable-track{background:#fff3;border:0 solid #0000;border-radius:5px;box-shadow:0 0 #0000,0 0 #0d0d0d00;cursor:default;height:4px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-webkit-slider-thumb{-webkit-appearance:none;background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;margin-top:-6px;width:16px}.uppy-ImageCropper-range::-moz-range-track{background:#fff3;border:0 solid #0000;border-radius:5px;box-shadow:0 0 #0000,0 0 #0d0d0d00;cursor:default;height:2px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-moz-range-thumb{background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;width:16px}.uppy-ImageCropper-range::-ms-track{background:#0000;border-color:#0000;border-width:8px 0;color:#0000;cursor:default;height:4px;transition:all .2s ease;width:100%}.uppy-ImageCropper-range::-ms-fill-lower{background:#f2f2f233;border:0 solid #0000;border-radius:10px;box-shadow:0 0 #0000,0 0 #0d0d0d00}.uppy-ImageCropper-range::-ms-fill-upper{background:#fff3;border:0 solid #0000;border-radius:10px;box-shadow:0 0 #0000,0 0 #0d0d0d00}.uppy-ImageCropper-range::-ms-thumb{background:#fff;border:0 solid #0000;border-radius:9px;box-shadow:0 0 4px #0003,0 0 #0d0d0d33;box-sizing:border-box;cursor:default;height:16px;margin-top:1px;width:16px}.uppy-ImageCropper-range:disabled::-moz-range-thumb,.uppy-ImageCropper-range:disabled::-ms-fill-lower,.uppy-ImageCropper-range:disabled::-ms-fill-upper,.uppy-ImageCropper-range:disabled::-ms-thumb,.uppy-ImageCropper-range:disabled::-webkit-slider-runnable-track,.uppy-ImageCropper-range:disabled::-webkit-slider-thumb{cursor:not-allowed}.cropper-container{direction:ltr;font-size:0;line-height:0;position:relative;-ms-touch-action:none;touch-action:none;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.cropper-container img{display:block;height:100%;image-orientation:0deg;max-height:none!important;max-width:none!important;min-height:0!important;min-width:0!important;width:100%}.cropper-canvas,.cropper-crop-box,.cropper-drag-box,.cropper-modal,.cropper-wrap-box{inset:0;position:absolute}.cropper-canvas,.cropper-wrap-box{overflow:hidden}.cropper-drag-box{background-color:#fff;opacity:0}.cropper-modal{background-color:#000;opacity:.5}.cropper-view-box{display:block;height:100%;outline:1px solid #39f;outline-color:#3399ffbf;overflow:hidden;width:100%}.cropper-dashed{border:0 dashed #eee;display:block;opacity:.5;position:absolute}.cropper-dashed.dashed-h{border-bottom-width:1px;border-top-width:1px;height:33.3333333333%;left:0;top:33.3333333333%;width:100%}.cropper-dashed.dashed-v{border-left-width:1px;border-right-width:1px;height:100%;left:33.3333333333%;top:0;width:33.3333333333%}.cropper-center{display:block;height:0;left:50%;opacity:.75;position:absolute;top:50%;width:0}.cropper-center:after,.cropper-center:before{background-color:#eee;content:" ";display:block;position:absolute}.cropper-center:before{height:1px;left:-3px;top:0;width:7px}.cropper-center:after{height:7px;left:0;top:-3px;width:1px}.cropper-face,.cropper-line,.cropper-point{display:block;height:100%;opacity:.1;position:absolute;width:100%}.cropper-face{background-color:#fff;left:0;top:0}.cropper-line{background-color:#39f}.cropper-line.line-e{cursor:ew-resize;right:-3px;top:0;width:5px}.cropper-line.line-n{cursor:ns-resize;height:5px;left:0;top:-3px}.cropper-line.line-w{cursor:ew-resize;left:-3px;top:0;width:5px}.cropper-line.line-s{bottom:-3px;cursor:ns-resize;height:5px;left:0}.cropper-point{background-color:#39f;height:5px;opacity:.75;width:5px}.cropper-point.point-e{cursor:ew-resize;margin-top:-3px;right:-3px;top:50%}.cropper-point.point-n{cursor:ns-resize;left:50%;margin-left:-3px;top:-3px}.cropper-point.point-w{cursor:ew-resize;left:-3px;margin-top:-3px;top:50%}.cropper-point.point-s{bottom:-3px;cursor:s-resize;left:50%;margin-left:-3px}.cropper-point.point-ne{cursor:nesw-resize;right:-3px;top:-3px}.cropper-point.point-nw{cursor:nwse-resize;left:-3px;top:-3px}.cropper-point.point-sw{bottom:-3px;cursor:nesw-resize;left:-3px}.cropper-point.point-se{bottom:-3px;cursor:nwse-resize;height:20px;opacity:1;right:-3px;width:20px}@media (min-width:768px){.cropper-point.point-se{height:15px;width:15px}}@media (min-width:992px){.cropper-point.point-se{height:10px;width:10px}}@media (min-width:1200px){.cropper-point.point-se{height:5px;opacity:.75;width:5px}}.cropper-point.point-se:before{background-color:#39f;bottom:-50%;content:" ";display:block;height:200%;opacity:0;position:absolute;right:-50%;width:200%}.cropper-invisible{opacity:0}.cropper-bg{background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQAQMAAAAlPW0iAAAAA3NCSVQICAjb4U/gAAAABlBMVEXMzMz////TjRV2AAAACXBIWXMAAArrAAAK6wGCiw1aAAAAHHRFWHRTb2Z0d2FyZQBBZG9iZSBGaXJld29ya3MgQ1M26LyyjAAAABFJREFUCJlj+M/AgBVhF/0PAH6/D/HkDxOGAAAAAElFTkSuQmCC)}.cropper-hide{display:block;height:0;position:absolute;width:0}.cropper-hidden{display:none!important}.cropper-move{cursor:move}.cropper-crop{cursor:crosshair}.cropper-disabled .cropper-drag-box,.cropper-disabled .cropper-face,.cropper-disabled .cropper-line,.cropper-disabled .cropper-point{cursor:not-allowed}.uppy-ImageCropper{display:flex;flex-direction:column;height:100%;width:100%}.uppy-ImageCropper-container{flex-grow:1}.uppy-ImageCropper-image{display:block;max-height:400px;max-width:100%}.uppy-ImageCropper-controls{align-items:center;background-color:#0009;border-radius:5px;bottom:15px;color:#fff;display:flex;justify-content:center;left:50%;padding-top:38px;position:absolute;transform:translate(-50%)}.uppy-size--md .uppy-ImageCropper-controls{padding-top:0}.uppy-ImageCropper-controls button{border-radius:5px;height:35px;width:35px}.uppy-ImageCropper-controls button svg{padding:3px}.uppy-size--md .uppy-ImageCropper-controls button{height:40px;width:40px}.uppy-size--md .uppy-ImageCropper-controls button svg{padding:1px}.uppy-ImageCropper-controls button:hover{background-color:#ffffff80}.uppy-ImageCropper-controls button:focus{background-color:#ffffff80;outline:none}.uppy-Dashboard:not(.uppy-size--md) .uppy-ImageCropper-rangeWrapper{height:38px;left:10px;position:absolute!important;right:10px;top:0}.uppy-size--md .uppy-ImageCropper-range{margin-left:5px;margin-right:5px;width:180px}.uppy-ImageCropper .cropper-point{height:8px;width:8px}.uppy-ImageCropper .cropper-view-box{background:repeating-conic-gradient(#bdbdbd33 0 25%,#fff 0 50%) 50%/16px 16px;outline:2px solid #39f}[data-uppy-theme=dark] .uppy-ImageCropper .cropper-view-box{background:repeating-conic-gradient(#2b2a2a 0 25%,#000 0 50%) 50%/16px 16px}.uppy-ImageCropper .cropper-modal{background-color:#fff;opacity:.9}[data-uppy-theme=dark] .uppy-ImageCropper .cropper-modal{background-color:#000;opacity:.7}.uppy-ImageCropper .cropper-face{opacity:0}.uppy-ImageCropper-range::-moz-range-track{height:4px}.uppy-ImageCropper-range:focus::-webkit-slider-runnable-track,.uppy-ImageCropper-range:hover::-webkit-slider-runnable-track{background:#ffffff80}.uppy-ImageCropper-range:focus::-ms-fill-lower,.uppy-ImageCropper-range:focus::-ms-fill-upper,.uppy-ImageCropper-range:hover::-ms-fill-lower,.uppy-ImageCropper-range:hover::-ms-fill-upper{background:#ffffff80}.uppy-ImageCropper-range:focus::-moz-range-track,.uppy-ImageCropper-range:hover::-moz-range-track{background:#ffffff80}', w = {
   classNamePrefix: null,
   logPrefix: "LT Image Uploader: ",
   observer: null,
@@ -8033,17 +7890,17 @@ const gh = ".uppy-Root{box-sizing:border-box;color:#333;font-family:-apple-syste
   upload: {
     request: null,
     security: null,
-    uriUploadForm: kh("https://authorapi.learnosity.com/latest-lts/assets/uploadform")
+    uriUploadForm: Iu("https://authorapi.learnosity.com/latest-lts/assets/uploadform")
   },
   uppy: null
 };
-function vh(i = {}) {
+function ku(i = {}) {
   const { security: e = {}, request: t = {}, options: r = {} } = i;
   if (!e || !t)
     throw new TypeError("imageUploader.run: Missing `security` or `request`");
-  w.upload.security = e, w.upload.request = t, Sh(r), Ph() && z.authorApp().on("widgetedit:widget:ready", wh);
+  w.upload.security = e, w.upload.request = t, Tu(r), Eu() && z.authorApp().on("widgetedit:widget:ready", Pu);
 }
-function wh() {
+function Pu() {
   z.utils.logger.debug(`${w.logPrefix}setupModalObserver()`), w.classNamePrefix = Ps(w.classNamePrefix), ao();
   const i = (e) => {
     for (const t of e)
@@ -8052,7 +7909,7 @@ function wh() {
           '[data-authorapi-selector="asset-uploader-iframe-outlet"]:not(.lrn-author-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"]):not(.lrn-qe-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"])'
         ), a = document.querySelector('[data-authorapi-selector="asset-display-name"]');
         if (r && !a) {
-          z.utils.logger.debug(`${w.logPrefix}Disconnecting observer`), ao(), xh();
+          z.utils.logger.debug(`${w.logPrefix}Disconnecting observer`), ao(), Cu();
           break;
         }
       }
@@ -8067,15 +7924,15 @@ function _s() {
 function ao() {
   w.observer?.disconnect(), w.observedElements.clear();
 }
-function xh() {
+function Cu() {
   const i = document.querySelector('[data-authorapi-selector="asset-uploader-alignment"]'), e = document.querySelector(`.lrn-${w.classNamePrefix}image-uploader-preview`);
   setTimeout(() => {
     const r = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]'), a = r.querySelector("iframe"), o = document.querySelector(`.lrn-${w.classNamePrefix}adv-options`), s = document.createElement("div");
-    s.setAttribute("id", "uppy-dashboard"), a.setAttribute("hidden", ""), r.insertAdjacentElement("afterbegin", s), Dh(), ur(), o.removeAttribute("hidden"), _h();
+    s.setAttribute("id", "uppy-dashboard"), a.setAttribute("hidden", ""), r.insertAdjacentElement("afterbegin", s), Fu(), ur(), o.removeAttribute("hidden"), Bu();
   }, !i && !e ? 0 : 500);
 }
-function _h() {
-  w.uppy = new Qi({
+function Bu() {
+  w.uppy = new Zi({
     debug: !1,
     autoProceed: !1,
     restrictions: { maxNumberOfFiles: 1, minNumberOfFiles: 1, allowedFileTypes: ["image/gif", "image/jpeg", "image/png", "image/svg+xml"] }
@@ -8088,13 +7945,13 @@ function _h() {
     target: "#uppy-dashboard",
     showProgressDetails: !1,
     proudlyDisplayPoweredByUppy: !1
-  }).use(Ju, {
+  }).use(xd, {
     quality: w.options.quality,
     convertSize: 5e5,
     convertTypes: ["image/png"],
     maxHeight: w.options.maxHeight,
     maxWidth: w.options.maxWidth
-  }).use(mh, { target: Oa }), w.uppy.on("file-added", (i) => {
+  }).use(xu, { target: Oa }), w.uppy.on("file-added", (i) => {
     z.utils.logger.debug(`${w.logPrefix}file-added: ${i.source}`), document.querySelector(`.lrn-${w.classNamePrefix}adv-options`).setAttribute("hidden", ""), i.source === "Dashboard" && oo(i);
   }), w.uppy.on("file-removed", () => {
     z.utils.logger.debug(`${w.logPrefix}file-removed`), Bt("lt__image-uploader-upload-btn", "remove");
@@ -8129,19 +7986,19 @@ function oo(i) {
 }
 function so(i) {
   const e = document.querySelector(`.lrn-${w.classNamePrefix}modal-footer`);
-  Ds();
+  Ss();
   const t = document.createElement("button"), r = w.classNamePrefix ? "-old" : "";
   t.setAttribute(
     "class",
     `lrn-${w.classNamePrefix}btn${r} lrn-${w.classNamePrefix}btn${r}-legacy lt__image-uploader-upload-btn`
-  ), t.textContent = "Upload", e.insertAdjacentElement("afterbegin", t), t.addEventListener("click", () => ks(i));
+  ), t.textContent = "Upload", e.insertAdjacentElement("afterbegin", t), t.addEventListener("click", () => Ds(i));
 }
-function Ds() {
+function Ss() {
   const i = document.querySelector(".lt__image-uploader-upload-btn");
   i && (z.utils.logger.debug(`${w.logPrefix}Removing existing upload button`), i.remove());
 }
-function ks(i) {
-  document.querySelector(".lt__image-uploader-upload-btn").removeEventListener("click", () => ks(i)), document.querySelector(".uppy-Dashboard-Item-action--edit")?.setAttribute("disabled", "");
+function Ds(i) {
+  document.querySelector(".lt__image-uploader-upload-btn").removeEventListener("click", () => Ds(i)), document.querySelector(".uppy-Dashboard-Item-action--edit")?.setAttribute("disabled", "");
   const r = w.uppy.getFile(i), a = document.querySelector(".lt__image-uploader-upload-btn");
   a.setAttribute("style", "width:105px;"), a.innerHTML = '<span class="lt__upload-spinner"><svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_6kVp{transform-origin:center;animation:spinner_irSm .75s infinite linear}@keyframes spinner_irSm{100%{transform:rotate(360deg)};fill:#ffffff;}</style><path d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z" class="spinner_6kVp" style="fill: white"/></svg></span>', a.setAttribute("disabled", "");
   const o = new FormData(), s = {
@@ -8160,16 +8017,16 @@ function ks(i) {
   n().then((p) => {
     const l = new FormData();
     l.append("key", p.data.formInputs.key), l.append("Content-Type", p.data.formInputs["Content-Type"]), l.append("X-Amz-Security-Token", p.data.formInputs["X-Amz-Security-Token"]), l.append("X-Amz-Credential", p.data.formInputs["X-Amz-Credential"]), l.append("X-Amz-Algorithm", p.data.formInputs["X-Amz-Algorithm"]), l.append("X-Amz-Date", p.data.formInputs["X-Amz-Date"]), l.append("Policy", p.data.formInputs.Policy), l.append("X-Amz-Signature", p.data.formInputs["X-Amz-Signature"]), l.append("file", r.data);
-    async function c() {
+    async function h() {
       return await fetch(p.data.formAttributes.action, {
         method: "POST",
         body: l
       });
     }
-    c().then(() => {
-      const d = p.data.assetUrl, h = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
-      h.value = d.trim(), h.dispatchEvent(new Event("input", { bubbles: !0 })), z.utils.logger.debug(`${w.logPrefix}Added image path to URI`), setTimeout(() => {
-        Ds();
+    h().then(() => {
+      const d = p.data.assetUrl, c = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
+      c.value = d.trim(), c.dispatchEvent(new Event("input", { bubbles: !0 })), z.utils.logger.debug(`${w.logPrefix}Added image path to URI`), setTimeout(() => {
+        Ss();
         const m = document.querySelector(
           `.lrn-author-item .lrn-${w.classNamePrefix}delete-btn-wrapper [data-authorapi-action="asset-uploader-delete"]`
         ), f = document.querySelector(
@@ -8184,13 +8041,13 @@ function ks(i) {
     }).catch((d) => console.error("Error in uploading image:", d));
   }).catch((p) => console.error("Error in fetching tokens:", p));
 }
-function Dh() {
+function Fu() {
   z.utils.logger.debug(`${w.logPrefix}listenForSelfHostedImages()`), setTimeout(() => {
     const i = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
-    i && i.addEventListener("input", Ss);
+    i && i.addEventListener("input", ks);
   }, 500);
 }
-function Ss() {
+function ks() {
   z.utils.logger.debug(`${w.logPrefix}handleSelfHostedImage()`), setTimeout(() => {
     ur();
   }, 1500);
@@ -8205,9 +8062,9 @@ function ur() {
   ], e = document.querySelector(`.lrn-${w.classNamePrefix}modal`);
   a();
   function t(o, s, n) {
-    const p = new MutationObserver((c, d) => {
-      for (const h of c)
-        if (h.type === "childList") {
+    const p = new MutationObserver((h, d) => {
+      for (const c of h)
+        if (c.type === "childList") {
           const m = document.querySelector(s);
           m && (n(m), d.disconnect());
         }
@@ -8236,27 +8093,27 @@ function ur() {
       n && (z.utils.logger.debug(`${w.logPrefix}Removed clickHandler`), n.removeEventListener("click", r));
     }
     const o = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
-    o && o.removeEventListener("input", Ss);
+    o && o.removeEventListener("input", ks);
   }
 }
-function kh(i) {
+function Iu(i) {
   const e = new URLSearchParams(window.location.search), t = window.location.hostname, r = e.get("env");
   return t.includes("learnosity.com") && r === "staging" ? i.replace("authorapi.", "authorapi.staging.") : i;
 }
-function Sh(i) {
+function Tu(i) {
   ["quality", "maxWidth", "maxHeight"].forEach((e) => {
     typeof i?.[e] == "number" && (w.options[e] = i[e]);
   });
 }
-function Ph() {
+function Eu() {
   return !w.upload.security || !w.upload.request || typeof w.upload.security != "object" || typeof w.upload.request != "object" ? (z.utils.logger.error(`${w.logPrefix}imageUploader extension failed to run - Missing/invalid security or request parameters`), !1) : !0;
 }
 function Bt(i, e) {
   const t = document.querySelector(`.${i}`);
   t && (e === "disable" ? t.setAttribute("disabled", "") : e === "enable" ? t.removeAttribute("disabled") : e === "remove" && t.remove());
 }
-function Ch() {
-  return `${[gh, yh, bh].join(`
+function Au() {
+  return `${[_u, Su, Du].join(`
 `)}
 
 
@@ -8296,9 +8153,9 @@ function Ch() {
         }
     `;
 }
-const Eh = Cs("imageUploader", vh, {
-  getStyles: Ch
+const Nu = Cs("imageUploader", ku, {
+  getStyles: Au
 });
 export {
-  Eh as imageUploader
+  Nu as imageUploader
 };

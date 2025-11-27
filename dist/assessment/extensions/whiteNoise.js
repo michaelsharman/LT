@@ -1,15 +1,6 @@
 import { c as $, L as x } from "../../extensionsFactory-BHOEyOSK.js";
 import { c as I } from "../../_commonjsHelpers-DQNKXVTB.js";
 var M = {};
-/*!
- *  howler.js v2.2.4
- *  howlerjs.com
- *
- *  (c) 2013-2020, James Simpson of GoldFire Studios
- *  goldfirestudios.com
- *
- *  MIT License
- */
 var P;
 function X() {
   return P || (P = 1, function(g) {
@@ -702,7 +693,7 @@ function X() {
               s = !1;
               break;
             }
-          return s && delete f[e._src], r.noAudio = !1, e._state = "unloaded", e._sounds = [], e = null, null;
+          return f && s && delete f[e._src], r.noAudio = !1, e._state = "unloaded", e._sounds = [], e = null, null;
         },
         /**
          * Listen to a custom event.
@@ -1010,17 +1001,6 @@ function X() {
       };
       g.Howler = r, g.Howl = l, typeof I < "u" ? (I.HowlerGlobal = m, I.Howler = r, I.Howl = l, I.Sound = i) : typeof window < "u" && (window.HowlerGlobal = m, window.Howler = r, window.Howl = l, window.Sound = i);
     })();
-    /*!
-     *  Spatial Plugin - Adds support for stereo and 3D audio where Web Audio is supported.
-     *  
-     *  howler.js v2.2.4
-     *  howlerjs.com
-     *
-     *  (c) 2013-2020, James Simpson of GoldFire Studios
-     *  goldfirestudios.com
-     *
-     *  MIT License
-     */
     (function() {
       HowlerGlobal.prototype._pos = [0, 0, 0], HowlerGlobal.prototype._orientation = [0, 0, -1, 0, 1, 0], HowlerGlobal.prototype.stereo = function(r) {
         var l = this;

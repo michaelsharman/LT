@@ -1,31 +1,31 @@
-import { c as o } from "../../styling-DH1YOSUw.js";
-import { c, L as s } from "../../extensionsFactory-BHOEyOSK.js";
+import { c as l } from "../../styling-GKhoo4nb.js";
+import { c as i, L as s } from "../../extensionsFactory-BHOEyOSK.js";
 const e = {
   classNamePrefix: null,
   elements: {}
 };
-function i() {
-  m(), s.authorApp().on("render:item", a), s.authorApp().on("render:widgets", a), s.authorApp().on("itemedit:changed", a);
+function c() {
+  d(), s.authorApp().on("render:item", o), s.authorApp().on("render:widgets", o), s.authorApp().on("itemedit:changed", o);
 }
-function a() {
-  e.classNamePrefix = o(e.classNamePrefix), s.authorApp().getItem().questions.length ? u() : p();
+function o() {
+  e.classNamePrefix = l(e.classNamePrefix), s.authorApp().getItem().questions.length ? u() : p();
 }
 function u() {
-  const t = e.elements.apiWrapper.querySelectorAll('[data-authorapi-selector="add-button"]'), n = e.elements.apiWrapper.querySelectorAll(".lrn-author-ui-add-extras");
-  [...t, ...n].forEach((r) => {
-    r.classList.add(`lrn-${e.classNamePrefix}hide`);
+  const r = e.elements.apiWrapper.querySelectorAll('[data-authorapi-selector="add-button"]'), n = e.elements.apiWrapper.querySelectorAll(".lrn-author-ui-add-extras"), t = [...r, ...n];
+  t && t.forEach((a) => {
+    a.classList.add(`lrn-${e.classNamePrefix}hide`);
   });
 }
 function p() {
-  const t = e.elements.apiWrapper.querySelectorAll('[data-authorapi-selector="add-button"]'), n = e.elements.apiWrapper.querySelectorAll(".lrn-author-ui-add-extras");
-  [...t, ...n].forEach((r) => {
-    r.classList.remove(`lrn-${e.classNamePrefix}hide`);
+  const r = e.elements.apiWrapper.querySelectorAll('[data-authorapi-selector="add-button"]'), n = e.elements.apiWrapper.querySelectorAll(".lrn-author-ui-add-extras"), t = [...r, ...n];
+  t && t.forEach((a) => {
+    a.classList.remove(`lrn-${e.classNamePrefix}hide`);
   });
 }
-function m() {
+function d() {
   e.elements.apiWrapper = document.querySelector(".lrn-author");
 }
-const f = c("singleQuestion", i);
+const f = i("singleQuestion", c);
 export {
   f as singleQuestion
 };

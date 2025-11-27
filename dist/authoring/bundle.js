@@ -1,7 +1,7 @@
 import { LT as n } from "./core.js";
-import { E as c } from "../memoryMonitor-DBuv6WYK.js";
+import { E as c } from "../initExtensions-DVo3AlMk.js";
 const a = Object.freeze(
-  Object.keys(c.authoring).sort()
+  Object.keys(c.authoring || {}).sort()
   // sort for deterministic order
 ), T = {
   ...n,
