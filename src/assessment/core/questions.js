@@ -58,7 +58,7 @@ export function isAutoScorable(response_id) {
  * Returns {} if no question was found on the current item.
  * @since 0.1.0
  * @param {string=} response_id
- * @returns {object} A question JSON object.
+ * @returns {object}
  */
 export function question(response_id) {
     const id = response_id ? response_id : questionResponseIds()[0];
@@ -74,16 +74,58 @@ export function question(response_id) {
 /**
  * Returns the question app instance on the current item.
  *
+ * Returns null if no question was found on the current item,
+ * or an invalid response_id was provided.
+ *
  * If the item is multi-part, pass `response_id` to return the
  * desired question.
  * @since 0.4.0
  * @param {string=} response_id
- * @returns {object} A question app instance.
+ * @returns {object|null}
  */
 export function questionInstance(response_id) {
     const id = response_id ?? questionResponseIds()[0];
 
-    return id ? itemsApp().question(id) : {};
+    return id ? itemsApp().question(id) || null : null;
+}
+
+/**
+ * A response object for a question on the
+ * current item. Defaults to the first question.
+ *
+ * Returns null if the question hasn't been attempted,
+ * or if no questions were found on the item.
+ *
+ * Pass `response_id` if you want a different question
+ * response returned in the case of a multi-part item.
+ * @since 0.1.0
+ * @param {string=} response_id
+ * @returns {object|null}
+ */
+export function questionResponse(response_id) {
+    const id = response_id ? response_id : questionResponseIds()[0];
+
+    if (id) {
+        const r = itemsApp().question(id);
+
+        if (r) {
+            return itemsApp().question(id).getResponse();
+        } else {
+            logger.error(`Response not found ${id}`);
+            return null;
+        }
+    } else {
+        return null;
+    }
+}
+
+/**
+ * Array of `response_id` string values for all questions on the current item.
+ * @since 0.1.0
+ * @returns {array}
+ */
+export function questionResponseIds() {
+    return questions().map(r => r.response_id);
 }
 
 /**
@@ -98,62 +140,24 @@ export function questions() {
 }
 
 /**
- * A response object for a question on the
- * current item. Defaults to the first question.
- *
- * Pass `response_id` if you want a different question
- * response returned in the case of a multi-part item.
- *
- * Returns {} if no questions found on the item.
- * @since 0.1.0
- * @param {string=} response_id
- * @returns {object} The response object for the question, null if no attempts yet.
- */
-export function questionResponse(response_id) {
-    const id = response_id ? response_id : questionResponseIds()[0];
-
-    if (id) {
-        const r = itemsApp().question(id);
-
-        if (r) {
-            return itemsApp().question(id).getResponse();
-        } else {
-            logger.error(`Response not found ${id}`);
-            return undefined;
-        }
-    } else {
-        return {};
-    }
-}
-
-/**
- * Array of `response_id` string values for all questions on the current item.
- * @since 0.1.0
- * @returns {array}
- */
-export function questionResponseIds() {
-    return questions().map(r => r.response_id);
-}
-
-/**
  * The score object for a question on the current item.
  * Defaults to the first question.
  *
  * Pass `response_id` if you want a different question
  * response returned in the case of a multi-part item.
  *
- * Returns {} if no questions found on the item, or a
+ * Returns null if no questions found on the item, or a
  * non-autoscoreable question.
  * @since 0.1.0
  * @param {string=} response_id
- * @returns {object} The score object for the question.
+ * @returns {object}
  */
 export function questionScore(response_id) {
     const id = response_id ? response_id : questionResponseIds()[0];
 
     if (id) {
-        return itemsApp().getScores()[id] || {};
+        return itemsApp().getScores()[id] || null;
     } else {
-        return {};
+        return null;
     }
 }

@@ -1,69 +1,74 @@
-import { a as i, d as p, b as m, s as b } from "../app-C4hoGTng.js";
-import M from "../logger.js";
-import { r as h } from "../initExtensions-DVo3AlMk.js";
-function w() {
-  i().on("navigate", (t) => {
+import { a as r, d as M, b as h, s as w } from "../app-C4hoGTng.js";
+import v from "../logger.js";
+import { r as j } from "../initExtensions-DVo3AlMk.js";
+function O() {
+  r().on("navigate", (t) => {
     window.location.hash = "#" + t.data.locationEncoded;
-  }), i().navigate(window.location.hash.replace(/^#/, "")), window.onhashchange = () => {
-    i().navigate(window.location.hash.replace(/^#/, ""));
+  }), r().navigate(window.location.hash.replace(/^#/, "")), window.onhashchange = () => {
+    r().navigate(window.location.hash.replace(/^#/, ""));
   };
 }
-const y = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const _ = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  routingHash: w
+  routingHash: O
 }, Symbol.toStringTag, { value: "Module" }));
-function v() {
-  return i().getWidget()?.type;
+function E() {
+  return r().getWidget()?.type || null;
 }
-const j = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+const x = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
-  type: v
+  type: E
 }, Symbol.toStringTag, { value: "Module" }));
-let n = null, r = null;
-const O = Object.fromEntries(Object.entries(p).filter(([t]) => !["extensionsListener", "handleEvent"].includes(t))), _ = Object.fromEntries(Object.entries(m).filter(([t]) => !["setup"].includes(t))), l = {
+let n = null, l = null;
+const T = Object.fromEntries(Object.entries(M).filter(([t]) => !["extensionsListener", "handleEvent"].includes(t))), q = Object.fromEntries(Object.entries(h).filter(([t]) => !["setup"].includes(t))), g = {
   utils: {
-    logger: M,
+    logger: v,
     get monitor() {
       return n;
     }
   }
 };
-async function x() {
-  if (!r) {
+async function L() {
+  if (!l) {
     const t = await import(
       /* webpackChunkName: "lt-memory-monitor" */
       "../memoryMonitor-Db1sqzAh.js"
     );
-    r = t.default || t.MemoryMonitor || t;
+    l = t.default || t.MemoryMonitor || t;
   }
-  return r;
+  return l;
 }
-async function a(t = {}) {
-  const o = await x();
-  return n || (n = new o()), n.isMonitoring || n.startMonitoring(t.intervalMs ?? 5e3), n;
+async function d(t = {}) {
+  const s = await L();
+  return n || (n = new s()), n.isMonitoring || n.startMonitoring(t.intervalMs ?? 5e3), n;
 }
-function E() {
+function S() {
   n?.stopMonitoring();
 }
-async function S(t, o = {}) {
-  b(t);
-  const { extensions: s = [], security: c, request: u, monitor: e, perf: g = !1, perfLimit: f = 50 } = o;
-  if (e) {
-    Object.assign(l.utils, {
-      enableMonitoring: a,
-      disableMonitoring: E
-    });
-    const d = typeof e == "object" && Number.isFinite(e.intervalMs) ? e.intervalMs : void 0;
-    await a({ intervalMs: d });
+async function U(t, s = {}) {
+  w(t);
+  const { extensions: o = [], security: c, request: u, monitor: i, perf: f = !1, perfLimit: m = 50 } = s, p = (e) => !!(e && e.security && e.request), a = o.find((e) => typeof e == "object" && e.id === "imageUploader") || o.find((e) => e === "imageUploader");
+  if (a) {
+    const e = typeof a == "object" ? a.args : null, y = p(e), b = p({ security: c, request: u });
+    if (!y && !b)
+      throw new TypeError("LT.init: imageUploader extension requires `security` and `request` (provide via extension args or top-level options).");
   }
-  s.length && await h(C, s, "authoring", {
+  if (i) {
+    Object.assign(g.utils, {
+      enableMonitoring: d,
+      disableMonitoring: S
+    });
+    const e = typeof i == "object" && Number.isFinite(i.intervalMs) ? i.intervalMs : void 0;
+    await d({ intervalMs: e });
+  }
+  o.length && await j(A, o, "authoring", {
     security: c,
     request: u,
-    perf: g,
-    perfLimit: f
+    perf: f,
+    perfLimit: m
   });
 }
-const C = { init: S, extensions: {}, ..._, ...O, ...y, ...j, ...l };
+const A = { init: U, extensions: {}, ...q, ...T, ..._, ...x, ...g };
 export {
-  C as LT
+  A as LT
 };

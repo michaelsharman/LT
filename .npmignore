@@ -1,0 +1,15 @@
+.codacy
+.github
+.vscode
+dist
+docs
+node_modules
+src/assets/docs
+.babelrc
+.gitignore
+.npmignore
+eslint.config.mjs
+jsconfig.json
+jsdoc.json
+package-lock.json
+vite.config.js

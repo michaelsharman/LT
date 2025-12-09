@@ -71,6 +71,19 @@ async function init(authorApp, options = {}) {
 
     const { extensions = [], security, request, monitor: monitorOpt, perf = false, perfLimit = 50 } = options;
 
+    const hasSecurityAndRequest = obj => Boolean(obj && obj.security && obj.request);
+    const imageUploaderEntry = extensions.find(ext => typeof ext === 'object' && ext.id === 'imageUploader') || extensions.find(ext => ext === 'imageUploader');
+
+    if (imageUploaderEntry) {
+        const args = typeof imageUploaderEntry === 'object' ? imageUploaderEntry.args : null;
+        const suppliedInExtension = hasSecurityAndRequest(args);
+        const suppliedAtTopLevel = hasSecurityAndRequest({ security, request });
+
+        if (!suppliedInExtension && !suppliedAtTopLevel) {
+            throw new TypeError('LT.init: imageUploader extension requires `security` and `request` (provide via extension args or top-level options).');
+        }
+    }
+
     // Opt-in monitoring
     if (monitorOpt) {
         // expose only when requested

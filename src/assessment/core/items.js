@@ -137,13 +137,14 @@ export function isMaskingEnabled() {
 
 /**
  * JSON object for the current item.
+ * Returns `null` if the item reference does not exist.
  * @since 0.1.0
  * @param {string} reference Optionally pass an exact item reference.
- * @returns {object} An item JSON object.
+ * @returns {object|null}
  */
 export function item(reference = undefined) {
     if (reference) {
-        return itemsApp().getItems()[reference];
+        return itemsApp().getItems()[reference] || null;
     }
     return itemsApp().getCurrentItem();
 }
@@ -170,13 +171,14 @@ export function itemAttemptStatus() {
 
 /**
  * Returns an item object by response id.
+ * Returns `null` if the response_id does not exist.
  * @since 1.1.0
  * @param {string} response_id
- * @returns {object} An item JSON object.
+ * @returns {object|null}
  */
 export function itemByResponseId(response_id) {
     const items = itemsApp().getItems();
-    let item;
+    let item = null;
 
     for (const ref in items) {
         if (items[ref].response_ids.includes(response_id)) {

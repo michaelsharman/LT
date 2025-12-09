@@ -38,11 +38,12 @@ export function activityId() {
 
 /**
  * The visible subtitle from the configuration object.
+ * Returns `null` if subtitle isn't being used.
  * @since 0.1.0
- * @returns {string}
+ * @returns {string|null}
  */
 export function activitySubTitle() {
-    return activity().config?.subtitle ?? '';
+    return activity().config?.subtitle ?? null;
 }
 
 /**
@@ -58,34 +59,35 @@ export function activityTags() {
 
 /**
  * The `activity_template_id` if templates are used.
- * Returns '' if templates aren't being used.
+ * Returns `null` if activity templates aren't being used.
  * @since 0.1.0
- * @returns {string}
+ * @returns {string|null}
  */
 export function activityTemplateId() {
-    return activity()?.activity_template_id ?? '';
+    return activity()?.activity_template_id ?? null;
 }
 
 /**
  * The visible title from the configuration object.
+ * Returns `null` if title isn't being used.
  * @since 0.1.0
- * @returns {string}
+ * @returns {string|null}
  */
 export function activityTitle() {
-    return activity().config?.title ?? '';
+    return activity().config?.title ?? null;
 }
 
 /**
  * The adaptive type as defined in the configuration.
- * Returns '' if the activity isn't adaptive.
+ * Returns `null` if the activity isn't adaptive.
  * @since 0.1.0
- * @returns {string}
+ * @returns {string|null}
  */
 export function adaptiveType() {
     if (isAdaptive() && activity().adaptive.hasOwnProperty('type')) {
         return activity().adaptive.type;
     } else {
-        return '';
+        return null;
     }
 }
 
@@ -102,7 +104,7 @@ export function annotationsConfig() {
  * The auto-save configuration object. Returns `true` or an
  * object based on what was in the configuration.
  * @since 0.1.0
- * @returns {boolean | object}
+ * @returns {boolean|object}
  */
 export function autoSaveConfig() {
     const a = activity();
@@ -273,6 +275,7 @@ export function isVerticalLayout() {
 
 /**
  * The global `organisation_id` used for this activity instance.
+ * Returns `null` if there is no organisation_id set.
  * @since 0.1.0
  * @returns {number|null}
  */
@@ -282,11 +285,12 @@ export function itemBank() {
 
 /**
  * The `item_pool_id` used for this activity instance.
+ * Returns `null` if there is no item_pool_id set.
  * @since 0.1.0
- * @returns {string}
+ * @returns {string|null}
  */
 export function itemPool() {
-    return activity()?.item_pool_id ?? '';
+    return activity()?.item_pool_id ?? null;
 }
 
 /**
@@ -308,14 +312,14 @@ export function maxTime() {
  * - `horizontal`
  * - `horizontal-fixed`
  *
- * `undefined` will mean that no `regions` key was found in the
+ * `null` will mean that no `regions` key was found in the
  * Items API configuration, meaning the player defaults to the
  * legacy UI region (not recommended).
  * @since 1.1.0
- * @returns {string}
+ * @returns {string|null}
  */
 export function region() {
-    return activity()?.config?.regions ?? '';
+    return activity()?.config?.regions ?? null;
 }
 
 /**

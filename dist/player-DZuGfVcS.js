@@ -14,27 +14,21 @@ function R(e) {
 }
 function T(e) {
   const t = e ?? _()[0];
-  return t ? s().question(t) : {};
-}
-function k() {
-  return m().questions;
+  return t && s().question(t) || null;
 }
 function x(e) {
   const t = e || _()[0];
-  if (t) {
-    if (s().question(t))
-      return s().question(t).getResponse();
-    r.error(`Response not found ${t}`);
-    return;
-  } else
-    return {};
+  return t ? s().question(t) ? s().question(t).getResponse() : (r.error(`Response not found ${t}`), null) : null;
 }
 function _() {
   return k().map((e) => e.response_id);
 }
+function k() {
+  return m().questions;
+}
 function X(e) {
   const t = e || _()[0];
-  return t ? s().getScores()[t] || {} : {};
+  return t && s().getScores()[t] || null;
 }
 const Ye = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
@@ -88,14 +82,14 @@ function oe() {
   return !!document.querySelector(".lrn-masking");
 }
 function m(e = void 0) {
-  return e ? s().getItems()[e] : s().getCurrentItem();
+  return e ? s().getItems()[e] || null : s().getCurrentItem();
 }
 function re() {
   return s().getCurrentItem().attempt_status;
 }
 function ae(e) {
   const t = s().getItems();
-  let i;
+  let i = null;
   for (const o in t)
     if (t[o].response_ids.includes(e)) {
       i = t[o];
@@ -106,13 +100,13 @@ function ae(e) {
 function ue() {
   return document.querySelector(`div[data-reference='${f()}']`);
 }
-function ce() {
+function le() {
   return s().assessApp().getItemPosition(f()) + 1;
 }
 function f() {
   return s().getCurrentItem()?.reference;
 }
-function le(e = void 0) {
+function ce(e = void 0) {
   const t = s().getTags(), i = e || f();
   return t[i] || [];
 }
@@ -130,9 +124,9 @@ const et = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   itemAttemptStatus: re,
   itemByResponseId: ae,
   itemElement: ue,
-  itemPosition: ce,
+  itemPosition: le,
   itemReference: f,
-  itemTags: le
+  itemTags: ce
 }, Symbol.toStringTag, { value: "Module" }));
 function fe() {
   return A() === 1;
@@ -209,19 +203,19 @@ function $() {
   return n().activity_id;
 }
 function pe() {
-  return n().config?.subtitle ?? "";
+  return n().config?.subtitle ?? null;
 }
 function _e() {
   return s().getTags() ?? [];
 }
 function B() {
-  return n()?.activity_template_id ?? "";
+  return n()?.activity_template_id ?? null;
 }
 function be() {
-  return n().config?.title ?? "";
+  return n().config?.title ?? null;
 }
 function he() {
-  return P() && n().adaptive.hasOwnProperty("type") ? n().adaptive.type : "";
+  return P() && n().adaptive.hasOwnProperty("type") ? n().adaptive.type : null;
 }
 function E() {
   return q() && n()?.config?.annotations_api_init_options ? n().config.annotations_api_init_options : {};
@@ -286,13 +280,13 @@ function W() {
   return n()?.organisation_id ?? null;
 }
 function z() {
-  return n()?.item_pool_id ?? "";
+  return n()?.item_pool_id ?? null;
 }
 function N() {
   return p.maxTime === -1 && (p.maxTime = n()?.config?.time?.max_time ?? 0), p.maxTime;
 }
 function Oe() {
-  return n()?.config?.regions ?? "";
+  return n()?.config?.regions ?? null;
 }
 function Re() {
   return n()?.config?.navigation?.resource_items ?? [];
@@ -365,7 +359,7 @@ const nt = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   timeRemaining: Te,
   totalItems: xe,
   userId: H
-}, Symbol.toStringTag, { value: "Module" })), l = {
+}, Symbol.toStringTag, { value: "Module" })), c = {
   events: {
     broadcast: !1,
     listenFor: "item"
@@ -414,29 +408,29 @@ function Me() {
       user: H()
     },
     LT: {
-      extensions: l.extensions,
+      extensions: c.extensions,
       version: "3.0.0-beta.14"
     },
     versions: e
   };
 }
 function je(e) {
-  /^[a-zA-Z:*]*$/.test(e) ? l.events.listenFor = e : r.warn("Invalid event type");
+  /^[a-zA-Z:*]*$/.test(e) ? c.events.listenFor = e : r.warn("Invalid event type");
 }
 function S(e) {
-  if (l.events.broadcast) {
-    const t = l.events.listenFor, i = t.replaceAll("*", "");
+  if (c.events.broadcast) {
+    const t = c.events.listenFor, i = t.replaceAll("*", "");
     t.length === 1 && t === "*" || t === "all" ? r.info(e) : t.startsWith("*") && !t.endsWith("*") ? e.endsWith(i) && r.info(e) : t.endsWith("*") && !t.startsWith("*") ? e.startsWith(i) && r.info(e) : t.startsWith("*") && t.endsWith("*") ? e.includes(i) && r.info(e) : e.startsWith(i) && r.info(e);
   }
 }
 function $e(e = !0) {
-  l.events.broadcast = !!e, e ? r.info(`👂 listening for '${l.events.listenFor}'`) : r.info("🚫👂 not listening");
+  c.events.broadcast = !!e, e ? r.info(`👂 listening for '${c.events.listenFor}'`) : r.info("🚫👂 not listening");
 }
 function Z() {
-  l.initialised || (window.addEventListener("extension:run", (e) => {
+  c.initialised || (window.addEventListener("extension:run", (e) => {
     const { name: t, timestamp: i } = e.detail;
-    l.extensions.running.push({ name: t, timestamp: i });
-  }), l.initialised = !0);
+    c.extensions.running.push({ name: t, timestamp: i });
+  }), c.initialised = !0);
 }
 const it = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   __proto__: null,
@@ -484,7 +478,7 @@ const st = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   itemsApp: s,
   questionsApp: K,
   setup: Be
-}, Symbol.toStringTag, { value: "Module" })), c = {
+}, Symbol.toStringTag, { value: "Module" })), l = {
   answerMasking: {
     enabled: null
   },
@@ -494,7 +488,7 @@ const st = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
   }
 };
 function Le(e) {
-  c.answerMasking.enabled === null && (document.querySelector(".test-answer-masking") ? c.answerMasking.enabled = !0 : c.answerMasking.enabled = !1), c.answerMasking.enabled ? e !== void 0 && s().questionsApp().masking(e) : r.warn("Answer masking is not enabled in the Items API configuration.");
+  l.answerMasking.enabled === null && (document.querySelector(".test-answer-masking") ? l.answerMasking.enabled = !0 : l.answerMasking.enabled = !1), l.answerMasking.enabled ? e !== void 0 && s().questionsApp().masking(e) : r.warn("Answer masking is not enabled in the Items API configuration.");
 }
 function Fe(e) {
   g().dialogs().custom.show(e);
@@ -518,17 +512,17 @@ function Qe() {
   return document.getElementsByClassName("review-screen")[0].getAttribute("aria-hidden") === null;
 }
 function De(e) {
-  if (c.lineReader.enabled === null) {
+  if (l.lineReader.enabled === null) {
     const t = document.querySelector(".lrn_linereader-toggle");
     if (t) {
-      c.lineReader.enabled = !0;
+      l.lineReader.enabled = !0;
       const o = t.querySelector("[data-lrn-widget-container]").getAttribute("data-lrn-widget-container").match(/\d+$/);
-      o ? c.lineReader.id = o[0] : r.warn("Could not find the line reader unique id.");
+      o ? l.lineReader.id = o[0] : r.warn("Could not find the line reader unique id.");
     } else
-      c.lineReader.enabled = !1;
+      l.lineReader.enabled = !1;
   }
-  if (c.lineReader.enabled && c.lineReader.id !== null) {
-    const t = s().features()[`lrn-assessapp-feature_${c.lineReader.id}`];
+  if (l.lineReader.enabled && l.lineReader.id !== null) {
+    const t = s().features()[`lrn-assessapp-feature_${l.lineReader.id}`];
     switch (e) {
       case "show":
         t.show();

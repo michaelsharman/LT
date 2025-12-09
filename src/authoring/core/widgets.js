@@ -7,10 +7,10 @@ import { authorApp } from './app.js';
 
 /**
  * The `type` of widget currently being edited. Returns
- * `undefined` if not on the widget edit screen.
+ * `null` if not on the widget edit screen.
  * @since 2.4.0
- * @returns {string | undefined}
+ * @returns {string|null}
  */
 export function type() {
-    return authorApp().getWidget()?.type;
+    return authorApp().getWidget()?.type || null;
 }
