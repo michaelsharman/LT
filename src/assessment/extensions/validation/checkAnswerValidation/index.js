@@ -65,7 +65,7 @@ function run(config) {
         state.message.body = body;
     }
 
-    LT.itemsApp().on('item:beforeunload', e => {
+    LT.eventBus.on('item:beforeunload', e => {
         setup(e);
     });
 }

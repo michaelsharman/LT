@@ -31,7 +31,7 @@ function run() {
     state.initialised = true;
     state.totalItems = Number(LT.totalItems()) || 0;
 
-    LT.itemsApp().on('item:load', () => {
+    LT.eventBus.on('item:load', () => {
         const elPrevious = Array.from(document.getElementsByClassName('item-prev'));
         const elNext = Array.from(document.getElementsByClassName('item-next'));
         const elNav = elPrevious.concat(elNext);
@@ -40,7 +40,7 @@ function run() {
             const attr = elNav[i].getAttribute('aria-label');
             elNav[i].setAttribute('aria-live', attr + ' of ' + state.totalItems);
         }
-    });
+    }, 'ariaCountOnNav');
 }
 
 export const ariaCountOnNav = createExtension('ariaCountOnNav', run);

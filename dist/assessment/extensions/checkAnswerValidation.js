@@ -8,7 +8,7 @@ const o = {
 };
 function r(t) {
   const { header: s, body: n } = t?.message || {};
-  s?.length && (o.message.header = s), n?.length && (o.message.body = n), e.itemsApp().on("item:beforeunload", (a) => {
+  s?.length && (o.message.header = s), n?.length && (o.message.body = n), e.eventBus.on("item:beforeunload", (a) => {
     c(a);
   });
 }
@@ -51,7 +51,7 @@ function l() {
     e.hideDialog();
   });
 }
-const p = i("checkAnswerValidation", r);
+const f = i("checkAnswerValidation", r);
 export {
-  p as checkAnswerValidation
+  f as checkAnswerValidation
 };

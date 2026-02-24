@@ -1,6 +1,6 @@
-import { c as o, L as e } from "../../extensionsFactory-BHOEyOSK.js";
-function t() {
-  e.itemsApp().on("item:load", i);
+import { c as t, L as e } from "../../extensionsFactory-BHOEyOSK.js";
+function o() {
+  e.eventBus.on("item:load", i, "disableOnValidate");
 }
 function i() {
   const n = e.questionResponseIds();
@@ -9,7 +9,7 @@ function i() {
       e.questionInstance(s).disable();
     });
 }
-const d = o("disableOnValidate", t);
+const d = t("disableOnValidate", o);
 export {
   d as disableOnValidate
 };

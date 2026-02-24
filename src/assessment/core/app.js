@@ -1,5 +1,6 @@
 import { handleEvent, extensionsListener } from './diagnostics.js';
 import { questionResponseIds } from './questions.js';
+import { eventBus } from '../../utils/eventBus.js';
 
 /**
  * Learnosity Toolkit app module.
@@ -9,6 +10,40 @@ import { questionResponseIds } from './questions.js';
 const state = {};
 
 /**
+ * Events to route through the LT event bus.
+ * Critical events are buffered if they fire before extensions are ready.
+ */
+const ROUTED_EVENTS = [
+    // Critical events (buffered)
+    'item:load',
+    'item:changed',
+    'test:start',
+    'test:reading:start',
+    // Other commonly used events (not buffered, but routed)
+    'test:reading:end',
+    'unfocused',
+    'focused',
+    'item:warningOnChange',
+    'items:fetch:done',
+    'section:changed',
+    'test:panel:show',
+    'test:panel:shown',
+    'test:pause',
+    'test:resume',
+    'test:save',
+    'test:save:success',
+    'test:save:error',
+    'test:submit',
+    'test:submit:success',
+    'test:submit:error',
+    'test:finished:save',
+    'test:finished:submit',
+    'test:finished:discard',
+    'time:end',
+    'item:beforeunload',
+];
+
+/**
  * Constructor method for Learnosity Toolkit.
  * @since 3.0.0
  * @ignore
@@ -16,7 +51,24 @@ const state = {};
  */
 export function setup(app) {
     state.app = app;
+    routeEventsToEventBus(app);
     setupListeners();
+}
+
+/**
+ * Routes Learnosity API events through LT's event bus.
+ * This allows extensions to listen via LT.eventBus.on() and receive
+ * buffered events that fired before they were initialized.
+ * @since 3.0.0
+ * @ignore
+ * @param {object} app - Items API app instance
+ */
+function routeEventsToEventBus(app) {
+    ROUTED_EVENTS.forEach(eventName => {
+        app.on(eventName, (...args) => {
+            eventBus.emit(eventName, ...args);
+        });
+    });
 }
 
 /**

@@ -1,5 +1,5 @@
 import { LT as n } from "./core.js";
-import { E as c } from "../initExtensions-DVo3AlMk.js";
+import { E as c } from "../initExtensions-C5h-JTF-.js";
 const a = Object.freeze(
   Object.keys(c.authoring || {}).sort()
   // sort for deterministic order

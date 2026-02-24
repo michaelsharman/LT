@@ -1,6 +1,6 @@
 import { a as r, d as M, b as h, s as w } from "../app-C4hoGTng.js";
 import v from "../logger.js";
-import { r as j } from "../initExtensions-DVo3AlMk.js";
+import { r as j } from "../initExtensions-C5h-JTF-.js";
 function O() {
   r().on("navigate", (t) => {
     window.location.hash = "#" + t.data.locationEncoded;

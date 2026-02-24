@@ -5,9 +5,9 @@ const h = {
   }
 };
 function y() {
-  b.itemsApp().on("item:load", () => {
+  b.eventBus.on("item:load", () => {
     x();
-  }), window.addEventListener("resize", () => {
+  }, "columnResizer"), window.addEventListener("resize", () => {
     L(x, 250);
   });
 }

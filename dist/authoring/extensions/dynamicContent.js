@@ -119,9 +119,9 @@ function Base64_decode(F) {
     U = Base64_map.indexOf(F.charAt(Y++)), W = Base64_map.indexOf(F.charAt(Y++)), w = U << 2 | W >> 4, x += String.fromCharCode(w), X = Base64_map.indexOf(F.charAt(Y++)), O = (W & 15) << 4 | X >> 2, X !== 64 && (x += String.fromCharCode(O)), G = Base64_map.indexOf(F.charAt(Y++)), D = (X & 3) << 6 | G, G !== 64 && (x += String.fromCharCode(D));
   return x;
 }
-var has_buf = /* @__PURE__ */ function() {
+var has_buf = /* @__PURE__ */ (function() {
   return typeof Buffer < "u" && typeof process < "u" && typeof process.versions < "u" && !!process.versions.node;
-}(), Buffer_from = /* @__PURE__ */ function() {
+})(), Buffer_from = /* @__PURE__ */ (function() {
   if (typeof Buffer < "u") {
     var F = !Buffer.from;
     if (!F) try {
@@ -135,13 +135,13 @@ var has_buf = /* @__PURE__ */ function() {
   }
   return function() {
   };
-}(), buf_utf16le = /* @__PURE__ */ function() {
+})(), buf_utf16le = /* @__PURE__ */ (function() {
   if (typeof Buffer > "u") return !1;
   var F = Buffer_from([65, 0]);
   if (!F) return !1;
   var x = F.toString("utf16le");
   return x.length == 1;
-}();
+})();
 function new_raw_buf(F) {
   return has_buf ? Buffer.alloc ? Buffer.alloc(F) : new Buffer(F) : typeof Uint8Array < "u" ? new Uint8Array(F) : new Array(F);
 }
@@ -1336,7 +1336,7 @@ var bad_formats = {
 function SSF__load(F, x) {
   return SSF_load(bad_formats[F] || F, x);
 }
-var CRC32 = /* @__PURE__ */ function() {
+var CRC32 = /* @__PURE__ */ (function() {
   var F = {};
   F.version = "1.2.0";
   function x() {
@@ -1370,7 +1370,7 @@ var CRC32 = /* @__PURE__ */ function() {
     return ~se;
   }
   return F.table = w, F.bstr = le, F.buf = Ee, F.str = Te, F;
-}(), CFB = /* @__PURE__ */ function() {
+})(), CFB = /* @__PURE__ */ (function() {
   var x = (
     /*::(*/
     {}
@@ -1686,11 +1686,9 @@ var CRC32 = /* @__PURE__ */ function() {
   function ce(ie, ge) {
     var he = ge || {};
     if (he.fileType == "mad") return pa(ie, he);
-    switch (se(ie), he.fileType) {
-      case "zip":
-        return oa(ie, he);
-    }
-    var pe = function(ot) {
+    if (se(ie), he.fileType === "zip")
+      return oa(ie, he);
+    var pe = (function(ot) {
       for (var Ye = 0, Qe = 0, ct = 0; ct < ot.FileIndex.length; ++ct) {
         var Tt = ot.FileIndex[ct];
         if (Tt.content) {
@@ -1701,7 +1699,7 @@ var CRC32 = /* @__PURE__ */ function() {
       for (var Nt = ot.FullPaths.length + 3 >> 2, Er = Ye + 7 >> 3, Cr = Ye + 127 >> 7, Sr = Er + Qe + Nt + Cr, sr = Sr + 127 >> 7, Ur = sr <= 109 ? 0 : Math.ceil((sr - 109) / 127); Sr + sr + Ur + 127 >> 7 > sr; ) Ur = ++sr <= 109 ? 0 : Math.ceil((sr - 109) / 127);
       var $t = [1, Ur, sr, Cr, Nt, Qe, Ye, 0];
       return ot.FileIndex[0].size = Ye << 6, $t[7] = (ot.FileIndex[0].start = $t[0] + $t[1] + $t[2] + $t[3] + $t[4] + $t[5]) + ($t[6] + 7 >> 3), $t;
-    }(ie), _e = new_buf(pe[7] << 9), ve = 0, Ie = 0;
+    })(ie), _e = new_buf(pe[7] << 9), ve = 0, Ie = 0;
     {
       for (ve = 0; ve < 8; ++ve) _e.write_shift(1, De[ve]);
       for (ve = 0; ve < 8; ++ve) _e.write_shift(2, 0);
@@ -1940,7 +1938,7 @@ var CRC32 = /* @__PURE__ */ function() {
     for (; ge <= 287; ge++) he.push(8);
     Ke(he, _t, 288);
   })();
-  var Pt = /* @__PURE__ */ function() {
+  var Pt = /* @__PURE__ */ (function() {
     for (var ge = Se ? new Uint8Array(32768) : [], he = 0, pe = 0; he < rt.length - 1; ++he)
       for (; pe < rt[he + 1]; ++pe) ge[pe] = he;
     for (; pe < 32768; ++pe) ge[pe] = 29;
@@ -1991,7 +1989,7 @@ var CRC32 = /* @__PURE__ */ function() {
     return function(be, Fe) {
       return be.length < 8 ? ve(be, Fe) : Ie(be, Fe);
     };
-  }();
+  })();
   function kt(ie) {
     var ge = new_buf(50 + Math.floor(ie.length * 1.1)), he = Pt(ie, ge);
     return ge.slice(0, he);
@@ -2343,7 +2341,7 @@ var CRC32 = /* @__PURE__ */ function() {
     _inflateRaw: zr,
     consts: Oe
   }, x;
-}(), _fs;
+})(), _fs;
 function set_fs(F) {
   _fs = F;
 }
@@ -2579,7 +2577,7 @@ function fuzzydate(F) {
   } else if (x.replace(/[ap]m?/, "").match(/[a-z]/)) return U;
   return W < 0 || W > 8099 || F.match(/[^-0-9:,\/\\\ ]/) ? U : D;
 }
-var split_regex = /* @__PURE__ */ function() {
+var split_regex = /* @__PURE__ */ (function() {
   var F = "abacaba".split(/(:?b)/i).length == 5;
   return function(w, O, D) {
     if (F || typeof O == "string") return w.split(O);
@@ -2587,7 +2585,7 @@ var split_regex = /* @__PURE__ */ function() {
       W.push(D), W.push(U[X]);
     return W;
   };
-}();
+})();
 function utc_to_local(F) {
   return new Date(F.getUTCFullYear(), F.getUTCMonth(), F.getUTCDate(), F.getUTCHours(), F.getUTCMinutes(), F.getUTCSeconds(), F.getUTCMilliseconds());
 }
@@ -2628,7 +2626,7 @@ function str_match_xml(F, x) {
   var W = "</" + x + ">", X = F.indexOf(W, U);
   return X == -1 ? null : [F.slice(w, X + W.length), F.slice(U + 1, X)];
 }
-var str_match_xml_ns = /* @__PURE__ */ function() {
+var str_match_xml_ns = /* @__PURE__ */ (function() {
   var F = {};
   return function(w, O) {
     var D = F[O];
@@ -2643,7 +2641,7 @@ var str_match_xml_ns = /* @__PURE__ */ function() {
     var G = U.index, Y = D[1].lastIndex;
     return [w.slice(W, Y), w.slice(X, G)];
   };
-}(), str_match_xml_ns_g = /* @__PURE__ */ function() {
+})(), str_match_xml_ns_g = /* @__PURE__ */ (function() {
   var F = {};
   return function(w, O) {
     var D = [], U = F[O];
@@ -2659,7 +2657,7 @@ var str_match_xml_ns = /* @__PURE__ */ function() {
     }
     return D.length == 0 ? null : D;
   };
-}(), str_remove_xml_ns_g = /* @__PURE__ */ function() {
+})(), str_remove_xml_ns_g = /* @__PURE__ */ (function() {
   var F = {};
   return function(w, O) {
     var D = [], U = F[O];
@@ -2673,7 +2671,7 @@ var str_match_xml_ns = /* @__PURE__ */ function() {
     }
     return D.push(w.slice(G)), D.length == 0 ? "" : D.join("");
   };
-}(), str_match_xml_ig = /* @__PURE__ */ function() {
+})(), str_match_xml_ig = /* @__PURE__ */ (function() {
   var F = {};
   return function(w, O) {
     var D = [], U = F[O];
@@ -2689,7 +2687,7 @@ var str_match_xml_ns = /* @__PURE__ */ function() {
     }
     return D.length == 0 ? null : D;
   };
-}();
+})();
 function getdatastr(F) {
   return F ? F.content && F.type ? cc2str(F.content, !0) : F.data ? debom(F.data) : F.asNodeBuffer && has_buf ? debom(F.asNodeBuffer().toString("binary")) : F.asBinary ? debom(F.asBinary()) : F._data && F._data.getContent ? debom(cc2str(Array.prototype.slice.call(F._data.getContent(), 0))) : null : null;
 }
@@ -2817,7 +2815,7 @@ var encodings = {
   "&gt;": ">",
   "&lt;": "<",
   "&amp;": "&"
-}, rencoding = /* @__PURE__ */ evert(encodings), unescapexml = /* @__PURE__ */ function() {
+}, rencoding = /* @__PURE__ */ evert(encodings), unescapexml = /* @__PURE__ */ (function() {
   var F = /&(?:quot|apos|gt|lt|amp|#x?([\da-fA-F]+));/ig, x = /_x([\da-fA-F]{4})_/ig;
   function w(O) {
     var D = O + "", U = D.indexOf("<![CDATA[");
@@ -2834,7 +2832,7 @@ var encodings = {
     return U ? W.replace(/\r\n/g, `
 `) : W;
   };
-}(), decregex = /[&<>'"]/g, charegex = /[\u0000-\u0008\u000b-\u001f\uFFFE-\uFFFF]/g;
+})(), decregex = /[&<>'"]/g, charegex = /[\u0000-\u0008\u000b-\u001f\uFFFE-\uFFFF]/g;
 function escapexml(F) {
   var x = F + "";
   return x.replace(decregex, function(w) {
@@ -2863,7 +2861,7 @@ function escapexlml(F) {
     return "&#x" + w.charCodeAt(0).toString(16).toUpperCase() + ";";
   });
 }
-var xlml_fixstr = /* @__PURE__ */ function() {
+var xlml_fixstr = /* @__PURE__ */ (function() {
   var F = /&#(\d+);/g;
   function x(w, O) {
     return String.fromCharCode(parseInt(O, 10));
@@ -2871,7 +2869,7 @@ var xlml_fixstr = /* @__PURE__ */ function() {
   return function(O) {
     return O.replace(F, x);
   };
-}();
+})();
 function xlml_unfixstr(F) {
   return F.replace(/(\r\n|[\r\n])/g, "&#10;");
 }
@@ -2935,7 +2933,7 @@ var utf8corpus = "foo bar bazâð£", utf8read = has_buf && (/* @__PURE_
         x.push(String.fromCharCode(224 + (O >> 12))), x.push(String.fromCharCode(128 + (O >> 6 & 63))), x.push(String.fromCharCode(128 + (O & 63)));
     }
   return x.join("");
-}, htmldecode = /* @__PURE__ */ function() {
+}, htmldecode = /* @__PURE__ */ (function() {
   var F = [
     ["nbsp", " "],
     ["middot", "·"],
@@ -2952,7 +2950,7 @@ var utf8corpus = "foo bar bazâð£", utf8read = has_buf && (/* @__PURE_
 `).replace(/<[^<>]*>/g, ""), D = 0; D < F.length; ++D) O = O.replace(F[D][0], F[D][1]);
     return O;
   };
-}(), vtvregex = /<\/?(?:vt:)?variant>/g, vtmregex = /<(?:vt:)([^<"'>]*)>([\s\S]*)</;
+})(), vtvregex = /<\/?(?:vt:)?variant>/g, vtmregex = /<(?:vt:)([^<"'>]*)>([\s\S]*)</;
 function parseVector(F, x) {
   var w = parsexmltag(F), O = str_match_xml_ns_g(F, w.baseType) || [], D = [];
   if (O.length != w.size) {
@@ -4702,12 +4700,7 @@ function xlml_write_docprops(F, x) {
   }).forEach(function(O) {
     if (F[O[1]] != null) {
       var D = x && x.Props && x.Props[O[1]] != null ? x.Props[O[1]] : F[O[1]];
-      switch (O[2]) {
-        case "date":
-          D = new Date(D).toISOString().replace(/\.\d*Z/, "Z");
-          break;
-      }
-      typeof D == "number" ? D = String(D) : D === !0 || D === !1 ? D = D ? "1" : "0" : D instanceof Date && (D = new Date(D).toISOString().replace(/\.\d*Z/, "")), w.push(writetag(XLMLDocPropsMap[O[1]] || O[1], D));
+      O[2] === "date" && (D = new Date(D).toISOString().replace(/\.\d*Z/, "Z")), typeof D == "number" ? D = String(D) : D === !0 || D === !1 ? D = D ? "1" : "0" : D instanceof Date && (D = new Date(D).toISOString().replace(/\.\d*Z/, "")), w.push(writetag(XLMLDocPropsMap[O[1]] || O[1], D));
     }
   }), writextag("DocumentProperties", w.join(""), { xmlns: XLMLNS.o });
 }
@@ -5925,7 +5918,7 @@ function parse_BIFF4SheetInfo(F) {
   var x = F.read_shift(4), w = F.read_shift(1), O = F.read_shift(w, "sbcs");
   return O.length === 0 && (O = "Sheet1"), { flags: x, name: O };
 }
-var DBF_SUPPORTED_VERSIONS = [2, 3, 48, 49, 131, 139, 140, 245], DBF = /* @__PURE__ */ function() {
+var DBF_SUPPORTED_VERSIONS = [2, 3, 48, 49, 131, 139, 140, 245], DBF = /* @__PURE__ */ (function() {
   var F = {
     /* Code Pages Supported by Visual FoxPro */
     1: 437,
@@ -6329,7 +6322,7 @@ var DBF_SUPPORTED_VERSIONS = [2, 3, 48, 49, 131, 139, 140, 245], DBF = /* @__PUR
     to_sheet: O,
     from_sheet: W
   };
-}(), SYLK = /* @__PURE__ */ function() {
+})(), SYLK = /* @__PURE__ */ (function() {
   var F = {
     AA: "À",
     BA: "Á",
@@ -6478,11 +6471,7 @@ var DBF_SUPPORTED_VERSIONS = [2, 3, 48, 49, 131, 139, 140, 245], DBF = /* @__PUR
           break;
         /* window */
         case "P":
-          switch (De[1].charAt(0)) {
-            case "P":
-              Ee.push(ze.slice(3).replace(/;;/g, ";"));
-              break;
-          }
+          De[1].charAt(0) === "P" && Ee.push(ze.slice(3).replace(/;;/g, ";"));
           break;
         case "NN":
           {
@@ -6684,7 +6673,7 @@ var DBF_SUPPORTED_VERSIONS = [2, 3, 48, 49, 131, 139, 140, 245], DBF = /* @__PUR
     to_workbook: X,
     from_sheet: q
   };
-}(), DIF = /* @__PURE__ */ function() {
+})(), DIF = /* @__PURE__ */ (function() {
   function F(X, G) {
     switch (G.type) {
       case "base64":
@@ -6806,7 +6795,7 @@ EOD`;
     to_sheet: w,
     from_sheet: W
   };
-}(), ETH = /* @__PURE__ */ function() {
+})(), ETH = /* @__PURE__ */ (function() {
   function F(Z) {
     return Z.replace(/\\b/g, "\\").replace(/\\c/g, ":").replace(/\\n/g, `
 `);
@@ -6832,15 +6821,7 @@ EOD`;
             var le = oe[oe.length - 1];
           /* falls through */
           case "vtc":
-            switch (oe[3]) {
-              case "nl":
-                Q[ee][re] = !!+oe[4];
-                break;
-              default:
-                Q[ee][re] = oe[oe.length - 1].charAt(0) == "#" ? { t: "e", v: RBErr[oe[oe.length - 1]] } : +oe[4];
-                break;
-            }
-            oe[2] == "vtf" && (Q[ee][re] = [Q[ee][re], le]);
+            oe[3] === "nl" ? Q[ee][re] = !!+oe[4] : Q[ee][re] = oe[oe.length - 1].charAt(0) == "#" ? { t: "e", v: RBErr[oe[oe.length - 1]] } : +oe[4], oe[2] == "vtf" && (Q[ee][re] = [Q[ee][re], le]);
         }
       }
     }
@@ -6903,7 +6884,7 @@ EOD`;
     to_sheet: O,
     from_sheet: K
   };
-}(), PRN = /* @__PURE__ */ function() {
+})(), PRN = /* @__PURE__ */ (function() {
   function F(K, Z, q, J, ee) {
     ee.raw ? Z[q][J] = K : K === "" || (K === "TRUE" ? Z[q][J] = !0 : K === "FALSE" ? Z[q][J] = !1 : isNaN(fuzzynum(K)) ? isNaN(fuzzydate(K).getDate()) ? K.charCodeAt(0) == 35 && RBErr[K] != null ? Z[q][J] = { t: "e", v: RBErr[K], w: K } : Z[q][J] = K : Z[q][J] = parseDate(K) : Z[q][J] = fuzzynum(K));
   }
@@ -7045,7 +7026,7 @@ EOD`;
     to_sheet: X,
     from_sheet: Y
   };
-}();
+})();
 function read_wb_ID(F, x) {
   var w = x || {}, O = !!w.WTF;
   w.WTF = !0;
@@ -7057,7 +7038,7 @@ function read_wb_ID(F, x) {
     return PRN.to_workbook(F, x);
   }
 }
-var WK_ = /* @__PURE__ */ function() {
+var WK_ = /* @__PURE__ */ (function() {
   function F(fe, Se, we) {
     if (fe) {
       prep_blob(fe, fe.l || 0);
@@ -8011,7 +7992,7 @@ var WK_ = /* @__PURE__ */ function() {
     book_to_wk3: U,
     to_workbook: x
   };
-}();
+})();
 function parse_rpr(F) {
   var x = {}, w = F.match(tagregex), O = 0, D = !1;
   if (w) for (; O != w.length; ++O) {
@@ -8158,7 +8139,7 @@ function parse_rpr(F) {
   }
   return x;
 }
-var parse_rs = /* @__PURE__ */ function() {
+var parse_rs = /* @__PURE__ */ (function() {
   function F(O) {
     var D = str_match_xml_ns(O, "t");
     if (!D) return { t: "s", v: "" };
@@ -8171,7 +8152,7 @@ var parse_rs = /* @__PURE__ */ function() {
       return U.v;
     });
   };
-}(), rs_to_html = /* @__PURE__ */ function() {
+})(), rs_to_html = /* @__PURE__ */ (function() {
   var x = /(\r\n|\n)/g;
   function w(D, U, W) {
     var X = [];
@@ -8186,7 +8167,7 @@ var parse_rs = /* @__PURE__ */ function() {
   return function(U) {
     return U.map(O).join("");
   };
-}(), sitregex = /<(?:\w+:)?t\b[^<>]*>([^<]*)<\/(?:\w+:)?t>/g, sirregex = /<(?:\w+:)?r\b[^<>]*>/;
+})(), sitregex = /<(?:\w+:)?t\b[^<>]*>([^<]*)<\/(?:\w+:)?t>/g, sirregex = /<(?:\w+:)?r\b[^<>]*>/;
 function parse_si(F, x) {
   var w = x ? x.cellHTML : !0, O = {};
   return F ? (F.match(/^\s*<(?:\w+:)?t[^>]*>/) ? (O.t = unescapexml(utf8read(F.slice(F.indexOf(">") + 1).split(/<\/(?:\w+:)?t>/)[0] || ""), !0), O.r = utf8read(F), w && (O.h = escapehtml(O.t))) : (
@@ -8410,7 +8391,7 @@ function crypto_CreatePasswordVerifier_Method1(F) {
     W = w[U], X = (x & 16384) === 0 ? 0 : 1, G = x << 1 & 32767, Y = X | G, x = Y ^ W;
   return x ^ 52811;
 }
-var crypto_CreateXorArray_Method1 = /* @__PURE__ */ function() {
+var crypto_CreateXorArray_Method1 = /* @__PURE__ */ (function() {
   var F = [187, 255, 255, 186, 255, 255, 185, 128, 0, 190, 15, 0, 191, 15, 0], x = [57840, 7439, 52380, 33984, 4364, 3600, 61902, 12606, 6258, 57657, 54287, 34041, 10252, 43370, 20163], w = [44796, 19929, 39858, 10053, 20106, 40212, 10761, 31585, 63170, 64933, 60267, 50935, 40399, 11199, 17763, 35526, 1453, 2906, 5812, 11624, 23248, 885, 1770, 3540, 7080, 14160, 28320, 56640, 55369, 41139, 20807, 41614, 21821, 43642, 17621, 28485, 56970, 44341, 19019, 38038, 14605, 29210, 60195, 50791, 40175, 10751, 21502, 43004, 24537, 18387, 36774, 3949, 7898, 15796, 31592, 63184, 47201, 24803, 49606, 37805, 14203, 28406, 56812, 17824, 35648, 1697, 3394, 6788, 13576, 27152, 43601, 17539, 35078, 557, 1114, 2228, 4456, 30388, 60776, 51953, 34243, 7079, 14158, 28316, 14128, 28256, 56512, 43425, 17251, 34502, 7597, 13105, 26210, 52420, 35241, 883, 1766, 3532, 4129, 8258, 16516, 33032, 4657, 9314, 18628], O = function(W) {
     return (W / 2 | W * 128) & 255;
   }, D = function(W, X) {
@@ -8430,7 +8411,7 @@ var crypto_CreateXorArray_Method1 = /* @__PURE__ */ function() {
       q = G >> 8, K[Y] = D(F[ee], q), --Y, --ee, q = G & 255, K[Y] = D(X[Y], q), --Y, --ee;
     return K;
   };
-}(), crypto_DecryptData_Method1 = function(F, x, w, O, D) {
+})(), crypto_DecryptData_Method1 = function(F, x, w, O, D) {
   D || (D = x), O || (O = crypto_CreateXorArray_Method1(F));
   var U, W;
   for (U = 0; U != x.length; ++U)
@@ -9126,7 +9107,7 @@ function write_cellXfs(F) {
     x[x.length] = writextag("xf", null, w);
   }), x[x.length] = "</cellXfs>", x.length === 2 ? "" : (x[0] = writextag("cellXfs", null, { count: x.length - 2 }).replace("/>", ">"), x.join(""));
 }
-var parse_sty_xml = /* @__PURE__ */ function() {
+var parse_sty_xml = /* @__PURE__ */ (function() {
   return function(w, O, D) {
     var U = {};
     if (!w) return U;
@@ -9134,7 +9115,7 @@ var parse_sty_xml = /* @__PURE__ */ function() {
     var W;
     return (W = str_match_xml_ns(w, "numFmts")) && parse_numFmts(W[0], U, D), (W = str_match_xml_ns(w, "fonts")) && parse_fonts(W[0], U, O, D), (W = str_match_xml_ns(w, "fills")) && parse_fills(W[0], U, O, D), (W = str_match_xml_ns(w, "borders")) && parse_borders(W[0], U, O, D), (W = str_match_xml_ns(w, "cellXfs")) && parse_cellXfs(W[0], U, D), U;
   };
-}();
+})();
 function write_sty_xml(F, x) {
   var w = [XML_HEADER, writextag("styleSheet", null, {
     xmlns: XMLNS_main[0],
@@ -9884,7 +9865,7 @@ function parse_vml(F, x, w) {
   var O = 0;
   (str_match_xml_ns_g(F, "shape") || []).forEach(function(D) {
     var U = "", W = !0, X = -1, G = -1, Y = -1;
-    switch (D.replace(tagregex, function(Z, q) {
+    if (D.replace(tagregex, function(Z, q) {
       var J = parsexmltag(Z);
       switch (strip_ns(J[0])) {
         case "<ClientData":
@@ -9910,11 +9891,9 @@ function parse_vml(F, x, w) {
           break;
       }
       return "";
-    }), U) {
-      case "Note":
-        var K = ws_get_cell_stub(x, G >= 0 && Y >= 0 ? encode_cell({ r: G, c: Y }) : w[O].ref);
-        K.c && (K.c.hidden = W), ++O;
-        break;
+    }), U === "Note") {
+      var K = ws_get_cell_stub(x, G >= 0 && Y >= 0 ? encode_cell({ r: G, c: Y }) : w[O].ref);
+      K.c && (K.c.hidden = W), ++O;
     }
   });
 }
@@ -10291,7 +10270,7 @@ function parse_ms_bin() {
 function parse_ms_xml() {
   return { "!type": "macro" };
 }
-var rc_to_a1 = /* @__PURE__ */ function() {
+var rc_to_a1 = /* @__PURE__ */ (function() {
   var F = /(^|[^A-Za-z_])R(\[?-?\d+\]|[1-9]\d*|)C(\[?-?\d+\]|[1-9]\d*|)(?![A-Za-z0-9_])/g, x = { r: 0, c: 0 };
   function w(O, D, U, W) {
     var X = !1, G = !1;
@@ -10302,19 +10281,19 @@ var rc_to_a1 = /* @__PURE__ */ function() {
   return function(D, U) {
     return x = U, D.replace(F, w);
   };
-}(), crefregex = /(^|[^._A-Z0-9])(\$?)([A-Z]{1,2}|[A-W][A-Z]{2}|X[A-E][A-Z]|XF[A-D])(\$?)(\d{1,7})(?![_.\(A-Za-z0-9])/g;
+})(), crefregex = /(^|[^._A-Z0-9])(\$?)([A-Z]{1,2}|[A-W][A-Z]{2}|X[A-E][A-Z]|XF[A-D])(\$?)(\d{1,7})(?![_.\(A-Za-z0-9])/g;
 try {
   crefregex = /(^|[^._A-Z0-9])([$]?)([A-Z]{1,2}|[A-W][A-Z]{2}|X[A-E][A-Z]|XF[A-D])([$]?)(10[0-3]\d{4}|104[0-7]\d{3}|1048[0-4]\d{2}|10485[0-6]\d|104857[0-6]|[1-9]\d{0,5})(?![_.\(A-Za-z0-9])/g;
 } catch {
 }
-var a1_to_rc = /* @__PURE__ */ function() {
+var a1_to_rc = /* @__PURE__ */ (function() {
   return function(x, w) {
     return x.replace(crefregex, function(O, D, U, W, X, G) {
       var Y = decode_col(W) - (U ? 0 : w.c), K = decode_row(G) - (X ? 0 : w.r), Z = X == "$" ? K + 1 : K == 0 ? "" : "[" + K + "]", q = U == "$" ? Y + 1 : Y == 0 ? "" : "[" + Y + "]";
       return D + "R" + Z + "C" + q;
     });
   };
-}();
+})();
 function shift_formula_str(F, x) {
   return F.replace(crefregex, function(w, O, D, U, W, X) {
     return O + (D == "$" ? D + U : encode_col(decode_col(U) + x.c)) + (W == "$" ? W + X : encode_row(decode_row(X) + x.r));
@@ -10831,15 +10810,7 @@ function stringify_array(F) {
   for (var x = [], w = 0; w < F.length; ++w) {
     for (var O = F[w], D = [], U = 0; U < O.length; ++U) {
       var W = O[U];
-      if (W) switch (W[0]) {
-        // TODO: handle embedded quotes
-        case 2:
-          D.push('"' + W[1].replace(/"/g, '""') + '"');
-          break;
-        default:
-          D.push(W[1]);
-      }
-      else D.push("");
+      W ? W[0] === 2 ? D.push('"' + W[1].replace(/"/g, '""') + '"') : D.push(W[1]) : D.push("");
     }
     x.push(D.join(","));
   }
@@ -10877,7 +10848,6 @@ function get_ixti_raw(F, x, w) {
       return D = O[1] == -1 ? "#REF" : F.SheetNames[O[1]], O[1] == O[2] ? D : D + ":" + F.SheetNames[O[2]];
     case 358:
       return w.SID != null ? F.SheetNames[w.SID] : "SH33TJSSAME" + F[O[0]][0];
-    case 355:
     /* 'BrtSupBookSrc' */
     /* falls through */
     default:
@@ -12793,7 +12763,7 @@ function write_ws_xml_cell(F, x, w, O, D, U, W) {
   }
   return F.l && (F.l.display = escapexml(X), w["!links"].push([x, F.l])), F.D && (q.cm = 1), writextag("c", Z, q);
 }
-var parse_ws_xml_data = /* @__PURE__ */ function() {
+var parse_ws_xml_data = /* @__PURE__ */ (function() {
   var F = /<(?:\w+:)?c[ \/>]/, x = /<\/(?:\w+:)?row>/, w = /r=["']([^"']*)["']/, O = /ref=["']([^"']*)["']/;
   return function(U, W, X, G, Y, K, Z) {
     for (var q = 0, J = "", ee = [], re = [], te = 0, Q = 0, oe = 0, ne = "", le, Ee, Te = 0, ue = 0, ae, se, ce = 0, xe = 0, Ce = Array.isArray(K.CellXf), ye, ze = [], De = [], et = W["!data"] != null, Oe = [], Xe = {}, He = !1, Ae = !!X.sheetStubs, qe = !!((Z || {}).WBProps || {}).date1904, Ue = U.split(x), Re = 0, Me = Ue.length; Re != Me; ++Re) {
@@ -12905,7 +12875,7 @@ var parse_ws_xml_data = /* @__PURE__ */ function() {
     }
     Oe.length > 0 && (W["!rows"] = Oe);
   };
-}();
+})();
 function write_ws_xml_data(F, x, w, O) {
   var D = [], U = [], W = safe_decode_range(F["!ref"]), X = "", G, Y = "", K = [], Z = 0, q = 0, J = F["!rows"], ee = F["!data"] != null, re = ee ? F["!data"] : [], te = { r: Y }, Q, oe = -1, ne = (((O || {}).Workbook || {}).WBProps || {}).date1904;
   for (q = W.s.c; q <= W.e.c; ++q) K[q] = encode_col(q);
@@ -21930,11 +21900,7 @@ function parse_content_xml(F, x, w) {
       break;
     // 9.1.12 <table:table-columns>
     case "null-date":
-      switch (X = parsexmltag(te[0], !1), X["date-value"]) {
-        case "1904-01-01":
-          Me.WBProps.date1904 = !0;
-          break;
-      }
+      X = parsexmltag(te[0], !1), X["date-value"] === "1904-01-01" && (Me.WBProps.date1904 = !0);
       break;
     case "graphic-properties":
       break;
@@ -22255,7 +22221,7 @@ function parse_fods(F, x) {
   var w = parse_content_xml(F, x);
   return w.bookType = "fods", w;
 }
-var write_styles_ods = /* @__PURE__ */ function() {
+var write_styles_ods = /* @__PURE__ */ (function() {
   var F = [
     "<office:master-styles>",
     '<style:master-page style:name="mp1" style:page-layout-name="mp1">',
@@ -22282,7 +22248,7 @@ var write_styles_ods = /* @__PURE__ */ function() {
   return function() {
     return XML_HEADER + x;
   };
-}();
+})();
 function write_number_format_ods(F, x) {
   var w = "number", O = "", D = { "style:name": x }, U = "", W = 0;
   F = F.replace(/"[$]"/g, "$");
@@ -22457,7 +22423,7 @@ function write_names_ods(F, x, w) {
       </table:named-expressions>
 ` : "";
 }
-var write_content_ods = /* @__PURE__ */ function() {
+var write_content_ods = /* @__PURE__ */ (function() {
   var F = function(D, U) {
     return escapexml(D).replace(/  +/g, function(W) {
       return '<text:s text:c="' + W.length + '"/>';
@@ -22665,7 +22631,7 @@ var write_content_ods = /* @__PURE__ */ function() {
 `), X.push(`  </office:body>
 `), W.bookType == "fods" ? X.push("</office:document>") : X.push("</office:document-content>"), X.join("");
   };
-}();
+})();
 function write_ods(F, x) {
   if (x.bookType == "fods") return write_content_ods(F, x);
   var w = zip_new(), O = "", D = [], U = [];
@@ -22679,13 +22645,13 @@ function write_ods(F, x) {
     /*, opts*/
   )), w;
 }
-var subarray = function() {
+var subarray = (function() {
   try {
     return typeof Uint8Array > "u" || typeof Uint8Array.prototype.subarray > "u" ? "slice" : typeof Buffer < "u" ? typeof Buffer.prototype.subarray > "u" ? "slice" : (typeof Buffer.from == "function" ? Buffer.from([72, 62]) : new Buffer([72, 62])) instanceof Uint8Array ? "subarray" : "slice" : "subarray";
   } catch {
     return "slice";
   }
-}();
+})();
 function u8_to_dataview(F) {
   return new DataView(F.buffer, F.byteOffset, F.byteLength);
 }
@@ -23833,12 +23799,12 @@ function write_numbers_tma(F, x, w, O, D, U) {
       {
         var Ee = 256;
         le[2] = [{ type: 0, data: write_varint49(Ee) }];
-        var Te = parse_TSP_Reference(parse_shallow(le[1][0].data)[2][0].data), ue = function() {
+        var Te = parse_TSP_Reference(parse_shallow(le[1][0].data)[2][0].data), ue = (function() {
           var Ue = numbers_iwa_find(F, x, 2), Re = parse_shallow(Ue.messages[0].data), Me = Re[3].filter(function(je) {
             return varint_to_i32(parse_shallow(je.data)[1][0].data) == Te;
           });
           return Me?.length ? varint_to_i32(parse_shallow(Me[0].data)[12][0].data) : 0;
-        }();
+        })();
         CFB.utils.cfb_del(F, x[Te].location), numbers_iwa_doit(F, x, 2, function(Ue) {
           var Re = parse_shallow(Ue.messages[0].data);
           Re[3] = Re[3].filter(function(Me) {
@@ -24345,13 +24311,7 @@ function write_zip_xlsb(F, x) {
   var K = ["SheetJ5"];
   for (x.tcid = 0, X = 1; X <= F.SheetNames.length; ++X) {
     var Z = { "!id": {} }, q = F.Sheets[F.SheetNames[X - 1]], J = (q || {})["!type"] || "sheet";
-    switch (J) {
-      case "chart":
-      /* falls through */
-      default:
-        W = "xl/worksheets/sheet" + X + "." + w, zip_add_file(U, W, write_ws_bin(X - 1, x, F, Z)), D.sheets.push(W), add_rels(x.wbrels, -1, "worksheets/sheet" + X + "." + w, RELS.WS[0]);
-    }
-    if (q) {
+    if (W = "xl/worksheets/sheet" + X + "." + w, zip_add_file(U, W, write_ws_bin(X - 1, x, F, Z)), D.sheets.push(W), add_rels(x.wbrels, -1, "worksheets/sheet" + X + "." + w, RELS.WS[0]), q) {
       var ee = q["!comments"], re = !1, te = "";
       if (ee && ee.length > 0) {
         var Q = !1;
@@ -24385,13 +24345,7 @@ function write_zip_xlsx(F, x) {
   var K = ["SheetJ5"];
   for (x.tcid = 0, X = 1; X <= F.SheetNames.length; ++X) {
     var Z = { "!id": {} }, q = F.Sheets[F.SheetNames[X - 1]], J = (q || {})["!type"] || "sheet";
-    switch (J) {
-      case "chart":
-      /* falls through */
-      default:
-        W = "xl/worksheets/sheet" + X + "." + w, zip_add_file(U, W, write_ws_xml(X - 1, x, F, Z)), D.sheets.push(W), add_rels(x.wbrels, -1, "worksheets/sheet" + X + "." + w, RELS.WS[0]);
-    }
-    if (q) {
+    if (W = "xl/worksheets/sheet" + X + "." + w, zip_add_file(U, W, write_ws_xml(X - 1, x, F, Z)), D.sheets.push(W), add_rels(x.wbrels, -1, "worksheets/sheet" + X + "." + w, RELS.WS[0]), q) {
       var ee = q["!comments"], re = !1, te = "";
       if (ee && ee.length > 0) {
         var Q = !1;
@@ -33461,7 +33415,7 @@ const t$2 = (F) => (x, w) => {
     customElements.define(F, x);
   }) : customElements.define(F, x);
 };
-const t$1 = globalThis, e$2 = t$1.ShadowRoot && (t$1.ShadyCSS === void 0 || t$1.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, s$2 = Symbol(), o$4 = /* @__PURE__ */ new WeakMap();
+const t$1 = globalThis, e$2 = t$1.ShadowRoot && (t$1.ShadyCSS === void 0 || t$1.ShadyCSS.nativeShadow) && "adoptedStyleSheets" in Document.prototype && "replace" in CSSStyleSheet.prototype, s$2 = /* @__PURE__ */ Symbol(), o$4 = /* @__PURE__ */ new WeakMap();
 let n$3 = class {
   constructor(F, x, w) {
     if (this._$cssResult$ = !0, w !== s$2)
@@ -33533,7 +33487,7 @@ const { is: i$2, defineProperty: e$1, getOwnPropertyDescriptor: h$1, getOwnPrope
   }
   return w;
 } }, f$1 = (F, x) => !i$2(F, x), b = { attribute: !0, type: String, converter: u$1, reflect: !1, useDefault: !1, hasChanged: f$1 };
-Symbol.metadata ?? (Symbol.metadata = Symbol("metadata")), a$1.litPropertyMetadata ?? (a$1.litPropertyMetadata = /* @__PURE__ */ new WeakMap());
+Symbol.metadata ?? (Symbol.metadata = /* @__PURE__ */ Symbol("metadata")), a$1.litPropertyMetadata ?? (a$1.litPropertyMetadata = /* @__PURE__ */ new WeakMap());
 class y extends HTMLElement {
   static addInitializer(x) {
     this._$Ei(), (this.l ?? (this.l = [])).push(x);
@@ -33543,7 +33497,7 @@ class y extends HTMLElement {
   }
   static createProperty(x, w = b) {
     if (w.state && (w.attribute = !1), this._$Ei(), this.prototype.hasOwnProperty(x) && ((w = Object.create(w)).wrapped = !0), this.elementProperties.set(x, w), !w.noAccessor) {
-      const O = Symbol(), D = this.getPropertyDescriptor(x, O, w);
+      const O = /* @__PURE__ */ Symbol(), D = this.getPropertyDescriptor(x, O, w);
       D !== void 0 && e$1(this.prototype, x, D);
     }
   }
@@ -33892,7 +33846,7 @@ class ParentResize {
 }
 const t = globalThis, i$1 = t.trustedTypes, s$1 = i$1 ? i$1.createPolicy("lit-html", { createHTML: (F) => F }) : void 0, e = "$lit$", h = `lit$${Math.random().toFixed(9).slice(2)}$`, o$1 = "?" + h, n = `<${o$1}>`, r = document, l = () => r.createComment(""), c = (F) => F === null || typeof F != "object" && typeof F != "function", a = Array.isArray, u = (F) => a(F) || typeof F?.[Symbol.iterator] == "function", d = `[ 	
 \f\r]`, f = /<(?:(!--|\/[^a-zA-Z])|(\/?[a-zA-Z][^>\s]*)|(\/?$))/g, v = /-->/g, _ = />/g, m = RegExp(`>|${d}(?:([^\\s"'>=/]+)(${d}*=${d}*(?:[^ 	
-\f\r"'\`<>=]|("|')|))|$)`, "g"), p = /'/g, g = /"/g, $$1 = /^(?:script|style|textarea|title)$/i, T = Symbol.for("lit-noChange"), E = Symbol.for("lit-nothing"), A = /* @__PURE__ */ new WeakMap(), C = r.createTreeWalker(r, 129);
+\f\r"'\`<>=]|("|')|))|$)`, "g"), p = /'/g, g = /"/g, $$1 = /^(?:script|style|textarea|title)$/i, T = /* @__PURE__ */ Symbol.for("lit-noChange"), E = /* @__PURE__ */ Symbol.for("lit-nothing"), A = /* @__PURE__ */ new WeakMap(), C = r.createTreeWalker(r, 129);
 function P(F, x) {
   if (!a(F) || !F.hasOwnProperty("raw"))
     throw Error("invalid template strings array");
@@ -35405,7 +35359,7 @@ ActiveTable = __decorateClass([
 var papaparse_min$1 = { exports: {} };
 var papaparse_min = papaparse_min$1.exports, hasRequiredPapaparse_min;
 function requirePapaparse_min() {
-  return hasRequiredPapaparse_min || (hasRequiredPapaparse_min = 1, function(F, x) {
+  return hasRequiredPapaparse_min || (hasRequiredPapaparse_min = 1, (function(F, x) {
     ((w, O) => {
       F.exports = O();
     })(papaparse_min, function w() {
@@ -35812,7 +35766,7 @@ function requirePapaparse_min() {
         ae = ae.data, Y.WORKER_ID === void 0 && ae && (Y.WORKER_ID = ae.workerId), typeof ae.input == "string" ? O.postMessage({ workerId: Y.WORKER_ID, results: Y.parse(ae.input, ae.config), finished: !0 }) : (O.File && ae.input instanceof File || ae.input instanceof Object) && (ae = Y.parse(ae.input, ae.config)) && O.postMessage({ workerId: Y.WORKER_ID, results: ae, finished: !0 });
       }), (Z.prototype = Object.create(K.prototype)).constructor = Z, (q.prototype = Object.create(K.prototype)).constructor = q, (J.prototype = Object.create(J.prototype)).constructor = J, (ee.prototype = Object.create(K.prototype)).constructor = ee, Y;
     });
-  }(papaparse_min$1)), papaparse_min$1.exports;
+  })(papaparse_min$1)), papaparse_min$1.exports;
 }
 var papaparse_minExports = requirePapaparse_min();
 const Papa = /* @__PURE__ */ getDefaultExportFromCjs(papaparse_minExports), state = {

@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "3.0.0-beta.14",
+    "version": "3.0.0",
     "private": false,
     "type": "module",
     "description": "A utility library of helpers and extensions useful when working with Learnosity APIs.",
@@ -35,15 +35,15 @@
         "**/*.css"
     ],
     "scripts": {
-        "dev": "vite build --watch -l info",
         "build": "vite build",
         "build:stats": "vite build",
         "build:trace": "DEBUG=rollup:* vite build",
-        "lint": "npx eslint --format table",
+        "dev": "vite build --watch -l info",
         "docs": "jsdoc -c jsdoc.json -R README.md --verbose",
-        "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand",
+        "lint": "npx eslint --format table",
         "start:server": "nodemon ./tests/api-server/src/server.js",
-        "start:server:background": "nodemon ./tests/api-server/src/server.js &"
+        "start:server:background": "nodemon ./tests/api-server/src/server.js &",
+        "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand"
     },
     "dependencies": {
         "@uppy/compressor": "^2.2.1",
@@ -61,18 +61,14 @@
         "xlsx": "https://cdn.sheetjs.com/xlsx-0.20.3/xlsx-0.20.3.tgz"
     },
     "devDependencies": {
-        "@babel/core": "^7.26.10",
-        "@babel/preset-env": "^7.26.9",
-        "@eslint/js": "^9.24.0",
+        "@eslint/js": "^10.0.1",
         "@stylistic/eslint-plugin": "^5.2.2",
         "@types/jest": "^30.0.0",
-        "babel-jest": "^30.0.0",
-        "babel-loader": "^10.0.0",
         "clean-jsdoc-theme": "^4.3.0",
         "css-loader": "^7.1.2",
         "docdash": "^2.0.2",
         "ejs": "^3.1.10",
-        "eslint": "^9.24.0",
+        "eslint": "^10.0.2",
         "eslint-formatter-table": "^7.32.1",
         "express": "^5.1.0",
         "globals": "^16.0.0",

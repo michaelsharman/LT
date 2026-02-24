@@ -84,7 +84,7 @@ function setupButtons(classname = 'lrn__magnifier') {
     });
 
     // Keep legacy behavior: bind per-item image click handlers
-    LT.itemsApp().on('item:load', checkImageContent);
+    LT.eventBus.on('item:load', checkImageContent, 'magnifier');
 }
 
 /**

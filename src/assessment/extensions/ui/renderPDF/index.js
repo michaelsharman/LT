@@ -29,7 +29,7 @@ import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
  * @ignore
  */
 function run() {
-    LT.itemsApp().on('item:load', doRenderPDF);
+    LT.eventBus.on('item:load', doRenderPDF, 'renderPDF');
 
     // Also attempt once immediately (in case the item is already present)
     queueMicrotask(doRenderPDF);

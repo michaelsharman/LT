@@ -36,7 +36,7 @@ function run(config) {
     const qt = 'mcq'; // Limited to MCQ only (see targeted classnames when hiding options)
     const logPrefix = 'LRN Hide Alternatives:';
 
-    LT.itemsApp().on('item:load', () => {
+    LT.eventBus.on('item:load', () => {
         const qs = LT.questions();
 
         Object.values(qs).forEach(question => {
@@ -99,7 +99,7 @@ function run(config) {
                 }
             }
         });
-    });
+    }, 'hideAlternatives');
 }
 
 /**

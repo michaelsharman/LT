@@ -54,7 +54,7 @@ function run(config) {
         state.types = types;
     }
 
-    LT.itemsApp().on('item:changed', setupResetUI);
+    LT.eventBus.on('item:load', setupResetUI, 'resetResponse');
 }
 
 /**

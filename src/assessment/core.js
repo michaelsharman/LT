@@ -7,6 +7,7 @@ import * as questions from './core/questions.js';
 import * as sections from './core/sections.js';
 import logger from '../utils/logger.js';
 import { runExtensions } from '../utils/initExtensions.js';
+import { eventBus } from '../utils/eventBus.js';
 
 let monitor = null;
 let MonitorCtor = null;
@@ -96,6 +97,7 @@ async function init(itemsApp, options = {}) {
 export const LT = {
     init,
     extensions: {},
+    eventBus,
     ...appFiltered,
     ...items,
     ...activity,

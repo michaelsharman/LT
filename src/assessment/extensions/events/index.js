@@ -43,11 +43,11 @@ function run() {
     if (!state.initialised) {
         setupSessionEvents();
 
-        LT.itemsApp().on('item:load', () => {
+        LT.eventBus.on('item:load', () => {
             addItemLoadEvent();
             setupQuestionEvents();
             setupFeatureEvents();
-        });
+        }, 'events');
 
         setupPlayerEvents();
         setupEnvironment();
@@ -103,21 +103,14 @@ async function setupEnvironment() {
  * @ignore
  */
 function setupPlayerEvents() {
-    LT.itemsApp().on('test:start', () => {
-        // This event is unreliable when there is no intro item due to this extension running late
-        // in the readyListener() cycle. Therefore we check that it hasn't alreay been set
-        // (in setupSessionEvents()).
-        const startEvent = state.events.events.find(e => e.type === 'test:start');
-
-        if (!startEvent) {
-            addEvent({
-                type: 'test:start',
-                timestamp: getTimestamp(),
-            });
-        }
+    LT.eventBus.on('test:start', () => {
+        addEvent({
+            type: 'test:start',
+            timestamp: getTimestamp(),
+        });
     });
 
-    LT.itemsApp().on('unfocused', () => {
+    LT.eventBus.on('unfocused', () => {
         addEvent({
             type: 'unfocused',
             item: LT.itemReference(),
@@ -125,7 +118,7 @@ function setupPlayerEvents() {
         });
     });
 
-    LT.itemsApp().on('focused', () => {
+    LT.eventBus.on('focused', () => {
         addEvent({
             type: 'focused',
             item: LT.itemReference(),
@@ -133,28 +126,21 @@ function setupPlayerEvents() {
         });
     });
 
-    LT.itemsApp().on('test:reading:start', () => {
-        // This event is unreliable when there is no intro item due to this extension running late
-        // in the readyListener() cycle. Therefore we check that it hasn't alreay been set
-        // (in setupSessionEvents()).
-        const startEvent = state.events.events.find(e => e.type === 'test:reading:start');
-
-        if (!startEvent) {
-            addEvent({
-                type: 'test:reading:start',
-                timestamp: getTimestamp(),
-            });
-        }
+    LT.eventBus.on('test:reading:start', () => {
+        addEvent({
+            type: 'test:reading:start',
+            timestamp: getTimestamp(),
+        });
     });
 
-    LT.itemsApp().on('test:reading:end', () => {
+    LT.eventBus.on('test:reading:end', () => {
         addEvent({
             type: 'test:reading:end',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('item:warningOnChange', () => {
+    LT.eventBus.on('item:warningOnChange', () => {
         addEvent({
             type: 'item:warningOnChange',
             item: LT.itemReference(),
@@ -162,7 +148,7 @@ function setupPlayerEvents() {
         });
     });
 
-    LT.itemsApp().on('items:fetch:done', () => {
+    LT.eventBus.on('items:fetch:done', () => {
         addEvent({
             type: 'items:fetch:done',
             item: LT.itemReference(),
@@ -170,14 +156,14 @@ function setupPlayerEvents() {
         });
     });
 
-    LT.itemsApp().on('section:changed', () => {
+    LT.eventBus.on('section:changed', () => {
         addEvent({
             type: 'section:changed',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:panel:show', async () => {
+    LT.eventBus.on('test:panel:show', async () => {
         const event = await getEventFromDialog();
 
         if (!['dialog:pause'].includes(event)) {
@@ -190,21 +176,21 @@ function setupPlayerEvents() {
 
     // This is only useful to see when a11y or review screens close
     // Otherwise it's noise.
-    // LT.itemsApp().on('test:panel:hide', () => {
+    // LT.eventBus.on('test:panel:hide', () => {
     //     addEvent({
     //         type: 'dialog:hide',
     //         timestamp: getTimestamp(),
     //     });
     // });
 
-    LT.itemsApp().on('test:pause', () => {
+    LT.eventBus.on('test:pause', () => {
         addEvent({
             type: 'test:pause',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:resume', () => {
+    LT.eventBus.on('test:resume', () => {
         addEvent({
             type: 'test:resume',
             timestamp: getTimestamp(),
@@ -212,70 +198,70 @@ function setupPlayerEvents() {
     });
 
     // Only fires from the UI, not via itemsApp.save()
-    LT.itemsApp().on('test:save', () => {
+    LT.eventBus.on('test:save', () => {
         addEvent({
             type: 'test:save',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:save:success', () => {
+    LT.eventBus.on('test:save:success', () => {
         addEvent({
             type: 'test:save:success',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:save:error', () => {
+    LT.eventBus.on('test:save:error', () => {
         addEvent({
             type: 'test:save:error',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:submit', () => {
+    LT.eventBus.on('test:submit', () => {
         addEvent({
             type: 'test:submit',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:submit:success', () => {
+    LT.eventBus.on('test:submit:success', () => {
         addEvent({
             type: 'test:submit:success',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:submit:error', () => {
+    LT.eventBus.on('test:submit:error', () => {
         addEvent({
             type: 'test:submit:error',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:finished:save', () => {
+    LT.eventBus.on('test:finished:save', () => {
         addEvent({
             type: 'test:finished:save',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:finished:submit', () => {
+    LT.eventBus.on('test:finished:submit', () => {
         addEvent({
             type: 'test:finished:submit',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('test:finished:discard', () => {
+    LT.eventBus.on('test:finished:discard', () => {
         addEvent({
             type: 'test:finished:discard',
             timestamp: getTimestamp(),
         });
     });
 
-    LT.itemsApp().on('time:end', () => {
+    LT.eventBus.on('time:end', () => {
         addEvent({
             type: 'time:end',
             timestamp: getTimestamp(),

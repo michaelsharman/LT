@@ -1,43 +1,43 @@
 import { c as i, L as r } from "../../extensionsFactory-BHOEyOSK.js";
-const t = {
+const s = {
   class: "lrn__resetResponse",
   label: "Reset question",
   logPrefix: "LRN Reset Responses:",
   types: ["mcq"]
 };
-function a(s) {
-  const { label: e, types: n } = s || {};
-  e && typeof e == "string" && (t.label = e), n && Array.isArray(n) && (t.types = n), r.itemsApp().on("item:changed", p);
+function a(t) {
+  const { label: e, types: n } = t || {};
+  e && typeof e == "string" && (s.label = e), n && Array.isArray(n) && (s.types = n), r.eventBus.on("item:load", u, "resetResponse");
 }
-function p() {
-  const s = r.questions();
+function u() {
+  const t = r.questions();
   try {
-    for (const e of s)
-      if (t.types.includes("*") || t.types.includes(e.type)) {
+    for (const e of t)
+      if (s.types.includes("*") || s.types.includes(e.type)) {
         const n = e.response_id, o = document.getElementById(n);
         if (o) {
           const c = o.querySelector(".lrn_response");
-          let l = o.querySelector(`.${t.class}`);
-          l || (c.append(u()), l = o.querySelector(`.${t.class}`), l.addEventListener("click", d));
+          let l = o.querySelector(`.${s.class}`);
+          l || (c.append(p()), l = o.querySelector(`.${s.class}`), l.addEventListener("click", d));
         } else
-          r.utils.logger.warn(t.logPrefix, "Question element not found");
+          r.utils.logger.warn(s.logPrefix, "Question element not found");
       }
   } catch (e) {
     r.utils.logger.error(e);
   }
 }
-function u() {
-  const s = document.createElement("button"), e = document.createElement("span");
-  return s.classList.add("lds-btn", "lds-btn-secondary", "lrn_btn", t.class), e.append(t.label), s.append(e), s;
+function p() {
+  const t = document.createElement("button"), e = document.createElement("span");
+  return t.classList.add("lds-btn", "lds-btn-secondary", "lrn_btn", s.class), e.append(s.label), t.append(e), t;
 }
-function d(s) {
-  const n = s.srcElement.closest(".lrn_widget").getAttribute("id");
+function d(t) {
+  const n = t.srcElement.closest(".lrn_widget").getAttribute("id");
   r.questionsApp().question(n).resetResponse();
 }
-function m() {
+function y() {
   return `
         /* Learnosity reset question styles */
-        .lrn .lrn_btn.${t.class} {
+        .lrn .lrn_btn.${s.class} {
             margin-top: 1em;
             margin-bottom: 0.5em;
             clear: both;
@@ -46,7 +46,7 @@ function m() {
     `;
 }
 const f = i("resetResponse", a, {
-  getStyles: m
+  getStyles: y
 });
 export {
   f as resetResponse

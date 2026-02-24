@@ -1,21 +1,21 @@
 import { c as m, L as a } from "../../extensionsFactory-BHOEyOSK.js";
 function h() {
-  a.itemsApp().on("item:load", l), queueMicrotask(l);
+  a.eventBus.on("item:load", l, "renderPDF"), queueMicrotask(l);
 }
 function l() {
-  const c = a.itemReference(), i = document.querySelector(`.learnosity-item[data-reference="${c}"]`);
-  if (!i)
+  const c = a.itemReference(), o = document.querySelector(`.learnosity-item[data-reference="${c}"]`);
+  if (!o)
     return;
-  const t = i.querySelectorAll(".lrn_widget .resource");
+  const t = o.querySelectorAll(".lrn_widget .resource");
   t.length && t.forEach((e) => {
     const s = e.querySelector("a");
     if (!s)
       return;
-    const o = s.getAttribute("href") || "";
-    o.toLowerCase().endsWith(".pdf") && e.dataset.ltRenderedPdf !== "1" && (e.dataset.ltRenderedPdf = "1", f(e, o));
+    const i = s.getAttribute("href") || "";
+    i.toLowerCase().endsWith(".pdf") && e.dataset.ltRenderedPdf !== "1" && (e.dataset.ltRenderedPdf = "1", u(e, i));
   });
 }
-function f(c, i) {
+function u(c, o) {
   const t = document.createElement("div");
   t.className = "lt__renderPDF_pdf";
   const e = document.createElement("iframe");
@@ -23,8 +23,8 @@ function f(c, i) {
   const s = (n) => {
     const r = n.getBoundingClientRect();
     return r.width <= 0 || r.height <= 0 ? !1 : !!(n.ownerDocument && n.ownerDocument.defaultView);
-  }, o = () => {
-    const n = i.includes("?") ? "&" : "?", r = `v=${Date.now()}`, d = `${i}${n}${r}#view=FitH`;
+  }, i = () => {
+    const n = o.includes("?") ? "&" : "?", r = `v=${Date.now()}`, d = `${o}${n}${r}#view=FitH`;
     requestAnimationFrame(() => {
       requestAnimationFrame(() => {
         e.src = d;
@@ -32,18 +32,18 @@ function f(c, i) {
     });
   };
   if (s(t))
-    o();
+    i();
   else {
     const n = new IntersectionObserver(
       (r) => {
-        r.some((u) => u.isIntersecting) && (n.disconnect(), o());
+        r.some((f) => f.isIntersecting) && (n.disconnect(), i());
       },
       { root: null, threshold: 0.01 }
     );
     n.observe(t);
   }
 }
-function p() {
+function w() {
   return `
         /* Learnosity render PDF styles */
         .lt__renderPDF_pdf {
@@ -61,8 +61,8 @@ function p() {
     `;
 }
 const b = m("renderPDF", h, {
-  getStyles: p,
-  mountNativePdf: f
+  getStyles: w,
+  mountNativePdf: u
 });
 export {
   b as renderPDF

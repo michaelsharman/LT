@@ -39,7 +39,7 @@ const state = {
 function run(config = {}) {
     state.options = validateOptions(config);
 
-    LT.itemsApp().on('item:load', () => {
+    LT.eventBus.on('item:load', () => {
         const itemReference = LT.itemReference();
 
         if (!state.visitedItems.has(itemReference)) {
@@ -70,7 +70,7 @@ function run(config = {}) {
 
             state.visitedItems.add(itemReference);
         }
-    });
+    }, 'contentTabs');
 }
 
 /**

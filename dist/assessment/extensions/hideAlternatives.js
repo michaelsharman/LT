@@ -43,14 +43,14 @@ function Rr(e, f) {
     l[a] = f(a);
   return l;
 }
-var Ir = "[object Arguments]";
+var Br = "[object Arguments]";
 function K(e) {
-  return H(e) && V(e) == Ir;
+  return H(e) && V(e) == Br;
 }
-var sr = Object.prototype, Mr = sr.hasOwnProperty, Br = sr.propertyIsEnumerable, Pr = K(/* @__PURE__ */ function() {
+var sr = Object.prototype, Ir = sr.hasOwnProperty, Mr = sr.propertyIsEnumerable, Pr = K(/* @__PURE__ */ (function() {
   return arguments;
-}()) ? K : function(e) {
-  return H(e) && Mr.call(e, "callee") && !Br.call(e, "callee");
+})()) ? K : function(e) {
+  return H(e) && Ir.call(e, "callee") && !Mr.call(e, "callee");
 };
 function Fr() {
   return !1;
@@ -66,13 +66,13 @@ function pe(e) {
     return e(f);
   };
 }
-var cr = typeof exports == "object" && exports && !exports.nodeType && exports, I = cr && typeof module == "object" && module && !module.nodeType && module, ve = I && I.exports === cr, z = ve && dr.process, Q = function() {
+var cr = typeof exports == "object" && exports && !exports.nodeType && exports, B = cr && typeof module == "object" && module && !module.nodeType && module, ve = B && B.exports === cr, z = ve && dr.process, Q = (function() {
   try {
-    var e = I && I.require && I.require("util").types;
+    var e = B && B.require && B.require("util").types;
     return e || z && z.binding && z.binding("util");
   } catch {
   }
-}(), Y = Q && Q.isTypedArray, ge = Y ? pe(Y) : xe, he = Object.prototype, de = he.hasOwnProperty;
+})(), Y = Q && Q.isTypedArray, ge = Y ? pe(Y) : xe, he = Object.prototype, de = he.hasOwnProperty;
 function ye(e, f) {
   var a = ar(e), l = !a && Pr(e), p = !a && !l && Lr(e), x = !a && !l && !p && ge(e), v = a || l || p || x, u = v ? Rr(e.length, String) : [], r = u.length;
   for (var t in e)
@@ -130,9 +130,9 @@ function Ce(e) {
   var f = ar(e) ? qe : _e;
   return f(e);
 }
-var B = { exports: {} }, Re = B.exports, Z;
-function Ie() {
-  return Z || (Z = 1, function(e) {
+var M = { exports: {} }, Re = M.exports, Z;
+function Be() {
+  return Z || (Z = 1, (function(e) {
     (function(f, a, l) {
       function p(r) {
         var t = this, i = u();
@@ -171,11 +171,11 @@ function Ie() {
       Re,
       e
     );
-  }(B)), B.exports;
+  })(M)), M.exports;
 }
-var P = { exports: {} }, Me = P.exports, k;
-function Be() {
-  return k || (k = 1, function(e) {
+var P = { exports: {} }, Ie = P.exports, k;
+function Me() {
+  return k || (k = 1, (function(e) {
     (function(f, a, l) {
       function p(u) {
         var r = this, t = "";
@@ -204,14 +204,14 @@ function Be() {
       }
       a && a.exports ? a.exports = v : this.xor128 = v;
     })(
-      Me,
+      Ie,
       e
     );
-  }(P)), P.exports;
+  })(P)), P.exports;
 }
 var F = { exports: {} }, Pe = F.exports, rr;
 function Fe() {
-  return rr || (rr = 1, function(e) {
+  return rr || (rr = 1, (function(e) {
     (function(f, a, l) {
       function p(u) {
         var r = this, t = "";
@@ -243,11 +243,11 @@ function Fe() {
       Pe,
       e
     );
-  }(F)), F.exports;
+  })(F)), F.exports;
 }
 var G = { exports: {} }, Ge = G.exports, er;
 function Ne() {
-  return er || (er = 1, function(e) {
+  return er || (er = 1, (function(e) {
     (function(f, a, l) {
       function p(u) {
         var r = this;
@@ -291,11 +291,11 @@ function Ne() {
       Ge,
       e
     );
-  }(G)), G.exports;
+  })(G)), G.exports;
 }
 var N = { exports: {} }, Le = N.exports, tr;
 function Ue() {
-  return tr || (tr = 1, function(e) {
+  return tr || (tr = 1, (function(e) {
     (function(f, a, l) {
       function p(u) {
         var r = this;
@@ -336,11 +336,11 @@ function Ue() {
       // window object or global
       e
     );
-  }(N)), N.exports;
+  })(N)), N.exports;
 }
 var L = { exports: {} }, ze = L.exports, nr;
 function De() {
-  return nr || (nr = 1, function(e) {
+  return nr || (nr = 1, (function(e) {
     (function(f, a, l) {
       function p(u) {
         var r = this, t = "";
@@ -372,7 +372,7 @@ function De() {
       ze,
       e
     );
-  }(L)), L.exports;
+  })(L)), L.exports;
 }
 var U = { exports: {} };
 const Ve = {}, He = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
@@ -381,7 +381,7 @@ const Ve = {}, He = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineP
 }, Symbol.toStringTag, { value: "Module" })), Ke = /* @__PURE__ */ vr(He);
 var We = U.exports, or;
 function Je() {
-  return or || (or = 1, function(e) {
+  return or || (or = 1, (function(e) {
     (function(f, a, l) {
       var p = 256, x = 6, v = 52, u = "random", r = l.pow(p, x), t = l.pow(2, v), i = t * 2, n = p - 1, o;
       function s(g, h, w) {
@@ -419,9 +419,9 @@ function Je() {
         for (y = 0; y < p; y++)
           T[y] = T[j = n & j + g[y % w] + (h = T[y])], T[j] = h;
         (b.g = function(A) {
-          for (var S, $ = 0, X = b.i, M = b.j, R = b.S; A--; )
-            S = R[X = n & X + 1], $ = $ * p + R[n & (R[X] = R[M = n & M + S]) + (R[M] = S)];
-          return b.i = X, b.j = M, $;
+          for (var S, $ = 0, X = b.i, I = b.j, R = b.S; A--; )
+            S = R[X = n & X + 1], $ = $ * p + R[n & (R[X] = R[I = n & I + S]) + (R[I] = S)];
+          return b.i = X, b.j = I, $;
         })(p);
       }
       function m(g, h) {
@@ -471,20 +471,20 @@ function Je() {
       Math
       // math: package containing random, pow, and seedrandom
     );
-  }(U)), U.exports;
+  })(U)), U.exports;
 }
 var D, ir;
 function Qe() {
   if (ir) return D;
   ir = 1;
-  var e = Ie(), f = Be(), a = Fe(), l = Ne(), p = Ue(), x = De(), v = Je();
+  var e = Be(), f = Me(), a = Fe(), l = Ne(), p = Ue(), x = De(), v = Je();
   return v.alea = e, v.xor128 = f, v.xorwow = a, v.xorshift7 = l, v.xor4096 = p, v.tychei = x, D = v, D;
 }
 var Ye = Qe();
 const Ze = /* @__PURE__ */ gr(Ye);
 function ke(e) {
   const { numToHide: f = 1 } = e || {}, a = "mcq", l = "LRN Hide Alternatives:";
-  q.itemsApp().on("item:load", () => {
+  q.eventBus.on("item:load", () => {
     const p = q.questions();
     Object.values(p).forEach((x) => {
       if (x.type === a)
@@ -522,7 +522,7 @@ function ke(e) {
         else
           q.utils.logger.info(l, "Only supports single response mode");
     });
-  });
+  }, "hideAlternatives");
 }
 function rt(e) {
   return !e.multiple_responses || e.multiple_responses === !1;

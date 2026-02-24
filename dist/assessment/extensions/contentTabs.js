@@ -6,7 +6,7 @@ const r = {
   visitedItems: /* @__PURE__ */ new Set()
 };
 function u(t = {}) {
-  r.options = c(t), l.itemsApp().on("item:load", () => {
+  r.options = c(t), l.eventBus.on("item:load", () => {
     const o = l.itemReference();
     if (!r.visitedItems.has(o)) {
       const n = document.querySelector(`div[data-reference="${o}"]`).querySelectorAll("ul.lt__nav-tabs");
@@ -22,7 +22,7 @@ function u(t = {}) {
           });
       r.visitedItems.add(o);
     }
-  });
+  }, "contentTabs");
 }
 function b(t) {
   return t.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;").replace(/'/g, "&#39;");

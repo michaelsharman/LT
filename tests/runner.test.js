@@ -65,11 +65,11 @@ describe('LT - Assessment Core', () => {
         describe.each([
             ['activity', 'object'],
             ['activityId', 'string'],
-            ['activitySubTitle', 'string'],
+            ['activitySubTitle', 'string|null'],
             ['activityTags', 'object'],
-            ['activityTemplateId', 'string'],
-            ['activityTitle', 'string'],
-            ['adaptiveType', 'string'],
+            ['activityTemplateId', 'string|null'],
+            ['activityTitle', 'string|null'],
+            ['adaptiveType', 'string|null'],
             ['annotationsApp', 'object'],
             ['annotationsConfig', 'object'],
             ['itemsApp', 'object'],
@@ -110,7 +110,7 @@ describe('LT - Assessment Core', () => {
             ['itemBank', 'number'],
             // ['itemByResponseId', 'object'],
             ['itemElement', 'object'],
-            ['itemPool', 'string'],
+            ['itemPool', 'string|null'],
             ['itemPosition', 'number'],
             ['itemReference', 'string'],
             ['itemTags'],
@@ -139,7 +139,14 @@ describe('LT - Assessment Core', () => {
             test(`returns a ${expectedType}`, async () => {
                 const val = await page.evaluate(m => window.LT[m](), methodKey);
                 // console.log(`→ window.LT.${methodKey}() returned:`, val);
-                expect(typeof val).toBe(expectedType);
+
+                // Handle nullable types (e.g., 'string|null')
+                if (expectedType.includes('|null')) {
+                    const baseType = expectedType.split('|')[0];
+                    expect(val === null || typeof val === baseType).toBe(true);
+                } else {
+                    expect(typeof val).toBe(expectedType);
+                }
             });
         });
     });

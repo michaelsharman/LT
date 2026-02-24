@@ -18,7 +18,7 @@ function ae(n, p) {
 }
 var F = { exports: {} }, ce = F.exports, X;
 function le() {
-  return X || (X = 1, function(n, p) {
+  return X || (X = 1, (function(n, p) {
     (function(s, o) {
       n.exports = o();
     })(ce, function() {
@@ -82,7 +82,7 @@ function le() {
       }
       return e.csp = e.uwp || !1, e.nwjs ? e.dev = process.versions["nw-flavor"] === "sdk" : e.electron ? e.dev = process.execPath.replace(/\\/g, "/").includes("node_modules/electron/") : e.uwp ? e.dev = Windows.ApplicationModel.Package.current.isDevelopmentMode : e.node ? e.dev = process.env.NODE_ENV !== "production" : e.dev = void 0, e;
     });
-  }(F)), F.exports;
+  })(F)), F.exports;
 }
 var U = le();
 const fe = /* @__PURE__ */ ie(U), ue = /* @__PURE__ */ ae({
@@ -91,7 +91,7 @@ const fe = /* @__PURE__ */ ie(U), ue = /* @__PURE__ */ ae({
 }, [U]);
 var W = { exports: {} }, G;
 function de() {
-  return G || (G = 1, function(n) {
+  return G || (G = 1, (function(n) {
     (function(p, s, o) {
       if (!p)
         return;
@@ -361,14 +361,14 @@ function de() {
       }, w.init = function() {
         var t = w(s);
         for (var r in t)
-          r.charAt(0) !== "_" && (w[r] = /* @__PURE__ */ function(l) {
+          r.charAt(0) !== "_" && (w[r] = /* @__PURE__ */ (function(l) {
             return function() {
               return t[l].apply(t, arguments);
             };
-          }(r));
+          })(r));
       }, w.init(), p.Mousetrap = w, n.exports && (n.exports = w);
     })(typeof window < "u" ? window : null, typeof window < "u" ? document : null);
-  }(W)), W.exports;
+  })(W)), W.exports;
 }
 var D = de();
 function pe(n) {

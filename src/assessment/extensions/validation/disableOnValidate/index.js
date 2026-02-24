@@ -17,7 +17,7 @@ import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
  * @ignore
  */
 function run() {
-    LT.itemsApp().on('item:load', setup);
+    LT.eventBus.on('item:load', setup, 'disableOnValidate');
 }
 
 /**

@@ -406,15 +406,11 @@ function getTableTemplate() {
  * @ignore
  */
 function validateOptions(options) {
-    let opt = options || {};
-
-    if (options && typeof options === 'object') {
-        opt = { ...state.options, ...options };
-    } else {
-        opt = { ...state.options };
+    if (!options || typeof options !== 'object') {
+        return { ...state.options };
     }
 
-    return opt;
+    return { ...state.options, ...options };
 }
 
 /**

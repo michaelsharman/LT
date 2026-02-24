@@ -3,7 +3,7 @@ import { c as I } from "../../_commonjsHelpers-DQNKXVTB.js";
 var M = {};
 var P;
 function X() {
-  return P || (P = 1, function(g) {
+  return P || (P = 1, (function(g) {
     (function() {
       var m = function() {
         this.init();
@@ -1028,7 +1028,7 @@ function X() {
         else
           return d;
         return p;
-      }, Howl.prototype.init = /* @__PURE__ */ function(r) {
+      }, Howl.prototype.init = /* @__PURE__ */ (function(r) {
         return function(l) {
           var i = this;
           return i._orientation = l.orientation || [1, 0, 0], i._stereo = l.stereo || null, i._pos = l.pos || null, i._pannerAttr = {
@@ -1042,7 +1042,7 @@ function X() {
             rolloffFactor: typeof l.rolloffFactor < "u" ? l.rolloffFactor : 1
           }, i._onstereo = l.onstereo ? [{ fn: l.onstereo }] : [], i._onpos = l.onpos ? [{ fn: l.onpos }] : [], i._onorientation = l.onorientation ? [{ fn: l.onorientation }] : [], r.call(this, l);
         };
-      }(Howl.prototype.init), Howl.prototype.stereo = function(r, l) {
+      })(Howl.prototype.init), Howl.prototype.stereo = function(r, l) {
         var i = this;
         if (!i._webAudio)
           return i;
@@ -1165,22 +1165,22 @@ function X() {
             A || (_._pos || (_._pos = r._pos || [0, 0, -0.5]), m(_, "spatial"), A = _._panner), A.coneInnerAngle = d.coneInnerAngle, A.coneOuterAngle = d.coneOuterAngle, A.coneOuterGain = d.coneOuterGain, A.distanceModel = d.distanceModel, A.maxDistance = d.maxDistance, A.refDistance = d.refDistance, A.rolloffFactor = d.rolloffFactor, A.panningModel = d.panningModel;
           }
         return r;
-      }, Sound.prototype.init = /* @__PURE__ */ function(r) {
+      }, Sound.prototype.init = /* @__PURE__ */ (function(r) {
         return function() {
           var l = this, i = l._parent;
           l._orientation = i._orientation, l._stereo = i._stereo, l._pos = i._pos, l._pannerAttr = i._pannerAttr, r.call(this), l._stereo ? i.stereo(l._stereo) : l._pos && i.pos(l._pos[0], l._pos[1], l._pos[2], l._id);
         };
-      }(Sound.prototype.init), Sound.prototype.reset = /* @__PURE__ */ function(r) {
+      })(Sound.prototype.init), Sound.prototype.reset = /* @__PURE__ */ (function(r) {
         return function() {
           var l = this, i = l._parent;
           return l._orientation = i._orientation, l._stereo = i._stereo, l._pos = i._pos, l._pannerAttr = i._pannerAttr, l._stereo ? i.stereo(l._stereo) : l._pos ? i.pos(l._pos[0], l._pos[1], l._pos[2], l._id) : l._panner && (l._panner.disconnect(0), l._panner = void 0, i._refreshBuffer(l)), r.call(this);
         };
-      }(Sound.prototype.reset);
+      })(Sound.prototype.reset);
       var m = function(r, l) {
         l = l || "spatial", l === "spatial" ? (r._panner = Howler.ctx.createPanner(), r._panner.coneInnerAngle = r._pannerAttr.coneInnerAngle, r._panner.coneOuterAngle = r._pannerAttr.coneOuterAngle, r._panner.coneOuterGain = r._pannerAttr.coneOuterGain, r._panner.distanceModel = r._pannerAttr.distanceModel, r._panner.maxDistance = r._pannerAttr.maxDistance, r._panner.refDistance = r._pannerAttr.refDistance, r._panner.rolloffFactor = r._pannerAttr.rolloffFactor, r._panner.panningModel = r._pannerAttr.panningModel, typeof r._panner.positionX < "u" ? (r._panner.positionX.setValueAtTime(r._pos[0], Howler.ctx.currentTime), r._panner.positionY.setValueAtTime(r._pos[1], Howler.ctx.currentTime), r._panner.positionZ.setValueAtTime(r._pos[2], Howler.ctx.currentTime)) : r._panner.setPosition(r._pos[0], r._pos[1], r._pos[2]), typeof r._panner.orientationX < "u" ? (r._panner.orientationX.setValueAtTime(r._orientation[0], Howler.ctx.currentTime), r._panner.orientationY.setValueAtTime(r._orientation[1], Howler.ctx.currentTime), r._panner.orientationZ.setValueAtTime(r._orientation[2], Howler.ctx.currentTime)) : r._panner.setOrientation(r._orientation[0], r._orientation[1], r._orientation[2])) : (r._panner = Howler.ctx.createStereoPanner(), r._panner.pan.setValueAtTime(r._stereo, Howler.ctx.currentTime)), r._panner.connect(r._node), r._paused || r._parent.pause(r._id, !0).play(r._id, !0);
       };
     })();
-  }(M)), M;
+  })(M)), M;
 }
 var V = X();
 const v = {

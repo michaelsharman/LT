@@ -212,9 +212,9 @@ function run(config) {
     setQuestionListeners();
 
     // Set up a listener on item load to check Finish button state
-    LT.itemsApp().on('item:load', () => {
+    LT.eventBus.on('item:load', () => {
         setSubmitButtonState();
-    });
+    }, 'essayLimitByCharacter');
 
     const elCustomSubmit = document.querySelector('.custom_btn.item-next');
     if (elCustomSubmit) {
@@ -366,7 +366,7 @@ function setupSubmitPrevention() {
     if (elCustomSubmit) {
         elCustomSubmit.addEventListener('click', checkValidResponses);
 
-        LT.itemsApp().on('test:panel:shown', () => {
+        LT.eventBus.on('test:panel:shown', () => {
             const elReviewSubmit = document.querySelector('.panel-footer .test-submit');
             if (elReviewSubmit) {
                 elReviewSubmit.addEventListener('click', checkValidResponses);
@@ -497,7 +497,7 @@ function loadErrorDialog(itemReferences) {
         LT.hideDialog();
     });
 
-    LT.itemsApp().on('test:panel:show', () => {
+    LT.eventBus.on('test:panel:show', () => {
         setTimeout(() => {
             const elLinks = document.querySelectorAll('.essay-limit-character-item');
             if (elLinks) {

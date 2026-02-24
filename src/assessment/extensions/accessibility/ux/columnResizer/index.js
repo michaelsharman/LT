@@ -29,9 +29,9 @@ const state = {
  * @ignore
  */
 function run() {
-    LT.itemsApp().on('item:load', () => {
+    LT.eventBus.on('item:load', () => {
         setupResizer();
-    });
+    }, 'columnResizer');
 
     window.addEventListener('resize', () => {
         debounce(setupResizer, 250);

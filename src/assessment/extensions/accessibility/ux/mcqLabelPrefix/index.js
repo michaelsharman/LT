@@ -69,14 +69,14 @@ function run(config) {
         state.explicitPrefixes = prefixes;
     }
 
-    LT.itemsApp().on('item:changed', () => {
+    LT.eventBus.on('item:load', () => {
         addPrefix(LT.questions());
-    });
+    }, 'mcqLabelPrefix');
 }
 
 /**
  *
- * @param {array} q Array of questions, if any, on the current item
+ * @param {array} itemQuestions Array of questions, if any, on the current item
  * @since 0.6.0
  * @ignore
  */

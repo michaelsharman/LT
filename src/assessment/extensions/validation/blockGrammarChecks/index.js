@@ -23,14 +23,14 @@ import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
  */
 function run() {
     // Set up a listener on item load for any Plain Text or Essay question types
-    LT.itemsApp().on('item:load', setupGrammarBlocker);
+    LT.eventBus.on('item:load', setupGrammarBlocker, 'blockGrammarChecks');
 
     if (LT.hasAnnotations()) {
         // Define annotation-related events
         const annotationEvents = ['notepad:toggleVisibility', 'stickynote:add'];
 
         // Attach listeners for annotation events
-        annotationEvents.forEach(event => LT.annotationsApp.on(event, setupGrammarBlocker));
+        annotationEvents.forEach(event => LT.annotationsApp().on(event, setupGrammarBlocker));
     }
 }
 

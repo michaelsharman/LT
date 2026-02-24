@@ -99,6 +99,41 @@ LT.isLastItemInSection();
 LT.questionResponse();
 ```
 
+## Event Bus
+
+LT includes an event bus that solves race condition issues where extensions might miss early events from the Learnosity API (such as `item:load` or `test:start` that fire before extensions are ready).
+
+### How it works
+
+When you call `LT.init()`, Learnosity API events are automatically routed through `LT.eventBus`. Critical events that fire before extensions are ready are buffered and automatically replayed when extensions subscribe.
+
+### Usage
+
+Extensions should listen to events via `LT.eventBus.on()`:
+
+```javascript
+// Listen to item:load - will receive buffered event if it already fired
+LT.eventBus.on('item:load', () => {
+    console.log('Item loaded');
+});
+
+// The on() method returns an unsubscribe function
+const unsubscribe = LT.eventBus.on('section:changed', (data) => {
+    console.log('Section changed', data);
+});
+
+// Later, to stop listening
+unsubscribe();
+```
+
+### Buffered Events
+
+The following critical events are buffered for replay: `item:load`, `item:changed`, `test:start`, `test:reading:start`.
+
+### Routed Events
+
+These events are routed through the event bus: `item:load`, `item:changed`, `test:start`, `test:reading:start`, `test:reading:end`, `unfocused`, `focused`, `item:warningOnChange`, `items:fetch:done`, `section:changed`, `test:panel:show`, `test:panel:shown`, `test:pause`, `test:resume`, `test:save`, `test:save:success`, `test:save:error`, `test:submit`, `test:submit:success`, `test:submit:error`, `test:finished:save`, `test:finished:submit`, `test:finished:discard`, `time:end`, `item:beforeunload`.
+
 ## Author API
 
 ```

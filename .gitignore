@@ -1,9 +1,9 @@
 node_modules
-_dist
+dist
 .DS_Store
 coverage
 .vscode
 
 
-#Ignore vscode AI rules
-.github/instructions/codacy.instructions.md
+# Ignore vscode AI rules
+.github/instructions/*

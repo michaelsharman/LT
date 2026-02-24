@@ -35,7 +35,19 @@ LT.isLastItemInSection();
 
 // See the question response object
 LT.questionResponse();
-</code></pre><h2 id="author-api">Author API</h2><pre class="prettyprint source"><code>// Declare and set your variable with the Author API LearnosityItems.init() method
+</code></pre><h2 id="event-bus">Event Bus</h2><p>LT includes an event bus that solves race condition issues where extensions might miss early events from the Learnosity API (such as <code>item:load</code> or <code>test:start</code> that fire before extensions are ready).</p><h3 id="how-it-works">How it works</h3><p>When you call <code>LT.init()</code>, Learnosity API events are automatically routed through <code>LT.eventBus</code>. Critical events that fire before extensions are ready are buffered and automatically replayed when extensions subscribe.</p><h3 id="usage-1">Usage</h3><p>Extensions should listen to events via <code>LT.eventBus.on()</code>:</p><pre class="prettyprint source lang-javascript"><code>// Listen to item:load - will receive buffered event if it already fired
+LT.eventBus.on('item:load', () => {
+    console.log('Item loaded');
+});
+
+// The on() method returns an unsubscribe function
+const unsubscribe = LT.eventBus.on('section:changed', (data) => {
+    console.log('Section changed', data);
+});
+
+// Later, to stop listening
+unsubscribe();
+</code></pre><h3 id="buffered-events">Buffered Events</h3><p>The following critical events are buffered for replay: <code>item:load</code>, <code>item:changed</code>, <code>test:start</code>, <code>test:reading:start</code>.</p><h3 id="routed-events">Routed Events</h3><p>These events are routed through the event bus: <code>item:load</code>, <code>item:changed</code>, <code>test:start</code>, <code>test:reading:start</code>, <code>test:reading:end</code>, <code>unfocused</code>, <code>focused</code>, <code>item:warningOnChange</code>, <code>items:fetch:done</code>, <code>section:changed</code>, <code>test:panel:show</code>, <code>test:panel:shown</code>, <code>test:pause</code>, <code>test:resume</code>, <code>test:save</code>, <code>test:save:success</code>, <code>test:save:error</code>, <code>test:submit</code>, <code>test:submit:success</code>, <code>test:submit:error</code>, <code>test:finished:save</code>, <code>test:finished:submit</code>, <code>test:finished:discard</code>, <code>time:end</code>, <code>item:beforeunload</code>.</p><h2 id="author-api">Author API</h2><pre class="prettyprint source"><code>// Declare and set your variable with the Author API LearnosityItems.init() method
 const authorApp = LearnosityAuthor.init(signedConfigObject);
 
 // The rest of your API set-up code

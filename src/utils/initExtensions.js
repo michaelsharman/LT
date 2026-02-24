@@ -240,6 +240,13 @@ export async function runExtensions(
         perfPush(perf, { id: '__init__', phase: 'css:inject', ms: now() - tCssInject0 });
     }
 
+    // Mark eventBus as ready (clears buffered events after all extensions have loaded)
+    if (type === 'assessment' && LT.eventBus) {
+        const tReady0 = now();
+        LT.eventBus.markReady();
+        perfPush(perf, { id: '__init__', phase: 'eventBus:ready', ms: now() - tReady0 });
+    }
+
     perfPush(perf, { id: '__init__', phase: 'total', ms: now() - tInit0 });
 
     // Only print when asked

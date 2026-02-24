@@ -1,5 +1,5 @@
-import { c as U, L as z } from "../../extensionsFactory-BHOEyOSK.js";
-const B = {
+import { c as U, L as k } from "../../extensionsFactory-BHOEyOSK.js";
+const z = {
   zoom: 4,
   shape: "square",
   // 'square' | 'circle'
@@ -12,24 +12,24 @@ const B = {
 }, g = {
   initialised: !1,
   instance: null,
-  options: { ...B }
+  options: { ...z }
 };
 function _(u) {
   if (g.initialised) {
-    z.utils.logger.debug("Magnifier already initialised; ignoring run()");
+    k.utils.logger.debug("Magnifier already initialised; ignoring run()");
     return;
   }
-  g.initialised = !0, g.options = { ...B, ...u || {} };
+  g.initialised = !0, g.options = { ...z, ...u || {} };
 }
 function E() {
   return g.instance || (g.instance = new Q(g.options)), g.instance;
 }
 function F(u = "lrn__magnifier") {
-  document.querySelectorAll(`.${u}`).forEach((w) => {
-    w.addEventListener("click", () => {
+  document.querySelectorAll(`.${u}`).forEach((v) => {
+    v.addEventListener("click", () => {
       E().toggle();
     });
-  }), z.itemsApp().on("item:load", G);
+  }), k.eventBus.on("item:load", G, "magnifier");
 }
 function P() {
   E().hide();
@@ -42,8 +42,8 @@ function j() {
 }
 function Q(u) {
   const n = this;
-  n.options = { ...B, ...u || {} };
-  const w = `
+  n.options = { ...z, ...u || {} };
+  const v = `
 <div id="lt__magnifier" class="magnifier" style="display:none;position:fixed;overflow:hidden;background-color:#fff;border:2px solid #555;border-radius:6px;z-index:10000;">
   <div class="magnifier-content" style="top:0;left:0;position:absolute;display:block;transform-origin:left top;user-select:none;"></div>
   <div class="magnifier-glass" style="position:absolute;inset:0;opacity:0;background-color:#fff;cursor:move;"></div>
@@ -53,26 +53,26 @@ function Q(u) {
   document.addEventListener("keydown", (t) => {
     t.key === "Escape" && n.isVisible() && n.hide();
   });
-  function N(t, e, o) {
+  function B(t, e, o) {
     t.style.left = `${e}px`, t.style.top = `${o}px`;
   }
   function H(t, e, o) {
     t.style.width = `${e}px`, t.style.height = `${o}px`;
   }
-  function v() {
+  function w() {
     const { shape: t, width: e, height: o, zoom: i } = n.options;
     H(s, e, o), s.style.borderRadius = t === "circle" ? "50%" : "4px", c.style.transform = `scale(${i})`;
   }
   function p() {
-    const t = s.getBoundingClientRect(), e = s.clientWidth, o = s.clientHeight, i = e / 2, l = o / 2, a = n.options.zoom, d = k || document.scrollingElement || document.documentElement, h = d === document.scrollingElement || d === document.documentElement ? { left: 0, top: 0 } : d.getBoundingClientRect(), T = d.scrollLeft || 0, C = d.scrollTop || 0, M = T + (t.left - h.left) + i, r = C + (t.top - h.top) + l, f = Number(n.options.sampleOffsetX) || 0, y = Number(n.options.sampleOffsetY) || 0, $ = Math.round(i + f - M * a), D = Math.round(l + y - r * a);
-    N(c, $, D), X("viewPortChanged", c);
+    const t = s.getBoundingClientRect(), e = s.clientWidth, o = s.clientHeight, i = e / 2, l = o / 2, a = n.options.zoom, d = X || document.scrollingElement || document.documentElement, h = d === document.scrollingElement || d === document.documentElement ? { left: 0, top: 0 } : d.getBoundingClientRect(), T = d.scrollLeft || 0, C = d.scrollTop || 0, M = T + (t.left - h.left) + i, r = C + (t.top - h.top) + l, f = Number(n.options.sampleOffsetX) || 0, y = Number(n.options.sampleOffsetY) || 0, $ = Math.round(i + f - M * a), D = Math.round(l + y - r * a);
+    B(c, $, D), N("viewPortChanged", c);
   }
   function Y() {
     c.innerHTML = "";
     const t = document.body, e = t.cloneNode(!0), o = getComputedStyle(t);
-    s.style.backgroundColor = o.backgroundColor || "#fff", e.style.margin = o.margin, e.style.padding = o.padding || "0", e.style.boxSizing = o.boxSizing || "border-box", e.style.cursor = "auto", e.style.paddingTop = "0px", e.setAttribute("unselectable", "on"), c.appendChild(e), k = O();
+    s.style.backgroundColor = o.backgroundColor || "#fff", e.style.margin = o.margin, e.style.padding = o.padding || "0", e.style.boxSizing = o.boxSizing || "border-box", e.style.cursor = "auto", e.style.paddingTop = "0px", e.setAttribute("unselectable", "on"), c.appendChild(e), X = O();
     const i = document.documentElement, l = Math.max(i.scrollWidth, i.clientWidth), a = Math.max(i.scrollHeight, i.clientHeight);
-    H(c, l, a), X("contentUpdated", c), x = !1;
+    H(c, l, a), N("contentUpdated", c), x = !1;
   }
   function q(t) {
     const e = [];
@@ -101,7 +101,7 @@ function Q(u) {
         for (let o = 0; o < e.length; o++)
           R(s, e[o]) || q(e[o]);
       }
-      X("syncScrollBars", c);
+      N("syncScrollBars", c);
     }
   }
   function R(t, e) {
@@ -116,7 +116,7 @@ function Q(u) {
   function S() {
     m && (A && cancelAnimationFrame(A), A = requestAnimationFrame(W));
   }
-  function X(t, e) {
+  function N(t, e) {
     const o = L[t];
     if (o)
       for (let i = 0; i < o.length; i++)
@@ -137,14 +137,14 @@ function Q(u) {
       if (!h)
         return;
       const f = r.clientX ?? r.touches?.[0]?.clientX, y = r.clientY ?? r.touches?.[0]?.clientY;
-      N(t, Math.round(i + (f - a)), Math.round(l + (y - d))), e.ondrag?.(r);
+      B(t, Math.round(i + (f - a)), Math.round(l + (y - d))), e.ondrag?.(r);
     }
     function M() {
       h = !1;
     }
     t.addEventListener("mousedown", T), t.addEventListener("touchstart", T, { passive: !1 }), window.addEventListener("mousemove", C, { passive: !0 }), window.addEventListener("touchmove", C, { passive: !0 }), window.addEventListener("mouseup", M, { passive: !0 }), window.addEventListener("touchend", M, { passive: !0 });
   }
-  let k = null;
+  let X = null;
   function O() {
     const t = [document.querySelector(".lrn-assess"), document.querySelector("#app"), document.scrollingElement].filter(Boolean);
     for (const e of t) {
@@ -157,13 +157,13 @@ function Q(u) {
   window.addEventListener(
     "scroll",
     (t) => {
-      t && t.target && t.target !== document && t.target !== window && (k = t.target), b(t), S();
+      t && t.target && t.target !== document && t.target !== window && (X = t.target), b(t), S();
     },
     { passive: !0, capture: !0 }
   );
   function V() {
     const t = document.createElement("div");
-    t.innerHTML = w, s = t.querySelector(".magnifier"), c = s.querySelector(".magnifier-content"), document.body.appendChild(s), window.addEventListener(
+    t.innerHTML = v, s = t.querySelector(".magnifier"), c = s.querySelector(".magnifier-content"), document.body.appendChild(s), window.addEventListener(
       "resize",
       () => {
         x = !0, S();
@@ -178,29 +178,29 @@ function Q(u) {
     ), I(s, { ondrag: () => p() });
   }
   return n.setZoom = (t) => {
-    n.options.zoom = Number(t) || n.options.zoom, v(), p();
+    n.options.zoom = Number(t) || n.options.zoom, w(), p();
   }, n.setShape = (t, e, o) => {
-    n.options.shape = t, e && (n.options.width = e), o && (n.options.height = o), v(), p();
+    n.options.shape = t, e && (n.options.width = e), o && (n.options.height = o), w(), p();
   }, n.setWidth = (t) => {
-    n.options.width = t, v(), p();
+    n.options.width = t, w(), p();
   }, n.setHeight = (t) => {
-    n.options.height = t, v(), p();
+    n.options.height = t, w(), p();
   }, n.getZoom = () => n.options.zoom, n.getShape = () => n.options.shape, n.getWidth = () => n.options.width, n.getHeight = () => n.options.height, n.isVisible = () => m, n.on = (t, e) => {
     L[t] = L[t] || [], L[t].push(e);
   }, n.syncScrollBars = () => b(), n.syncContent = () => S(), n.hide = () => {
     c.innerHTML = "", s.style.display = "none", m = !1;
   }, n.show = (t) => {
     const { width: e, height: o } = n.options, i = t?.clientX ?? 200, l = t?.clientY ?? 200, a = Math.max(0, Math.round(i - e / 2)), d = Math.max(0, Math.round(l - o / 2));
-    v(), x && Y(), N(s, a, d), s.style.display = "", m = !0, p(), b();
+    w(), x && Y(), B(s, a, d), s.style.display = "", m = !0, p(), b();
   }, n.toggle = () => n.isVisible() ? n.hide() : n.show(), V(), n;
 }
 function G() {
-  const u = z.itemElement();
+  const u = k.itemElement();
   if (!u)
     return;
   const n = u.querySelectorAll("img");
-  !n || !n.length || n.forEach((w) => {
-    w.addEventListener("click", (s) => {
+  !n || !n.length || n.forEach((v) => {
+    v.addEventListener("click", (s) => {
       const c = E();
       c.isVisible() || c.show(s);
     });
