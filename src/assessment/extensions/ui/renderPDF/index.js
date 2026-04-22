@@ -1,4 +1,5 @@
 import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
+import { isPdfUrl } from '../../../../utils/url.js';
 
 /**
  * Renders any PDF uploaded as a <a href="https://authorguide.learnosity.com/hc/en-us/articles/360000759117-Adding-Resources-to-Questions-and-Features" target="_blank">resource</a>
@@ -54,13 +55,14 @@ function doRenderPDF() {
     }
 
     resources.forEach(resource => {
-        const anchor = resource.querySelector('a');
+        const anchor = resource.querySelector('span.resource a');
+
         if (!anchor) {
             return;
         }
 
         const url = anchor.getAttribute('href') || '';
-        if (!url.toLowerCase().endsWith('.pdf')) {
+        if (!isPdfUrl(url)) {
             return;
         }
 
@@ -87,7 +89,6 @@ function mountNativePdf(resourceEl, url) {
     const iframe = document.createElement('iframe');
     iframe.className = 'pdf-viewer';
     iframe.allow = 'fullscreen';
-    iframe.setAttribute('allowfullscreen', '');
 
     wrapper.appendChild(iframe);
     resourceEl.before(wrapper);

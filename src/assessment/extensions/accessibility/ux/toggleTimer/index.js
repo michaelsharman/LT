@@ -1,6 +1,12 @@
 import { createExtension, LT } from '../../../../../utils/extensionsFactory.js';
 
 /**
+ * <h2>DEPRECATED</h2>
+ * <p>This extension is deprecated and will be removed in a future release
+ * due to the pending release in Items API v2026.2.LTS (possibly v2026.3.LTS)</p>
+ *
+ * Toggle Timer Extension
+ *
  * Allows end users to click and show/hide the assessment timer. This is an accommodations tool.
  *
  * @param {object=} options Object of configuration options.
