@@ -78,7 +78,7 @@ export default defineConfig(({ command }) => {
                 // fileName: (format, entryName) => `${entryName}.js`,
             },
 
-            rollupOptions: {
+            rolldownOptions: {
                 treeshake: true,
             },
         },
