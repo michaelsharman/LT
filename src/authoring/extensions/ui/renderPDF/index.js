@@ -83,6 +83,7 @@ function doRenderPDF(elParent) {
  * @since 3.0.0
  * @ignore
  */
+// eslint-disable-next-line no-unused-vars
 function setupUploadOption() {
     LT.authorApp().on('widgetedit:widget:ready', () => {
         const elResourceButtons = document.querySelectorAll('.cke_button__lrnresource');

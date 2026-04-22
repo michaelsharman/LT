@@ -1,81 +1,29 @@
 /**
- * Unit tests for the EventBus utility.
- * These tests verify the event bus functionality independent of Learnosity APIs.
+ * Unit tests for the EventBus singleton exported from src/utils/eventBus.js.
  *
- * Note: We create a local EventBus class here instead of importing the singleton
- * to allow fresh instances for each test and avoid ES module mocking issues.
+ * The module exports a singleton instance, so we use vi.resetModules() plus a
+ * dynamic import in beforeEach to get a fresh instance per test.
  */
-import { jest } from '@jest/globals';
+import { describe, test, beforeEach, afterEach, expect, vi } from 'vitest';
 
-/**
- * EventBus class - copied from src/utils/eventBus.js for testing purposes.
- * This allows us to test the logic without dealing with ES module singleton issues.
- */
-class EventBus {
-    constructor() {
-        this.listeners = new Map();
-        this.bufferedEvents = new Map();
-        this.extensionsReady = false;
-        this.criticalEvents = ['item:load', 'item:changed', 'test:start', 'test:reading:start'];
-    }
+let eventBus;
 
-    on(eventName, callback) {
-        if (!this.listeners.has(eventName)) {
-            this.listeners.set(eventName, new Set());
-        }
-        this.listeners.get(eventName).add(callback);
+beforeEach(async () => {
+    vi.resetModules();
+    // Silence logger output during tests.
+    vi.spyOn(console, 'debug').mockImplementation(() => {});
+    vi.spyOn(console, 'error').mockImplementation(() => {});
+    ({ eventBus } = await import('../../src/utils/eventBus.js'));
+});
 
-        if (this.bufferedEvents.has(eventName)) {
-            const { args } = this.bufferedEvents.get(eventName);
-            callback(...args);
-        }
-
-        return () => this.off(eventName, callback);
-    }
-
-    off(eventName, callback) {
-        const listeners = this.listeners.get(eventName);
-        if (listeners) {
-            listeners.delete(callback);
-        }
-    }
-
-    emit(eventName, ...args) {
-        if (this.criticalEvents.includes(eventName) && !this.bufferedEvents.has(eventName)) {
-            this.bufferedEvents.set(eventName, { args, timestamp: Date.now() });
-        }
-
-        const listeners = this.listeners.get(eventName);
-        if (listeners && listeners.size > 0) {
-            listeners.forEach(callback => callback(...args));
-        }
-    }
-
-    markReady() {
-        this.extensionsReady = true;
-        this.bufferedEvents.clear();
-    }
-
-    hasBuffered(eventName) {
-        return this.bufferedEvents.has(eventName);
-    }
-
-    listenerCount(eventName) {
-        const listeners = this.listeners.get(eventName);
-        return listeners ? listeners.size : 0;
-    }
-}
+afterEach(() => {
+    vi.restoreAllMocks();
+});
 
 describe('EventBus', () => {
-    let eventBus;
-
-    beforeEach(() => {
-        eventBus = new EventBus();
-    });
-
     describe('on() and emit()', () => {
-        test('should invoke listener when event is emitted', () => {
-            const callback = jest.fn();
+        test('invokes listener when event is emitted', () => {
+            const callback = vi.fn();
             eventBus.on('test:event', callback);
             eventBus.emit('test:event', 'arg1', 'arg2');
 
@@ -83,9 +31,9 @@ describe('EventBus', () => {
             expect(callback).toHaveBeenCalledTimes(1);
         });
 
-        test('should invoke multiple listeners for same event', () => {
-            const callback1 = jest.fn();
-            const callback2 = jest.fn();
+        test('invokes multiple listeners for same event', () => {
+            const callback1 = vi.fn();
+            const callback2 = vi.fn();
 
             eventBus.on('test:event', callback1);
             eventBus.on('test:event', callback2);
@@ -95,18 +43,32 @@ describe('EventBus', () => {
             expect(callback2).toHaveBeenCalledWith('data');
         });
 
-        test('should not invoke listeners for different events', () => {
-            const callback = jest.fn();
+        test('does not invoke listeners for different events', () => {
+            const callback = vi.fn();
             eventBus.on('event:a', callback);
             eventBus.emit('event:b', 'data');
 
             expect(callback).not.toHaveBeenCalled();
         });
+
+        test('swallows listener errors and continues invoking others', () => {
+            const bad = vi.fn(() => {
+                throw new Error('boom');
+            });
+            const good = vi.fn();
+
+            eventBus.on('test:event', bad);
+            eventBus.on('test:event', good);
+
+            expect(() => eventBus.emit('test:event', 'x')).not.toThrow();
+            expect(bad).toHaveBeenCalledTimes(1);
+            expect(good).toHaveBeenCalledWith('x');
+        });
     });
 
     describe('off()', () => {
-        test('should unsubscribe listener', () => {
-            const callback = jest.fn();
+        test('unsubscribes listener', () => {
+            const callback = vi.fn();
             eventBus.on('test:event', callback);
             eventBus.off('test:event', callback);
             eventBus.emit('test:event');
@@ -114,8 +76,8 @@ describe('EventBus', () => {
             expect(callback).not.toHaveBeenCalled();
         });
 
-        test('should return unsubscribe function from on()', () => {
-            const callback = jest.fn();
+        test('returns unsubscribe function from on()', () => {
+            const callback = vi.fn();
             const unsubscribe = eventBus.on('test:event', callback);
 
             unsubscribe();
@@ -123,28 +85,29 @@ describe('EventBus', () => {
 
             expect(callback).not.toHaveBeenCalled();
         });
+
+        test('off() for unknown event is a no-op', () => {
+            expect(() => eventBus.off('unknown:event', () => {})).not.toThrow();
+        });
     });
 
     describe('critical event buffering', () => {
-        test('should buffer critical events (item:load)', () => {
+        test('buffers critical event item:load', () => {
             eventBus.emit('item:load', { itemId: '123' });
-
             expect(eventBus.hasBuffered('item:load')).toBe(true);
         });
 
-        test('should buffer critical events (test:start)', () => {
+        test('buffers critical event test:start', () => {
             eventBus.emit('test:start');
-
             expect(eventBus.hasBuffered('test:start')).toBe(true);
         });
 
-        test('should not buffer non-critical events', () => {
+        test('does not buffer non-critical events', () => {
             eventBus.emit('custom:event', 'data');
-
             expect(eventBus.hasBuffered('custom:event')).toBe(false);
         });
 
-        test('should only buffer first occurrence of critical event', () => {
+        test('only buffers first occurrence of critical event', () => {
             eventBus.emit('item:load', { first: true });
             eventBus.emit('item:load', { second: true });
 
@@ -154,22 +117,18 @@ describe('EventBus', () => {
     });
 
     describe('event replay', () => {
-        test('should replay buffered event to late subscriber', () => {
-            const callback = jest.fn();
+        test('replays buffered event to late subscriber', () => {
+            const callback = vi.fn();
 
-            // Emit before subscribing (simulates race condition)
             eventBus.emit('item:load', { itemId: '123' });
-
-            // Subscribe after event fired
             eventBus.on('item:load', callback);
 
-            // Should have been called with buffered data
             expect(callback).toHaveBeenCalledWith({ itemId: '123' });
             expect(callback).toHaveBeenCalledTimes(1);
         });
 
-        test('should replay with multiple arguments', () => {
-            const callback = jest.fn();
+        test('replays with multiple arguments', () => {
+            const callback = vi.fn();
 
             eventBus.emit('test:start', 'arg1', 'arg2', 'arg3');
             eventBus.on('test:start', callback);
@@ -177,18 +136,28 @@ describe('EventBus', () => {
             expect(callback).toHaveBeenCalledWith('arg1', 'arg2', 'arg3');
         });
 
-        test('should not replay non-critical events', () => {
-            const callback = jest.fn();
+        test('does not replay non-critical events', () => {
+            const callback = vi.fn();
 
             eventBus.emit('custom:event', 'data');
             eventBus.on('custom:event', callback);
 
             expect(callback).not.toHaveBeenCalled();
         });
+
+        test('replay catches subscriber errors without throwing', () => {
+            const bad = vi.fn(() => {
+                throw new Error('replay boom');
+            });
+
+            eventBus.emit('item:load', { itemId: '123' });
+            expect(() => eventBus.on('item:load', bad, 'badSubscriber')).not.toThrow();
+            expect(bad).toHaveBeenCalledWith({ itemId: '123' });
+        });
     });
 
     describe('markReady()', () => {
-        test('should clear buffered events', () => {
+        test('clears buffered events', () => {
             eventBus.emit('item:load', { itemId: '123' });
             eventBus.emit('test:start');
 
@@ -201,40 +170,37 @@ describe('EventBus', () => {
             expect(eventBus.hasBuffered('test:start')).toBe(false);
         });
 
-        test('should set extensionsReady flag', () => {
+        test('sets extensionsReady flag', () => {
             expect(eventBus.extensionsReady).toBe(false);
-
             eventBus.markReady();
-
             expect(eventBus.extensionsReady).toBe(true);
         });
 
-        test('should not replay events after markReady', () => {
-            const callback = jest.fn();
+        test('does not replay events after markReady', () => {
+            const callback = vi.fn();
 
             eventBus.emit('item:load', { itemId: '123' });
             eventBus.markReady();
             eventBus.on('item:load', callback);
 
-            // Should NOT have been called because buffer was cleared
             expect(callback).not.toHaveBeenCalled();
         });
     });
 
     describe('listenerCount()', () => {
-        test('should return 0 for event with no listeners', () => {
+        test('returns 0 for event with no listeners', () => {
             expect(eventBus.listenerCount('unknown:event')).toBe(0);
         });
 
-        test('should return correct count', () => {
+        test('returns correct count', () => {
             eventBus.on('test:event', () => {});
             eventBus.on('test:event', () => {});
 
             expect(eventBus.listenerCount('test:event')).toBe(2);
         });
 
-        test('should decrease when listener removed', () => {
-            const callback = jest.fn();
+        test('decreases when listener removed', () => {
+            const callback = vi.fn();
             eventBus.on('test:event', callback);
             eventBus.on('test:event', () => {});
 
@@ -246,4 +212,3 @@ describe('EventBus', () => {
         });
     });
 });
-

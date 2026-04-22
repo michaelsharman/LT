@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "3.0.0",
+    "version": "3.0.1",
     "private": false,
     "type": "module",
     "description": "A utility library of helpers and extensions useful when working with Learnosity APIs.",
@@ -34,6 +34,9 @@
     "sideEffects": [
         "**/*.css"
     ],
+    "files": [
+        "dist"
+    ],
     "scripts": {
         "build": "vite build",
         "build:stats": "vite build",
@@ -43,18 +46,20 @@
         "lint": "npx eslint --format table",
         "start:server": "nodemon ./tests/api-server/src/server.js",
         "start:server:background": "nodemon ./tests/api-server/src/server.js &",
-        "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand"
+        "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand",
+        "test:unit": "vitest run",
+        "test:unit:watch": "vitest",
+        "test:unit:coverage": "vitest run --coverage"
     },
     "dependencies": {
-        "@uppy/compressor": "^2.2.1",
-        "@uppy/core": "^4.4.3",
-        "@uppy/dashboard": "^4.3.2",
-        "@uppy/drag-drop": "^4.1.1",
-        "@uppy/image-editor": "^3.3.1",
-        "active-table": "^1.1.7",
-        "entities": "^7.0.0",
+        "@uppy/compressor": "^3.1.0",
+        "@uppy/core": "^5.2.0",
+        "@uppy/dashboard": "^5.1.1",
+        "@uppy/image-editor": "^4.2.0",
+        "active-table": "^1.1.8",
+        "entities": "^8.0.0",
         "howler": "^2.2.4",
-        "lodash-es": "^4.17.21",
+        "lodash-es": "^4.18.1",
         "mousetrap": "^1.6.5",
         "papaparse": "^5.5.2",
         "seedrandom": "^3.0.5",
@@ -62,30 +67,35 @@
     },
     "devDependencies": {
         "@eslint/js": "^10.0.1",
-        "@stylistic/eslint-plugin": "^5.2.2",
+        "@stylistic/eslint-plugin": "^5.10.0",
         "@types/jest": "^30.0.0",
-        "clean-jsdoc-theme": "^4.3.0",
+        "@vitest/coverage-v8": "^4.1.5",
+        "clean-jsdoc-theme": "^4.3.2",
         "css-loader": "^7.1.2",
         "docdash": "^2.0.2",
-        "ejs": "^3.1.10",
-        "eslint": "^10.0.2",
+        "ejs": "^5.0.2",
+        "eslint": "^10.2.1",
         "eslint-formatter-table": "^7.32.1",
         "express": "^5.1.0",
-        "globals": "^16.0.0",
-        "jest": "^30.0.0",
+        "globals": "^17.5.0",
+        "happy-dom": "^20.9.0",
+        "jest": "^30.3.0",
         "learnosity-sdk-nodejs": "github:Learnosity/learnosity-sdk-nodejs",
         "nodemon": "^3.1.9",
-        "npm": "^11.2.0",
         "platform-detect": "^3.0.1",
         "postcss": "^8.5.4",
         "postcss-import": "^16.1.0",
-        "puppeteer": "^24.8.0",
-        "rollup-plugin-visualizer": "^6.0.3",
+        "puppeteer": "^24.42.0",
+        "rollup-plugin-visualizer": "^7.0.1",
         "style-loader": "^4.0.0",
         "svg-inline-loader": "^0.8.2",
-        "vite": "^7.2.4"
+        "vite": "^8.0.9",
+        "vitest": "^4.1.5"
     },
-    "overrides": {
-        "rollup": "4.43.0"
+    "jest": {
+        "testPathIgnorePatterns": [
+            "/node_modules/",
+            "/tests/unit/"
+        ]
     }
 }

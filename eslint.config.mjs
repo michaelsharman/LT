@@ -53,6 +53,6 @@ export default [
         files: ['src/**/*.js'],
     },
     {
-        ignores: ['src/vendor/**', 'tests/**', 'docs/**', 'dist/**', 'vite.config.js', '.codacy/**'],
+        ignores: ['src/vendor/**', 'tests/**', 'docs/**', 'dist/**', 'vite.config.js', 'vitest.config.js', '.codacy/**'],
     },
 ];
