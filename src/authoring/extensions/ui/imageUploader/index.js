@@ -4,9 +4,9 @@ import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
 import Compressor from '@uppy/compressor';
 import ImageEditor from '@uppy/image-editor';
-import uppyCore from '@uppy/core/dist/style.min.css?inline';
-import uppyDashboard from '@uppy/dashboard/dist/style.min.css?inline';
-import uppyImageEditor from '@uppy/image-editor/dist/style.min.css?inline';
+import uppyCore from '@uppy/core/css/style.min.css?inline';
+import uppyDashboard from '@uppy/dashboard/css/style.min.css?inline';
+import uppyImageEditor from '@uppy/image-editor/css/style.min.css?inline';
 
 /**
  * Extensions add specific functionality to Learnosity APIs.
@@ -366,11 +366,7 @@ function compressImage(file) {
                         source: 'Local',
                     });
 
-                    const files = state.uppy.store.state.files;
-                    let newFileId;
-                    for (const file in files) {
-                        newFileId = file;
-                    }
+                    const newFileId = state.uppy.getFiles().at(-1)?.id;
                     addUploadButton(newFileId);
                 }, 50);
             });
