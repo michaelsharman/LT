@@ -192,6 +192,14 @@ function HTMLMagnifier(options) {
         const bodyOriginal = document.body;
         const bodyCopy = bodyOriginal.cloneNode(true);
 
+        // Remove the magnifier element from the clone to prevent it from appearing
+        // inside itself. In Safari, position:fixed inside a CSS-transformed ancestor
+        // escapes overflow:hidden clipping, making the cloned magnifier visible.
+        const clonedMagnifier = bodyCopy.querySelector('#lt__magnifier');
+        if (clonedMagnifier) {
+            clonedMagnifier.remove();
+        }
+
         // Copy key computed styles that affect horizontal/vertical offset
         const cs = getComputedStyle(bodyOriginal);
         // Background to keep a consistent backdrop
