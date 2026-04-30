@@ -3,7 +3,7 @@ import * as diagnostics from './core/diagnostics.js';
 import * as navigation from './core/navigation.js';
 import * as widgets from './core/widgets.js';
 import logger from '../utils/logger.js';
-import { runExtensions } from '../utils/initExtensions.js';
+
 
 let monitor = null;
 let MonitorCtor = null;
@@ -99,6 +99,7 @@ async function init(authorApp, options = {}) {
     }
 
     if (extensions.length) {
+        const { runExtensions } = await import('../utils/initExtensions.js');
         await runExtensions(LT, extensions, 'authoring', {
             security,
             request,

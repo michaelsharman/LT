@@ -6,7 +6,7 @@ import * as player from './core/player.js';
 import * as questions from './core/questions.js';
 import * as sections from './core/sections.js';
 import logger from '../utils/logger.js';
-import { runExtensions } from '../utils/initExtensions.js';
+
 import { eventBus } from '../utils/eventBus.js';
 
 let monitor = null;
@@ -90,6 +90,7 @@ async function init(itemsApp, options = {}) {
     }
 
     if (extensions.length) {
+        const { runExtensions } = await import('../utils/initExtensions.js');
         await runExtensions(LT, extensions, 'assessment', { perf, perfLimit });
     }
 }

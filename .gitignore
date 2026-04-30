@@ -7,3 +7,7 @@ coverage
 
 # Ignore vscode AI rules
 .github/instructions/*
+.augment/*
+
+#Ignore vscode AI rules
+.github/instructions/codacy.instructions.md
