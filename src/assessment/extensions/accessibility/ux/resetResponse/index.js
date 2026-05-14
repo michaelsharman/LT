@@ -72,8 +72,10 @@ function setupResetUI() {
             if (state.types.includes('*') || state.types.includes(q.type)) {
                 const r = q.response_id;
                 const elQuestion = document.getElementById(r);
+
                 if (elQuestion) {
                     const elResponse = elQuestion.querySelector('.lrn_response');
+
                     let elResetUI = elQuestion.querySelector(`.${state.class}`);
                     if (!elResetUI) {
                         elResponse.append(getResetUI());
@@ -117,6 +119,7 @@ function doResetResponse(e) {
     const elQuestion = e.srcElement.closest('.lrn_widget');
     const responseId = elQuestion.getAttribute('id');
     const questionInstance = LT.questionsApp().question(responseId);
+
     questionInstance.resetResponse();
 }
 

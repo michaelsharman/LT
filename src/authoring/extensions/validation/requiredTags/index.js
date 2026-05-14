@@ -98,6 +98,7 @@ function createErrorDialog() {
     }
 
     const elDialog = document.createElement('dialog');
+
     elDialog.id = 'lt__error-dialog';
     elDialog.className = 'lt__error-dialog';
     elDialog.innerHTML = `

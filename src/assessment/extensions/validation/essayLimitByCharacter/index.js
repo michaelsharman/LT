@@ -217,6 +217,7 @@ function run(config) {
     }, 'essayLimitByCharacter');
 
     const elCustomSubmit = document.querySelector('.custom_btn.item-next');
+
     if (elCustomSubmit) {
         elCustomSubmit.classList.add('lrn_btn_blue');
         setupSubmitPrevention();
@@ -266,6 +267,7 @@ function checkLimit(questionInstance, setUI = true) {
     const type = questionInstance.getQuestion().type;
     const maxLength = questionInstance.getQuestion().max_length;
     const rawResponse = questionInstance.getResponse()?.value ? questionInstance.getResponse()?.value : '';
+
     let validLength = true;
     let response;
     let strLength;
@@ -308,6 +310,7 @@ function setValidationUI(questionInstance, isValid, strLength) {
     const elLengthIndicator = elContainer.querySelector('.lrn_length_indicator');
     const warningClassIndicator = 'lrn_wordcount_warning_label';
     const warningClassEditor = 'lrn_wordcount_warning';
+
     let characterCount = String(strLength);
 
     if (questionInstance.getQuestion().type === 'plaintext') {
@@ -368,6 +371,7 @@ function setupSubmitPrevention() {
 
         LT.eventBus.on('test:panel:shown', () => {
             const elReviewSubmit = document.querySelector('.panel-footer .test-submit');
+
             if (elReviewSubmit) {
                 elReviewSubmit.addEventListener('click', checkValidResponses);
             }
@@ -404,8 +408,10 @@ function checkValidResponses(e) {
         e.stopPropagation();
 
         const itemReferences = [];
+
         for (let i = 0; i < invalidResponseIds.length; i++) {
             const temp = LT.itemByResponseId(invalidResponseIds[i]);
+
             if (temp) {
                 itemReferences.push(temp.source.reference);
             }
@@ -482,6 +488,7 @@ function loadErrorDialog(itemReferences) {
         invalidQuestionsMessage:
             LT.activity()?.config?.labelBundle?.invalidQuestionsMessage || 'The following questions are not currently valid. Please follow the links to review',
     };
+
     let template = `
         <p>${labels.invalidQuestionsMessage}</p>
         <ul>
@@ -500,9 +507,11 @@ function loadErrorDialog(itemReferences) {
     LT.eventBus.on('test:panel:show', () => {
         setTimeout(() => {
             const elLinks = document.querySelectorAll('.essay-limit-character-item');
+
             if (elLinks) {
                 elLinks.forEach(el => {
                     const itemReference = el.getAttribute('data-item-reference');
+
                     el.addEventListener('click', () => {
                         LT.itemsApp().items().goto(itemReference);
                         LT.hideDialog();

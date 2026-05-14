@@ -131,6 +131,7 @@ export function diagnostics() {
         },
         versions: v,
     };
+
     return d;
 }
 
@@ -150,6 +151,7 @@ export function diagnostics() {
  */
 export function filterEvent(event) {
     const regex = /^[a-zA-Z:*]*$/;
+
     if (regex.test(event)) {
         state.events.listenFor = event;
     } else {
@@ -168,6 +170,7 @@ export function handleEvent(event) {
     if (state.events.broadcast) {
         const eventPattern = state.events.listenFor;
         const eventListeningFor = eventPattern.replaceAll('*', '');
+
         if ((eventPattern.length === 1 && eventPattern === '*') || eventPattern === 'all') {
             logger.info(event);
         } else if (eventPattern.startsWith('*') && !eventPattern.endsWith('*')) {
@@ -214,6 +217,7 @@ export function extensionsListener() {
     if (!state.initialised) {
         window.addEventListener('extension:run', e => {
             const { name, timestamp } = e.detail;
+
             state.extensions.running.push({ name, timestamp });
         });
         state.initialised = true;

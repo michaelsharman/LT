@@ -36,6 +36,7 @@ export default class MemoryMonitor {
             limit: performance.memory.jsHeapSizeLimit,
             timestamp: Date.now(),
         };
+
         this.measurements.push(memInfo);
 
         // Keep only last 100 measurements
@@ -92,6 +93,7 @@ export default class MemoryMonitor {
             ts: m.timestamp,
         }));
         const stats = this.#summarize(pattern);
+
         return { pattern, stats };
     }
 
@@ -101,6 +103,7 @@ export default class MemoryMonitor {
      */
     printReport(windowSize = 20) {
         const { pattern, stats } = this.analyzeMemoryPattern(windowSize);
+
         console.table(
             pattern.map(p => ({
                 time: new Date(p.ts).toLocaleTimeString(),
@@ -112,6 +115,7 @@ export default class MemoryMonitor {
             const last = pattern.at(-1).usedMB;
             const delta = last - this.baselineMB;
             const when = this.baselineTs ? new Date(this.baselineTs).toLocaleTimeString() : 'baseline';
+
             logger.log(`Approx delta since baseline (${when}): ${delta.toFixed(1)} MB`);
         }
 
@@ -148,6 +152,7 @@ export default class MemoryMonitor {
 
     #linreg(xs, ys) {
         const n = xs.length;
+
         if (n < 2) {
             return { slope: 0, intercept: ys[0] ?? 0, r2: 0 };
         }

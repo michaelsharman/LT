@@ -58,12 +58,14 @@ function detectBrowserFromUA(ua) {
 function detectOSFromUA(ua) {
     // iPadOS masquerading as Mac: "Macintosh; Intel Mac OS X" + Mobile/Safari tokens
     const isIPadOSMasquerade = /Macintosh/.test(ua) && /Mobile\//.test(ua) && /Safari/.test(ua);
+
     if (isIPadOSMasquerade) {
         return { name: 'iOS', version: undefined };
     }
 
     if (RE.win.test(ua)) {
         const raw = first(RE.win, ua);
+
         return { name: 'Windows', version: raw || undefined };
     }
     if (/iPhone|iPad|iPod/.test(ua)) {
@@ -117,10 +119,12 @@ function detectEngineFromUA(ua) {
 function refineBrowserNameFromBrands(current, uaData) {
     try {
         const brands = uaData && (uaData.brands || uaData.getBrands?.());
+
         if (!brands || !brands.length) {
             return current;
         }
         const major = brands.filter(b => !/Not.?A.?Brand/i.test(b.brand)).sort((a, b) => parseInt(b.version, 10) - parseInt(a.version, 10))[0];
+
         if (major && major.brand) {
             // Keep version from UA if that’s all we have; just improve the name.
             return withVersionMajor({ name: major.brand, version: current.version });
@@ -234,6 +238,7 @@ export async function detectEnv() {
 
     // Fallback: low-entropy brands + UA parsing
     const env = detectEnvSync();
+
     // ensure meta.source reflects the fallback accurately
     env.meta.source = (env.meta && env.meta.source) || 'ua';
 
@@ -242,6 +247,7 @@ export async function detectEnv() {
 
 function first(rx, ua) {
     const m = ua.match(rx);
+
     return m ? m[1] : undefined;
 }
 
@@ -256,6 +262,7 @@ function normalize(v) {
 function withVersionMajor(obj) {
     if (obj && obj.version && typeof obj.version === 'string') {
         const major = obj.version.split('.')[0];
+
         if (major) {
             obj.versionMajor = major;
         }

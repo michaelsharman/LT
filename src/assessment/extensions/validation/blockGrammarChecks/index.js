@@ -51,6 +51,7 @@ function setupGrammarBlocker() {
     // Look for found plain text or essay question types
     for (let i = 0; i < elementClassnames.length; i++) {
         const $els = $elLearnosityNode.getElementsByClassName(elementClassnames[i]);
+
         if ($els.length) {
             for (let j = 0; j < $els.length; j++) {
                 addBlockingAttributes($els[j]);
@@ -60,6 +61,7 @@ function setupGrammarBlocker() {
 
     // Look for any textareas inside the Learnosity Items API
     const $elTextareas = $elLearnosityNode.getElementsByTagName('textarea');
+
     for (let l = 0; l < $elTextareas.length; l++) {
         addBlockingAttributes($elTextareas[l]);
     }

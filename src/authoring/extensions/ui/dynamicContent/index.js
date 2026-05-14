@@ -82,6 +82,7 @@ function run(options) {
 
     // Inject class for specificity
     const elLrnApi = document.querySelector('.lrn-author');
+
     elLrnApi.classList.add('lt__dynamicContent');
 
     // Needed for importing anything other than csv
@@ -93,6 +94,7 @@ function run(options) {
         setTimeout(() => {
             if (['items/:reference/settings/:tab', undefined].includes(LT.authorApp().getLocation().route)) {
                 const lastElement = LT.authorApp().getLocation().location.split('/').pop();
+
                 if (lastElement === 'data-table') {
                     setObserver('.lrn-author-datatable-editor', setup, {
                         dispatchEvent: false,
@@ -148,6 +150,7 @@ function setup() {
             // Add help text
             if (state.options.labels.csvUploadHelp.length) {
                 const elHelpText = document.createElement('p');
+
                 elHelpText.className = 'lt-dynamic-content-help-text';
                 elHelpText.textContent = state.options.labels.csvUploadHelp;
                 elAPIDataSourceHeader.appendChild(elHelpText);
@@ -156,6 +159,7 @@ function setup() {
             // Add validation help text for the header row
             if (state.options.labels.headerValidationHelp.length) {
                 const elValidationText = document.createElement('p');
+
                 elValidationText.className = 'lrn-author-message lrn-author-message-small lrn-author-message-info';
                 elValidationText.textContent = state.options.labels.headerValidationHelp;
                 elAPIDataSourceHeader.appendChild(elValidationText);
@@ -167,6 +171,7 @@ function setup() {
         }
 
         const dataTable = getElement('#dynamic-content-table');
+
         if (dataTable) {
             const currentData = state.currentData.length ? state.currentData : state.defaultData;
             const debouncedUpdateAPI = debounce(updateAPIDataTable, 200);
@@ -206,6 +211,7 @@ function updateAPIDataTable(data) {
         skipEmptyLines: 'greedy',
     };
     const csv = Papa.unparse(data, config);
+
     document.querySelector('.CodeMirror').CodeMirror.getDoc().setValue(csv);
     state.currentData = data;
 }
@@ -252,10 +258,12 @@ function checkHeader(data) {
  */
 function actionContinue() {
     const elAPIDataSourceHeader = getElement('.lrn-author-datatable-header');
+
     elAPIDataSourceHeader.querySelector('.lrn-author-form-label-name').textContent = state.options.labels.headerLabel;
 
     setTimeout(() => {
         const elEditBtn = getElement('[data-authorapi-selector="datatable-preview-edit"]');
+
         if (elEditBtn) {
             elEditBtn.addEventListener('click', () => {
                 setTimeout(() => {
@@ -268,6 +276,7 @@ function actionContinue() {
         }
 
         const elResetBtn = getElement('[data-authorapi-selector="datatable-preview-reset"]');
+
         elResetBtn.addEventListener('click', () => {
             if (elResetBtn.classList.contains('lrn-author-btn-confirm-active')) {
                 setTimeout(() => {
@@ -293,6 +302,7 @@ function getElement(selector) {
     }
 
     const el = document.querySelector(selector);
+
     if (el) {
         state.elements[selector] = el;
     }

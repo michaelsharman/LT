@@ -62,6 +62,7 @@ function run(config = {}) {
                     tabContainer.querySelectorAll('a[data-tab-target]').forEach(anchor => {
                         if (!anchor.hasAttribute('title') || anchor.getAttribute('title') === '') {
                             const escapedText = escapeHTML(anchor.textContent.trim());
+
                             anchor.setAttribute('title', escapedText);
                         }
                     });
@@ -119,6 +120,7 @@ function validateOptions(options) {
  */
 function getStyles() {
     const css = '/* Learnosity content tab styles */';
+
     return css.concat('\n', getTabsTheme(state.options.theme));
 }
 
@@ -202,6 +204,7 @@ function getTabsTheme(theme) {
             padding-top: 10px;
         }
     `;
+
     let themeCss = '',
         customProperties = '';
 

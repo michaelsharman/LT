@@ -86,6 +86,7 @@ export function hideDialog() {
  */
 export function isFullscreen() {
     const elPlayer = document.querySelector('.lrn-assess');
+
     return elPlayer?.classList.contains('lrn-fullscreen') ?? false;
 }
 
@@ -216,6 +217,7 @@ export function navigate(target) {
                     logger.error('Submission failed: ', event);
                 },
             };
+
             itemsApp().submit(submitSettings);
             break;
         default:

@@ -38,6 +38,7 @@ function run() {
 
         for (let i = 0; i < elNav.length; i++) {
             const attr = elNav[i].getAttribute('aria-label');
+
             elNav[i].setAttribute('aria-live', attr + ' of ' + state.totalItems);
         }
     }, 'ariaCountOnNav');

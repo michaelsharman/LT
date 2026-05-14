@@ -188,6 +188,7 @@ function setupModalObserver() {
                     '[data-authorapi-selector="asset-uploader-iframe-outlet"]:not(.lrn-author-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"]):not(.lrn-qe-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"])'
                 );
                 const elResourceDisplayName = document.querySelector('[data-authorapi-selector="asset-display-name"]');
+
                 if (modal && !elResourceDisplayName) {
                     LT.utils.logger.debug(`${state.logPrefix}Disconnecting observer`);
                     clearObserver();
@@ -305,6 +306,7 @@ function setupUploadLibrary() {
     state.uppy.on('file-added', file => {
         LT.utils.logger.debug(`${state.logPrefix}file-added: ${file.source}`);
         const elMoreOptions = document.querySelector(`.lrn-${state.classNamePrefix}adv-options`);
+
         elMoreOptions.setAttribute('hidden', '');
 
         if (file.source === 'Dashboard') {
@@ -367,6 +369,7 @@ function compressImage(file) {
                     });
 
                     const newFileId = state.uppy.getFiles().at(-1)?.id;
+
                     addUploadButton(newFileId);
                 }, 50);
             });
@@ -389,6 +392,7 @@ function addUploadButton(fileId) {
 
     const elUploadButton = document.createElement('button');
     const cssOldSuffix = state.classNamePrefix ? '-old' : '';
+
     elUploadButton.setAttribute(
         'class',
         `lrn-${state.classNamePrefix}btn${cssOldSuffix} lrn-${state.classNamePrefix}btn${cssOldSuffix}-legacy lt__image-uploader-upload-btn`
@@ -421,15 +425,18 @@ function removeUploadButton() {
  */
 function uploadImage(fileId) {
     const elUploadButton = document.querySelector('.lt__image-uploader-upload-btn');
+
     elUploadButton.removeEventListener('click', () => uploadImage(fileId));
 
     const elEditButton = document.querySelector('.uppy-Dashboard-Item-action--edit');
+
     elEditButton?.setAttribute('disabled', '');
 
     const file = state.uppy.getFile(fileId);
 
     // Add loading spinner and hide text
     const elButton = document.querySelector('.lt__image-uploader-upload-btn');
+
     elButton.setAttribute('style', 'width:105px;');
     elButton.innerHTML =
         '<span class="lt__upload-spinner"><svg width="14" height="14" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><style>.spinner_6kVp{transform-origin:center;animation:spinner_irSm .75s infinite linear}@keyframes spinner_irSm{100%{transform:rotate(360deg)};fill:#ffffff;}</style><path d="M10.72,19.9a8,8,0,0,1-6.5-9.79A7.77,7.77,0,0,1,10.4,4.16a8,8,0,0,1,9.49,6.52A1.54,1.54,0,0,0,21.38,12h.13a1.37,1.37,0,0,0,1.38-1.54,11,11,0,1,0-12.7,12.39A1.54,1.54,0,0,0,12,21.34h0A1.47,1.47,0,0,0,10.72,19.9Z" class="spinner_6kVp" style="fill: white"/></svg></span>';
@@ -443,6 +450,7 @@ function uploadImage(fileId) {
         security: state.upload.security,
         request: state.upload.request,
     };
+
     formData.append('usrequest', JSON.stringify(request.usrequest));
     formData.append('action', request.action);
     formData.append('security', JSON.stringify(request.security));
@@ -453,6 +461,7 @@ function uploadImage(fileId) {
             method: 'POST',
             body: formData,
         });
+
         return response.json();
     }
 
@@ -460,6 +469,7 @@ function uploadImage(fileId) {
         .then(response => {
             // Now we upload the image to the Learnosity CDN
             const uploadData = new FormData();
+
             uploadData.append('key', response.data.formInputs.key);
             uploadData.append('Content-Type', response.data.formInputs['Content-Type']);
             uploadData.append('X-Amz-Security-Token', response.data.formInputs['X-Amz-Security-Token']);
@@ -475,6 +485,7 @@ function uploadImage(fileId) {
                     method: 'POST',
                     body: uploadData,
                 });
+
                 return uploadImageResponse;
             }
 
@@ -495,8 +506,10 @@ function uploadImage(fileId) {
                         const elAltText = document.querySelector(
                             `.lrn-author-item .lrn-${state.classNamePrefix}image-uploader [data-authorapi-selector="asset-uploader-alignment"]`
                         );
+
                         if (btnReset && !elAltText) {
                             const btnOk = document.querySelector('[data-authorapi-selector="asset-uploader-okay"]');
+
                             if (btnOk) {
                                 btnOk.click();
                                 LT.utils.logger.debug(`${state.logPrefix}Clicked OK button for background images`);
@@ -572,6 +585,7 @@ function prepareModalButtons() {
             for (const mutation of mutationsList) {
                 if (mutation.type === 'childList') {
                     const element = document.querySelector(selector);
+
                     if (element) {
                         callback(element);
                         observer.disconnect();
@@ -584,6 +598,7 @@ function prepareModalButtons() {
 
         // In case the element is already present when this function is called
         const initialCheck = document.querySelector(selector);
+
         if (initialCheck) {
             callback(initialCheck);
             observer.disconnect();
@@ -595,6 +610,7 @@ function prepareModalButtons() {
             LT.utils.logger.debug(`${state.logPrefix}waitForElement() observed`);
             for (const btn of elCloseButtons) {
                 const elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
+
                 if (elBtn) {
                     elBtn.addEventListener('click', clickHandler);
                     LT.utils.logger.debug(`Adding clickHanders for: ${btn}`);
@@ -617,6 +633,7 @@ function prepareModalButtons() {
     function removeHandler() {
         for (const btn of elCloseButtons) {
             const elBtn = modalParent.querySelector(`.lrn-${state.classNamePrefix}modal-dialog button.${btn}`);
+
             if (elBtn) {
                 LT.utils.logger.debug(`${state.logPrefix}Removed clickHandler`);
                 elBtn.removeEventListener('click', clickHandler);
@@ -624,6 +641,7 @@ function prepareModalButtons() {
         }
 
         const src = document.querySelector('[data-authorapi-selector="asset-uploader-source"]');
+
         if (src) {
             src.removeEventListener('input', handleSelfHostedImage);
         }

@@ -64,6 +64,7 @@ function setupResizer() {
         if (!isResponsiveMode && !hasResizer) {
             const helpId = randomId();
             const elResizer = document.createElement('div');
+
             elResizer.classList.add('lt__resizer');
             elResizer.setAttribute('role', 'separator');
             elResizer.setAttribute('aria-orientation', 'horizontal');
@@ -72,6 +73,7 @@ function setupResizer() {
             elResizer.setAttribute('aria-describedby', `lt__helpText-${helpId}`);
 
             const elTab = document.createElement('span');
+
             elTab.classList.add('lt__resizer-tab', 'lt__tooltip');
             elTab.setAttribute('data-tooltip', 'Click and hold to drag column width');
             elTab.setAttribute('tabindex', '0');
@@ -79,6 +81,7 @@ function setupResizer() {
                 '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-grip-vertical-icon lucide-grip-vertical"><circle cx="9" cy="12" r="1"/><circle cx="9" cy="5" r="1"/><circle cx="9" cy="19" r="1"/><circle cx="15" cy="12" r="1"/><circle cx="15" cy="5" r="1"/><circle cx="15" cy="19" r="1"/></svg>';
 
             const elHelpText = document.createElement('span');
+
             elHelpText.classList.add('sr-only');
             elHelpText.setAttribute('id', `lt__helpText-${helpId}`);
             elHelpText.textContent = 'Press space to activate resize mode. Then use arrow keys to adjust the panel width. Press space again to finish.';
@@ -118,6 +121,7 @@ function doResize(elItem) {
     const resizable = elResizer => {
         const prevSibling = elResizer.previousElementSibling;
         const container = elResizer.parentNode;
+
         let isActive = false;
         let prevSiblingWidth = 0;
 
@@ -130,6 +134,7 @@ function doResize(elItem) {
                 x = e.targetTouches[0].clientX;
             }
             const rect = prevSibling.getBoundingClientRect();
+
             prevSiblingWidth = rect.width;
 
             isActive = true;
@@ -191,12 +196,14 @@ function doResize(elItem) {
             if (e.key === 'ArrowLeft') {
                 e.preventDefault();
                 const newWidth = Math.max(10, currentWidth - step);
+
                 prevSibling.style.width = newWidth + '%';
             }
 
             if (e.key === 'ArrowRight') {
                 e.preventDefault();
                 const newWidth = Math.min(90, currentWidth + step);
+
                 prevSibling.style.width = newWidth + '%';
             }
         };
@@ -207,6 +214,7 @@ function doResize(elItem) {
     };
 
     const elResizer = elItem.querySelector('.lt__resizer');
+
     if (elResizer) {
         resizable(elResizer);
     }

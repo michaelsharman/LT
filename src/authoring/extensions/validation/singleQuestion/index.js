@@ -51,6 +51,7 @@ function checkQuestions() {
     state.classNamePrefix = checkAppVersion(state.classNamePrefix);
 
     const item = LT.authorApp().getItem();
+
     if (item.questions.length) {
         hideAddButton();
     } else {

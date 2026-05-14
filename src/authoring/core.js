@@ -100,6 +100,7 @@ async function init(authorApp, options = {}) {
 
     if (extensions.length) {
         const { runExtensions } = await import('../utils/initExtensions.js');
+
         await runExtensions(LT, extensions, 'authoring', {
             security,
             request,

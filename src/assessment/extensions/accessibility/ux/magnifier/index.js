@@ -151,6 +151,7 @@ function HTMLMagnifier(options) {
 
     function setupMagnifier() {
         const { shape, width, height, zoom } = _this.options;
+
         setDimensions(magnifier, width, height);
         magnifier.style.borderRadius = shape === 'circle' ? '50%' : '4px';
         magnifierContent.style.transform = `scale(${zoom})`;
@@ -196,12 +197,14 @@ function HTMLMagnifier(options) {
         // inside itself. In Safari, position:fixed inside a CSS-transformed ancestor
         // escapes overflow:hidden clipping, making the cloned magnifier visible.
         const clonedMagnifier = bodyCopy.querySelector('#lt__magnifier');
+
         if (clonedMagnifier) {
             clonedMagnifier.remove();
         }
 
         // Copy key computed styles that affect horizontal/vertical offset
         const cs = getComputedStyle(bodyOriginal);
+
         // Background to keep a consistent backdrop
         magnifier.style.backgroundColor = cs.backgroundColor || '#fff';
 
@@ -224,6 +227,7 @@ function HTMLMagnifier(options) {
         const de = document.documentElement;
         const width = Math.max(de.scrollWidth, de.clientWidth);
         const height = Math.max(de.scrollHeight, de.clientHeight);
+
         setDimensions(magnifierContent, width, height);
 
         triggerEvent('contentUpdated', magnifierContent);
@@ -232,18 +236,22 @@ function HTMLMagnifier(options) {
 
     function syncScroll(ctrl) {
         const selectors = [];
+
         if (ctrl?.getAttribute) {
             const id = ctrl.getAttribute('id');
+
             if (id) {
                 selectors.push('#' + id);
             }
             const cls = String(ctrl.className || '').trim();
+
             if (cls) {
                 selectors.push('.' + cls.split(/\s+/).join('.'));
             }
 
             for (let i = 0; i < selectors.length; i++) {
                 const t = magnifierContent.querySelectorAll(selectors[i]);
+
                 if (t.length === 1) {
                     t[0].scrollTop = ctrl.scrollTop;
                     t[0].scrollLeft = ctrl.scrollLeft;
@@ -264,6 +272,7 @@ function HTMLMagnifier(options) {
             syncScroll(e.target);
         } else {
             const scrolled = [];
+
             document.querySelectorAll('div').forEach(el => {
                 if (el.scrollTop > 0) {
                     scrolled.push(el);
@@ -310,6 +319,7 @@ function HTMLMagnifier(options) {
 
     function triggerEvent(event, data) {
         const handlers = events[event];
+
         if (handlers) {
             for (let i = 0; i < handlers.length; i++) {
                 handlers[i].call(_this, data);
@@ -319,6 +329,7 @@ function HTMLMagnifier(options) {
 
     function makeDraggable(ctrl, options = {}) {
         const exclude = new Set((options.exclude || ['INPUT', 'TEXTAREA', 'SELECT', 'A', 'BUTTON']).map(s => s.toUpperCase()));
+
         let startLeft = 0,
             startTop = 0,
             startX = 0,
@@ -329,10 +340,12 @@ function HTMLMagnifier(options) {
 
         function down(e) {
             const t = e.target;
+
             if (t && (exclude.has(t.tagName) || (t.parentNode && exclude.has(t.parentNode.tagName)))) {
                 return;
             }
             const rect = ctrl.getBoundingClientRect();
+
             startLeft = rect.left;
             startTop = rect.top;
             startX = e.clientX ?? e.touches?.[0]?.clientX;
@@ -346,6 +359,7 @@ function HTMLMagnifier(options) {
             }
             const x = e.clientX ?? e.touches?.[0]?.clientX;
             const y = e.clientY ?? e.touches?.[0]?.clientY;
+
             setPosition(ctrl, Math.round(startLeft + (x - startX)), Math.round(startTop + (y - startY)));
             options.ondrag?.(e);
         }
@@ -370,6 +384,7 @@ function HTMLMagnifier(options) {
         for (const el of candidates) {
             const cs = getComputedStyle(el);
             const isScroller = /(auto|scroll)/.test(cs.overflow) || /(auto|scroll)/.test(cs.overflowX) || /(auto|scroll)/.test(cs.overflowY);
+
             if (isScroller && (el.scrollWidth > el.clientWidth || el.scrollHeight > el.clientHeight)) {
                 return el;
             }
@@ -392,6 +407,7 @@ function HTMLMagnifier(options) {
 
     function init() {
         const div = document.createElement('div');
+
         div.innerHTML = magnifierTemplate;
         magnifier = div.querySelector('.magnifier');
         magnifierContent = magnifier.querySelector('.magnifier-content');
@@ -497,11 +513,13 @@ function HTMLMagnifier(options) {
 
 function checkImageContent() {
     const elItem = LT.itemElement();
+
     if (!elItem) {
         return;
     }
 
     const elImages = elItem.querySelectorAll('img');
+
     if (!elImages || !elImages.length) {
         return;
     }
@@ -509,6 +527,7 @@ function checkImageContent() {
     elImages.forEach(img => {
         img.addEventListener('click', e => {
             const mag = ensureInstance();
+
             if (!mag.isVisible()) {
                 mag.show(e);
             }

@@ -53,17 +53,20 @@ function doRenderPDF(elParent) {
     }
 
     const resources = elParent.querySelectorAll('.lrn_widget .resource');
+
     if (!resources.length) {
         return;
     }
 
     resources.forEach(resource => {
         const anchor = resource.querySelector('a');
+
         if (!anchor) {
             return;
         }
 
         const url = anchor.getAttribute('href') || '';
+
         if (!url.toLowerCase().endsWith('.pdf')) {
             return;
         }

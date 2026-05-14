@@ -31,6 +31,38 @@ const state = {
 };
 
 /**
+ * Tracks the item reference of the most recent item:load that was handled,
+ * used to prevent duplicate processing when both the event bus replay and
+ * the queueMicrotask fallback fire for the same item.
+ * @since 3.7.0
+ * @ignore
+ */
+let lastItemLoadRef = null;
+
+/**
+ * Tracks all item references for which question and feature listeners have
+ * already been registered. Prevents duplicate listener registration when the
+ * user navigates back to a previously visited item.
+ * @since 3.8.0
+ * @ignore
+ */
+const listenerSetupRefs = new Set();
+
+/**
+ * Tracks the last known mouse cursor position and whether a touch device
+ * has been detected. Used for suspicious click detection.
+ * @since 3.7.0
+ * @ignore
+ */
+const pointer = {
+    lastX: null,
+    lastY: null,
+    prevX: null,
+    prevY: null,
+    hasTouch: false,
+};
+
+/**
  * @since 3.0.0
  * @ignore
  */
@@ -43,15 +75,21 @@ function run() {
     if (!state.initialised) {
         setupSessionEvents();
 
-        LT.eventBus.on('item:load', () => {
-            addItemLoadEvent();
-            setupQuestionEvents();
-            setupFeatureEvents();
-        }, 'events');
+        LT.eventBus.on('item:load', onItemLoad, 'events');
+
+        // Fallback: if item:load fired before LT event bus routing was established
+        // there is no buffered event to replay. Attempt immediately, same pattern as
+        // renderPDF. onItemLoad() is idempotent so a double-fire is safe.
+        if (!isIntroScreen()) {
+            queueMicrotask(onItemLoad);
+        }
 
         setupPlayerEvents();
         setupEnvironment();
         setupNetworkEvents();
+        setupVisibilityEvents();
+        setupPointerTracking();
+        setupDuplicateTabDetection();
 
         state.initialised = true;
     }
@@ -79,9 +117,33 @@ function setupSessionEvents() {
                 timestamp: getTimestamp(),
             });
         }
-        addItemLoadEvent();
-        setupQuestionEvents();
-        setupFeatureEvents();
+        // item:load is handled by the event bus listener and queueMicrotask fallback in run().
+    }
+}
+
+/**
+ * Handles an item:load event — logs the event, sets up question and feature listeners.
+ * Idempotent: guards against double-firing when both the event bus replay and the
+ * queueMicrotask fallback run for the same item (mirrors the renderPDF approach).
+ * @since 3.7.0
+ * @ignore
+ */
+function onItemLoad() {
+    const ref = LT.itemReference();
+
+    if (!ref || ref === lastItemLoadRef) {
+        return;
+    }
+
+    lastItemLoadRef = ref;
+    const itemLoadTime = getTimestamp();
+
+    addItemLoadEvent(itemLoadTime);
+
+    if (!listenerSetupRefs.has(ref)) {
+        listenerSetupRefs.add(ref);
+        setupQuestionEvents(ref, itemLoadTime);
+        setupFeatureEvents(ref);
     }
 }
 
@@ -274,7 +336,7 @@ function setupPlayerEvents() {
  * @since 3.0.0
  * @ignore
  */
-function setupQuestionEvents() {
+function setupQuestionEvents(itemRef, itemLoadTime) {
     // Types we debounce events and don't store response data for
     const debounceQuestions = [
         'audio',
@@ -312,17 +374,45 @@ function setupQuestionEvents() {
     const DEBOUNCE_INTERVAL = 30_000; // 30 seconds
     const lastTrackedTimestamps = {};
 
-    LT.questionResponseIds().forEach(responseId => {
+    // Types to monitor for paste events and high words-per-minute input
+    const wpmTypes = ['formulaessayV2', 'longtextV2', 'plaintext', 'shorttext'];
+    const WPM_THRESHOLD = 300; // words per minute above this is considered suspicious
+    const wpmTracking = {};
+
+    // Fast response detection — time from item:load to first question:changed
+    const FAST_RESPONSE_THRESHOLD_MS = 5_000; // ms below this is considered suspicious
+    const firstChangeFired = {};
+
+    // Types to monitor for suspicious click coordinates
+    const clickTypes = ['mcq'];
+
+    // CDP-based automation moves the mouse to the element in one step before clicking.
+    // We detect this by checking whether the mouse arrived at the click target via a
+    // single large jump rather than gradual movement across several mousemove events.
+    const CLICK_DISTANCE_THRESHOLD = 20; // px — max gap between click and last mouse pos to confirm they match
+    const JUMP_DISTANCE_THRESHOLD = 150; // px — single-step jump larger than this is considered a teleport
+
+    const currentItem = LT.item(itemRef);
+    const responseIds = currentItem && currentItem.questions ? currentItem.questions.map(q => q.response_id) : [];
+
+    responseIds.forEach(responseId => {
         const question = LT.itemsApp().question(responseId);
         const questionJson = question.getQuestion();
         const type = questionJson.type;
         const reference = questionJson.metadata.widget_reference;
 
+        // itemRef is captured once in onItemLoad() and passed here, guaranteeing
+        // it always matches the item that triggered the item:load event. Re-reading
+        // LT.itemReference() inside the forEach is unsafe because Learnosity can
+        // advance the current item between onItemLoad() reading `ref` and the forEach
+        // iterating each question — causing questions from one item to be attributed
+        // to the next.
+
         if (['audio', 'video'].includes(type)) {
             question.on('recording:started', () => {
                 addEvent({
                     type: 'recording:started',
-                    item: LT.itemReference(),
+                    item: itemRef,
                     question: reference,
                     timestamp: getTimestamp(),
                 });
@@ -330,7 +420,7 @@ function setupQuestionEvents() {
             question.on('recording:paused', () => {
                 addEvent({
                     type: 'recording:paused',
-                    item: LT.itemReference(),
+                    item: itemRef,
                     question: reference,
                     timestamp: getTimestamp(),
                 });
@@ -338,7 +428,7 @@ function setupQuestionEvents() {
             question.on('recording:resumed', () => {
                 addEvent({
                     type: 'recording:resumed',
-                    item: LT.itemReference(),
+                    item: itemRef,
                     question: reference,
                     timestamp: getTimestamp(),
                 });
@@ -346,24 +436,128 @@ function setupQuestionEvents() {
             question.on('recording:stopped', () => {
                 addEvent({
                     type: 'recording:stopped',
-                    item: LT.itemReference(),
+                    item: itemRef,
                     question: reference,
                     timestamp: getTimestamp(),
                 });
             });
         }
 
+        if (wpmTypes.includes(type)) {
+            // Timestamp is set at item load so the first `changed` event — even
+            // if it is the only one (e.g. programmatic / LLM fill) — is compared
+            // against an empty response at load time rather than being skipped.
+            wpmTracking[responseId] = { wordCount: 0, timestamp: getTimestamp() };
+            const elQuestion = document.getElementById(responseId);
+
+            if (elQuestion) {
+                elQuestion.addEventListener('paste', () => {
+                    addEvent({
+                        type: 'question:paste',
+                        item: itemRef,
+                        question: reference,
+                        responseId,
+                        timestamp: getTimestamp(),
+                    });
+                });
+            }
+        }
+
+        if (clickTypes.includes(type)) {
+            const elQuestion = document.getElementById(responseId);
+
+            if (elQuestion) {
+                elQuestion.addEventListener('click', e => {
+                    // e.detail === 0 means the click was triggered by keyboard
+                    // (Enter/Space) rather than a real mouse press — skip it.
+                    if (e.detail === 0) {
+                        return;
+                    }
+
+                    // No mouse movement recorded at all — suspicious on non-touch devices.
+                    if (pointer.lastX === null) {
+                        if (!pointer.hasTouch) {
+                            // Defer so that Learnosity's own changed event (and our
+                            // question:changed log entry) fires before this diagnostic.
+                            queueMicrotask(() => {
+                                addEvent({
+                                    type: 'question:suspiciousClick',
+                                    item: itemRef,
+                                    question: reference,
+                                    responseId,
+                                    data: { reason: 'noMouseMovement' },
+                                    timestamp: getTimestamp(),
+                                });
+                            });
+                        }
+                        return;
+                    }
+
+                    const clickAtLastPosition =
+                        Math.round(Math.sqrt(Math.pow(e.clientX - pointer.lastX, 2) + Math.pow(e.clientY - pointer.lastY, 2))) <= CLICK_DISTANCE_THRESHOLD;
+
+                    // Only one mousemove ever fired and it landed at the click target.
+                    // CDP automation moves the mouse directly to the element as its very
+                    // first (and only) action — there is no prior mouse history, which is
+                    // equivalent to noMouseMovement for detection purposes.
+                    if (pointer.prevX === null && clickAtLastPosition && !pointer.hasTouch) {
+                        // Defer so that Learnosity's own changed event (and our
+                        // question:changed log entry) fires before this diagnostic.
+                        queueMicrotask(() => {
+                            addEvent({
+                                type: 'question:suspiciousClick',
+                                item: itemRef,
+                                question: reference,
+                                responseId,
+                                data: { reason: 'noMouseMovement' },
+                                timestamp: getTimestamp(),
+                            });
+                        });
+                        return;
+                    }
+
+                    // Teleport detection: CDP-based automation (Puppeteer, Chrome MCP) dispatches
+                    // a single mouseMoved event directly to the element centre before clicking,
+                    // so the click coordinates match the last mouse position (distance ≈ 0) and
+                    // a simple distance check never fires. Instead we check whether the mouse
+                    // arrived at the click target via a single large jump from wherever it was
+                    // before — real users approach a target gradually across many small steps.
+                    if (pointer.prevX !== null && clickAtLastPosition) {
+                        const jumpDistance = Math.round(Math.sqrt(Math.pow(pointer.lastX - pointer.prevX, 2) + Math.pow(pointer.lastY - pointer.prevY, 2)));
+
+                        if (jumpDistance > JUMP_DISTANCE_THRESHOLD) {
+                            // Defer so that Learnosity's own changed event (and our
+                            // question:changed log entry) fires before this diagnostic.
+                            queueMicrotask(() => {
+                                addEvent({
+                                    type: 'question:suspiciousClick',
+                                    item: itemRef,
+                                    question: reference,
+                                    responseId,
+                                    data: { reason: 'mouseTeleport', jumpDistance },
+                                    timestamp: getTimestamp(),
+                                });
+                            });
+                        }
+                    }
+                });
+            }
+        }
+
         question.on('changed', () => {
             const lastTracked = lastTrackedTimestamps[responseId] || 0;
             const { revision, value } = LT.questionResponse(responseId);
 
+            // Log question:changed first so it always precedes any diagnostic events
+            // that are derived from the same change (e.g. question:suspiciousInput).
             if (debounceQuestions.includes(type) || debounceAndStoreResponse.includes(type)) {
                 if (getTimestamp() - lastTracked >= DEBOUNCE_INTERVAL) {
                     lastTrackedTimestamps[responseId] = getTimestamp();
                     const responseData = debounceAndStoreResponse.includes(type) ? { revision, value } : {};
+
                     addEvent({
                         type: 'question:changed',
-                        item: LT.itemReference(),
+                        item: itemRef,
                         question: reference,
                         responseId: responseId,
                         data: responseData,
@@ -373,19 +567,62 @@ function setupQuestionEvents() {
             } else {
                 addEvent({
                     type: 'question:changed',
-                    item: LT.itemReference(),
+                    item: itemRef,
                     question: reference,
                     responseId: responseId,
                     data: { revision, value },
                     timestamp: getTimestamp(),
                 });
             }
+
+            if (!firstChangeFired[responseId]) {
+                firstChangeFired[responseId] = true;
+                const ms = getTimestamp() - itemLoadTime;
+
+                if (ms < FAST_RESPONSE_THRESHOLD_MS) {
+                    addEvent({
+                        type: 'question:suspiciousResponseSpeed',
+                        item: itemRef,
+                        question: reference,
+                        responseId,
+                        data: { reason: 'fastResponse', ms },
+                        timestamp: getTimestamp(),
+                    });
+                }
+            }
+
+            if (wpmTypes.includes(type) && value) {
+                const currentWordCount = countWords(value, type);
+                const tracking = wpmTracking[responseId];
+                const timeDeltaMs = getTimestamp() - tracking.timestamp;
+                const wordsDelta = currentWordCount - tracking.wordCount;
+
+                if (timeDeltaMs > 0 && wordsDelta > 0) {
+                    const wpm = Math.round((wordsDelta / timeDeltaMs) * 60_000);
+
+                    if (wpm > WPM_THRESHOLD) {
+                        addEvent({
+                            type: 'question:suspiciousInput',
+                            item: itemRef,
+                            question: reference,
+                            responseId,
+                            data: { wpm, wordsDelta },
+                            timestamp: getTimestamp(),
+                        });
+                    }
+                }
+
+                wpmTracking[responseId] = {
+                    wordCount: currentWordCount,
+                    timestamp: getTimestamp(),
+                };
+            }
         });
 
         question.on('masked', () => {
             addEvent({
                 type: 'question:masked',
-                item: LT.itemReference(),
+                item: itemRef,
                 question: reference,
                 timestamp: getTimestamp(),
             });
@@ -394,7 +631,7 @@ function setupQuestionEvents() {
         question.on('validated', () => {
             addEvent({
                 type: 'question:validated',
-                item: LT.itemReference(),
+                item: itemRef,
                 question: reference,
                 timestamp: getTimestamp(),
             });
@@ -407,76 +644,168 @@ function setupQuestionEvents() {
  * @since 3.0.0
  * @ignore
  */
-function setupFeatureEvents() {
-    const features = [...LT.item().feature_ids, ...LT.item().simplefeature_ids];
+function setupFeatureEvents(itemRef) {
+    const currentItem = LT.item(itemRef);
+
+    if (!currentItem) {
+        return;
+    }
+
+    const features = [...new Set([...(currentItem.feature_ids || []), ...(currentItem.simplefeature_ids || [])])];
+
+    // Build a type lookup from the item's feature configuration data
+    const featureTypeMap = (currentItem.features || []).reduce((map, f) => {
+        map[f.feature_id] = f.type;
+        return map;
+    }, {});
 
     features.forEach(id => {
-        if (LT.itemsApp().feature(id)) {
-            LT.itemsApp()
-                .feature(id)
-                .on('begin', () => {
-                    addEvent({
-                        type: 'begin',
-                        item: LT.itemReference(),
-                        timestamp: getTimestamp(),
-                    });
+        const featureInstance = LT.itemsApp().feature(id);
+        const isMediaFeature = ['audio', 'video'].includes(featureTypeMap[id]);
+
+        if (featureInstance && isMediaFeature) {
+            featureInstance.on('begin', () => {
+                addEvent({
+                    type: 'media:begin',
+                    item: itemRef,
+                    timestamp: getTimestamp(),
                 });
-            LT.itemsApp()
-                .feature(id)
-                .on('complete', () => {
-                    addEvent({
-                        type: 'complete',
-                        item: LT.itemReference(),
-                        timestamp: getTimestamp(),
-                    });
+            });
+            featureInstance.on('complete', () => {
+                addEvent({
+                    type: 'media:complete',
+                    item: itemRef,
+                    timestamp: getTimestamp(),
                 });
-            LT.itemsApp()
-                .feature(id)
-                .on('playback:started', () => {
-                    addEvent({
-                        type: 'playback:started',
-                        item: LT.itemReference(),
-                        timestamp: getTimestamp(),
-                    });
+            });
+            featureInstance.on('playback:started', () => {
+                addEvent({
+                    type: 'playback:started',
+                    item: itemRef,
+                    timestamp: getTimestamp(),
                 });
-            LT.itemsApp()
-                .feature(id)
-                .on('playback:paused', () => {
-                    addEvent({
-                        type: 'playback:paused',
-                        item: LT.itemReference(),
-                        timestamp: getTimestamp(),
-                    });
+            });
+            featureInstance.on('playback:paused', () => {
+                addEvent({
+                    type: 'playback:paused',
+                    item: itemRef,
+                    timestamp: getTimestamp(),
                 });
-            LT.itemsApp()
-                .feature(id)
-                .on('playback:resumed', () => {
-                    addEvent({
-                        type: 'playback:resumed',
-                        item: LT.itemReference(),
-                        timestamp: getTimestamp(),
-                    });
+            });
+            featureInstance.on('playback:resumed', () => {
+                addEvent({
+                    type: 'playback:resumed',
+                    item: itemRef,
+                    timestamp: getTimestamp(),
                 });
-            LT.itemsApp()
-                .feature(id)
-                .on('playback:stopped', () => {
-                    addEvent({
-                        type: 'playback:stopped',
-                        item: LT.itemReference(),
-                        timestamp: getTimestamp(),
-                    });
+            });
+            featureInstance.on('playback:stopped', () => {
+                addEvent({
+                    type: 'playback:stopped',
+                    item: itemRef,
+                    timestamp: getTimestamp(),
                 });
-            LT.itemsApp()
-                .feature(id)
-                .on('playback:complete', () => {
-                    addEvent({
-                        type: 'playback:complete',
-                        item: LT.itemReference(),
-                        timestamp: getTimestamp(),
-                    });
+            });
+            featureInstance.on('playback:complete', () => {
+                addEvent({
+                    type: 'playback:complete',
+                    item: itemRef,
+                    timestamp: getTimestamp(),
                 });
+            });
         }
     });
+}
+
+/**
+ * Uses the BroadcastChannel API to detect when the same session is loaded in
+ * a second tab. A ping/pong handshake is used so that only the duplicate tab
+ * logs the `tab:duplicate` event. The channel is scoped to the session ID to
+ * avoid cross-student interference on shared origins.
+ * @since 3.6.0
+ * @ignore
+ */
+function setupDuplicateTabDetection() {
+    if (typeof BroadcastChannel === 'undefined') {
+        return;
+    }
+
+    const channel = new BroadcastChannel(`lt_session_${LT.sessionId()}`);
+
+    channel.onmessage = event => {
+        if (event.data.type === 'tab:ping') {
+            // Another tab is asking if anyone is here — reply so it knows it's a duplicate
+            channel.postMessage({ type: 'tab:pong' });
+        }
+
+        if (event.data.type === 'tab:pong') {
+            // We received a reply — this tab is the duplicate
+            addEvent({
+                type: 'tab:duplicate',
+                item: LT.itemReference(),
+                timestamp: getTimestamp(),
+            });
+        }
+    };
+
+    // Announce our presence to any already-open tabs
+    channel.postMessage({ type: 'tab:ping' });
+
+    window.addEventListener('beforeunload', () => channel.close());
+}
+
+/**
+ * Sets up a Page Visibility API listener to detect when the user navigates
+ * away from the page (e.g. switches tabs or minimises the browser) and when
+ * they return. Fires `page:blur` on hide and `page:focus` on restore.
+ * @since 3.6.0
+ * @ignore
+ */
+function setupVisibilityEvents() {
+    document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState === 'hidden') {
+            addEvent({
+                type: 'page:blur',
+                item: LT.itemReference(),
+                timestamp: getTimestamp(),
+            });
+        } else {
+            addEvent({
+                type: 'page:focus',
+                item: LT.itemReference(),
+                timestamp: getTimestamp(),
+            });
+        }
+    });
+}
+
+/**
+ * Tracks the last known mouse cursor position so it can be compared against
+ * click coordinates on MCQ questions to detect automation tools.
+ * Also sets a flag when a touch event is detected so that the absence of
+ * mouse movement is not incorrectly flagged on touch devices.
+ * @since 3.7.0
+ * @ignore
+ */
+function setupPointerTracking() {
+    document.addEventListener(
+        'mousemove',
+        e => {
+            pointer.prevX = pointer.lastX;
+            pointer.prevY = pointer.lastY;
+            pointer.lastX = e.clientX;
+            pointer.lastY = e.clientY;
+        },
+        { passive: true }
+    );
+
+    document.addEventListener(
+        'touchstart',
+        () => {
+            pointer.hasTouch = true;
+        },
+        { once: true, passive: true }
+    );
 }
 
 /**
@@ -520,17 +849,18 @@ function addEvent(event) {
 
 /**
  * Adds an item load event to the log.
+ * @param {number} timestamp The timestamp to use for the event.
  * @since 3.0.0
  * @ignore
  */
-function addItemLoadEvent() {
+function addItemLoadEvent(timestamp) {
     addEvent({
         type: 'item:load',
         item: LT.itemReference(),
         data: {
             num: LT.itemPosition(),
         },
-        timestamp: getTimestamp(),
+        timestamp,
     });
 }
 
@@ -544,6 +874,7 @@ function getEventFromDialog() {
     return new Promise(resolve => {
         setTimeout(() => {
             const dialogs = document.querySelectorAll('.lrn-assess-dialogs > .lrn-dialog-default');
+
             let dialog = '';
             let dialogEventName = '';
             const dialogInfo = Array.from(dialogs)
@@ -559,6 +890,7 @@ function getEventFromDialog() {
             }
 
             const info = dialogInfo[0];
+
             if (info?.id) {
                 dialog = info.id.replace(/\d+/g, '');
             } else if (info?.class.includes('review-screen')) {
@@ -605,6 +937,29 @@ function getEventFromDialog() {
             resolve(dialogEventName);
         }, 500);
     });
+}
+
+/**
+ * Counts the number of words in a response value.
+ * Strips HTML tags for types that store HTML (longtextV2, formulaessayV2) before counting.
+ * @param {string} value The response value.
+ * @param {string} type The question type.
+ * @returns {number} The word count.
+ * @since 3.7.0
+ * @ignore
+ */
+function countWords(value, type) {
+    if (!value) {
+        return 0;
+    }
+    let text = value;
+    if (['formulaessayV2', 'longtextV2'].includes(type)) {
+        text = value.replace(/<[^>]+>/g, ' ');
+    }
+    return text
+        .trim()
+        .split(/\s+/)
+        .filter(w => w.length > 0).length;
 }
 
 /**

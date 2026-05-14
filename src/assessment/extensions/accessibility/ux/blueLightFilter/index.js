@@ -55,6 +55,7 @@ function run(config) {
         elOverlay.hidden = true;
         elOverlay.classList.add('lt__blue-light-filter');
         const elPlayer = document.querySelector('.lrn-assess');
+
         elPlayer.appendChild(elOverlay);
     }
 

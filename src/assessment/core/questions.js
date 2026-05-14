@@ -45,6 +45,7 @@ export function hasCheckAnswer(response_id) {
  */
 export function isAutoScorable(response_id) {
     const check = questionInstance(response_id).checkValidation();
+
     return check.has_validation;
 }
 

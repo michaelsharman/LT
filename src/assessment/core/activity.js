@@ -108,6 +108,7 @@ export function annotationsConfig() {
  */
 export function autoSaveConfig() {
     const a = activity();
+
     return a?.config?.navigation?.auto_save ? a.config.navigation.auto_save : {};
 }
 
@@ -137,6 +138,7 @@ export function hasActivityTemplate() {
  */
 export function hasAnnotations() {
     const a = activity();
+
     return Boolean(a?.config?.annotations === true || a?.config?.annotations_api_init_options);
 }
 
@@ -156,6 +158,7 @@ export function hasAnswerMasking() {
  */
 export function hasAutoSave() {
     const a = activity();
+
     return (
         a.hasOwnProperty('config') &&
         a.config.hasOwnProperty('navigation') &&
@@ -171,6 +174,7 @@ export function hasAutoSave() {
  */
 export function hasReadingMode() {
     const a = activity();
+
     return (a?.config?.configuration?.reading_mode?.reading_time || 0) > 0;
 }
 
@@ -190,6 +194,7 @@ export function hasShuffledItems() {
  */
 export function hasEvents() {
     const a = activity();
+
     return a.hasOwnProperty('events') && a.events !== false;
 }
 
@@ -200,6 +205,7 @@ export function hasEvents() {
  */
 export function hasItemPool() {
     const a = activity();
+
     return a.hasOwnProperty('item_pool_id');
 }
 
@@ -371,6 +377,7 @@ export function state() {
  */
 export function timeRemaining() {
     const max = maxTime();
+
     return max ? max - elapsedTime() : null;
 }
 
@@ -384,6 +391,7 @@ export function totalItems() {
     if (hasSections()) {
         let numItems = 0;
         const allSections = sections();
+
         for (let i = 0; i < allSections.length; i++) {
             numItems += allSections[i].items.length;
         }

@@ -3,6 +3,7 @@ import { attachDependencies } from '../utils/extensionsFactory.js';
 import logger from './logger.js';
 
 const now = () => performance.now();
+
 let PERF = null;
 
 function getPerfBuffer() {
@@ -34,6 +35,7 @@ export function reportExtensionPerf(enabled, { limit = 50 } = {}) {
 
     // Aggregate by id
     const byId = new Map();
+
     for (const rec of PERF) {
         if (!byId.has(rec.id)) {
             byId.set(rec.id, []);
@@ -42,11 +44,13 @@ export function reportExtensionPerf(enabled, { limit = 50 } = {}) {
     }
 
     const rows = [];
+
     for (const [id, entries] of byId) {
         if (id === '__init__') {
             continue;
         }
         const acc = { id, importMs: 0, cssMs: 0, runMs: 0, totalMs: 0 };
+
         for (const e of entries) {
             if (e.phase === 'import') {
                 acc.importMs += e.ms;
@@ -116,12 +120,14 @@ function toDescriptor(x) {
  */
 async function loadExtension(type, id, perfEnabled) {
     const loader = EXTENSIONS[type]?.[id];
+
     if (!loader) {
         throw new Error(`[LT] Unknown extension id "${id}"`);
     }
 
     const t0 = now();
     const mod = await loader();
+
     perfPush(perfEnabled, { id, phase: 'import', ms: now() - t0 });
 
     // Preferred: named export matching the id
@@ -146,6 +152,7 @@ async function loadExtension(type, id, perfEnabled) {
  */
 function getCssFromExtension(id, ext, perfEnabled) {
     const t0 = now();
+
     let css = '';
     try {
         if (typeof ext.getStyles === 'function') {
@@ -189,6 +196,7 @@ export async function runExtensions(
     attachDependencies(LT, security, request);
 
     const items = (list || []).map(toDescriptor);
+
     LT.extensions ||= {};
     const cssChunks = [];
     const seenCss = new Set();
@@ -196,12 +204,15 @@ export async function runExtensions(
 
     async function runOne({ id, args = [] }) {
         const ext = await loadExtension(type, id, perf);
+
         LT.extensions[id] = ext;
 
         // run()
         const tRun0 = now();
+
         try {
             const ret = ext.run(...toArgArray(args));
+
             if (ret && typeof ret.then === 'function') {
                 await ret;
             }
@@ -212,6 +223,7 @@ export async function runExtensions(
         // CSS
         if (collectCSS) {
             const css = getCssFromExtension(id, ext, perf).trim();
+
             if (css && (!dedupeCSS || !seenCss.has(id))) {
                 cssChunks.push(`/* ${id} */\n${css}`);
                 if (dedupeCSS) {
@@ -223,6 +235,7 @@ export async function runExtensions(
 
     if (mode === 'parallel') {
         const tasks = items.map(d => runOne(d).catch(err => logger.error(`[LT] Failed to init extension "${d.id}"`, err)));
+
         await Promise.allSettled(tasks);
     } else {
         for (const d of items) {
@@ -236,6 +249,7 @@ export async function runExtensions(
 
     if (collectCSS && cssChunks.length) {
         const tCssInject0 = now();
+
         injectCombinedCSS(cssChunks.join('\n\n'), mountId);
         perfPush(perf, { id: '__init__', phase: 'css:inject', ms: now() - tCssInject0 });
     }
@@ -243,6 +257,7 @@ export async function runExtensions(
     // Mark eventBus as ready (clears buffered events after all extensions have loaded)
     if (type === 'assessment' && LT.eventBus) {
         const tReady0 = now();
+
         LT.eventBus.markReady();
         perfPush(perf, { id: '__init__', phase: 'eventBus:ready', ms: now() - tReady0 });
     }

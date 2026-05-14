@@ -148,6 +148,7 @@ function run(options) {
 
     // Inject class for specificity
     const elLrnApi = document.querySelector('.lrn-author');
+
     elLrnApi.classList.add('lt__contenttabs');
 
     // Remove any previous keydown listeners once when the editor is ready
@@ -212,6 +213,7 @@ function addContentTabs(attribute, callback) {
     document.querySelector('.learnosity-question-editor').insertAdjacentHTML('beforeEnd', templateNumTabs);
 
     const elClose = [];
+
     elClose.push(document.querySelector('#lt__addTabs .lrn-qe-btn-default'));
     elClose.push(document.querySelector('#lt__addTabs .lrn-qe-modal-btn-close'));
     for (let i = 0; i < elClose.length; i++) {
@@ -222,8 +224,10 @@ function addContentTabs(attribute, callback) {
     }
 
     const elAdd = document.querySelector('#lt__addTabs .lrn-qe-btn-primary');
+
     elAdd.addEventListener('click', () => {
         const n = document.getElementById('numtabs').value;
+
         removeElement('lt__addTabs');
         return callback(getTabsTemplate(n));
     });
@@ -250,6 +254,7 @@ function preventDOMBreaking() {
         a.addEventListener('dblclick', e => {
             e.preventDefault();
             const newLabel = window.prompt('Edit tab label:', a.textContent);
+
             if (newLabel !== null) {
                 a.textContent = newLabel;
             }
@@ -258,11 +263,13 @@ function preventDOMBreaking() {
 
     /* TAB CONTENT */
     const tabContent = document.querySelector('.lrn-qe-col-edit-inner .lt__tab-content');
+
     if (tabContent) {
         tabContent.querySelectorAll('.lrn-qe-col-edit-inner .lt__tab-pane').forEach(pane => {
             // Insert a non-editable guard at the beginning of each tab pane to safeguard against <div> deletion.
             if (!pane.querySelector('.lt__guard')) {
                 const guard = document.createElement('p');
+
                 guard.className = 'lt__guard';
                 guard.setAttribute('contenteditable', 'false');
                 guard.setAttribute('aria-hidden', 'true');
@@ -307,13 +314,16 @@ function handleKeydown(e) {
 
                     if (firstTextNode) {
                         const spaceNode = document.createTextNode('\u200B');
+
                         pane.appendChild(spaceNode); // Insert the space node immediately after the current text node.
 
                         const newRange = document.createRange(); // Create a new range and set the caret at the end of the inserted text node.
+
                         newRange.setStart(spaceNode, spaceNode.textContent.length);
                         newRange.collapse(true);
 
                         const sel = window.getSelection();
+
                         sel.removeAllRanges();
                         sel.addRange(newRange);
                     }
@@ -331,10 +341,12 @@ function handleKeydown(e) {
  */
 function getCaretCharOffset() {
     const sel = window.getSelection();
+
     if (!sel.rangeCount) {
         return 0;
     }
     const range = sel.getRangeAt(0);
+
     // If the start container is a text node, use it; otherwise, use its first child.
     let node = range.startContainer.nodeType === Node.TEXT_NODE ? range.startContainer : range.startContainer.firstChild;
     if (!node) {
@@ -357,6 +369,7 @@ function getCaretCharOffset() {
  */
 function getCkeEditableContainer() {
     const sel = window.getSelection();
+
     if (!sel.rangeCount) {
         return null;
     }
@@ -428,6 +441,7 @@ function removeElement(id) {
  */
 function getStyles() {
     const css = '';
+
     return css.concat(
         authorContentTabs.getTabsTheme(state.options.theme).concat(
             '\n',

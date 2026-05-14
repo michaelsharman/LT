@@ -21,6 +21,7 @@ export function hasValue(value) {
     }
 
     const type = typeof value;
+
     switch (type) {
         case 'string':
             return value.trim() !== '';

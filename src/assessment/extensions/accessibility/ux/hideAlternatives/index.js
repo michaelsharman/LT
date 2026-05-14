@@ -48,6 +48,7 @@ function run(config) {
                                 // Create a question options list excluding the correct answer
                                 const optionsList = [];
                                 const correctAnswers = getCorrectAnswers(question.validation);
+
                                 Object.values(correctAnswers).forEach(answer => {
                                     Object.values(question.options).forEach(option => {
                                         if (answer !== option.value) {
@@ -58,6 +59,7 @@ function run(config) {
 
                                 // Shuffle the options list
                                 const optionsToHide = [];
+
                                 for (let j = 0; j < numToHide; j++) {
                                     optionsToHide.push(shuffleArrayWithSeed(optionsList, question.response_id)[j]);
                                 }
@@ -68,12 +70,14 @@ function run(config) {
                                     }
 
                                     const responsesEl = responseParent.getElementsByClassName('lrn_mcqgroup');
+
                                     if (responsesEl.length === 0) {
                                         return; // Ensure the element exists
                                     }
 
                                     for (let i = 0; i < responsesEl[0].children.length; i++) {
                                         const inputEl = responsesEl[0].children[i].getElementsByClassName('lrn-input');
+
                                         if (inputEl.length === 0) {
                                             continue; // Ensure input exists
                                         }

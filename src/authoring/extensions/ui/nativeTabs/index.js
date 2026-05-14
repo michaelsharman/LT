@@ -70,6 +70,7 @@ function run(options = {}) {
         setTimeout(() => {
             if (['items/:reference/settings/:tab', 'items/:reference/settings', undefined].includes(LT.authorApp().getLocation().route)) {
                 const lastElement = LT.authorApp().getLocation().location.split('/').pop();
+
                 if (['layout', 'settings'].includes(lastElement)) {
                     setup();
                 }
@@ -113,6 +114,7 @@ function setup() {
 
         if (!elTabsEnabledLeft.hasAttribute('data-lt-event')) {
             const elNumTabs1 = document.getElementById('lt__nativeTabs-col1');
+
             elNumTabs1.disabled = !checkTabsEnabled().leftEnabled;
             elTabsEnabledLeft.addEventListener('change', () => {
                 elNumTabs1.disabled = !checkTabsEnabled().leftEnabled;
@@ -122,6 +124,7 @@ function setup() {
 
         if (!elTabsEnabledRight.hasAttribute('data-lt-event')) {
             const elNumTabs2 = document.getElementById('lt__nativeTabs-col2');
+
             elNumTabs2.disabled = !checkTabsEnabled().rightEnabled;
             elTabsEnabledRight.addEventListener('change', () => {
                 elNumTabs2.disabled = !checkTabsEnabled().rightEnabled;
@@ -273,6 +276,7 @@ function saveTabsToItem(numCurrentTabs) {
 
             if (tabCount < tabRegions.length) {
                 const tabsToRemove = tabRegions.length - tabCount;
+
                 // Before removing tabs, check if the tabs are empty.
                 // If they are not, we need to move the content to another tab
                 for (let i = tabRegions.length; i > tabRegions.length - tabsToRemove; i--) {
@@ -287,6 +291,7 @@ function saveTabsToItem(numCurrentTabs) {
                 tabRegions.splice(-tabsToRemove);
             } else {
                 const startIndex = (currentCount || 2) + 1;
+
                 for (let index = startIndex; index <= tabCount; index++) {
                     tabRegions.push({
                         label: `Tab ${index}`,

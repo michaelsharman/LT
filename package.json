@@ -2,6 +2,10 @@
     "name": "@caspingus/lt",
     "version": "3.0.2",
     "private": false,
+    "publishConfig": {
+        "access": "public",
+        "registry": "https://registry.npmjs.org/"
+    },
     "type": "module",
     "description": "A utility library of helpers and extensions useful when working with Learnosity APIs.",
     "keywords": [

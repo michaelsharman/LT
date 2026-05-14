@@ -107,6 +107,7 @@ function cacheElements() {
 function setupItemFlags() {
     state.elements.items.forEach(item => {
         const reference = item.getAttribute('data-reference');
+
         item.querySelector('.lrn-assess-content').insertAdjacentHTML('afterbegin', flagTemplate(reference));
     });
 

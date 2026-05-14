@@ -89,11 +89,13 @@ function addPrefix(itemQuestions) {
             if (q.type === 'mcq' && q?.ui_style?.type !== 'block' && q?.ui_style?.type !== 'horizontal-input-bottom') {
                 const r = q.response_id;
                 const elOptions = document.getElementById(r).querySelectorAll('.lrn-mcq-option');
+
                 if (elOptions) {
                     let responseIndex = 0;
                     for (const o of elOptions) {
                         const elLabels = o.querySelector('.lrn-possible-answer').children;
                         const elExistingPrefixes = o.querySelector('.lrn-prefix-label');
+
                         // If we haven't already printed prefixes
                         if (!elExistingPrefixes) {
                             let prefixValue;
@@ -109,6 +111,7 @@ function addPrefix(itemQuestions) {
                             }
                             for (let i = 0; i < elLabels.length; i++) {
                                 const p = document.createElement('span');
+
                                 p.classList.add('lrn-prefix-label');
                                 p.append(`${prefixValue}${suffix}`);
                                 elLabels[i].prepend(p);

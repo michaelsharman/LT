@@ -15,6 +15,7 @@ import logger from './logger.js';
  */
 export function waitForElement(id, callback, retries = 5) {
     const element = document.getElementById(id);
+
     if (element) {
         callback(element);
     } else if (retries > 0) {
@@ -55,6 +56,7 @@ export function setObserver(selector, callback, options) {
 
     // Check immediately for element already in the DOM
     const existing = root.querySelector(selector);
+
     if (existing) {
         logger.debug(`${state.logPrefix}Element already in DOM`, selector);
         callback(existing);
@@ -87,6 +89,7 @@ export function setObserver(selector, callback, options) {
 
                 if (node.querySelector) {
                     const match = node.querySelector(selector);
+
                     if (match) {
                         observerInstance.disconnect();
                         logger.debug(`${state.logPrefix}Disconnecting ${selector}`);
@@ -119,5 +122,6 @@ function dispatchCustomEvent(selector, name, dispatchEvent) {
     }
 
     const event = new CustomEvent(name);
+
     document.dispatchEvent(event);
 }

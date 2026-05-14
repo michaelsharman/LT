@@ -47,6 +47,11 @@ export default [
             'prefer-arrow-callback': 'error',
             'prefer-const': 'error',
             'space-in-parens': ['error', 'never'],
+            '@stylistic/js/padding-line-between-statements': [
+                'error',
+                { blankLine: 'always', prev: 'const', next: '*' },
+                { blankLine: 'any', prev: 'const', next: 'const' },
+            ],
         },
     },
     {

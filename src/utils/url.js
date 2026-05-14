@@ -15,6 +15,7 @@
 export function isPdfUrl(url) {
     try {
         const u = new URL(url, window.location.href);
+
         return u.pathname.toLowerCase().endsWith('.pdf');
     } catch {
         return false;

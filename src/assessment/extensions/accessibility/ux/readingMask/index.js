@@ -63,6 +63,7 @@ function createReadingMask() {
     readingMask.hidden = true; // Off (hidden) by default
 
     const elPlayer = document.querySelector('.lrn-assess');
+
     elPlayer.appendChild(readingMask);
 
     state.readingMask = readingMask;
@@ -105,6 +106,7 @@ function toggle() {
     }
 
     const willBeVisible = state.readingMask.hidden;
+
     state.readingMask.hidden = !willBeVisible;
 
     if (willBeVisible) {

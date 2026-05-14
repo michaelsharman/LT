@@ -131,6 +131,7 @@ function onToggleFlag() {
 
 function onEnableMasking() {
     const q = LT.questions.questionInstance();
+
     if (!isEmptyObject(q) && typeof q.isMaskable === 'function' && q.isMaskable()) {
         LT.itemsApp().questionsApp().masking(!LT.items.isMaskingEnabled());
     }
@@ -138,21 +139,25 @@ function onEnableMasking() {
 
 function onSetMcqOption(e, combo) {
     const mcq = getSingleMcq();
+
     if (!mcq) {
         return;
     }
 
     const idx = extractLastDigit(combo);
+
     if (idx == null) {
         return;
     }
 
     if (Array.isArray(mcq.options) && mcq.options.length >= idx) {
         const wrapper = document.getElementById(mcq.response_id);
+
         if (!wrapper) {
             return;
         }
         const inputs = wrapper.querySelectorAll('.lrn-input');
+
         if (inputs && inputs[idx - 1]) {
             inputs[idx - 1].click();
         }
@@ -165,25 +170,30 @@ function onSetResponseMask(e, combo) {
     }
 
     const mcq = getSingleMcq();
+
     if (!mcq) {
         return;
     }
 
     const idx = extractLastDigit(combo);
+
     if (idx == null) {
         return;
     }
 
     const root = LT.items.itemElement();
+
     if (!root) {
         return;
     }
     const optionsEls = root.querySelectorAll('.lrn-mcq-option');
     const optionEl = optionsEls && optionsEls[idx - 1];
+
     if (!optionEl) {
         return;
     }
     const maskBtn = optionEl.querySelector('.lrn-mask');
+
     if (maskBtn) {
         maskBtn.click();
     }
@@ -191,15 +201,18 @@ function onSetResponseMask(e, combo) {
 
 function extractLastDigit(combo) {
     const m = /(\d)$/.exec(combo);
+
     if (!m) {
         return null;
     }
     const n = Number(m[1]);
+
     return Number.isFinite(n) ? n : null;
 }
 
 function getSingleMcq() {
     const qs = LT.questions();
+
     let mcq = null;
 
     for (const q of qs) {
@@ -231,6 +244,7 @@ function buildEffectiveBindings(map, platformKey) {
                 continue;
             }
             const combos = entry.bindings[platformKey] || [];
+
             if (!Array.isArray(combos) || combos.length === 0) {
                 continue;
             }
@@ -248,6 +262,7 @@ function buildEffectiveBindings(map, platformKey) {
                 continue;
             }
             const combos = entry.bindings[platformKey] || [];
+
             if (!Array.isArray(combos) || combos.length === 0) {
                 continue;
             }

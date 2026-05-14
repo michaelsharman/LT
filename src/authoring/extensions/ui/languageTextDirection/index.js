@@ -161,6 +161,7 @@ function addLanguageAttribute(attribute, callback) {
 
     // Set up click events for closing the modal
     const elClose = [];
+
     elClose.push(document.querySelector('#ltLanguageModal .lrn-qe-btn-default'));
     elClose.push(document.querySelector('#ltLanguageModal .lrn-qe-modal-btn-close'));
     for (let i = 0; i < elClose.length; i++) {
@@ -172,6 +173,7 @@ function addLanguageAttribute(attribute, callback) {
 
     // Set up click events for the primary button
     const elAdd = document.querySelector('#ltLanguageModal .lrn-qe-btn-primary');
+
     elAdd.addEventListener('click', () => {
         const typeElement = getLinebreakType(selectedRichText);
         const o = {};
@@ -188,6 +190,7 @@ function addLanguageAttribute(attribute, callback) {
         }
 
         const content = getReturnTemplate(o, typeElement, selectedRichText, allContents);
+
         return callback(content);
     });
 }
@@ -281,6 +284,7 @@ function getReturnTemplate(o, el, content, allContents) {
 
     if (el === 'block') {
         const numParagraphs = numParagraphsInString(content);
+
         switch (numParagraphs) {
             // Selecting a single line strips the surrounding <p></p>.
             // We add an empty <p> so that we can add the correct
@@ -299,6 +303,7 @@ function getReturnTemplate(o, el, content, allContents) {
         }
     } else {
         const cleanedContent = allContents.replace(/&nbsp;/g, '');
+
         if (cleanedContent.includes(`<p>${content.replace(/&nbsp;/g, '')}</p>`)) {
             template = `<div${attr}><p>${content}</p></div>`;
         } else if (content.length) {
@@ -875,6 +880,7 @@ function getLanguageCodes() {
 function numParagraphsInString(text) {
     const regex = /<p>.*?<\/p>/gs;
     const matches = text.match(regex);
+
     return matches ? matches.length : 0;
 }
 

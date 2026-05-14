@@ -50,6 +50,7 @@ function doRenderPDF() {
     }
 
     const resources = elItem.querySelectorAll('.lrn_widget .resource');
+
     if (!resources.length) {
         return;
     }
@@ -62,6 +63,7 @@ function doRenderPDF() {
         }
 
         const url = anchor.getAttribute('href') || '';
+
         if (!isPdfUrl(url)) {
             return;
         }
@@ -84,9 +86,11 @@ function doRenderPDF() {
  */
 function mountNativePdf(resourceEl, url) {
     const wrapper = document.createElement('div');
+
     wrapper.className = 'lt__renderPDF_pdf';
 
     const iframe = document.createElement('iframe');
+
     iframe.className = 'pdf-viewer';
     iframe.allow = 'fullscreen';
 
@@ -95,6 +99,7 @@ function mountNativePdf(resourceEl, url) {
 
     const isElementVisible = el => {
         const r = el.getBoundingClientRect();
+
         if (r.width <= 0 || r.height <= 0) {
             return false;
         }
@@ -121,6 +126,7 @@ function mountNativePdf(resourceEl, url) {
         const io = new IntersectionObserver(
             entries => {
                 const visible = entries.some(e => e.isIntersecting);
+
                 if (visible) {
                     io.disconnect();
                     setSrc();
@@ -128,6 +134,7 @@ function mountNativePdf(resourceEl, url) {
             },
             { root: null, threshold: 0.01 }
         );
+
         io.observe(wrapper);
     }
 }

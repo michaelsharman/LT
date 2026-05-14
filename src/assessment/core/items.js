@@ -17,6 +17,7 @@ import { sections } from './sections.js';
  */
 export function dynamic() {
     const reference = itemReference();
+
     return assessApp().item(reference).dynamic || {};
 }
 
@@ -26,6 +27,7 @@ export function dynamic() {
  */
 export function flag() {
     const reference = itemReference();
+
     assessApp().item(reference).flag();
 }
 
@@ -97,16 +99,19 @@ export function isItemFullyAttempted(reference = undefined) {
     if (Array.isArray(itemQuestions) && itemQuestions.length) {
         for (let i = 0; i < itemQuestions.length; i++) {
             const q = itemQuestions[i];
+
             r = questionResponse(q.response_id);
             if (r) {
                 if (q.hasOwnProperty('metadata') && q.metadata.hasOwnProperty('valid_response_count')) {
                     if (Array.isArray(r.value)) {
                         const undefinedValues = r.value.filter(v => v === undefined);
+
                         if (undefinedValues.length) {
                             // A single question wasn't fully attempted
                             return false;
                         }
                         const nullValues = r.value.filter(v => v === null);
+
                         if (nullValues.length) {
                             // A single question wasn't fully attempted
                             return false;
@@ -178,6 +183,7 @@ export function itemAttemptStatus() {
  */
 export function itemByResponseId(response_id) {
     const items = itemsApp().getItems();
+
     let item = null;
 
     for (const ref in items) {

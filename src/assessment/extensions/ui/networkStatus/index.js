@@ -93,6 +93,7 @@ function injectOfflineIndicator(elIndicator, wrapperClass, message) {
     }
 
     const elWrapper = document.querySelector(`.${wrapperClass}`);
+
     if (!elWrapper) {
         return;
     }

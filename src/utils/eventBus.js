@@ -50,6 +50,7 @@ class EventBus {
         if (this.bufferedEvents.has(eventName)) {
             const { args } = this.bufferedEvents.get(eventName);
             const subscriber = subscriberName ? ` (${subscriberName})` : '';
+
             logger.debug(`[EventBus] Replaying buffered "${eventName}" to new listener${subscriber}`);
             try {
                 callback(...args);
@@ -70,6 +71,7 @@ class EventBus {
      */
     off(eventName, callback) {
         const listeners = this.listeners.get(eventName);
+
         if (listeners) {
             listeners.delete(callback);
         }
@@ -94,6 +96,7 @@ class EventBus {
 
         // Invoke all registered listeners
         const listeners = this.listeners.get(eventName);
+
         if (listeners && listeners.size > 0) {
             listeners.forEach(callback => {
                 try {
@@ -133,6 +136,7 @@ class EventBus {
      */
     listenerCount(eventName) {
         const listeners = this.listeners.get(eventName);
+
         return listeners ? listeners.size : 0;
     }
 }

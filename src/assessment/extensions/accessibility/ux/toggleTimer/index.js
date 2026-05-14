@@ -60,6 +60,7 @@ function run(config) {
 
     const elTimer = elWrapper.querySelector('.timer');
     const elClock = elWrapper.querySelector('.clock');
+
     if (!elTimer) {
         LT.utils.logger.warn('Timer element not found, cannot run toggle timer extension');
         return;
@@ -84,6 +85,7 @@ function run(config) {
 
         if (!state.elTimerWrapper.querySelector('.lt__clock-glyph')) {
             const glyph = document.createElement('span');
+
             glyph.className = 'lt__clock-glyph';
             state.elTimerWrapper.appendChild(glyph);
         }
@@ -104,6 +106,7 @@ function run(config) {
                     }
                 }
             };
+
             app.on('time:change', handler);
         }
 
@@ -132,6 +135,7 @@ function toggle() {
     }
 
     const willHide = !state.elTimerWrapper.classList.contains('lt--timer-hidden');
+
     state.elTimerWrapper.classList.toggle('lt--timer-hidden', willHide);
 
     // Update ARIA to reflect *timer* visibility (pressed = visible)

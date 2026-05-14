@@ -30,6 +30,7 @@ export function createExtension(name, runFn, methods = {}) {
 
         try {
             const result = runFn(...args); // sync or Promise
+
             hasRun = true;
 
             if (result && typeof result.then === 'function') {

@@ -102,6 +102,7 @@ function setup(e) {
  */
 function hasCheckAnswerButton() {
     const itemQuestions = LT.questions();
+
     let hasCheckAnswerButton = false;
 
     for (const q of itemQuestions) {

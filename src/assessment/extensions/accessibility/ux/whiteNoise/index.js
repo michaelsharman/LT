@@ -147,6 +147,7 @@ function launchPlayer() {
 
     if (state.elementId && !state.shadowRoot) {
         const customWrapper = state.queryRoot.querySelector(`#${state.elementId}`);
+
         if (customWrapper) {
             customWrapper.innerHTML = content;
         } else {
@@ -549,6 +550,7 @@ function getStyles() {
         return css;
     } else {
         const elStyle = document.createElement('style');
+
         elStyle.setAttribute('data-style', 'LT White Noise');
         elStyle.textContent = css;
         state.queryRoot.appendChild(elStyle);

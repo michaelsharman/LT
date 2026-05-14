@@ -59,6 +59,7 @@ function setup() {
 
     function handleInput() {
         const elNoSuggestions = elTagList.querySelector('li.lrn-author-tag-no-suggestions');
+
         if (elNoSuggestions) {
             showCreateTagsUI(elNoSuggestions);
         }
@@ -85,6 +86,7 @@ function showCreateTagsUI(elNoSuggestions) {
         </div>
 
     `;
+
     if (!elNewTagsContainer) {
         elNoSuggestions.insertAdjacentHTML('beforeend', template);
     }
@@ -93,6 +95,7 @@ function showCreateTagsUI(elNoSuggestions) {
     }
 
     const elNewTagsBtn = document.getElementById('lt__createTagsBtn');
+
     elNewTagsBtn.addEventListener('click', createTag);
 }
 
@@ -111,11 +114,13 @@ function createTag() {
 
     if (checkTagSyntax(newTag)) {
         const parts = newTag.split(':').map(part => part.trim());
+
         if (validateTag(currentTags, { type: parts[0], name: parts[1] })) {
             currentTags.push({ type: parts[0], name: parts[1] });
             LT.authorApp().setItemTags(currentTags);
         } else {
             const elErrorMessage = elErrorContainer.querySelector('.lt__errorMessage');
+
             elErrorMessage.textContent = 'Tag already exists';
             elErrorContainer.classList.remove('hidden');
         }
