@@ -1,4 +1,5 @@
 import { checkAppVersion } from '../../../utils/styling.js';
+import { diagnostics } from '../../../core/diagnostics.js';
 import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 import Uppy from '@uppy/core';
 import Dashboard from '@uppy/dashboard';
@@ -13,6 +14,8 @@ import uppyImageEditor from '@uppy/image-editor/css/style.min.css?inline';
  * They rely on modules within LT being available.
  *
  * --
+ *
+ * NOTE: THIS DOES NOT SUPPORT ITEM BANK MEDIA VAULT.
  *
  * This extension replaces the default Learnosity image uploader with a custom image
  * uploader that supports image editing and compression before uploading to the
@@ -142,7 +145,7 @@ const state = {
     upload: {
         request: null,
         security: null,
-        uriUploadForm: checkUploadFormUri('https://authorapi.learnosity.com/latest-lts/assets/uploadform'),
+        uriUploadForm: null,
     },
     uppy: null,
 };
@@ -179,13 +182,14 @@ function setupModalObserver() {
     LT.utils.logger.debug(`${state.logPrefix}setupModalObserver()`);
 
     state.classNamePrefix = checkAppVersion(state.classNamePrefix);
+    state.upload.uriUploadForm = checkUploadFormUri(`https://authorapi.learnosity.com/${diagnostics().versions.requested}/assets/uploadform`);
     clearObserver();
 
     const callback = mutationsList => {
         for (const mutation of mutationsList) {
             if (mutation.type === 'childList') {
                 const modal = document.querySelector(
-                    '[data-authorapi-selector="asset-uploader-iframe-outlet"]:not(.lrn-author-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"]):not(.lrn-qe-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"])'
+                    '[data-authorapi-selector="asset-uploader-iframe-outlet"]:not(.lrn-author-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"]):not(.lrn-qe-slide-pane [data-authorapi-selector="asset-uploader-iframe-outlet"]), [data-authorapi-selector="asset-uploader-react-outlet"]:not(.lrn-author-slide-pane [data-authorapi-selector="asset-uploader-react-outlet"]):not(.lrn-qe-slide-pane [data-authorapi-selector="asset-uploader-react-outlet"])'
                 );
                 const elResourceDisplayName = document.querySelector('[data-authorapi-selector="asset-display-name"]');
 
@@ -256,13 +260,17 @@ function setupUploderUI() {
      */
 
     setTimeout(() => {
-        const lrnImageUploader = document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]');
+        const lrnImageUploader =
+            document.querySelector('[data-authorapi-selector="asset-uploader-iframe-outlet"]') ||
+            document.querySelector('[data-authorapi-selector="asset-uploader-react-outlet"]');
         const lrnFrame = lrnImageUploader.querySelector('iframe');
+        const elFilePicker = lrnImageUploader.querySelector('#file_picker');
         const elMoreOptions = document.querySelector(`.lrn-${state.classNamePrefix}adv-options`);
         const wrapper = document.createElement('div');
 
         wrapper.setAttribute('id', 'uppy-dashboard');
-        lrnFrame.setAttribute('hidden', '');
+        lrnFrame?.setAttribute('hidden', '');
+        elFilePicker?.setAttribute('hidden', '');
         lrnImageUploader.insertAdjacentElement('afterbegin', wrapper);
 
         listenForSelfHostedImages();
