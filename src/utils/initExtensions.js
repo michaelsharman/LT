@@ -1,6 +1,42 @@
-import { EXTENSIONS } from './extensionsRegistry.js';
 import { attachDependencies } from '../utils/extensionsFactory.js';
 import logger from './logger.js';
+
+/**
+ * Lazily import the extensions registry only when needed (for string-based resolution).
+ * This keeps the registry out of the static import graph for tree-shaking.
+ */
+async function getRegistry() {
+    const mod = await import('./extensionsRegistry.js');
+
+    return mod.EXTENSIONS;
+}
+
+/**
+ * Classify an entry in the extensions array to determine its type and extract relevant data.
+ *
+ * @param {*} entry - An item from the extensions array
+ * @returns {{ type: string, module?: object, args?: any, id?: string, entry?: * }}
+ */
+export function classifyEntry(entry) {
+    // Bare Extension_Module: has name + run
+    if (entry && typeof entry.run === 'function' && typeof entry.name === 'string') {
+        return { type: 'module', module: entry, args: [] };
+    }
+    // Descriptor with module property: { module: ExtModule, args }
+    if (entry && entry.module && typeof entry.module === 'object') {
+        return { type: 'descriptor', module: entry.module, args: entry.args };
+    }
+    // Legacy string identifier
+    if (typeof entry === 'string') {
+        return { type: 'string', id: entry };
+    }
+    // Legacy object descriptor: { id: 'name', args }
+    if (entry && typeof entry.id === 'string') {
+        return { type: 'legacy-descriptor', id: entry.id, args: entry.args };
+    }
+    // Invalid
+    return { type: 'invalid', entry };
+}
 
 const now = () => performance.now();
 
@@ -106,48 +142,6 @@ function injectCombinedCSS(cssText, mountId = 'lt-extensions') {
 }
 
 /**
- * Accept "foo" or { id: "foo", args } and normalize to a descriptor.
- */
-function toDescriptor(x) {
-    if (typeof x === 'string') {
-        return { id: x, args: [] };
-    }
-    return x || { id: '' };
-}
-
-/**
- * Resolve a dynamic import for a known extension id and return the exported object with .run().
- */
-async function loadExtension(type, id, perfEnabled) {
-    const loader = EXTENSIONS[type]?.[id];
-
-    if (!loader) {
-        throw new Error(`[LT] Unknown extension id "${id}"`);
-    }
-
-    const t0 = now();
-    const mod = await loader();
-
-    perfPush(perfEnabled, { id, phase: 'import', ms: now() - t0 });
-
-    // Preferred: named export matching the id
-    if (mod[id]?.run) {
-        return mod[id];
-    }
-    // Or a default export with .run()
-    if (mod.default?.run) {
-        return mod.default;
-    }
-    // Or the first export that has .run()
-    for (const v of Object.values(mod)) {
-        if (v && typeof v.run === 'function') {
-            return v;
-        }
-    }
-    throw new Error(`[LT] Extension "${id}" does not export a runnable module`);
-}
-
-/**
  * Extract CSS from an extension.
  */
 function getCssFromExtension(id, ext, perfEnabled) {
@@ -173,8 +167,9 @@ function getCssFromExtension(id, ext, perfEnabled) {
 /**
  * Load, run, and (optionally) collect CSS from extensions.
  *
- * @param {object} LT - Your LT root object (populates LT.extensions[id])
- * @param {(string|{id:string,args?:any|any[]})[]} list
+ * @param {object} LT - Your LT root object (populates LT.extensions[name])
+ * @param {Array} list - Array of extension entries (modules, descriptors, strings, legacy descriptors)
+ * @param {string} type - Extension domain: 'assessment' or 'authoring'
  * @param {object} [opts]
  * @param {'sequential'|'parallel'} [opts.mode='sequential']
  * @param {boolean} [opts.collectCSS=true]
@@ -184,28 +179,132 @@ function getCssFromExtension(id, ext, perfEnabled) {
  * @param {number}  [opts.perfLimit=50]
  * @param {object}  [opts.security={}]
  * @param {object}  [opts.request={}]
+ * @param {object|null} [opts.registry=null] - Optional pre-loaded registry for string resolution (passed from bundle.js)
  */
 export async function runExtensions(
     LT,
     list,
     type,
-    { mode = 'sequential', collectCSS = true, dedupeCSS = true, mountId = 'lt-extensions', perf = false, perfLimit = 50, security = {}, request = {} } = {}
+    {
+        mode = 'sequential',
+        collectCSS = true,
+        dedupeCSS = true,
+        mountId = 'lt-extensions',
+        perf = false,
+        perfLimit = 50,
+        security = {},
+        request = {},
+        registry = null,
+    } = {}
 ) {
     const tInit0 = now();
 
     attachDependencies(LT, security, request);
-
-    const items = (list || []).map(toDescriptor);
 
     LT.extensions ||= {};
     const cssChunks = [];
     const seenCss = new Set();
     const toArgArray = args => (Array.isArray(args) ? args : args === undefined ? [] : [args]);
 
-    async function runOne({ id, args = [] }) {
-        const ext = await loadExtension(type, id, perf);
+    const entries = (list || []).map((entry, index) => ({ ...classifyEntry(entry), _index: index }));
 
-        LT.extensions[id] = ext;
+    // Emit a single deprecation warning if strings are used without a registry (core path)
+    if (!registry && entries.some(e => e.type === 'string' || e.type === 'legacy-descriptor')) {
+        console.warn(
+            '[LT] Deprecation: passing extension names as strings to the core entry point is deprecated. ' +
+                'Import extension modules directly and pass them as objects. ' +
+                'See: https://github.com/michaelsharman/LT#tree-shakeable-extensions'
+        );
+    }
+
+    /**
+     * Resolve a string-based entry to an extension module using the provided registry
+     * or falling back to dynamic import of the registry.
+     */
+    async function resolveStringEntry(id, perfEnabled) {
+        const reg = registry || (await getRegistry());
+        const loader = reg[type]?.[id];
+
+        if (!loader) {
+            throw new Error(`[LT] Unknown extension id "${id}"`);
+        }
+
+        const t0 = now();
+        const mod = await loader();
+
+        perfPush(perfEnabled, { id, phase: 'import', ms: now() - t0 });
+
+        // Preferred: named export matching the id
+        if (mod[id]?.run) {
+            return mod[id];
+        }
+        // Or a default export with .run()
+        if (mod.default?.run) {
+            return mod.default;
+        }
+        // Or the first export that has .run()
+        for (const v of Object.values(mod)) {
+            if (v && typeof v.run === 'function') {
+                return v;
+            }
+        }
+        throw new Error(`[LT] Extension "${id}" does not export a runnable module`);
+    }
+
+    /**
+     * Resolve and run a single classified entry.
+     */
+    async function resolveAndRun(classified) {
+        const { type: entryType, _index: index } = classified;
+
+        // Handle invalid entries
+        if (entryType === 'invalid') {
+            const name = classified.entry?.name || `index ${index}`;
+
+            logger.error(`[LT] Invalid extension entry at ${name}:`, classified.entry);
+            return;
+        }
+
+        let ext;
+        let args;
+        let name;
+
+        switch (entryType) {
+            case 'module': {
+                ext = classified.module;
+                args = [];
+                name = ext.name;
+
+                if (typeof ext.run !== 'function') {
+                    logger.error(`[LT] Extension module at index ${index} ("${ext.name || ''}") has no run() method`);
+                    return;
+                }
+                break;
+            }
+            case 'descriptor': {
+                ext = classified.module;
+                args = classified.args;
+                name = ext?.name;
+
+                if (!ext || typeof ext.run !== 'function') {
+                    logger.error(`[LT] Extension descriptor at index ${index} ("${name || ''}") has a module without a run() method`);
+                    return;
+                }
+                break;
+            }
+            case 'string': {
+                name = classified.id;
+                ext = await resolveStringEntry(name, perf);
+                args = [];
+                break;
+            }
+            case 'legacy-descriptor': {
+                name = classified.id;
+                ext = await resolveStringEntry(name, perf);
+                args = classified.args;
+                break;
+            }
+        }
 
         // run()
         const tRun0 = now();
@@ -217,32 +316,43 @@ export async function runExtensions(
                 await ret;
             }
         } finally {
-            perfPush(perf, { id, phase: 'run', ms: now() - tRun0 });
+            perfPush(perf, { id: name, phase: 'run', ms: now() - tRun0 });
         }
 
-        // CSS
-        if (collectCSS) {
-            const css = getCssFromExtension(id, ext, perf).trim();
+        // Register successful extensions on LT.extensions
+        LT.extensions[name] = ext;
 
-            if (css && (!dedupeCSS || !seenCss.has(id))) {
-                cssChunks.push(`/* ${id} */\n${css}`);
+        // CSS collection
+        if (collectCSS) {
+            const css = getCssFromExtension(name, ext, perf).trim();
+
+            if (css && (!dedupeCSS || !seenCss.has(name))) {
+                cssChunks.push(`/* ${name} */\n${css}`);
                 if (dedupeCSS) {
-                    seenCss.add(id);
+                    seenCss.add(name);
                 }
             }
         }
     }
 
     if (mode === 'parallel') {
-        const tasks = items.map(d => runOne(d).catch(err => logger.error(`[LT] Failed to init extension "${d.id}"`, err)));
+        const tasks = entries.map(e =>
+            resolveAndRun(e).catch(err => {
+                const id = e.module?.name || e.id || `index ${e._index}`;
+
+                logger.error(`[LT] Failed to init extension "${id}"`, err);
+            })
+        );
 
         await Promise.allSettled(tasks);
     } else {
-        for (const d of items) {
+        for (const e of entries) {
             try {
-                await runOne(d);
+                await resolveAndRun(e);
             } catch (err) {
-                logger.error(`[LT] Failed to init extension "${d.id}"`, err);
+                const id = e.module?.name || e.id || `index ${e._index}`;
+
+                logger.error(`[LT] Failed to init extension "${id}"`, err);
             }
         }
     }

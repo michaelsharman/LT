@@ -37,6 +37,7 @@ export const LT = {
             extensions: finalExtensions,
             security,
             request,
+            _registry: EXTENSIONS,
         });
     },
 };
