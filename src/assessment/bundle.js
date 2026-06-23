@@ -35,6 +35,7 @@ export const LT = {
         // Delegate to core.init (which calls runExtensions with 'assessment')
         return core.init(itemsApp, {
             extensions: finalExtensions,
+            _registry: EXTENSIONS,
         });
     },
 };

@@ -1,6 +1,6 @@
 {
     "name": "@caspingus/lt",
-    "version": "3.0.3",
+    "version": "3.1.0",
     "private": false,
     "publishConfig": {
         "access": "public",
@@ -48,6 +48,7 @@
         "dev": "vite build --watch -l info",
         "docs": "jsdoc -c jsdoc.json -R README.md --verbose",
         "lint": "npx eslint --format table",
+        "lint:fix": "eslint . --fix",
         "start:server": "nodemon ./tests/api-server/src/server.js",
         "start:server:background": "nodemon ./tests/api-server/src/server.js &",
         "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand",
@@ -81,6 +82,7 @@
         "eslint": "^10.2.1",
         "eslint-formatter-table": "^7.32.1",
         "express": "^5.1.0",
+        "fast-check": "^4.8.0",
         "globals": "^17.5.0",
         "happy-dom": "^20.9.0",
         "jest": "^30.3.0",
@@ -99,7 +101,9 @@
     "jest": {
         "testPathIgnorePatterns": [
             "/node_modules/",
-            "/tests/unit/"
+            "/tests/unit/",
+            "/tests/property/",
+            "/tests/integration/"
         ]
     }
 }

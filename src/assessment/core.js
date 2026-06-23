@@ -73,7 +73,7 @@ function _disableMonitoring() {
 async function init(itemsApp, options = {}) {
     app.setup(itemsApp);
 
-    const { extensions = [], monitor: monitorOpt, perf = false, perfLimit = 50 } = options;
+    const { extensions = [], monitor: monitorOpt, perf = false, perfLimit = 50, _registry = null } = options;
 
     // Opt-in monitoring
     if (monitorOpt) {
@@ -92,7 +92,7 @@ async function init(itemsApp, options = {}) {
     if (extensions.length) {
         const { runExtensions } = await import('../utils/initExtensions.js');
 
-        await runExtensions(LT, extensions, 'assessment', { perf, perfLimit });
+        await runExtensions(LT, extensions, 'assessment', { perf, perfLimit, registry: _registry });
     }
 }
 

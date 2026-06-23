@@ -3,7 +3,7 @@ import { defineConfig } from 'vitest/config';
 export default defineConfig({
     test: {
         environment: 'happy-dom',
-        include: ['tests/unit/**/*.test.js'],
+        include: ['tests/unit/**/*.test.js', 'tests/property/**/*.test.js', 'tests/integration/**/*.test.js'],
         globals: false,
         clearMocks: true,
         restoreMocks: true,

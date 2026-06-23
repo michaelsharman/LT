@@ -4,7 +4,6 @@ import * as navigation from './core/navigation.js';
 import * as widgets from './core/widgets.js';
 import logger from '../utils/logger.js';
 
-
 let monitor = null;
 let MonitorCtor = null;
 
@@ -69,7 +68,7 @@ function _disableMonitoring() {
 async function init(authorApp, options = {}) {
     app.setup(authorApp);
 
-    const { extensions = [], security, request, monitor: monitorOpt, perf = false, perfLimit = 50 } = options;
+    const { extensions = [], security, request, monitor: monitorOpt, perf = false, perfLimit = 50, _registry } = options;
 
     const hasSecurityAndRequest = obj => Boolean(obj && obj.security && obj.request);
     const imageUploaderEntry = extensions.find(ext => typeof ext === 'object' && ext.id === 'imageUploader') || extensions.find(ext => ext === 'imageUploader');
@@ -106,6 +105,7 @@ async function init(authorApp, options = {}) {
             request,
             perf,
             perfLimit,
+            registry: _registry,
         });
     }
 }
