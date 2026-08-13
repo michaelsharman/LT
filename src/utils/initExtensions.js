@@ -19,7 +19,7 @@ async function getRegistry() {
  * Classify an entry in the extensions array to determine its type and extract relevant data.
  *
  * @param {*} entry - An item from the extensions array
- * @returns {{ type: string, module?: object, args?: any, id?: string, entry?: * }}
+ * @returns {object} Classification result with `type` property and optional `module`, `args`, `id`, `entry` properties
  */
 export function classifyEntry(entry) {
     // Bare Extension_Module: has name + run
