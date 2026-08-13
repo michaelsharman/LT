@@ -14,6 +14,9 @@
         "edtech"
     ],
     "license": "MIT",
+    "engines": {
+        "node": ">=18"
+    },
     "author": "michael@learnosity.com",
     "homepage": "https://michaelsharman.github.io/LT/",
     "repository": {
@@ -49,9 +52,11 @@
         "docs": "jsdoc -c jsdoc.json -R README.md --verbose",
         "lint": "npx eslint --format table",
         "lint:fix": "eslint . --fix",
+        "prepublishOnly": "pnpm run build",
         "start:server": "nodemon ./tests/api-server/src/server.js",
         "start:server:background": "nodemon ./tests/api-server/src/server.js &",
-        "test": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand",
+        "test": "vitest run",
+        "test:e2e": "node --experimental-vm-modules node_modules/.bin/jest --verbose --detectOpenHandles --logHeapUsage --runInBand tests/e2e",
         "test:unit": "vitest run",
         "test:unit:watch": "vitest",
         "test:unit:coverage": "vitest run --coverage"

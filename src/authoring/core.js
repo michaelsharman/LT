@@ -24,7 +24,7 @@ const utils = {
 // Private helpers for monitoring
 async function getMonitorCtor() {
     if (!MonitorCtor) {
-        const mod = await import(/* webpackChunkName: "lt-memory-monitor" */ '../utils/memoryMonitor.js');
+        const mod = await import('../utils/memoryMonitor.js');
 
         MonitorCtor = mod.default || mod.MemoryMonitor || mod; // be tolerant to export style
     }
