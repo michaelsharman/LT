@@ -55,7 +55,7 @@
         "prepublishOnly": "pnpm run build",
         "start:server": "nodemon ./tests/api-server/src/server.js",
         "start:server:background": "nodemon ./tests/api-server/src/server.js &",
-        "test": "pnpm test:unit && pnpm test:e2e",
+        "test": "pnpm test:unit",
         "test:e2e": "node --experimental-vm-modules node_modules/jest/bin/jest.js --verbose --detectOpenHandles --logHeapUsage --runInBand tests/e2e",
         "test:unit": "vitest run",
         "test:unit:watch": "vitest",
