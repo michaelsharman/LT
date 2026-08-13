@@ -9,12 +9,10 @@ import styles from './styles/index.css?inline';
  *
  * This script loads a custom UI theme for Items API.
  *
- * Canvas is a minimal theme based on the Canvas LMS New Quizzes look and feel.
+ * Next Generation is a modern, clean theme with a contemporary design aesthetic.
  *
  * Items are vertically stacked with a flag button for each item. Because the assessment
  * player is still present, you can have a timed test, auto-save, and other features.
- *
- * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/themes/theme-canvas.png" alt="" width="900"></p>
  *
  * Use the following custom region configuration in Items API to load this theme:
  *
@@ -54,6 +52,11 @@ import styles from './styles/index.css?inline';
  * }
  * ```
  *
+ * @example
+ * LT.init(itemsApp, {
+ *     extensions: ['themes/nextGen'],
+ * });
+ *
  * @module Extensions/Assessment/themes/nextGen
  * @ignore
  */
@@ -72,6 +75,7 @@ const state = {
  * LT.init(itemsApp); // Set up LT with the Items API application instance variable
  * LT.extensions.themes.nextGen.run();
  * @since 2.27.0
+ * @ignore
  */
 function run() {
     cacheElements();

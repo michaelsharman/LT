@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * @module utils/extensionsRegistry
+ */
 const assessment = {
     ariaCountOnNav: () => import('../assessment/extensions/accessibility/aria/ariaCountOnNav/index.js'),
     blockGrammarChecks: () => import('../assessment/extensions/validation/blockGrammarChecks/index.js'),
@@ -6,6 +10,7 @@ const assessment = {
     columnResizer: () => import('../assessment/extensions/accessibility/ux/columnResizer/index.js'),
     contentTabs: () => import('../assessment/extensions/ui/contentTabs/index.js'),
     disableOnValidate: () => import('../assessment/extensions/validation/disableOnValidate/index.js'),
+    essayLimitByCharacter: () => import('../assessment/extensions/validation/essayLimitByCharacter/index.js'),
     events: () => import('../assessment/extensions/events/index.js'),
     hideAlternatives: () => import('../assessment/extensions/accessibility/ux/hideAlternatives/index.js'),
     keyboardShortcuts: () => import('../assessment/extensions/accessibility/ux/keyboardShortcuts/index.js'),

@@ -2,7 +2,6 @@ import { defineConfig } from 'vite';
 import { visualizer } from 'rollup-plugin-visualizer';
 import path from 'path';
 import pkg from './package.json' with { type: 'json' };
-import { log } from 'console';
 
 const manualEntries = {
     'assessment/core': 'src/assessment/core.js',

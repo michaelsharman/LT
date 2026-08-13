@@ -1,3 +1,7 @@
+/**
+ * @module Authoring/Core
+ */
+
 import * as app from './core/app.js';
 import * as diagnostics from './core/diagnostics.js';
 import * as navigation from './core/navigation.js';
@@ -24,7 +28,7 @@ const utils = {
 // Private helpers for monitoring
 async function getMonitorCtor() {
     if (!MonitorCtor) {
-        const mod = await import(/* webpackChunkName: "lt-memory-monitor" */ '../utils/memoryMonitor.js');
+        const mod = await import('../utils/memoryMonitor.js');
 
         MonitorCtor = mod.default || mod.MemoryMonitor || mod; // be tolerant to export style
     }
@@ -51,9 +55,19 @@ function _disableMonitoring() {
 
 /**
  * Constructor method for Learnosity Toolkit.
+ * @async
  * @since 0.1.0
  * @ignore
- * @param {object} app - Author API app instance
+ * @param {object} authorApp - Author API app instance
+ * @param {object} [options={}] - Configuration options
+ * @param {Array} [options.extensions=[]] - Extensions to load and run
+ * @param {object} [options.security] - Security credentials object (required for imageUploader extension)
+ * @param {object} [options.request] - Signed request object (required for imageUploader extension)
+ * @param {boolean|object} [options.monitor] - Enable memory monitoring. Pass `true` for defaults or an object with `intervalMs` to customise the polling interval.
+ * @param {boolean} [options.perf=false] - Enable performance timing for extensions
+ * @param {number} [options.perfLimit=50] - Max number of performance entries to retain
+ * @param {object|null} [options._registry] - Custom extension registry (internal use)
+ * @returns {Promise<void>}
  * @example
  * // Declare and set your variable with the Author API LearnosityAuthor.init() method
  * const authorApp = LearnosityAuthor.init(signedConfigObject);

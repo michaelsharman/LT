@@ -2,14 +2,11 @@ node_modules
 dist
 .DS_Store
 coverage
+docs
 .vscode
-
-
-# Ignore vscode AI rules
-.github/instructions/*
 .augment
 .codacy
 .kiro/specs
 
-#Ignore vscode AI rules
-.github/instructions/codacy.instructions.md
+# AI assistant rules
+.github/instructions/*

@@ -49,11 +49,14 @@ const extNameArb = fc.string({
 
 /**
  * Arbitrary: generate an invalid entry (various invalid types).
+ * Names are prefixed with '__invalid_' to avoid collisions with valid module names.
  * Returns { entry, description } for debugging.
  */
+const invalidNameArb = extNameArb.map(name => `__invalid_${name}`);
+
 const invalidEntryArb = fc.oneof(
     // Object without run() method (but may have a name)
-    extNameArb.map(name => ({ entry: { name, noRun: true }, kind: 'object-no-run' })),
+    invalidNameArb.map(name => ({ entry: { name, noRun: true }, kind: 'object-no-run' })),
     // Number
     fc.integer().map(n => ({ entry: n, kind: 'number' })),
     // Boolean
@@ -61,7 +64,7 @@ const invalidEntryArb = fc.oneof(
     // null
     fc.constant({ entry: null, kind: 'null' }),
     // Descriptor with module lacking run()
-    extNameArb.map(name => ({
+    invalidNameArb.map(name => ({
         entry: { module: { name, noRun: true } },
         kind: 'descriptor-no-run',
     })),

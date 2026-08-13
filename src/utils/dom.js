@@ -32,7 +32,6 @@ export function waitForElement(id, callback, retries = 5) {
  * @param {string} selector - CSS selector to watch for.
  * @param {function} callback - Function to call when element is found.
  * @param {object} [options] - The root element to observe (options.root).
- * @param {object} [state] - Cache of any current active observers (state.activeObservers).
  * @returns {function} disconnect - Call to stop observing manually.
  * @since 2.24.0
  * @ignore
@@ -105,6 +104,11 @@ export function setObserver(selector, callback, options) {
 
     logger.debug(`${state.logPrefix}Observing for ${selector}`);
     observer.observe(root, observeConfig);
+
+    return () => {
+        observer.disconnect();
+        state.activeObservers.delete(selector);
+    };
 }
 
 /**

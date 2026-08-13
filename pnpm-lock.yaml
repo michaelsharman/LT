@@ -36,7 +36,7 @@ importers:
         specifier: ^1.6.5
         version: 1.6.5
       papaparse:
-        specifier: ^5.5.2
+        specifier: ^5.5.4
         version: 5.5.4
       seedrandom:
         specifier: ^3.0.5
@@ -55,13 +55,13 @@ importers:
         specifier: ^30.0.0
         version: 30.0.0
       '@vitest/coverage-v8':
-        specifier: ^4.1.5
+        specifier: ^4.1.10
         version: 4.1.10(vitest@4.1.10)
       clean-jsdoc-theme:
-        specifier: ^4.3.2
+        specifier: ^4.3.3
         version: 4.3.3(jsdoc@4.0.5)
       css-loader:
-        specifier: ^7.1.2
+        specifier: ^7.1.4
         version: 7.1.4(webpack@5.109.2(clean-css@5.3.3)(html-minifier-terser@7.2.0)(lightningcss@1.33.0)(postcss@8.5.26))
       docdash:
         specifier: ^2.0.2
@@ -70,43 +70,43 @@ importers:
         specifier: ^5.0.2
         version: 5.0.2
       eslint:
-        specifier: ^10.2.1
+        specifier: ^10.8.1
         version: 10.8.1(supports-color@5.5.0)
       eslint-formatter-table:
         specifier: ^7.32.1
         version: 7.32.1
       express:
-        specifier: ^5.1.0
+        specifier: ^5.2.1
         version: 5.2.1(supports-color@5.5.0)
       fast-check:
-        specifier: ^4.8.0
+        specifier: ^4.9.0
         version: 4.9.0
       globals:
-        specifier: ^17.5.0
+        specifier: ^17.10.0
         version: 17.10.0
       happy-dom:
-        specifier: ^20.9.0
+        specifier: ^20.11.2
         version: 20.11.2
       jest:
-        specifier: ^30.3.0
+        specifier: ^30.4.2
         version: 30.4.2(@types/node@26.2.0)(supports-color@5.5.0)
       learnosity-sdk-nodejs:
         specifier: github:Learnosity/learnosity-sdk-nodejs
         version: https://codeload.github.com/Learnosity/learnosity-sdk-nodejs/tar.gz/da292a2edc66bf0cc78a4360fc0dfcf73e22b8f8(supports-color@5.5.0)
       nodemon:
-        specifier: ^3.1.9
+        specifier: ^3.1.14
         version: 3.1.14
       platform-detect:
         specifier: ^3.0.1
         version: 3.0.1
       postcss:
-        specifier: ^8.5.4
+        specifier: ^8.5.26
         version: 8.5.26
       postcss-import:
-        specifier: ^16.1.0
+        specifier: ^16.1.1
         version: 16.1.1(postcss@8.5.26)
       puppeteer:
-        specifier: ^24.42.0
+        specifier: ^24.43.1
         version: 24.43.1(supports-color@5.5.0)
       rollup-plugin-visualizer:
         specifier: ^7.0.1
@@ -118,10 +118,10 @@ importers:
         specifier: ^0.8.2
         version: 0.8.2
       vite:
-        specifier: ^8.0.9
+        specifier: ^8.2.1
         version: 8.2.1(@types/node@26.2.0)(terser@5.50.0)
       vitest:
-        specifier: ^4.1.5
+        specifier: ^4.1.10
         version: 4.1.10(@types/node@26.2.0)(@vitest/coverage-v8@4.1.10)(happy-dom@20.11.2)(vite@8.2.1(@types/node@26.2.0)(terser@5.50.0))
 
 packages:
