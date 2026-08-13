@@ -1,8 +1,8 @@
 node_modules
 dist
+jsdoc.build.json
 .DS_Store
 coverage
-docs
 .vscode
 .augment
 .codacy
