@@ -1,0 +1,31 @@
+/**
+ * Extra styles for the generated JSDoc site, loaded via `theme_opts.include_css`
+ * in jsdoc.json. Loaded after the theme stylesheet, so plain class selectors are
+ * enough to override it.
+ */
+
+/*
+ * Pins the package version to the bottom of the sidebar.
+ *
+ * `.sidebar` and `.mobile-sidebar-wrapper` are both flex columns whose list of
+ * items is `flex: 1`, so `order: 1` is all that is needed to drop the version
+ * below the scrolling list and keep it in view.
+ *
+ * The version markup lives in `theme_opts.title` because that is the only hook
+ * the theme gives us for injecting HTML into the sidebar.
+ */
+.sidebar-version {
+    border-top: 1px solid #88888844;
+    display: block;
+    flex-shrink: 0;
+    font-size: 0.875rem;
+    margin: 1rem 2rem 0;
+    order: 1;
+    padding-top: 1rem;
+    text-decoration: none;
+}
+
+.sidebar-version:hover,
+.sidebar-version:focus-visible {
+    text-decoration: underline;
+}

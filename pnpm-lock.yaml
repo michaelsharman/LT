@@ -90,6 +90,9 @@ importers:
       jest:
         specifier: ^30.4.2
         version: 30.4.2(@types/node@26.2.0)(supports-color@5.5.0)
+      jsdoc:
+        specifier: 4.0.5
+        version: 4.0.5
       learnosity-sdk-nodejs:
         specifier: github:Learnosity/learnosity-sdk-nodejs
         version: https://codeload.github.com/Learnosity/learnosity-sdk-nodejs/tar.gz/da292a2edc66bf0cc78a4360fc0dfcf73e22b8f8(supports-color@5.5.0)
