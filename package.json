@@ -49,7 +49,7 @@
         "build:stats": "vite build",
         "build:trace": "DEBUG=rollup:* vite build",
         "dev": "vite build --watch -l info",
-        "docs": "jsdoc -c jsdoc.json -R README.md --verbose",
+        "docs:generate": "jsdoc -c jsdoc.json -R README.md --verbose",
         "lint": "npx eslint --format table",
         "lint:fix": "eslint . --fix",
         "prepublishOnly": "pnpm run build",
