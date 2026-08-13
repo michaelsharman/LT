@@ -194,6 +194,21 @@ function setupModalObserver() {
                 const elResourceDisplayName = document.querySelector('[data-authorapi-selector="asset-display-name"]');
 
                 if (modal && !elResourceDisplayName) {
+                    if (LT.type() === 'audioplayer') {
+                        const fileType = getUploaderFileType(modal);
+
+                        // The uploader hasn't rendered yet, check again on the next mutation.
+                        if (!fileType) {
+                            continue;
+                        }
+
+                        // The audio uploader isn't ours to handle.
+                        if (fileType === 'audio') {
+                            LT.utils.logger.debug(`${state.logPrefix}Ignoring audio uploader`);
+                            return;
+                        }
+                    }
+
                     LT.utils.logger.debug(`${state.logPrefix}Disconnecting observer`);
                     clearObserver();
                     setupUploderUI();
@@ -228,6 +243,32 @@ function activateObserver() {
         state.observer.observe(parentElement, { childList: true, subtree: true });
         state.observedElements.set(parentElement, state.observer);
     }
+}
+
+/**
+ * Returns the asset type the Learnosity uploader modal was opened for.
+ *
+ * The uploader renders inside a cross-origin iframe, so its file input can't be
+ * read from the parent document. We use the `fileType` query parameter of the
+ * iframe `src` instead, falling back to the file input `accept` attribute for
+ * the React outlet, which renders in the parent document.
+ * @since 3.1.0
+ * @ignore
+ * @param {HTMLElement} modal
+ * @returns {string|null} eg `audio` or `image`, or null if not yet rendered.
+ */
+function getUploaderFileType(modal) {
+    const elFrame = modal.querySelector('iframe');
+
+    if (elFrame?.src) {
+        try {
+            return new URL(elFrame.src).searchParams.get('fileType');
+        } catch {
+            return null;
+        }
+    }
+
+    return modal.querySelector('input[type="file"]')?.getAttribute('accept')?.split('/')[0] || null;
 }
 
 /**
