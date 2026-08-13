@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * @module utils/extensionsFactory
+ */
 export let LT = null;
 export let apiSecurity = null;
 export let apiRequest = null;

@@ -178,7 +178,7 @@ import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
  * ```
  *
  * @param {object=} options Object of configuration options.
- * @param {string=} options.includeSpaces Whether to include spaces in the character count. Defaults to false.
+ * @param {boolean=} options.includeSpaces Whether to include spaces in the character count. Defaults to false.
  *
  * @example
  * const options = {

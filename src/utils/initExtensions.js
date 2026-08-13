@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * @module utils/initExtensions
+ */
 import { attachDependencies } from '../utils/extensionsFactory.js';
 import logger from './logger.js';
 

@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * @module utils/userAgent
+ */
 const RE = {
     // Browsers
     edge: /Edg(?:A|iOS)?\/([\d.]+)/,

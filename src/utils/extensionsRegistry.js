@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * @module utils/extensionsRegistry
+ */
 const assessment = {
     ariaCountOnNav: () => import('../assessment/extensions/accessibility/aria/ariaCountOnNav/index.js'),
     blockGrammarChecks: () => import('../assessment/extensions/validation/blockGrammarChecks/index.js'),

@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * @module utils/memoryMonitor
+ */
 import logger from './logger.js';
 
 export default class MemoryMonitor {

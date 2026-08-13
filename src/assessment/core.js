@@ -1,3 +1,7 @@
+/**
+ * @module Assessment/Core
+ */
+
 import * as app from './core/app.js';
 import * as activity from './core/activity.js';
 import * as diagnostics from './core/diagnostics.js';
@@ -56,9 +60,17 @@ function _disableMonitoring() {
 
 /**
  * Constructor method for Learnosity Toolkit.
+ * @async
  * @since 0.1.0
  * @ignore
- * @param {object} app - Items API app instance
+ * @param {object} itemsApp - Items API app instance
+ * @param {object} [options={}] - Configuration options
+ * @param {Array} [options.extensions=[]] - Extensions to load and run
+ * @param {boolean|object} [options.monitor] - Enable memory monitoring. Pass `true` for defaults or an object with `intervalMs` to customise the polling interval.
+ * @param {boolean} [options.perf=false] - Enable performance timing for extensions
+ * @param {number} [options.perfLimit=50] - Max number of performance entries to retain
+ * @param {object|null} [options._registry=null] - Custom extension registry (internal use)
+ * @returns {Promise<void>}
  * @example
  * // Declare and set your variable with the Items API LearnosityItems.init() method
  * const itemsApp = LearnosityItems.init(signedConfigObject);

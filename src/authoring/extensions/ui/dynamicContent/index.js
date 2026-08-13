@@ -19,8 +19,6 @@ import Papa from 'papaparse';
  * <p><img src="https://raw.githubusercontent.com/michaelsharman/LT/main/src/assets/docs/images/dynamicContent/screenshot.gif" alt="" width="660"></p>
  *
  * @param {object=} options Object of configuration options.
- * @param {number=} options.maxTabs Maximum number of tabs allowed.
- * @param {boolean=} options.useElementCache Whether to use element caching.
  * @param {object=} options.labels Custom labels for the UI.
  * @param {string=} options.labels.btnContinue Text for the continue button.
  * @param {string=} options.labels.csvUploadHelp Help text for CSV upload.

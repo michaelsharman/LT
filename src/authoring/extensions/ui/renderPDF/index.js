@@ -3,8 +3,6 @@ import { checkAppVersion } from '../../../utils/styling.js';
 import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
 
 /**
- * <h4 class="name">############ Incomplete - DO NOT USE</h4>
- *
  * Extensions add specific functionality to Learnosity APIs.
  * They rely on modules within LT being available.
  *
@@ -19,6 +17,7 @@ import { createExtension, LT } from '../../../../utils/extensionsFactory.js';
  * });
  *
  * @module Extensions/Authoring/renderPDF
+ * @ignore
  */
 
 const state = {

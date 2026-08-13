@@ -101,10 +101,10 @@ export function annotationsConfig() {
 }
 
 /**
- * The auto-save configuration object. Returns `true` or an
- * object based on what was in the configuration.
+ * The auto-save configuration object. Returns the auto-save
+ * configuration object, or an empty object if not configured.
  * @since 0.1.0
- * @returns {boolean|object}
+ * @returns {object}
  */
 export function autoSaveConfig() {
     const a = activity();
@@ -113,8 +113,7 @@ export function autoSaveConfig() {
 }
 
 /**
- * The current elapsed time for the session. Returns whether
- * the timer is visible or not.
+ * The current elapsed time for the session in seconds.
  * @since 2.6.0
  * @returns {number}
  */
@@ -313,16 +312,13 @@ export function maxTime() {
 }
 
 /**
- * Which UI region the session was set up with. Values include:
- * - `main`
- * - `horizontal`
- * - `horizontal-fixed`
+ * The regions configuration object for this session.
  *
  * `null` will mean that no `regions` key was found in the
  * Items API configuration, meaning the player defaults to the
  * legacy UI region (not recommended).
  * @since 1.1.0
- * @returns {string|null}
+ * @returns {object|null}
  */
 export function region() {
     return activity()?.config?.regions ?? null;

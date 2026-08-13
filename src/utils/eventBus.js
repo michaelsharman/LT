@@ -1,3 +1,7 @@
+/**
+ * @ignore
+ * @module utils/eventBus
+ */
 import logger from './logger.js';
 
 /**
