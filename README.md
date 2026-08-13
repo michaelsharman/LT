@@ -12,8 +12,8 @@ This package is unofficial and wasn't created by Learnosity.
 
 No code contained within:
 
--   ever have access to the consumer private key (i.e. `consumer_secret`)
--   tracks any usage or personal information
+- ever have access to the consumer private key (i.e. `consumer_secret`)
+- tracks any usage or personal information
 
 Everything is open source under the MIT license. Feel free to use as you see fit.
 
@@ -37,25 +37,64 @@ Depending on which API you are working with, you will be importing either the as
 
 The `core` module contains the LT toolkit only, no extensions. This is the smallest file size (around 23kB for assessment and 11kB for authoring) and may be all you need.
 
-If you want 1 or 2 extensions, you should import them individually to keep the overall file size down.
+The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 280kB for assessment and 1330kB for authoring). This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
 
-```
+### How extensions are loaded
+
+The `core` and `bundle` entry points handle extensions differently:
+
+|                         | `core`                                                            | `bundle`                                                              |
+| ----------------------- | ----------------------------------------------------------------- | --------------------------------------------------------------------- |
+| **Import**              | `@caspingus/lt/assessment/core` or `@caspingus/lt/authoring/core` | `@caspingus/lt/assessment/bundle` or `@caspingus/lt/authoring/bundle` |
+| **Extensions included** | None — you import only what you need                              | All extensions pre-loaded                                             |
+| **Tree-shakeable**      | Yes                                                               | No                                                                    |
+| **String identifiers**  | Deprecated (triggers a console warning)                           | Supported (resolved via the built-in registry)                        |
+| **Recommended for**     | Production                                                        | Development / rapid prototyping                                       |
+
+### Tree-shakeable extensions
+
+When using `core`, import extension modules directly and pass them as objects. This gives your bundler full tree-shaking capability and avoids the deprecation warning.
+
+**Assessment example:**
+
+```javascript
 import { LT } from '@caspingus/lt/assessment/core';
+import { renderPDF } from '@caspingus/lt/assessment/extensions/renderPDF';
+import { networkStatus } from '@caspingus/lt/assessment/extensions/networkStatus';
 
 LT.init(itemsApp, {
-    extensions: [
-        'blockGrammarChecks',
-        'columnResizer',
-        'disableOnValidate',
-    ],
+    extensions: [renderPDF, { module: networkStatus, args: { pollingInterval: 5000 } }],
 });
 ```
 
-The `bundle` module contains everything in `core` along with _all_ extensions except themes. This is the largest file size (around 280kB for assessment and 1330kB for authoring) This is useful in development if you want to browse the extensions, but also if you happen to use all the extensions in your project.
+**Authoring example:**
 
+```javascript
+import { LT } from '@caspingus/lt/authoring/core';
+import { contentTabs } from '@caspingus/lt/authoring/extensions/contentTabs';
+import { imageUploader } from '@caspingus/lt/authoring/extensions/imageUploader';
+import { createTags } from '@caspingus/lt/authoring/extensions/createTags';
+
+LT.init(authorApp, {
+    extensions: [{ module: contentTabs, args: { theme: 'rounded' } }, { module: imageUploader, args: { security, request } }, createTags],
+});
 ```
+
+Extensions without configuration are passed directly as the imported module. Extensions that require arguments use the `{ module, args }` descriptor format.
+
+### Using bundle (string identifiers)
+
+With `bundle`, you can pass extension names as strings or legacy `{ id, args }` objects. The bundle includes a full registry so it resolves them internally without any deprecation warning.
+
+```javascript
 import { LT } from '@caspingus/lt/assessment/bundle';
+
+LT.init(itemsApp, {
+    extensions: ['renderPDF', { id: 'networkStatus', args: { pollingInterval: 5000 } }],
+});
 ```
+
+> **Note:** Passing string identifiers to `core` still works (resolved via a dynamic fallback registry), but will log a deprecation warning in the console. Migrate to direct module imports for the best experience with `core`.
 
 ## Initialize
 
@@ -118,7 +157,7 @@ LT.eventBus.on('item:load', () => {
 });
 
 // The on() method returns an unsubscribe function
-const unsubscribe = LT.eventBus.on('section:changed', (data) => {
+const unsubscribe = LT.eventBus.on('section:changed', data => {
     console.log('Section changed', data);
 });
 
